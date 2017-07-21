@@ -2,22 +2,22 @@
 #include "StringUtils.h"
 #include <stdarg.h>
 
-bool String::IsEmpty(const char * c)
+bool StringUtils::IsEmpty(const char * c)
 {
 	return !c || !c[0];
 }
 
-long String::Compare(const char * s1, const char * s2)
+long StringUtils::Compare(const char * s1, const char * s2)
 { 
 	return _stricmp(s1, s2);
 }
 
-bool String::IsEqual(const char * s1, const char * s2)
+bool StringUtils::IsEqual(const char * s1, const char * s2)
 { 
 	return Compare(s1, s2) == 0;
 }
 
-bool String::IsEqual(const char * str1, long len1, const char * str2, long len2)
+bool StringUtils::IsEqual(const char * str1, long len1, const char * str2, long len2)
 {
 	if(len1 != len2)
 	{
@@ -34,7 +34,7 @@ bool String::IsEqual(const char * str1, long len1, const char * str2, long len2)
 	return true;
 }
 
-void String::Copy(char * s1, int len, const char * s2)
+void StringUtils::Copy(char * s1, int len, const char * s2)
 {
 	int size = strlen(s2)+1;
 	int mv = size;
@@ -45,7 +45,7 @@ void String::Copy(char * s1, int len, const char * s2)
 	if (size>len) s1[len-1] = 0;
 }
 
-void String::Cat(char * s1, int len, const char * s2)
+void StringUtils::Cat(char * s1, int len, const char * s2)
 {
 	#ifdef PLATFORM_PC
 	strcat_s(s1, len,s2);
@@ -55,7 +55,7 @@ void String::Cat(char * s1, int len, const char * s2)
 	
 }
 
-void String::Printf(char * s1, int len, const char * format, ...)
+void StringUtils::Printf(char * s1, int len, const char * format, ...)
 {
 	static char buffer[4096];
 	va_list args;
@@ -72,7 +72,7 @@ void String::Printf(char * s1, int len, const char * format, ...)
 	Copy(s1, len, buffer);
 }
 
-void String::RemoveSlashes(char* FullPath)
+void StringUtils::RemoveSlashes(char* FullPath)
 {
 	static char buffer[1024];
 	Copy(buffer, 1023, FullPath);
@@ -103,7 +103,7 @@ void String::RemoveSlashes(char* FullPath)
 	FullPath[index] = 0;
 }
 
-void String::ExtractFileName(const char* FullPath, char *FileName)
+void StringUtils::ExtractFileName(const char* FullPath, char *FileName)
 {
 	int index = strlen(FullPath)-1;
 
@@ -120,7 +120,7 @@ void String::ExtractFileName(const char* FullPath, char *FileName)
 	FileName[strlen(FullPath)-index-1]=0;
 }
 
-void String::ExtractPath(const char* FullPath, char *Path,bool retempty)
+void StringUtils::ExtractPath(const char* FullPath, char *Path,bool retempty)
 {
 	int index = strlen(FullPath)-1;
 
@@ -144,7 +144,7 @@ void String::ExtractPath(const char* FullPath, char *Path,bool retempty)
 	}
 }
 
-void String::GetCropPath(const char* RelativePath,const char* FullPath, char* Path, int len)
+void StringUtils::GetCropPath(const char* RelativePath,const char* FullPath, char* Path, int len)
 {
 	if (FullPath[1] != ':')
 	{
@@ -168,7 +168,7 @@ void String::GetCropPath(const char* RelativePath,const char* FullPath, char* Pa
 	Path[strlen(FullPath)-strlen(RelativePath)]=0;
 }
 
-void String::ExtractRootPath(const char* path1, const char* path2, char* root)
+void StringUtils::ExtractRootPath(const char* path1, const char* path2, char* root)
 {
 	char rt[512];
 	int len = strlen(path1);
@@ -188,10 +188,10 @@ void String::ExtractRootPath(const char* path1, const char* path2, char* root)
 		}
 	}
 
-	ExtractPath(rt,root,false);	
+	ExtractPath(rt,root,false);
 }
 
-void String::RemoveFirstChar(char* str)
+void StringUtils::RemoveFirstChar(char* str)
 {
 	for(int i=0;i<(int)strlen(str)-1;i++)
 	{
@@ -201,7 +201,7 @@ void String::RemoveFirstChar(char* str)
 	str[strlen(str)-1]=0;
 }
 
-void String::FixSlashes(char * str)
+void StringUtils::FixSlashes(char * str)
 {
 	int len = strlen(str);
 
@@ -228,7 +228,7 @@ void String::FixSlashes(char * str)
 	}
 }
 
-void String::ExtractExctention(const char* str, char* ext, int ext_lenght)
+void StringUtils::ExtractExctention(const char* str, char* ext, int ext_lenght)
 {
 	ext[0] = 0;
 
@@ -254,7 +254,7 @@ void String::ExtractExctention(const char* str, char* ext, int ext_lenght)
 	ext[i-index-1]=0;
 }
 
-void String::RemoveExctention(char* str)
+void StringUtils::RemoveExctention(char* str)
 {
 	int index = strlen(str) - 1;
 
@@ -269,7 +269,7 @@ void String::RemoveExctention(char* str)
 	}
 }
 
-void String::ExtractNameNumber(const char* str, char* wo_n_str, int len, int& number)
+void StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len, int& number)
 {
 	Copy(wo_n_str,len,str);
 	number = 0;
@@ -302,7 +302,7 @@ void String::ExtractNameNumber(const char* str, char* wo_n_str, int len, int& nu
 	wo_n_str[index+1] = 0;
 }
 
-void String::EscapeChars(const char* in, char* out, int len)
+void StringUtils::EscapeChars(const char* in, char* out, int len)
 {
 	int index = 0;
 	int in_len = strlen(in);
@@ -344,7 +344,7 @@ void String::EscapeChars(const char* in, char* out, int len)
 	out[index] = 0;
 }
 
-void String::Utf16toUtf8(std::string& dest, const wchar_t* src)
+void StringUtils::Utf16toUtf8(std::string& dest, const wchar_t* src)
 {
 	dest.clear();
 
@@ -382,7 +382,7 @@ void String::Utf16toUtf8(std::string& dest, const wchar_t* src)
 	}
 }
 
-bool String::BuildUtf16fromUtf8(char c, int& bytes, int& w)
+bool StringUtils::BuildUtf16fromUtf8(char c, int& bytes, int& w)
 {
 	if (c <= 0x7f)
 	{
@@ -435,7 +435,7 @@ bool String::BuildUtf16fromUtf8(char c, int& bytes, int& w)
 	return false;
 }
 
-void String::BuildUtf8fromUtf16(int c, std::string& dest)
+void StringUtils::BuildUtf8fromUtf16(int c, std::string& dest)
 {
 	dest.clear();
 
@@ -466,7 +466,7 @@ void String::BuildUtf8fromUtf16(int c, std::string& dest)
 	}
 }
 
-void String::Utf8toUtf16(std::wstring& dest, const char* src)
+void StringUtils::Utf8toUtf16(std::wstring& dest, const char* src)
 {
 	dest.clear();
 	wchar_t w = 0;

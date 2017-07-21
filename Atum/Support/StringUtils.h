@@ -3,7 +3,7 @@
 #include <string>
 #include <map>
 
-class String
+class StringUtils
 {
 public:
 
@@ -25,7 +25,7 @@ public:
 	static void RemoveExctention(char* str);
 	static void ExtractNameNumber(const char* str, char* wo_n_str, int len, int& number);
 	static void EscapeChars(const char* in, char* out, int len);
-	static bool String::BuildUtf16fromUtf8(char c, int& bytes, int& w);
+	static bool BuildUtf16fromUtf8(char c, int& bytes, int& w);
 	static void BuildUtf8fromUtf16(int c, std::string& dest);
 	static void Utf8toUtf16(std::wstring& dest, const char* src);
 	static void Utf16toUtf8(std::string& dest, const wchar_t* src);

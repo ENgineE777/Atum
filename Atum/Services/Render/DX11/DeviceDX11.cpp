@@ -130,12 +130,12 @@ bool DeviceDX11::Init(int width, int height, void* data)
 
 	CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&factory));
 
-	RecreateSwapchain(width, height);
+	SetVideoMode(width, height);
 
 	return true;
 }
 
-void DeviceDX11::RecreateSwapchain(int wgt, int hgt)
+void DeviceDX11::SetVideoMode(int wgt, int hgt)
 {
 	scr_w = wgt;
 	scr_h = hgt;

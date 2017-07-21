@@ -49,8 +49,6 @@ class DeviceDX11 : public Device
 	DeviceDX11();
 	virtual bool Init(int width, int height, void* data);
 	virtual void Release();
-	
-	void RecreateSwapchain(int wgt, int hgt);
 
 	virtual Shader* CreateShader(Shader::Type type, const char* name);
 	void UpdateStates();
@@ -58,6 +56,8 @@ class DeviceDX11 : public Device
 public:
 
 	static DeviceDX11* instance;
+
+	virtual void SetVideoMode(int wgt, int hgt);
 
 	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue);
 	virtual void Present();

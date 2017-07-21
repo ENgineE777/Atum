@@ -213,5 +213,8 @@
     <ClInclude Include="..\..\Atum\Support\ExceptionReport.h">
       <Filter>Support</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\ClassFactory.h">
+      <Filter>Support</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

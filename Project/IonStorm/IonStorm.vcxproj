@@ -71,6 +71,7 @@
     <ClInclude Include="..\..\Atum\Services\Render\Shader.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Texture.h" />
     <ClInclude Include="..\..\Atum\Support\Buffer.h" />
+    <ClInclude Include="..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\Atum\Support\Color.h" />
     <ClInclude Include="..\..\Atum\Support\ExceptionReport.h" />
     <ClInclude Include="..\..\Atum\Support\Quaternion.h" />

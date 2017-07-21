@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="SceneObjects">
+      <UniqueIdentifier>{606362ba-7307-482c-a137-6de9b2e4a21c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services">
+      <UniqueIdentifier>{a0897050-2cb2-444a-b0a6-0a3db832f621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Controls">
+      <UniqueIdentifier>{2d30e21c-f4c9-4666-9ed9-2f66a8ea64fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Files">
+      <UniqueIdentifier>{8eeeb1ba-81bd-4287-abec-943fcf5428ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render">
+      <UniqueIdentifier>{d9f2079f-c236-4266-9249-90dccd4454f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Scene">
+      <UniqueIdentifier>{664bf707-e0cd-4444-b089-fd9b4a1fc86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support">
+      <UniqueIdentifier>{ebed6885-e31e-45b9-ab82-737bb5cd452e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render\Debug">
+      <UniqueIdentifier>{21cc3c4b-142e-4a10-89ce-e83fe475e135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render\DX11">
+      <UniqueIdentifier>{01bccd13-43d9-4a59-b89f-f97830024282}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\freecamera.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\model.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\plane.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\scene.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\main.cpp" />
+    <ClCompile Include="..\..\Atum\Support\Timer.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp">
+      <Filter>Services\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Program.cpp">
+      <Filter>Services\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Render.cpp">
+      <Filter>Services\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugBoxes.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSpheres.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\DeviceDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\ShaderDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\TextureDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\StringUtils.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\ExceptionReport.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\freecamera.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\model.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\plane.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\programs.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\quad.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\scene.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\terrain.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Buffer.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Color.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Delegate.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Matrix.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Timer.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Vector.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Vector2.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Vector4.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Controls\Controls.h">
+      <Filter>Services\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Device.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\GeometryBuffer.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Program.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Render.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Shader.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Texture.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\Debug.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugBoxes.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugPrograms.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSpheres.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\DeviceDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\ShaderDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\TextureDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\StringUtils.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Support.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Quaternion.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\ExceptionReport.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

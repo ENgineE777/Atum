@@ -1,0 +1,58 @@
+
+#pragma once
+
+#include "Services/Render/Render.h"
+
+class Model
+{
+public:
+
+	class Drawer : public Object
+	{
+		Model* res;
+		Matrix world;
+		Vector4 color;
+
+	public:
+		Drawer()
+		{
+			res = NULL;
+			color = 1.0f;
+		};
+
+		void Init(Model* model);
+		void SetColor(Vector4& color);
+		void SetPosition(Vector2 pos);
+		void SetTransform(Matrix& mat);
+
+		void Render(float dt);
+		void ShRender(float dt);
+		void Render(Program* prg);
+	};
+
+	struct ModelVertex
+	{
+		Vector  pos;
+		Vector2 uv;
+		Vector  normal;
+	};
+
+	struct Mesh
+	{
+		int texture;
+		int num_triangles;
+		GeometryBuffer* buffer;
+	};
+
+	Vector bb_max;
+	Vector bb_min;
+
+	Matrix world;
+
+	std::vector<Texture*> textures;
+	std::vector<Mesh> meshes;
+
+	Vector locator;
+
+	void LoadModelMS3D(const char* filename);
+};

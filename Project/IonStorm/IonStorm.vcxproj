@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Atum\main.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\freecamera.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\model.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\plane.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\scene.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\ShaderDX11.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\DX11\TextureDX11.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Program.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Render.cpp" />
+    <ClCompile Include="..\..\Atum\Support\ExceptionReport.cpp" />
+    <ClCompile Include="..\..\Atum\Support\StringUtils.cpp" />
+    <ClCompile Include="..\..\Atum\Support\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\freecamera.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\model.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\plane.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\programs.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\quad.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\scene.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\terrain.h" />
+    <ClInclude Include="..\..\Atum\Services\Controls\Controls.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\Debug.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugBoxes.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugPrograms.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Device.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\ShaderDX11.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\DX11\TextureDX11.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\GeometryBuffer.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Program.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Render.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Shader.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Texture.h" />
+    <ClInclude Include="..\..\Atum\Support\Buffer.h" />
+    <ClInclude Include="..\..\Atum\Support\Color.h" />
+    <ClInclude Include="..\..\Atum\Support\ExceptionReport.h" />
+    <ClInclude Include="..\..\Atum\Support\Quaternion.h" />
+    <ClInclude Include="..\..\Atum\Support\StringUtils.h" />
+    <ClInclude Include="..\..\Atum\Support\Delegate.h" />
+    <ClInclude Include="..\..\Atum\Support\Support.h" />
+    <ClInclude Include="..\..\Atum\Support\Matrix.h" />
+    <ClInclude Include="..\..\Atum\Support\Timer.h" />
+    <ClInclude Include="..\..\Atum\Support\Vector.h" />
+    <ClInclude Include="..\..\Atum\Support\Vector2.h" />
+    <ClInclude Include="..\..\Atum\Support\Vector4.h" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6AC1B03-8DC4-4D64-9217-69741686D986}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RenderSystem</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;PLATFORM_PC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Work\PhysX-3.4\PhysX_3.4\Include;D:\Work\PhysX-3.4\PxShared\Include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3DEBUG_x86.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3CommonDEBUG_x86.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3ExtensionsDEBUG.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3CookingDEBUG_x86.lib;D:\Work\PhysX-3.4\PxShared\Lib\vc14win32\PxFoundationDEBUG_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>../../Bin/$(TargetName)_debug$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../../;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <OutputFile>../../bin/$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

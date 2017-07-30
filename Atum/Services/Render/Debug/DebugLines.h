@@ -29,7 +29,7 @@ class DebugLines : public Object
 
 public:
 
-	void Init();
+	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
 	void AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth);
 	void DrawLines(Program* prog, std::vector<Vertex>& lines);
 	void Draw(float dt);

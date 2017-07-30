@@ -18,6 +18,11 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 {
 	device = new DeviceDX11();
 
+	groupTaskPool = taskExecutor.CreateGroupTaskPool();
+	debugTaskPool = groupTaskPool->AddTaskPool();
+
+	taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
+
 	if (device->Init(width, height, data))
 	{
 		device->SetCulling(Device::CullCCW);
@@ -25,13 +30,13 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 		DebugPrograms::Init();
 
 		spheres = new DebugSpheres();
-		spheres->Init();
+		spheres->Init(debugTaskPool);
 
 		boxes = new DebugBoxes();
-		boxes->Init();
+		boxes->Init(debugTaskPool);
 
 		lines = new DebugLines();
-		lines->Init();
+		lines->Init(debugTaskPool);
 
 		return true;
 	}
@@ -183,133 +188,29 @@ bool Render::TexRefIsEmpty(Texture* texture)
 	return true;
 }
 
-void Render::AddExecutedDelgateList(const char* list_name, int level)
+void Render::AddExecutedLevelPool(int level)
 {
-	int index = -1;
+	groupTaskPool->AddFilter(level);
+}
 
-	for (int i = 0; i<executedDelegateLists.size(); i++)
-	{
-		if (level<executedDelegateLists[i].level)
-		{
-			index = i;
-			break;
-		}
-	}
+void Render::ExecutePool(int level, float dt)
+{
+	groupTaskPool->ExecutePool(level, dt);
+}
 
-	executedDelegateLists.push_back(ExecutedDelegateList());
-	ExecutedDelegateList* list = &executedDelegateLists[executedDelegateLists.size() - 1];
+TaskExecutor::SingleTaskPool* Render::AddTaskPool()
+{
+	return groupTaskPool->AddTaskPool();
+}
 
-	strcpy(list->name, list_name);
-	list->level = level;
-
-	if (index != -1)
-	{
-		for (int i = executedDelegateLists.size() - 1; i>index; i--)
-		{
-			ExecutedDelegateList tmp = executedDelegateLists[i];
-			executedDelegateLists[i] = executedDelegateLists[i - 1];
-			executedDelegateLists[i - 1] = tmp;
-		}
-	}
+void Render::DelTaskPool(TaskExecutor::SingleTaskPool* pool)
+{
+	groupTaskPool->DelTaskPool(pool);
 }
 
 void Render::Execute(float dt)
 {
-	for (int i = 0; i<executedDelegateLists.size(); i++)
-	{
-		ExecuteDelgateList(executedDelegateLists[i].name, dt);
-	}
-}
-
-Render::DelegateList* Render::FindExecuteList(const char* list_name)
-{
-	for (int i = 0; i <delegateList.size(); i++)
-	{
-		if (strcmp(delegateList[i].name, list_name) == 0)
-		{
-			return &delegateList[i];
-		}
-
-	}
-
-	return NULL;
-}
-
-void Render::ExecuteDelgateList(const char* list_name, float dt)
-{
-	DelegateList* list = FindExecuteList(list_name);
-
-	if (list)
-	{
-		for (int j = 0; j<list->list.size(); j++)
-		{
-			(list->list[j].entity->*list->list[j].call)(dt);
-		}
-	}
-}
-
-void Render::AddDelegate(const char* list_name, Object* entity, Object::Delegate call, int level)
-{
-	DelegateList* list = FindExecuteList(list_name);
-
-	if (!list)
-	{
-		delegateList.push_back(DelegateList());
-		list = &delegateList[delegateList.size() - 1];
-		strcpy(list->name, list_name);
-	}
-
-	list->list.push_back(DelegateObject());
-	DelegateObject* delegate = &list->list[list->list.size() - 1];
-
-	delegate->entity = entity;
-	delegate->call = call;
-	delegate->level = level;
-
-	int index = list->list.size() - 1;
-
-	while (index>0 && list->list[index - 1].level>list->list[index].level)
-	{
-		DelegateObject tmp = list->list[index];
-		list->list[index] = list->list[index - 1];
-		list->list[index - 1] = tmp;
-
-		index--;
-	}
-}
-
-void Render::DelDelegate(const char* list_name, Object* entity)
-{
-	DelegateList* list = FindExecuteList(list_name);
-
-	if (list)
-	{
-		for (int i = 0; i<list->list.size(); i++)
-		{
-			if (entity == list->list[i].entity)
-			{
-				list->list.erase(list->list.begin() + i);
-				break;
-			}
-		}
-	}
-}
-
-void Render::DelAllDelegates(Object* entity)
-{
-	for (int j = 0; j < delegateList.size(); j++)
-	{
-		DelegateList* list = &delegateList[j];
-
-		for (int i = 0; i < list->list.size(); i++)
-		{
-			if (entity == list->list[i].entity)
-			{
-				list->list.erase(list->list.begin() + i);
-				break;
-			}
-		}
-	}
+	groupTaskPool->Execute(dt);
 }
 
 void Render::DebugLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth)

@@ -3,6 +3,7 @@
 
 #include "Services/Render/Device.h"
 #include "Services/Render/Program.h"
+#include "Services/TaskExecutor/TaskExecutor.h"
 #include <vector>
 #include <map>
 
@@ -22,26 +23,12 @@ class Render
 
 	std::map<std::string, TextureRef> textures;
 
-	struct DelegateList
-	{
-		char name[32];
-		std::vector<DelegateObject> list;
-	};
-
-	std::vector<DelegateList> delegateList;
-
-	struct ExecutedDelegateList
-	{
-		int  level;
-		char name[32];
-		DelegateList* list;
-	};
-
-	std::vector<ExecutedDelegateList> executedDelegateLists;
-
 	class DebugLines*  lines;
 	class DebugSpheres* spheres;
 	class DebugBoxes* boxes;
+
+	TaskExecutor::GroupTaskPool* groupTaskPool;
+	TaskExecutor::SingleTaskPool* debugTaskPool;
 
 public:
 
@@ -64,14 +51,13 @@ public:
 
 	Texture* LoadTexture(const char* name);
 
+	TaskExecutor::SingleTaskPool* AddTaskPool();
+	void DelTaskPool(TaskExecutor::SingleTaskPool* pool);
+
 	void Execute(float dt);
 
-	void AddExecutedDelgateList(const char* list_name, int level);
-	void ExecuteDelgateList(const char* list_name, float dt);
-
-	void AddDelegate(const char* list_name, Object* entity, Object::Delegate call, int level);
-	void DelDelegate(const char* list_name, Object* entity);
-	void DelAllDelegates(Object* entity);
+	void AddExecutedLevelPool(int level);
+	void ExecutePool(int level, float dt);
 
 	void DebugLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth = true);
 	void DebugSphere(Vector& pos, Color& color, float radius);
@@ -82,7 +68,6 @@ public:
 protected:
 	void CalcTrans();
 	bool TexRefIsEmpty(Texture* texture);
-	DelegateList* FindExecuteList(const char* list_name);
 };
 
 extern Render render;

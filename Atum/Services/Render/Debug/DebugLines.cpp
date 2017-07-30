@@ -1,11 +1,11 @@
 #include "DebugLines.h"
 #include "DebugPrograms.h"
 
-void DebugLines::Init()
+void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	buffer = render.GetDevice()->CreateBuffer(MaxSize * 2, sizeof(Vertex));
 
-	render.AddDelegate("debug", this, (Object::Delegate)&DebugLines::Draw, 0);
+	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugLines::Draw);
 }
 
 void DebugLines::AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth)

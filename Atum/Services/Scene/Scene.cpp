@@ -1,16 +1,25 @@
 
 #include "Scene.h"
+#include "SceneObject.h"
 #include "Support/json/JSONReader.h"
 #include "Support/json/JSONWriter.h"
 
 Scene::Scene()
 {
-
+	taskPool = NULL;
+	renderTaskPool = NULL;
+	playing = false;
 }
 
 Scene::~Scene()
 {
 
+}
+
+void Scene::Init()
+{
+	taskPool = taskExecutor.CreateSingleTaskPool();
+	renderTaskPool = render.AddTaskPool();
 }
 
 SceneObject* Scene::AddObject(const char* name)
@@ -138,4 +147,76 @@ void Scene::Save(const char* name)
 	}
 
 	writer->Release();
+}
+
+void Scene::Execute(float dt)
+{
+	taskPool->Execute(dt);
+}
+
+void Scene::Play()
+{
+	playing = true;
+
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Play();
+	}
+}
+
+void Scene::Stop()
+{
+	playing = false;
+
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Stop();
+	}
+}
+
+bool Scene::Playing()
+{
+	return playing;
+}
+
+Scene::Group& Scene::GetGroup(const char* name)
+{
+	if (groups.find(name) == groups.end())
+	{
+		return emptyGroup;
+	}
+
+	return groups[name];
+}
+
+void Scene::AddToGroup(SceneObject* obj, const char* name)
+{
+	Group& group = groups[name];
+
+	group.objects.push_back(obj);
+}
+
+void Scene::DelFromGroup(Group& group, SceneObject* obj)
+{
+	for (int i = 0; i < group.objects.size(); i++)
+	{
+		if (group.objects[i] == obj)
+		{
+			group.objects.erase(group.objects.begin() + i);
+			break;
+		}
+	}
+}
+
+void Scene::DelFromGroup(SceneObject* obj, const char* name)
+{
+	DelFromGroup(groups[name], obj);
+}
+
+void Scene::DelFromAllGroups(SceneObject* obj)
+{
+	for (std::map<std::string, Group>::iterator it = groups.begin(); it != groups.end(); it++)
+	{
+		DelFromGroup(it->second, obj);
+	}
 }

@@ -30,8 +30,8 @@ void Plane::Init(float plane_y, const char* tex_name)
 
 	texture = render.LoadTexture("Media//grass.tga");
 
-	render.AddDelegate("geometry", this, (Object::Delegate)&Plane::Render, 0);
-	render.AddDelegate("shgeometry", this, (Object::Delegate)&Plane::ShRender, 0);
+	//render.AddDelegate("geometry", this, (Object::Delegate)&Plane::Render, 0);
+	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Plane::ShRender, 0);
 }
 
 void Plane::Render(float dt)

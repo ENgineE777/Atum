@@ -3,7 +3,7 @@
 
 #include "Support/Support.h"
 
-class FreeCamera : public Object
+class FreeCamera
 {
 public:
 
@@ -21,6 +21,5 @@ public:
 
 	void Init();
 
-	void OnResize(int width, int height);
 	void Update(float dt);
 };

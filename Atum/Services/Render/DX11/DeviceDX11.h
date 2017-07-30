@@ -44,8 +44,6 @@ class DeviceDX11 : public Device
 	int  cur_depth_w;
 	int  cur_depth_h;
 
-	HWND hwnd;
-
 	DeviceDX11();
 	virtual bool Init(int width, int height, void* data);
 	virtual void Release();
@@ -57,7 +55,9 @@ public:
 
 	static DeviceDX11* instance;
 
-	virtual void SetVideoMode(int wgt, int hgt);
+	virtual void SetVideoMode(int wgt, int hgt, void* data);
+	virtual int  GetWidth();
+	virtual int  GetHeight();
 
 	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue);
 	virtual void Present();

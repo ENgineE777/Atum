@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include "Support/Delegate.h"
 #include <cinttypes>
 
 #include <string>
@@ -15,7 +14,7 @@
 
 #endif
 
-class Controls : public Object
+class Controls
 {
 public:
 
@@ -100,7 +99,7 @@ public:
 	bool  GetAliasState(int alias, bool exclusive, AliasAction action);
 	float GetAliasValue(int alias, bool delta);
 
-	bool  DebugKeyPressed(const char* name);
+	bool  DebugKeyPressed(const char* name, AliasAction action = Activated);
 
 	void  OverrideMousePos(int mx, int my);
 

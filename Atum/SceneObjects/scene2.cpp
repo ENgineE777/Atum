@@ -41,9 +41,9 @@ void Scene2::Init()
 	cam_angle = 0;
 	light_proj.BuildProjection(45.0f * RADIAN, 1.0f, 1.0f, 100.0f);
 
-	render.AddDelegate("prepare", this, (Object::Delegate)&Scene2::RenderPrepare, 0);
+	//render.AddDelegate("prepare", this, (Object::Delegate)&Scene2::RenderPrepare, 0);
 	//render.AddDelegate("shadows", this, (Object::Delegate)&Scene::RenderToShadow, 0);
-	render.AddDelegate("main", this, (Object::Delegate)&Scene2::Render, 0);
+	//render.AddDelegate("main", this, (Object::Delegate)&Scene2::Render, 0);
 }
 
 void Scene2::RenderPrepare(float dt)
@@ -71,7 +71,7 @@ void Scene2::RenderToShadow(float dt)
 	render.SetTransform(Render::View, light_view);
 	render.SetTransform(Render::Projection, light_proj);
 
-	render.ExecuteDelgateList("toshadow", dt);
+	//render.ExecuteDelgateList("toshadow", dt);
 
 	render.GetDevice()->SetupSlopeZBias(false, 0.001f, 0.001f);
 
@@ -95,9 +95,9 @@ void Scene2::RenderScene(const char* phase, float dt)
 
 	quad.Draw(sky_tex, Vector2(0.0f, 0.0f), Vector2(800.0f, 600.0f));
 
-	render.ExecuteDelgateList(phase, dt);
+	//render.ExecuteDelgateList(phase, dt);
 
-	render.ExecuteDelgateList("debug", dt);
+	//render.ExecuteDelgateList("debug", dt);
 
 	render.GetDevice()->RestoreRenderTarget();
 }

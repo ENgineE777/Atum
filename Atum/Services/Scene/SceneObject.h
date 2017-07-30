@@ -5,8 +5,10 @@
 #include "Support/ClassFactory.h"
 #include "Support/MetaData/MetaData.h"
 #include <string>
-
-class Scene;
+#include "Services/TaskExecutor/TaskExecutor.h"
+#include "Services/Render/Render.h"
+#include "Services/Controls/Controls.h"
+#include "Scene.h"
 
 class SceneObject : public Object
 {
@@ -17,6 +19,7 @@ protected:
 	std::string  name;
 	std::string  className;
 	Matrix       transform;
+	Matrix       initTransform;
 
 public:
 
@@ -32,6 +35,11 @@ public:
 
 	virtual void Init() = 0;
 	virtual MetaData* GetMetaData() = 0;
+	TaskExecutor::SingleTaskPool* Tasks();
+	TaskExecutor::SingleTaskPool* RenderTasks();
+	virtual void Play();
+	virtual void Stop();
+	bool Playing();
 	virtual void Release();
 };
 

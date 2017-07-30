@@ -139,8 +139,8 @@ void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
 
 	texture = render.LoadTexture(tex_name);
 
-	render.AddDelegate("geometry", this, (Object::Delegate)&Terrain::Render, 0);
-	render.AddDelegate("shgeometry", this, (Object::Delegate)&Terrain::ShRender, 0);
+	//render.AddDelegate("geometry", this, (Object::Delegate)&Terrain::Render, 0);
+	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Terrain::ShRender, 0);
 }
 
 void Terrain::LoadHMap(const char* hgt_name)

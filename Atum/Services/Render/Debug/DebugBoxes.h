@@ -24,7 +24,7 @@ class DebugBoxes : public Object
 
 public:
 	
-	void Init();
+	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
 	void AddBox(Matrix& pos, Color& color, Vector& scale);
 	void Draw(float dt);
 	void Release();

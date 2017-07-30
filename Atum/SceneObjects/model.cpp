@@ -7,9 +7,9 @@ void Model::Drawer::Init(Model* model)
 {
 	res = model;
 
-	render.AddDelegate("toshadow", this, (Object::Delegate)&Model::Drawer::Render, 0);
-	render.AddDelegate("geometry", this, (Object::Delegate)&Model::Drawer::Render, 0);
-	render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
+	//render.AddDelegate("toshadow", this, (Object::Delegate)&Model::Drawer::Render, 0);
+	//render.AddDelegate("geometry", this, (Object::Delegate)&Model::Drawer::Render, 0);
+	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
 }
 
 void Model::Drawer::SetColor(Vector4& set_color)

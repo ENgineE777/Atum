@@ -85,7 +85,9 @@ public:
 		ArgInvDestColor
 	};
 
-	virtual void SetVideoMode(int wgt, int hgt) = 0;
+	virtual void SetVideoMode(int wgt, int hgt, void* data) = 0;
+	virtual int  GetWidth() = 0;
+	virtual int  GetHeight() = 0;
 
 	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue) = 0;
 	virtual void Present() = 0;

@@ -1,7 +1,7 @@
 #include "DebugBoxes.h"
 #include "DebugPrograms.h"
 
-void DebugBoxes::Init()
+void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	vbuffer = render.GetDevice()->CreateBuffer(24, sizeof(Vertex));
 
@@ -75,7 +75,7 @@ void DebugBoxes::Init()
 
 	ibuffer->Unlock();
 
-	render.AddDelegate("debug", this, (Object::Delegate)&DebugBoxes::Draw, 0);
+	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugBoxes::Draw);
 }
 
 void DebugBoxes::AddBox(Matrix& trans, Color& color, Vector& scale)

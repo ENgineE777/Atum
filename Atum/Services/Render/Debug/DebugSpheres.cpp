@@ -1,7 +1,7 @@
 #include "DebugSpheres.h"
 #include "DebugPrograms.h"
 
-void DebugSpheres::Init()
+void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	vbuffer = render.GetDevice()->CreateBuffer(SidesCount * (RigsCount + 1), sizeof(Vertex));
 
@@ -60,7 +60,7 @@ void DebugSpheres::Init()
 
 	ibuffer->Unlock();
 
-	render.AddDelegate("debug", this, (Object::Delegate)&DebugSpheres::Draw, 0);
+	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugSpheres::Draw);
 }
 
 void DebugSpheres::AddSphere(Vector& pos, Color& color, float radius)

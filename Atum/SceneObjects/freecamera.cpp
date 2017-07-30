@@ -7,7 +7,7 @@ void FreeCamera::Init()
 
 	angles = Vector2(0.0f, 0.0f);
 	pos = Vector(0.0f, 8.0f, 0.0f);
-	render.AddDelegate("camera", this, (Object::Delegate)&FreeCamera::Update, 0);
+	//render.AddDelegate("camera", this, (Object::Delegate)&FreeCamera::Update, 0);
 }
 
 void FreeCamera::Update(float dt)

@@ -11,7 +11,6 @@ public:
 
 struct DelegateObject
 {
-	int level;
 	Object* entity;
 	Object::Delegate call;
 };

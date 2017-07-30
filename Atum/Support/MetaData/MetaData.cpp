@@ -141,6 +141,41 @@ void MetaData::Save(JSONWriter* writer)
 	}
 }
 
+void MetaData::Copy(void* source)
+{
+	for (int i = 0; i < properties.size(); i++)
+	{
+		Property& prop = properties[i];
+
+		byte* src = (byte*)source + prop.offset;
+
+		if (prop.type == Boolean)
+		{
+			memcpy(prop.value, src, sizeof(bool));
+		}
+		else
+		if (prop.type == Integer || prop.type == Enum)
+		{
+			memcpy(prop.value, src, sizeof(int));
+		}
+		else
+		if (prop.type == Float)
+		{
+			memcpy(prop.value, src, sizeof(float));
+		}
+		else
+		if (prop.type == String || prop.type == FileName)
+		{
+			*((std::string*)prop.value) = *((std::string*)src);
+		}
+		else
+		if (prop.type == Clor)
+		{
+			memcpy(prop.value, src, sizeof(float) * 4);
+		}
+	}
+}
+
 void MetaData::PrepareWidgets(EUICategories* parent)
 {
 	for (int i = 0; i < properties.size(); i++)

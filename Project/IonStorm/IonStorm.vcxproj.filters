@@ -37,6 +37,9 @@
     <Filter Include="Editor">
       <UniqueIdentifier>{8b15df3b-e0dd-4449-b282-d3d7b6d21c51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services\TaskExecutor">
+      <UniqueIdentifier>{57c7a380-4755-4bd2-b6a5-2bec53ce5d8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -162,6 +165,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\scene2.cpp">
       <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp">
+      <Filter>Services\TaskExecutor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -332,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\scene2.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.h">
+      <Filter>Services\TaskExecutor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

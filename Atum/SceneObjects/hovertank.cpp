@@ -156,7 +156,7 @@ void HoverTank::Init(Terrain* set_terrain)
 	move_speed = 0.0f;
 	strafe_speed = 0.0f;
 
-	render.AddDelegate("camera", this, (Object::Delegate)&HoverTank::Update, 0);
+	//render.AddDelegate("camera", this, (Object::Delegate)&HoverTank::Update, 0);
 }
 
 void HoverTank::Update(float dt)

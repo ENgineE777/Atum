@@ -67,6 +67,7 @@ public:
 	void SetDefValuesPrepare();
 	void Load(JSONReader* reader);
 	void Save(JSONWriter* writer);
+	void Copy(void* source);
 	void PrepareWidgets(EUICategories* parent);
 	void HideWidgets();
 };

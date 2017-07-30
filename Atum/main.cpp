@@ -21,12 +21,12 @@ void InitRender(int width, int height)
 
 	render.Init("DX11", width, height, &hwnd);
 
-	render.AddExecutedDelgateList("prepare", 0);
-	render.AddExecutedDelgateList("shadows", 0);
-	render.AddExecutedDelgateList("camera", 0);
-	render.AddExecutedDelgateList("main", 0);
+	//render.AddExecutedDelgateList("prepare", 0);
+	//render.AddExecutedDelgateList("shadows", 0);
+	//render.AddExecutedDelgateList("camera", 0);
+	//render.AddExecutedDelgateList("main", 0);
 
-	render.AddExecutedDelgateList("controls", 0);
+	//render.AddExecutedDelgateList("controls", 0);
 
 	controls.Init(&hwnd, "settings/controls/hardware_pc", "settings/controls/user_pc");
 

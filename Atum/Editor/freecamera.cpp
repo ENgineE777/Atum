@@ -8,7 +8,6 @@ void FreeCamera::Init()
 
 	angles = Vector2(0.0f, -0.5f);
 	pos = Vector(0.0f, 6.0f, 0.0f);
-	render.AddDelegate("camera", this, (Object::Delegate)&FreeCamera::Update, 0);
 
 	alias_forward = controls.GetAlias("MOVE_FORWARD");
 	alias_strafe = controls.GetAlias("MOVE_STRAFE");
@@ -16,11 +15,6 @@ void FreeCamera::Init()
 	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
 	alias_rotate_x = controls.GetAlias("ROTATE_X");
 	alias_rotate_y = controls.GetAlias("ROTATE_Y");
-}
-
-void FreeCamera::OnResize(int width, int height)
-{
-	proj.BuildProjection(45.0f * RADIAN, (float)height / (float)width, 1.0f, 1000.0f);
 }
 
 void FreeCamera::Update(float dt)
@@ -56,5 +50,7 @@ void FreeCamera::Update(float dt)
 	view.BuildView(pos, pos + Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)), Vector(0, 1, 0));
 
 	render.SetTransform(Render::View, view);
+
+	proj.BuildProjection(45.0f * RADIAN, (float)render.GetDevice()->GetHeight() / (float)render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 	render.SetTransform(Render::Projection, proj);
 }

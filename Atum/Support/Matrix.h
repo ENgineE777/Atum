@@ -34,6 +34,8 @@ public:
 	Matrix& SetZero();
 	Matrix& Set(Matrix & Matrix);
 
+	bool    IsEqual(Matrix& mat);
+
 	Matrix& BuildProjection(float viewAngle, float aspect, float zNear, float zFar);
 	bool    BuildView(Vector lookFrom, Vector lookTo, Vector upVector);
 
@@ -157,6 +159,19 @@ inline Matrix & Matrix::Set(Matrix & matrix)
 	this->matrix[15] = matrix.matrix[15];
 
 	return *this;
+}
+
+inline bool Matrix::IsEqual(Matrix& mat)
+{
+	for (int i = 0; i < 16; i++)
+	{
+		if (fabs(matrix[i] - mat.matrix[i]) > 0.001f)
+		{
+			return false;
+		}
+	}
+
+	return true;
 }
 
 inline Matrix & Matrix::BuildProjection(float viewAngle, float aspect, float zNear, float zFar)

@@ -89,8 +89,6 @@ DeviceDX11::DeviceDX11()
 
 bool DeviceDX11::Init(int width, int height, void* data)
 {
-	hwnd = *((HWND*)data);
-
 	UINT createDeviceFlags = 0;
 #ifdef _DEBUG
 	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
@@ -130,13 +128,15 @@ bool DeviceDX11::Init(int width, int height, void* data)
 
 	CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&factory));
 
-	SetVideoMode(width, height);
+	SetVideoMode(width, height, data);
 
 	return true;
 }
 
-void DeviceDX11::SetVideoMode(int wgt, int hgt)
+void DeviceDX11::SetVideoMode(int wgt, int hgt, void* data)
 {
+	HWND hwnd = *((HWND*)data);
+
 	scr_w = wgt;
 	scr_h = hgt;
 	
@@ -161,15 +161,8 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt)
 
 	factory->CreateSwapChain(pd3dDevice, &sd, &swapChain);
 
-	//if( FAILED( hr ) )
-	//return hr;
-
-	// Create a render target view
 	ID3D11Texture2D* pBackBuffer = NULL;
 	HRESULT hr = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-
-	//if( FAILED( hr ) )
-	//return hr;
 
 	hr = pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &renderTargetView);
 	pBackBuffer->Release();
@@ -179,7 +172,6 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt)
 		return;
 	}
 
-	// Create depth stencil texture
 	D3D11_TEXTURE2D_DESC descDepth;
 	ZeroMemory(&descDepth, sizeof(descDepth));
 	descDepth.Width = wgt;
@@ -195,12 +187,6 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt)
 	descDepth.MiscFlags = 0;
 	hr = pd3dDevice->CreateTexture2D(&descDepth, NULL, &depthStencil);
 
-	if (FAILED(hr))
-	{
-		return;
-	}
-
-	// Create the depth stencil view
 	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
 	ZeroMemory(&descDSV, sizeof(descDSV));
 	descDSV.Format = descDepth.Format;
@@ -209,6 +195,16 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt)
 	hr = pd3dDevice->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
 
 	RestoreRenderTarget();
+}
+
+int DeviceDX11::GetWidth()
+{
+	return scr_w;
+}
+
+int DeviceDX11::GetHeight()
+{
+	return scr_h;
 }
 
 void DeviceDX11::Clear(bool renderTarget, Color color, bool zbuffer, float zValue)

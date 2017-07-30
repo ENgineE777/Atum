@@ -42,3 +42,4 @@ typedef unsigned long long int	uint64;
 #include "Buffer.h"
 #include "Delegate.h"
 #include "Quaternion.h"
+#include "StringUtils.h"

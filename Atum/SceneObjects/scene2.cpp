@@ -1,6 +1,6 @@
-#include "Scene.h"
+#include "Scene2.h"
 
-void Scene::Init()
+void Scene2::Init()
 {
 	quad.Init();
 
@@ -41,12 +41,12 @@ void Scene::Init()
 	cam_angle = 0;
 	light_proj.BuildProjection(45.0f * RADIAN, 1.0f, 1.0f, 100.0f);
 
-	render.AddDelegate("prepare", this, (Object::Delegate)&Scene::RenderPrepare, 0);
+	render.AddDelegate("prepare", this, (Object::Delegate)&Scene2::RenderPrepare, 0);
 	//render.AddDelegate("shadows", this, (Object::Delegate)&Scene::RenderToShadow, 0);
-	render.AddDelegate("main", this, (Object::Delegate)&Scene::Render, 0);
+	render.AddDelegate("main", this, (Object::Delegate)&Scene2::Render, 0);
 }
 
-void Scene::RenderPrepare(float dt)
+void Scene2::RenderPrepare(float dt)
 {
 	cam_angle -= 60 * RADIAN * dt * 0.5f;
 
@@ -59,7 +59,7 @@ void Scene::RenderPrepare(float dt)
 	Program::SetTexture("shdMap", shadow);
 }
 
-void Scene::RenderToShadow(float dt)
+void Scene2::RenderToShadow(float dt)
 {
 	render.GetDevice()->SetRenderTarget(0, NULL);
 	render.GetDevice()->SetDepth(shadow);
@@ -78,7 +78,7 @@ void Scene::RenderToShadow(float dt)
 	render.GetDevice()->RestoreRenderTarget();
 }
 
-void Scene::RenderScene(const char* phase, float dt)
+void Scene2::RenderScene(const char* phase, float dt)
 {
 	for (int i = 0; i < 20; i++)
 	{
@@ -102,7 +102,7 @@ void Scene::RenderScene(const char* phase, float dt)
 	render.GetDevice()->RestoreRenderTarget();
 }
 
-void Scene::RenderCorrection(float dt)
+void Scene2::RenderCorrection(float dt)
 {
 	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
@@ -111,7 +111,7 @@ void Scene::RenderCorrection(float dt)
 	quad.Draw(logo_tex, Vector2(380.0f, 280.0f), Vector2(40.0f));
 }
 
-void Scene::Render(float dt)
+void Scene2::Render(float dt)
 {
 	RenderScene("geometry", dt);
 

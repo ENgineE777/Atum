@@ -1,0 +1,46 @@
+{
+	"Aliases" : [
+		{
+			"name" : "MOVE_FORWARD",
+			"AliasesRef" : [
+				{ "name" : "KEY_W", "modifier" : 1.0 },
+				{ "name" : "KEY_I", "modifier" : 1.0 },
+				{ "name" : "KEY_S", "modifier" : -1.0 },
+				{ "name" : "KEY_K", "modifier" : -1.0 }
+			]
+		},
+		{
+			"name" : "MOVE_STRAFE",
+			"AliasesRef" : [
+				{ "name" : "KEY_A", "modifier" : -1.0 },
+				{ "name" : "KEY_J", "modifier" : -1.0 },
+				{ "name" : "KEY_D", "modifier" : 1.0 },
+				{ "name" : "KEY_L", "modifier" : 1.0 }
+			]
+		},
+		{
+			"name" : "MOVE_FAST",
+			"AliasesRef" : [
+				{ "name" : "KEY_LSHIFT", "modifier" : 1.0 }
+			]
+		},
+		{
+			"name" : "ROTATE_ACTIVE",
+			"AliasesRef" : [
+				{ "name" : "MS_BTN1", "modifier" : 1.0 }
+			]
+		},
+		{
+			"name" : "ROTATE_X",
+			"AliasesRef" : [
+				{ "name" : "MS_X", "modifier" : 1.0 }
+			]
+		},
+		{
+			"name" : "ROTATE_Y",
+			"AliasesRef" : [
+				{ "name" : "MS_Y", "modifier" : 1.0 }
+			]
+		}
+	]
+} 

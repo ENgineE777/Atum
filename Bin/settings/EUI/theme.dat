@@ -1,0 +1,230 @@
+{
+	"fonts":
+	[
+		{
+			"name" : "FONT_NORMAL",
+			"font" : "Tahoma",
+			"height" : 10
+		},
+		{
+			"name" : "FONT_CAPTION",
+			"font" : "Tahoma",
+			"height" : 10,
+			"bold" : true
+		},
+		{
+			"name" : "FONT_BOLD",
+			"font" : "Tahoma",
+			"height" : 10,
+			"bold" : true
+		},
+		{
+			"name" : "FONT_TITLE",
+			"font" : "Tahoma",
+			"height" : 10,
+			"bold" : true
+		},
+		{
+			"name" : "FONT_HEADLINE",
+			"font" : "Tahoma",
+			"height" : 10,
+			"bold" : true
+		},
+		{
+			"name" : "FONT_SUBSCRIPT",
+			"font" : "Tahoma",
+			"height" : 10
+		},
+		{
+			"name" : "FONT_LINK",
+			"font" : "Tahoma",
+			"height" : 10,
+			"underline" : true
+		}
+	],
+	"colors": [
+	{
+		"name": "FONT_NORMAL",
+		"color": {	"R": 100, "G": 100,	"B": 100 }
+	},
+	{
+		"name": "FONT_HOVERED",
+		"color": {	"R": 238, "G": 56,	"B": 68 }
+	},
+	{
+		"name": "FONT_DISABLED",
+		"color": {	"R": 185, "G": 185,	"B": 185 }
+	},
+	{
+		"name": "FONT_SELECTED",
+		"color": {	"R": 248, "G": 248,	"B": 248 }
+	},
+	{
+		"name": "FONT_BACK_SELECTED",
+		"color": { "R": 238, "G": 56, "B": 68 }
+	},
+	{
+		"name": "BUTTON_BACK",
+		"color": { "R": 248, "G": 248, "B": 248	}
+	},
+	{
+		"name": "BUTTON_BACK_PUSHED",
+		"color": { "R": 238, "G": 56, "B": 68	}
+	},
+	{
+		"name": "BUTTON_BORDER",
+		"color": { "R": 197, "G": 197, "B": 197	}
+	},
+	{
+		"name": "BUTTON_BORDER_PUSHED",
+		"color": { "R": 100, "G": 0,	"B": 100 	}
+	},
+	{
+		"name": "BORDER_FOCUS",
+		"color": {	"R": 215, "G": 215,	"B": 227 }
+	},
+	{
+		"name": "CHECKBOX_BOX_BORDER",
+		"color": { "R": 197, "G": 197, "B": 197	}
+	},
+	{
+		"name": "CHECKBOX_BOX_BACK",
+		"color": { "R": 248, "G": 248, "B": 248	}
+	},
+	{
+		"name": "CHECKBOX_BOX_CHECK",
+		"color": { "R": 238, "G": 56, "B": 68	}
+	},
+	{
+		"name": "CATEGORY_BORDER",
+		"color": { "R": 197, "G": 197, "B": 197	}
+	},
+	{
+		"name": "CATEGORY_BACK",
+		"color": { "R": 248, "G": 248, "B": 248	}
+	},
+	{
+		"name": "SCROLLBAR_COLOR",
+		"color": { "R": 248, "G": 248, "B": 248	}
+	},
+	{
+		"name": "SCROLLBAR_THUMB_COLOR",
+		"color": { "R": 197, "G": 197, "B": 197	}
+	}],
+	"FONT_SELECTED" : "FONT_SELECTED",
+	"FONT_BACK_SELECTED" : "FONT_BACK_SELECTED",
+	"BUTTON":
+	{
+		"BORDER_FOCUS": "BORDER_FOCUS",
+		"BUTTON_NORMAL":
+		{
+			"BACK_FROM_COLOR" : "BUTTON_BACK",
+			"BACK_TO_COLOR" : "BUTTON_BACK",
+			"BORDER_FROM_COLOR" : "BUTTON_BORDER",
+			"BORDER_TO_COLOR" : "BUTTON_BORDER",
+			"TEXT_FONT" : "FONT_NORMAL",
+			"TEXT_COLOR" : "FONT_NORMAL"
+		},
+		"BUTTON_HOVERED":
+		{
+			"BACK_FROM_COLOR" : "BUTTON_BACK",
+			"BACK_TO_COLOR" : "BUTTON_BACK",
+			"BORDER_FROM_COLOR" : "BUTTON_BORDER",
+			"BORDER_TO_COLOR" : "BUTTON_BORDER",
+			"TEXT_FONT" : "FONT_NORMAL",
+			"TEXT_COLOR" : "FONT_HOVERED"
+		},
+		"BUTTON_PUSHED":
+		{
+			"BACK_FROM_COLOR" : "BUTTON_BACK_PUSHED",
+			"BACK_TO_COLOR" : "BUTTON_BACK_PUSHED",
+			"BORDER_FROM_COLOR" : "BUTTON_BORDER_PUSHED",
+			"BORDER_TO_COLOR" : "BUTTON_BORDER_PUSHED",
+			"TEXT_FONT" : "FONT_NORMAL",
+			"TEXT_COLOR" : "FONT_SELECTED"
+		},
+		"BUTTON_DISABLED":
+		{
+			"BACK_FROM_COLOR" : "BUTTON_BACK",
+			"BACK_TO_COLOR" : "BUTTON_BACK",
+			"BORDER_FROM_COLOR" : "BUTTON_BORDER",
+			"BORDER_TO_COLOR" : "BUTTON_BORDER",
+			"TEXT_FONT" : "FONT_DISABLED",
+			"TEXT_COLOR" : "FONT_DISABLED"
+		}
+	},
+	"CHECKBOX":
+	{
+		"BOX_SIZE" : 14,
+		"CHECKBOX_NORMAL":
+		{
+			"BOX_BORDER_COLOR" : "CHECKBOX_BOX_BORDER",
+			"BOX_BACK_COLOR" : "CHECKBOX_BOX_BACK",
+			"BOX_CHECK_COLOR" : "CHECKBOX_BOX_CHECK",
+			"TEXT_FONT" : "FONT_NORMAL",
+			"TEXT_COLOR" : "FONT_NORMAL"
+		},
+		"CHECKBOX_DISABLED":
+		{
+			"BOX_BORDER_COLOR" : "CHECKBOX_BOX_BORDER",
+			"BOX_BACK_COLOR" : "CHECKBOX_BOX_BACK",
+			"BOX_CHECK_COLOR" : "CHECKBOX_BOX_BORDER",
+			"TEXT_FONT" : "FONT_DISABLED",
+			"TEXT_COLOR" : "FONT_DISABLED"
+		}
+	},
+	"CATEGORIES":
+	{
+		"CATEGORY_HEIGHT" : 20,
+		"CATEGORY_NORMAL":
+		{
+			"BORDER_COLOR" : "CATEGORY_BORDER",
+			"BACK_COLOR" : "CATEGORY_BACK",
+			"OPENED_IMAGE" : "cat_opened.bmp",
+			"CLOSED_IMAGE" : "cat_closed.bmp",
+			"TEXT_FONT" : "FONT_NORMAL",
+			"TEXT_COLOR" : "FONT_NORMAL"
+		},
+		"CATEGORY_DISABLED":
+		{
+			"BORDER_COLOR" : "CATEGORY_BORDER",
+			"BACK_COLOR" : "CATEGORY_BACK",
+			"OPENED_IMAGE" : "cat_opened.bmp",
+			"CLOSED_IMAGE" : "cat_closed.bmp",
+			"TEXT_FONT" : "FONT_DISABLED",
+			"TEXT_COLOR" : "FONT_DISABLED"
+		}
+	},
+	"SCROLLBAR":
+	{
+		"THIN" : 20,
+		"THUMB_PADDING_X": 3,
+		"THUMB_PADDING_Y": 2,
+		"SCROLLBAR_NORMAL":
+		{
+			"TOP_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"TOP_BACK_COLOR" : "SCROLLBAR_COLOR",
+			"TOP_IMAGE" : "scrl_up.bmp",
+			"MIDDLE_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"MIDDLE_BACK_COLOR" : "SCROLLBAR_COLOR",			
+			"BOTTOM_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"BOTTOM_BACK_COLOR" : "SCROLLBAR_COLOR",
+			"BOTTOM_IMAGE" : "scrl_down.bmp",
+			"THUMB_BORDER_COLOR" : "SCROLLBAR_THUMB_COLOR",
+			"THUMB_BACK_COLOR" : "SCROLLBAR_THUMB_COLOR"
+		},
+		"SCROLLBAR_DISABLED":
+		{
+			"TOP_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"TOP_BACK_COLOR" : "SCROLLBAR_COLOR",
+			"TOP_IMAGE" : "scrl_up.bmp",
+			"MIDDLE_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"MIDDLE_BACK_COLOR" : "SCROLLBAR_COLOR",			
+			"BOTTOM_BORDER_COLOR" : "SCROLLBAR_COLOR",
+			"BOTTOM_BACK_COLOR" : "SCROLLBAR_COLOR",
+			"BOTTOM_IMAGE" : "scrl_down.bmp",
+			"THUMB_BORDER_COLOR" : "SCROLLBAR_THUMB_COLOR",
+			"THUMB_BACK_COLOR" : "SCROLLBAR_THUMB_COLOR"
+		},
+	}
+}

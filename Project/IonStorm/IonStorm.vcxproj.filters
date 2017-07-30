@@ -28,6 +28,15 @@
     <Filter Include="Services\Render\DX11">
       <UniqueIdentifier>{01bccd13-43d9-4a59-b89f-f97830024282}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Support\json">
+      <UniqueIdentifier>{4b6c33e6-3446-43db-8a0e-cf045140e9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\MetaData">
+      <UniqueIdentifier>{b987916e-2187-4e15-a3a8-542d396efe97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{8b15df3b-e0dd-4449-b282-d3d7b6d21c51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -49,9 +58,6 @@
       <Filter>SceneObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp">
-      <Filter>SceneObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Atum\SceneObjects\scene.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp">
@@ -100,6 +106,63 @@
     <ClCompile Include="..\..\Atum\Support\ExceptionReport.cpp">
       <Filter>Support</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\json\block_allocator.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\json\json.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\json\JSONReader.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\json\JSONWriter.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\BoolWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\ColorWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\EnumWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\FileNameWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\FloatWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\IntWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\MetaData.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\ProperyWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\StringWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Scene\Scene.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Scene\SceneObject.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Editor\Editor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Editor\freecamera.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Editor\Gizmo.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\scene2.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -121,9 +184,6 @@
       <Filter>SceneObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\quad.h">
-      <Filter>SceneObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Atum\SceneObjects\scene.h">
       <Filter>SceneObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\terrain.h">
@@ -215,6 +275,63 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Support\ClassFactory.h">
       <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\json\block_allocator.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\json\json.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\json\JSONReader.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\json\JSONWriter.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\BoolWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\ColorWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\EnumWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\FileNameWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\FloatWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\IntWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\MetaData.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\ProperyWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\StringWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Scene\Scene.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Scene\SceneObject.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Editor\Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Editor\freecamera.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Editor\Gizmo.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\scene2.h">
+      <Filter>SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

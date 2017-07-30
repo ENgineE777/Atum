@@ -7,31 +7,9 @@ bool StringUtils::IsEmpty(const char * c)
 	return !c || !c[0];
 }
 
-long StringUtils::Compare(const char * s1, const char * s2)
-{ 
-	return _stricmp(s1, s2);
-}
-
 bool StringUtils::IsEqual(const char * s1, const char * s2)
 { 
-	return Compare(s1, s2) == 0;
-}
-
-bool StringUtils::IsEqual(const char * str1, long len1, const char * str2, long len2)
-{
-	if(len1 != len2)
-	{
-		return false;
-	}
-
-	for(; len1 > 0; len1--, str1++, str2++)
-	{
-		if(*str1 != *str2)
-		{
-			return false;
-		}
-	}
-	return true;
+	return (_stricmp(s1, s2) == 0);
 }
 
 void StringUtils::Copy(char * s1, int len, const char * s2)
@@ -269,37 +247,30 @@ void StringUtils::RemoveExctention(char* str)
 	}
 }
 
-void StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len, int& number)
+int StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len)
 {
 	Copy(wo_n_str,len,str);
-	number = 0;
+	int number = 0;
 
 	int index = strlen(str)-1;
 
-	if (index == 0) return;
+	if (index == 0)
+	{
+		return 0;
+	}
 
-	char buffer[512];
+	int  pow = 1;
 
 	while (index>=0 && str[index] >= '0' && str[index] <= '9')
 	{
-		buffer[strlen(str)-1 - index] = str[index];
+		number += pow * (str[index] - '0');
+		pow *= 10;
 		index--;
 	}
 
-	buffer[strlen(str)-1 - index] = 0;
-
-	int ln = (int)(strlen(buffer) * 0.5f);
-	for (int i = 0; i<ln;i++)
-	{
-		int tmp = buffer[i];
-		buffer[i] = buffer[strlen(buffer)-1];
-		buffer[strlen(buffer)-1] = tmp;
-	}
-
-	if (strlen(buffer)==0) return;
-
-	sscanf (buffer, "%i", &number);
 	wo_n_str[index+1] = 0;
+
+	return number;
 }
 
 void StringUtils::EscapeChars(const char* in, char* out, int len)

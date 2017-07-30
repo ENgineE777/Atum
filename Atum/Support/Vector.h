@@ -26,6 +26,7 @@ public:
 	Vector(const Vector& v);
 
 	void Set(float f);
+	void Set(float x, float y, float z);
 	void Set(const Vector&v);
 
 	Vector operator - () const;
@@ -76,6 +77,20 @@ inline Vector::Vector(const Vector& v)
 	x = v.x;
 	y = v.y;
 	z = v.z;
+}
+
+inline void Vector::Set(float f)
+{
+	x = f;
+	y = f;
+	z = f;
+}
+
+inline void Vector::Set(float set_x, float set_y, float set_z)
+{
+	x = set_x;
+	y = set_y;
+	z = set_z;
 }
 
 inline void Vector::Set(const Vector& v)

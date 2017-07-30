@@ -5,11 +5,11 @@
 #include "Services/Render/Render.h"
 #include "Services/Controls/Controls.h"
 #include "SceneObjects/programs.h"
-#include "SceneObjects/scene.h"
+#include "SceneObjects/scene2.h"
 #include <time.h>
 
 HWND hwnd;
-Scene scene;
+Scene2 scene;
 
 const char g_szClassName[] = "LectureClass";
 
@@ -28,7 +28,7 @@ void InitRender(int width, int height)
 
 	render.AddExecutedDelgateList("controls", 0);
 
-	controls.Init(&hwnd);
+	controls.Init(&hwnd, "settings/controls/hardware_pc", "settings/controls/user_pc");
 
 	Programs::Init();
 	scene.Init();
@@ -51,8 +51,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		break;
 		case WM_MOUSEMOVE:
 		{
-			controls.SetAliasValue(1500, GET_X_LPARAM(lParam));
-			controls.SetAliasValue(1501, GET_Y_LPARAM(lParam));
+			controls.OverrideMousePos(GET_Y_LPARAM(lParam), GET_Y_LPARAM(lParam));
 		}
 		break;
 		default:

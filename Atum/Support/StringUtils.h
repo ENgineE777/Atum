@@ -8,9 +8,7 @@ class StringUtils
 public:
 
 	static bool IsEmpty(const char * c);
-	static long Compare(const char * s1, const char * s2);
 	static bool IsEqual(const char * s1, const char * s2);
-	static bool IsEqual(const char * str1, long len1, const char * str2, long len2);
 	static void Copy(char * s1, int len, const char * s2);
 	static void Cat(char * s1, int len, const char * s2);
 	static void Printf(char * s1, int len, const char * format, ...);
@@ -23,7 +21,7 @@ public:
 	static void FixSlashes(char * str);
 	static void ExtractExctention(const char* str,char* ext, int ext_lenght);
 	static void RemoveExctention(char* str);
-	static void ExtractNameNumber(const char* str, char* wo_n_str, int len, int& number);
+	static int  ExtractNameNumber(const char* str, char* wo_n_str, int len);
 	static void EscapeChars(const char* in, char* out, int len);
 	static bool BuildUtf16fromUtf8(char c, int& bytes, int& w);
 	static void BuildUtf8fromUtf16(int c, std::string& dest);

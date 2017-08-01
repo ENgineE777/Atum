@@ -69,6 +69,7 @@ public:
 	void Save(JSONWriter* writer);
 	void Copy(void* source);
 	void PrepareWidgets(EUICategories* parent);
+	bool IsValueWasChanged();
 	void HideWidgets();
 };
 

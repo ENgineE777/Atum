@@ -19,4 +19,5 @@ void BoolWidget::SetData(void* set_data)
 {
 	data = (bool*)set_data;
 	cbox->SetChecked(*data);
+	changed = true;
 }

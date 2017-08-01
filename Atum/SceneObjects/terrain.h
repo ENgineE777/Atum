@@ -3,15 +3,23 @@
 
 #include "Services/Render/Render.h"
 
-class Terrain : public Object
+#include "Services/Scene/SceneObject.h"
+
+class Terrain : public SceneObject
 {
 public:
-	GeometryBuffer* buffer;
-	Texture*        texture;
+	META_DATA_DECL(Terrain)
+
+	GeometryBuffer* buffer = NULL;
+	Texture*        texture = NULL;
 	int      hwidth;
 	int      hheight;
-	Vector2  hscale;
-	uint8_t* hmap;
+	float    scaleh;
+	float    scalev;
+	Color    color;
+	uint8_t* hmap = NULL;
+	std::string tex_name;
+	std::string hgt_name;
 
 	struct VertexTri
 	{
@@ -22,9 +30,14 @@ public:
 
 	int sz;
 
-	void Init(Vector2 scale, const char* tex_name, const char* hgt_name);
+	CLASSDECLDIF(SceneObject, Terrain)
+	Terrain();
+	virtual ~Terrain();
+
+	virtual void Init();
+	virtual void ApplyProperties();
+	float GetHeight(int i, int j);
 	void LoadHMap(const char* hgt_name);
-	float GetHight(float x, float z);
 	void Render(float dt);
 	void ShRender(float dt);
 	void Render(Program* prg);

@@ -83,11 +83,9 @@ void JSONWriter::FinishBlock()
 
 void JSONWriter::Write(const char* name, const char* val)
 {
-	char str[1024];
-	StringUtils::EscapeChars(val, str, 1024);
-	StringUtils::FixSlashes(str);
+	StringUtils::FixSlashes((char*)val);
 
-	WriteFormatedStr(true, "\"%s\" : \"%s\"", name, str);
+	WriteFormatedStr(true, "\"%s\" : \"%s\"", name, val);
 }
 
 void JSONWriter::Write(const char* name, bool val)

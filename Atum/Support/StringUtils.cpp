@@ -289,7 +289,7 @@ void StringUtils::EscapeChars(const char* in, char* out, int len)
 			out[index+2] = '0';
 			index += 3;
 		}
-		else		
+		else
 		if (c == ':')
 		{
 			out[index] = '%';

@@ -325,6 +325,7 @@ void Editor::CopyObject(SceneObject* obj)
 
 	copy->Trans() = obj->Trans();
 	copy->GetMetaData()->Copy(obj);
+	obj->ApplyProperties();
 
 	SetUniqueName(copy, obj->GetName());
 	sceneList->AddItem(copy->GetName(), copy);
@@ -366,6 +367,7 @@ void Editor::OnObjectNameChanged()
 void Editor::CreateSceneObject(const char* name)
 {
 	SceneObject* obj = scene.AddObject(name);
+	obj->ApplyProperties();
 
 	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
 
@@ -411,6 +413,11 @@ void Editor::Update()
 		gizmo.Render();
 
 		freecamera.Update(dt);
+
+		if (selectedObject && selectedObject->GetMetaData()->IsValueWasChanged())
+		{
+			selectedObject->ApplyProperties();
+		}
 	}
 
 	scene.Execute(dt);
@@ -448,6 +455,7 @@ void Editor::Draw(float dt)
 {
 	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
+	render.ExecutePool(0, dt);
 	render.ExecutePool(1000, dt);
 
 	render.GetDevice()->Present();

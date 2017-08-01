@@ -36,5 +36,7 @@ void ColorWidget::ChoseColor()
 		clr[2] = data->b * 255;
 
 		ecolor->SetBackgroundColor(true, clr);
+
+		changed = true;
 	}
 }

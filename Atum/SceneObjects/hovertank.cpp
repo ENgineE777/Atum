@@ -93,13 +93,13 @@ void HoverTank::Init(Terrain* set_terrain)
 
 	PxHeightField* heightField = mCooking->createHeightField(heightFieldDesc, mPhysics->getPhysicsInsertionCallback());
 
-	PxTransform pose = PxTransform(PxVec3(-terrain->hwidth * 0.5f * terrain->hscale.x, 0.0f, -terrain->hheight * 0.5f * terrain->hscale.x), PxQuat(PxIdentity));
+	PxTransform pose = PxTransform(PxVec3(-terrain->hwidth * 0.5f * terrain->scaleh, 0.0f, -terrain->hheight * 0.5f * terrain->scaleh), PxQuat(PxIdentity));
 
 	PxRigidActor* hf = mPhysics->createRigidStatic(pose);
 
 	const PxMaterial* mMat = mPhysics->createMaterial(0.9f, 0.9f, 0.001f);
 
-	PxHeightFieldGeometry hfGeom(heightField, PxMeshGeometryFlags(), terrain->hscale.y, terrain->hscale.x, terrain->hscale.x);
+	PxHeightFieldGeometry hfGeom(heightField, PxMeshGeometryFlags(), terrain->scalev, terrain->scaleh, terrain->scaleh);
 	PxShape* hfShape = hf->createShape(hfGeom, *mMat);
 	mScene->addActor(*hf);
 

@@ -44,4 +44,5 @@ void EnumWidget::SetData(void* set_data)
 void EnumWidget::SetEditedData(int index)
 {
 	*data = enumRef->values[index];
+	changed = true;
 }

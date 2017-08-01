@@ -16,7 +16,8 @@ using namespace std;
 #define rnd_range(a, b) (a + (b - a) * (float)rand()/RAND_MAX)
 
 #define RELEASE(p) if (p) { p->Release(); p = NULL; }
-#define DELETE(p) if (p) { delete p; p = NULL; }
+#define FREE_PTR(p) if (p) { free(p); p = NULL; }
+#define DELETE_PTR(p) if (p) { delete p; p = NULL; }
 #define DELETE_ARRAY(p) if (p) { delete[] p; p = NULL; }
 
 #define _FL_ __FILE__ , __LINE__

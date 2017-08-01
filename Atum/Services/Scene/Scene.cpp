@@ -110,6 +110,7 @@ void Scene::Load(const char* name)
 
 				obj->GetMetaData()->Prepare(obj);
 				obj->GetMetaData()->Load(reader);
+				obj->ApplyProperties();
 			}
 
 			reader->LeaveBlock();

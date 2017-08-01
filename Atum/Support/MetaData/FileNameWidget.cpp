@@ -41,6 +41,7 @@ void FileNameWidget::OpenFileDialog()
 	{
 		*data = fileName;
 		openBtn->SetText(fileName);
+		changed = true;
 	}
 }
 
@@ -48,4 +49,5 @@ void FileNameWidget::ClearData()
 {
 	*data = "";
 	openBtn->SetText("");
+	changed = true;
 }

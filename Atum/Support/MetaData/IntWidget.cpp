@@ -31,4 +31,5 @@ void IntWidget::SetData(void* set_data)
 void IntWidget::SetEditedData()
 {
 	*data = atoi(ebox->GetText());
+	changed = true;
 }

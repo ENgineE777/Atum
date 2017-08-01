@@ -1,24 +1,50 @@
 
 #include "Terrain.h"
-#include "programs.h"
+#include "Programs.h"
+#include "Services/Render/Render.h"
 
-#define GETHIGHT(i,j) hmap[((j) * hwidth + i)] * hscale.y
+CLASSDECLDECL(SceneObject, Terrain)
 
-void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
+META_DATA_DESC(Terrain)
+FLOAT_PROP(Terrain, scaleh, 0.5f, "Geometry", "ScaleH")
+FLOAT_PROP(Terrain, scalev, 0.1f, "Geometry", "ScaleV")
+FILENAME_PROP(Terrain, tex_name, "", "Geometry", "Texture")
+FILENAME_PROP(Terrain, hgt_name, "", "Geometry", "Heightmap")
+COLOR_PROP(Terrain, color, COLOR_WHITE, "Geometry", "COLOR")
+META_DATA_DESC_END()
+
+Terrain::Terrain() : SceneObject()
+{
+
+}
+
+Terrain::~Terrain()
+{
+
+}
+
+void Terrain::Init()
+{
+	Programs::Init();
+
+	RenderTasks()->AddTask(0, this, (Object::Delegate)&Terrain::Render);
+}
+
+void Terrain::ApplyProperties()
 {
 	int stride = sizeof(VertexTri);
 
-	LoadHMap(hgt_name);
+	LoadHMap(hgt_name.c_str());
 
-	hscale = scale;
 	sz = (hwidth) * (hheight) * 2;
 
+	RELEASE(buffer)
 	buffer = render.GetDevice()->CreateBuffer(sz * 3, stride);
 
 	VertexTri* v_tri = (VertexTri*)buffer->Lock();
 
-	float start_x = -hwidth * 0.5f * hscale.x;
-	float start_z = -hheight * 0.5f * hscale.x;
+	float start_x = -hwidth * 0.5f * scaleh;
+	float start_z = -hheight * 0.5f * scaleh;
 
 	float du = 1.0f / (hwidth - 1.0f);
 	float dv = 1.0f / (hheight - 1.0f);
@@ -33,34 +59,34 @@ void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
 			{
 				if (i % 2 == 0)
 				{
-					v_tri[1].position = Vector(i, GETHIGHT(i, j), - j);
+					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GETHIGHT(i+1,j), - j);
+					v_tri[0].position = Vector(i + 1, GetHeight(i+1,j), - j);
 					v_tri[0].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[2].position = Vector( i + 1, GETHIGHT(i+1, j+1), - j - 1);
+					v_tri[2].position = Vector( i + 1, GetHeight(i+1, j+1), - j - 1);
 					v_tri[2].texCoord = Vector2(1.0f, 1.0f);
 
-					v_tri[4].position = Vector( i, GETHIGHT(i, j), - j);
+					v_tri[4].position = Vector( i, GetHeight(i, j), - j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector( i + 1, GETHIGHT(i + 1, j + 1), - j - 1);
+					v_tri[3].position = Vector( i + 1, GetHeight(i + 1, j + 1), - j - 1);
 					v_tri[3].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[5].position = Vector(i, GETHIGHT(i, j + 1), - j - 1);
+					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 				else
 				{
-					v_tri[1].position = Vector(i + 1, GETHIGHT(i+1,j), - j);
+					v_tri[1].position = Vector(i + 1, GetHeight(i+1,j), - j);
 					v_tri[1].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GETHIGHT(i+1,j+1), - j - 1);
+					v_tri[0].position = Vector(i + 1, GetHeight(i+1,j+1), - j - 1);
 					v_tri[0].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[2].position = Vector(i, GETHIGHT(i, j+1), - j - 1);
+					v_tri[2].position = Vector(i, GetHeight(i, j+1), - j - 1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i, GETHIGHT(i, j), - j);
+					v_tri[4].position = Vector(i, GetHeight(i, j), - j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GETHIGHT(i+1, j), - j);
+					v_tri[3].position = Vector(i + 1, GetHeight(i+1, j), - j);
 					v_tri[3].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[5].position = Vector(i, GETHIGHT(i, j + 1), - j - 1);
+					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 			}
@@ -68,34 +94,34 @@ void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
 			{
 				if (i % 2 == 0)
 				{
-					v_tri[1].position = Vector(i, GETHIGHT(i, j), - j);
+					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GETHIGHT(i + 1, j), - j);
+					v_tri[0].position = Vector(i + 1, GetHeight(i + 1, j), - j);
 					v_tri[0].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[2].position = Vector(i, GETHIGHT(i, j + 1), - j - 1);
+					v_tri[2].position = Vector(i, GetHeight(i, j + 1), - j - 1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i + 1, GETHIGHT(i + 1, j), - j);
+					v_tri[4].position = Vector(i + 1, GetHeight(i + 1, j), - j);
 					v_tri[4].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GETHIGHT(i + 1, j + 1), - j - 1);
+					v_tri[3].position = Vector(i + 1, GetHeight(i + 1, j + 1), - j - 1);
 					v_tri[3].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[5].position = Vector(i, GETHIGHT(i, j + 1), - j - 1);
+					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 				else
 				{
-					v_tri[1].position = Vector(i, GETHIGHT(i, j), - j);
+					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GETHIGHT(i + 1, j + 1), -j - 1);
+					v_tri[0].position = Vector(i + 1, GetHeight(i + 1, j + 1), -j - 1);
 					v_tri[0].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[2].position = Vector(i, GETHIGHT(i, j + 1), -j - 1);
+					v_tri[2].position = Vector(i, GetHeight(i, j + 1), -j - 1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i, GETHIGHT(i, j), - j);
+					v_tri[4].position = Vector(i, GetHeight(i, j), - j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GETHIGHT(i + 1, j), - j);
+					v_tri[3].position = Vector(i + 1, GetHeight(i + 1, j), - j);
 					v_tri[3].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[5].position = Vector(i + 1, GETHIGHT(i + 1, j + 1), - j - 1);
+					v_tri[5].position = Vector(i + 1, GetHeight(i + 1, j + 1), - j - 1);
 					v_tri[5].texCoord = Vector2(1.0f, 1.0f);
 				}
 			}
@@ -105,8 +131,8 @@ void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
 
 			for (int k = 0; k < 6; k++)
 			{
-				v_tri[k].position.x = start_x + v_tri[k].position.x * hscale.x;
-				v_tri[k].position.z = start_z - v_tri[k].position.z * hscale.x;
+				v_tri[k].position.x = start_x + v_tri[k].position.x * scaleh;
+				v_tri[k].position.z = start_z - v_tri[k].position.z * scaleh;
 				v_tri[k].texCoord = Vector2(cur_du + v_tri[k].texCoord.x * du, cur_dv + v_tri[k].texCoord.y * dv);
 			}
 
@@ -137,20 +163,27 @@ void Terrain::Init(Vector2 scale, const char* tex_name, const char* hgt_name)
 
 	buffer->Unlock();
 
-	texture = render.LoadTexture(tex_name);
-
-	//render.AddDelegate("geometry", this, (Object::Delegate)&Terrain::Render, 0);
-	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Terrain::ShRender, 0);
+	RELEASE(texture)
+	texture = render.LoadTexture(tex_name.c_str());
 }
 
+float Terrain::GetHeight(int i, int j)
+{
+	return hmap ? hmap[((j)* hwidth + i)] * scalev : 1.0f;
+}
 void Terrain::LoadHMap(const char* hgt_name)
 {
 	Buffer hbuffer(hgt_name);
+
+	FREE_PTR(hmap)
 
 	uint8_t* ptr = hbuffer.GetData();
 
 	if (!ptr)
 	{
+		hwidth = 512;
+		hheight = 512;
+
 		return;
 	}
 
@@ -190,17 +223,6 @@ void Terrain::LoadHMap(const char* hgt_name)
 	}
 }
 
-float Terrain::GetHight(float x, float z)
-{
-	float start_x = -hwidth * 0.5f * hscale.x;
-	float start_z =  hheight * 0.5f * hscale.x;
-
-	int i = ((float)x - start_x) / (float)(hscale.x);
-	int j = (start_z - (float)z) / (float)(hscale.x);
-
-	return hmap[((j)* hwidth + i)] * hscale.y;
-}
-
 void Terrain::Render(float dt)
 {
 	Render(Programs::prg);
@@ -217,8 +239,6 @@ void Terrain::Render(Program* prg)
 
 	prg->Apply();
 
-	Vector4 color(1.0f, 1.0f, 1.0f, 1.0f);
-
 	render.SetTransform(Render::World, Matrix());
 
 	Matrix view_proj;
@@ -229,7 +249,7 @@ void Terrain::Render(Program* prg)
 
 	prg->VS_SetMatrix("trans", &world, 1);
 	prg->VS_SetMatrix("view_proj", &view_proj, 1);
-	prg->PS_SetVector("color", &color, 1);
+	prg->PS_SetVector("color", (Vector4*)&color, 1);
 	prg->PS_SetTexture("diffuseMap", texture);
 
 	render.GetDevice()->Draw(Device::TrianglesList, 0, sz);

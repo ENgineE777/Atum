@@ -13,6 +13,11 @@ SceneObject::~SceneObject()
 
 }
 
+void SceneObject::ApplyProperties()
+{
+
+}
+
 const char* SceneObject::GetName()
 {
 	return name.c_str();

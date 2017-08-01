@@ -232,6 +232,19 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 	}
 }
 
+bool MetaData::IsValueWasChanged()
+{
+	bool res = false;
+	for (int i = 0; i < properties.size(); i++)
+	{
+		Property& prop = properties[i];
+		res |= prop.widget->changed;
+		prop.widget->changed = false;
+	}
+
+	return res;
+}
+
 void MetaData::HideWidgets()
 {
 	if (!widgets_inited)

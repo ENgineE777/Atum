@@ -6,7 +6,6 @@
 #include "plane.h"
 #include "quad.h"
 #include "correction.h"
-#include "FreeCamera.h"
 #include "Terrain.h"
 #include "hovertank.h"
 
@@ -23,7 +22,6 @@ public:
 	ColorCorrection correction;
 
 	Terrain    terrain;
-	FreeCamera freeCamera;
 	HoverTank  hoverTank;
 
 	Texture* logo_tex;

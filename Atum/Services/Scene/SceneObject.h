@@ -34,6 +34,7 @@ public:
 	const char* GetClassName();
 
 	virtual void Init() = 0;
+	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
 	TaskExecutor::SingleTaskPool* Tasks();
 	TaskExecutor::SingleTaskPool* RenderTasks();

@@ -12,7 +12,7 @@ void Scene2::Init()
 
 	model.LoadModelMS3D("Media//odst.ms3d");
 
-	terrain.Init(Vector2(0.5f, 0.1f), "Media//terrain_c.tga", "Media//terrain_h.tga");
+	//terrain.Init(Vector2(0.5f, 0.1f), "Media//terrain_c.tga", "Media//terrain_h.tga");
 
 	hoverTank.Init(&terrain);
 

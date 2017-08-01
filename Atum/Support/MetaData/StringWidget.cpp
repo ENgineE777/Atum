@@ -29,4 +29,5 @@ void StringWidget::SetData(void* set_data)
 void StringWidget::SetEditedData()
 {
 	*data = ebox->GetText();
+	changed = true;
 }

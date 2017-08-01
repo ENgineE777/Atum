@@ -31,4 +31,5 @@ void FloatWidget::SetData(void* set_data)
 void FloatWidget::SetEditedData()
 {
 	*data = atof(ebox->GetText());
+	changed = true;
 }

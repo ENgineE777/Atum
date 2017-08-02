@@ -274,7 +274,7 @@ bool Controls::GetHardwareAliasState(int index, bool exclusive, AliasAction acti
 
 bool Controls::GetAliasState(int index, bool exclusive, AliasAction action)
 {
-	if (index == -1)
+	if (index == -1 || index >= aliases.size())
 	{
 		return 0.0f;
 	}
@@ -368,7 +368,7 @@ float Controls::GetHardwareAliasValue(int index, bool delta)
 
 float Controls::GetAliasValue(int index, bool delta)
 {
-	if (index == -1)
+	if (index == -1 || index >= aliases.size())
 	{
 		return 0.0f;
 	}

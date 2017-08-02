@@ -28,6 +28,8 @@ void Terrain::Init()
 	Programs::Init();
 
 	RenderTasks()->AddTask(0, this, (Object::Delegate)&Terrain::Render);
+
+	owner->AddToGroup(this, "Terrain");
 }
 
 void Terrain::ApplyProperties()

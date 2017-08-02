@@ -3,10 +3,11 @@
 #include "model.h"
 #include "programs.h"
 
-void Model::Drawer::Init(Model* model)
+void Model::Drawer::Init(Model* model, TaskExecutor::SingleTaskPool* taskPool)
 {
 	res = model;
 
+	taskPool->AddTask(0, this, (Object::Delegate)&Model::Drawer::Render);
 	//render.AddDelegate("toshadow", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("geometry", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);

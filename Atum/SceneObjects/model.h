@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Services/Render/Render.h"
+#include "Services/TaskExecutor/TaskExecutor.h"
 
 class Model
 {
@@ -20,7 +21,7 @@ public:
 			color = 1.0f;
 		};
 
-		void Init(Model* model);
+		void Init(Model* model, TaskExecutor::SingleTaskPool* taskPool);
 		void SetColor(Vector4& color);
 		void SetPosition(Vector2 pos);
 		void SetTransform(Matrix& mat);

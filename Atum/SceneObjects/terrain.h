@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Services/Render/Render.h"
-
 #include "Services/Scene/SceneObject.h"
 
 class Terrain : public SceneObject

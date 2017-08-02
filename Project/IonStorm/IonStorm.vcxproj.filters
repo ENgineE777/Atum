@@ -45,9 +45,6 @@
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Atum\SceneObjects\freecamera.cpp">
-      <Filter>SceneObjects</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
@@ -169,12 +166,12 @@
     <ClCompile Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp">
       <Filter>Services\TaskExecutor</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\PhysBox.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
-      <Filter>SceneObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Atum\SceneObjects\freecamera.h">
       <Filter>SceneObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h">
@@ -341,6 +338,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.h">
       <Filter>Services\TaskExecutor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\PhysBox.h">
+      <Filter>SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

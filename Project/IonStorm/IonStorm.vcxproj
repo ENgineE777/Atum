@@ -24,9 +24,9 @@
     <ClCompile Include="..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\Atum\main.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
-    <ClCompile Include="..\..\Atum\SceneObjects\freecamera.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\model.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\PhysBox.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\plane.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp" />
@@ -68,9 +68,9 @@
     <ClInclude Include="..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\Atum\Editor\Gizmo.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
-    <ClInclude Include="..\..\Atum\SceneObjects\freecamera.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\model.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\PhysBox.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\plane.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\programs.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\quad.h" />

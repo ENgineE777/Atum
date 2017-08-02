@@ -157,6 +157,11 @@ void Scene::Execute(float dt)
 
 void Scene::Play()
 {
+	if (playing)
+	{
+		return;
+	}
+
 	playing = true;
 
 	for (int i = 0; i < objects.size(); i++)
@@ -167,6 +172,11 @@ void Scene::Play()
 
 void Scene::Stop()
 {
+	if (!playing)
+	{
+		return;
+	}
+
 	playing = false;
 
 	for (int i = 0; i < objects.size(); i++)

@@ -1,6 +1,11 @@
 #include "hovertank.h"
 #include "Services/Controls/Controls.h"
 
+CLASSDECLDECL(SceneObject, HoverTank)
+
+META_DATA_DESC(HoverTank)
+META_DATA_DESC_END()
+
 using namespace physx;
 
 PxFoundation*							mFoundation;
@@ -9,7 +14,7 @@ PxCooking* mCooking;
 PxScene*								mScene;
 
 PxRigidDynamic* box;
-PxShape** shapes;
+PxHeightField*  heightField;
 
 PxDefaultErrorCallback gDefaultErrorCallback;
 PxDefaultAllocator gDefaultAllocatorCallback;
@@ -24,14 +29,53 @@ float HoverTank::Projectile::speed = 50.0f;
 float HoverTank::Projectile::splashTime = 0.35f;
 float HoverTank::Projectile::splashMaxRadius = 5.0f;
 
-void HoverTank::Init(Terrain* set_terrain)
+void HoverTank::Init()
 {
-	terrain = set_terrain;
-
 	mFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, tolerancesScale, true);
 
 	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(tolerancesScale));
+
+	alias_forward = controls.GetAlias("MOVE_FORWARD");
+	alias_strafe = controls.GetAlias("MOVE_STRAFE");
+	alias_fast = controls.GetAlias("MOVE_FAST");
+	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
+	alias_rotate_x = controls.GetAlias("ROTATE_X");
+	alias_rotate_y = controls.GetAlias("ROTATE_Y");
+
+	hover_model.LoadModelMS3D("Media//hover.ms3d");
+
+	hover_drawer = new Model::Drawer;
+	hover_drawer->Init(&hover_model, RenderTasks());
+
+	Vector4 color(0.0f, 1.0f, 1.0f);
+	hover_drawer->SetColor(color);
+
+	tower_model.LoadModelMS3D("Media//tower.ms3d");
+
+	tower_drawer = new Model::Drawer;
+	tower_drawer->Init(&tower_model, RenderTasks());
+
+	tower_drawer->SetColor(color);
+
+	gun_model.LoadModelMS3D("Media//gun.ms3d");
+
+	gun_drawer = new Model::Drawer;
+	gun_drawer->Init(&gun_model, RenderTasks());
+
+	gun_drawer->SetColor(color);
+
+	Tasks()->AddTask(0, this, (Object::Delegate)&HoverTank::Update);
+}
+
+void HoverTank::Play()
+{
+	Scene::Group& group = owner->GetGroup("Terrain");
+
+	if (group.objects.size() > 0)
+	{
+		terrain = (Terrain*)group.objects[0];
+	}
 
 	PxTolerancesScale scl = mPhysics->getTolerancesScale();
 	PxSceneDesc sceneDesc(mPhysics->getTolerancesScale());
@@ -44,34 +88,30 @@ void HoverTank::Init(Terrain* set_terrain)
 	}
 
 	if (!sceneDesc.filterShader)
+	{
 		sceneDesc.filterShader = gDefaultFilterShader;
+	}
 
 	mScene = mPhysics->createScene(sceneDesc);
 
 	//mScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
-	//mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_DYNAMIC, 1.0f);
+	//mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_STATIC, 1.0f);
 
 	PxMaterial* mMaterial = mPhysics->createMaterial(0.5, 0.5, 0.95);
 
-	/*PxReal d = 0.0f;
-	PxTransform pose = PxTransform(PxVec3(0.0f, 5.0f, 0.0f), PxQuat(PxHalfPi, PxVec3(0.0f, 0.0f, 1.0f)));
-	PxRigidStatic* plane = mPhysics->createRigidStatic(pose);
-
-	PxShape* shape = plane->createShape(PxPlaneGeometry(), *mMaterial);
-	mScene->addActor(*plane);*/
-
 	PxReal density = 1.0f;
-	PxTransform transform(PxVec3(0.0f, 20.0f, 0.0f), PxQuat(PxIdentity));
+
+	Quaternion q(transform);
+
+	PxTransform trans(PxVec3(transform.Pos().x, transform.Pos().y, transform.Pos().z), PxQuat(q.x, q.y, q.z, q.w));
 	PxVec3 dimensions(1.5, 0.5, 1.0);
 	PxBoxGeometry geometry(dimensions);
 
-	PxRigidDynamic *actor = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
-	actor->setAngularDamping(5.75f);
-	actor->setLinearDamping(1.25f);
-	actor->setLinearVelocity(PxVec3(0, 0, 0));
-	mScene->addActor(*actor);
-
-	box = actor;
+	box = PxCreateDynamic(*mPhysics, trans, geometry, *mMaterial, density);
+	box->setAngularDamping(5.75f);
+	box->setLinearDamping(1.25f);
+	box->setLinearVelocity(PxVec3(0, 0, 0));
+	mScene->addActor(*box);
 
 	hsamples = new PxHeightFieldSample[terrain->hwidth * terrain->hheight];
 
@@ -91,7 +131,7 @@ void HoverTank::Init(Terrain* set_terrain)
 	heightFieldDesc.samples.data = hsamples;
 	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
 
-	PxHeightField* heightField = mCooking->createHeightField(heightFieldDesc, mPhysics->getPhysicsInsertionCallback());
+	heightField = mCooking->createHeightField(heightFieldDesc, mPhysics->getPhysicsInsertionCallback());
 
 	PxTransform pose = PxTransform(PxVec3(-terrain->hwidth * 0.5f * terrain->scaleh, 0.0f, -terrain->hheight * 0.5f * terrain->scaleh), PxQuat(PxIdentity));
 
@@ -103,68 +143,74 @@ void HoverTank::Init(Terrain* set_terrain)
 	PxShape* hfShape = hf->createShape(hfGeom, *mMat);
 	mScene->addActor(*hf);
 
-
-	PxU32 nShapes = actor->getNbShapes();
-	shapes = new PxShape*[nShapes];
-
-	actor->getShapes(shapes, nShapes);
-
 	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
 
 	angles = Vector2(0.0f, 0.0f);
 
-	hover_model.LoadModelMS3D("Media//hover.ms3d");
+	Scene::Group& bgroup = owner->GetGroup("PhysBox");
+	boxes.resize(bgroup.objects.size());
 
-	hover_drawer = new Model::Drawer;
-	hover_drawer->Init(&hover_model);
-
-	Vector4 color(0.0f, 1.0f, 1.0f);
-	hover_drawer->SetColor(color);
-
-	tower_model.LoadModelMS3D("Media//tower.ms3d");
-
-	tower_drawer = new Model::Drawer;
-	tower_drawer->Init(&tower_model);
-
-	tower_drawer->SetColor(color);
-
-	gun_model.LoadModelMS3D("Media//gun.ms3d");
-
-	gun_drawer = new Model::Drawer;
-	gun_drawer->Init(&gun_model);
-
-	gun_drawer->SetColor(color);
-
-	int num_boxes = 15;
-	boxes.resize(num_boxes);
-
-	for (int i = 0; i < num_boxes; i++)
+	for (int i = 0; i < bgroup.objects.size(); i++)
 	{
-		boxes[i].size = Vector(rnd_range(1.0f, 3.0f), rnd_range(1.0f, 3.0f), rnd_range(1.0f, 3.0f));
+		boxes[i].obj = (PhysBox*)bgroup.objects[i];
 
 		PxReal density = 1.0f;
-		PxTransform transform(PxVec3(rnd_range(-40.0f, 40.0f), rnd_range(20.0f, 25.0f), rnd_range(-40.0f, 40.0f)), PxQuat(PxIdentity));
-		PxVec3 dimensions(boxes[i].size.x * 0.5f, boxes[i].size.y * 0.5f, boxes[i].size.z * 0.5f);
+
+		Quaternion q(boxes[i].obj->Trans());
+
+		PxTransform transform(PxVec3(boxes[i].obj->Trans().Pos().x, boxes[i].obj->Trans().Pos().y, boxes[i].obj->Trans().Pos().z), PxQuat(q.x, q.y, q.z, q.w));
+
+		PxVec3 dimensions(boxes[i].obj->sizeX * 0.5f, boxes[i].obj->sizeY * 0.5f, boxes[i].obj->sizeZ * 0.5f);
 		PxBoxGeometry geometry(dimensions);
 
-		boxes[i].box = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
-		boxes[i].box->setLinearVelocity(PxVec3(0, 0, 0));
-		mScene->addActor(*boxes[i].box);
-	}
+		if (boxes[i].obj->isStatic)
+		{
+			PxRigidStatic* plane = mPhysics->createRigidStatic(transform);
+			PxShape* shape = plane->createShape(geometry, *mMaterial);
+			mScene->addActor(*plane);
 
+			boxes[i].box = NULL;
+		}
+		else
+		{
+			boxes[i].box = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
+			boxes[i].box->setLinearVelocity(PxVec3(0, 0, 0));
+			mScene->addActor(*boxes[i].box);
+		}
+	}
 
 	move_speed = 0.0f;
 	strafe_speed = 0.0f;
+}
 
-	//render.AddDelegate("camera", this, (Object::Delegate)&HoverTank::Update, 0);
+void HoverTank::Stop()
+{
+	mScene->release();
+
+	boxes.clear();
+
+	heightField->release();
+
+	delete[] hsamples;
+
+	projectiles.clear();
 }
 
 void HoverTank::Update(float dt)
 {
-	if (controls.GetAliasState(1001, false, Controls::Active))
+	if (!Playing())
 	{
-		angles.x -= controls.GetAliasValue(1500, true) * 0.01f;
-		angles.y -= controls.GetAliasValue(1501, true) * 0.01f;
+		hover_drawer->SetTransform(transform);
+		tower_drawer->SetTransform(transform);
+		gun_drawer->SetTransform(transform);
+
+		return;
+	}
+
+	if (controls.GetAliasState(alias_rotate_active, false, Controls::Active))
+	{
+		angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
+		angles.y -= controls.GetAliasValue(alias_rotate_y, true) * 0.01f;
 
 		if (angles.y > HALF_PI)
 		{
@@ -202,14 +248,10 @@ void HoverTank::Update(float dt)
 		const PxDebugLine& line = rb.getLines()[i];
 		render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
 						 Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
-
-		if (i > 50) break;
 	}
 
+	PxTransform pT = box->getGlobalPose();
 
-	PxTransform pT = PxShapeExt::getGlobalPose(*shapes[0], *box);
-	PxBoxGeometry bg;
-	shapes[0]->getBoxGeometry(bg);
 	PxMat33 m = PxMat33(pT.q);
 	mat.Identity();
 	mat.Vx() = Vector(m.column0.x, m.column0.y,m.column0.z);
@@ -231,7 +273,7 @@ void HoverTank::Update(float dt)
 	dir.y = 0;
 	dir.Normalize();
 
-	if (controls.GetAliasState(DIK_W, false, Controls::Active))
+	if (controls.DebugKeyPressed("KEY_W", Controls::Active))
 	{
 		move_speed += 200 * dt;
 
@@ -241,7 +283,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 	else
-	if (controls.GetAliasState(DIK_S, false, Controls::Active))
+	if (controls.DebugKeyPressed("KEY_S", Controls::Active))
 	{
 		move_speed -= 150 * dt;
 
@@ -273,7 +315,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 
-	if (controls.GetAliasState(DIK_D, false, Controls::Active))
+	if (controls.DebugKeyPressed("KEY_D", Controls::Active))
 	{
 		strafe_speed += 75 * dt;
 
@@ -283,7 +325,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 	else
-	if (controls.GetAliasState(DIK_A, false, Controls::Active))
+	if (controls.DebugKeyPressed("KEY_A", Controls::Active))
 	{
 		strafe_speed -= 75 * dt;
 
@@ -332,9 +374,12 @@ void HoverTank::Update(float dt)
 
 	for (int i = 0; i < boxes.size(); i++)
 	{
+		if (!boxes[i].box)
+		{
+			continue;
+		}
+
 		PxTransform pT = boxes[i].box->getGlobalPose();
-		PxBoxGeometry bg;
-		shapes[0]->getBoxGeometry(bg);
 		PxMat33 m = PxMat33(pT.q);
 
 		Matrix mat;
@@ -344,9 +389,7 @@ void HoverTank::Update(float dt)
 
 		mat.Pos() = Vector(pT.p.x, pT.p.y, pT.p.z);
 
-		render.DebugBox(mat, COLOR_YELLOW, Vector(3.0, 1.0, 2.0f));
-
-		boxes[i].pos = mat.Pos();
+		boxes[i].obj->Trans() = mat;
 	}
 
 	for (int i = 0; i < projectiles.size(); i++)
@@ -403,7 +446,7 @@ void HoverTank::Update(float dt)
 		render.DebugSphere(proj.pos, COLOR_RED, r);
 	}
 
-	if (controls.GetAliasState(DIK_F, false, Controls::Activated))
+	if (controls.DebugKeyPressed("MS_BTN0"))
 	{
 		projectiles.push_back(Projectile());
 		Projectile& proj = projectiles[projectiles.size() - 1];
@@ -419,7 +462,12 @@ void HoverTank::AddSplash(Vector& pos, float radius, float force)
 {
 	for (int i = 0; i < boxes.size(); i++)
 	{
-		Vector dir = boxes[i].pos - pos;
+		if (!boxes[i].box)
+		{
+			continue;
+		}
+
+		Vector dir = boxes[i].obj->Trans().Pos() - pos;
 		float len = dir.Normalize();
 
 		if (len < radius)

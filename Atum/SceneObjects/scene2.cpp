@@ -14,7 +14,7 @@ void Scene2::Init()
 
 	//terrain.Init(Vector2(0.5f, 0.1f), "Media//terrain_c.tga", "Media//terrain_h.tga");
 
-	hoverTank.Init(&terrain);
+	//hoverTank.Init(&terrain);
 
 	num_drawers = 15;
 	model_drawers = new Model::Drawer[num_drawers];

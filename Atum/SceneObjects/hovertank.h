@@ -1,15 +1,21 @@
 
 #pragma once
 
-#include "Services/Render/Render.h"
 #include "model.h"
 #include "Terrain.h"
+#include "PhysBox.h"
 
 #include "PxPhysicsAPI.h"
 
-class HoverTank : public Object
+#include "Services/Render/Render.h"
+#include "Services/Scene/SceneObject.h"
+
+class HoverTank : public SceneObject
 {
 public:
+
+	META_DATA_DECL(HoverTank)
+	CLASSDECLDIF(SceneObject, HoverTank)
 
 	struct Projectile
 	{
@@ -30,8 +36,7 @@ public:
 	struct Box
 	{
 		physx::PxRigidDynamic* box;
-		Vector                 size;
-		Vector                 pos;
+		PhysBox*               obj;
 	};
 
 	std::vector<Box> boxes;
@@ -41,6 +46,13 @@ public:
 	Matrix  proj;
 	float   move_speed;
 	float   strafe_speed;
+
+	int alias_forward;
+	int alias_strafe;
+	int alias_fast;
+	int alias_rotate_active;
+	int alias_rotate_x;
+	int alias_rotate_y;
 
 	Terrain* terrain;
 
@@ -53,8 +65,10 @@ public:
 	Model gun_model;
 	Model::Drawer* gun_drawer;
 
-	void Init(Terrain* set_terrain);
+	void Init();
 
+	void Play();
+	void Stop();
 	void Update(float dt);
 	void AddHover(Matrix& mat, Vector offset);
 	void AddSplash(Vector& pos, float radius, float force);

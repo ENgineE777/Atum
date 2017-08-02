@@ -26,7 +26,7 @@ public:
 	
 	Quaternion(float qx, float qy, float qz, float qw);
 	
-	Quaternion(const Matrix& mtx);	
+	Quaternion(const Matrix& mtx);
 	
 public:
 	

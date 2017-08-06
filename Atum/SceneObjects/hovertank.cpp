@@ -234,11 +234,11 @@ void HoverTank::Update(float dt)
 
 	if (dt > 0)
 	{
-		mScene->simulate(dt);
+		mScene->simulate(fmin(dt, 0.075f));
 
 		while (!mScene->fetchResults())
 		{
-			// do something useful        
+			// do something useful
 		}
 	}
 

@@ -25,8 +25,6 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 
 	D3D11_TEXTURE2D_DESC desc;
 
-	l = 1;
-
 	desc.Width = width;
 	desc.Height = height;
 	desc.MipLevels = l;
@@ -35,13 +33,13 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 
-	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.Usage = D3D11_USAGE_DEFAULT;
 
 
-	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;// | D3D11_BIND_RENDER_TARGET;
+	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 
-	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	desc.MiscFlags = 0;// D3D11_RESOURCE_MISC_GENERATE_MIPS;
+	desc.CPUAccessFlags = 0;// D3D11_CPU_ACCESS_WRITE;
+	desc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
 	if (fmt == DXGI_FORMAT_R16_TYPELESS)
 	{
@@ -52,13 +50,13 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 		desc.MiscFlags = 0;
 	}
 
-	HRESULT hr = DeviceDX11::instance->pd3dDevice->CreateTexture2D(&desc, NULL, &texture);
+	DeviceDX11::instance->pd3dDevice->CreateTexture2D(&desc, NULL, &texture);
 
-	/*if (l == 0)
+	if (l == 0)
 	{
 		texture->GetDesc(&desc);
 		l = desc.MipLevels;
-	}*/
+	}
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 

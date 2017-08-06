@@ -13,18 +13,21 @@ public:
 		Model* res;
 		Matrix world;
 		Vector4 color;
+		bool    show;
 
 	public:
 		Drawer()
 		{
 			res = NULL;
 			color = 1.0f;
+			show = true;
 		};
 
 		void Init(Model* model, TaskExecutor::SingleTaskPool* taskPool);
 		void SetColor(Vector4& color);
 		void SetPosition(Vector2 pos);
 		void SetTransform(Matrix& mat);
+		void Show(bool set);
 
 		void Render(float dt);
 		void ShRender(float dt);

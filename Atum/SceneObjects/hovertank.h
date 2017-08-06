@@ -54,6 +54,10 @@ public:
 	int alias_rotate_x;
 	int alias_rotate_y;
 
+	float physStep = 1.0f / 60.0f;
+	float accum_dt;
+	bool  showDebug;
+
 	Terrain* terrain;
 
 	Model hover_model;

@@ -34,6 +34,11 @@ void Model::Drawer::SetTransform(Matrix& mat)
 	world = mat;
 }
 
+void Model::Drawer::Show(bool set)
+{
+	show = set;
+}
+
 void Model::Drawer::Render(float dt)
 {
 	Render(Programs::prg);
@@ -46,6 +51,11 @@ void Model::Drawer::ShRender(float dt)
 
 void Model::Drawer::Render(Program* prg)
 {
+	if (!show)
+	{
+		return;
+	}
+
 	Matrix trans;
 	render.GetTransform(Render::WrldViewProj, trans);
 

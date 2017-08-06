@@ -143,8 +143,6 @@ void HoverTank::Play()
 	PxShape* hfShape = hf->createShape(hfGeom, *mMat);
 	mScene->addActor(*hf);
 
-	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
-
 	angles = Vector2(0.0f, 0.0f);
 
 	Scene::Group& bgroup = owner->GetGroup("PhysBox");
@@ -181,6 +179,9 @@ void HoverTank::Play()
 
 	move_speed = 0.0f;
 	strafe_speed = 0.0f;
+
+	accum_dt = 0.0f;
+	showDebug = false;
 }
 
 void HoverTank::Stop()
@@ -194,6 +195,10 @@ void HoverTank::Stop()
 	delete[] hsamples;
 
 	projectiles.clear();
+
+	hover_drawer->Show(true);
+	tower_drawer->Show(true);
+	gun_drawer->Show(true);
 }
 
 void HoverTank::Update(float dt)
@@ -229,16 +234,26 @@ void HoverTank::Update(float dt)
 
 	Matrix mat;
 
-	render.SetTransform(Render::View, view);
-	render.SetTransform(Render::Projection, proj);
+	accum_dt += dt;
 
-	if (dt > 0)
+	int count = 0;
+
+	while (accum_dt > physStep)
 	{
-		mScene->simulate(fmin(dt, 0.075f));
+		mScene->simulate(fmin(dt, physStep));
 
 		while (!mScene->fetchResults())
 		{
 			// do something useful
+		}
+
+		accum_dt -= physStep;
+
+		count++;
+
+		if (count > 10)
+		{
+			break;
 		}
 	}
 
@@ -260,18 +275,28 @@ void HoverTank::Update(float dt)
 
 	mat.Pos() = Vector(pT.p.x, pT.p.y, pT.p.z);
 
-	//render.DebugBox(mat, COLOR_YELLOW, Vector(3.0, 1.0, 2.0f));
-
 	AddHover(mat, -mat.Vy() * 0.5001f + mat.Vx() * 1.5f + mat.Vz());
 	AddHover(mat, -mat.Vy() * 0.5001f + mat.Vx() * 1.5f - mat.Vz());
 	AddHover(mat, -mat.Vy() * 0.5001f - mat.Vx() * 1.5f + mat.Vz());
 	AddHover(mat, -mat.Vy() * 0.5001f - mat.Vx() * 1.5f - mat.Vz());
 
 	view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 15, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
+	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
+
+	render.SetTransform(Render::View, view);
+	render.SetTransform(Render::Projection, proj);
 
 	dir = mat.Vx();
 	dir.y = 0;
 	dir.Normalize();
+
+	if (controls.DebugKeyPressed("KEY_G"))
+	{
+		showDebug = !showDebug;
+		hover_drawer->Show(!showDebug);
+		tower_drawer->Show(!showDebug);
+		gun_drawer->Show(!showDebug);
+	}
 
 	if (controls.DebugKeyPressed("KEY_W", Controls::Active))
 	{
@@ -360,17 +385,23 @@ void HoverTank::Update(float dt)
 	box->addForce(PxVec3(dir.x * move_speed, 0.0f, dir.z * move_speed), PxForceMode::eFORCE, true);
 	box->addTorque(PxVec3(0, strafe_speed, -0), PxForceMode::eFORCE, true);
 
-	mat.Pos().y -= 1.0f;
-	hover_drawer->SetTransform(mat);
+	if (showDebug)
+	{
+		render.DebugBox(mat, COLOR_YELLOW, Vector(3.0, 1.0, 2.0f));
+	}
+	else
+	{
+		mat.Pos() -= mat.Vy();
+		hover_drawer->SetTransform(mat);
 
-	mat = Matrix().RotateZ(angles.y) * Matrix().RotateY(-angles.x) * Matrix().Move(hover_model.locator + mat.Pos());// *mat;
-	tower_drawer->SetTransform(mat);
+		mat = Matrix().RotateZ(angles.y) * Matrix().RotateY(-angles.x) * Matrix().Move(hover_model.locator + mat.Pos());// *mat;
+		tower_drawer->SetTransform(mat);
 
-	mat = Matrix().Move(tower_model.locator) * mat;
-	gun_drawer->SetTransform(mat);
+		mat = Matrix().Move(tower_model.locator) * mat;
+		gun_drawer->SetTransform(mat);
 
-	mat = Matrix().Move(gun_model.locator) * mat;
-	//render.DebugSphere(mat.Pos(), COLOR_MAGNETA, 1.0f);
+		mat = Matrix().Move(gun_model.locator) * mat;
+	}
 
 	for (int i = 0; i < boxes.size(); i++)
 	{
@@ -494,7 +525,10 @@ void HoverTank::AddHover(Matrix& mat, Vector offset)
 
 		float k = 1.0f - (org - hit_pos).Length() / len;
 
-		//render.DebugLine(org, COLOR_RED, org - Vector(0, len, 0.0f) * (1 - k), COLOR_RED, false);
+		if (showDebug)
+		{
+			render.DebugLine(org, COLOR_RED, org - Vector(0, len, 0.0f) * (1 - k), COLOR_RED, false);
+		}
 
 		PxRigidBodyExt::addForceAtPos(*box, hit.block.normal * k * 85,
 									  hit.block.position, PxForceMode::eFORCE, true);

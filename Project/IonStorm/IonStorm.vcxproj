@@ -193,12 +193,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;PLATFORM_PC</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>D:\Work\PhysX-3.4\PhysX_3.4\Include;D:\Work\PhysX-3.4\PxShared\Include;..\..\..\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\..\EUI\lib\EUI_DEBUGx86.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3DEBUG_x86.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3CommonDEBUG_x86.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3ExtensionsDEBUG.lib;D:\Work\PhysX-3.4\PhysX_3.4\Lib\vc14win32\PhysX3CookingDEBUG_x86.lib;D:\Work\PhysX-3.4\PxShared\Lib\vc14win32\PxFoundationDEBUG_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3DEBUG_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3CommonDEBUG_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3CookingDEBUG_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PxFoundationDEBUG_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../Bin/$(TargetName)_debug$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -214,6 +214,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Common_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Cooking_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PxFoundationDEBUG_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -224,8 +225,8 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;PLATFORM_PC</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -233,7 +234,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>../../bin/$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Common_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Cooking_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PxFoundation_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

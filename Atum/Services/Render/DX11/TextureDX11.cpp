@@ -38,7 +38,7 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 
-	desc.CPUAccessFlags = 0;// D3D11_CPU_ACCESS_WRITE;
+	desc.CPUAccessFlags = 0;
 	desc.MiscFlags = D3D11_RESOURCE_MISC_GENERATE_MIPS;
 
 	if (fmt == DXGI_FORMAT_R16_TYPELESS)

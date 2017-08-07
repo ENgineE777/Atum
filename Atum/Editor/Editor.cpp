@@ -251,7 +251,6 @@ void Editor::Init()
 	renderTaskPool = render.AddTaskPool();
 	renderTaskPool->AddTask(1, this, (Object::Delegate)&Editor::Draw);
 
-	Timer::Init();
 	freecamera.Init();
 	scene.Init();
 
@@ -263,8 +262,6 @@ void Editor::Init()
 
 int Editor::Run()
 {
-	prev_t = Timer::GetMillisFloat();
-
 	return EUI::Run();
 }
 
@@ -396,9 +393,7 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 
 void Editor::Update()
 {
-	float t = Timer::GetMillisFloat();
-	float dt = (t - prev_t) * 0.001f;
-	prev_t = t;
+	float dt = Timer::CountDeltaTime();
 
 	if (!scene.Playing())
 	{

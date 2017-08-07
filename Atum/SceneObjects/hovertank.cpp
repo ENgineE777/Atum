@@ -236,7 +236,10 @@ void HoverTank::Update(float dt)
 
 	accum_dt += dt;
 
-	int count = 0;
+	if (accum_dt > 0.5f)
+	{
+		accum_dt = 0.5f;
+	}
 
 	while (accum_dt > physStep)
 	{
@@ -248,13 +251,6 @@ void HoverTank::Update(float dt)
 		}
 
 		accum_dt -= physStep;
-
-		count++;
-
-		if (count > 10)
-		{
-			break;
-		}
 	}
 
 	const PxRenderBuffer& rb = mScene->getRenderBuffer();

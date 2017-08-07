@@ -54,7 +54,6 @@ class Editor : public Object
 
 	FreeCamera freecamera;
 	Listener   listener;
-	float      prev_t;
 	bool       gizmoMove;
 	bool       gizmoGlobal;
 

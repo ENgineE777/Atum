@@ -26,6 +26,8 @@
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\model.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\PathFinder\AStar.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\PathFinder\PathFinder.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\PhysBox.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\plane.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp" />
@@ -70,6 +72,9 @@
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\model.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\AStar.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\PathFinder.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\Vec2.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\PhysBox.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\plane.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\programs.h" />

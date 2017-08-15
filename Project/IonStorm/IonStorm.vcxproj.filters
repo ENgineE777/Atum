@@ -40,6 +40,9 @@
     <Filter Include="Services\TaskExecutor">
       <UniqueIdentifier>{57c7a380-4755-4bd2-b6a5-2bec53ce5d8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneObjects\PathFinder">
+      <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -168,6 +171,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\PhysBox.cpp">
       <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\PathFinder\PathFinder.cpp">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\PathFinder\AStar.cpp">
+      <Filter>SceneObjects\PathFinder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +350,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\PhysBox.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\AStar.h">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\PathFinder.h">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\Vec2.h">
+      <Filter>SceneObjects\PathFinder</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

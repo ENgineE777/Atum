@@ -33,6 +33,7 @@
     <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\scene2.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\tank.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp" />
     <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
@@ -80,6 +81,7 @@
     <ClInclude Include="..\..\Atum\SceneObjects\programs.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\quad.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\scene2.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\tank.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\terrain.h" />
     <ClInclude Include="..\..\Atum\Services\Controls\Controls.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\Debug.h" />
@@ -219,7 +221,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../Bin/$(TargetName)_debugx64$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -259,7 +261,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>../../Bin/$(TargetName)x64$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

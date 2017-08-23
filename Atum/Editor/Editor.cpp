@@ -429,7 +429,9 @@ void Editor::StartScene()
 	gameWnd = new EUIWindow("Game", false, true, 0, 0, 800, 600);
 	gameWnd->SetListener(&listener, 0);
 	
-	EUIPanel* pn = new EUIPanel(gameWnd, 0, 0, 800, 600);
+	EUILayout* lt = new EUILayout(gameWnd, false);
+
+	EUIPanel* pn = new EUIPanel(lt, 0, 0, 800, 600);
 	pn->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 	pn->SetID(GameViewportID);
 

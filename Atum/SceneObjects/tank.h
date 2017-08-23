@@ -1,0 +1,78 @@
+
+#pragma once
+
+#include "model.h"
+#include "Terrain.h"
+#include "PhysBox.h"
+
+#include "PxPhysicsAPI.h"
+
+#include "Services/Render/Render.h"
+#include "Services/Scene/SceneObject.h"
+
+class Tank : public SceneObject
+{
+public:
+
+	META_DATA_DECL(Tank)
+	CLASSDECLDIF(SceneObject, Tank)
+
+	struct Projectile
+	{
+		static float maxTimeLife;
+		static float speed;
+		static float splashTime;
+		static float splashMaxRadius;
+
+		Vector pos;
+		Vector dir;
+		int    stage;
+		float  lifetime;
+		int    state;
+	};
+
+	std::vector<Projectile> projectiles;
+
+	struct Box
+	{
+		physx::PxRigidDynamic* box;
+		PhysBox*               obj;
+	};
+
+	std::vector<Box> boxes;
+
+	Vector  angles;
+	Matrix  view;
+	Matrix  proj;
+	float   move_speed;
+	float   strafe_speed;
+
+	int alias_forward;
+	int alias_strafe;
+	int alias_fast;
+	int alias_rotate_active;
+	int alias_rotate_x;
+	int alias_rotate_y;
+
+	float physStep = 1.0f / 60.0f;
+	float accum_dt;
+	bool  showDebug;
+
+	Terrain* terrain;
+
+	Model hover_model;
+	Model::Drawer* hover_drawer;
+
+	Model tower_model;
+	Model::Drawer* tower_drawer;
+
+	Model gun_model;
+	Model::Drawer* gun_drawer;
+
+	void Init();
+
+	void Play();
+	void Stop();
+	void Update(float dt);
+	void AddSplash(Vector& pos, float radius, float force);
+};

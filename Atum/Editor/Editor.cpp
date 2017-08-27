@@ -1,5 +1,6 @@
 
 #include "Editor.h"
+#include "Services/Physics/Physics.h"
 
 Editor::Listener::Listener(Editor* set_owner)
 {
@@ -251,6 +252,8 @@ void Editor::Init()
 	renderTaskPool = render.AddTaskPool();
 	renderTaskPool->AddTask(1, this, (Object::Delegate)&Editor::Draw);
 
+	physics.Init();
+
 	freecamera.Init();
 	scene.Init();
 
@@ -414,6 +417,8 @@ void Editor::Update()
 			selectedObject->ApplyProperties();
 		}
 	}
+
+	physics.Update(dt);
 
 	scene.Execute(dt);
 

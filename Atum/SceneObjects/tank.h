@@ -5,7 +5,7 @@
 #include "Terrain.h"
 #include "PhysBox.h"
 
-#include "PxPhysicsAPI.h"
+#include "Services/Physics/Physics.h"
 
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"
@@ -54,8 +54,6 @@ public:
 	int alias_rotate_x;
 	int alias_rotate_y;
 
-	float physStep = 1.0f / 60.0f;
-	float accum_dt;
 	bool  showDebug;
 
 	Terrain* terrain;
@@ -68,6 +66,13 @@ public:
 
 	Model gun_model;
 	Model::Drawer* gun_drawer;
+
+	PxController* controller;
+
+	PxHeightField*  heightField;
+	PxHeightFieldSample* hsamples;
+
+	PhysScene* pscene;
 
 	void Init();
 

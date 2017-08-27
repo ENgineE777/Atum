@@ -6,25 +6,6 @@ CLASSDECLDECL(SceneObject, Tank)
 META_DATA_DESC(Tank)
 META_DATA_DESC_END()
 
-using namespace physx;
-
-extern PxFoundation*							mFoundation;
-extern PxPhysics*								mPhysics;
-extern PxCooking* mCooking;
-extern PxScene*								mScene;
-
-extern PxHeightField*  heightField;
-
-extern PxDefaultErrorCallback gDefaultErrorCallback;
-extern PxDefaultAllocator gDefaultAllocatorCallback;
-extern PxTolerancesScale tolerancesScale;
-extern PxSimulationFilterShader gDefaultFilterShader;
-
-PxControllerManager* manager;
-PxController* controller;
-
-extern PxHeightFieldSample* hsamples;
-
 float Tank::Projectile::maxTimeLife = 4.0f;
 float Tank::Projectile::speed = 50.0f;
 float Tank::Projectile::splashTime = 0.35f;
@@ -32,11 +13,6 @@ float Tank::Projectile::splashMaxRadius = 5.0f;
 
 void Tank::Init()
 {
-	mFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
-	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, tolerancesScale, true);
-
-	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(tolerancesScale));
-
 	alias_forward = controls.GetAlias("MOVE_FORWARD");
 	alias_strafe = controls.GetAlias("MOVE_STRAFE");
 	alias_fast = controls.GetAlias("MOVE_FAST");
@@ -78,29 +54,12 @@ void Tank::Play()
 		terrain = (Terrain*)group.objects[0];
 	}
 
-	PxTolerancesScale scl = mPhysics->getTolerancesScale();
-	PxSceneDesc sceneDesc(mPhysics->getTolerancesScale());
-	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
-
-	if (!sceneDesc.cpuDispatcher)
-	{
-		PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
-		sceneDesc.cpuDispatcher = mCpuDispatcher;
-	}
-
-	if (!sceneDesc.filterShader)
-	{
-		sceneDesc.filterShader = gDefaultFilterShader;
-	}
-
-	mScene = mPhysics->createScene(sceneDesc);
-
-	manager = PxCreateControllerManager(*mScene);
+	pscene = physics.CreateScene();
 
 	//mScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
 	//mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_STATIC, 1.0f);
 
-	PxMaterial* mMaterial = mPhysics->createMaterial(0.5, 0.5, 0.95);
+	PxMaterial* mMaterial = physics.physics->createMaterial(0.5, 0.5, 0.95);
 
 	PxCapsuleControllerDesc desc;
 	desc.height = 1.0f;
@@ -115,7 +74,7 @@ void Tank::Play()
 	desc.material = mMaterial;
 
 
-	controller = manager->createController(desc);
+	controller = pscene->manager->createController(desc);
 
 	hsamples = new PxHeightFieldSample[terrain->hwidth * terrain->hheight];
 
@@ -135,17 +94,17 @@ void Tank::Play()
 	heightFieldDesc.samples.data = hsamples;
 	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
 
-	heightField = mCooking->createHeightField(heightFieldDesc, mPhysics->getPhysicsInsertionCallback());
+	heightField = physics.cooking->createHeightField(heightFieldDesc, physics.physics->getPhysicsInsertionCallback());
 
 	PxTransform pose = PxTransform(PxVec3(-terrain->hwidth * 0.5f * terrain->scaleh, 0.0f, -terrain->hheight * 0.5f * terrain->scaleh), PxQuat(PxIdentity));
 
-	PxRigidActor* hf = mPhysics->createRigidStatic(pose);
+	PxRigidActor* hf = physics.physics->createRigidStatic(pose);
 
-	const PxMaterial* mMat = mPhysics->createMaterial(0.9f, 0.9f, 0.001f);
+	const PxMaterial* mMat = physics.physics->createMaterial(0.9f, 0.9f, 0.001f);
 
 	PxHeightFieldGeometry hfGeom(heightField, PxMeshGeometryFlags(), terrain->scalev, terrain->scaleh, terrain->scaleh);
 	PxShape* hfShape = hf->createShape(hfGeom, *mMat);
-	mScene->addActor(*hf);
+	pscene->scene->addActor(*hf);
 
 	angles = Vector(0.0f);
 
@@ -167,30 +126,29 @@ void Tank::Play()
 
 		if (boxes[i].obj->isStatic)
 		{
-			PxRigidStatic* plane = mPhysics->createRigidStatic(transform);
+			PxRigidStatic* plane = physics.physics->createRigidStatic(transform);
 			PxShape* shape = plane->createShape(geometry, *mMaterial);
-			mScene->addActor(*plane);
+			pscene->scene->addActor(*plane);
 
 			boxes[i].box = NULL;
 		}
 		else
 		{
-			boxes[i].box = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
+			boxes[i].box = PxCreateDynamic(*physics.physics, transform, geometry, *mMaterial, density);
 			boxes[i].box->setLinearVelocity(PxVec3(0, 0, 0));
-			mScene->addActor(*boxes[i].box);
+			pscene->scene->addActor(*boxes[i].box);
 		}
 	}
 
 	move_speed = 0.0f;
 	strafe_speed = 0.0f;
 
-	accum_dt = 0.0f;
 	showDebug = false;
 }
 
 void Tank::Stop()
 {
-	mScene->release();
+	physics.DestroyScene(pscene);
 
 	boxes.clear();
 
@@ -207,11 +165,6 @@ void Tank::Stop()
 
 void Tank::Update(float dt)
 {
-	if (dt < 0.0001f)
-	{
-		return;
-	}
-
 	if (!Playing())
 	{
 		hover_drawer->SetTransform(transform);
@@ -243,26 +196,7 @@ void Tank::Update(float dt)
 
 	float speed = 25.0f;
 
-	accum_dt += dt;
-
-	if (accum_dt > 0.5f)
-	{
-		accum_dt = 0.5f;
-	}
-
-	while (accum_dt > physStep)
-	{
-		mScene->simulate(fmin(dt, physStep));
-
-		while (!mScene->fetchResults())
-		{
-			// do something useful
-		}
-
-		accum_dt -= physStep;
-	}
-
-	const PxRenderBuffer& rb = mScene->getRenderBuffer();
+	const PxRenderBuffer& rb = pscene->scene->getRenderBuffer();
 	for (PxU32 i = 0; i < rb.getNbLines(); i++)
 	{
 		const PxDebugLine& line = rb.getLines()[i];
@@ -313,7 +247,7 @@ void Tank::Update(float dt)
 		Vector screen = camPos + dir;
 		dir.Normalize();
 
-		if (mScene->raycast(PxVec3(camPos.x, camPos.y, camPos.z), PxVec3(dir.x, dir.y, dir.z), 500, hit))
+		if (pscene->scene->raycast(PxVec3(camPos.x, camPos.y, camPos.z), PxVec3(dir.x, dir.y, dir.z), 500, hit))
 		{
 			target_pt = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 			render.DebugSphere(target_pt, COLOR_RED, 0.5f);
@@ -430,7 +364,10 @@ void Tank::Update(float dt)
 	//box->addForce(PxVec3(dir.x * move_speed, 0.0f, dir.z * move_speed), PxForceMode::eFORCE, true);
 	//box->addTorque(PxVec3(0, strafe_speed, -0), PxForceMode::eFORCE, true);
 
-	const PxU32 flags = controller->move(PxVec3(dir.x * move_speed * dt,-9.8f* dt, dir.z * move_speed * dt), 0.01f, dt, PxControllerFilters(), NULL);
+	if (dt > 0.0001f)
+	{
+		const PxU32 flags = controller->move(PxVec3(dir.x * move_speed * dt, -9.8f* dt, dir.z * move_speed * dt), 0.01f, dt, PxControllerFilters(), NULL);
+	}
 
 	if (showDebug)
 	{
@@ -448,7 +385,7 @@ void Tank::Update(float dt)
 
 		Vector p1 = org + mat.Vx() * 1.75f;
 
-		if (mScene->raycast(PxVec3(p1.x, p1.y, p1.z), PxVec3(0, -1, 0), under + 2.0f, hit))
+		if (pscene->scene->raycast(PxVec3(p1.x, p1.y, p1.z), PxVec3(0, -1, 0), under + 2.0f, hit))
 		{
 			p1 = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 		}
@@ -459,7 +396,7 @@ void Tank::Update(float dt)
 
 		Vector p2 = org - mat.Vx() * 1.75f - mat.Vz();
 
-		if (mScene->raycast(PxVec3(p2.x, p2.y, p2.z), PxVec3(0, -1, 0), under + 2.0f, hit))
+		if (pscene->scene->raycast(PxVec3(p2.x, p2.y, p2.z), PxVec3(0, -1, 0), under + 2.0f, hit))
 		{
 			p2 = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 		}
@@ -470,7 +407,7 @@ void Tank::Update(float dt)
 
 		Vector p3 = org - mat.Vx() * 1.75f + mat.Vz();
 
-		if (mScene->raycast(PxVec3(p3.x, p3.y, p3.z), PxVec3(0, -1, 0), under + 2.0f, hit))
+		if (pscene->scene->raycast(PxVec3(p3.x, p3.y, p3.z), PxVec3(0, -1, 0), under + 2.0f, hit))
 		{
 			p3 = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 		}
@@ -542,7 +479,7 @@ void Tank::Update(float dt)
 	{
 		Projectile& proj = projectiles[i];
 
-		Vector delta = proj.dir * Projectile::speed * dt;
+		Vector delta = proj.dir * Projectile::speed * dt * 1.01f;
 
 		PxRaycastBuffer hit;
 
@@ -554,7 +491,7 @@ void Tank::Update(float dt)
 		{
 			if (proj.lifetime > 0.0f)
 			{
-				if (mScene->raycast(PxVec3(proj.pos.x, proj.pos.y, proj.pos.z), PxVec3(proj.dir.x, proj.dir.y, proj.dir.z), delta.Length(), hit))
+				if (pscene->scene->raycast(PxVec3(proj.pos.x, proj.pos.y, proj.pos.z), PxVec3(proj.dir.x, proj.dir.y, proj.dir.z), delta.Length(), hit))
 				{
 					proj.pos = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 

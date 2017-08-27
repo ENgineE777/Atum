@@ -36,6 +36,7 @@
     <ClCompile Include="..\..\Atum\SceneObjects\tank.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp" />
     <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Physics\Physics.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="..\..\Atum\SceneObjects\tank.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\terrain.h" />
     <ClInclude Include="..\..\Atum\Services\Controls\Controls.h" />
+    <ClInclude Include="..\..\Atum\Services\Physics\Physics.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\Debug.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugBoxes.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h" />

@@ -43,6 +43,9 @@
     <Filter Include="SceneObjects\PathFinder">
       <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services\Physics">
+      <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\tank.cpp">
       <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Physics\Physics.cpp">
+      <Filter>Services\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -365,6 +371,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\tank.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Physics\Physics.h">
+      <Filter>Services\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -72,6 +72,7 @@ void Tank::Play()
 
 	hm = pscene->CreateHeightmap(hdesc);
 
+	shoot_cooldown = 0.0f;
 	angles = Vector(0.0f);
 
 	Scene::Group& bgroup = owner->GetGroup("PhysBox");
@@ -369,6 +370,10 @@ void Tank::Update(float dt)
 		render.DebugSphere(p2, COLOR_RED, 0.5f);
 		render.DebugSphere(p3, COLOR_RED, 0.5f);
 
+		if (shoot_cooldown > 0.0f)
+		{
+			shoot_cooldown -= dt;
+		}
 
 		Matrix mdl = mat;
 		hover_drawer->SetTransform(mdl);
@@ -379,7 +384,7 @@ void Tank::Update(float dt)
 		mdl = Matrix().Move(tower_model.locator) * mdl;
 		gun_drawer->SetTransform(mdl);
 
-		if (controls.DebugKeyPressed("MS_BTN0"))
+		if (controls.DebugKeyPressed("MS_BTN0") && shoot_cooldown <= 0.0f)
 		{
 			mdl = Matrix().Move(gun_model.locator) * mdl;
 
@@ -391,6 +396,8 @@ void Tank::Update(float dt)
 			proj.dir.Normalize();
 			proj.lifetime = Projectile::maxTimeLife;
 			proj.state = 0;
+
+			shoot_cooldown = 1.5f;
 		}
 	}
 

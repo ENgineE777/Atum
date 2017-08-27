@@ -17,6 +17,8 @@ public:
 	META_DATA_DECL(Tank)
 	CLASSDECLDIF(SceneObject, Tank)
 
+	float shoot_cooldown;
+
 	struct Projectile
 	{
 		static float maxTimeLife;

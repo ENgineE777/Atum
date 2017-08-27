@@ -207,6 +207,11 @@ void Tank::Stop()
 
 void Tank::Update(float dt)
 {
+	if (dt < 0.0001f)
+	{
+		return;
+	}
+
 	if (!Playing())
 	{
 		hover_drawer->SetTransform(transform);

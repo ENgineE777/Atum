@@ -187,6 +187,18 @@
     <ClCompile Include="..\..\Atum\Services\Physics\Physics.cpp">
       <Filter>Services\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Physics\PhysObject.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Physics\PhysScene.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Physics\PhysController.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Physics\PhysHeightmap.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -373,6 +385,18 @@
       <Filter>SceneObjects</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Physics\Physics.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Physics\PhysController.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Physics\PhysHeightmap.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Physics\PhysObject.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Physics\PhysScene.h">
       <Filter>Services\Physics</Filter>
     </ClInclude>
   </ItemGroup>

@@ -425,6 +425,8 @@ void Editor::Update()
 	render.Execute(dt);
 
 	controls.Update(dt);
+
+	physics.Fetch();
 }
 
 void Editor::StartScene()

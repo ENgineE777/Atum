@@ -35,8 +35,8 @@ public:
 
 	struct Box
 	{
-		physx::PxRigidDynamic* box;
-		PhysBox*               obj;
+		PhysObject* obj;
+		PhysBox*    box;
 	};
 
 	std::vector<Box> boxes;
@@ -67,11 +67,8 @@ public:
 	Model gun_model;
 	Model::Drawer* gun_drawer;
 
-	PxController* controller;
-
-	PxHeightField*  heightField;
-	PxHeightFieldSample* hsamples;
-
+	PhysHeightmap*  hm;
+	PhysController* controller;
 	PhysScene* pscene;
 
 	void Init();

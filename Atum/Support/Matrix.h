@@ -431,7 +431,7 @@ inline bool Matrix::InverseComplette()
 
 	for (i = 0; i < 16; i++)
 	{
-		matrix[i] = inv[i] * det;
+		matrix[i] = (float)(inv[i] * det);
 	}
 
 	return true;

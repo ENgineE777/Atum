@@ -2,22 +2,6 @@
 
 Physics physics;
 
-void PhysScene::Simulate(float dt)
-{
-	scene->simulate(dt);
-}
-
-bool PhysScene::FetchResults()
-{
-	return scene->fetchResults();
-}
-
-void PhysScene::Release()
-{
-	scene->release();
-	delete this;
-}
-
 void Physics::Init()
 {
 	PxTolerancesScale tolerancesScale;
@@ -25,6 +9,8 @@ void Physics::Init()
 	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, defaultAllocatorCallback, defaultErrorCallback);
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, tolerancesScale, true);
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(tolerancesScale));
+
+	defMaterial = physics->createMaterial(0.5, 0.5, 0.95);
 }
 
 PhysScene* Physics::CreateScene()
@@ -36,14 +22,15 @@ PhysScene* Physics::CreateScene()
 
 	if (!sceneDesc.cpuDispatcher)
 	{
-		PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
-		sceneDesc.cpuDispatcher = mCpuDispatcher;
+		sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 	}
 
 	if (!sceneDesc.filterShader)
 	{
-		sceneDesc.filterShader = defaultFilterShader;
+		sceneDesc.filterShader = PxDefaultSimulationFilterShader;
 	}
+
+	sceneDesc.isValid();
 
 	scene->scene = physics->createScene(sceneDesc);
 	scene->manager = PxCreateControllerManager(*scene->scene);
@@ -78,12 +65,31 @@ void Physics::Update(float dt)
 	{
 		for (int i = 0; i < scenes.size(); i++)
 		{
-			if (scenes[i]->FetchResults())
+			PhysScene* scene = scenes[i];
+
+			if (!scene->needFetch)
 			{
-				scenes[i]->Simulate(physStep);
 			}
+			scenes[i]->Simulate(physStep);
+			scenes[i]->needFetch = true;
 		}
 
 		accum_dt -= physStep;
+	}
+}
+
+void Physics::Fetch()
+{
+	for (int i = 0; i < scenes.size(); i++)
+	{
+		PhysScene* scene = scenes[i];
+
+		if (!scene->needFetch)
+		{
+			continue;
+		}
+
+		scene->FetchResults();
+		scene->needFetch = false;
 	}
 }

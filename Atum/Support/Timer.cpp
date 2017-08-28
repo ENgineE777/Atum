@@ -16,7 +16,7 @@ float Timer::CountDeltaTime()
 {
 	double cur = GetTickCount() * 0.001;
 
-	if (lastTime < -0.5f)
+	if (lastTime < -0.5)
 	{
 		deltaTime = 0.0f;
 	}

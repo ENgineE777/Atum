@@ -1,7 +1,7 @@
 #include "Timer.h"
 #include "Services\Controls\Controls.h"
 
-float  Timer::lastTime = -1.0f;
+double Timer::lastTime = -1.0;
 float  Timer::deltaTime = 0.0f;
 int    Timer::lastFps = 0;
 int    Timer::curFps = 0;
@@ -14,7 +14,7 @@ char  Timer::stampStr[32] = "00:00 - ";
 
 float Timer::CountDeltaTime()
 {
-	float cur = 0.001f * GetTickCount();
+	double cur = GetTickCount() * 0.001;
 
 	if (lastTime < -0.5f)
 	{
@@ -22,7 +22,8 @@ float Timer::CountDeltaTime()
 	}
 	else
 	{
-		deltaTime = (cur - lastTime);
+		double delta = cur - lastTime;
+		deltaTime = (float)delta;
 	}
 
 	totalTime += deltaTime;

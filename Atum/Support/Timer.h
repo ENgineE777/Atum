@@ -5,7 +5,7 @@
 
 struct Timer
 {
-	static float  lastTime;
+	static double lastTime;
 	static float  deltaTime;
 	static int    lastFps;
 	static int    curFps;

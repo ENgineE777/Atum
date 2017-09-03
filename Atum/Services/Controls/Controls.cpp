@@ -86,7 +86,7 @@ bool Controls::Init(void* data, const char* name_haliases, const char* name_alia
 			reader->Read("name", halias.name);
 			reader->Read("index", halias.index);
 
-			debeugMap[halias.name] = haliases.size() - 1;
+			debeugMap[halias.name] = (int)haliases.size() - 1;
 
 			reader->LeaveBlock();
 		}
@@ -94,13 +94,13 @@ bool Controls::Init(void* data, const char* name_haliases, const char* name_alia
 		while (reader->EnterBlock("mouse"))
 		{
 			haliases.push_back(HardwareAlias());
-			HardwareAlias& halias = haliases[haliases.size() - 1];
+			HardwareAlias& halias = haliases[(int)haliases.size() - 1];
 
 			halias.device = Mouse;
 			reader->Read("name", halias.name);
 			reader->Read("index", halias.index);
 
-			debeugMap[halias.name] = haliases.size() - 1;
+			debeugMap[halias.name] = (int)haliases.size() - 1;
 
 			reader->LeaveBlock();
 		}
@@ -290,7 +290,7 @@ bool Controls::GetAliasState(int index, bool exclusive, AliasAction action)
 			continue;
 		}
 
-		float val = 0.0f;
+		bool val = false;
 
 		if (aliasRef.refer2hardware)
 		{
@@ -301,13 +301,13 @@ bool Controls::GetAliasState(int index, bool exclusive, AliasAction action)
 			val = GetHardwareAliasState(aliasRef.aliasIndex, exclusive, action);
 		}
 
-		if (fabs(val) > 0.01f)
+		if (val)
 		{
-			return val * aliasRef.modifier;
+			return true;
 		}
 	}
 
-	return 0.0f;
+	return false;
 }
 
 float Controls::GetHardwareAliasValue(int index, bool delta)
@@ -341,10 +341,10 @@ float Controls::GetHardwareAliasValue(int index, bool delta)
 					return 0;
 				}
 
-				return ms_x - prev_ms_x;
+				return (float)(ms_x - prev_ms_x);
 			}
 
-			return ms_x;
+			return (float)ms_x;
 		}
 		else
 		if (halias.index == 11)
@@ -356,10 +356,10 @@ float Controls::GetHardwareAliasValue(int index, bool delta)
 					return 0;
 				}
 
-				return ms_y - prev_ms_y;
+				return (float)(ms_y - prev_ms_y);
 			}
 
-			return ms_y;
+			return (float)ms_y;
 		}
 	}
 

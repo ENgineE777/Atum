@@ -5,15 +5,15 @@
 
 class TextureDX11 : public Texture
 {
-	class ID3D11SamplerState* sampler;
+	struct ID3D11SamplerState* sampler;
 	bool sampler_need_recrete;
 
 public:
-	class ID3D11Texture2D* texture;
-	class ID3D11ShaderResourceView* srview;
+	struct ID3D11Texture2D* texture;
+	struct ID3D11ShaderResourceView* srview;
 
-	class ID3D11RenderTargetView* rt;
-	class ID3D11DepthStencilView* depth;
+	struct ID3D11RenderTargetView* rt;
+	struct ID3D11DepthStencilView* depth;
 	
 	static int GetFormat(Format fmt);
 

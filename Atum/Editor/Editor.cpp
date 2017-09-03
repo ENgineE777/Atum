@@ -2,6 +2,8 @@
 #include "Editor.h"
 #include "Services/Physics/Physics.h"
 
+char appdir[1024];
+
 Editor::Listener::Listener(Editor* set_owner)
 {
 	owner = set_owner;
@@ -112,7 +114,7 @@ void Editor::Listener::OnResize(EUIWidget* sender)
 	if ((sender->GetID() == Editor::ViewportID && !owner->scene.Playing()) ||
 		(sender->GetID() == Editor::GameViewportID && owner->scene.Playing()))
 	{
-		render.GetDevice()->SetVideoMode(sender->GetWidth(), sender->GetHeight(), sender->GetNative());
+		render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
 	}
 }
 
@@ -141,6 +143,8 @@ Editor::~Editor()
 
 void Editor::Init()
 {
+	GetCurrentDirectory(1024, appdir);
+
 	EUI::Init("settings/EUI/theme.dat");
 
 	mainWnd = new EUIWindow("Editor", false, true, 30, 30, 800, 600);
@@ -402,10 +406,10 @@ void Editor::Update()
 	{
 		for (int i = 0; i <= 20; i++)
 		{
-			int pos = i - 10;
+			float pos = (float)i - 10.0f;
 
-			render.DebugLine(Vector(pos, 0, -10), COLOR_WHITE, Vector(pos, 0, 10), COLOR_WHITE);
-			render.DebugLine(Vector(-10, 0, pos), COLOR_WHITE, Vector(10, 0, pos), COLOR_WHITE);
+			render.DebugLine(Vector(pos, 0.0f, -10.0f), COLOR_WHITE, Vector(pos, 0.0f, 10.0f), COLOR_WHITE);
+			render.DebugLine(Vector(-10.0f, 0.0f, pos), COLOR_WHITE, Vector(10.0f, 0.0f, pos), COLOR_WHITE);
 		}
 
 		gizmo.Render();
@@ -450,7 +454,7 @@ void Editor::StopScene()
 {
 	scene.Stop();
 
-	render.GetDevice()->SetVideoMode(viewport->GetWidth(), viewport->GetHeight(), viewport->GetNative());
+	render.GetDevice()->SetVideoMode((int)viewport->GetWidth(), (int)viewport->GetHeight(), viewport->GetNative());
 
 	gameWnd = NULL;
 }

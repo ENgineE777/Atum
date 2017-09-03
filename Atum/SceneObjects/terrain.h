@@ -36,6 +36,7 @@ public:
 	virtual void Init();
 	virtual void ApplyProperties();
 	float GetHeight(int i, int j);
+	Vector GetVecHeight(int i, int j);
 	void LoadHMap(const char* hgt_name);
 	void Render(float dt);
 	void ShRender(float dt);

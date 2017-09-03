@@ -63,7 +63,7 @@ void ColorCorrection::Draw(Texture* rt)
 
 	for (int i = 0; i < 7; i++)
 	{
-		float weight = ComputeGaussian(i + 1);
+		float weight = ComputeGaussian((float)i + 1.0f);
 
 		samples[i * 2 + 1].z = weight;
 		samples[i * 2 + 2].z = weight;

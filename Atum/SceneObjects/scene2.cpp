@@ -82,10 +82,10 @@ void Scene2::RenderScene(const char* phase, float dt)
 {
 	for (int i = 0; i < 20; i++)
 	{
-		int pos = i - 10;
+		float pos = (float)i - 10.0f;
 
-		render.DebugLine(Vector(pos, 0, 0), COLOR_WHITE, Vector(pos, 0, 0), COLOR_WHITE);
-		render.DebugLine(Vector(0, 0, pos), COLOR_WHITE, Vector(0, 0, pos), COLOR_WHITE);
+		render.DebugLine(Vector(pos, 0.0f, 0.0f), COLOR_WHITE, Vector(pos, 0.0f, 0.0f), COLOR_WHITE);
+		render.DebugLine(Vector(0.0f, 0.0f, pos), COLOR_WHITE, Vector(0.0f, 0.0f, pos), COLOR_WHITE);
 	}
 
 	render.GetDevice()->SetRenderTarget(0, scene_rt);

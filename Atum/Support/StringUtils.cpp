@@ -2,38 +2,46 @@
 #include "StringUtils.h"
 #include <stdarg.h>
 
-bool StringUtils::IsEmpty(const char * c)
+int StringUtils::GetLen(const char* str)
 {
-	return !c || !c[0];
+	return (int)strlen(str);
 }
 
-bool StringUtils::IsEqual(const char * s1, const char * s2)
+bool StringUtils::IsEmpty(const char* str)
+{
+	return !str || !str[0];
+}
+
+bool StringUtils::IsEqual(const char* str1, const char* str2)
 { 
-	return (_stricmp(s1, s2) == 0);
+	return (_stricmp(str1, str2) == 0);
 }
 
-void StringUtils::Copy(char * s1, int len, const char * s2)
+void StringUtils::Copy(char* str1, int len, const char* str2)
 {
-	int size = strlen(s2)+1;
+	int size = GetLen(str2)+1;
 	int mv = size;
 	if (size>len) mv = len-1;
 
-	memcpy(s1, s2, mv);	
+	memcpy(str1, str2, mv);
 
-	if (size>len) s1[len-1] = 0;
+	if (size > len)
+	{
+		str1[len - 1] = 0;
+	}
 }
 
-void StringUtils::Cat(char * s1, int len, const char * s2)
+void StringUtils::Cat(char* str1, int len, const char* str2)
 {
 	#ifdef PLATFORM_PC
-	strcat_s(s1, len,s2);
+	strcat_s(str1, len, str2);
 	#else
-	strcat(s1, s2);
+	strcat(str1, str2);
 	#endif
 	
 }
 
-void StringUtils::Printf(char * s1, int len, const char * format, ...)
+void StringUtils::Printf(char* str, int len, const char* format, ...)
 {
 	static char buffer[4096];
 	va_list args;
@@ -47,15 +55,15 @@ void StringUtils::Printf(char * s1, int len, const char * format, ...)
 
 	va_end(args);
 
-	Copy(s1, len, buffer);
+	Copy(str, len, buffer);
 }
 
-void StringUtils::RemoveSlashes(char* FullPath)
+void StringUtils::RemoveSlashes(char* fullPath)
 {
 	static char buffer[1024];
-	Copy(buffer, 1023, FullPath);
+	Copy(buffer, 1023, fullPath);
 
-	int len = strlen(FullPath);
+	int len = (int)strlen(fullPath);
 	int index=0;
 
 	int skip = 0;
@@ -73,36 +81,38 @@ void StringUtils::RemoveSlashes(char* FullPath)
 
 		if (skip<2)
 		{
-			FullPath[index] = buffer[i];
+			fullPath[index] = buffer[i];
 			index++;
 		}
 	}
 
-	FullPath[index] = 0;
+	fullPath[index] = 0;
 }
 
-void StringUtils::ExtractFileName(const char* FullPath, char *FileName)
+void StringUtils::ExtractFileName(const char* fullPath, char* fileName)
 {
-	int index = strlen(FullPath)-1;
+	int index = GetLen(fullPath)-1;
 
-	while(index>=0&&FullPath[index]!='\\'&&FullPath[index]!='/')
+	while(index>=0 && fullPath[index]!='\\' && fullPath[index]!='/')
 	{
 		index--;
 	}
 
-	for(int i=(int)index+1;i<(int)strlen(FullPath);i++)
+	int len = GetLen(fullPath);
+
+	for(int i=index+1; i<len;i++)
 	{
-		FileName[i-index-1]=FullPath[i];
+		fileName[i-index-1] = fullPath[i];
 	}
 
-	FileName[strlen(FullPath)-index-1]=0;
+	fileName[len - index - 1] = 0;
 }
 
-void StringUtils::ExtractPath(const char* FullPath, char *Path,bool retempty)
+bool StringUtils::ExtractPath(const char* fullPath, char* path)
 {
-	int index = strlen(FullPath)-1;
+	int index = GetLen(fullPath)-1;
 
-	while(index>=0&&FullPath[index]!='\\'&&FullPath[index]!='/')
+	while(index>=0 && fullPath[index]!='\\' && fullPath[index]!='/')
 	{
 		index--;
 	}
@@ -111,48 +121,50 @@ void StringUtils::ExtractPath(const char* FullPath, char *Path,bool retempty)
 	{	
 		for(int i=0;i<=index;i++)
 		{
-			Path[i]=FullPath[i];
+			path[i] = fullPath[i];
 		}
 
-		Path[index+1]=0;
+		path[index+1]=0;
+
+		return true;
 	}
-	else
-	{
-		if (retempty) Path[0] = 0;
-	}
+
+	return false;
 }
 
-void StringUtils::GetCropPath(const char* RelativePath,const char* FullPath, char* Path, int len)
+void StringUtils::GetCropPath(const char* relativePath, const char* fullPath, char* path, int len)
 {
-	if (FullPath[1] != ':')
+	if (fullPath[1] != ':')
 	{
-		Copy(Path, len, FullPath);
-
+		Copy(path, len, fullPath);
 		return;
 	}
 
-	if (strlen(FullPath)<=strlen(RelativePath))
-	{
-		Path[0] = 0;
+	int len1 = GetLen(fullPath);
+	int len2 = GetLen(relativePath);
 
+	if (len1 <= len2)
+	{
+		path[0] = 0;
 		return;
 	}
 
-	for(int i=(int)strlen(RelativePath);i<(int)strlen(FullPath);i++)
+	for(int i= len2; i<len1; i++)
 	{
-		Path[i-strlen(RelativePath)]=FullPath[i];
+		path[i- len2] = fullPath[i];
 	}
 
-	Path[strlen(FullPath)-strlen(RelativePath)]=0;
+	path[len1 - len2]=0;
 }
 
 void StringUtils::ExtractRootPath(const char* path1, const char* path2, char* root)
 {
 	char rt[512];
-	int len = strlen(path1);
-	if (len < strlen(path2))
+	int len = GetLen(path1);
+
+	if (len < GetLen(path2))
 	{
-		len = strlen(path2);
+		len = GetLen(path2);
 	}
 
 	rt[0] = 0;
@@ -166,7 +178,7 @@ void StringUtils::ExtractRootPath(const char* path1, const char* path2, char* ro
 		}
 	}
 
-	ExtractPath(rt,root,false);
+	ExtractPath(rt,root);
 }
 
 void StringUtils::RemoveFirstChar(char* str)
@@ -181,9 +193,9 @@ void StringUtils::RemoveFirstChar(char* str)
 
 void StringUtils::FixSlashes(char * str)
 {
-	int len = strlen(str);
+	int len = GetLen(str);
 
-	for(int i=0;i<len;i++)
+	for(int i=0; i<len; i++)
 	{
 		if (str[i] == '\\')
 		{
@@ -211,7 +223,7 @@ void StringUtils::ExtractExctention(const char* str, char* ext, int ext_lenght)
 	ext[0] = 0;
 
 	int  count = 0;
-	int index = strlen(str)-1;
+	int index = GetLen(str)-1;
 
 	while (index>0&&str[index]!='.')
 	{
@@ -234,7 +246,7 @@ void StringUtils::ExtractExctention(const char* str, char* ext, int ext_lenght)
 
 void StringUtils::RemoveExctention(char* str)
 {
-	int index = strlen(str) - 1;
+	int index = GetLen(str) - 1;
 
 	while (index>=0&&str[index] != '.')
 	{
@@ -252,7 +264,7 @@ int StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len)
 	Copy(wo_n_str,len,str);
 	int number = 0;
 
-	int index = strlen(str)-1;
+	int index = GetLen(str)-1;
 
 	if (index == 0)
 	{
@@ -276,7 +288,7 @@ int StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len)
 void StringUtils::EscapeChars(const char* in, char* out, int len)
 {
 	int index = 0;
-	int in_len = strlen(in);
+	int in_len = GetLen(in);
 	
 	for	(int i=0;i<in_len;i++)
 	{
@@ -319,7 +331,7 @@ void StringUtils::Utf16toUtf8(std::string& dest, const wchar_t* src)
 {
 	dest.clear();
 
-	int len = wcslen(src);
+	int len = (int)wcslen(src);
 
 	for (int i = 0; i < len; i++) 
 	{
@@ -444,7 +456,7 @@ void StringUtils::Utf8toUtf16(std::wstring& dest, const char* src)
 	int bytes = 0;
 	wchar_t err = L'?';
 
-	int count = strlen(src);
+	int count = GetLen(src);
 
 	for (size_t i = 0; i < count; i++)
 	{

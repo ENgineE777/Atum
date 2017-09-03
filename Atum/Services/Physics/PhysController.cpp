@@ -13,7 +13,7 @@ void PhysController::SetPosition(Vector& pos)
 void PhysController::GetPosition(Vector& pos)
 {
 	PxExtendedVec3 cpos = controller->getFootPosition();
-	pos = Vector(cpos.x, cpos.y, cpos.z);
+	pos = Vector((float)cpos.x, (float)cpos.y, (float)cpos.z);
 }
 
 void PhysController::Release()

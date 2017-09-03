@@ -11,33 +11,33 @@ class DeviceDX11 : public Device
 	friend class ShaderDX11;
 	friend class TextureDX11;
 
-	class ID3D11Device*	          pd3dDevice;
-	class ID3D11DeviceContext*    immediateContext;
-	class IDXGISwapChain*         swapChain;
-	class ID3D11RenderTargetView* renderTargetView;
-	class ID3D11Texture2D*        depthStencil;
-	class ID3D11DepthStencilView* depthStencilView;
-	class IDXGIFactory1* factory;
+	struct ID3D11Device*	          pd3dDevice;
+	struct ID3D11DeviceContext*    immediateContext;
+	struct IDXGISwapChain*         swapChain;
+	struct ID3D11RenderTargetView* renderTargetView;
+	struct ID3D11Texture2D*        depthStencil;
+	struct ID3D11DepthStencilView* depthStencilView;
+	struct IDXGIFactory1* factory;
 
 	struct D3D11_BLEND_DESC* blend_desc;
-	class ID3D11BlendState*  blend_state;
+	struct ID3D11BlendState*  blend_state;
 	bool                     blend_changed;
 
 	struct D3D11_DEPTH_STENCIL_DESC* ds_desc;
-	class ID3D11DepthStencilState*   ds_state;
+	struct ID3D11DepthStencilState*  ds_state;
 	int                              ds_stencil_ref;
 	bool                             ds_changed;
 
 	struct D3D11_RASTERIZER_DESC* raster_desc;
-	class ID3D11RasterizerState*  raster_state;
+	struct ID3D11RasterizerState* raster_state;
 	bool                          raster_changed;
 
 	int  scr_w;
 	int  scr_h;
 	bool vp_was_setted;
 
-	class ID3D11RenderTargetView* cur_rt[6];
-	class ID3D11DepthStencilView* cur_depth;
+	struct ID3D11RenderTargetView* cur_rt[6];
+	struct ID3D11DepthStencilView* cur_depth;
 	bool need_set_rt;
 	int  cur_rt_w;
 	int  cur_rt_h;

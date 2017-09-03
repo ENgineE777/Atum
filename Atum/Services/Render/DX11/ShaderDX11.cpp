@@ -71,7 +71,7 @@ ShaderDX11::ShaderDX11(Type tp, const char* name) : Shader(tp)
 		}
 	}
 
-	for (int i = 0; i<shaderDesc.BoundResources; i++)
+	for (unsigned int i = 0; i<shaderDesc.BoundResources; i++)
 	{
 		D3D11_SHADER_INPUT_BIND_DESC bindDesc;
 		pVertexShaderReflection->GetResourceBindingDesc(i, &bindDesc);
@@ -142,7 +142,7 @@ ShaderDX11::ShaderDX11(Type tp, const char* name) : Shader(tp)
 			inputLayoutDesc.push_back(elementDesc);
 		}
 
-		DeviceDX11::instance->pd3dDevice->CreateInputLayout(&inputLayoutDesc[0], inputLayoutDesc.size(), buffer.GetData(), buffer.GetSize(), &layout);
+		DeviceDX11::instance->pd3dDevice->CreateInputLayout(&inputLayoutDesc[0], (UINT)inputLayoutDesc.size(), buffer.GetData(), (size_t)buffer.GetSize(), &layout);
 	}
 	else
 	{

@@ -10,7 +10,7 @@ void Physics::Init()
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, tolerancesScale, true);
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(tolerancesScale));
 
-	defMaterial = physics->createMaterial(0.5, 0.5, 0.95);
+	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.95f);
 }
 
 PhysScene* Physics::CreateScene()

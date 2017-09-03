@@ -1,7 +1,10 @@
 
+#include "Windows.h"
+
 #include "TaskExecutor.h"
 
 TaskExecutor taskExecutor;
+
 
 TaskExecutor::SingleTaskPool::SingleTaskPool()
 {
@@ -18,6 +21,19 @@ void TaskExecutor::SingleTaskPool::ExecuteList(TaskList* list, float dt)
 {
 	for (int j = 0; j<list->list.size(); j++)
 	{
+		if (list->list[j].freq > 0.0f)
+		{
+			list->list[j].time -= dt;
+
+
+			if (list->list[j].time > 0.0f)
+			{
+				continue;
+			}
+
+			list->list[j].time += list->list[j].freq;
+		}
+
 		(list->list[j].entity->*list->list[j].call)(dt);
 	}
 }
@@ -53,7 +69,7 @@ void TaskExecutor::SingleTaskPool::AddTask(int level, Object* entity, Object::De
 		list = lists[lists.size() - 1];
 		list->level = level;
 
-		int index = lists.size() - 1;
+		int index = (int)lists.size() - 1;
 
 		while (index>0 && list[index - 1].level > list->level)
 		{
@@ -142,7 +158,7 @@ void TaskExecutor::GroupTaskPool::FillList()
 				groupList = &groupLists[groupLists.size() - 1];
 				groupList->level = taskList->level;
 
-				int index = groupLists.size() - 1;
+				int index = (int)groupLists.size() - 1;
 
 				while (index>0 && groupLists[index - 1].level > groupList->level)
 				{
@@ -177,7 +193,7 @@ void TaskExecutor::GroupTaskPool::AddFilter(int level)
 
 	filter.push_back(level);
 
-	int index = filter.size() - 1;
+	int index = (int)filter.size() - 1;
 
 	while (index>0 && filter[index - 1] > level)
 	{
@@ -288,7 +304,7 @@ void TaskExecutor::SetTaskPoolExecutionLevel(TaskPool* taskPool, int level)
 	pool.level = level;
 	pool.taskPool = taskPool;
 
-	int index = pools.size() - 1;
+	int index = (int)pools.size() - 1;
 
 	while (index>0 && pools[index - 1].level > level)
 	{

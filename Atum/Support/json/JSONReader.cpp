@@ -234,13 +234,13 @@ bool JSONReader::Read(const char* name, float& val)
 		else
 		if (node->type == JSON_INT)
 		{
-			val = node->int_value;
+			val = (float)node->int_value;
 			return true;
 		}
 		else
 		if (node->type == JSON_STRING)
 		{
-			val = atof(node->string_value);
+			val = (float)atof(node->string_value);
 			return true;
 		}
 	}
@@ -373,7 +373,7 @@ json_value* JSONReader::FindValue(const char* name)
 
 	for (json_value *it = curNode->first_child; it; it = it->next_sibling)
 	{
-		if (stricmp(name, it->name) == 0)
+		if (_stricmp(name, it->name) == 0)
 		{
 			return it;
 		}

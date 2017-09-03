@@ -117,9 +117,6 @@ Texture* Render::LoadTexture(const char* name)
 
 	Texture* texture = device->CreateTexture(imageWidth, imageHeight, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
 
-	int pitch;
-	int pitchSlice;
-
 	uint8_t* dest = (uint8_t*)malloc(imageWidth * imageHeight * 4);
 
 	for (int j = 0; j < imageHeight; j++)

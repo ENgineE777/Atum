@@ -54,7 +54,6 @@
     <ClCompile Include="..\..\Atum\Services\Scene\Scene.cpp" />
     <ClCompile Include="..\..\Atum\Services\Scene\SceneObject.cpp" />
     <ClCompile Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
-    <ClCompile Include="..\..\Atum\Support\ExceptionReport.cpp" />
     <ClCompile Include="..\..\Atum\Support\json\block_allocator.cpp" />
     <ClCompile Include="..\..\Atum\Support\json\json.cpp" />
     <ClCompile Include="..\..\Atum\Support\json\JSONReader.cpp" />
@@ -69,6 +68,7 @@
     <ClCompile Include="..\..\Atum\Support\MetaData\ProperyWidget.cpp" />
     <ClCompile Include="..\..\Atum\Support\MetaData\StringWidget.cpp" />
     <ClCompile Include="..\..\Atum\Support\StringUtils.cpp" />
+    <ClCompile Include="..\..\Atum\Support\ThreadExecutor.cpp" />
     <ClCompile Include="..\..\Atum\Support\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -115,7 +115,6 @@
     <ClInclude Include="..\..\Atum\Support\Buffer.h" />
     <ClInclude Include="..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\Atum\Support\Color.h" />
-    <ClInclude Include="..\..\Atum\Support\ExceptionReport.h" />
     <ClInclude Include="..\..\Atum\Support\json\block_allocator.h" />
     <ClInclude Include="..\..\Atum\Support\json\json.h" />
     <ClInclude Include="..\..\Atum\Support\json\JSONReader.h" />
@@ -134,6 +133,7 @@
     <ClInclude Include="..\..\Atum\Support\Delegate.h" />
     <ClInclude Include="..\..\Atum\Support\Support.h" />
     <ClInclude Include="..\..\Atum\Support\Matrix.h" />
+    <ClInclude Include="..\..\Atum\Support\ThreadExecutor.h" />
     <ClInclude Include="..\..\Atum\Support\Timer.h" />
     <ClInclude Include="..\..\Atum\Support\Vector.h" />
     <ClInclude Include="..\..\Atum\Support\Vector2.h" />
@@ -195,6 +195,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <TargetName>IonStorm_DEBUG</TargetName>
+    <OutDir>..\..\Bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -202,6 +204,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\Bin\</OutDir>
+    <TargetName>IonStorm</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -209,7 +213,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;PLATFORM_PC</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;PLATFORM_PC;_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -225,14 +229,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>PLATFORM_PC;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PLATFORM_PC;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../Bin/$(TargetName)_debugx64$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -263,7 +267,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>PLATFORM_PC;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PLATFORM_PC;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -272,7 +276,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>../../Bin/$(TargetName)x64$(TargetExt)</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

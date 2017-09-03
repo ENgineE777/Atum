@@ -61,7 +61,7 @@ SceneObject* Scene::GetObj(int index)
 
 int Scene::GetObjectsCount()
 {
-	return objects.size();
+	return (int)objects.size();
 }
 
 void Scene::DeleteObject(SceneObject* obj)

@@ -8,16 +8,16 @@
 
 class ShaderDX11 : public Shader
 {
-	class ID3D11VertexShader* vshader;
-	class ID3D11PixelShader* pshader;
-	class ID3D11InputLayout*  layout;
+	struct ID3D11VertexShader* vshader;
+	struct ID3D11PixelShader* pshader;
+	struct ID3D11InputLayout*  layout;
 
 	struct ConstantBuffer
 	{
 		uint8_t*	  rawdata;
 		int           size;
 		int			  slot;
-		class ID3D11Buffer* buffer;
+		struct ID3D11Buffer* buffer;
 		bool		  dirty;
 
 		ConstantBuffer()

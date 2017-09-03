@@ -61,34 +61,34 @@ void Terrain::ApplyProperties()
 			{
 				if (i % 2 == 0)
 				{
-					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
+					v_tri[1].position = GetVecHeight(i,j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GetHeight(i+1,j), - j);
+					v_tri[0].position = GetVecHeight(i+1, j);
 					v_tri[0].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[2].position = Vector( i + 1, GetHeight(i+1, j+1), - j - 1);
+					v_tri[2].position = GetVecHeight(i+1, j+1);
 					v_tri[2].texCoord = Vector2(1.0f, 1.0f);
 
-					v_tri[4].position = Vector( i, GetHeight(i, j), - j);
+					v_tri[4].position = GetVecHeight(i, j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector( i + 1, GetHeight(i + 1, j + 1), - j - 1);
+					v_tri[3].position = GetVecHeight(i + 1, j + 1);
 					v_tri[3].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
+					v_tri[5].position = GetVecHeight(i, j + 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 				else
 				{
-					v_tri[1].position = Vector(i + 1, GetHeight(i+1,j), - j);
+					v_tri[1].position = GetVecHeight(i+1,j);
 					v_tri[1].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GetHeight(i+1,j+1), - j - 1);
+					v_tri[0].position = GetVecHeight(i+1,j+1);
 					v_tri[0].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[2].position = Vector(i, GetHeight(i, j+1), - j - 1);
+					v_tri[2].position = GetVecHeight(i, j+1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i, GetHeight(i, j), - j);
+					v_tri[4].position = GetVecHeight(i, j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GetHeight(i+1, j), - j);
+					v_tri[3].position = GetVecHeight(i+1, j);
 					v_tri[3].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
+					v_tri[5].position = GetVecHeight(i, j + 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 			}
@@ -96,34 +96,34 @@ void Terrain::ApplyProperties()
 			{
 				if (i % 2 == 0)
 				{
-					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
+					v_tri[1].position = GetVecHeight(i, j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GetHeight(i + 1, j), - j);
+					v_tri[0].position = GetVecHeight(i + 1, j);
 					v_tri[0].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[2].position = Vector(i, GetHeight(i, j + 1), - j - 1);
+					v_tri[2].position = GetVecHeight(i, j + 1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i + 1, GetHeight(i + 1, j), - j);
+					v_tri[4].position = GetVecHeight(i + 1, j);
 					v_tri[4].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GetHeight(i + 1, j + 1), - j - 1);
+					v_tri[3].position = GetVecHeight(i + 1, j + 1);
 					v_tri[3].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[5].position = Vector(i, GetHeight(i, j + 1), - j - 1);
+					v_tri[5].position = GetVecHeight(i, j + 1);
 					v_tri[5].texCoord = Vector2(0.0f, 1.0f);
 				}
 				else
 				{
-					v_tri[1].position = Vector(i, GetHeight(i, j), - j);
+					v_tri[1].position = GetVecHeight(i, j);
 					v_tri[1].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[0].position = Vector(i + 1, GetHeight(i + 1, j + 1), -j - 1);
+					v_tri[0].position = GetVecHeight(i + 1, j + 1);
 					v_tri[0].texCoord = Vector2(1.0f, 1.0f);
-					v_tri[2].position = Vector(i, GetHeight(i, j + 1), -j - 1);
+					v_tri[2].position = GetVecHeight(i, j + 1);
 					v_tri[2].texCoord = Vector2(0.0f, 1.0f);
 
-					v_tri[4].position = Vector(i, GetHeight(i, j), - j);
+					v_tri[4].position = GetVecHeight(i, j);
 					v_tri[4].texCoord = Vector2(0.0f, 0.0f);
-					v_tri[3].position = Vector(i + 1, GetHeight(i + 1, j), - j);
+					v_tri[3].position = GetVecHeight(i + 1, j);
 					v_tri[3].texCoord = Vector2(1.0f, 0.0f);
-					v_tri[5].position = Vector(i + 1, GetHeight(i + 1, j + 1), - j - 1);
+					v_tri[5].position = GetVecHeight(i + 1, j + 1);
 					v_tri[5].texCoord = Vector2(1.0f, 1.0f);
 				}
 			}
@@ -173,6 +173,12 @@ float Terrain::GetHeight(int i, int j)
 {
 	return hmap ? hmap[((j)* hwidth + i)] * scalev : 1.0f;
 }
+
+Vector Terrain::GetVecHeight(int i, int j)
+{
+	return Vector((float)i, GetHeight(i, j), -(float)j);
+}
+
 void Terrain::LoadHMap(const char* hgt_name)
 {
 	Buffer hbuffer(hgt_name);

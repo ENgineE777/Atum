@@ -54,7 +54,6 @@ public:
 
 	void Read(void* dst, int sz)
 	{
-		int k = size - (ptr - buffer) + sz;
 		memcpy(dst, ptr, sz);
 		ptr += sz;
 	}

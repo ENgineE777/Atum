@@ -46,6 +46,9 @@
     <Filter Include="Services\Physics">
       <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services\Network">
+      <UniqueIdentifier>{37a754a9-0c6d-491d-a58c-a4039e7d2ed7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -107,9 +110,6 @@
       <Filter>Services\Render\DX11</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Atum\Support\StringUtils.cpp">
-      <Filter>Support</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Atum\Support\ExceptionReport.cpp">
       <Filter>Support</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Atum\Support\json\block_allocator.cpp">
@@ -198,6 +198,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\Services\Physics\PhysHeightmap.cpp">
       <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\ThreadExecutor.cpp">
+      <Filter>Support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -303,9 +306,6 @@
     <ClInclude Include="..\..\Atum\Support\Quaternion.h">
       <Filter>Support</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Atum\Support\ExceptionReport.h">
-      <Filter>Support</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Atum\Support\ClassFactory.h">
       <Filter>Support</Filter>
     </ClInclude>
@@ -398,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Physics\PhysScene.h">
       <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\ThreadExecutor.h">
+      <Filter>Support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@
 
 #include "ProperyWidget.h"
 
-class MetaDataEnum;
+struct MetaDataEnum;
 
 class EnumWidget : public ProperyWidget
 {

@@ -43,9 +43,9 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
 	pxdesc.upDirection = PxVec3(0.0f, 1.0f, 0.0f);
 	pxdesc.density = 1.0f;
 	pxdesc.slopeLimit = desc.slopeLimit;
-	pxdesc.contactOffset = 0.1;
-	pxdesc.stepOffset = 0.5;
-	pxdesc.scaleCoeff = 0.8;
+	pxdesc.contactOffset = 0.1f;
+	pxdesc.stepOffset = 0.5f;
+	pxdesc.scaleCoeff = 0.8f;
 	pxdesc.material = physics.defMaterial;
 
 	PhysController* controller = new PhysController();
@@ -60,8 +60,8 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmapDesc& desc)
 
 	hm->samples = new PxHeightFieldSample[desc.width * desc.height];
 
-	for (PxU32 x = 0; x < desc.width; x++)
-		for (PxU32 y = 0; y < desc.height; y++)
+	for (int x = 0; x < desc.width; x++)
+		for (int y = 0; y < desc.height; y++)
 		{
 			hm->samples[x + y*desc.width].height = PxI16(desc.hmap[((x)* desc.width + y)]);
 			hm->samples[x + y*desc.width].setTessFlag();
@@ -110,6 +110,11 @@ void PhysScene::DrawVisualization()
 
 bool PhysScene::RayCast(RaycastDesc& desc)
 {
+	if (desc.length < 0.005f)
+	{
+		return false;
+	}
+
 	PxRaycastBuffer hit;
 
 	if (scene->raycast(PxVec3(desc.origin.x, desc.origin.y, desc.origin.z), PxVec3(desc.dir.x, desc.dir.y, desc.dir.z), desc.length, hit))

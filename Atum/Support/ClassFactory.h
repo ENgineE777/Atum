@@ -25,7 +25,7 @@ public:\
 	{\
 		for (ClassFactory##baseClass* decl = first; decl != NULL; decl = decl->next)\
 		{\
-			if (stricmp(decl->GetName(), name) == 0)\
+			if (_stricmp(decl->GetName(), name) == 0)\
 			{\
 				return decl;\
 			}\

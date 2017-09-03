@@ -430,7 +430,7 @@ void DeviceDX11::SetupSlopeZBias(bool enable, float slopeZBias, float depthOffse
 		curBiasSlope = slopeZBias;
 	}
 
-	raster_desc->DepthBias = curDepthBias;
+	raster_desc->DepthBias = (int)(curDepthBias / (1.0f / pow(2, 23)));
 	raster_desc->SlopeScaledDepthBias = curBiasSlope;
 
 	raster_changed = true;
@@ -534,10 +534,10 @@ void DeviceDX11::GetScissorRect(Rect& rect)
 	unsigned int num = 1;
 	immediateContext->RSGetScissorRects(&num, &rc);
 
-	rect.left = rc.left;
-	rect.top = rc.top;
-	rect.right = rc.right;
-	rect.bottom = rc.bottom;
+	rect.left = (short)rc.left;
+	rect.top = (short)rc.top;
+	rect.right = (short)rc.right;
+	rect.bottom = (short)rc.bottom;
 }
 
 void DeviceDX11::SetViewport(const Viewport& viewport)
@@ -563,12 +563,12 @@ void DeviceDX11::GetViewport(Viewport& viewport)
 		unsigned int num = 1;
 		immediateContext->RSGetViewports(&num, &d3dviewport);
 
-		viewport.x = d3dviewport.TopLeftX;
-		viewport.y = d3dviewport.TopLeftY;
-		viewport.width = d3dviewport.Width;
-		viewport.height = d3dviewport.Height;
-		viewport.minZ = d3dviewport.MinDepth;
-		viewport.maxZ = d3dviewport.MaxDepth;
+		viewport.x = (short)d3dviewport.TopLeftX;
+		viewport.y = (short)d3dviewport.TopLeftY;
+		viewport.width = (short)d3dviewport.Width;
+		viewport.height = (short)d3dviewport.Height;
+		viewport.minZ = (short)d3dviewport.MinDepth;
+		viewport.maxZ = (short)d3dviewport.MaxDepth;
 	}
 	else
 	{
@@ -577,13 +577,13 @@ void DeviceDX11::GetViewport(Viewport& viewport)
 
 		if (cur_rt[0])
 		{
-			viewport.width = (FLOAT)cur_rt_w;
-			viewport.height = (FLOAT)cur_rt_h;
+			viewport.width = (short)cur_rt_w;
+			viewport.height = (short)cur_rt_h;
 		}
 		else
 		{
-			viewport.width = (FLOAT)cur_depth_w;
-			viewport.height = (FLOAT)cur_depth_h;
+			viewport.width = (short)cur_depth_w;
+			viewport.height = (short)cur_depth_h;
 		}
 
 		viewport.minZ = 0.0f;

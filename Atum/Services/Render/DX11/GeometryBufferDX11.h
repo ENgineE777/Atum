@@ -7,9 +7,8 @@
 
 class GeometryBufferDX11 : public GeometryBuffer
 {
-	class ID3D11Buffer* buffer;
-
-	class ID3D11InputLayout*  layout;
+	struct ID3D11Buffer* buffer;
+	struct ID3D11InputLayout*  layout;
 
 public:
 	

@@ -150,8 +150,6 @@ void Model::LoadModelMS3D(const char* filename)
 		return;
 	}
 
-	int i, j;
-
 	// vertices
 	unsigned short numVertices;
 	fread(&numVertices, sizeof(unsigned short), 1, file);
@@ -159,7 +157,7 @@ void Model::LoadModelMS3D(const char* filename)
 	std::vector<MS3DVertex> vertices;
 
 	vertices.resize(numVertices);
-	for (i = 0; i < numVertices; i++)
+	for (int i = 0; i < numVertices; i++)
 	{
 		fread(&vertices[i].flags, sizeof(unsigned char), 1, file);
 		fread(&vertices[i].vertex, sizeof(float), 3, file);
@@ -175,7 +173,7 @@ void Model::LoadModelMS3D(const char* filename)
 
 	triangles.resize(numTriangles);
 
-	for (i = 0; i < numTriangles; i++)
+	for (int i = 0; i < numTriangles; i++)
 	{
 		fread(&triangles[i].flags, sizeof(unsigned short), 1, file);
 		fread(triangles[i].vertexIndices, sizeof(unsigned short), 3, file);
@@ -195,7 +193,7 @@ void Model::LoadModelMS3D(const char* filename)
 	bb_max = Vector(-100000.0f);
 	bb_min = Vector(100000.0f);
 
-	for (i = 0; i < numGroups; i++)
+	for (int i = 0; i < numGroups; i++)
 	{
 		fread(&groups[i].flags, sizeof(unsigned char), 1, file);
 		fread(groups[i].name, sizeof(char), 32, file);
@@ -278,7 +276,7 @@ void Model::LoadModelMS3D(const char* filename)
 
 	textures.resize(numMaterials);
 
-	for (i = 0; i < numMaterials; i++)
+	for (int i = 0; i < numMaterials; i++)
 	{
 		fread(materials[i].name, sizeof(char), 32, file);
 		fread(&materials[i].ambient, sizeof(float), 4, file);

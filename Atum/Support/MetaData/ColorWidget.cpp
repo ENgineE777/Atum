@@ -19,9 +19,9 @@ void ColorWidget::SetData(void* set_data)
 {
 	data = (Color*)set_data;
 	int clr[3];
-	clr[0] = data->r * 255;
-	clr[1] = data->g * 255;
-	clr[2] = data->b * 255;
+	clr[0] = (int)(data->r * 255.0f);
+	clr[1] = (int)(data->g * 255.0f);
+	clr[2] = (int)(data->b * 255.0f);
 
 	ecolor->SetBackgroundColor(true, clr);
 }
@@ -31,9 +31,9 @@ void ColorWidget::ChoseColor()
 	if (EUI::OpenColorDialog(&data->r))
 	{
 		int clr[3];
-		clr[0] = data->r * 255;
-		clr[1] = data->g * 255;
-		clr[2] = data->b * 255;
+		clr[0] = (int)(data->r * 255.0f);
+		clr[1] = (int)(data->g * 255.0f);
+		clr[2] = (int)(data->b * 255.0f);
 
 		ecolor->SetBackgroundColor(true, clr);
 

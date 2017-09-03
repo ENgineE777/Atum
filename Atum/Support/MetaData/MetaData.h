@@ -120,7 +120,7 @@ BASE_PROP(className, classMember, defValue, strCatName, strPropName, Float, flt)
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.type = tp;\
 	defStrings.push_back(defValue);\
-	prop.defvalue.string = defStrings.size() - 1;\
+	prop.defvalue.string = (int)defStrings.size() - 1;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\

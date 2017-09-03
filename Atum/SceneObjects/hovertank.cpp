@@ -97,7 +97,7 @@ void HoverTank::Play()
 	//mScene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
 	//mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_STATIC, 1.0f);
 
-	PxMaterial* mMaterial = mPhysics->createMaterial(0.5, 0.5, 0.95);
+	PxMaterial* mMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.95f);
 
 	PxReal density = 1.0f;
 
@@ -115,8 +115,8 @@ void HoverTank::Play()
 
 	hsamples = new PxHeightFieldSample[terrain->hwidth * terrain->hheight];
 
-	for (PxU32 x = 0; x < terrain->hwidth; x++)
-		for (PxU32 y = 0; y < terrain->hheight; y++)
+	for (int x = 0; x < terrain->hwidth; x++)
+		for (int y = 0; y < terrain->hheight; y++)
 		{
 			hsamples[x + y*terrain->hwidth].height = PxI16(terrain->hmap[((x)* terrain->hwidth + y)]);
 			hsamples[x + y*terrain->hwidth].setTessFlag();

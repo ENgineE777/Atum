@@ -16,6 +16,14 @@ private:
 	CRITICAL_SECTION critSection;
 };
 
+class ThreadCaller
+{
+public:
+	typedef void (ThreadCaller::*Delegate)();
+
+	virtual ~ThreadCaller() {};
+};
+
 class ThreadExecutor
 {
 	enum State
@@ -32,11 +40,15 @@ class ThreadExecutor
 
 public:
 
-	void Execute();
+	typedef void (ThreadExecutor::*Delegate)(float timedelta);
+
+	void Execute(ThreadCaller* caller, ThreadCaller::Delegate call);
 	bool IsExecuting();
 	void Terminate();
 
-	virtual void Work() = 0;
-
 	static void Sleep(int mili_sec);
+
+private:
+	ThreadCaller* caller;
+	ThreadCaller::Delegate call;
 };

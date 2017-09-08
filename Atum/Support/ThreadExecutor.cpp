@@ -1,5 +1,6 @@
 
 #include "ThreadExecutor.h"
+#include <windows.h>
 
 CriticalSection::CriticalSection()
 {
@@ -21,8 +22,11 @@ void CriticalSection::UnLock()
 	LeaveCriticalSection(&critSection);
 }
 
-void ThreadExecutor::Execute()
+void ThreadExecutor::Execute(ThreadCaller* caller, ThreadCaller::Delegate call)
 {
+	this->caller = caller;
+	this->call = call;
+
 	if (state != Idle)
 	{
 		return;
@@ -63,7 +67,7 @@ void ThreadExecutor::Sleep(int mili_sec)
 DWORD WINAPI ThreadExecutor::Entry(void* arg)
 {
 	ThreadExecutor* executor = (ThreadExecutor*)arg;
-	executor->Work();
+	(executor->caller->*executor->call)();
 	executor->state = Idle;
 
 	return 0;

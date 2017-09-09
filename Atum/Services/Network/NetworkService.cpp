@@ -146,6 +146,16 @@ void NetworkClient::Update()
 
 bool NetworkServer::Start(const char* ip, int port)
 {
+	WSADATA wsaData;
+
+	int res = WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+	if (res != 0)
+	{
+		printf("WSAStartup failed with error: %d\n", res);
+		return false;
+	}
+
 	struct addrinfo *result = nullptr;
 	struct addrinfo hints;
 
@@ -158,7 +168,7 @@ bool NetworkServer::Start(const char* ip, int port)
 	char strport[32];
 	sprintf(strport, "%i", port);
 
-	int res = getaddrinfo(NULL, strport, &hints, &result);
+	res = getaddrinfo(NULL, strport, &hints, &result);
 
 	if (res != 0)
 	{

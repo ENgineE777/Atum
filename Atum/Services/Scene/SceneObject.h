@@ -41,6 +41,7 @@ public:
 	virtual void Play();
 	virtual void Stop();
 	bool Playing();
+	PhysScene* PScene();
 	virtual void Release();
 };
 

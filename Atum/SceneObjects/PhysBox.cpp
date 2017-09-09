@@ -22,11 +22,28 @@ PhysBox::~PhysBox()
 
 void PhysBox::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&PhysBox::Draw, 1.0f);
+	Tasks()->AddTask(100, this, (Object::Delegate)&PhysBox::Draw);
 	owner->AddToGroup(this, "PhysBox");
 }
 
 void PhysBox::Draw(float dt)
 {
+	if (obj)
+	{
+		obj->GetTransform(transform);
+	}
+
 	render.DebugBox(transform, color, Vector(sizeX, sizeY, sizeZ));
+}
+
+void PhysBox::Play()
+{
+	SceneObject::Play();
+	obj = PScene()->CreateBox(Vector(sizeX * 0.5f, sizeY * 0.5f, sizeZ * 0.5f), Trans(), isStatic);
+}
+
+void PhysBox::Stop()
+{
+	SceneObject::Stop();
+	RELEASE(obj);
 }

@@ -14,10 +14,15 @@ public:
 	bool  isStatic;
 	Color color;
 
+	PhysObject* obj = nullptr;
+
 	CLASSDECLDIF(SceneObject, PhysBox)
-		PhysBox();
+	PhysBox();
 	virtual ~PhysBox();
 
 	virtual void Init();
 	void Draw(float dt);
+
+	void Play();
+	void Stop();
 };

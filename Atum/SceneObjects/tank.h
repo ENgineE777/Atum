@@ -35,43 +35,26 @@ public:
 
 	std::vector<Projectile> projectiles;
 
-	struct Box
+	struct ClientState
 	{
-		PhysObject* obj;
-		PhysBox*    box;
+		float  tower_angel = 0.0f;
+		int    up = 0;
+		int    rotate = 0;
+		bool   fired = false;
+		float  angle = 0;
+		Vector pos = 0.0f;
+		Vector gun_pos;
+		Vector gun_dir;
 	};
 
-	std::vector<Box> boxes;
+	ClientState state;
 
-	Vector  angles;
-	Matrix  view;
-	Matrix  proj;
-	float   move_speed;
-	float   strafe_speed;
-
-	int alias_forward;
-	int alias_strafe;
-	int alias_fast;
-	int alias_rotate_active;
-	int alias_rotate_x;
-	int alias_rotate_y;
+	float move_speed;
+	float strafe_speed;
 
 	bool  showDebug;
 
-	Terrain* terrain;
-
-	Model hover_model;
-	Model::Drawer* hover_drawer;
-
-	Model tower_model;
-	Model::Drawer* tower_drawer;
-
-	Model gun_model;
-	Model::Drawer* gun_drawer;
-
-	PhysHeightmap*  hm;
 	PhysController* controller;
-	PhysScene* pscene;
 
 	void Init();
 

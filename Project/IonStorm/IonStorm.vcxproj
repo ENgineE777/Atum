@@ -33,9 +33,13 @@
     <ClCompile Include="..\..\Atum\SceneObjects\programs.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\quad.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\scene2.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\SimpleClient.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\SimpleServer.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\tank.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\tankclient.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp" />
     <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Network\NetworkService.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\PhysController.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\PhysHeightmap.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\Physics.cpp" />
@@ -86,9 +90,13 @@
     <ClInclude Include="..\..\Atum\SceneObjects\programs.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\quad.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\scene2.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\SimpleClient.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\SimpleServer.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\tank.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\tankclient.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\terrain.h" />
     <ClInclude Include="..\..\Atum\Services\Controls\Controls.h" />
+    <ClInclude Include="..\..\Atum\Services\Network\NetworkService.h" />
     <ClInclude Include="..\..\Atum\Services\Physics\PhysController.h" />
     <ClInclude Include="..\..\Atum\Services\Physics\PhysHeightmap.h" />
     <ClInclude Include="..\..\Atum\Services\Physics\Physics.h" />

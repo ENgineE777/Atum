@@ -56,12 +56,16 @@ void SceneObject::Play()
 void SceneObject::Stop()
 {
 	transform = initTransform;
-
 }
 
 bool SceneObject::Playing()
 {
 	return owner->playing;
+}
+
+PhysScene* SceneObject::PScene()
+{
+	return owner->pscene;
 }
 
 void SceneObject::Release()

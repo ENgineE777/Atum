@@ -4,6 +4,8 @@
 #include "Services/TaskExecutor/TaskExecutor.h"
 #include <vector>
 
+#include "Services/Physics/Physics.h"
+
 class SceneObject;
 
 class Scene
@@ -21,10 +23,11 @@ private:
 	std::vector<SceneObject*> objects;
 	TaskExecutor::SingleTaskPool* taskPool;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
-	bool playing;
+	bool playing = false;
 	Group emptyGroup;
 	std::map<std::string, Group> groups;
 
+	PhysScene* pscene = nullptr;;
 	void DelFromGroup(Group& group, SceneObject* obj);
 
 public:

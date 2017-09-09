@@ -202,6 +202,18 @@
     <ClCompile Include="..\..\Atum\Support\ThreadExecutor.cpp">
       <Filter>Support</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Network\NetworkService.cpp">
+      <Filter>Services\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\SimpleClient.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\SimpleServer.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\tankclient.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -401,6 +413,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Support\ThreadExecutor.h">
       <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Network\NetworkService.h">
+      <Filter>Services\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\SimpleClient.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\SimpleServer.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\tankclient.h">
+      <Filter>SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

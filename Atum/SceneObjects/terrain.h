@@ -29,6 +29,8 @@ public:
 
 	int sz;
 
+	PhysHeightmap*  hm;
+
 	CLASSDECLDIF(SceneObject, Terrain)
 	Terrain();
 	virtual ~Terrain();
@@ -41,4 +43,7 @@ public:
 	void Render(float dt);
 	void ShRender(float dt);
 	void Render(Program* prg);
+
+	void Play();
+	void Stop();
 };

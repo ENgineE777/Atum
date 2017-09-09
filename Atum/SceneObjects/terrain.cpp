@@ -262,3 +262,19 @@ void Terrain::Render(Program* prg)
 
 	render.GetDevice()->Draw(Device::TrianglesList, 0, sz);
 }
+
+void Terrain::Play()
+{
+	PhysHeightmapDesc hdesc;
+	hdesc.width = hwidth;
+	hdesc.height = hheight;
+	hdesc.hmap = hmap;
+	hdesc.scale = Vector2(scaleh, scalev);
+
+	hm = PScene()->CreateHeightmap(hdesc);
+}
+
+void Terrain::Stop()
+{
+	RELEASE(hm);
+}

@@ -164,6 +164,8 @@ void Scene::Play()
 
 	playing = true;
 
+	pscene = physics.CreateScene();
+
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Play();
@@ -183,6 +185,9 @@ void Scene::Stop()
 	{
 		objects[i]->Stop();
 	}
+
+	physics.DestroyScene(pscene);
+	pscene = nullptr;
 }
 
 bool Scene::Playing()

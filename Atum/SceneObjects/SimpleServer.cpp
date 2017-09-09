@@ -22,16 +22,6 @@ void SimpleServer::Init()
 {
 	Tasks()->AddTask(100, this, (Object::Delegate)&SimpleServer::Work);
 	Tasks()->AddTask(100, this, (Object::Delegate)&SimpleServer::Blink, 1.0f);
-
-	WSADATA wsaData;
-	// Initialize Winsock
-	int iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
-
-	if (iResult != 0)
-	{
-		printf("WSAStartup failed with error: %d\n", iResult);
-		exit(1);
-	}
 }
 
 

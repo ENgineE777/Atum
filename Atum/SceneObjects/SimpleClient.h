@@ -11,16 +11,7 @@ class SimpleClient : public SceneObject
 {
 public:
 
-	class Listiner : public NetworkClient::Listiner
-	{
-	public:
-		SimpleClient* owner = nullptr;
-		virtual void OnDataRecievd(void* data, int size);
-	};
-
 	float koef = 0.0f;
-
-	Listiner listiner;
 
 	NetworkClient client;
 	META_DATA_DECL(SimpleClient)

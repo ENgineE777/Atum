@@ -1,6 +1,8 @@
 
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
+
 #include "model.h"
 #include "Terrain.h"
 #include "PhysBox.h"
@@ -10,14 +12,22 @@
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"
 
-class Tank : public SceneObject
+#include "Services/Network/NetworkService.h"
+
+class Tank : public SceneObject, public NetworkDelegate
 {
 public:
 
+	enum PACKETID
+	{
+		CLIENTID = 0,
+		ADDINSTANCE,
+		CLIENTSTATE,
+		SERVERSTATE
+	};
+
 	META_DATA_DECL(Tank)
 	CLASSDECLDIF(SceneObject, Tank)
-
-	float shoot_cooldown;
 
 	struct Projectile
 	{
@@ -34,32 +44,51 @@ public:
 	};
 
 	std::vector<Projectile> projectiles;
+ 
+	struct ServerState
+	{
+		float  angle = 0;
+		Vector pos = 0.0f;
+		float  move_speed = 0.0f;
+		float  strafe_speed = 0.0f;
+		float  shoot_cooldown = 0.0f;
+		float  tower_angel = 0.0f;
+		PhysController* controller = nullptr;
+	};
 
 	struct ClientState
 	{
-		float  tower_angel = 0.0f;
 		int    up = 0;
 		int    rotate = 0;
 		bool   fired = false;
-		float  angle = 0;
-		Vector pos = 0.0f;
+		float  needed_tower_angel = 0.0f;
 		Vector gun_pos;
 		Vector gun_dir;
 	};
 
-	ClientState state;
+	class TankClient* client;
 
-	float move_speed;
-	float strafe_speed;
+	bool is_server = false;
+
+	int  clientID;
+	NetworkServer netServer;
+	NetworkClient netClient;
 
 	bool  showDebug;
 
-	PhysController* controller;
-
 	void Init();
+
+	void AddIsntance(int id);
 
 	void Play();
 	void Stop();
 	void Update(float dt);
 	void AddSplash(Vector& pos, float radius, float force);
+
+	void SendServerState(float dt);
+	void SendClientState(float dt);
+
+	virtual void OnDataRecieved(void* data, int size);
+	virtual void OnClientConnected(int id);
+
 };

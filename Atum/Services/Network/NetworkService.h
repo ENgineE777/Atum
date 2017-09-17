@@ -5,6 +5,13 @@
 #include <stdio.h> 
 #include <vector> 
 
+class NetworkDelegate
+{
+public:
+	virtual void OnDataRecieved(void* data, int size) {};
+	virtual void OnClientConnected(int id) {};
+};
+
 class NetworkClient
 { 
 	enum
@@ -22,13 +29,7 @@ class NetworkClient
 
 public:
 
-	class Listiner
-	{
-	public:
-		virtual void OnDataRecievd(void* data, int size) = 0;
-	};
-
-	Listiner* listiner = nullptr;
+	NetworkDelegate* delegedate;
 
 	int  id = -1;
 	bool Connect(const char* ip, int port);
@@ -45,6 +46,8 @@ class NetworkServer
 	int client_id = 0;
 
 public:
+
+	NetworkDelegate* delegedate;
 
 	bool Start(const char* ip, int port);
 	void Update();

@@ -129,9 +129,9 @@ void NetworkClient::Update()
 
 	if (recv_len)
 	{
-		if (listiner)
+		if (delegedate)
 		{
-			listiner->OnDataRecievd(recvbuffer, recv_len);
+			delegedate->OnDataRecieved(recvbuffer, recv_len);
 		}
 
 		recv_len = 0;
@@ -229,11 +229,19 @@ void NetworkServer::Update()
 		char value = 1;
 		setsockopt(clientSocket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value));
 
+		client_id++;
+
 		NetworkClient* client = new NetworkClient();
 		client->SetSocket(client_id, clientSocket);
+
+		client->delegedate = delegedate;
+
 		clients.push_back(client);
 
-		client_id++;
+		if (delegedate)
+		{
+			delegedate->OnClientConnected(client_id);
+		}
 	}
 
 	for (auto client : clients)

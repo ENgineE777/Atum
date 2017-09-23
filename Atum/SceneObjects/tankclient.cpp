@@ -243,8 +243,41 @@ void TankClient::Update(float dt)
 		if (inst.is_contralable)
 		{
 			inst.clientState.gun_pos = mdl.Pos();
-			inst.clientState.gun_dir = target_pt - mdl.Pos();
-			inst.clientState.gun_dir.Normalize();
+
+			Vector trg = inst.clientState.gun_pos + mdl.Vx() * (target_pt - mdl.Pos()).Length();
+
+			Vector scr = render.TransformToScreen(trg, 1);
+
+			Vector v;
+			v.x = (2.0f * scr.x - 1) / proj._11;
+			v.y = -(2.0f * scr.y - 1) / proj._22;
+			v.z = 1.0f;
+
+			Matrix inv_view = view;
+			inv_view.InverseComplette();
+
+			Vector camPos = inv_view.Pos();
+
+			Vector dir;
+			dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
+			dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
+			dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
+
+			Vector screen = camPos + dir;
+			dir.Normalize();
+
+			rcdesc.origin = camPos;
+			rcdesc.dir = dir;
+			rcdesc.length = 500;
+
+			if (PScene()->RayCast(rcdesc))
+			{
+				trg = rcdesc.hitPos;
+				render.DebugSphere(trg, COLOR_CYAN, 0.5f);
+
+				inst.clientState.gun_dir = trg - mdl.Pos();
+				inst.clientState.gun_dir.Normalize();
+			}
 		}
 	}
 }

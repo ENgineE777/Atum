@@ -47,6 +47,7 @@ private:
 	byte					ms_bts[10];
 	int						ms_x, ms_y;
 	int						prev_ms_x, prev_ms_y;
+	HWND					hwnd;
 #endif
 
 	struct HardwareAlias
@@ -93,7 +94,9 @@ private:
 
 public:
 
-	bool  Init(void* data, const char* haliases, const char* aliases);
+	bool  Init(const char* haliases, const char* aliases);
+
+	void  SetWindow(void* wnd);
 
 	int   GetAlias(const char* name);
 	bool  GetAliasState(int alias, bool exclusive, AliasAction action);

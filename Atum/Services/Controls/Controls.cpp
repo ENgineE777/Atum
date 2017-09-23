@@ -6,10 +6,10 @@
 
 Controls controls;
 
-bool Controls::Init(void* data, const char* name_haliases, const char* name_aliases)
+bool Controls::Init(const char* name_haliases, const char* name_aliases)
 {
 #ifdef PLATFORM_PC
-	HWND hwnd = *((HWND*)data);
+	HWND hwnd = NULL;
 
 	if (FAILED(DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION,
 		IID_IDirectInput8, (VOID**)&pDI, NULL)))
@@ -27,7 +27,7 @@ bool Controls::Init(void* data, const char* name_haliases, const char* name_alia
 		return false;
 	}
 
-	pKeyboard->SetCooperativeLevel(hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	pKeyboard->SetCooperativeLevel(hwnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND);
 
 	DIPROPDWORD dipdw;
 
@@ -54,7 +54,7 @@ bool Controls::Init(void* data, const char* name_haliases, const char* name_alia
 		return false;
 	}
 
-	pMouse->SetCooperativeLevel(hwnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	pMouse->SetCooperativeLevel(hwnd, DISCL_EXCLUSIVE | DISCL_FOREGROUND);
 
 	dipdw.diph.dwSize = sizeof(DIPROPDWORD);
 	dipdw.diph.dwHeaderSize = sizeof(DIPROPHEADER);
@@ -209,6 +209,11 @@ void Controls::CheckDeadEnds(Alias& alias)
 	}
 
 	alias.visited = false;
+}
+
+void Controls::SetWindow(void* wnd)
+{
+	hwnd = *((HWND*)wnd);
 }
 
 int Controls::GetAlias(const char* name)
@@ -435,6 +440,14 @@ void Controls::OverrideMousePos(int mx, int my)
 void Controls::Update(float dt)
 {
 #ifdef PLATFORM_PC
+	if (GetFocus() != hwnd)
+	{
+		ZeroMemory(btns, 256);
+		ZeroMemory(ms_bts, 10);
+
+		return;
+	}
+
 	static byte tmp_diks[256];
 	ZeroMemory(tmp_diks, sizeof(tmp_diks));
 	HRESULT hr = pKeyboard->GetDeviceState(sizeof(tmp_diks), tmp_diks);
@@ -460,12 +473,7 @@ void Controls::Update(float dt)
 	{
 		hr = pKeyboard->Acquire();
 
-		while (hr == DIERR_INPUTLOST) hr = pKeyboard->Acquire();
-
-		if (hr == DIERR_OTHERAPPHASPRIO || hr == DIERR_NOTACQUIRED)
-		{
-			return;
-		}
+		return;
 	}
 
 	ZeroMemory(&dims2, sizeof(dims2));
@@ -491,8 +499,6 @@ void Controls::Update(float dt)
 	if (FAILED(hr))
 	{
 		hr = pMouse->Acquire();
-
-		while (hr == DIERR_INPUTLOST) hr = pMouse->Acquire();
 
 		return;
 	}

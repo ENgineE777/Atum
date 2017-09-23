@@ -47,6 +47,12 @@ void Editor::Listener::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		owner->gizmo.OnLeftMouseDown((float)mx / (float)sender->GetWidth(),
 										(float)my / (float)sender->GetHeight());
 	}
+
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::GameViewportID)
+	{
+		SetFocus(*(HWND*)sender->GetNative());
+	}
 }
 
 void Editor::Listener::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
@@ -249,7 +255,8 @@ void Editor::Init()
 	viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 	viewport->SetID(ViewportID);
 
-	controls.Init(viewport->GetNative(), "settings/controls/hardware_pc", "settings/controls/user_pc");
+	controls.Init("settings/controls/hardware_pc", "settings/controls/user_pc");
+	controls.SetWindow(viewport->GetNative());
 
 	fonts.Init();
 
@@ -427,7 +434,13 @@ void Editor::Update()
 	}
 
 	char fps_str[16];
-	StringUtils::Printf(fps_str, 16, "%i", Timer::GetFPS());
+	StringUtils::Printf(fps_str, 16, "%i ", Timer::GetFPS());
+
+	if (GetFocus() == *(HWND*)viewport->GetNative())
+	{
+		StringUtils::Cat(fps_str, 16, " Active");
+	}
+
 	render.DebugPrintText(0.0f, COLOR_GREEN, fps_str);
 
 	physics.Update(dt);
@@ -454,6 +467,9 @@ void Editor::StartScene()
 	pn->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 	pn->SetID(GameViewportID);
 
+	controls.SetWindow(pn->GetNative());
+	SetFocus(*(HWND*)pn->GetNative());
+
 	gameWnd->Show(true);
 	gameWnd->SetAtScreenCenter();
 }
@@ -463,6 +479,8 @@ void Editor::StopScene()
 	scene.Stop();
 
 	render.GetDevice()->SetVideoMode((int)viewport->GetWidth(), (int)viewport->GetHeight(), viewport->GetNative());
+
+	controls.SetWindow(viewport->GetNative());
 
 	gameWnd = NULL;
 }

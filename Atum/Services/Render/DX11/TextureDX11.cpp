@@ -10,6 +10,7 @@ int TextureDX11::GetFormat(Format fmt)
 	switch (fmt)
 	{
 		case FMT_A8R8G8B8: return DXGI_FORMAT_R8G8B8A8_UNORM;
+		case FMT_A8R8: return DXGI_FORMAT_R8G8_UNORM;
 		case FMT_R16_FLOAT: return DXGI_FORMAT_R16_FLOAT;
 		case FMT_D16: return DXGI_FORMAT_R16_TYPELESS;
 	}

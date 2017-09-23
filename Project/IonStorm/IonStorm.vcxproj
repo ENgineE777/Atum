@@ -39,6 +39,10 @@
     <ClCompile Include="..\..\Atum\SceneObjects\tankclient.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\terrain.cpp" />
     <ClCompile Include="..\..\Atum\Services\Controls\Controls.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Font\FontCharmap.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Font\Font.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Font\FontRes.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Font\FontService.cpp" />
     <ClCompile Include="..\..\Atum\Services\Network\NetworkService.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\PhysController.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\PhysHeightmap.cpp" />
@@ -46,6 +50,7 @@
     <ClCompile Include="..\..\Atum\Services\Physics\PhysObject.cpp" />
     <ClCompile Include="..\..\Atum\Services\Physics\PhysScene.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugFont.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
@@ -96,6 +101,12 @@
     <ClInclude Include="..\..\Atum\SceneObjects\tankclient.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\terrain.h" />
     <ClInclude Include="..\..\Atum\Services\Controls\Controls.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\FontCharmap.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\FontCharToGlyphIndexMap.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\Font.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\FontRes.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\FontService.h" />
+    <ClInclude Include="..\..\Atum\Services\Font\stb_truetype.h" />
     <ClInclude Include="..\..\Atum\Services\Network\NetworkService.h" />
     <ClInclude Include="..\..\Atum\Services\Physics\PhysController.h" />
     <ClInclude Include="..\..\Atum\Services\Physics\PhysHeightmap.h" />
@@ -104,6 +115,7 @@
     <ClInclude Include="..\..\Atum\Services\Physics\PhysScene.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\Debug.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugBoxes.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugFont.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugPrograms.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
@@ -238,12 +250,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\freetype\include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\freetype\objs\vc2010\x64\freetype281d.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -276,14 +288,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\freetype\include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\freetype\objs\vc2010\x64\freetype281.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

@@ -10,6 +10,7 @@ public:
 	enum Format
 	{
 		FMT_A8R8G8B8 = 0,
+		FMT_A8R8,
 		FMT_R16_FLOAT,
 		FMT_D16
 	};

@@ -38,6 +38,9 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 		lines = new DebugLines();
 		lines->Init(debugTaskPool);
 
+		font = new DebugFont();
+		font->Init(debugTaskPool);
+
 		return true;
 	}
 
@@ -223,6 +226,52 @@ void Render::DebugSphere(Vector& pos, Color& color, float radius)
 void Render::DebugBox(Matrix& pos, Color& color, Vector& scale)
 {
 	boxes->AddBox(pos, color, scale);
+}
+
+void Render::DebugPrintText(Vector2 pos, Color color, const char* text)
+{
+	font->AddText(pos, color, text);
+}
+
+void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text)
+{
+	font->AddText(pos, dist, color, text);
+}
+
+Vector Render::TransformToScreen(const Vector& pos, int type)
+{
+	Matrix view;
+	render.GetTransform(Render::View, view);
+
+	Matrix view_proj;
+	render.GetTransform(Render::WrldViewProj, view_proj);
+
+	Vector pre_ps = pos * view;
+	Vector4 ps2 = view_proj.MulVertex4(pos);
+	Vector ps;
+	ps.Set(ps2.x / ps2.w, ps2.y / ps2.w, ps2.z);
+
+	if (type == 0)
+	{
+		ps.x = ps.x;
+		ps.y = ps.y;
+		ps.z = pre_ps.z;
+	}
+	else
+	if (type == 1 || type == 2)
+	{
+		ps.x = 0.5f + ps.x*0.5f;
+		ps.y = 0.5f - ps.y*0.5f;
+		ps.z = pre_ps.z;
+
+		if (type == 2)
+		{
+			ps.x *= render.GetDevice()->GetWidth();
+			ps.y *= render.GetDevice()->GetHeight();
+		}
+	}
+
+	return ps;
 }
 
 void Render::Release()

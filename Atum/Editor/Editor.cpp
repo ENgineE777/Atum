@@ -1,6 +1,7 @@
 
 #include "Editor.h"
 #include "Services/Physics/Physics.h"
+#include "Services/Font/FontService.h"
 
 char appdir[1024];
 
@@ -249,6 +250,9 @@ void Editor::Init()
 	viewport->SetID(ViewportID);
 
 	controls.Init(viewport->GetNative(), "settings/controls/hardware_pc", "settings/controls/user_pc");
+
+	fonts.Init();
+
 	render.Init("DX11", 100, 100, viewport->GetNative());
 
 	render.AddExecutedLevelPool(1);
@@ -421,6 +425,10 @@ void Editor::Update()
 			selectedObject->ApplyProperties();
 		}
 	}
+
+	char fps_str[16];
+	StringUtils::Printf(fps_str, 16, "%i", Timer::GetFPS());
+	render.DebugPrintText(0.0f, COLOR_GREEN, fps_str);
 
 	physics.Update(dt);
 

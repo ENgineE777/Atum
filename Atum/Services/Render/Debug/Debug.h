@@ -5,3 +5,4 @@
 #include "DebugLines.h"
 #include "DebugSpheres.h"
 #include "DebugBoxes.h"
+#include "DebugFont.h"

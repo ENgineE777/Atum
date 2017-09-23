@@ -2,42 +2,6 @@
 #include "Gizmo.h"
 #include "Services/Render/Render.h"
 
-Vector TransformToScreen(const Vector& pos, int type)
-{
-	Matrix view;
-	render.GetTransform(Render::View, view);
-
-	Matrix view_proj;
-	render.GetTransform(Render::WrldViewProj, view_proj);
-
-	Vector pre_ps = pos * view;
-	Vector4 ps2 = view_proj.MulVertex4(pos);
-	Vector ps;
-	ps.Set(ps2.x / ps2.w, ps2.y / ps2.w, ps2.z);
-
-	if (type == 0)
-	{
-		ps.x = ps.x;
-		ps.y = ps.y;
-		ps.z = pre_ps.z;
-	}
-	else
-		if (type == 1 || type == 2)
-		{
-			ps.x = 0.5f + ps.x*0.5f;
-			ps.y = 0.5f - ps.y*0.5f;
-			ps.z = pre_ps.z;
-
-			if (type == 2)
-			{
-				//ps.x *= GetWidth();
-				//ps.y *= GetHeight();
-			}
-		}
-
-	return ps;
-}
-
 Gizmo::Gizmo()
 {
 	bViewPortResized = false;
@@ -250,8 +214,8 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2,
 
 	if (proceed)
 	{
-		pos_post = TransformToScreen(pos, 1);
-		pos2_post = TransformToScreen(pos2, 1);
+		pos_post = render.TransformToScreen(pos, 1);
+		pos2_post = render.TransformToScreen(pos2, 1);
 		
 		float x1 = fmin(pos_post.x , pos2_post.x );
 		float x2 = fmax(pos_post.x , pos2_post.x );

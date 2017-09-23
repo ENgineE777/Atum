@@ -6,15 +6,26 @@
 
 class Buffer
 {
-	uint8_t* buffer;
-	uint8_t* ptr;
-	int      size;
+	uint8_t* buffer = nullptr;
+	uint8_t* ptr = nullptr;
+	int      size = 0;
 
 public:
 
+	Buffer()
+	{
+
+	};
+
 	Buffer(const char* name)
 	{
-		buffer = NULL;
+		Load(name);
+	};
+
+
+	bool Load(const char* name)
+	{
+		ptr = buffer = nullptr;
 		size = 0;
 
 		FILE* file = fopen(name, "rb");
@@ -29,9 +40,12 @@ public:
 			fread(buffer, size, 1, file);
 
 			fclose(file);
+
+			ptr = buffer;
+			return true;
 		}
 
-		ptr = buffer;
+		return false;
 	}
 
 	~Buffer()

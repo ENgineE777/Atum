@@ -23,9 +23,11 @@ class Render
 
 	std::map<std::string, TextureRef> textures;
 
-	class DebugLines*  lines;
+	class DebugLines*   lines;
 	class DebugSpheres* spheres;
-	class DebugBoxes* boxes;
+	class DebugBoxes*   boxes;
+	class DebugFont*    font;
+
 
 	TaskExecutor::GroupTaskPool* groupTaskPool;
 	TaskExecutor::SingleTaskPool* debugTaskPool;
@@ -62,6 +64,11 @@ public:
 	void DebugLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth = true);
 	void DebugSphere(Vector& pos, Color& color, float radius);
 	void DebugBox(Matrix& pos, Color& color, Vector& scale);
+	void DebugPrintText(Vector2 pos, Color color, const char* text);
+	void DebugPrintText(Vector pos, float dist, Color color, const char* text);
+
+
+	Vector TransformToScreen(const Vector& pos, int type);
 
 	void Release();
 

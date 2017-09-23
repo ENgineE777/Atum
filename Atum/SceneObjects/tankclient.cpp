@@ -244,6 +244,7 @@ void TankClient::Update(float dt)
 		{
 			inst.clientState.gun_pos = mdl.Pos();
 
+			target_pt.y = mdl.Pos().y;
 			Vector trg = inst.clientState.gun_pos + mdl.Vx() * (target_pt - mdl.Pos()).Length();
 
 			Vector scr = render.TransformToScreen(trg, 1);

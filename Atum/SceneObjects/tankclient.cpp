@@ -235,6 +235,8 @@ void TankClient::Update(float dt)
 		mdl = Matrix().RotateY(inst.serverState.tower_angel - inst.serverState.angle) * Matrix().Move(hover_model.locator) * mdl;
 		inst.tower_drawer->SetTransform(mdl);
 
+		Vector tower = mdl.Pos();
+
 		mdl = Matrix().Move(tower_model.locator) * mdl;
 		inst.gun_drawer->SetTransform(mdl);
 
@@ -244,41 +246,22 @@ void TankClient::Update(float dt)
 		{
 			inst.clientState.gun_pos = mdl.Pos();
 
-			target_pt.y = mdl.Pos().y;
-			Vector trg = inst.clientState.gun_pos + mdl.Vx() * (target_pt - mdl.Pos()).Length();
+			Vector dr = target_pt - tower;
+			float hgt = dr.y;
+			dr.y = 0;
+			int len = dr.Length();
 
-			Vector scr = render.TransformToScreen(trg, 1);
+			dr = mdl.Vx();
+			dr.y = 0;
+			dr.Normalize();
+			dr *= len;
+			dr.y = hgt;
 
-			Vector v;
-			v.x = (2.0f * scr.x - 1) / proj._11;
-			v.y = -(2.0f * scr.y - 1) / proj._22;
-			v.z = 1.0f;
+			Vector trg = tower + dr;
+			render.DebugSphere(trg, COLOR_CYAN, 0.5f);
 
-			Matrix inv_view = view;
-			inv_view.InverseComplette();
-
-			Vector camPos = inv_view.Pos();
-
-			Vector dir;
-			dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
-			dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
-			dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
-
-			Vector screen = camPos + dir;
-			dir.Normalize();
-
-			rcdesc.origin = camPos;
-			rcdesc.dir = dir;
-			rcdesc.length = 500;
-
-			if (PScene()->RayCast(rcdesc))
-			{
-				trg = rcdesc.hitPos;
-				render.DebugSphere(trg, COLOR_CYAN, 0.5f);
-
-				inst.clientState.gun_dir = trg - mdl.Pos();
-				inst.clientState.gun_dir.Normalize();
-			}
+			inst.clientState.gun_dir = trg - mdl.Pos();
+			inst.clientState.gun_dir.Normalize();
 		}
 	}
 }

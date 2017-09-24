@@ -258,10 +258,20 @@ void TankClient::Update(float dt)
 			dr.y = hgt;
 
 			Vector trg = tower + dr;
-			render.DebugSphere(trg, COLOR_CYAN, 0.5f);
 
 			inst.clientState.gun_dir = trg - mdl.Pos();
 			inst.clientState.gun_dir.Normalize();
+
+			rcdesc.origin = inst.clientState.gun_pos;
+			rcdesc.dir = inst.clientState.gun_dir;
+			rcdesc.length = 500;
+
+			if (PScene()->RayCast(rcdesc))
+			{
+				trg = rcdesc.hitPos;
+			}
+
+			render.DebugSphere(trg, COLOR_CYAN, 0.5f);
 		}
 	}
 }

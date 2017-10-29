@@ -255,7 +255,8 @@ void Editor::Init()
 	viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 	viewport->SetID(ViewportID);
 
-	controls.Init("settings/controls/hardware_pc", "settings/controls/user_pc");
+	controls.Init("settings/controls/hardware_pc", true);
+	controls.LoadAliases("settings/controls/user_pc");
 	controls.SetWindow(viewport->GetNative());
 
 	fonts.Init();

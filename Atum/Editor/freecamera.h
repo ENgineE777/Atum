@@ -18,6 +18,7 @@ public:
 	int alias_rotate_active;
 	int alias_rotate_x;
 	int alias_rotate_y;
+	int alias_reset_view;
 
 	void Init();
 

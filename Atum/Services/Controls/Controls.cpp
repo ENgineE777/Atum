@@ -6,8 +6,10 @@
 
 Controls controls;
 
-bool Controls::Init(const char* name_haliases, const char* name_aliases)
+bool Controls::Init(const char* name_haliases, bool allowDebugKeys)
 {
+	this->allowDebugKeys = allowDebugKeys;
+
 #ifdef PLATFORM_PC
 	HWND hwnd = NULL;
 
@@ -108,23 +110,41 @@ bool Controls::Init(const char* name_haliases, const char* name_aliases)
 
 	reader->Release();
 
-	reader = new JSONReader();
+	return true;
+}
+
+bool Controls::LoadAliases(const char* name_aliases)
+{
+	JSONReader* reader = new JSONReader();
+
+	bool res = false;
 
 	if (reader->Parse(name_aliases))
 	{
+		res = true;
+
 		while (reader->EnterBlock("Aliases"))
 		{
 			aliases.push_back(Alias());
-			Alias& alias = aliases[aliases.size() - 1];
+			Alias& alias = aliases.back();
 
 			reader->Read("name", alias.name);
 
 			while (reader->EnterBlock("AliasesRef"))
 			{
 				alias.aliasesRef.push_back(AliasRef());
-				AliasRef& aliasRef = alias.aliasesRef[alias.aliasesRef.size() - 1];
+				AliasRef& aliasRef = alias.aliasesRef.back();
 
-				reader->Read("name", aliasRef.name);
+				while (reader->EnterBlock("names"))
+				{
+					aliasRef.refs.push_back(AliasRefState());
+					AliasRefState& ref = aliasRef.refs.back();
+
+					reader->Read("", ref.name);
+
+					reader->LeaveBlock();
+				}
+
 				reader->Read("modifier", aliasRef.modifier);
 
 				reader->LeaveBlock();
@@ -132,58 +152,49 @@ bool Controls::Init(const char* name_haliases, const char* name_aliases)
 
 			reader->LeaveBlock();
 		}
+
+		ResolveAliases();
 	}
 
 	reader->Release();
 
-	ResolveAliases();
-
-	return true;
+	return res;
 }
 
 void Controls::ResolveAliases()
 {
-	for (int i = 0; i < aliases.size(); i++)
+	for (auto&  alias : aliases)
 	{
-		Alias& alias = aliases[i];
-
-		for (int j = 0; j < alias.aliasesRef.size(); j++)
+		for (auto&  aliasRef : alias.aliasesRef)
 		{
-			AliasRef& aliasRef = alias.aliasesRef[j];
-
-			for (int l = 0; l < aliases.size(); l++)
+			for (auto& ref : aliasRef.refs)
 			{
-				if (i == l)
-				{
-					continue;
-				}
+				int index = GetAlias(ref.name.c_str());
 
-				if (StringUtils::IsEqual(aliases[l].name.c_str(), aliasRef.name.c_str()))
+				if (index != -1)
 				{
-					aliasRef.aliasIndex = l;
-					aliasRef.refer2hardware = false;
-					break;
+					ref.aliasIndex = index;
+					ref.refer2hardware = false;
 				}
-			}
-
-			if (aliasRef.aliasIndex == -1)
-			{
-				for (int l = 0; l < haliases.size(); l++)
+				else
 				{
-					if (StringUtils::IsEqual(haliases[l].name.c_str(), aliasRef.name.c_str()))
+					for (int l = 0; l < haliases.size(); l++)
 					{
-						aliasRef.aliasIndex = l;
-						aliasRef.refer2hardware = true;
-						break;
+						if (StringUtils::IsEqual(haliases[l].name.c_str(), ref.name.c_str()))
+						{
+							ref.aliasIndex = l;
+							ref.refer2hardware = true;
+							break;
+						}
 					}
 				}
 			}
 		}
 	}
 
-	for (int i = 0; i < aliases.size(); i++)
+	for (auto&  alias : aliases)
 	{
-		CheckDeadEnds(aliases[i]);
+		CheckDeadEnds(alias);
 	}
 }
 
@@ -191,19 +202,20 @@ void Controls::CheckDeadEnds(Alias& alias)
 {
 	alias.visited = true;
 
-	for (int j = 0; j < alias.aliasesRef.size(); j++)
+	for (auto& aliasRef : alias.aliasesRef)
 	{
-		AliasRef& aliasRef = alias.aliasesRef[j];
-
-		if (aliasRef.aliasIndex != -1 && !aliasRef.refer2hardware)
+		for (auto& ref : aliasRef.refs)
 		{
-			if (aliases[aliasRef.aliasIndex].visited)
+			if (ref.aliasIndex != -1 && !ref.refer2hardware)
 			{
-				aliasRef.aliasIndex = -1;
-			}
-			else
-			{
-				CheckDeadEnds(aliases[aliasRef.aliasIndex]);
+				if (aliases[ref.aliasIndex].visited)
+				{
+					ref.aliasIndex = -1;
+				}
+				else
+				{
+					CheckDeadEnds(aliases[ref.aliasIndex]);
+				}
 			}
 		}
 	}
@@ -229,7 +241,7 @@ int Controls::GetAlias(const char* name)
 	return -1;
 }
 
-bool Controls::GetHardwareAliasState(int index, bool exclusive, AliasAction action)
+bool Controls::GetHardwareAliasState(int index, AliasAction action)
 {
 	HardwareAlias& halias = haliases[index];
 
@@ -237,12 +249,6 @@ bool Controls::GetHardwareAliasState(int index, bool exclusive, AliasAction acti
 	{
 		if (action == Activated)
 		{
-			if (exclusive && btns[halias.index] == 1)
-			{
-				btns[halias.index]++;
-				return true;
-			}
-
 			return (btns[halias.index] == 1);
 		}
 
@@ -258,12 +264,6 @@ bool Controls::GetHardwareAliasState(int index, bool exclusive, AliasAction acti
 		{
 			if (action == Activated)
 			{
-				if (exclusive && ms_bts[halias.index] == 1)
-				{
-					ms_bts[halias.index]++;
-					return true;
-				}
-
 				return (ms_bts[halias.index] == 1);
 			}
 
@@ -277,7 +277,7 @@ bool Controls::GetHardwareAliasState(int index, bool exclusive, AliasAction acti
 	return false;
 }
 
-bool Controls::GetAliasState(int index, bool exclusive, AliasAction action)
+bool Controls::GetAliasState(int index, AliasAction action)
 {
 	if (index == -1 || index >= aliases.size())
 	{
@@ -286,24 +286,47 @@ bool Controls::GetAliasState(int index, bool exclusive, AliasAction action)
 
 	Alias& alias = aliases[index];
 
-	for (int i = 0; i < alias.aliasesRef.size(); i++)
+	for (auto& aliasRef : alias.aliasesRef)
 	{
-		AliasRef& aliasRef = alias.aliasesRef[i];
+		bool val = true;
 
-		if (aliasRef.aliasIndex == -1)
+		for (auto& ref : aliasRef.refs)
 		{
-			continue;
+			if (ref.aliasIndex == -1)
+			{
+				continue;
+			}
+
+			if (ref.refer2hardware)
+			{
+				val &= GetHardwareAliasState(ref.aliasIndex, Active);
+			}
+			else
+			{
+				val &= GetAliasState(ref.aliasIndex, Active);
+			}
 		}
 
-		bool val = false;
+		if (action == Activated && val)
+		{
+			val = false;
 
-		if (aliasRef.refer2hardware)
-		{
-			val = GetHardwareAliasState(aliasRef.aliasIndex, exclusive, action);
-		}
-		else
-		{
-			val = GetHardwareAliasState(aliasRef.aliasIndex, exclusive, action);
+			for (auto& ref : aliasRef.refs)
+			{
+				if (ref.aliasIndex == -1)
+				{
+					continue;
+				}
+
+				if (ref.refer2hardware)
+				{
+					val |= GetHardwareAliasState(ref.aliasIndex, Activated);
+				}
+				else
+				{
+					val |= GetAliasState(ref.aliasIndex, Activated);
+				}
+			}
 		}
 
 		if (val)
@@ -380,24 +403,25 @@ float Controls::GetAliasValue(int index, bool delta)
 
 	Alias& alias = aliases[index];
 
-	for (int i = 0; i < alias.aliasesRef.size(); i++)
+	for (auto& aliasRef : alias.aliasesRef)
 	{
-		AliasRef& aliasRef = alias.aliasesRef[i];
-
-		if (aliasRef.aliasIndex == -1)
-		{
-			continue;
-		}
-
 		float val = 0.0f;
 
-		if (aliasRef.refer2hardware)
+		for (auto& ref : aliasRef.refs)
 		{
-			val = GetHardwareAliasValue(aliasRef.aliasIndex, delta);
-		}
-		else
-		{
-			val = GetAliasValue(aliasRef.aliasIndex, delta);
+			if (ref.aliasIndex == -1)
+			{
+				continue;
+			}
+
+			if (ref.refer2hardware)
+			{
+				val = GetHardwareAliasValue(ref.aliasIndex, delta);
+			}
+			else
+			{
+				val = GetAliasValue(ref.aliasIndex, delta);
+			}
 		}
 
 		if (fabs(val) > 0.01f)
@@ -411,12 +435,42 @@ float Controls::GetAliasValue(int index, bool delta)
 
 bool Controls::DebugKeyPressed(const char* name, AliasAction action)
 {
+	if (!allowDebugKeys || !name)
+	{
+		return false;
+	}
+
 	if (debeugMap.find(name) == debeugMap.end())
 	{
 		return false;
 	}
 
-	return GetHardwareAliasState(debeugMap[name], false, action);
+	return GetHardwareAliasState(debeugMap[name], action);
+}
+
+bool Controls::DebugHotKeyPressed(const char* name, const char* name2, const char* name3)
+{
+	if (!allowDebugKeys)
+	{
+		return false;
+	}
+
+	bool active = DebugKeyPressed(name, Active) & DebugKeyPressed(name2, Active);
+
+	if (name3)
+	{
+		active &= DebugKeyPressed(name3, Active);
+	}
+
+	if (active)
+	{
+		if (DebugKeyPressed(name) | DebugKeyPressed(name2) | DebugKeyPressed(name3))
+		{
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Controls::OverrideMousePos(int mx, int my)

@@ -15,11 +15,18 @@ void FreeCamera::Init()
 	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
 	alias_rotate_x = controls.GetAlias("ROTATE_X");
 	alias_rotate_y = controls.GetAlias("ROTATE_Y");
+	alias_reset_view = controls.GetAlias("RESET_VIEW");
 }
 
 void FreeCamera::Update(float dt)
 {
-	if (controls.GetAliasState(alias_rotate_active, false, Controls::Active))
+	if (controls.GetAliasState(alias_reset_view))
+	{
+		angles = Vector2(0.0f, -0.5f);
+		pos = Vector(0.0f, 6.0f, 0.0f);
+	}
+
+	if (controls.GetAliasState(alias_rotate_active, Controls::Active))
 	{
 		angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 		angles.y -= controls.GetAliasValue(alias_rotate_y, true) * 0.01f;

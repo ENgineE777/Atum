@@ -80,8 +80,10 @@ private:
 
 	bool allowDebugKeys = false;
 	std::vector<HardwareAlias> haliases;
-	std::vector<Alias> aliases;
 	std::map<std::string, int> debeugMap;
+
+	std::vector<Alias> aliases;
+	std::map<std::string, int> aliasesMap;
 
 	void  ResolveAliases();
 	void  CheckDeadEnds(Alias& alias);

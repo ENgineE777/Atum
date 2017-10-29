@@ -1,7 +1,7 @@
 {
 	"Aliases" : [
 		{
-			"name" : "MOVE_FORWARD",
+			"name" : "FreeCamera.MOVE_FORWARD",
 			"AliasesRef" : [
 				{ "names" : ["KEY_W"], "modifier" : 1.0 },
 				{ "names" : ["KEY_I"], "modifier" : 1.0 },
@@ -10,7 +10,7 @@
 			]
 		},
 		{
-			"name" : "MOVE_STRAFE",
+			"name" : "FreeCamera.MOVE_STRAFE",
 			"AliasesRef" : [
 				{ "names" : ["KEY_A"], "modifier" : -1.0 },
 				{ "names" : ["KEY_J"], "modifier" : -1.0 },
@@ -19,31 +19,31 @@
 			]
 		},
 		{
-			"name" : "MOVE_FAST",
+			"name" : "FreeCamera.MOVE_FAST",
 			"AliasesRef" : [
 				{ "names" : ["KEY_LSHIFT"] }
 			]
 		},
 		{
-			"name" : "ROTATE_ACTIVE",
+			"name" : "FreeCamera.ROTATE_ACTIVE",
 			"AliasesRef" : [
 				{ "names" : ["MS_BTN1"] }
 			]
 		},
 		{
-			"name" : "ROTATE_X",
+			"name" : "FreeCamera.ROTATE_X",
 			"AliasesRef" : [
 				{ "names" : ["MS_X"] }
 			]
 		},
 		{
-			"name" : "ROTATE_Y",
+			"name" : "FreeCamera.ROTATE_Y",
 			"AliasesRef" : [
 				{ "names" : ["MS_Y"] }
 			]
 		},
 		{
-			"name" : "RESET_VIEW",
+			"name" : "FreeCamera.RESET_VIEW",
 			"AliasesRef" : [
 				{ "names" : ["KEY_R", "KEY_LCONTROL"] }
 			]

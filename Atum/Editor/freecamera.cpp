@@ -9,13 +9,13 @@ void FreeCamera::Init()
 	angles = Vector2(0.0f, -0.5f);
 	pos = Vector(0.0f, 6.0f, 0.0f);
 
-	alias_forward = controls.GetAlias("MOVE_FORWARD");
-	alias_strafe = controls.GetAlias("MOVE_STRAFE");
-	alias_fast = controls.GetAlias("MOVE_FAST");
-	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
-	alias_rotate_x = controls.GetAlias("ROTATE_X");
-	alias_rotate_y = controls.GetAlias("ROTATE_Y");
-	alias_reset_view = controls.GetAlias("RESET_VIEW");
+	alias_forward = controls.GetAlias("FreeCamera.MOVE_FORWARD");
+	alias_strafe = controls.GetAlias("FreeCamera.MOVE_STRAFE");
+	alias_fast = controls.GetAlias("FreeCamera.MOVE_FAST");
+	alias_rotate_active = controls.GetAlias("FreeCamera.ROTATE_ACTIVE");
+	alias_rotate_x = controls.GetAlias("FreeCamera.ROTATE_X");
+	alias_rotate_y = controls.GetAlias("FreeCamera.ROTATE_Y");
+	alias_reset_view = controls.GetAlias("FreeCamera.RESET_VIEW");
 }
 
 void FreeCamera::Update(float dt)

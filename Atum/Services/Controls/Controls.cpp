@@ -125,15 +125,31 @@ bool Controls::LoadAliases(const char* name_aliases)
 
 		while (reader->EnterBlock("Aliases"))
 		{
-			aliases.push_back(Alias());
-			Alias& alias = aliases.back();
+			std::string name;
+			reader->Read("name", name);
 
-			reader->Read("name", alias.name);
+			int index = GetAlias(name.c_str());
+
+			Alias* alias;
+
+			if (index == -1)
+			{
+				aliases.push_back(Alias());
+				alias = &aliases.back();
+
+				alias->name = name;
+				aliasesMap[name] = (int)aliases.size() - 1;
+			}
+			else
+			{
+				alias = &aliases[index];
+				alias->aliasesRef.clear();
+			}
 
 			while (reader->EnterBlock("AliasesRef"))
 			{
-				alias.aliasesRef.push_back(AliasRef());
-				AliasRef& aliasRef = alias.aliasesRef.back();
+				alias->aliasesRef.push_back(AliasRef());
+				AliasRef& aliasRef = alias->aliasesRef.back();
 
 				while (reader->EnterBlock("names"))
 				{
@@ -188,6 +204,11 @@ void Controls::ResolveAliases()
 						}
 					}
 				}
+
+				if (index == -1)
+				{
+					printf("alias %s has invalid reference %s", alias.name.c_str(), ref.name.c_str());
+				}
 			}
 		}
 	}
@@ -211,6 +232,7 @@ void Controls::CheckDeadEnds(Alias& alias)
 				if (aliases[ref.aliasIndex].visited)
 				{
 					ref.aliasIndex = -1;
+					printf("alias %s has circular reference %s", alias.name.c_str(), ref.name.c_str());
 				}
 				else
 				{
@@ -230,46 +252,46 @@ void Controls::SetWindow(void* wnd)
 
 int Controls::GetAlias(const char* name)
 {
-	for (int i = 0; i < aliases.size(); i++)
+	if (aliasesMap.find(name) == aliasesMap.end())
 	{
-		if (StringUtils::IsEqual(aliases[i].name.c_str(), name))
-		{
-			return i;
-		}
+		return -1;
 	}
 
-	return -1;
+	return aliasesMap[name];
 }
 
 bool Controls::GetHardwareAliasState(int index, AliasAction action)
 {
 	HardwareAlias& halias = haliases[index];
 
-	if (halias.device == Keyboard)
-	{
-		if (action == Activated)
-		{
-			return (btns[halias.index] == 1);
-		}
-
-		if (action == Active)
-		{
-			return (btns[halias.index] > 0);
-		}
-	}
-	else
-	if (halias.device == Mouse)
-	{
-		if (halias.index < 10)
+	switch (halias.device)
+	{ 
+		case Keyboard:
 		{
 			if (action == Activated)
 			{
-				return (ms_bts[halias.index] == 1);
+				return (btns[halias.index] == 1);
 			}
 
 			if (action == Active)
 			{
-				return (ms_bts[halias.index] > 0);
+				return (btns[halias.index] > 0);
+			}
+			break;
+		}
+		case Mouse:
+		{
+			if (halias.index < 10)
+			{
+				if (action == Activated)
+				{
+					return (ms_bts[halias.index] == 1);
+				}
+
+				if (action == Active)
+				{
+					return (ms_bts[halias.index] > 0);
+				}
 			}
 		}
 	}

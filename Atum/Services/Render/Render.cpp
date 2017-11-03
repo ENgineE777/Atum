@@ -6,6 +6,18 @@
 #include "Debug/Debug.h"
 #include <memory>
 
+//#define STBI_NO_JPEG
+
+//STBI_NO_TGA
+#define STBI_NO_GIF
+#define STBI_NO_HDR
+#define STBI_NO_PIC
+#define STBI_NO_PNM
+
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 Render render;
 
 Render::Render()
@@ -96,64 +108,17 @@ Texture* Render::LoadTexture(const char* name)
 		return NULL;
 	}
 
-	ptr += 2;
+	int bytes;
+	int width;
+	int height;
+	uint8_t* data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
 
-	uint8_t imageTypeCode = *((uint8_t*)ptr);
 
-	if (imageTypeCode != 2 && imageTypeCode != 3)
-	{
-		return NULL;
-	}
+	Texture* texture = device->CreateTexture(width, height, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
 
-	ptr += 10;
+	texture->Update(0, 0, data, width * 4);
 
-	short int imageWidth = *((short int*)ptr);
-	ptr += 2;
-
-	short int imageHeight = *((short int*)ptr);
-	ptr += 2;
-
-	uint8_t bitCount = *((uint8_t*)ptr);
-	ptr += 2;
-
-	int colorMode = bitCount / 8;
-
-	Texture* texture = device->CreateTexture(imageWidth, imageHeight, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
-
-	uint8_t* dest = (uint8_t*)malloc(imageWidth * imageHeight * 4);
-
-	for (int j = 0; j < imageHeight; j++)
-	{
-		if (colorMode == 4)
-		{
-			for (int i = 0; i < imageWidth; i++)
-			{
-				uint8_t* dst = &dest[((imageHeight - 1 - j) * imageWidth + i) * 4];
-				memcpy(dst, &ptr[(j * imageWidth + i) * 4], 4);
-				uint8_t tmp = dst[0];
-				dst[0] = dst[2];
-				dst[2] = tmp;
-			}
-		}
-		else
-		if (colorMode == 3)
-		{
-			for (int i = 0; i < imageWidth; i++)
-			{
-				uint8_t* dst = &dest[((imageHeight - 1 - j) * imageWidth + i) * 4];
-				memcpy(dst, &ptr[(j * imageWidth + i) * 3], 3);
-				uint8_t tmp = dst[0];
-				dst[0] = dst[2];
-				dst[2] = tmp;
-
-				dst[3] = 255;
-			}
-		}
-	}
-
-	texture->Update(0, 0, dest, imageWidth * 4);
-
-	free(dest);
+	free(data);
 
 	texture->GenerateMips();
 

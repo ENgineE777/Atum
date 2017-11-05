@@ -53,6 +53,7 @@ public:
 		float  strafe_speed = 0.0f;
 		float  shoot_cooldown = 0.0f;
 		float  tower_angel = 0.0f;
+		float  timeStamp = 0.0f;
 		PhysController* controller = nullptr;
 	};
 
@@ -62,6 +63,7 @@ public:
 		int    rotate = 0;
 		bool   fired = false;
 		float  needed_tower_angel = 0.0f;
+		float  timeStamp = 0.0f;
 		Vector gun_pos;
 		Vector gun_dir;
 	};
@@ -74,6 +76,7 @@ public:
 	NetworkServer netServer;
 	NetworkClient netClient;
 
+	float time = 0.0f;
 	bool  showDebug;
 
 	void Init();
@@ -90,5 +93,4 @@ public:
 
 	virtual void OnDataRecieved(void* data, int size);
 	virtual void OnClientConnected(int id);
-
 };

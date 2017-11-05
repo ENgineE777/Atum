@@ -47,6 +47,44 @@
 			"AliasesRef" : [
 				{ "names" : ["KEY_R", "KEY_LCONTROL"] }
 			]
-		}
+		},
+		{
+			"name" : "Tank.MOVE_FORWARD",
+			"AliasesRef" : [
+				{ "names" : ["KEY_W"], "modifier" : 1.0 },
+				{ "names" : ["KEY_S"], "modifier" : -1.0 }
+			]
+		},
+		{
+			"name" : "Tank.MOVE_STRAFE",
+			"AliasesRef" : [
+				{ "names" : ["KEY_A"], "modifier" : -1.0 },
+				{ "names" : ["KEY_D"], "modifier" : 1.0 }
+			]
+		},
+		{
+			"name" : "Tank.ROTATE_ACTIVE",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN1"] }
+			]
+		},
+		{
+			"name" : "Tank.ROTATE_X",
+			"AliasesRef" : [
+				{ "names" : ["MS_X"] }
+			]
+		},
+		{
+			"name" : "Tank.ROTATE_Y",
+			"AliasesRef" : [
+				{ "names" : ["MS_Y"] }
+			]
+		},
+		{
+			"name" : "Tank.FIRE",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN0"] }
+			]
+		},
 	]
 } 

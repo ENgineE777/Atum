@@ -12,12 +12,12 @@ void TankClient::Init()
 
 	angles.y = -HALF_PI;
 
-	alias_forward = controls.GetAlias("MOVE_FORWARD");
-	alias_strafe = controls.GetAlias("MOVE_STRAFE");
-	alias_fast = controls.GetAlias("MOVE_FAST");
-	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
-	alias_rotate_x = controls.GetAlias("ROTATE_X");
-	alias_rotate_y = controls.GetAlias("ROTATE_Y");
+	alias_forward = controls.GetAlias("Tank.MOVE_FORWARD");
+	alias_strafe = controls.GetAlias("Tank.MOVE_STRAFE");
+	alias_rotate_active = controls.GetAlias("Tank.ROTATE_ACTIVE");
+	alias_rotate_x = controls.GetAlias("Tank.ROTATE_X");
+	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
+	alias_fire = controls.GetAlias("Tank.FIRE");
 
 	hover_model.LoadModelMS3D("Media//tank_base.ms3d");
 	tower_model.LoadModelMS3D("Media//tank_tower.ms3d");
@@ -76,7 +76,7 @@ void TankClient::Update(float dt)
 
 		if (inst.is_contralable)
 		{
-			if (controls.GetAliasState(alias_rotate_active, false, Controls::Active))
+			if (controls.GetAliasState(alias_rotate_active, Controls::Active))
 			{
 				angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 
@@ -142,35 +142,10 @@ void TankClient::Update(float dt)
 				}
 			}
 
-			if (controls.DebugKeyPressed("KEY_W", Controls::Active))
-			{
-				inst.clientState.up = 1;
-			}
-			else
-			if (controls.DebugKeyPressed("KEY_S", Controls::Active))
-			{
-				inst.clientState.up = -1;
-			}
-			else
-			{
-				inst.clientState.up = 0;
-			}
+			inst.clientState.up = (int)controls.GetAliasValue(alias_forward, false);
+			inst.clientState.rotate = (int)controls.GetAliasValue(alias_strafe, false);
 
-			if (controls.DebugKeyPressed("KEY_D", Controls::Active))
-			{
-				inst.clientState.rotate = 1;
-			}
-			else
-			if (controls.DebugKeyPressed("KEY_A", Controls::Active))
-			{
-				inst.clientState.rotate = -1;
-			}
-			else
-			{
-				inst.clientState.rotate = 0;
-			}
-
-			inst.clientState.fired = controls.DebugKeyPressed("MS_BTN0", Controls::Active);
+			inst.clientState.fired = controls.GetAliasState(alias_fire);
 		}
 
 		float under = 1.0f;
@@ -249,7 +224,7 @@ void TankClient::Update(float dt)
 			Vector dr = target_pt - tower;
 			float hgt = dr.y;
 			dr.y = 0;
-			int len = dr.Length();
+			float len = dr.Length();
 
 			dr = mdl.Vx();
 			dr.y = 0;

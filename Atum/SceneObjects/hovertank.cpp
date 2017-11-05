@@ -212,7 +212,7 @@ void HoverTank::Update(float dt)
 		return;
 	}
 
-	if (controls.GetAliasState(alias_rotate_active, false, Controls::Active))
+	if (controls.GetAliasState(alias_rotate_active, Controls::Active))
 	{
 		angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 		angles.y -= controls.GetAliasValue(alias_rotate_y, true) * 0.01f;

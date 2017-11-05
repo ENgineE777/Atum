@@ -29,7 +29,7 @@ void Tank::AddIsntance(int id)
 	}
 
 	Vector pos = transform.Pos();
-	pos.x += id * 2.0f;
+	pos.x += id * 10.0f;
 
 	PhysControllerDesc cdesc;
 	cdesc.height = 1.0f;
@@ -43,6 +43,8 @@ void Tank::AddIsntance(int id)
 
 void Tank::Play()
 {
+	time = 0.0f;
+
 	Scene::Group& group = owner->GetGroup("TankClient");
 
 	if (group.objects.size() > 0)
@@ -91,7 +93,10 @@ void Tank::OnClientConnected(int id)
 		*((int*)ptr) = id;
 		ptr += 4;
 
-		netServer.Send2Client(id, packet, 8);
+		*((float*)ptr) = time;
+		ptr += 4;
+
+		netServer.Send2Client(id, packet, 12);
 	}
 
 	for (auto& inst : client->instances)
@@ -143,6 +148,10 @@ void Tank::OnDataRecieved(void* data, int size)
 			{
 				clientID = *((int*)ptr);
 				ptr += 4;
+
+				time = *((float*)ptr);
+				ptr += 4;
+
 				break;
 			}
 			case ADDINSTANCE:
@@ -217,6 +226,7 @@ void Tank::SendServerState(float dt)
 		*((int*)ptr) = inst.id;
 		ptr += 4;
 
+		inst.serverState.timeStamp = time;
 		memcpy(ptr, &inst.serverState, sizeof(ServerState));
 		
 		netServer.Send2All(packet, sizeof(ServerState) + 8);
@@ -252,6 +262,7 @@ void Tank::SendClientState(float dt)
 		*((int*)ptr) = inst.id;
 		ptr += 4;
 
+		inst.clientState.timeStamp = time;
 		memcpy(ptr, &inst.clientState, sizeof(ClientState));
 
 		netClient.Send(packet, sizeof(ClientState) + 8);
@@ -264,6 +275,8 @@ void Tank::Update(float dt)
 	{
 		return;
 	}
+
+	time += dt;
 
 	if (is_server)
 	{

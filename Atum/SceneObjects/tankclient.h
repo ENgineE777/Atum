@@ -26,10 +26,10 @@ public:
 
 	int alias_forward;
 	int alias_strafe;
-	int alias_fast;
 	int alias_rotate_active;
 	int alias_rotate_x;
 	int alias_rotate_y;
+	int alias_fire;
 
 	Model hover_model;
 	Model tower_model;

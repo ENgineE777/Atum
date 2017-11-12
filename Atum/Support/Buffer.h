@@ -7,14 +7,12 @@
 class Buffer
 {
 	uint8_t* buffer = nullptr;
-	uint8_t* ptr = nullptr;
 	int      size = 0;
 
 public:
 
 	Buffer()
 	{
-
 	};
 
 	Buffer(const char* name)
@@ -25,7 +23,7 @@ public:
 
 	bool Load(const char* name)
 	{
-		ptr = buffer = nullptr;
+		buffer = nullptr;
 		size = 0;
 
 		FILE* file = fopen(name, "rb");
@@ -41,7 +39,6 @@ public:
 
 			fclose(file);
 
-			ptr = buffer;
 			return true;
 		}
 
@@ -64,16 +61,5 @@ public:
 	int GetSize()
 	{
 		return size;
-	}
-
-	void Read(void* dst, int sz)
-	{
-		memcpy(dst, ptr, sz);
-		ptr += sz;
-	}
-
-	void Skip(int sz)
-	{
-		ptr += sz;
 	}
 };

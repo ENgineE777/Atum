@@ -23,8 +23,7 @@ public:
 
 	bool Load(const char* name)
 	{
-		buffer = nullptr;
-		size = 0;
+		Release();
 
 		FILE* file = fopen(name, "rb");
 
@@ -47,10 +46,7 @@ public:
 
 	~Buffer()
 	{
-		if (buffer)
-		{
-			free(buffer);
-		}
+		Release();
 	}
 
 	uint8_t* GetData()
@@ -61,5 +57,15 @@ public:
 	int GetSize()
 	{
 		return size;
+	}
+
+	void Release()
+	{
+		if (buffer)
+		{
+			free(buffer);
+			buffer = nullptr;
+			size = 0;
+		}
 	}
 };

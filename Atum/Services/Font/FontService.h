@@ -7,7 +7,6 @@
 class FontService
 {
 	friend class FontRes;
-	FT_Library library;
 	std::map<std::string, FontRes*> fonts;
 
 	struct FontVertex
@@ -38,7 +37,7 @@ public:
 
 	FontService();
 	virtual bool Init();
-	virtual Font* CreateFont(const char* file_name, bool is_bold, bool is_italic, int height, float outline_thin);
+	virtual Font* CreateFont(const char* file_name, bool is_bold, bool is_italic, int height);
 	virtual void DeleteRes(FontRes* res);
 	virtual void Release();
 };

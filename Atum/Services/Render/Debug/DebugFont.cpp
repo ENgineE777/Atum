@@ -8,14 +8,14 @@ DebugFont::DebugFont()
 }
 
 DebugFont::~DebugFont()
-{	
+{
 }
 
 bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugFont::Draw);
 
-	font = fonts.CreateFont("settings/helvetica", false, false, 10, 0.15f);
+	font = fonts.CreateFont("settings/helvetica", false, false, 16);
 
 	return true;
 }
@@ -44,7 +44,7 @@ void DebugFont::AddText(Vector pos, float dist, Color color, const char* text)
 	AddText(textsIn3d, pos, dist, color, text);
 }
 
-void DebugFont::Draw(float dt, int level)
+void DebugFont::Draw(float dt)
 {
 	Matrix mat;
 

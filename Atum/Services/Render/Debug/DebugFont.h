@@ -29,6 +29,6 @@ public:
 	void AddText(std::vector<Text>& texts, Vector pos, float dist, Color color, const char* text);
 	void AddText(Vector2 pos, Color color, const char* text);
 	void AddText(Vector pos, float dist, Color color, const char* text);
-	void Draw(float dt, int level);
+	void Draw(float dt);
 	void Release();
 };

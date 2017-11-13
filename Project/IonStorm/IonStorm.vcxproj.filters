@@ -217,9 +217,6 @@
     <ClCompile Include="..\..\Atum\SceneObjects\tankclient.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Atum\Services\Font\FontCharmap.cpp">
-      <Filter>Services\Font</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Atum\Services\Font\FontRes.cpp">
       <Filter>Services\Font</Filter>
     </ClCompile>
@@ -231,6 +228,9 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\Services\Font\Font.cpp">
       <Filter>Services\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\TDPrt.cpp">
+      <Filter>SceneObjects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -444,12 +444,6 @@
     <ClInclude Include="..\..\Atum\SceneObjects\tankclient.h">
       <Filter>SceneObjects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Atum\Services\Font\FontCharmap.h">
-      <Filter>Services\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Atum\Services\Font\FontCharToGlyphIndexMap.h">
-      <Filter>Services\Font</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Font\FontRes.h">
       <Filter>Services\Font</Filter>
     </ClInclude>
@@ -464,6 +458,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Font\Font.h">
       <Filter>Services\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\TDPrt.h">
+      <Filter>SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

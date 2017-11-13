@@ -2,22 +2,14 @@
 
 class  Texture;
 
-#include <ft2build.h>
-#include <freetype/freetype.h>
-#include <freetype/ftglyph.h>
-#include <freetype/ftoutln.h>
-#include <freetype/fttrigon.h>
-#include <freetype/ftstroke.h>
-
-#include "FontCharmap.h"
 #include "Support/Support.h"
-
 #include "Services/Render/Render.h"
+#include "stb_truetype.h"
 
 class Font;
 
 class FontRes
-{	
+{
 public:
 
 	struct Glyph
@@ -42,7 +34,7 @@ public:
 
 	string fileName;
 
-protected:	
+protected:
 
 	Texture* tex;
 	int      cur_tex_x;
@@ -50,40 +42,35 @@ protected:
 	int      cur_tex_row_height;
 
 	byte*    tex_buffer;
+	byte*    tex_buffer2;
 
 	int height;
-	float outline_thin;
+	float used_height;
 
 	int tex_w;
 	int tex_h;
 
-	FT_Stroker stroker;
-	FT_Face face;
-	FT_Library library;
-	
+	stbtt_pack_context context;
 	bool need_update_tex;
 	Buffer font_fb;
 
+	std::map<int, Glyph> glyphs;
+
 public:
-	
-	FontRes(FT_Library library, const char* fl_name, int hgt, float outline_thin);
+
+	FontRes(const char* fl_name, int hgt);
 	virtual bool Load();
-	Glyph* GenerateChar(wchar_t ch);
-	int  GenerateCharHeight(wchar_t ch);
+	Glyph* GenerateChar(int ch);
 	Font* CreateReference();
-		
+
 	void Print(Matrix& transform, float font_scale, Color color, const char* text);
 
 	int GetHeight();
 	int GetCharHeight();
 
-	Glyph* GetCharGlyph(int ch);
-
 	virtual void Release();
 
 	void UpdateTexture();
 
-	vector<Glyph> glyphs;
-	FontCharmap glyphList;	
-	Glyph* CheckGlyph(wchar_t characterCode);
+	Glyph* GetGlyph(int code);
 };

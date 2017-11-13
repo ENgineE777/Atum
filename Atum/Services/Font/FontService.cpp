@@ -8,12 +8,10 @@ FontService::FontService()
 
 bool FontService::Init()
 {
-	FT_Init_FreeType( &library );
-
 	return true;
 }
 
-Font* FontService::CreateFont(const char* file_name, bool is_bold, bool is_italic, int height, float outline_thin)
+Font* FontService::CreateFont(const char* file_name, bool is_bold, bool is_italic, int height)
 {
 	if (!vbuffer)
 	{
@@ -62,7 +60,7 @@ Font* FontService::CreateFont(const char* file_name, bool is_bold, bool is_itali
 	}
 
 	StringUtils::Printf(font_path, 128, "%s%s", file_name, prefix);
-	StringUtils::Printf(nm, 512, "%s%i%2.2f%s", font_path, height, outline_thin, prefix);
+	StringUtils::Printf(nm, 512, "%s%i%s", font_path, height, prefix);
 
 	if (fonts.count(nm) > 0)
 	{
@@ -73,7 +71,7 @@ Font* FontService::CreateFont(const char* file_name, bool is_bold, bool is_itali
 
 	if (!res)
 	{
-		res = new FontRes(library, file_name, height, outline_thin);
+		res = new FontRes(file_name, height);
 
 		if (!res->Load())
 		{
@@ -95,6 +93,5 @@ void FontService::DeleteRes(FontRes* res)
 
 void FontService::Release()
 {
-	FT_Done_FreeType(library);
 }
 

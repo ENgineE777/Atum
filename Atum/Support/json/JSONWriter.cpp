@@ -85,34 +85,76 @@ void JSONWriter::Write(const char* name, const char* val)
 {
 	StringUtils::FixSlashes((char*)val);
 
-	WriteFormatedStr(true, "\"%s\" : \"%s\"", name, val);
+	if (name)
+	{
+		WriteFormatedStr(true, "\"%s\" : \"%s\"", name, val);
+	}
+	else
+	{
+		WriteFormatedStr(true, "\"%s\"", val);
+	}
 }
 
 void JSONWriter::Write(const char* name, bool val)
 {
-	if (val)
+	if (name)
 	{
-		WriteFormatedStr(true, "\"%s\" : true", name, val);
+		if (val)
+		{
+			WriteFormatedStr(true, "\"%s\" : true", name);
+		}
+		else
+		{
+			WriteFormatedStr(true, "\"%s\" : false", name);
+		}
 	}
 	else
 	{
-		WriteFormatedStr(true, "\"%s\" : false", name, val);
+		if (val)
+		{
+			WriteFormatedStr(true, "true");
+		}
+		else
+		{
+			WriteFormatedStr(true, "false");
+		}
 	}
 }
 
 void JSONWriter::Write(const char* name, float val)
 {
-	WriteFormatedStr(true, "\"%s\" : %4.6f", name, val);
+	if (name)
+	{
+		WriteFormatedStr(true, "\"%s\" : %4.6f", name, val);
+	}
+	else
+	{
+		WriteFormatedStr(true, "%4.6f", val);
+	}
 }
 
 void JSONWriter::Write(const char* name, int64_t val)
 {
-	WriteFormatedStr(true, "\"%s\" : %i", name, val);
+	if (name)
+	{
+		WriteFormatedStr(true, "\"%s\" : %i", name, val);
+	}
+	else
+	{
+		WriteFormatedStr(true, "%i", name);
+	}
 }
 
 void JSONWriter::Write(const char* name, int val)
 {
-	WriteFormatedStr(true, "\"%s\" : %li", name, val);
+	if (name)
+	{
+		WriteFormatedStr(true, "\"%s\" : %li", name, val);
+	}
+	else
+	{
+		WriteFormatedStr(true, "%li", name);
+	}
 }
 
 void JSONWriter::Write(const char* name, Vector& val)

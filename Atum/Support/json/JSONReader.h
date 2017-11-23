@@ -26,6 +26,7 @@ public:
 	bool EnterBlock(const char* name);
 	void LeaveBlock();
 
+	bool IsString(const char* name);
 	bool Read(const char* name, char* val, int val_len);
 	bool Read(const char* name, std::string& val);
 	bool Read(const char* name, bool& val);

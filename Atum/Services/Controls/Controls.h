@@ -11,6 +11,7 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
+#include <xinput.h>
 
 #endif
 
@@ -48,6 +49,24 @@ private:
 	int						ms_x, ms_y;
 	int						prev_ms_x, prev_ms_y;
 	HWND					hwnd;
+	XINPUT_STATE            joy_prev_states[XUSER_MAX_COUNT];
+	XINPUT_STATE            joy_states[XUSER_MAX_COUNT];
+	bool                    joy_active[XUSER_MAX_COUNT];
+
+	inline float GetJoyTrigerValue(float val)
+	{
+		return val / 255.0f;
+	}
+
+	inline float GetJoyStickValue(float val)
+	{
+		val = fmaxf(-1, (float)val / 32767);
+		float deadzone = 0.05f;
+		val = (abs(val) < deadzone ? 0 : (abs(val) - deadzone) * (val / abs(val)));
+
+		return val /= 1.0f - deadzone;
+	}
+
 #endif
 
 	struct HardwareAlias
@@ -63,6 +82,7 @@ private:
 		std::string name;
 		int         aliasIndex = -1;
 		bool        refer2hardware = false;
+		int         device_index = -1;
 	};
 
 	struct AliasRef
@@ -87,10 +107,27 @@ private:
 
 	void  ResolveAliases();
 	void  CheckDeadEnds(Alias& alias);
-	bool  GetHardwareAliasState(int alias, AliasAction action);
-	float GetHardwareAliasValue(int alias, bool delta);
+	bool  GetHardwareAliasState(int alias, AliasAction action, int device_index);
+	float GetHardwareAliasValue(int alias, bool delta, int device_index);
 
 public:
+
+	struct AliasMappig
+	{
+		std::string name;
+		int    alias = -1;
+
+		struct BindName
+		{
+			int device_index = -1;
+			std::string name;
+		};
+
+		std::vector<std::vector<BindName>> bindedNames;
+
+		AliasMappig(const char* name);
+		bool IsContainHAlias(const char* halias);
+	};
 
 	bool  Init(const char* haliases, bool allowDebugKeys);
 	bool  LoadAliases(const char* aliases);
@@ -98,8 +135,11 @@ public:
 	void  SetWindow(void* wnd);
 
 	int   GetAlias(const char* name);
+
 	bool  GetAliasState(int alias, AliasAction action = Activated);
 	float GetAliasValue(int alias, bool delta);
+
+	const char* GetActivatedKey(int& device_index);
 
 	bool  DebugKeyPressed(const char* name, AliasAction action = Activated);
 	bool  DebugHotKeyPressed(const char* name, const char* name2, const char* name3 = nullptr);

@@ -254,7 +254,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -275,7 +275,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <OutputFile>../../bin/$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Common_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Cooking_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PxFoundation_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Common_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win32\PhysX3Cooking_x86.lib;..\..\Libraries\PhysX\Lib\vc14win32\PxFoundation_x86.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -294,7 +294,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

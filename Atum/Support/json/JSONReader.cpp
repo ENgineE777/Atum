@@ -101,6 +101,21 @@ void JSONReader::LeaveBlock()
 	curNode = nodes[curDepth];
 }
 
+bool JSONReader::IsString(const char* name)
+{
+	json_value* node = FindValue(name);
+
+	if (node)
+	{
+		if (node->type == JSON_STRING)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
 bool JSONReader::Read(const char* name, char* val, int val_len)
 {
 	json_value* node = FindValue(name);

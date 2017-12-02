@@ -1,21 +1,23 @@
 
-Recently I start work at game engine that I called Atum. Engine already have full workable editor.
-Key feature of engine is that glue code between editor code and game code minimized. Code have very
-simple ideas behind architecture. Also amount of code minimized as much as possible.
+Atum engine is a newcomer in a row of game engines. Most game engines focus on render
+techniques in features list. The main task of Atum is to deliver the best toolset; that’s why,
+as I hope, Atum will be a good light weighted alternative to Unity for indie games. Atum already
+has fully workable editor that has an ability to play test edited scene. All system code has
+simple ideas behind them and focuses on easy to use functionality. That’s why code is minimized
+as much as possible.
 
-Currently engine consist from:
+Currently the engine consists from:
 
-- Render system based on DX11 but created as multi API so adding support of another GAPI is planed
-- Controls system based on aliases
-- Powerful system for binding properties into editor
-- Scene Editor with ability to run edited scene
-- Font system based on stb_truetype.h
-- Support of PhysX 3.0, in repo there are samples that uses physics
-- Network code that alow create server/clinet, in repo there some code allow to create simple network game
+- Scene Editor with ability to play test edited scene;
+- Powerful system for binding properties into the editor;
+- Render system based on DX11 but created as multi API; so, adding support of another GAPI
+  is planned;
+- Controls system based on aliases;
+- Font system based on stb_truetype.h;
+- Support of PhysX 3.0, there are samples in repo that use physics;
+- Network code which allows to create server/clinet; there is some code in repo which allows
+  to create a simple network game
 
-
-I planning to use this engine in multiplayer game so I definitely will evolve engine. Also adding support
-of mobile devices is planned.
-
-Some screenshot:
-https://www.gamedev.net/uploads/monthly_2017_12/Untitled-1.jpg.5aef84777d1f7583480febfced85e710.jpg
+I plan to use this engine in multiplayer game - so, I definitely will evolve the engine. Also
+I plan to add support for mobile devices. And of course, the main focus is to create a toolset
+that will ease games creation.

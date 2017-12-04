@@ -25,8 +25,8 @@
 			},
 			"ScaleH" : 0.500000,
 			"ScaleV" : 0.065000,
-			"Texture" : "D:/Work/github/Atum/Bin/Media/terrain_c.tga",
-			"Heightmap" : "D:/Work/github/Atum/Bin/Media/terrain_h.tga",
+			"Texture" : "Media/terrain_c.tga",
+			"Heightmap" : "Media/terrain_h.tga",
 			"COLOR" :
 			{
 				"r" : 0.882353,

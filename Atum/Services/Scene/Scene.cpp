@@ -1,8 +1,7 @@
 
 #include "Scene.h"
 #include "SceneObject.h"
-#include "Support/json/JSONReader.h"
-#include "Support/json/JSONWriter.h"
+#include "SceneAsset.h"
 
 Scene::Scene()
 {
@@ -77,14 +76,110 @@ void Scene::DeleteObject(SceneObject* obj)
 	}
 }
 
-void Scene::DeleteAllObjects()
+SceneAsset* Scene::AddAsset(const char* name)
 {
-	for (int i = 0; i < objects.size(); i++)
+	SceneAsset* obj = ClassFactorySceneAsset::Create(name);
+
+	if (obj)
 	{
-		objects[i]->Release();
+		obj->owner = this;
+		obj->className = name;
+		obj->Init();
+
+		obj->GetMetaData()->Prepare(obj);
+		obj->GetMetaData()->SetDefValuesPrepare();
+
+		assets.push_back(obj);
+	}
+
+	return obj;
+}
+
+SceneAsset* Scene::FindAsset(const char* name)
+{
+	for (int i = 0; i < assets.size(); i++)
+	{
+		if (StringUtils::IsEqual(assets[i]->GetName(), name))
+		{
+			return (SceneAsset*)assets[i];
+		}
+	}
+
+	return NULL;
+}
+
+SceneAsset* Scene::GetAsset(int index)
+{
+	return (SceneAsset*)assets[index];
+}
+
+int Scene::GetAssetsCount()
+{
+	return (int)assets.size();
+}
+
+void Scene::DeleteAsset(SceneAsset* obj)
+{
+	for (int i = 0; i < assets.size(); i++)
+	{
+		if ((SceneAsset*)assets[i] == obj)
+		{
+			assets.erase(assets.begin() + i);
+			obj->Release();
+			break;
+		}
+	}
+}
+
+void Scene::DeleteObjects(std::vector<SceneObject*>& objects)
+{
+	for (auto& obj : objects)
+	{
+		obj->Release();
 	}
 
 	objects.clear();
+}
+
+void Scene::DeleteAllObjects()
+{
+	DeleteObjects(objects);
+	DeleteObjects(assets);
+}
+
+void Scene::Load(JSONReader* reader, std::vector<SceneObject*>& objects, const char* block)
+{
+	while (reader->EnterBlock(block))
+	{
+		char type[512];
+		reader->Read("type", type, 512);
+
+		SceneObject* obj = nullptr;
+
+		if (StringUtils::IsEqual(block, "SceneAsset"))
+		{
+			obj = AddAsset(type);
+		}
+		else
+		{
+			obj = AddObject(type);
+		}
+
+		if (obj)
+		{
+			char name[512];
+			reader->Read("name", name, 512);
+
+			obj->SetName(name);
+			reader->Read("transform", obj->Trans());
+
+			obj->GetMetaData()->Prepare(obj);
+			obj->GetMetaData()->Load(reader);
+			obj->ApplyProperties();
+		}
+
+		reader->LeaveBlock();
+	}
 }
 
 void Scene::Load(const char* name)
@@ -93,31 +188,34 @@ void Scene::Load(const char* name)
 	
 	if (reader->Parse(name))
 	{
-		while (reader->EnterBlock("SceneObject"))
-		{
-			char type[512];
-			reader->Read("type", type, 512);
-
-			SceneObject* obj = AddObject(type);
-
-			if (obj)
-			{
-				char name[512];
-				reader->Read("name", name, 512);
-
-				obj->SetName(name);
-				reader->Read("transform", obj->Trans());
-
-				obj->GetMetaData()->Prepare(obj);
-				obj->GetMetaData()->Load(reader);
-				obj->ApplyProperties();
-			}
-
-			reader->LeaveBlock();
-		}
+		Load(reader, assets, "SceneAsset");
+		Load(reader, objects, "SceneObject");
 	}
 
 	reader->Release();
+}
+
+void Scene::Save(JSONWriter* writer, std::vector<SceneObject*>& objects, const char* block)
+{
+	writer->StartArray(block);
+
+	for (int i = 0; i < objects.size(); i++)
+	{
+		writer->StartBlock(NULL);
+
+		SceneObject* obj = objects[i];
+
+		writer->Write("type", obj->GetClassName());
+		writer->Write("name", obj->GetName());
+		writer->Write("transform", obj->Trans());
+
+		obj->GetMetaData()->Prepare(obj);
+		obj->GetMetaData()->Save(writer);
+
+		writer->FinishBlock();
+	}
+
+	writer->FinishArray();
 }
 
 void Scene::Save(const char* name)
@@ -126,25 +224,8 @@ void Scene::Save(const char* name)
 
 	if (writer->Start(name))
 	{
-		writer->StartArray("SceneObject");
-
-		for (int i = 0; i < objects.size(); i++)
-		{
-			writer->StartBlock(NULL);
-
-			SceneObject* obj = objects[i];
-
-			writer->Write("type", obj->GetClassName());
-			writer->Write("name", obj->GetName());
-			writer->Write("transform", obj->Trans());
-
-			obj->GetMetaData()->Prepare(obj);
-			obj->GetMetaData()->Save(writer);
-
-			writer->FinishBlock();
-		}
-
-		writer->FinishArray();
+		Save(writer, assets, "SceneAsset");
+		Save(writer, objects, "SceneObject");
 	}
 
 	writer->Release();
@@ -193,6 +274,12 @@ void Scene::Stop()
 bool Scene::Playing()
 {
 	return playing;
+}
+
+void Scene::EnableTasks(bool enable)
+{
+	taskPool->SetActive(enable);
+	renderTaskPool->SetActive(enable);
 }
 
 Scene::Group& Scene::GetGroup(const char* name)

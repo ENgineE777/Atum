@@ -6,7 +6,11 @@
 
 #include "Services/Physics/Physics.h"
 
+#include "Support/json/JSONReader.h"
+#include "Support/json/JSONWriter.h"
+
 class SceneObject;
+class SceneAsset;
 
 class Scene
 {
@@ -21,6 +25,7 @@ public:
 
 private:
 	std::vector<SceneObject*> objects;
+	std::vector<SceneObject*> assets;
 	TaskExecutor::SingleTaskPool* taskPool;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 	bool playing = false;
@@ -29,6 +34,11 @@ private:
 
 	PhysScene* pscene = nullptr;;
 	void DelFromGroup(Group& group, SceneObject* obj);
+
+	void Load(JSONReader* reader, std::vector<SceneObject*>& objects, const char* block);
+	void Save(JSONWriter* writer, std::vector<SceneObject*>& objects, const char* block);
+
+	void DeleteObjects(std::vector<SceneObject*>& objects);
 
 public:
 
@@ -42,13 +52,23 @@ public:
 	SceneObject* GetObj(int index);
 	int  GetObjectsCount();
 	void DeleteObject(SceneObject* obj);
+
+	SceneAsset* AddAsset(const char* name);
+	SceneAsset* FindAsset(const char* name);
+	SceneAsset* GetAsset(int index);
+	int  GetAssetsCount();
+	void DeleteAsset(SceneAsset* obj);
+
 	void DeleteAllObjects();
+
 	void Load(const char* name);
 	void Save(const char* name);
 	void Execute(float dt);
 	void Play();
 	void Stop();
 	bool Playing();
+
+	virtual void EnableTasks(bool enable);
 
 	Group& GetGroup(const char* name);
 	void AddToGroup(SceneObject* obj, const char* name);

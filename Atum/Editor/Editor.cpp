@@ -13,12 +13,14 @@ Editor::Listener::Listener(Editor* set_owner)
 void Editor::Listener::OnMouseMove(EUIWidget* sender, int mx, int my)
 {
 	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		controls.OverrideMousePos(mx, my);
 	}
 
-	if (sender->GetID() == Editor::ViewportID)
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID)
 	{
 		if (owner->selectedObject && !owner->scene.Playing())
 		{
@@ -49,6 +51,7 @@ void Editor::Listener::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		SetFocus(*(HWND*)sender->GetNative());
@@ -108,7 +111,15 @@ void Editor::Listener::OnUpdate(EUIWidget* sender)
 
 void Editor::Listener::OnListBoxChange(EUIWidget* sender, int index)
 {
-	owner->SelectObject((SceneObject*)owner->sceneList->GetSelectedItemData());
+	if (sender->GetID() == SceneListID)
+	{
+		owner->SelectObject((SceneObject*)owner->sceneList->GetSelectedItemData());
+	}
+	else
+	if (sender->GetID() == AssetListID)
+	{
+		owner->SelectAsset((SceneAsset*)owner->assetList->GetSelectedItemData());
+	}
 }
 
 void Editor::Listener::OnEditBoxChange(EUIWidget* sender)
@@ -119,6 +130,7 @@ void Editor::Listener::OnEditBoxChange(EUIWidget* sender)
 void Editor::Listener::OnResize(EUIWidget* sender)
 {
 	if ((sender->GetID() == Editor::ViewportID && !owner->scene.Playing()) ||
+		(sender->GetID() == Editor::AssetViewportID && !owner->scene.Playing()) ||
 		(sender->GetID() == Editor::GameViewportID && owner->scene.Playing()))
 	{
 		render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
@@ -139,6 +151,7 @@ void Editor::Listener::OnWinClose(EUIWidget* sender)
 Editor::Editor() : listener(this)
 {
 	selectedObject = NULL;
+	selectedAsset = nullptr;
 	gizmoMove = true;
 	gizmoGlobal = true;
 	gameWnd = false;
@@ -180,6 +193,8 @@ void Editor::Init()
 
 	menu->StartSubMenu("Create");
 
+	menu->StartSubMenu("Object");
+
 	ClassFactorySceneObject* decl = ClassFactorySceneObject::First();
 
 	int id = MenuSceneObjectID;
@@ -191,6 +206,24 @@ void Editor::Init()
 
 		decl = decl->Next();
 	}
+
+	menu->EndSubMenu();
+
+	menu->StartSubMenu("Asset");
+
+	ClassFactorySceneAsset* declAsset = ClassFactorySceneAsset::First();
+
+	id = MenuSceneAssetID;
+
+	while (declAsset)
+	{
+		menu->AddItem(id, declAsset->GetName());
+		id++;
+
+		declAsset = declAsset->Next();
+	}
+
+	menu->EndSubMenu();
 
 	menu->EndSubMenu();
 
@@ -235,14 +268,40 @@ void Editor::Init()
 
 	EUITabSheet* sheet = tabPanel->AddTab("Scene");
 
-	EUILayout* scene_lt = new EUILayout(sheet, false);
+	EUILayout* scene_lt = new EUILayout(sheet, true);
 
 	sceneList = new EUIListBox(scene_lt, 200, 10, 200, 100);
+	scene_lt->SetChildSize(sceneList, 0.5, true);
+	sceneList->SetID(SceneListID);
 	sceneList->SetListener(&listener, 0);
 
-	sheet = tabPanel->AddTab("Object");
+	assetList = new EUIListBox(scene_lt, 200, 10, 200, 100);
+	assetList->SetID(AssetListID);
+	assetList->SetListener(&listener, 0);
 
-	EUILayout* object_lt = new EUILayout(sheet, true);
+	EUITabPanel* viewportPanels = new EUITabPanel(lt, 30, 50, 100, 30);
+	viewportPanels->SetListener(&listener, 0);
+
+	sheet = viewportPanels->AddTab("Scene");
+	viewport_lt = new EUILayout(sheet, true);
+
+	viewport = new EUIPanel(viewport_lt, 10, 10, 100, 30);
+	viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	viewport->SetID(ViewportID);
+
+	asset_vp_sheet_lt = new EUILayout(sheet, false);
+
+	EUITabPanel* tabPanelB = new EUITabPanel(asset_vp_sheet_lt, 30, 50, 100, 30);
+	asset_vp_sheet_lt->SetChildSize(tabPanelB, 200, false);
+
+	asset_viewport = new EUIPanel(asset_vp_sheet_lt, 10, 10, 100, 30);
+	asset_viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	asset_viewport->SetID(AssetViewportID);
+
+	EUIPanel* toolsPanel3 = new EUIPanel(lt, 10, 10, 100, 30);
+	lt->SetChildSize(toolsPanel3, 200, false);
+
+	EUILayout* object_lt = new EUILayout(toolsPanel3, true);
 
 	objectName = new EUIEditBox(object_lt, "", 0, 0, 200, 20, EUIEditBox::InputText);
 	objectName->SetListener(&listener, 0);
@@ -250,10 +309,6 @@ void Editor::Init()
 	object_lt->SetChildSize(objectName, 20, false);
 
 	objCat = new EUICategories(object_lt, 0, 0, 100, 100);
-
-	viewport = new EUIPanel(lt, 10, 10, 100, 30);
-	viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
-	viewport->SetID(ViewportID);
 
 	controls.Init("settings/controls/hardware_pc", true);
 	controls.LoadAliases("settings/controls/user_pc");
@@ -277,6 +332,8 @@ void Editor::Init()
 
 	mainWnd->Show(true);
 	mainWnd->Maximaze();
+
+	ShowVieport();
 }
 
 int Editor::Run()
@@ -289,6 +346,7 @@ void Editor::ClearScene()
 	SelectObject(NULL);
 	sceneName.clear();
 	sceneList->ClearList();
+	assetList->ClearList();
 	scene.DeleteAllObjects();
 }
 
@@ -304,6 +362,14 @@ void Editor::UpdateGizmoToolbar()
 
 void Editor::SelectObject(SceneObject* obj)
 {
+	if (selectedAsset)
+	{
+		selectedAsset->GetMetaData()->HideWidgets();
+		selectedAsset->EnableTasks(false);
+		assetList->SelectItemByData(NULL);
+		selectedAsset = NULL;
+	}
+
 	if (selectedObject)
 	{
 		selectedObject->GetMetaData()->HideWidgets();
@@ -327,7 +393,10 @@ void Editor::SelectObject(SceneObject* obj)
 	else
 	{
 		objectName->SetText("");
+		sceneList->SelectItemByData(NULL);
 	}
+
+	ShowVieport();
 }
 
 void Editor::CopyObject(SceneObject* obj)
@@ -370,14 +439,27 @@ void Editor::SetUniqueName(SceneObject* obj, const char* name)
 
 void Editor::OnObjectNameChanged()
 {
-	if (!selectedObject ||
-		StringUtils::IsEqual(objectName->GetText(), selectedObject->GetName()))
+	if (selectedObject)
 	{
-		return;
+		if (StringUtils::IsEqual(objectName->GetText(), selectedObject->GetName()))
+		{
+			return;
+		}
+
+		SetUniqueName(selectedObject, objectName->GetText());
+		sceneList->ChangeItemNameByData(objectName->GetText(), selectedObject);
 	}
 
-	SetUniqueName(selectedObject, objectName->GetText());
-	sceneList->ChangeItemNameByData(objectName->GetText(), selectedObject);
+	if (selectedAsset)
+	{
+		if (StringUtils::IsEqual(objectName->GetText(), selectedAsset->GetName()))
+		{
+			return;
+		}
+
+		SetUniqueAssetName(selectedAsset, objectName->GetText());
+		assetList->ChangeItemNameByData(objectName->GetText(), selectedAsset);
+	}
 }
 
 void Editor::CreateSceneObject(const char* name)
@@ -410,6 +492,128 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 	scene.DeleteObject(obj);
 }
 
+void Editor::SelectAsset(SceneAsset* obj)
+{
+	if (selectedObject)
+	{
+		selectedObject->GetMetaData()->HideWidgets();
+		sceneList->SelectItemByData(NULL);
+		selectedObject = NULL;
+	}
+
+	if (selectedAsset)
+	{
+		selectedAsset->GetMetaData()->HideWidgets();
+		selectedAsset->EnableTasks(false);
+	}
+
+	selectedAsset = obj;
+
+	bool enabled = (selectedAsset != NULL);
+	objectName->Enable(enabled);
+	gizmo.enabled = enabled;
+
+	if (selectedAsset)
+	{
+		objectName->SetText(obj->GetName());
+		gizmo.transform = obj->Trans();
+
+		obj->GetMetaData()->Prepare(obj);
+		obj->GetMetaData()->PrepareWidgets(objCat);
+		assetList->SelectItemByData(obj);
+
+		selectedAsset->EnableTasks(true);
+	}
+	else
+	{
+		objectName->SetText("");
+	}
+
+	ShowVieport();
+}
+
+void Editor::CopyAsset(SceneAsset* obj)
+{
+	if (!obj)
+	{
+		return;
+	}
+
+	SceneAsset* copy = scene.AddAsset(obj->GetClassName());
+
+	copy->Trans() = obj->Trans();
+	copy->GetMetaData()->Copy(obj);
+	obj->ApplyProperties();
+
+	SetUniqueAssetName(copy, obj->GetName());
+	assetList->AddItem(copy->GetName(), copy);
+	assetList->SelectItemByData(copy);
+
+	SelectAsset(copy);
+}
+
+void Editor::SetUniqueAssetName(SceneAsset* obj, const char* name)
+{
+	char baseName[512];
+	int index = StringUtils::ExtractNameNumber(name, baseName, 512);
+	bool unique = false;
+	char uniqueName[512];
+
+	while (!unique)
+	{
+		StringUtils::Printf(uniqueName, 512, "%s%i", baseName, index);
+
+		index++;
+		unique = (scene.FindAsset(uniqueName) == NULL);
+	}
+
+	obj->SetName(uniqueName);
+}
+
+void Editor::ShowVieport()
+{
+	viewport_lt->Show(selectedObject || !selectedAsset);
+	asset_vp_sheet_lt->Show(selectedAsset != nullptr);
+
+	EUIPanel* vp = selectedAsset ? asset_viewport : viewport;
+
+	render.GetDevice()->SetVideoMode((int)viewport->GetWidth(), (int)viewport->GetHeight(), vp->GetNative());
+
+	controls.SetWindow(vp->GetNative());
+
+	scene.EnableTasks(selectedAsset == nullptr);
+}
+
+void Editor::CreateSceneAsset(const char* name)
+{
+	SceneAsset* obj = scene.AddAsset(name);
+	obj->ApplyProperties();
+
+	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+
+	SetUniqueAssetName(obj, name);
+	assetList->AddItem(obj->GetName(), obj);
+	assetList->SelectItemByData(obj);
+
+	SelectAsset(obj);
+}
+
+void Editor::DeleteSceneAsset(SceneAsset* obj)
+{
+	if (!obj)
+	{
+		return;
+	}
+
+	if (selectedAsset == obj)
+	{
+		SelectAsset(NULL);
+	}
+
+	assetList->DeleteItemByData(obj);
+	scene.DeleteAsset(obj);
+}
+
 void Editor::Update()
 {
 	float dt = Timer::CountDeltaTime();
@@ -432,12 +636,18 @@ void Editor::Update()
 		{
 			selectedObject->ApplyProperties();
 		}
+
+		if (selectedAsset && selectedAsset->GetMetaData()->IsValueWasChanged())
+		{
+			selectedAsset->ApplyProperties();
+		}
 	}
 
 	char fps_str[16];
 	StringUtils::Printf(fps_str, 16, "%i ", Timer::GetFPS());
 
-	if (GetFocus() == *(HWND*)viewport->GetNative())
+	if (GetFocus() == *(HWND*)viewport->GetNative() ||
+		GetFocus() == *(HWND*)asset_viewport->GetNative())
 	{
 		StringUtils::Cat(fps_str, 16, " Active");
 	}
@@ -446,7 +656,14 @@ void Editor::Update()
 
 	physics.Update(dt);
 
-	scene.Execute(dt);
+	if (selectedAsset)
+	{
+		selectedAsset->Tasks()->Execute(dt);
+	}
+	else
+	{
+		scene.Execute(dt);
+	}
 
 	render.Execute(dt);
 
@@ -479,9 +696,7 @@ void Editor::StopScene()
 {
 	scene.Stop();
 
-	render.GetDevice()->SetVideoMode((int)viewport->GetWidth(), (int)viewport->GetHeight(), viewport->GetNative());
-
-	controls.SetWindow(viewport->GetNative());
+	ShowVieport();
 
 	gameWnd = NULL;
 }
@@ -498,16 +713,30 @@ void Editor::Draw(float dt)
 
 void Editor::ProcessMenu(int activated_id)
 {
-	ClassFactorySceneObject* decl = ClassFactorySceneObject::First();
-
 	if (activated_id == MenuCopyID)
 	{
-		CopyObject(selectedObject);
+		if (selectedObject)
+		{
+			CopyObject(selectedObject);
+		}
+		else
+		if (selectedAsset)
+		{
+			CopyAsset(selectedAsset);
+		}
 	}
 
 	if (activated_id == MenuDeleteID)
 	{
-		DeleteSceneObject(selectedObject);
+		if (selectedObject)
+		{
+			DeleteSceneObject(selectedObject);
+		}
+		else
+		if (selectedAsset)
+		{
+			DeleteSceneAsset(selectedAsset);
+		}
 	}
 
 	if (activated_id == MenuNewID)
@@ -548,18 +777,45 @@ void Editor::ProcessMenu(int activated_id)
 				SceneObject* obj = scene.GetObj(i);
 				sceneList->AddItem(obj->GetName(), obj);
 			}
+
+			for (int i = 0; i<scene.GetAssetsCount(); i++)
+			{
+				SceneAsset* obj = scene.GetAsset(i);
+				assetList->AddItem(obj->GetName(), obj);
+			}
 		}
 	}
 
-	if (activated_id >= MenuSceneObjectID && activated_id <= MenuSceneObjectID + 100)
+	if (activated_id >= MenuSceneObjectID && activated_id <= MenuSceneObjectID + 1000)
 	{
 		int id = MenuSceneObjectID;
+
+		ClassFactorySceneObject* decl = ClassFactorySceneObject::First();
 
 		while (decl)
 		{
 			if (id == activated_id)
 			{
 				CreateSceneObject(decl->GetName());
+				break;
+			}
+
+			id++;
+			decl = decl->Next();
+		}
+	}
+
+	if (activated_id >= MenuSceneAssetID && activated_id <= MenuSceneAssetID + 100)
+	{
+		int id = MenuSceneAssetID;
+
+		ClassFactorySceneAsset* decl = ClassFactorySceneAsset::First();
+
+		while (decl)
+		{
+			if (id == activated_id)
+			{
+				CreateSceneAsset(decl->GetName());
 				break;
 			}
 

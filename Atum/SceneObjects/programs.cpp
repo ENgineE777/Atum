@@ -1,7 +1,7 @@
 
 #include "programs.h"
 
-Programs::TriangleProgram*   Programs::prg;
+Programs::TriangleProgram*   Programs::prg = nullptr;
 Programs::ShTriangleProgram* Programs::shprg;
 Programs::ColorProgram*      Programs::color_prg;
 Programs::QuadProgram*       Programs::quad_prg;
@@ -10,6 +10,11 @@ Programs::CombineProgram*    Programs::combine_prg;
 
 void Programs::Init()
 {
+	if (prg)
+	{
+		return;
+	}
+
 	prg = new TriangleProgram();
 	prg->Init();
 

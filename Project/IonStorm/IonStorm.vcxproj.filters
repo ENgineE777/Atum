@@ -52,6 +52,12 @@
     <Filter Include="Services\Font">
       <UniqueIdentifier>{e14be2ec-e80c-4d99-b894-ad3151d21918}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneObjects\GUI">
+      <UniqueIdentifier>{d632e837-c76c-4ac9-8c82-7f19d65f3658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets">
+      <UniqueIdentifier>{ca4ab6fa-ec73-4af0-bd27-a8309bdddc81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp">
@@ -231,6 +237,18 @@
     </ClCompile>
     <ClCompile Include="..\..\Atum\SceneObjects\TDPrt.cpp">
       <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\GUI\TestGUI.cpp">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneObjects\GUI\GUIWidget.cpp">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animation.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Scene\SceneAsset.cpp">
+      <Filter>Services\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -461,6 +479,18 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneObjects\TDPrt.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\GUI\TestGUI.h">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneObjects\GUI\GUIWidget.h">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animation.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Scene\SceneAsset.h">
+      <Filter>Services\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

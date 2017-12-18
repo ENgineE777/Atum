@@ -5,6 +5,7 @@
 #include "Services/Render/Render.h"
 #include "Services/Controls/Controls.h"
 #include "Services/Scene/SceneObject.h"
+#include "Services/Scene/SceneAsset.h"
 #include <EUI.h>
 #include "freecamera.h"
 #include "Gizmo.h"
@@ -23,7 +24,6 @@ class Editor : public Object
 		MenuCopyID = 1100,
 		MenuDeleteID = 1101,
 
-		MenuSceneObjectID = 1400,
 		ViewportID = 1500,
 		MoveBtnID = 1501,
 		RotateBtnID = 1502,
@@ -31,6 +31,12 @@ class Editor : public Object
 		LocalBtnID = 1504,
 		PlayBtnID = 1505,
 		GameViewportID = 1506,
+		AssetViewportID = 1507,
+		SceneListID = 1508,
+		AssetListID = 1509,
+
+		MenuSceneObjectID = 10000,
+		MenuSceneAssetID = 15000
 	};
 
 	class Listener : public EUIWidget::Listener
@@ -57,10 +63,16 @@ class Editor : public Object
 	bool       gizmoMove;
 	bool       gizmoGlobal;
 
-	SceneObject* selectedObject;
 	std::string  sceneName;
+
+	SceneObject* selectedObject;
 	EUIListBox*  sceneList;
+
+	SceneAsset*  selectedAsset = nullptr;
+	EUIListBox*  assetList;
+
 	EUIEditBox*  objectName;
+
 	EUIButton* moveBtn;
 	EUIButton* rotateBtn;
 	EUIButton* globalBtn;
@@ -68,6 +80,10 @@ class Editor : public Object
 	EUIButton* playBtn;
 	EUICategories* objCat;
 	EUIPanel* viewport;
+	EUIPanel* asset_viewport;
+
+	EUILayout* viewport_lt;
+	EUILayout* asset_vp_sheet_lt;
 
 	EUIWindow* mainWnd;
 	EUIWindow* gameWnd;
@@ -93,6 +109,12 @@ public:
 	void DeleteSceneObject(SceneObject* obj);
 	void SetUniqueName(SceneObject* obj, const char* name);
 	void OnObjectNameChanged();
+	void SelectAsset(SceneAsset* obj);
+	void CopyAsset(SceneAsset* obj);
+	void CreateSceneAsset(const char* name);
+	void DeleteSceneAsset(SceneAsset* obj);
+	void SetUniqueAssetName(SceneAsset* obj, const char* name);
+	void ShowVieport();
 	void ProcessMenu(int id);
 	void Update();
 	void StartScene();

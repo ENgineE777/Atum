@@ -3,6 +3,8 @@
 
 void Quad::Init()
 {
+	Programs::Init();
+
 	int stride = sizeof(Vector2);
 	buffer = render.GetDevice()->CreateBuffer(4, stride);
 

@@ -23,7 +23,10 @@
     <ClCompile Include="..\..\Atum\Editor\freecamera.cpp" />
     <ClCompile Include="..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\Atum\main.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animation.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\GUI\GUIWidget.cpp" />
+    <ClCompile Include="..\..\Atum\SceneObjects\GUI\TestGUI.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\hovertank.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\model.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\PathFinder\AStar.cpp" />
@@ -61,6 +64,7 @@
     <ClCompile Include="..\..\Atum\Services\Render\Program.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Render.cpp" />
     <ClCompile Include="..\..\Atum\Services\Scene\Scene.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Scene\SceneAsset.cpp" />
     <ClCompile Include="..\..\Atum\Services\Scene\SceneObject.cpp" />
     <ClCompile Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
     <ClCompile Include="..\..\Atum\Support\json\block_allocator.cpp" />
@@ -84,7 +88,10 @@
     <ClInclude Include="..\..\Atum\Editor\Editor.h" />
     <ClInclude Include="..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\Atum\Editor\Gizmo.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animation.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\GUI\GUIWidget.h" />
+    <ClInclude Include="..\..\Atum\SceneObjects\GUI\TestGUI.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\hovertank.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\model.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\PathFinder\AStar.h" />
@@ -129,6 +136,7 @@
     <ClInclude Include="..\..\Atum\Services\Render\Shader.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Texture.h" />
     <ClInclude Include="..\..\Atum\Services\Scene\Scene.h" />
+    <ClInclude Include="..\..\Atum\Services\Scene\SceneAsset.h" />
     <ClInclude Include="..\..\Atum\Services\Scene\SceneObject.h" />
     <ClInclude Include="..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
     <ClInclude Include="..\..\Atum\Support\Buffer.h" />

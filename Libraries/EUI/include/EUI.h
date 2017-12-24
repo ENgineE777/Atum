@@ -14,6 +14,7 @@
 #include "EUICategories.h"
 #include "EUITabPanel.h"
 #include "EUITabSheet.h"
+#include "EUIScrollBar.h"
 
 class EUI
 {

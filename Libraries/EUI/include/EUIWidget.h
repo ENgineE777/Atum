@@ -26,6 +26,7 @@ class EUIWidget
 	friend class EUICategories;
 	friend class WinTabPanel;
 	friend class WinTabSheet;
+	friend class WinScrollBar;
 
 public:
 
@@ -33,6 +34,7 @@ public:
 	{
 		OnUpdate = 1,
 		OnResize = 2,
+		OnDraw = 2,
 	};
 
 	class Listener
@@ -50,6 +52,7 @@ public:
 
 		virtual void OnResize(EUIWidget* sender) {};
 		virtual void OnUpdate(EUIWidget* sender) {};
+		virtual void OnDraw(EUIWidget* sender) {};
 
 		virtual void OnWinClose(EUIWidget* sender) {};
 		virtual void OnWinShow(EUIWidget* sender) {};
@@ -123,6 +126,7 @@ public:
 	virtual int  GetIndexAsChild();
 
 	virtual void Update();
+	virtual void Redraw();
 
 	virtual void* GetNative();
 

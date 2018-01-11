@@ -14,7 +14,7 @@ Controls::AliasMappig::AliasMappig(const char* name)
 	if (this->alias != -1)
 	{
 		Alias& alias = controls.aliases[this->alias];
-		int count = alias.aliasesRef.size();
+		int count = (int)alias.aliasesRef.size();
 
 		if (count)
 		{
@@ -22,8 +22,8 @@ Controls::AliasMappig::AliasMappig(const char* name)
 
 			for (auto& bindedName : bindedNames)
 			{
-				int index = &bindedName - &bindedNames[0];
-				int bind_count = alias.aliasesRef[index].refs.size();
+				int index = (int)(&bindedName - &bindedNames[0]);
+				int bind_count = (int)alias.aliasesRef[index].refs.size();
 
 				if (bind_count)
 				{
@@ -31,7 +31,7 @@ Controls::AliasMappig::AliasMappig(const char* name)
 
 					for (auto& bndName : bindedName)
 					{
-						int bind_index = &bndName - &bindedName[0];
+						int bind_index = (int)(&bndName - &bindedName[0]);
 
 						bndName.name = alias.aliasesRef[index].refs[bind_index].name;
 						bndName.device_index = alias.aliasesRef[index].refs[bind_index].device_index;
@@ -712,7 +712,7 @@ const char* Controls::GetActivatedKey(int& device_index)
 {
 	for (auto& halias : haliases)
 	{
-		int index = &halias - &haliases[0];
+		int index = (int)(&halias - &haliases[0]);
 
 		int count = 1;
 

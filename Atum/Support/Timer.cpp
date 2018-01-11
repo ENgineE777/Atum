@@ -72,6 +72,11 @@ int Timer::GetFPS()
 	return lastFps;
 }
 
+float Timer::GetDeltaTime()
+{
+	return deltaTime;
+}
+
 const char* Timer::GetTimeStamp()
 {
 	return stampStr;

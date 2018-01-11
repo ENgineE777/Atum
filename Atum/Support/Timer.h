@@ -17,6 +17,7 @@ struct Timer
 	static char  stampStr[32];
 
 	static float CountDeltaTime();
+	static float GetDeltaTime();
 	static int  GetFPS();
 	static const char* GetTimeStamp();
 };

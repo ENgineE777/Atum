@@ -168,10 +168,10 @@ void Editor::Init()
 	EUI::Init("settings/EUI/theme.dat");
 
 	mainWnd = new EUIWindow("Editor", false, true, 30, 30, 800, 600);
-	mainWnd->SetListener(&listener, 0);
+	mainWnd->SetListener(-1, &listener, 0);
 
 	EUIMenu* menu = new EUIMenu(mainWnd);
-	menu->SetListener(&listener, 0);
+	menu->SetListener(-1, &listener, 0);
 
 	menu->StartSubMenu("File");
 
@@ -241,30 +241,25 @@ void Editor::Init()
 
 	moveBtn = new EUIButton(toolsPanel, "Move", 5, 5, 30, 20);
 	moveBtn->SetPushable(true);
-	moveBtn->SetID(MoveBtnID);
-	moveBtn->SetListener(&listener, 0);
+	moveBtn->SetListener(MoveBtnID, &listener, 0);
 
 	rotateBtn = new EUIButton(toolsPanel, "Rot", 40, 5, 30, 20);
 	rotateBtn->SetPushable(true);
-	rotateBtn->SetID(RotateBtnID);
-	rotateBtn->SetListener(&listener, 0);
+	rotateBtn->SetListener(RotateBtnID, &listener, 0);
 
 	globalBtn = new EUIButton(toolsPanel, "Glob", 75, 5, 30, 20);
 	globalBtn->SetPushable(true);
-	globalBtn->SetID(GlobalBtnID);
-	globalBtn->SetListener(&listener, 0);
+	globalBtn->SetListener(GlobalBtnID, &listener, 0);
 
 	localBtn = new EUIButton(toolsPanel, "Loc", 110, 5, 30, 20);
 	localBtn->SetPushable(true);
-	localBtn->SetID(LocalBtnID);
-	localBtn->SetListener(&listener, 0);
+	localBtn->SetListener(LocalBtnID, &listener, 0);
 
 	playBtn = new EUIButton(toolsPanel, "Play", 165, 5, 30, 20);
-	playBtn->SetID(PlayBtnID);
-	playBtn->SetListener(&listener, 0);
+	playBtn->SetListener(PlayBtnID, &listener, 0);
 
 	EUITabPanel* tabPanel = new EUITabPanel(leftPanelLt, 30, 50, 100, 30);
-	tabPanel->SetListener(&listener, 0);
+	tabPanel->SetListener(-1, &listener, 0);
 
 	EUITabSheet* sheet = tabPanel->AddTab("Scene");
 
@@ -272,22 +267,19 @@ void Editor::Init()
 
 	sceneList = new EUIListBox(scene_lt, 200, 10, 200, 100);
 	scene_lt->SetChildSize(sceneList, 0.5, true);
-	sceneList->SetID(SceneListID);
-	sceneList->SetListener(&listener, 0);
+	sceneList->SetListener(SceneListID, &listener, 0);
 
 	assetList = new EUIListBox(scene_lt, 200, 10, 200, 100);
-	assetList->SetID(AssetListID);
-	assetList->SetListener(&listener, 0);
+	assetList->SetListener(AssetListID, &listener, 0);
 
 	EUITabPanel* viewportPanels = new EUITabPanel(lt, 30, 50, 100, 30);
-	viewportPanels->SetListener(&listener, 0);
+	viewportPanels->SetListener(-1, &listener, 0);
 
 	sheet = viewportPanels->AddTab("Scene");
 	viewport_lt = new EUILayout(sheet, true);
 
 	viewport = new EUIPanel(viewport_lt, 10, 10, 100, 30);
-	viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
-	viewport->SetID(ViewportID);
+	viewport->SetListener(ViewportID, &listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	asset_vp_sheet_lt = new EUILayout(sheet, false);
 
@@ -295,8 +287,7 @@ void Editor::Init()
 	asset_vp_sheet_lt->SetChildSize(tabPanelB, 200, false);
 
 	asset_viewport = new EUIPanel(asset_vp_sheet_lt, 10, 10, 100, 30);
-	asset_viewport->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
-	asset_viewport->SetID(AssetViewportID);
+	asset_viewport->SetListener(AssetViewportID, &listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	EUIPanel* toolsPanel3 = new EUIPanel(lt, 10, 10, 100, 30);
 	lt->SetChildSize(toolsPanel3, 200, false);
@@ -304,7 +295,7 @@ void Editor::Init()
 	EUILayout* object_lt = new EUILayout(toolsPanel3, true);
 
 	objectName = new EUIEditBox(object_lt, "", 0, 0, 200, 20, EUIEditBox::InputText);
-	objectName->SetListener(&listener, 0);
+	objectName->SetListener(-1, &listener, 0);
 	objectName->Enable(false);
 	object_lt->SetChildSize(objectName, 20, false);
 
@@ -366,12 +357,14 @@ void Editor::SelectObject(SceneObject* obj)
 	{
 		selectedAsset->GetMetaData()->HideWidgets();
 		selectedAsset->EnableTasks(false);
+		selectedAsset->SetEditMode(false);
 		assetList->SelectItemByData(NULL);
 		selectedAsset = NULL;
 	}
 
 	if (selectedObject)
 	{
+		selectedObject->SetEditMode(false);
 		selectedObject->GetMetaData()->HideWidgets();
 	}
 
@@ -388,6 +381,7 @@ void Editor::SelectObject(SceneObject* obj)
 
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
+		obj->SetEditMode(true);
 		sceneList->SelectItemByData(obj);
 	}
 	else
@@ -497,6 +491,7 @@ void Editor::SelectAsset(SceneAsset* obj)
 	if (selectedObject)
 	{
 		selectedObject->GetMetaData()->HideWidgets();
+		selectedObject->SetEditMode(true);
 		sceneList->SelectItemByData(NULL);
 		selectedObject = NULL;
 	}
@@ -505,6 +500,7 @@ void Editor::SelectAsset(SceneAsset* obj)
 	{
 		selectedAsset->GetMetaData()->HideWidgets();
 		selectedAsset->EnableTasks(false);
+		selectedAsset->SetEditMode(false);
 	}
 
 	selectedAsset = obj;
@@ -520,6 +516,7 @@ void Editor::SelectAsset(SceneAsset* obj)
 
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
+		obj->SetEditMode(true);
 		assetList->SelectItemByData(obj);
 
 		selectedAsset->EnableTasks(true);
@@ -677,13 +674,12 @@ void Editor::StartScene()
 	scene.Play();
 
 	gameWnd = new EUIWindow("Game", false, true, 0, 0, 800, 600);
-	gameWnd->SetListener(&listener, 0);
+	gameWnd->SetListener(-1, &listener, 0);
 	
 	EUILayout* lt = new EUILayout(gameWnd, false);
 
 	EUIPanel* pn = new EUIPanel(lt, 0, 0, 800, 600);
-	pn->SetListener(&listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
-	pn->SetID(GameViewportID);
+	pn->SetListener(GameViewportID, &listener, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	controls.SetWindow(pn->GetNative());
 	SetFocus(*(HWND*)pn->GetNative());

@@ -11,7 +11,7 @@ void ColorWidget::Init(EUICategories* parent, const char* catName, const char* l
 	ProperyWidget::Init(parent, catName, labelName);
 
 	ecolor = new EUILabel(panel, "", 90, 5, 95, 20);
-	ecolor->SetListener(&listiner, 0);
+	ecolor->SetListener(-1, &listiner, 0);
 	listiner.owner = this;
 }
 

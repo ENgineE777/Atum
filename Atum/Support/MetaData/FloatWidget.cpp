@@ -16,7 +16,7 @@ void FloatWidget::Init(EUICategories* parent, const char* catName, const char* l
 	ProperyWidget::Init(parent, catName, labelName);
 
 	ebox = new EUIEditBox(panel, "0", 90, 5, 95, 20, EUIEditBox::InputFloat);
-	ebox->SetListener(&listiner, 0);
+	ebox->SetListener(-1, &listiner, 0);
 	listiner.owner = this;
 }
 

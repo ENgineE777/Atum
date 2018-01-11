@@ -19,10 +19,10 @@ void FileNameWidget::Init(EUICategories* parent, const char* catName, const char
 	ProperyWidget::Init(parent, catName, labelName);
 
 	openBtn = new EUIButton(panel, "", 90, 5, 75, 20);
-	openBtn->SetListener(&listiner, 0);
+	openBtn->SetListener(-1, &listiner, 0);
 
 	deleteBtn = new EUIButton(panel, "X", 165, 5, 20, 20);
-	deleteBtn->SetListener(&listiner, 0);
+	deleteBtn->SetListener(-1, &listiner, 0);
 
 	listiner.owner = this;
 }

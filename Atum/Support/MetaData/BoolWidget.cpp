@@ -11,7 +11,7 @@ void BoolWidget::Init(EUICategories* parent, const char* catName, const char* la
 	ProperyWidget::Init(parent, catName, labelName);
 
 	cbox = new EUICheckBox(panel, "", 90, 5, 95, 20);
-	cbox->SetListener(&listiner, 0);
+	cbox->SetListener(-1, &listiner, 0);
 	listiner.owner = this;
 }
 

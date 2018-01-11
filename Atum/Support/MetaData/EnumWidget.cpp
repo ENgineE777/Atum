@@ -23,7 +23,7 @@ void EnumWidget::Init(EUICategories* parent, const char* catName, const char* la
 		cbox->AddItem(enumRef->names[i].c_str());
 	}
 
-	cbox->SetListener(&listiner, 0);
+	cbox->SetListener(-1, &listiner, 0);
 	listiner.owner = this;
 }
 

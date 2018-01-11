@@ -11,6 +11,7 @@ class EUICategories : public EUIWidget
 	struct Category
 	{
 		bool  opened;
+		bool  visible;
 		char  name[128];
 		std::vector<EUIWidget*> childs;
 		std::vector<bool> childsVis;
@@ -19,6 +20,7 @@ class EUICategories : public EUIWidget
 		Category()
 		{
 			opened = false;
+			visible = false;
 			name[0] = 0;
 			y = 0;
 		};

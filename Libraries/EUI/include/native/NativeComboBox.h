@@ -18,5 +18,6 @@ public:
 	virtual void AddItem(const char* str) = 0;
 	virtual void SetCurString(int index) = 0;
 	virtual void SetCurString(const char* str) = 0;
-	virtual int  GetCurString() = 0;
+	virtual const char* GetCurString() = 0;
+	virtual int  GetCurStringIndex() = 0;
 };

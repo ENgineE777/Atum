@@ -68,6 +68,8 @@ public:
 
 		virtual void OnEditBoxEnterPressed(EUIWidget* sender) {};
 		virtual void OnEditBoxChange(EUIWidget* sender) {};
+
+		virtual void OnSrollerPosChange(EUIWidget* sender, int pos) {};
 	};
 
 protected:
@@ -99,10 +101,10 @@ public:
 
 	virtual ~EUIWidget();
 
-	virtual void SetID(int id);
 	virtual int  GetID();
 
-	virtual void SetListener(Listener* listener, uint32_t flag);
+	virtual void SetListener(int id, Listener* listener, uint32_t flag);
+	virtual void SetID(int id);
 
 	virtual void Show(bool set);
 	virtual bool IsVisible();

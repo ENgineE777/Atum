@@ -38,6 +38,19 @@ const char* SceneObject::GetClassName()
 	return className.c_str();
 }
 
+void SceneObject::Load(JSONReader* reader)
+{
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Load(reader);
+	ApplyProperties();
+}
+
+void SceneObject::Save(JSONWriter* writer)
+{
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Save(writer);
+}
+
 TaskExecutor::SingleTaskPool* SceneObject::Tasks()
 {
 	return owner->taskPool;
@@ -77,3 +90,10 @@ void SceneObject::Release()
 
 	delete this;
 }
+
+#ifdef EDITOR
+void SceneObject::SetEditMode(bool ed)
+{
+	edited = ed;
+}
+#endif

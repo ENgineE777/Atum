@@ -20,6 +20,9 @@ protected:
 	std::string  className;
 	Matrix       transform;
 	Matrix       initTransform;
+#ifdef EDITOR
+	bool         edited = false;
+#endif
 
 public:
 
@@ -36,6 +39,8 @@ public:
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
+	virtual void Load(JSONReader* reader);
+	virtual void Save(JSONWriter* writer);
 	virtual TaskExecutor::SingleTaskPool* Tasks();
 	virtual TaskExecutor::SingleTaskPool* RenderTasks();
 	virtual void Play();
@@ -43,6 +48,10 @@ public:
 	bool Playing();
 	PhysScene* PScene();
 	virtual void Release();
+
+#ifdef EDITOR
+	virtual void SetEditMode(bool ed);
+#endif
 };
 
 CLASSFACTORYDEF(SceneObject)

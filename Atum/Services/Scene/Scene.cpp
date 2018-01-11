@@ -173,9 +173,7 @@ void Scene::Load(JSONReader* reader, std::vector<SceneObject*>& objects, const c
 			obj->SetName(name);
 			reader->Read("transform", obj->Trans());
 
-			obj->GetMetaData()->Prepare(obj);
-			obj->GetMetaData()->Load(reader);
-			obj->ApplyProperties();
+			obj->Load(reader);
 		}
 
 		reader->LeaveBlock();
@@ -209,8 +207,7 @@ void Scene::Save(JSONWriter* writer, std::vector<SceneObject*>& objects, const c
 		writer->Write("name", obj->GetName());
 		writer->Write("transform", obj->Trans());
 
-		obj->GetMetaData()->Prepare(obj);
-		obj->GetMetaData()->Save(writer);
+		obj->Save(writer);
 
 		writer->FinishBlock();
 	}

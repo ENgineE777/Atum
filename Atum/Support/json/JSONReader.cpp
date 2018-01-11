@@ -374,6 +374,23 @@ bool JSONReader::Read(const char* name, Color& val)
 	return false;
 }
 
+bool JSONReader::Read(const char* name, Quaternion& val)
+{
+	if (EnterBlock(name))
+	{
+		Read("x", val.x);
+		Read("y", val.y);
+		Read("z", val.z);
+		Read("w", val.w);
+
+		LeaveBlock();
+
+		return true;
+	}
+
+	return false;
+}
+
 json_value* JSONReader::FindValue(const char* name)
 {
 	if (!root)

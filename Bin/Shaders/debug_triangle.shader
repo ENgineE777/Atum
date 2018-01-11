@@ -8,18 +8,21 @@ cbuffer vs_params : register( b0 )
 cbuffer ps_params : register(b0)
 {
 	float4 color;
+	float3 lightDir;
 };
 
 struct VS_INPUT
 {
 	float3 position : POSITION;
 	float3 normal : TEXCOORD0;
+	float4 color : COLOR0;
 };
 
 struct PS_INPUT
 {
 	float4 pos    : SV_POSITION;
 	float3 normal : TEXCOORD0;
+	float4 color  : COLOR0;
 };
 
 PS_INPUT VS( VS_INPUT input )
@@ -34,14 +37,14 @@ PS_INPUT VS( VS_INPUT input )
 								  trans._m02, trans._m12, trans._m22);
 
 	output.normal = normalize(mul(input.normal, trans_rot));
+	output.color = input.color;
 
 	return output;
 }
 
 float4 PS( PS_INPUT input) : SV_Target
 {
-	float3 lightDir = float3( 0.5f, 0.5f, 0.5f);
-	lightDir = normalize(lightDir);
-	float light = 0.5f + 0.5f * saturate(dot(lightDir, input.normal));
-	return color * light;
+	float3 lDir = normalize(lightDir);
+	float light = 0.5f + 0.5f * saturate(dot(lDir, input.normal));
+	return color * light * input.color;
 }

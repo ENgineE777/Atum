@@ -35,7 +35,7 @@ void FileNameWidget::SetData(void* set_data)
 
 void FileNameWidget::OpenFileDialog()
 {
-	const char* fileName = EUI::OpenOpenDialog("Any file", NULL);
+	const char* fileName = EUI::OpenOpenDialog(openBtn->GetNativeRoot(), "Any file", NULL);
 
 	if (fileName)
 	{

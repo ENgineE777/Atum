@@ -42,6 +42,7 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	for (int i = 0; i < 36; i++)
 	{
 		vertices[box_indices[i]].pos = base_vertices[bace_indices[i]];
+		vertices[i].color = 0xffffffff;
 	}
 
 	Vector noramls[] =
@@ -103,9 +104,13 @@ void DebugBoxes::Draw(float dt)
 	render.SetTransform(Render::World, Matrix());
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
-	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
+	Matrix view;
+	render.GetTransform(Render::View, view);
+	view.Inverse();
+	Vector4 vz = Vector4(-view.Vz());
 
-	//render.GetDevice()->SetAlphaBlend(true);
+	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
+	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
 
 	for (int i=0;i<boxes.size();i++)
 	{
@@ -116,8 +121,6 @@ void DebugBoxes::Draw(float dt)
 
 		render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, 12);
 	}
-
-	render.GetDevice()->SetAlphaBlend(true);
 
 	boxes.clear();
 }

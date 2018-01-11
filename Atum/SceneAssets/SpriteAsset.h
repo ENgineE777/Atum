@@ -4,19 +4,19 @@
 #include "Services/Scene/SceneAsset.h"
 #include "../SceneObjects/quad.h"
 
-class Animation : public SceneAsset
+class SpriteAsset : public SceneAsset
 {
 public:
-	META_DATA_DECL(Animation)
+	META_DATA_DECL(SpriteAsset)
 
 	float length;
 
 	Texture* tex;
 	Quad quad;
 
-	CLASSDECLDIF(SceneAsset, Animation)
-	Animation();
-	virtual ~Animation();
+	CLASSDECLDIF(SceneAsset, SpriteAsset)
+	SpriteAsset();
+	virtual ~SpriteAsset();
 
 	virtual void Init();
 	void Draw(float dt);

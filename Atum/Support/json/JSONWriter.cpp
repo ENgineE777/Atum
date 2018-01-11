@@ -190,6 +190,16 @@ void JSONWriter::Write(const char* name, Color& val)
 	FinishBlock();
 }
 
+void JSONWriter::Write(const char* name, Quaternion& val)
+{
+	StartBlock(name);
+	Write("x", val.x);
+	Write("y", val.y);
+	Write("z", val.z);
+	Write("w", val.w);
+	FinishBlock();
+}
+
 void JSONWriter::AddComma()
 {
 	if (block_started[depth])

@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="SceneObjects">
-      <UniqueIdentifier>{606362ba-7307-482c-a137-6de9b2e4a21c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Services">
       <UniqueIdentifier>{a0897050-2cb2-444a-b0a6-0a3db832f621}</UniqueIdentifier>
     </Filter>
@@ -40,9 +37,6 @@
     <Filter Include="Services\TaskExecutor">
       <UniqueIdentifier>{57c7a380-4755-4bd2-b6a5-2bec53ce5d8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneObjects\PathFinder">
-      <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Services\Physics">
       <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
     </Filter>
@@ -52,11 +46,26 @@
     <Filter Include="Services\Font">
       <UniqueIdentifier>{e14be2ec-e80c-4d99-b894-ad3151d21918}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneAssets">
+      <UniqueIdentifier>{ca4ab6fa-ec73-4af0-bd27-a8309bdddc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects">
+      <UniqueIdentifier>{606362ba-7307-482c-a137-6de9b2e4a21c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects\PathFinder">
+      <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SceneObjects\GUI">
       <UniqueIdentifier>{d632e837-c76c-4ac9-8c82-7f19d65f3658}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneAssets">
-      <UniqueIdentifier>{ca4ab6fa-ec73-4af0-bd27-a8309bdddc81}</UniqueIdentifier>
+    <Filter Include="SceneAssets\Animator">
+      <UniqueIdentifier>{f981d4f6-7a7f-4728-946a-af7d3682beb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets\Animator\DataTrack">
+      <UniqueIdentifier>{a88d1cfd-6fb2-4337-bd58-8b3081fa1411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets\Animator\TrackPlayers">
+      <UniqueIdentifier>{6bf5ef33-f9e3-429a-96e5-6a6b4de34a59}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -244,11 +253,53 @@
     <ClCompile Include="..\..\Atum\SceneObjects\GUI\GUIWidget.cpp">
       <Filter>SceneObjects\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Atum\SceneAssets\Animation.cpp">
-      <Filter>SceneAssets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Atum\Services\Scene\SceneAsset.cpp">
       <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\Animator.cpp">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\AnimatorWindow.cpp">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\SpriteAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugTriangles.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.cpp">
+      <Filter>SceneAssets\Animator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -486,11 +537,56 @@
     <ClInclude Include="..\..\Atum\SceneObjects\GUI\GUIWidget.h">
       <Filter>SceneObjects\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Atum\SceneAssets\Animation.h">
-      <Filter>SceneAssets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Scene\SceneAsset.h">
       <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\Animator.h">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\AnimatorWindow.h">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\SpriteAsset.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugTriangles.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.h">
+      <Filter>SceneAssets\Animator</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

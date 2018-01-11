@@ -21,8 +21,9 @@ class DebugSpheres : public Object
 
 	struct Vertex
 	{
-		Vector pos;
-		Vector normal;
+		Vector   pos;
+		Vector   normal;
+		uint32_t color;
 	};
 
 	std::vector<Sphere> spheres;

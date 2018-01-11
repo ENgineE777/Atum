@@ -1,7 +1,6 @@
 
 #pragma once
 
-
 #include "Vector.h"
 #include "Matrix.h"
 
@@ -31,22 +30,16 @@ public:
 public:
 	
 	Quaternion & operator - ();
-	
+	Quaternion & operator = (float f);
 	Quaternion & operator = (const Quaternion & q);
-	
 	Quaternion & operator += (const Quaternion & q);
-	
 	Quaternion & operator += (float f);
-	
 	Quaternion & operator -= (const Quaternion & q);
-	
 	Quaternion & operator -= (float f);
-	
 	Quaternion & operator *= (float f);
-	
 	Quaternion & operator *= (const Quaternion & q);
-	
 	Quaternion & operator /= (float f);
+	Quaternion & operator /= (const Quaternion & q);
 
 public:
 	
@@ -88,6 +81,15 @@ inline Quaternion& Quaternion::operator - ()
 	y = -y;
 	z = -z;
 	w = -w;
+	return *this;
+}
+
+inline Quaternion & Quaternion::operator = (float f)
+{
+	x = f;
+	y = f;
+	z = f;
+	w = f;
 	return *this;
 }
 
@@ -172,6 +174,15 @@ inline Quaternion & Quaternion::operator /= (float f)
 	return *this;
 }
 
+inline Quaternion & Quaternion::operator /= (const Quaternion & q)
+{
+	x /= q.x;
+	y /= q.y;
+	z /= q.z;
+	w /= q.w;
+	return *this;
+}
+
 inline Quaternion operator + (float f, const Quaternion & q)
 {
 	Quaternion tq(q);
@@ -242,6 +253,19 @@ inline Quaternion operator / (const Quaternion & q, float f)
 	return tq;
 }
 
+inline Quaternion operator / (float f, const Quaternion & q)
+{
+	Quaternion tq(q);
+	tq *= f;
+	return tq;
+}
+
+inline Quaternion operator / (const Quaternion & q1, const Quaternion & q2)
+{
+	Quaternion tq(q1);
+	tq /= q2;
+	return tq;
+}
 
 inline void Quaternion::SetIdentity()
 {
@@ -262,11 +286,11 @@ inline void Quaternion::Set(float qx, float qy, float qz, float qw)
 Quaternion& Quaternion:: Set(float angle, Vector v)
 {
 
-	w=cos(angle/2);
-	v=v*sin(angle/2);
-	x=v.x;
-	y=v.y;
-	z=v.z;
+	w = cosf(angle/2);
+	v = v * sinf(angle/2);
+	x = v.x;
+	y = v.y;
+	z = v.z;
 
 	return (*this);
 }

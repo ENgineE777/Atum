@@ -6,6 +6,7 @@ class DebugPrograms
 {
 public:
 
+	
 	class LineProgram : public Program
 	{
 	public:

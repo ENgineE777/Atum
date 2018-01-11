@@ -54,7 +54,15 @@ public:
 	{
 		return (((uint8_t)(a*255))<<24) | (((uint8_t)(b*255))<<16) | (((uint8_t)(g*255))<<8) | ((uint8_t)(r*255));
 	};
-	
+
+	void Lerp(Color& from, Color& to, float blend)
+	{
+		r = from.r + (to.r - from.r) * blend;
+		g = from.g + (to.g - from.g) * blend;
+		b = from.b + (to.b - from.b) * blend;
+		a = from.a + (to.a - from.a) * blend;
+	}
+
 	Color& operator *= (Color& color)
 	{
 		r *= color.r;

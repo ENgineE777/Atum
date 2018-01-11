@@ -23,7 +23,20 @@
     <ClCompile Include="..\..\Atum\Editor\freecamera.cpp" />
     <ClCompile Include="..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\Atum\main.cpp" />
-    <ClCompile Include="..\..\Atum\SceneAssets\Animation.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\Animator.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\AnimatorWindow.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\SpriteAsset.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\GUI\GUIWidget.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\GUI\TestGUI.cpp" />
@@ -57,6 +70,7 @@
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugTriangles.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\DX11\ShaderDX11.cpp" />
@@ -88,7 +102,21 @@
     <ClInclude Include="..\..\Atum\Editor\Editor.h" />
     <ClInclude Include="..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\Atum\Editor\Gizmo.h" />
-    <ClInclude Include="..\..\Atum\SceneAssets\Animation.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\Animator.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\AnimatorWindow.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrack.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\SpriteAsset.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\GUI\GUIWidget.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\GUI\TestGUI.h" />
@@ -125,6 +153,7 @@
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugPrograms.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugTriangles.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Device.h" />
     <ClInclude Include="..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
     <ClInclude Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h" />
@@ -256,7 +285,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>PLATFORM_PC;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -294,7 +323,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>PLATFORM_PC;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\Libraries\PhysX\Include;..\..\Libraries\EUI\include;..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>

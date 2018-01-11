@@ -2,6 +2,8 @@
 #include "Gizmo.h"
 #include "Services/Render/Render.h"
 
+Gizmo* Gizmo::inst = nullptr;
+
 Gizmo::Gizmo()
 {
 	bViewPortResized = false;
@@ -76,7 +78,7 @@ void Gizmo::DrawAxis(int axis)
 
 	float hgt = 0.85f * scale;
 	float r = 0.05f * scale;
-	int nums = 32;
+	int nums = 64;
 
 	for (int i = 0; i < nums; i++)
 	{

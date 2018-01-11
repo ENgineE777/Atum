@@ -22,11 +22,12 @@ void Editor::Listener::OnMouseMove(EUIWidget* sender, int mx, int my)
 	if (sender->GetID() == Editor::ViewportID ||
 		sender->GetID() == Editor::AssetViewportID)
 	{
+		owner->gizmo.OnMouseMove((float)mx / (float)sender->GetWidth(),
+		                         (float)my / (float)sender->GetHeight());
+
+
 		if (owner->selectedObject && !owner->scene.Playing())
 		{
-			owner->gizmo.OnMouseMove((float)mx / (float)sender->GetWidth(),
-										(float)my / (float)sender->GetHeight());
-
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 			{
 				if (!owner->selectedObject->Trans().IsEqual(owner->gizmo.transform))
@@ -43,11 +44,12 @@ void Editor::Listener::OnMouseMove(EUIWidget* sender, int mx, int my)
 
 void Editor::Listener::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID)
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID)
 	{
 		allowCopy = true;
 		owner->gizmo.OnLeftMouseDown((float)mx / (float)sender->GetWidth(),
-										(float)my / (float)sender->GetHeight());
+		                             (float)my / (float)sender->GetHeight());
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
@@ -60,7 +62,8 @@ void Editor::Listener::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 
 void Editor::Listener::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID)
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID)
 	{
 		owner->gizmo.OnLeftMouseUp();
 	}
@@ -155,6 +158,7 @@ Editor::Editor() : listener(this)
 	gizmoMove = true;
 	gizmoGlobal = true;
 	gameWnd = false;
+	Gizmo::inst = &gizmo;
 }
 
 Editor::~Editor()
@@ -748,7 +752,7 @@ void Editor::ProcessMenu(int activated_id)
 	if ((activated_id == MenuSaveID && sceneName.size() == 0) ||
 		activated_id == MenuSaveAsID)
 	{
-		const char* fileName = EUI::EUI::OpenSaveDialog("Scene file", "scn");
+		const char* fileName = EUI::EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
 
 		if (fileName)
 		{
@@ -760,7 +764,7 @@ void Editor::ProcessMenu(int activated_id)
 
 	if (activated_id == MenuOpenID)
 	{
-		const char* fileName = EUI::OpenOpenDialog("Scene file", "scn");
+		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Scene file", "scn");
 
 		if (fileName)
 		{

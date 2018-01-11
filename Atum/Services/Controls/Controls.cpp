@@ -369,13 +369,12 @@ bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_i
 
 					if (action == Activated)
 					{
-						res = (!(joy_prev_states[index].Gamepad.wButtons & halias.index) &&
-								 joy_states[index].Gamepad.wButtons & halias.index);
+						res = (!(joy_prev_states[index].Gamepad.wButtons & halias.index) && joy_states[index].Gamepad.wButtons & halias.index);
 					}
 
 					if (action == Active)
 					{
-						res = joy_states[index].Gamepad.wButtons & halias.index;
+						res = (joy_states[index].Gamepad.wButtons & halias.index) !=  0;
 					}
 
 					if (res)

@@ -28,7 +28,7 @@ void ColorWidget::SetData(void* set_data)
 
 void ColorWidget::ChoseColor()
 {
-	if (EUI::OpenColorDialog(&data->r))
+	if (EUI::OpenColorDialog(ecolor->GetNativeRoot(), &data->r))
 	{
 		int clr[3];
 		clr[0] = (int)(data->r * 255.0f);

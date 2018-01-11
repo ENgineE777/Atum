@@ -6,6 +6,7 @@
 class Gizmo
 {
 public:
+	static Gizmo* inst;
 	bool   bViewPortResized;
 	Matrix transform;
 	int    mode;

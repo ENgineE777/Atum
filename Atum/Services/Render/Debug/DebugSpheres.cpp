@@ -24,6 +24,7 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 			vertices[index].pos = Vector(sinTheta * sinf(curPhi), y, -sinTheta * cosf(curPhi));
 			vertices[index].normal = vertices[index].pos;
 			vertices[index].normal.Normalize();
+			vertices[index].color = 0xffffffff;
 			index++;
 
 			curPhi += deltaPhi;
@@ -89,7 +90,13 @@ void DebugSpheres::Draw(float dt)
 	render.SetTransform(Render::World, Matrix());
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
+	Matrix view;
+	render.GetTransform(Render::View, view);
+	view.Inverse();
+	Vector4 vz = Vector4(-view.Vz());
+
 	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
+	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
 
 	render.GetDevice()->SetAlphaBlend(true);
 

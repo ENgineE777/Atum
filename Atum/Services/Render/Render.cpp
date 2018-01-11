@@ -47,6 +47,9 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 		boxes = new DebugBoxes();
 		boxes->Init(debugTaskPool);
 
+		triangles = new DebugTriangles();
+		triangles->Init(debugTaskPool);
+
 		lines = new DebugLines();
 		lines->Init(debugTaskPool);
 
@@ -191,6 +194,11 @@ void Render::DebugSphere(Vector& pos, Color& color, float radius)
 void Render::DebugBox(Matrix& pos, Color& color, Vector& scale)
 {
 	boxes->AddBox(pos, color, scale);
+}
+
+void Render::DebugTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color)
+{
+	triangles->AddTriangle(p1, p2, p3, color);
 }
 
 void Render::DebugPrintText(Vector2 pos, Color color, const char* text)

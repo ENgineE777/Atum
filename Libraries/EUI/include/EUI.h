@@ -24,7 +24,7 @@ public:
 	static void Init(const char* theme);
 	static void ReloadTheme(const char* theme);
 	static int  Run();
-	static const char* OpenOpenDialog(char* extName, const char* ext);
-	static const char* OpenSaveDialog(char* extName, const char* ext);
-	static bool OpenColorDialog(float* color);
+	static const char* OpenOpenDialog(void* parent, char* extName, const char* ext);
+	static const char* OpenSaveDialog(void* parent, char* extName, const char* ext);
+	static bool OpenColorDialog(void* parent, float* color);
 };

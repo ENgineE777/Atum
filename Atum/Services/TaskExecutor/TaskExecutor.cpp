@@ -108,7 +108,7 @@ void TaskExecutor::SingleTaskPool::DelTask(int level, Object* entity)
 			if (entity == list->list[i].entity)
 			{
 				list->list.erase(list->list.begin() + i);
-				break;
+				i--;
 			}
 		}
 

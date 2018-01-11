@@ -9,14 +9,14 @@ public:
 	union
 	{
 		struct
-		{		
+		{
 			float x;
 			float y;
 			float z;
 			float w;
 		};
 		struct
-		{			
+		{
 			float v4[4];
 		};
 	};
@@ -24,22 +24,14 @@ public:
 public:
 	
 	Vector4();
-	
 	Vector4(float f);
-	
 	Vector4(double d);
-	
 	Vector4(float x, float y, float z);
-	
 	Vector4(float x, float y, float z, float w);
-	
 	Vector4(const float f[3]);
-	
 	Vector4(const double d[3]);
-	
-	Vector4(const Vector & v);
-	
-	Vector4(const Vector4 & v);
+	Vector4(const Vector& v);
+	Vector4(const Vector4& v);
 
 public:
 	
@@ -48,12 +40,25 @@ public:
 	Vector4 operator - () const;
 	
 	Vector4& operator = (float f);
-	
 	Vector4& operator = (double d);
-	
-	Vector4& operator = (const Vector & v);
-	
-	Vector4& operator = (const Vector4 & v);
+	Vector4& operator = (const Vector& v);
+	Vector4& operator = (const Vector4& v);
+
+	Vector4& operator *= (float f);
+	Vector4& operator *= (double d);
+	Vector4& operator *= (const Vector4& v);
+
+	Vector4& operator /= (float f);
+	Vector4& operator /= (double d);
+	Vector4& operator /= (const Vector4& v);
+
+	Vector4& operator += (float f);
+	Vector4& operator += (double d);
+	Vector4& operator += (const Vector4& v);
+
+	Vector4& operator -= (float f);
+	Vector4& operator -= (double d);
+	Vector4& operator -= (const Vector4& v);
 
 public:
 	
@@ -77,7 +82,7 @@ inline Vector4::Vector4(float x, float y, float z)
 	this->x = x;
 	this->y = y;
 	this->z = z;
-	this->w = 1.0f;	
+	this->w = 1.0f;
 }
 
 inline Vector4::Vector4(float x, float y, float z, float w)
@@ -104,15 +109,15 @@ inline Vector4::Vector4(const double d[3])
 	w = 1.0f;
 }
 
-inline Vector4::Vector4(const Vector & vc)
+inline Vector4::Vector4(const Vector& vc)
 {
 	x = vc.x;
 	y = vc.y;
 	z = vc.z;
-	w = 1.0f;	
+	w = 1.0f;
 }
 
-inline Vector4::Vector4(const Vector4 & v)
+inline Vector4::Vector4(const Vector4& v)
 {
 	x = v.x;
 	y = v.y;
@@ -175,4 +180,196 @@ inline void Vector4::Normalize()
 	y = float(k*y);
 	z = float(k*z);
 	w = 1.0f;
+}
+
+inline Vector4 & Vector4::operator *= (float f)
+{
+	x *= f;
+	y *= f;
+	x *= f;
+	w *= f;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator *= (double d)
+{
+	x *= float(d);
+	y *= float(d);
+	z *= float(d);
+	w *= float(d);
+	return *this;
+}
+
+inline Vector4 & Vector4::operator *= (const Vector4 & v)
+{
+	x *= v.x;
+	y *= v.y;
+	z *= v.z;
+	w *= v.w;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator /= (float f)
+{
+	x /= f;
+	y /= f;
+	x /= f;
+	w /= f;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator /= (double d)
+{
+	x /= float(d);
+	y /= float(d);
+	z /= float(d);
+	w /= float(d);
+	return *this;
+}
+
+inline Vector4 & Vector4::operator /= (const Vector4 & v)
+{
+	x /= v.x;
+	y /= v.y;
+	z /= v.z;
+	w /= v.w;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator += (float f)
+{
+	x += f;
+	y += f;
+	z += f;
+	w += f;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator += (double d)
+{
+	x += float(d);
+	y += float(d);
+	z += float(d);
+	w += float(d);
+	return *this;
+}
+
+inline Vector4 & Vector4::operator += (const Vector4 & v)
+{
+	x += v.x;
+	y += v.y;
+	z += v.z;
+	w += v.w;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator -= (float f)
+{
+	x -= f;
+	y -= f;
+	z -= f;
+	w -= f;
+	return *this;
+}
+
+inline Vector4 & Vector4::operator -= (double d)
+{
+	x -= float(d);
+	y -= float(d);
+	z -= float(d);
+	w -= float(d);
+	return *this;
+}
+
+inline Vector4& Vector4::operator -= (const Vector4 & v)
+{
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+	w -= v.w;
+	return *this;
+}
+
+inline Vector4 operator * (const Vector4 & v, double d)
+{
+	Vector4 tv(v);
+	tv *= d;
+	return tv;
+}
+
+inline Vector4 operator * (double d, const Vector4 & v)
+{
+	Vector4 tv(v);
+	tv *= d;
+	return tv;
+}
+
+inline Vector4 operator * (const Vector4 & v1, const Vector4 & v2)
+{
+	Vector4 tv(v1);
+	tv *= v2;
+	return tv;
+}
+
+inline Vector4 operator / (const Vector4 & v, double d)
+{
+	Vector4 tv(v);
+	tv /= d;
+	return tv;
+}
+
+inline Vector4 operator / (double d, const Vector4 & v)
+{
+	Vector4 tv(v);
+	tv /= d;
+	return tv;
+}
+
+inline Vector4 operator / (const Vector4 & v1, const Vector4 & v2)
+{
+	Vector4 tv(v1);
+	tv /= v2;
+	return tv;
+}
+
+inline Vector4 operator + (const Vector4 & v, double d)
+{
+	Vector4 tv(v);
+	tv += d;
+	return tv;
+}
+
+inline Vector4 operator + (double d, const Vector4 & v)
+{
+	Vector4 tv(v);
+	tv += d;
+	return tv;
+}
+
+inline Vector4 operator + (const Vector4 & v1, const Vector4 & v2)
+{
+	Vector4 tv(v1);
+	tv += v2;
+	return tv;
+}
+
+inline Vector4 operator - (const Vector4 & v, double d)
+{
+	Vector4 tv(v);
+	tv -= d;
+	return tv;
+}
+
+inline Vector4 operator - (double d, const Vector4 & v)
+{
+	Vector4 tv(v);
+	tv -= d;
+	return tv;
+}
+
+inline Vector4 operator - (const Vector4 & v1, const Vector4 & v2)
+{
+	Vector4 tv(v1);
+	tv -= v2;
+	return tv;
 }

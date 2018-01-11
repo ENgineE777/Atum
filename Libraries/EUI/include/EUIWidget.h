@@ -131,10 +131,11 @@ public:
 	virtual void Redraw();
 
 	virtual void* GetNative();
+	virtual void* GetNativeRoot();
 
-	EUIWidget*	GetParent();
-	int			GetChildsCount();
-	EUIWidget*	GetChild(int index);
+	EUIWidget* GetParent();
+	int        GetChildsCount();
+	EUIWidget* GetChild(int index);
 
 	virtual void Release();
 

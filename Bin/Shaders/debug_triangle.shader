@@ -33,7 +33,7 @@ PS_INPUT VS( VS_INPUT input )
 								  trans._m01, trans._m11, trans._m21,
 								  trans._m02, trans._m12, trans._m22);
 
-	output.normal = mul(input.normal, trans_rot);
+	output.normal = normalize(mul(input.normal, trans_rot));
 
 	return output;
 }

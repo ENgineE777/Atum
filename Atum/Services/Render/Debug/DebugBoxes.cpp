@@ -112,6 +112,8 @@ void DebugBoxes::Draw(float dt)
 	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
 	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
 
+	render.GetDevice()->SetAlphaBlend(false);
+
 	for (int i=0;i<boxes.size();i++)
 	{
 		Box& box = boxes[i];

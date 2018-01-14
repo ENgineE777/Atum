@@ -15,14 +15,15 @@ void Animator::Init()
 
 	edCurTime = 0.0f;
 	fromTime = 0.0f;
-	toTime = 3.0f;
+	toTime = 0.0f;
 }
 
 void Animator::Load(JSONReader* stream)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(stream);
-	
+	toTime = timeLenght;
+
 	int num = 0;
 	stream->Read("NumPlayers", num);
 	players.resize(num);

@@ -9,6 +9,7 @@ as much as possible.
 Currently the engine consists from:
 
 - Scene Editor with ability to play test edited scene;
+- Track based editor for creation animated objects
 - Powerful system for binding properties into the editor;
 - Render system based on DX11 but created as multi API; so, adding support of another GAPI
   is planned;

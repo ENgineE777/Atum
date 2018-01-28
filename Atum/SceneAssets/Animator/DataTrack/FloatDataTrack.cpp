@@ -6,8 +6,8 @@
 FloatDataTrack::FloatDataTrack(TrackPlayer* own, const char* nm, float* set_value, ChangeKeyFunc changeKey_Func) : TemplDataTrack<float>(own, nm, changeKey_Func)
 {
 	value = set_value;
-	def_val = 0.0f;
 #ifdef EDITOR
+	def_value = 0.0f;
 	blendRage = DataTrack::AllowedBlendAll;
 #endif
 }
@@ -68,11 +68,6 @@ void FloatDataTrack::CalcValue(int index, float blend)
 }
 
 #ifdef EDITOR
-
-void FloatDataTrack::SetDefaultKey(int index)
-{
-	values[index] = def_val;
-}
 
 void FloatDataTrack::InitControls(EUIWidget* parent)
 {

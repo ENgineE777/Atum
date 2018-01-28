@@ -59,7 +59,7 @@ void TransformDataTrackWidgets::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
 	if (track && track->edited_key != -1)
 	{
-		track->SetDefaultKey(track->edited_key);
+		track->SetDefaultValue(track->edited_key);
 		track->DataToGizmo();
 		track->Prepare();
 	}

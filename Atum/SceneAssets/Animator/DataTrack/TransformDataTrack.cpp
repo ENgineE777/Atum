@@ -15,6 +15,8 @@ TransformDataTrack::TransformDataTrack(TrackPlayer* own, const char* nm, Matrix*
 	value = set_value;
 
 #ifdef EDITOR
+	def_value.pos = 0.0f;
+	def_value.rot.SetIdentity();
 	wigets = NULL;
 #endif
 }
@@ -486,11 +488,6 @@ void TransformDataTrack::CalcValue(int index, float blend)
 }
 
 #ifdef EDITOR
-void TransformDataTrack::SetDefaultKey(int index)
-{
-	GrabCamera(index);
-}
-
 int TransformDataTrack::AddKey(float time)
 {
 	int ret = TemplDataTrack::AddKey(time);

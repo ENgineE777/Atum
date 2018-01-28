@@ -6,6 +6,9 @@ Transform2DDataTrack::Transform2DDataTrack(TrackPlayer* own, const char* nm, Tra
 {
 	value = set_value;
 #ifdef EDITOR
+	def_value.pos = 50.0f;
+	def_value.size = 100.0f;
+	def_value.rotation = 0.0f;
 	blendRage = DataTrack::AllowedBlendAll;
 #endif
 }
@@ -72,13 +75,6 @@ void Transform2DDataTrack::CalcValue(int index, float blend)
 }
 
 #ifdef EDITOR
-
-void Transform2DDataTrack::SetDefaultKey(int index)
-{
-	values[index].pos = 50.0f;
-	values[index].size = 100.0f;
-	values[index].rotation = 0.0f;
-}
 
 void Transform2DDataTrack::InitControls(EUIWidget* parent)
 {

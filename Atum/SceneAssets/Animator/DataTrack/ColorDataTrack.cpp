@@ -5,6 +5,9 @@
 ColorDataTrack::ColorDataTrack(TrackPlayer* own, const char* nm, Color* set_value, ChangeKeyFunc changeKey_Func) : TemplDataTrack<Color>(own, nm, changeKey_Func)
 {
 	value = set_value;
+#ifdef EDITOR
+	def_value = COLOR_WHITE;
+#endif
 }
 
 ColorDataTrack::~ColorDataTrack()
@@ -63,11 +66,6 @@ void ColorDataTrack::CalcValue(int index, float blend)
 }
 
 #ifdef EDITOR
-
-void ColorDataTrack::SetDefaultKey(int index)
-{
-	values[index] = COLOR_WHITE;
-}
 
 void ColorDataTrack::InitControls(EUIWidget* parent)
 {

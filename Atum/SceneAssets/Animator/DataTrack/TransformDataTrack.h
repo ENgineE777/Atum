@@ -56,7 +56,6 @@ public:
 	int edited_key = -1;
 	TransformDataTrackWidgets* wigets;
 
-	virtual void SetDefaultKey(int index);
 	virtual void DelKey(int index);
 	virtual int  AddKey(float time);
 

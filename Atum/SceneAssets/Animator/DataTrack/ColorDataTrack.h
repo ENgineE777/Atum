@@ -7,7 +7,6 @@ class ColorDataTrackWidgets;
 class ColorDataTrack : public TemplDataTrack<Color>
 {
 public:
-	Color* value = nullptr;
 	ColorDataTrack(TrackPlayer* own, const char* nm, Color* value, ChangeKeyFunc changeKey_Func);
 	virtual ~ColorDataTrack();
 
@@ -17,8 +16,7 @@ public:
 
 #ifdef EDITOR
 	ColorDataTrackWidgets* wigets;
-	
-	virtual void SetDefaultKey(int index);
+
 	virtual void InitControls(EUIWidget* parent);
 	virtual void StartEditKey(int key);
 	virtual void StopEditKey();

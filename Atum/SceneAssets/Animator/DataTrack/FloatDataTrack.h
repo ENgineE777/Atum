@@ -8,9 +8,6 @@ class FloatDataTrack : public TemplDataTrack<float>
 {
 public:
 
-	float* value;
-	float def_val;
-
 	FloatDataTrack(TrackPlayer* own, const char* nm, float* value, ChangeKeyFunc changeKey_Func);
 	virtual ~FloatDataTrack();
 
@@ -21,7 +18,6 @@ public:
 #ifdef EDITOR
 	FloatDataTrackWidgets* wigets;
 
-	virtual void SetDefaultKey(int index);
 	virtual void InitControls(EUIWidget* parent);
 	virtual void StartEditKey(int key);
 	virtual void StopEditKey();
@@ -31,5 +27,5 @@ public:
 
 #define AddFloatDataTrack(name, value, onNextCallback, defValue)\
 FloatDataTrack* name##FloatDataTrack = new FloatDataTrack(this, #name, value, onNextCallback);\
-name##FloatDataTrack->def_val = defValue;\
+name##FloatDataTrack->def_value = defValue;\
 tracks.push_back(name##FloatDataTrack);

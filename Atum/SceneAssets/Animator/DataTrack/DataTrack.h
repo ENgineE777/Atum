@@ -61,7 +61,8 @@ public:
 		return keys[key];
 	};
 	virtual int  AddKey(float time) = 0;
-	virtual void SetDefaultKey(int index) = 0;
+	virtual void SetDefaultValue(int index) = 0;
+	virtual void SetCurrentValue(int index) = 0;
 	virtual void DelKey(int index) = 0;
 	virtual void InitControls(EUIWidget* parent) = 0;
 
@@ -88,11 +89,14 @@ protected:
 	char name[64];
 	ChangeKeyFunc changeKeyFunc;
 
-#ifdef EDITOR
-	AllowedBlend blendRage = AllowedBlendOnlyLinear;
-#endif
+	DataType* value;
 
 public:
+
+#ifdef EDITOR
+	DataType def_value;
+	AllowedBlend blendRage = AllowedBlendOnlyLinear;
+#endif
 
 	TemplDataTrack(TrackPlayer* own, const char* nm, ChangeKeyFunc changeKey_Func)
 	{
@@ -197,6 +201,16 @@ public:
 	}
 
 #ifdef EDITOR
+	virtual void SetDefaultValue(int index)
+	{
+		values[index] = def_value;
+	}
+
+	virtual void SetCurrentValue(int index)
+	{
+		values[index] = *value;
+	}
+
 	virtual int AddKey(float time)
 	{
 		for (int i=0;i<(int)keys.size();i++)
@@ -207,15 +221,14 @@ public:
 				break;
 			}
 		}
-		
+
 		keys.push_back(Key());
 		values.push_back(DataType());
 		
-		int index = (int)keys.size()-1;
+		int index = (int)keys.size() - 1;
 		keys[index].time = time;
 		keys[index].blend = (blendRage != AllowedBlendNone) ? BlendLinear : BlendNone;
-		SetDefaultKey(index);
-		
+
 		for (int i = (int)keys.size() - 1; i > 0; i--)
 		{
 			if (keys[i].time < keys[i-1].time)
@@ -228,6 +241,25 @@ public:
 			}
 
 			break;
+		}
+
+		if (keys.size() == 1)
+		{
+			SetDefaultValue(index);
+		}
+		else
+		if (index == 0)
+		{
+			values[index] = values[index + 1];
+		}
+		else
+		if (index == keys.size() - 1)
+		{
+			values[index] = values[index - 1];
+		}
+		else
+		{
+			SetCurrentValue(index);
 		}
 
 		return index;

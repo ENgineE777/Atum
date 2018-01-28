@@ -9,7 +9,6 @@ class Transform2DDataTrack : public TemplDataTrack<Transform2D>
 {
 public:
 
-	Transform2D* value;
 	Transform2DDataTrack(TrackPlayer* own, const char* nm, Transform2D* value, ChangeKeyFunc changeKey_Func);
 	virtual ~Transform2DDataTrack();
 
@@ -22,7 +21,6 @@ public:
 	int edited_key = -1;
 	Transform2DDataTrackWidgets* wigets;
 
-	virtual void SetDefaultKey(int index);
 	virtual void InitControls(EUIWidget* parent);
 	virtual void StartEditKey(int key);
 	virtual void StopEditKey();

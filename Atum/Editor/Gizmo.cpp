@@ -17,6 +17,25 @@ Gizmo::Gizmo()
 	prev_mx = prev_my = 0;
 }
 
+void Gizmo::Init()
+{
+	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
+	center = render.LoadTexture("settings\\editor\\gizmo_center.png");
+}
+
+bool Gizmo::IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c)
+{
+	float as_x = s.x - a.x;
+	float as_y = s.y - a.y;
+
+	bool s_ab = (b.x - a.x) * as_y - (b.y - a.y) * as_x > 0;
+
+	if ((c.x - a.x)*as_y - (c.y - a.y)*as_x > 0 == s_ab) return false;
+	if ((c.x - b.x)*(s.y - b.y) - (c.y - b.y)*(s.x - b.x) > 0 != s_ab) return false;
+
+	return true;
+}
+
 Color Gizmo::CheckColor(int axis)
 {
 	Color color;
@@ -187,9 +206,9 @@ void Gizmo::DrawCircle(int axis)
 }
 
 bool Gizmo::CheckInersection(Vector pos, Vector pos2,
-							 float mx, float my,
-							 Vector trans, bool check_trans,
-							 Matrix view, Matrix view_proj)
+                             float mx, float my,
+                             Vector trans, bool check_trans,
+                             Matrix view, Matrix view_proj)
 {
 	if (useLocalSpace)
 	{
@@ -278,9 +297,7 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 			Vector pos2 = dir * (float)(i+1) * (1.0f / 7.0f);
 			Vector tr(0.0f);
 
-			if (CheckInersection(pos, pos2,
-								mx, my, tr, false,
-								view, view_proj))
+			if (CheckInersection(pos, pos2, mx, my, tr, false, view, view_proj))
 			{
 				return true;
 			}
@@ -324,8 +341,8 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 				}
 
 				if (CheckInersection(pos, pos2,
-										mx, my, trans, true,
-										view, view_proj))
+				                     mx, my, trans, true,
+				                     view, view_proj))
 				{
 					return true;
 				}
@@ -352,6 +369,88 @@ void Gizmo::MouseProcess(float mx, float my)
 
 void Gizmo::MouseMove(float mx, float my)
 {
+	if (trans2D)
+	{
+		Vector2 ms = Vector2(mx, my);
+		Vector2 prev_ms = Vector2(prev_mx, prev_my);
+
+		if (selAxis == 0)
+		{
+			trans2D->pos += ms;
+		}
+		else
+		if (selAxis == 9)
+		{
+			Vector2 p1 = prev_ms + ms - origin;
+			p1.Normalize();
+
+			Vector2 p2 = prev_ms - origin;
+			p2.Normalize();
+
+			float k = p1.x * p2.x + p1.y * p2.y;
+
+			if (fabs(k) < 1.0f)
+			{
+				k = acosf(k);
+
+				Vector2 p3(-p2.y, p2.x);
+
+				float k2 = p1.x * p3.x + p1.y * p3.y;
+
+				if (k2 < 0)
+				{
+					k *= -1.0f;
+				}
+
+				trans2D->rotation += k;
+			}
+		}
+		else
+		if (selAxis > 0)
+		{
+			float dist = ms.Length();
+
+			if (dist > 0.01f)
+			{
+				ms.Normalize();
+
+				float k1 = 1.0f;
+				float k2 = 1.0f;
+
+				if (selAxis == 5 || selAxis == 7)
+				{
+					k1 = 0.0f;
+				}
+
+				if (selAxis == 1 || selAxis == 2 || selAxis == 5)
+				{
+					k2 = -1.0f;
+				}
+
+				if (selAxis == 0 || selAxis== 1 || selAxis == 4 || selAxis == 8)
+				{
+					k1 = -1.0f;
+				}
+
+				if (selAxis == 6 || selAxis == 8)
+				{
+					k2 = 0.0f;
+				}
+
+				float dot1 = 0.0f;
+				float dot2 = 0.0f;
+
+				dot1 = ms.x * trans2D->local_trans.Vx().x + ms.y * trans2D->local_trans.Vx().y;
+				dot2 = ms.x * trans2D->local_trans.Vy().x + ms.y * trans2D->local_trans.Vy().y;
+
+				trans2D->size.x += dist * k1 * dot1;
+				trans2D->size.y += dist * k2 * dot2;
+			}
+		}
+
+		return;
+	}
+
 	if (selAxis == -1 || !enabled)
 	{
 		return;
@@ -419,6 +518,85 @@ void Gizmo::Render()
 {
 	if (!enabled) return;
 
+	if (trans2D)
+	{
+		trans2D->BuildLocalTrans();
+
+		Vector p1, p2;
+
+		for (int phase = 1; phase <= 2; phase++)
+		{
+			for (int i = 0; i < 4 * phase; i++)
+			{
+				if (i == 0)
+				{
+					p1 = Vector(0, 0, 0);
+					p2 = Vector(trans2D->size.x, 0, 0);
+				}
+				else
+				if (i == 1)
+				{
+					p1 = Vector(trans2D->size.x, 0, 0);
+					p2 = Vector(trans2D->size.x, trans2D->size.y, 0);
+				}
+				else
+				if (i == 2)
+				{
+					p1 = Vector(trans2D->size.x, trans2D->size.y, 0);
+					p2 = Vector(0, trans2D->size.y, 0);
+				}
+				else
+				if (i == 3)
+				{
+					p1 = Vector(0, trans2D->size.y, 0);
+					p2 = Vector(0, 0, 0);
+				}
+				else
+				if (i == 4)
+				{
+					p1 = Vector(trans2D->size.x * 0.5f, 0, 0);
+				}
+				else
+				if (i == 5)
+				{
+					p1 = Vector(trans2D->size.x, trans2D->size.y * 0.5f, 0);
+				}
+				else
+				if (i == 6)
+				{
+					p1 = Vector(trans2D->size.x * 0.5f, trans2D->size.y, 0);
+				}
+				else
+				if (i == 7)
+				{
+					p1 = Vector(0, trans2D->size.y * 0.5f, 0);
+				}
+
+				p1 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
+				p1 = p1 * trans2D->local_trans;
+				p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
+				p2 = p2 * trans2D->local_trans;
+
+				if (phase == 1)
+				{
+					render.DebugLine2D(Vector2(p1.x, p1.y), COLOR_WHITE, Vector2(p2.x, p2.y), COLOR_WHITE);
+				}
+				else
+				{
+					ancorns[i] = Vector2(p1.x, p1.y);
+					render.DrawSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
+				}
+			}
+		}
+
+		p1 = Vector(0.0f, 0.0f, 0.0f);
+		p1 = p1 * trans2D->local_trans;
+		origin = Vector2(p1.x, p1.y) - Vector2(4.0f);
+		render.DrawSprite(center, origin, Vector2(8.0f));
+
+		return;
+	}
+
 	Matrix view;
 	render.GetTransform(Render::View, view );
 
@@ -462,8 +640,39 @@ void Gizmo::OnMouseMove(float mx, float my)
 
 void Gizmo::OnLeftMouseDown(float mx, float my)
 {
-	if (selAxis != -1)
+	if (selAxis != -1 || trans2D)
 	{
+		if (trans2D)
+		{
+			selAxis = -1;
+
+			for (int i = 0; i<8; i++)
+			{
+				if (ancorns[i].x - 7 < mx && mx < ancorns[i].x + 7 &&
+				    ancorns[i].y - 7 < my && my < ancorns[i].y + 7)
+				{
+					//SetCursor(cr_resize);
+					selAxis = i + 1;
+					break;
+				}
+			}
+
+			if (selAxis == -1)
+			{
+				if (IsInsideTriangle(Vector2(mx, my), ancorns[0], ancorns[1], ancorns[2]) ||
+				    IsInsideTriangle(Vector2(mx, my), ancorns[0], ancorns[2], ancorns[3]))
+				{
+					//SetCursor(cr_move);
+					selAxis = 0;
+				}
+				else
+				{
+					//SetCursor(cr_rotate);
+					selAxis = 9;
+				}
+			}
+		}
+
 		prev_mx = mx;
 		prev_my = my;
 		mousedPressed = true;

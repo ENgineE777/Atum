@@ -1,5 +1,6 @@
 
 #include "TrackPlayer.h"
+#include "../Animator.h"
 
 CLASSFACTORYDECL(TrackPlayer)
 

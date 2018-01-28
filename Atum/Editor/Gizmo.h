@@ -7,6 +7,9 @@ class Gizmo
 {
 public:
 	static Gizmo* inst;
+
+	Transform2D* trans2D = nullptr;
+
 	bool   bViewPortResized;
 	Matrix transform;
 	int    mode;
@@ -18,6 +21,9 @@ public:
 	bool   mousedPressed;
 	float  prev_mx, prev_my;
 
+	class Texture* anchorn;
+	class Texture* center;
+
 	Vector2 origin;
 	Vector2 ancorns[8];
 
@@ -27,13 +33,16 @@ public:
 	Vector2 prev_ms;
 
 	Gizmo();
+	void Init();
 	Color CheckColor(int axis);
 	void DrawAxis(int axis);
 	void DrawCircle(int axis);
 	bool CheckInersection(Vector pos, Vector pos2,
-							float mx, float my,
-							Vector trans, bool check_trans,
-							Matrix view, Matrix view_proj);
+	                      float mx, float my,
+	                      Vector trans, bool check_trans,
+	                      Matrix view, Matrix view_proj);
+
+	bool IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c);
 
 	bool MouseProcess(int axis, float mx, float my);
 	void MouseProcess(float mx, float my);

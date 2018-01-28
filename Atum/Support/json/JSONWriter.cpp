@@ -157,6 +157,14 @@ void JSONWriter::Write(const char* name, int val)
 	}
 }
 
+void JSONWriter::Write(const char* name, Vector2& val)
+{
+	StartBlock(name);
+	Write("x", val.x);
+	Write("y", val.y);
+	FinishBlock();
+}
+
 void JSONWriter::Write(const char* name, Vector& val)
 {
 	StartBlock(name);

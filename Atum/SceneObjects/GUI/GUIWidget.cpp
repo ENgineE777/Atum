@@ -11,7 +11,7 @@ GUIWidget::GUIWidget()
 
 void GUIWidget::DrawSelf()
 {
-	quad.Draw(tex, Vector2(pos.Pos().x, pos.Pos().y), size);
+	//quad.Draw(tex, Vector2(pos.Pos().x, pos.Pos().y), size);
 }
 
 void GUIWidget::Draw()

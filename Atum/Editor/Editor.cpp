@@ -22,8 +22,7 @@ void Editor::Listener::OnMouseMove(EUIWidget* sender, int mx, int my)
 	if (sender->GetID() == Editor::ViewportID ||
 		sender->GetID() == Editor::AssetViewportID)
 	{
-		owner->gizmo.OnMouseMove((float)mx / (float)sender->GetWidth(),
-		                         (float)my / (float)sender->GetHeight());
+		owner->gizmo.OnMouseMove((float)mx, (float)my);
 
 
 		if (owner->selectedObject && !owner->scene.Playing())
@@ -48,8 +47,7 @@ void Editor::Listener::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		sender->GetID() == Editor::AssetViewportID)
 	{
 		allowCopy = true;
-		owner->gizmo.OnLeftMouseDown((float)mx / (float)sender->GetWidth(),
-		                             (float)my / (float)sender->GetHeight());
+		owner->gizmo.OnLeftMouseDown((float)mx, (float)my);
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
@@ -133,8 +131,8 @@ void Editor::Listener::OnEditBoxChange(EUIWidget* sender)
 void Editor::Listener::OnResize(EUIWidget* sender)
 {
 	if ((sender->GetID() == Editor::ViewportID && !owner->scene.Playing()) ||
-		(sender->GetID() == Editor::AssetViewportID && !owner->scene.Playing()) ||
-		(sender->GetID() == Editor::GameViewportID && owner->scene.Playing()))
+	    (sender->GetID() == Editor::AssetViewportID && !owner->scene.Playing()) ||
+	    (sender->GetID() == Editor::GameViewportID && owner->scene.Playing()))
 	{
 		render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
 	}
@@ -322,6 +320,8 @@ void Editor::Init()
 
 	freecamera.Init();
 	scene.Init();
+
+	gizmo.Init();
 
 	UpdateGizmoToolbar();
 
@@ -578,7 +578,7 @@ void Editor::ShowVieport()
 
 	EUIPanel* vp = selectedAsset ? asset_viewport : viewport;
 
-	render.GetDevice()->SetVideoMode((int)viewport->GetWidth(), (int)viewport->GetHeight(), vp->GetNative());
+	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
 
 	controls.SetWindow(vp->GetNative());
 

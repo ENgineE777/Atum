@@ -56,6 +56,9 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 		font = new DebugFont();
 		font->Init(debugTaskPool);
 
+		sprites = new DebugSprites();
+		sprites->Init(debugTaskPool);
+
 		return true;
 	}
 
@@ -186,6 +189,11 @@ void Render::DebugLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr,
 	lines->AddLine(from, from_clr, to, to_clr, use_depth);
 }
 
+void Render::DebugLine2D(Vector2& from, Color& from_clr, Vector2& to, Color& to_clr)
+{
+	lines->AddLine2D(from, from_clr, to, to_clr);
+}
+
 void Render::DebugSphere(Vector& pos, Color& color, float radius)
 {
 	spheres->AddSphere(pos, color, radius);
@@ -209,6 +217,11 @@ void Render::DebugPrintText(Vector2 pos, Color color, const char* text)
 void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text)
 {
 	font->AddText(pos, dist, color, text);
+}
+
+void Render::DrawSprite(Texture* texture, Vector2& pos, Vector2& size)
+{
+	sprites->AddSprite(texture, pos, size);
 }
 
 Vector Render::TransformToScreen(const Vector& pos, int type)

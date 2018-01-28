@@ -40,9 +40,9 @@ void TDPrt::Init()
 
 void TDPrt::Draw(float dt)
 {
-	quad.Draw(map_tex, Vector2(0.0f, 0.0f), Vector2(800.0f, 800.0f));
-	quad.Draw(tower_tex, Vector2(127.0f, 710.0f), Vector2(95.0f, 80.0f));
-	quad.Draw(tower_tex, Vector2(407.0f, 710.0f), Vector2(95.0f, 80.0f));
+	//quad.Draw(map_tex, Vector2(0.0f, 0.0f), Vector2(800.0f, 800.0f));
+	//quad.Draw(tower_tex, Vector2(127.0f, 710.0f), Vector2(95.0f, 80.0f));
+	//quad.Draw(tower_tex, Vector2(407.0f, 710.0f), Vector2(95.0f, 80.0f));
 
 	enemy.anim += dt;
 	if (enemy.anim > 0.45f)
@@ -50,7 +50,7 @@ void TDPrt::Draw(float dt)
 		enemy.anim -= 0.45f;
 	}
 
-	quad.Draw(enemy_tex[(int)(enemy.anim / 0.15f)], Vector2(407.0f, 310.0f), Vector2(43.0f, 43.0f));
+	//quad.Draw(enemy_tex[(int)(enemy.anim / 0.15f)], Vector2(407.0f, 310.0f), Vector2(43.0f, 43.0f));
 }
 
 void TDPrt::Play()

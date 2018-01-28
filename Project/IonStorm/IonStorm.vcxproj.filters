@@ -301,6 +301,18 @@
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.cpp">
       <Filter>SceneAssets\Animator</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSprites.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -587,6 +599,27 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\AnimatorObject.h">
       <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Types.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\Defines.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\std.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSprites.h">
+      <Filter>Services\Render\Debug</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

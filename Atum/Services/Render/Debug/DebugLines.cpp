@@ -25,7 +25,13 @@ void DebugLines::AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_cl
 	ln->push_back(Vertex(to, to_clr.Get()));
 }
 
-void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines)
+void DebugLines::AddLine2D(Vector2& from, Color& from_clr, Vector2& to, Color& to_clr)
+{
+	lines_2d.push_back(Vertex(Vector(from.x, from.y, 1.0f), from_clr.Get()));
+	lines_2d.push_back(Vertex(Vector(to.x, to.y, 1.0f), to_clr.Get()));
+}
+
+void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 {
 	if (lines.size()==0) return;
 
@@ -36,17 +42,40 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines)
 	render.SetTransform(Render::World, Matrix());
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
+	Matrix view, proj, inv_view;
+
+	if (is2d)
+	{
+		render.GetTransform(Render::View, view);
+		render.GetTransform(Render::Projection, proj);
+
+		inv_view = view;
+		inv_view.InverseComplette();
+	}
+
 	prog->VS_SetMatrix("view_proj", &view_proj, 1);
-		
+
 	Vertex* v = (Vertex*)buffer->Lock();
 
 	int count = 0;
 
 	for (int i=0; i<lines.size(); i+=2)
 	{
-		v[count *2 + 0] = lines[i];
-		v[count *2 + 1] = lines[i+1];
-		
+		v[count * 2 + 0] = lines[i];
+		v[count * 2 + 1] = lines[i+1];
+
+		if (is2d)
+		{
+			for (int j = 0; j < 2; j++)
+			{
+				v[count * 2 + j].p.x = (2.0f * v[count * 2 + j].p.x / (float)render.GetDevice()->GetWidth() - 1) / proj._11;
+				v[count * 2 + j].p.y = -(2.0f * v[count * 2 + j].p.y / (float)render.GetDevice()->GetHeight() - 1) / proj._22;
+
+				Vector dir = inv_view.MulNormal(v[count * 2 + j].p);
+				v[count * 2 + j].p = inv_view.Pos() + dir * 100.0f;
+			}
+		}
+
 		count++;
 
 		if (count == MaxSize)
@@ -72,8 +101,9 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines)
 
 void DebugLines::Draw(float dt)
 {
-	DrawLines(DebugPrograms::line_with_depth_prg, lines_with_depth);
-	DrawLines(DebugPrograms::line_prg, lines);
+	DrawLines(DebugPrograms::line_with_depth_prg, lines_with_depth, false);
+	DrawLines(DebugPrograms::line_prg, lines, false);
+	DrawLines(DebugPrograms::line_prg, lines_2d, true);
 }
 
 void DebugLines::Release()

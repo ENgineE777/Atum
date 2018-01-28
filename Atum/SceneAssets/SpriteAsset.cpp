@@ -27,7 +27,7 @@ void SpriteAsset::Init()
 
 void SpriteAsset::Draw(float dt)
 {
-	quad.Draw(tex, Vector2(400 + length, 400 + length), Vector2(100, 100));
+	//quad.Draw(tex, Vector2(400 + length, 400 + length), Vector2(100, 100));
 }
 
 void SpriteAsset::Play()

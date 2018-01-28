@@ -118,8 +118,6 @@ void TankClient::Update(float dt)
 			dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
 			dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
 			dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
-		
-			Vector screen = camPos + dir;
 			dir.Normalize();
 
 			rcdesc.origin = camPos;

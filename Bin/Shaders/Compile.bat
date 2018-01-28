@@ -26,6 +26,9 @@ fxc /E PS /T ps_4_0 /Zi /Od /Fo debug_triangle_ps.shd debug_triangle.shader
 fxc /E VS /T vs_4_0 /Zi /Od /Fo debug_triangle_vs.shd debug_triangle.shader
 fxc /E PS /T ps_4_0 /Zi /Od /Fo debug_triangle_ps.shd debug_triangle.shader
 
+fxc /E VS /T vs_4_0 /Zi /Od /Fo debug_sprite_vs.shd debug_sprite.shader
+fxc /E PS /T ps_4_0 /Zi /Od /Fo debug_sprite_ps.shd debug_sprite.shader
+
 fxc /E VS /T vs_4_0 /Zi /Od /Fo font_vs.shd font.shader
 fxc /E PS /T ps_4_0 /Zi /Od /Fo font_ps.shd font.shader
 

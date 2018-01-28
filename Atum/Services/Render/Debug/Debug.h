@@ -7,3 +7,4 @@
 #include "DebugTriangles.h"
 #include "DebugBoxes.h"
 #include "DebugFont.h"
+#include "DebugSprites.h"

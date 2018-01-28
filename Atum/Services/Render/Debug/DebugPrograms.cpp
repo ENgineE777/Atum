@@ -4,6 +4,7 @@
 DebugPrograms::LineProgram*          DebugPrograms::line_prg;
 DebugPrograms::LineWithDepthProgram* DebugPrograms::line_with_depth_prg;
 DebugPrograms::TriangleProgram*      DebugPrograms::tri_prg;
+DebugPrograms::SpriteProgram*        DebugPrograms::sprite_prg;
 
 void DebugPrograms::Init()
 {
@@ -15,4 +16,7 @@ void DebugPrograms::Init()
 
 	tri_prg = new TriangleProgram();
 	tri_prg->Init();
+
+	sprite_prg = new SpriteProgram();
+	sprite_prg->Init();
 }

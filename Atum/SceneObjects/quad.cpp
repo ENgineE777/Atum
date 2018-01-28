@@ -18,7 +18,7 @@ void Quad::Init()
 	buffer->Unlock();
 }
 
-void Quad::Draw(Texture* texture, Vector2 pos, Vector2 size)
+void Quad::Draw(Texture* texture, Transform2D* trans)
 {
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 
@@ -28,11 +28,12 @@ void Quad::Draw(Texture* texture, Vector2 pos, Vector2 size)
 	render.GetDevice()->GetViewport(viewport);
 
 	Vector4 params[3];
-	params[0] = Vector4(pos.x, pos.y, size.x, size.y);
+	params[0] = Vector4(trans->offset.x, trans->offset.y, trans->size.x, trans->size.y);
 	params[1] = Vector4(viewport.width, viewport.height, 0.5f, 0);
 	params[2] = Vector4(1.0f, 1.0f, 1.0f, 1);
 
 	Programs::quad_prg->VS_SetVector("desc", &params[0], 2);
+	Programs::quad_prg->VS_SetMatrix("trans", &trans->local_trans, 1);
 	Programs::quad_prg->PS_SetVector("color", &params[2], 1);
 	Programs::quad_prg->PS_SetTexture("diffuseMap", texture);
 

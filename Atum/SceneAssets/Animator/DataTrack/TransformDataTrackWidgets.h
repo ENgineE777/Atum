@@ -12,7 +12,6 @@ class TransformDataTrackWidgets : public DataTrackWidgets
 public:
 
 	TransformKey* value = nullptr;
-
 	TransformDataTrack* track = nullptr;
 
 	EUILabel*   prop_xlabel = nullptr;

@@ -49,9 +49,24 @@ public:
 		};
 	};
 
+	class SpriteProgram : public Program
+	{
+	public:
+		virtual const char* GetVsName() { return "shaders//debug_sprite_vs.shd"; };
+		virtual const char* GetPsName() { return "shaders//debug_sprite_ps.shd"; };
+
+		virtual void Apply()
+		{
+			Program::Apply();
+			render.GetDevice()->SetDepthTest(true);
+			render.GetDevice()->SetDepthWriting(true);
+		};
+	};
+
 	static LineProgram*          line_prg;
 	static LineWithDepthProgram* line_with_depth_prg;
 	static TriangleProgram*      tri_prg;
+	static SpriteProgram*        sprite_prg;
 
 	static void Init();
 };

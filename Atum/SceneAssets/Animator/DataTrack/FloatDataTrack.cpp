@@ -8,13 +8,14 @@ FloatDataTrack::FloatDataTrack(TrackPlayer* own, const char* nm, float* set_valu
 	value = set_value;
 	def_val = 0.0f;
 #ifdef EDITOR
-	DataTrack::AllowedBlend blendRage = DataTrack::AllowedBlendAll;
+	blendRage = DataTrack::AllowedBlendAll;
 #endif
 }
 
 FloatDataTrack::~FloatDataTrack()
 {
 	keys.clear();
+	values.clear();
 }
 
 void FloatDataTrack::Load(JSONReader* stream, int num)
@@ -31,7 +32,7 @@ void FloatDataTrack::Load(JSONReader* stream, int num)
 
 		keys[i].blend = DataTrack::BlendLinear;
 		stream->Read("blend", (int&)keys[i].blend);
-		
+
 		stream->LeaveBlock();
 	}
 }

@@ -322,6 +322,21 @@ bool JSONReader::Read(const char* name, int64_t& val)
 	return false;
 }
 
+bool JSONReader::Read(const char* name, Vector2& val)
+{
+	if (EnterBlock(name))
+	{
+		Read("x", val.x);
+		Read("y", val.y);
+
+		LeaveBlock();
+
+		return true;
+	}
+
+	return false;
+}
+
 bool JSONReader::Read(const char* name, Vector& val)
 {
 	if (EnterBlock(name))

@@ -413,6 +413,8 @@ void AnimatorWindow::OnComboBoxChange(EUIWidget* sender, int index)
 
 		if (player)
 		{
+			player->owner = owner;
+
 			player->SetName(cb_addObject->GetText());
 			player->SetType(cb_addObject->GetText());
 

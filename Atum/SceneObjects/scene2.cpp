@@ -93,7 +93,7 @@ void Scene2::RenderScene(const char* phase, float dt)
 
 	render.GetDevice()->Clear(false, COLOR_BLUE, true, 1.0f);
 
-	quad.Draw(sky_tex, Vector2(0.0f, 0.0f), Vector2(800.0f, 600.0f));
+	//quad.Draw(sky_tex, Vector2(0.0f, 0.0f), Vector2(800.0f, 600.0f));
 
 	//render.ExecuteDelgateList(phase, dt);
 
@@ -108,7 +108,7 @@ void Scene2::RenderCorrection(float dt)
 
 	correction.Draw(scene_rt);
 
-	quad.Draw(logo_tex, Vector2(380.0f, 280.0f), Vector2(40.0f));
+	//quad.Draw(logo_tex, Vector2(380.0f, 280.0f), Vector2(40.0f));
 }
 
 void Scene2::Render(float dt)

@@ -22,6 +22,7 @@ TransformDataTrack::TransformDataTrack(TrackPlayer* own, const char* nm, Matrix*
 TransformDataTrack::~TransformDataTrack()
 {
 	keys.clear();
+	values.clear();
 
 	if (curve_count)
 	{
@@ -553,7 +554,7 @@ void TransformDataTrack::DataFromGizmo()
 
 void TransformDataTrack::StopEditKey()
 {
-	edited_key = false;
+	edited_key = -1;
 	Gizmo::inst->enabled = false;
 
 	if (wigets)	wigets->StopEditKey();

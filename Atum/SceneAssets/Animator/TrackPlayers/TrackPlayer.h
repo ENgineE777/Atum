@@ -5,10 +5,11 @@
 
 #include "../DataTrack/FloatDataTrack.h"
 #include "../DataTrack/TransformDataTrack.h"
+#include "../DataTrack/Transform2DDataTrack.h"
 #include "../DataTrack/ColorDataTrack.h"
 
 
-class TrackPlayer
+class TrackPlayer : public Object
 {
 	char  name[64];
 	char  type[64];
@@ -71,7 +72,8 @@ public:
 	virtual void EndPlay(){};
 
 	DataTrack* GetDataTrack(const char* name);
-	
+
+	class Animator* owner;
 	std::vector<DataTrack*> tracks;
 };
 

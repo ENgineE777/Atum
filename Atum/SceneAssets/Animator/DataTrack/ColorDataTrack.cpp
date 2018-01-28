@@ -10,6 +10,7 @@ ColorDataTrack::ColorDataTrack(TrackPlayer* own, const char* nm, Color* set_valu
 ColorDataTrack::~ColorDataTrack()
 {
 	keys.clear();
+	values.clear();
 }
 
 void ColorDataTrack::Load(JSONReader* stream, int num)

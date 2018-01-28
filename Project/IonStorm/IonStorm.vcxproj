@@ -31,10 +31,13 @@
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\SpriteAsset.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
@@ -70,6 +73,7 @@
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
+    <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSprites.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugTriangles.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
     <ClCompile Include="..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
@@ -111,10 +115,13 @@
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\SpriteAsset.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
@@ -153,6 +160,7 @@
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugLines.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugPrograms.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
+    <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSprites.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugTriangles.h" />
     <ClInclude Include="..\..\Atum\Services\Render\Device.h" />
     <ClInclude Include="..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
@@ -171,6 +179,7 @@
     <ClInclude Include="..\..\Atum\Support\Buffer.h" />
     <ClInclude Include="..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\Atum\Support\Color.h" />
+    <ClInclude Include="..\..\Atum\Support\Defines.h" />
     <ClInclude Include="..\..\Atum\Support\json\block_allocator.h" />
     <ClInclude Include="..\..\Atum\Support\json\json.h" />
     <ClInclude Include="..\..\Atum\Support\json\JSONReader.h" />
@@ -185,12 +194,14 @@
     <ClInclude Include="..\..\Atum\Support\MetaData\ProperyWidget.h" />
     <ClInclude Include="..\..\Atum\Support\MetaData\StringWidget.h" />
     <ClInclude Include="..\..\Atum\Support\Quaternion.h" />
+    <ClInclude Include="..\..\Atum\Support\std.h" />
     <ClInclude Include="..\..\Atum\Support\StringUtils.h" />
     <ClInclude Include="..\..\Atum\Support\Delegate.h" />
     <ClInclude Include="..\..\Atum\Support\Support.h" />
     <ClInclude Include="..\..\Atum\Support\Matrix.h" />
     <ClInclude Include="..\..\Atum\Support\ThreadExecutor.h" />
     <ClInclude Include="..\..\Atum\Support\Timer.h" />
+    <ClInclude Include="..\..\Atum\Support\Types.h" />
     <ClInclude Include="..\..\Atum\Support\Vector.h" />
     <ClInclude Include="..\..\Atum\Support\Vector2.h" />
     <ClInclude Include="..\..\Atum\Support\Vector4.h" />

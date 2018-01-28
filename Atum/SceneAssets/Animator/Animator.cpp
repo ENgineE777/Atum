@@ -15,7 +15,7 @@ void Animator::Init()
 
 	edCurTime = 0.0f;
 	fromTime = 0.0f;
-	toTime = 0.0f;
+	toTime = 3.0f;
 }
 
 void Animator::Load(JSONReader* stream)
@@ -36,6 +36,7 @@ void Animator::Load(JSONReader* stream)
 		stream->Read("Type", tp, 64);
 
 		players[i] = ClassFactoryTrackPlayer::Create(tp);
+		players[i]->owner = this;
 
 		if (players[i])
 		{

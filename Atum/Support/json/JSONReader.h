@@ -3,6 +3,7 @@
 
 #include "json.h"
 #include "Support/Matrix.h"
+#include "Support/Vector2.h"
 #include "Support/Quaternion.h"
 #include "Support/Color.h"
 #include "string"
@@ -34,6 +35,7 @@ public:
 	bool Read(const char* name, float& val);
 	bool Read(const char* name, int& val);
 	bool Read(const char* name, int64_t& val);
+	bool Read(const char* name, Vector2& val);
 	bool Read(const char* name, Vector& val);
 	bool Read(const char* name, Matrix& val);
 	bool Read(const char* name, Color& val);

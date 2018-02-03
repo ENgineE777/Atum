@@ -33,7 +33,7 @@ class EUICategories : public EUIWidget
 
 public:
 
-	EUICategories(EUIWidget* parent, float x, float y, float w, float h);
+	EUICategories(EUIWidget* parent, int x, int y, int w, int h);
 	virtual ~EUICategories();
 
 	virtual void OnChildShow(int index, bool set);

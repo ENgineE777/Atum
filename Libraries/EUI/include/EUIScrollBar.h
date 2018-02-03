@@ -16,7 +16,7 @@ class EUIScrollBar : public EUIWidget
 	NativeScrollBar* Native();
 
 public:
-	EUIScrollBar(EUIWidget* parent, bool horiz, float x, float y, float w, float h);
+	EUIScrollBar(EUIWidget* parent, bool horiz, int x, int y, int w, int h);
 	virtual ~EUIScrollBar();
 
 	void SetPosition(int pos);

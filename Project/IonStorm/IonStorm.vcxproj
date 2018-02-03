@@ -39,7 +39,9 @@
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\SpriteWindow.cpp" />
     <ClCompile Include="..\..\Atum\SceneAssets\SpriteAsset.cpp" />
+    <ClCompile Include="..\..\Atum\SceneAssets\Sprite.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\correction.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\GUI\GUIWidget.cpp" />
     <ClCompile Include="..\..\Atum\SceneObjects\GUI\TestGUI.cpp" />
@@ -90,6 +92,7 @@
     <ClCompile Include="..\..\Atum\Support\json\JSONReader.cpp" />
     <ClCompile Include="..\..\Atum\Support\json\JSONWriter.cpp" />
     <ClCompile Include="..\..\Atum\Support\MetaData\BoolWidget.cpp" />
+    <ClCompile Include="..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
     <ClCompile Include="..\..\Atum\Support\MetaData\ColorWidget.cpp" />
     <ClCompile Include="..\..\Atum\Support\MetaData\EnumWidget.cpp" />
     <ClCompile Include="..\..\Atum\Support\MetaData\FileNameWidget.cpp" />
@@ -123,7 +126,9 @@
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\SpriteWindow.h" />
     <ClInclude Include="..\..\Atum\SceneAssets\SpriteAsset.h" />
+    <ClInclude Include="..\..\Atum\SceneAssets\Sprite.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\GUI\GUIWidget.h" />
     <ClInclude Include="..\..\Atum\SceneObjects\GUI\TestGUI.h" />
@@ -185,6 +190,7 @@
     <ClInclude Include="..\..\Atum\Support\json\JSONReader.h" />
     <ClInclude Include="..\..\Atum\Support\json\JSONWriter.h" />
     <ClInclude Include="..\..\Atum\Support\MetaData\BoolWidget.h" />
+    <ClInclude Include="..\..\Atum\Support\MetaData\CallbackWidget.h" />
     <ClInclude Include="..\..\Atum\Support\MetaData\ColorWidget.h" />
     <ClInclude Include="..\..\Atum\Support\MetaData\EnumWidget.h" />
     <ClInclude Include="..\..\Atum\Support\MetaData\FileNameWidget.h" />

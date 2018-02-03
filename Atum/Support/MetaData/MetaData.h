@@ -11,6 +11,7 @@
 #include "FilenameWidget.h"
 #include "ColorWidget.h"
 #include "EnumWidget.h"
+#include "CallbackWidget.h"
 
 struct MetaDataEnum
 {
@@ -22,6 +23,7 @@ struct MetaDataEnum
 class MetaData
 {
 public:
+
 	enum Type
 	{
 		Boolean,
@@ -30,7 +32,8 @@ public:
 		String,
 		FileName,
 		Clor,
-		Enum
+		Enum,
+		Callback
 	};
 
 	union DefValue
@@ -55,10 +58,12 @@ public:
 		std::string    catName;
 		std::string    propName;
 		ProperyWidget* widget;
+		CallbackWidget::Callback callback;
 	};
 
 	bool inited;
 	bool widgets_inited;
+	void* owner;
 	std::vector<Property> properties;
 
 	MetaData();
@@ -161,5 +166,15 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 #define ENUM_END\
 	enums.push_back(enm);\
 	prop.defvalue.enumIndex = enums.size() - 1;\
+	properties.push_back(prop);\
+}
+
+#define CALLBACK_PROP(className, set_callback, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.type = Callback;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	prop.callback = set_callback;\
 	properties.push_back(prop);\
 }

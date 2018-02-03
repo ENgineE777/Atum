@@ -16,7 +16,7 @@ public:
 	};
 
 	enum FilterType
-	{		
+	{
 		Point = 0,
 		Linear
 	};

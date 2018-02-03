@@ -2,7 +2,7 @@
 #include "FontService.h"
 
 #define STB_TRUETYPE_IMPLEMENTATION
-#include "stb_truetype.h"
+#include "Support/stb/stb_truetype.h"
 
 int GetPow2(int value)
 {

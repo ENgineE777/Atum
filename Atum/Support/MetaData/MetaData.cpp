@@ -7,13 +7,15 @@ MetaData::MetaData()
 	widgets_inited = false;
 }
 
-void MetaData::Prepare(void* owner)
+void MetaData::Prepare(void* set_owner)
 {
 	if (!inited)
 	{
 		Init();
 		inited = true;
 	}
+
+	owner = set_owner;
 
 	for (int i = 0; i < properties.size(); i++)
 	{
@@ -218,11 +220,24 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 			{
 				prop.widget = new EnumWidget(&enums[prop.defvalue.enumIndex]);
 			}
+			else
+			if (prop.type == Callback)
+			{
+				prop.widget = new CallbackWidget();
+			}
 
 			prop.widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());
 		}
 
-		prop.widget->SetData(prop.value);
+		if (prop.type == Callback)
+		{
+			((CallbackWidget*)prop.widget)->Prepare(owner, prop.callback);
+		}
+		else
+		{
+			prop.widget->SetData(prop.value);
+		}
+
 		prop.widget->Show(true);
 	}
 

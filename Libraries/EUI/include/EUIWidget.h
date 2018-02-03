@@ -74,8 +74,8 @@ public:
 
 protected:
 
-	float x,y;
-	float width,height;
+	int x,y;
+	int width,height;
 	bool  visible;
 	bool  enabled;
 
@@ -112,13 +112,13 @@ public:
 	virtual void Enable(bool set);
 	virtual bool IsEnabled();
 
-	virtual void  SetPos(float x, float y);
-	virtual float GetX();
-	virtual float GetY();
+	virtual void SetPos(int x, int y);
+	virtual int  GetX();
+	virtual int  GetY();
 
-	virtual void  SetSize(float w, float h);
-	virtual float GetWidth();
-	virtual float GetHeight();
+	virtual void SetSize(int w, int h);
+	virtual int  GetWidth();
+	virtual int  GetHeight();
 
 	virtual void SetText(const char* txt);
 	virtual const char* GetText();
@@ -129,6 +129,9 @@ public:
 
 	virtual void Update();
 	virtual void Redraw();
+
+	virtual void CaptureMouse();
+	virtual void ReleaseMouse();
 
 	virtual void* GetNative();
 	virtual void* GetNativeRoot();

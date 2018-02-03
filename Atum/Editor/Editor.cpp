@@ -169,7 +169,7 @@ void Editor::Init()
 
 	EUI::Init("settings/EUI/theme.dat");
 
-	mainWnd = new EUIWindow("Editor", false, true, 30, 30, 800, 600);
+	mainWnd = new EUIWindow("Editor", EUIWindow::Normal, true, 30, 30, 800, 600);
 	mainWnd->SetListener(-1, &listener, 0);
 
 	EUIMenu* menu = new EUIMenu(mainWnd);
@@ -677,7 +677,7 @@ void Editor::StartScene()
 {
 	scene.Play();
 
-	gameWnd = new EUIWindow("Game", false, true, 0, 0, 800, 600);
+	gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
 	gameWnd->SetListener(-1, &listener, 0);
 	
 	EUILayout* lt = new EUILayout(gameWnd, false);

@@ -4,7 +4,7 @@ class  Texture;
 
 #include "Support/Support.h"
 #include "Services/Render/Render.h"
-#include "stb_truetype.h"
+#include "Support/stb/stb_truetype.h"
 
 class Font;
 

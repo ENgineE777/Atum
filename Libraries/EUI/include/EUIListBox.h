@@ -12,7 +12,7 @@ class EUIListBox : public EUIWidget
 
 public:
 
-	EUIListBox(EUIWidget* parent, float x, float y, float w, float h);
+	EUIListBox(EUIWidget* parent, int x, int y, int w, int h);
 	virtual ~EUIListBox();
 
 	virtual void  ClearList();

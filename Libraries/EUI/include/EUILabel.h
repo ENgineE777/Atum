@@ -15,7 +15,7 @@ class EUILabel : public EUIWidget
 
 public:
 
-	EUILabel(EUIWidget* parent, const char* txt, float x, float y, float w, float h);
+	EUILabel(EUIWidget* parent, const char* txt, int x, int y, int w, int h);
 	virtual ~EUILabel();
 
 	virtual void SetText(const char* txt);

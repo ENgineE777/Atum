@@ -13,3 +13,5 @@
 #include "Delegate.h"
 #include "Quaternion.h"
 #include "StringUtils.h"
+#include "json/JSONReader.h"
+#include "json/JSONWriter.h"

@@ -14,7 +14,7 @@ class EUITabPanel : public EUIWidget
 
 public:
 
-	EUITabPanel(EUIWidget* parent, float x, float y, float w, float h);
+	EUITabPanel(EUIWidget* parent, int x, int y, int w, int h);
 	virtual ~EUITabPanel();
 
 	virtual EUITabSheet* AddTab(const char* txt);

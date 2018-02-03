@@ -12,11 +12,9 @@ AnimatorWindow* AnimatorWindow::instance = nullptr;
 void AnimatorWindow::Init()
 {
 	timeOffset = 0.0f;
-
 	owner = nullptr;
+	wnd = new EUIWindow("Animator", EUIWindow::Popup, true, 40, 40, 1024, 600);
 
-	wnd = new EUIWindow("Animator", true, true, 40, 40, 1024, 600);
-	
 	EUILayout* wnd_lt = new EUILayout(wnd, true);
 
 	EUIPanel* toolsPanel = new EUIPanel(wnd_lt, 10, 10, 100, 30);
@@ -246,6 +244,8 @@ void AnimatorWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 			}
 		}
 	}
+
+	timeline_panel->CaptureMouse();
 }
 
 void AnimatorWindow::OnMouseMove(EUIWidget* sender, int mx, int my)
@@ -337,6 +337,7 @@ void AnimatorWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		case TimeLineID:
 		{
 			drag_mode = DragNone;
+			timeline_panel->ReleaseMouse();
 			break;
 		}
 		case AddKeyID:
@@ -443,8 +444,18 @@ void AnimatorWindow::OnDraw(EUIWidget* sender)
 {
 	HWND hwnd = *((HWND*)sender->GetNative());
 
-	PAINTSTRUCT ps;
-	HDC hdc = BeginPaint((HWND)hwnd, &ps);
+	RECT rc;
+	HDC hdcMem;
+	HBITMAP hbmMem, hbmOld;
+
+	GetClientRect(hwnd, &rc);
+
+	HDC wnd_hdc = GetDC(hwnd);
+	hdcMem = CreateCompatibleDC(wnd_hdc);
+	hbmMem = CreateCompatibleBitmap(wnd_hdc, rc.right - rc.left, rc.bottom - rc.top);
+	hbmOld = (HBITMAP)SelectObject(hdcMem, hbmMem);
+
+	HDC hdc = hdcMem;
 
 	SelectObject(hdc, font);
 	SelectObject(hdc, GetStockObject(DC_BRUSH));
@@ -619,7 +630,13 @@ void AnimatorWindow::OnDraw(EUIWidget* sender)
 		Rectangle(hdc, CalcKeyPos(owner->edCurTime - offset), 2, CalcKeyPos(owner->edCurTime - offset) + 5, 16);
 	}
 
-	EndPaint((HWND)hwnd, &ps);
+	BitBlt(wnd_hdc, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hdcMem, 0, 0, SRCCOPY);
+
+	SelectObject(hdcMem, hbmOld);
+	DeleteObject(hbmMem);
+	DeleteDC(hdcMem);
+
+	ReleaseDC(hwnd, wnd_hdc);
 }
 
 void AnimatorWindow::OnResize(EUIWidget* sender)

@@ -313,6 +313,15 @@
     <ClCompile Include="..\..\Atum\Services\Render\Debug\DebugSprites.cpp">
       <Filter>Services\Render\Debug</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\Sprite.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\SpriteWindow.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Atum\Support\MetaData\CallbackWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -620,6 +629,15 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Services\Render\Debug\DebugSprites.h">
       <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\Sprite.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\SpriteWindow.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\Support\MetaData\CallbackWidget.h">
+      <Filter>Support\MetaData</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

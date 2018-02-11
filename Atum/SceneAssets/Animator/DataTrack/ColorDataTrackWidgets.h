@@ -20,7 +20,7 @@ public:
 	void StopEditKey();
 
 	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my);
-	void OnEditBoxChange(EUIWidget* sender);
+	void OnEditBoxStopEditing(EUIWidget* sender);
 };
 
 #endif

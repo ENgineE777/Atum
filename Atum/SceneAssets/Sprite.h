@@ -15,7 +15,8 @@ public:
 		Image,
 		ThreeSlicesVert,
 		ThreeSlicesHorz,
-		NineSlices
+		NineSlices,
+		Frames
 	};
 
 	struct Rect
@@ -24,6 +25,8 @@ public:
 		Vector2 size;
 		Vector2 uv;
 		Vector2 duv;
+		Vector2 offset = 0.0f;
+		float frame_time = -1.0f;
 	};
 		
 	struct Data
@@ -36,24 +39,15 @@ public:
 		Type type = Image;
 		int width = 0, height = 0;
 		int tileType = 0;
-		Rect rects[9];
+		std::vector<Rect> rects;
+
+		float cur_time = 0.0f;
+		float frame_time = 0.25f;
+		int   cur_frame = 0;
 
 		void Load();
+		void Update(float dt);
 	};
-
-	inline static int GetRectCount(Type tp)
-	{
-		if (tp == ThreeSlicesVert || tp == ThreeSlicesHorz)
-		{
-			return 3;
-		}
-		else
-		if (tp == NineSlices)
-		{
-			return 9;
-		}
-		return 1;
-	}
 
 	static void Load(JSONReader* loader, Sprite::Data* sprite);
 	static void Save(JSONWriter* saver, Sprite::Data* sprite);

@@ -54,6 +54,7 @@ void SpriteAsset::Save(JSONWriter* saver)
 void SpriteAsset::Draw(float dt)
 {
 	trans.BuildLocalTrans();
+	sprite.Update(dt);
 	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &quad);
 }
 

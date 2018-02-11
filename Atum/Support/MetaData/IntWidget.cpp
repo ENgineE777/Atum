@@ -1,12 +1,7 @@
 
 #include "IntWidget.h"
 
-void IntWidget::Listiner::OnEditBoxEnterPressed(EUIWidget* sender)
-{
-	owner->SetEditedData();
-}
-
-void IntWidget::Listiner::OnEditBoxChange(EUIWidget* sender)
+void IntWidget::Listiner::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	owner->SetEditedData();
 }

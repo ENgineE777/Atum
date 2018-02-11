@@ -93,7 +93,7 @@ public:
 	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
 	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
 	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnEditBoxChange(EUIWidget* sender);
+	virtual void OnEditBoxStopEditing(EUIWidget* sender);
 	virtual void OnComboBoxChange(EUIWidget* sender, int index);
 	virtual void OnSrollerPosChange(EUIWidget* sender, int pos);
 	virtual void OnDraw(EUIWidget* sender);

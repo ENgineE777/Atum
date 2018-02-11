@@ -65,7 +65,7 @@ void TransformDataTrackWidgets::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 }
 
-void TransformDataTrackWidgets::OnEditBoxChange(EUIWidget* sender)
+void TransformDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	float* val_ptr = nullptr;
 

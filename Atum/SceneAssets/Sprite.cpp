@@ -9,6 +9,32 @@ void Sprite::Data::Load()
 	height = texture ? texture->GetHeight() : 0;
 }
 
+void Sprite::Data::Update(float dt)
+{
+	if (type != Frames) return;
+
+	if (cur_frame >= rects.size())
+	{
+		cur_frame = 0;
+	}
+
+	cur_time += dt;
+	float frame_tm = (rects[cur_frame].frame_time == -1) ? frame_time : rects[cur_frame].frame_time;
+
+	while (cur_time > frame_tm)
+	{
+		cur_time -= frame_tm;
+
+		cur_frame++;
+		if (cur_frame >= rects.size())
+		{
+			cur_frame = 0;
+		}
+
+		frame_tm = (rects[cur_frame].frame_time == -1) ? frame_time : rects[cur_frame].frame_time;
+	}
+}
+
 void Sprite::Load(JSONReader* loader, Sprite::Data* sprite)
 {
 	if (loader->EnterBlock("slice"))
@@ -21,7 +47,11 @@ void Sprite::Load(JSONReader* loader, Sprite::Data* sprite)
 		loader->Read("texMode", (int&)sprite->mode);
 		loader->Read("texFilter", (int&)sprite->filter);
 
-		int count = GetRectCount(sprite->type);
+		if (sprite->type == Frames) loader->Read("frame_time", sprite->frame_time);
+
+		int count = 1;
+		loader->Read("count", count);
+		sprite->rects.resize(count);
 
 		for (int i = 0; i<count; i++)
 		{
@@ -33,6 +63,9 @@ void Sprite::Load(JSONReader* loader, Sprite::Data* sprite)
 			loader->Read("size", rect.size);
 			loader->Read("uv", rect.uv);
 			loader->Read("duv", rect.duv);
+			loader->Read("offset", rect.offset);
+
+			if (sprite->type == Frames) loader->Read("frame_time", rect.frame_time);
 
 			loader->LeaveBlock();
 		}
@@ -55,9 +88,12 @@ void Sprite::Save(JSONWriter* saver, Sprite::Data* sprite)
 	saver->Write("texMode", sprite->mode);
 	saver->Write("texFilter", sprite->filter);
 
-	saver->StartArray("Rect");
+	if (sprite->type == Frames) saver->Write("frame_time", sprite->frame_time);
 
-	int count = GetRectCount(sprite->type);
+	int count = (int)sprite->rects.size();
+	saver->Write("count", count);
+
+	saver->StartArray("Rect");
 
 	for (int i = 0; i<count; i++)
 	{
@@ -69,6 +105,9 @@ void Sprite::Save(JSONWriter* saver, Sprite::Data* sprite)
 		saver->Write("size", rect.size);
 		saver->Write("uv", rect.uv);
 		saver->Write("duv", rect.duv);
+		saver->Write("offset", rect.offset);
+
+		if (sprite->type == Frames) saver->Write("frame_time", rect.frame_time);
 
 		saver->FinishBlock();
 	}
@@ -121,6 +160,17 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, Quad* qua
 	{
 		Rect& rect = sprite->rects[0];
 		quad->Draw(sprite->texture, trans->local_trans, pos, trans->size, rect.uv, rect.duv);
+	}
+	else
+	if (sprite->type == Frames)
+	{
+		Rect& start_rect = sprite->rects[0];
+		Rect& rect = sprite->rects[sprite->cur_frame];
+
+		Vector2 size = trans->size * rect.size / start_rect.size;
+		Vector2 dpos = trans->size / rect.size * rect.offset + Vector2((trans->size.x - size.x) * 0.5f, trans->size.y - size.y);
+
+		quad->Draw(sprite->texture, trans->local_trans, pos + dpos, size, rect.uv, rect.duv);
 	}
 	else
 	if (sprite->type == ThreeSlicesVert)

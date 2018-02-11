@@ -28,5 +28,9 @@ public:
 	virtual ~EUIEditBox();
 
 	virtual void SetText(const char* txt);
+	virtual void SetText(int value);
+	virtual void SetText(float value);
 	virtual const char* GetText();
+	virtual int GetAsInt();
+	virtual float GetAsFloat();
 };

@@ -32,7 +32,7 @@ public:
 	void StopEditKey();
 
 	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnEditBoxChange(EUIWidget* sender);
+	virtual void OnEditBoxStopEditing(EUIWidget* sender);
 	virtual void OnComboBoxChange(EUIWidget* sender, int index);
 
 	void Show(bool show);

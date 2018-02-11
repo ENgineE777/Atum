@@ -50,6 +50,8 @@ public:
 		virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my) {};
 		virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my) {};
 
+		virtual void OnKey(EUIWidget* sender, int key) {};
+
 		virtual void OnResize(EUIWidget* sender) {};
 		virtual void OnUpdate(EUIWidget* sender) {};
 		virtual void OnDraw(EUIWidget* sender) {};
@@ -66,8 +68,7 @@ public:
 		virtual void OnListBoxChange(EUIWidget* sender, int index) {};
 		virtual void OnListBoxDblClick(EUIWidget* sender, int index) {};
 
-		virtual void OnEditBoxEnterPressed(EUIWidget* sender) {};
-		virtual void OnEditBoxChange(EUIWidget* sender) {};
+		virtual void OnEditBoxStopEditing(EUIWidget* sender) {};
 
 		virtual void OnSrollerPosChange(EUIWidget* sender, int pos) {};
 	};

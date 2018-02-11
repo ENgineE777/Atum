@@ -26,12 +26,37 @@ class SpriteWindow : public EUIWidget::Listener
 	EUIButton*   del_image;
 	EUILabel*    image_size_label;
 
+	EUILabel*    cur_frame_label;
+	EUIEditBox*  cur_frame_ebox;
+	EUILabel*    num_frame_label;
+	EUIEditBox*  num_frame_ebox;
+
+	EUILabel*    frame_time_label;
+	EUIEditBox*  frame_time_ebox;
+	EUILabel*    cur_frame_time_label;
+	EUIEditBox*  cur_frame_time_ebox;
+	EUILabel*    pivot_x_label;
+	EUIEditBox*  pivot_x_ebox;
+	EUILabel*    pivot_y_label;
+	EUIEditBox*  pivot_y_ebox;
+
+	EUILabel*    prop_x_label;
+	EUIEditBox*  prop_x_ebox;
+	EUILabel*    prop_y_label;
+	EUIEditBox*  prop_y_ebox;
+	EUILabel*    prop_w_label;
+	EUIEditBox*  prop_w_ebox;
+	EUILabel*    prop_h_label;
+	EUIEditBox*  prop_h_ebox;
+
 	Vector2 sprite_pos;
 	Vector2 sprite_size;
 	Vector2 sprite_offset_x;
 	Vector2 sprite_offset_y;
 
 	HBITMAP image = 0;
+	uint8_t* tex_data = nullptr;
+	byte* imageBits = nullptr;
 	float pixel_density = 1.0f;
 	Vector2 points[16];
 	Vector2 origin = 0.0f;
@@ -42,6 +67,10 @@ class SpriteWindow : public EUIWidget::Listener
 	int sel_row = -1;
 	int sel_col = -1;
 	Vector2 prev_ms;
+
+	int     cur_frame = 0;
+	int     num_frames = 1;
+	std::vector<Vector2> frames;
 
 public:
 
@@ -57,26 +86,32 @@ public:
 	void Init();
 	void Show(bool sh);
 	void FillPoints(int index, int stride, float val, bool vert);
+	void ResizeSpriteRect();
 	void UpdateSpriteRect();
-	void SetImage(const char* img);
+	void SetImage(const char* img, bool need_refill);
+	void UpdateImageBackground();
 	void Prepare();
+	void ShowFrameWidgets();
 
 	void SelectRect();
 	void FillRects();
 	void MoveRects(Vector2 delta);
-	void UpdateSavedPos();
+	void UpdateAnimRect();
+	void UpdateSavedPos(bool need_update_ui);
 	void ActualPixels();
 	void FitImage();
 	void MakeZoom(bool zoom_in);
 
 	virtual void OnDraw(EUIWidget* sender);
 	virtual void OnComboBoxChange(EUIWidget* sender, int index);
+	virtual void OnEditBoxStopEditing(EUIWidget* sender);
 	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
 	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
 	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
 	virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my);
 	virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void SpriteWindow::OnWinClose(EUIWidget* sender);
+	virtual void OnKey(EUIWidget* sender, int key);
+	virtual void OnWinClose(EUIWidget* sender);
 };
 
 #endif

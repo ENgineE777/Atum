@@ -3,6 +3,7 @@
 
 #include "Support/stb/stb_image.h"
 #include "SpriteWindow.h"
+#include "Services/Controls/Controls.h"
 
 Sprite::Data* SpriteWindow::sprite = nullptr;
 SpriteWindow* SpriteWindow::instance = nullptr;
@@ -50,42 +51,76 @@ void SpriteWindow::Init()
 
 	EUILabel* prop_label = nullptr;
 
-	prop_label = new EUILabel(panel, "Source", 5, 40, 90, 20);
+	image_size_label = new EUILabel(panel, "Image Size: 0 x 0", 5, 40, 195, 20);
 
-	load_image = new EUIButton(panel, "", 95, 40, 80, 20);
+	prop_label = new EUILabel(panel, "Source", 5, 70, 90, 20);
+
+	load_image = new EUIButton(panel, "", 95, 70, 80, 20);
 	load_image->SetListener(-1, this, 0);
 
-	del_image = new EUIButton(panel, "X", 175, 40, 20, 20);
+	del_image = new EUIButton(panel, "X", 175, 70, 20, 20);
 	del_image->SetListener(-1, this, 0);
 
-	prop_label = new EUILabel(panel, "Tile Mode", 5, 70, 90, 20);
+	prop_x_label = new EUILabel(panel, "x", 5, 100, 90, 20);
+	prop_x_ebox = new EUIEditBox(panel, "0", 95, 100, 100, 20, EUIEditBox::InputInteger);
+	prop_x_ebox->SetListener(-1, this, 0);
+	prop_y_label = new EUILabel(panel, "y", 5, 130, 90, 20);
+	prop_y_ebox = new EUIEditBox(panel, "0", 95, 130, 100, 20, EUIEditBox::InputInteger);
+	prop_y_ebox->SetListener(-1, this, 0);
+	prop_w_label = new EUILabel(panel, "width", 5, 160, 90, 20);
+	prop_w_ebox = new EUIEditBox(panel, "0", 95, 160, 100, 20, EUIEditBox::InputUInteger);
+	prop_w_ebox->SetListener(-1, this, 0);
+	prop_h_label = new EUILabel(panel, "height", 5, 190, 90, 20);
+	prop_h_ebox = new EUIEditBox(panel, "0", 95, 190, 100, 20, EUIEditBox::InputUInteger);
+	prop_h_ebox->SetListener(-1, this, 0);
 
-	texture_mode = new EUIComboBox(panel, 95, 70, 100, 250);
+	prop_label = new EUILabel(panel, "Tile Mode", 5, 220, 90, 20);
+	texture_mode = new EUIComboBox(panel, 95, 220, 100, 250);
 	texture_mode->SetListener(-1, this, 0);
 	texture_mode->AddItem("clamp");
 	texture_mode->AddItem("wrap");
 	texture_mode->AddItem("mirror");
 	texture_mode->SetCurString(0);
 
-	prop_label = new EUILabel(panel, "Filter", 5, 100, 90, 20);
-
-	texture_filter = new EUIComboBox(panel, 95, 100, 100, 250);
+	prop_label = new EUILabel(panel, "Filter", 5, 250, 90, 20);
+	texture_filter = new EUIComboBox(panel, 95, 250, 100, 250);
 	texture_filter->SetListener(-1, this, 0);
 	texture_filter->AddItem("point");
 	texture_filter->AddItem("linear");
 	texture_filter->SetCurString(0);
 
-	prop_label = new EUILabel(panel, "Type", 5, 130, 90, 20);
-
-	cb_type = new EUIComboBox(panel, 95, 130, 100, 250);
+	prop_label = new EUILabel(panel, "Type", 5, 280, 90, 20);
+	cb_type = new EUIComboBox(panel, 95, 280, 100, 250);
 	cb_type->SetListener(-1, this, 0);
 	cb_type->AddItem("Image");
 	cb_type->AddItem("3 Horz slice");
 	cb_type->AddItem("3 Vert slice");
 	cb_type->AddItem("9 slice");
+	cb_type->AddItem("Frames");
 	cb_type->SetCurString(0);
 
-	image_size_label = new EUILabel(panel, "Image Size: 0 x 0", 5, 270, 195, 20);
+	num_frame_label = new EUILabel(panel, "Frames Count", 5, 310, 90, 20);
+	num_frame_ebox = new EUIEditBox(panel, "1", 95, 310, 100, 20, EUIEditBox::InputUInteger);
+	num_frame_ebox->SetListener(-1, this, 0);
+
+	frame_time_label = new EUILabel(panel, "Frames Time", 5, 340, 90, 20);
+	frame_time_ebox = new EUIEditBox(panel, "0", 95, 340, 100, 20, EUIEditBox::InputUFloat);
+	frame_time_ebox->SetListener(-1, this, 0);
+
+	cur_frame_label = new EUILabel(panel, "Current Frame", 5, 370, 90, 20);
+	cur_frame_ebox = new EUIEditBox(panel,"0", 95, 370, 100, 20, EUIEditBox::InputUInteger);
+	cur_frame_ebox->SetListener(-1, this, 0);
+	cur_frame_time_label = new EUILabel(panel, "Frame Time", 5, 400, 90, 20);
+	cur_frame_time_ebox = new EUIEditBox(panel, "1", 95, 400, 100, 20, EUIEditBox::InputFloat);
+	cur_frame_time_ebox->SetListener(-1, this, 0);
+
+
+	pivot_x_label = new EUILabel(panel, "Pivot x", 5, 430, 90, 20);
+	pivot_x_ebox = new EUIEditBox(panel, "0", 95, 430, 100, 20, EUIEditBox::InputInteger);
+	pivot_x_ebox->SetListener(-1, this, 0);
+	pivot_y_label = new EUILabel(panel, "Pivot y", 5, 460, 90, 20);
+	pivot_y_ebox = new EUIEditBox(panel, "1", 95, 460, 100, 20, EUIEditBox::InputInteger);
+	pivot_y_ebox->SetListener(-1, this, 0);
 
 	img_wgt = new EUIPanel(wnd_lt, 270, 5, 700, 550);
 	img_wgt->SetListener(-1, this, EUIWidget::OnDraw);
@@ -114,8 +149,17 @@ void SpriteWindow::FillPoints(int index, int stride, float val, bool vert)
 	}
 }
 
-void SpriteWindow::SetImage(const char* img)
+void SpriteWindow::SetImage(const char* img, bool need_refill)
 {
+	if (image)
+	{
+		DeleteObject(image);
+		image = 0;
+
+		free(tex_data);
+		tex_data = nullptr;
+	}
+
 	sprite->tex_name = img;
 	sprite->Load();
 
@@ -135,31 +179,57 @@ void SpriteWindow::SetImage(const char* img)
 	bminfo.bmiHeader.biBitCount = 32;
 	bminfo.bmiHeader.biCompression = BI_RGB;
 
-	byte* pvImageBits = NULL;
 	HDC hdcScreen = GetDC(NULL);
-	image = CreateDIBSection(hdcScreen, &bminfo, DIB_RGB_COLORS, (void**)&pvImageBits, NULL, 0);
+	image = CreateDIBSection(hdcScreen, &bminfo, DIB_RGB_COLORS, (void**)&imageBits, NULL, 0);
 	ReleaseDC(NULL, hdcScreen);
 
-	Color back_colors[2];
-	back_colors[0] = COLOR_WHITE;
-	back_colors[1] = COLOR_LIGHT_GRAY;
-
 	Buffer buffer(img);
-
 	uint8_t* ptr = buffer.GetData();
 
 	int bytes;
 	int width;
 	int height;
-	uint8_t* tex_data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
+	tex_data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
+
+	if (need_refill)
+	{
+		sprite_pos = Vector2(0, (float)sprite->height);
+		sprite_size = Vector2((float)sprite->width, (float)sprite->height);
+		sprite_offset_x = 10.0f;
+		sprite_offset_y = 10.0f;
+
+		if (sprite->rects.size() == 0)
+		{
+			ResizeSpriteRect();
+		}
+
+		FillRects();
+		UpdateAnimRect();
+		UpdateSavedPos(true);
+		UpdateSpriteRect();
+		FitImage();
+	}
+
+	char str[128];
+	StringUtils::Printf(str, 128, "Image Size: %i x %i", sprite->width, sprite->height);
+	image_size_label->SetText(str);
+}
+
+void SpriteWindow::UpdateImageBackground()
+{
+	Color back_colors[2];
+	back_colors[0] = COLOR_GRAY;
+	back_colors[1] = COLOR_LIGHT_GRAY;
+
+	float grid_size = floor(20.0f / pixel_density + 0.5f);
 
 	for (int j = 0; j < sprite->height; j++)
 	{
-		byte* rows = &pvImageBits[(sprite->height - 1 - j) * sprite->width * 4];
+		byte* rows = &imageBits[(sprite->height - 1 - j) * sprite->width * 4];
 
 		for (int i = 0; i < sprite->width; i++)
 		{
-			int sel_back_colors = (int)(i / 4.0f) % 2 + (int)(j / 4.0f) % 2;
+			int sel_back_colors = (int)(i / grid_size) % 2 + (int)(j / grid_size) % 2;
 
 			if (sel_back_colors == 2)
 			{
@@ -175,21 +245,28 @@ void SpriteWindow::SetImage(const char* img)
 			rows[i * 4 + 3] = 255;
 		}
 	}
+}
 
-	free(tex_data);
+void SpriteWindow::ResizeSpriteRect()
+{
+	int count = 1;
 
-	sprite_pos = Vector2(0, (float)sprite->height);
-	sprite_size = Vector2((float)sprite->width, (float)sprite->height);
-	sprite_offset_x = 10.0f;
-	sprite_offset_y = 10.0f;
+	if (sprite->type == Sprite::ThreeSlicesHorz || sprite->type == Sprite::ThreeSlicesVert)
+	{
+		count = 3;
+	}
 
-	FillRects();
-	UpdateSpriteRect();
-	FitImage();
+	if (sprite->type == Sprite::NineSlices)
+	{
+		count = 9;
+	}
 
-	char str[128];
-	StringUtils::Printf(str, 128, "Image size: %i x %i", sprite->width, sprite->height);
-	image_size_label->SetText(str);
+	if (sprite->type == Sprite::Frames)
+	{
+		count = (int)frames.size() / 4;
+	}
+
+	sprite->rects.resize(count);
 }
 
 void SpriteWindow::UpdateSpriteRect()
@@ -197,6 +274,23 @@ void SpriteWindow::UpdateSpriteRect()
 	int index = 0;
 
 	Vector2 image_size((float)sprite->width, (float)sprite->height);
+
+	if (sprite->type == Sprite::Frames)
+	{
+		for (int i = 0; i<sprite->rects.size(); i++)
+		{
+			Sprite::Rect& rect = sprite->rects[i];
+
+			rect.pos = frames[i * 4 + 0];
+			rect.size = frames[i * 4 + 3] - frames[i * 4 + 0];
+			rect.size.y = -rect.size.y;
+
+			rect.uv = rect.pos / image_size;
+			rect.duv = rect.size / image_size;
+		}
+
+		return;
+	}
 
 	for (int i = 0; i<rect_height - 1; i++)
 		for (int j = 0; j < rect_width - 1; j++)
@@ -217,17 +311,40 @@ void SpriteWindow::UpdateSpriteRect()
 
 void SpriteWindow::Prepare()
 {
-	SetImage(sprite->tex_name.c_str());
-	Show(true);
+	if (sprite->type == Sprite::Frames)
+	{
+		num_frames = (int)sprite->rects.size();
+	}
+	else
+	{
+		num_frames = 1;
+	}
 
-	sel_row = -1;
-	sel_col = -1;
+	cur_frame = 0;
+	frames.resize(num_frames * 4);
+
+	SetImage(sprite->tex_name.c_str(), false);
+	Show(true);
+	ShowFrameWidgets();
 
 	SelectRect();
 
 	if (sprite->texture)
 	{
 		int index = 0;
+
+		if (sprite->type == Sprite::Frames)
+		{
+			for (int i = 0; i<sprite->rects.size(); i++)
+			{
+				Sprite::Rect& rect = sprite->rects[i];
+
+				frames[i * 4 + 0] = rect.pos;
+				frames[i * 4 + 1] = Vector2(rect.pos.x + rect.size.x, rect.pos.y);
+				frames[i * 4 + 2] = Vector2(rect.pos.x, rect.pos.y - rect.size.y);
+				frames[i * 4 + 3] = Vector2(rect.pos.x + rect.size.x, rect.pos.y - rect.size.y);
+			}
+		}
 
 		for (int i = 0; i<rect_height - 1; i++)
 			for (int j = 0; j < rect_width - 1; j++)
@@ -255,7 +372,18 @@ void SpriteWindow::Prepare()
 				index++;
 			}
 
-		UpdateSavedPos();
+		UpdateSavedPos(true);
+	}
+
+	if (sprite->type == Sprite::Frames)
+	{
+		cur_frame_ebox->SetText("0");
+		num_frame_ebox->SetText(num_frames);
+
+		frame_time_ebox->SetText(sprite->frame_time);
+		cur_frame_time_ebox->SetText(sprite->rects[0].frame_time);
+		pivot_x_ebox->SetText((int)sprite->rects[0].offset.x);
+		pivot_y_ebox->SetText((int)sprite->rects[0].offset.y);
 	}
 
 	cb_type->SetCurString(sprite->type);
@@ -263,6 +391,21 @@ void SpriteWindow::Prepare()
 	texture_filter->SetCurString(sprite->filter);
 
 	FitImage();
+}
+
+void SpriteWindow::ShowFrameWidgets()
+{
+	bool show = sprite->type == Sprite::Frames;
+
+	cur_frame_label->Show(show);
+	cur_frame_ebox->Show(show);
+	num_frame_label->Show(show);
+	num_frame_ebox->Show(show);
+
+	frame_time_label->Show(show);
+	frame_time_ebox->Show(show);
+	cur_frame_time_label->Show(show);
+	cur_frame_time_ebox->Show(show);
 }
 
 void SpriteWindow::SelectRect()
@@ -292,6 +435,7 @@ void SpriteWindow::FillRects()
 	switch (sprite->type)
 	{
 		case Sprite::Image:
+		case Sprite::Frames:
 		{
 			points[0] = Vector2(sprite_pos.x, sprite_pos.y);
 			points[1] = Vector2(sprite_pos.x + sprite_size.x, sprite_pos.y);
@@ -335,6 +479,8 @@ void SpriteWindow::ActualPixels()
 	origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
 	origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
 
+	UpdateImageBackground();
+
 	img_wgt->Redraw();
 
 	delta_mouse = 0.0f;
@@ -361,6 +507,8 @@ void SpriteWindow::FitImage()
 		origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
 	}
 
+	UpdateImageBackground();
+
 	img_wgt->Redraw();
 
 	delta_mouse = 0.0f;
@@ -377,6 +525,8 @@ void SpriteWindow::MakeZoom(bool zoom_in)
 	origin_px.x += img_wgt->GetWidth() * 0.5f / pixel_density;
 	origin_px.y -= img_wgt->GetHeight() * 0.5f / pixel_density;
 	origin = origin_px / pixel_density;
+
+	UpdateImageBackground();
 
 	img_wgt->Redraw();
 }
@@ -442,6 +592,22 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 
 		StretchBlt(hdc, (int)(pos.x * pixel_density), (int)(pos.y * pixel_density), cur_wdth, cur_hgt, MemDCExercising, 0, 0, sprite->width, sprite->height, SRCCOPY);
 
+		if (sprite->type == Sprite::Frames)
+		{
+			SelectObject(hdc, white);
+			SelectObject(hdc, pen_white);
+
+			for (int i=0; i<num_frames; i++)
+			{
+				MoveToEx(hdc, (int)((origin.x + frames[i * 4 + 0].x) * pixel_density), (int)((origin.y - frames[i * 4 + 0].y) * pixel_density), 0);
+				LineTo(hdc, (int)((origin.x + frames[i * 4 + 1].x) * pixel_density), (int)((origin.y - frames[i * 4 + 1].y) * pixel_density));
+				LineTo(hdc, (int)((origin.x + frames[i * 4 + 3].x) * pixel_density), (int)((origin.y - frames[i * 4 + 3].y) * pixel_density));
+
+				LineTo(hdc, (int)((origin.x + frames[i * 4 + 2].x) * pixel_density), (int)((origin.y - frames[i * 4 + 2].y) * pixel_density));
+				LineTo(hdc, (int)((origin.x + frames[i * 4 + 0].x) * pixel_density), (int)((origin.y - frames[i * 4 + 0].y) * pixel_density));
+			}
+		}
+
 		for (int i = 0; i<rect_height; i++)
 			for (int j = 0; j<rect_width; j++)
 			{
@@ -477,6 +643,27 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 				Rectangle(hdc, (int)((origin.x + points[index].x) * pixel_density - 4), (int)((origin.y - points[index].y) * pixel_density - 4),
 				          (int)((origin.x + points[index].x) * pixel_density + 4), (int)((origin.y - points[index].y) * pixel_density + 4));
 			}
+
+		SelectObject(hdc, pen_green);
+
+		if (sprite->type == Sprite::Frames)
+		{
+			SelectObject(hdc, pen_green);
+
+			float pivot_x = (frames[cur_frame * 4 + 0].x + frames[cur_frame * 4 + 1].x) * 0.5f;
+			float pivot_y = frames[cur_frame * 4 + 2].y;
+			MoveToEx(hdc, (int)((origin.x + pivot_x) * pixel_density), (int)((origin.y - pivot_y) * pixel_density), 0);
+			LineTo(hdc, (int)((origin.x + pivot_x) * pixel_density), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density));
+			LineTo(hdc, (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density));
+
+			SelectObject(hdc, green);
+			SelectObject(hdc, pen_white);
+
+			Ellipse(hdc, (int)((origin.x + pivot_x) * pixel_density - 4), (int)((origin.y - pivot_y) * pixel_density - 4),
+			        (int)((origin.x + pivot_x) * pixel_density + 4), (int)((origin.y - pivot_y) * pixel_density + 4));
+			Ellipse(hdc, (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4),
+			        (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density + 4), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density + 4));
+		}
 
 		DeleteDC(MemDCExercising);
 	}
@@ -583,11 +770,20 @@ void SpriteWindow::MoveRects(Vector2 delta)
 		}
 	}
 
-	UpdateSavedPos();
+	UpdateSavedPos(true);
+	UpdateAnimRect();
 	UpdateSpriteRect();
 }
 
-void SpriteWindow::UpdateSavedPos()
+void SpriteWindow::UpdateAnimRect()
+{
+	for (int j = 0; j < 4; j++)
+	{
+		frames[cur_frame * 4 + j] = points[j];
+	}
+}
+
+void SpriteWindow::UpdateSavedPos(bool need_update_ui)
 {
 	sprite_pos = points[0];
 	sprite_size = points[rect_height * rect_width - 1] - points[0];
@@ -603,6 +799,15 @@ void SpriteWindow::UpdateSavedPos()
 	{
 		sprite_offset_y.x = points[0].y - points[rect_width].y;
 		sprite_offset_y.y = points[2 * rect_width].y - points[3 * rect_width].y;
+	}
+
+	if (need_update_ui)
+	{
+		prop_x_ebox->SetText((int)sprite_pos.x);
+		prop_y_ebox->SetText((int)(sprite->height - sprite_pos.y));
+
+		prop_w_ebox->SetText((int)sprite_size.x);
+		prop_h_ebox->SetText((int)sprite_size.y);
 	}
 }
 
@@ -621,9 +826,121 @@ void SpriteWindow::OnComboBoxChange(EUIWidget* sender, int index)
 	if (sender == cb_type)
 	{
 		sprite->type = (Sprite::Type)cb_type->GetCurStringIndex();
+		ShowFrameWidgets();
 		SelectRect();
+		ResizeSpriteRect();
 		FillRects();
+		UpdateAnimRect();
 		UpdateSpriteRect();
+		img_wgt->Redraw();
+	}
+}
+
+void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
+{
+	float delta_x = 0.0f;
+	float delta_y = 0.0f;
+
+	if (sender == prop_x_ebox)
+	{
+		delta_x = sprite_pos.x - prop_x_ebox->GetAsInt();
+	}
+
+	if (sender == prop_y_ebox)
+	{
+	delta_y = (sprite->height - prop_y_ebox->GetAsInt()) - sprite_pos.y;
+	}
+
+	if (fabs(delta_x) > 0.0f || fabs(delta_y) > 0.0f)
+	{
+		for (int i = 0; i < rect_height; i++)
+			for (int j = 0; j < rect_width; j++)
+			{
+				points[rect_width * i + j] -= Vector2(delta_x, -delta_y);
+			}
+
+		UpdateSavedPos(false);
+		UpdateAnimRect();
+		UpdateSpriteRect();
+		img_wgt->Redraw();
+	}
+
+	if (sender == prop_w_ebox || sender == prop_h_ebox)
+	{
+		if (sender == prop_w_ebox)
+		{
+			sprite_size.x = prop_w_ebox->GetAsFloat();
+		}
+
+		if (sender == prop_h_ebox)
+		{
+			sprite_size.y = prop_h_ebox->GetAsFloat();
+		}
+
+		FillRects();
+		UpdateAnimRect();
+		UpdateSpriteRect();
+
+		img_wgt->Redraw();
+	}
+
+	if (sender == cur_frame_ebox)
+	{
+		cur_frame = (int)fmin(atoi(cur_frame_ebox->GetText()), num_frames - 1);
+
+		for (int j = 0; j < 4; j++)
+		{
+			points[j] = frames[cur_frame * 4 + j];
+		}
+
+		cur_frame_time_ebox->SetText(sprite->rects[cur_frame].frame_time);
+		pivot_x_ebox->SetText((int)sprite->rects[cur_frame].offset.x);
+		pivot_y_ebox->SetText((int)sprite->rects[cur_frame].offset.y);
+		UpdateSavedPos(true);
+		img_wgt->Redraw();
+	}
+
+	if (sender == num_frame_ebox)
+	{
+		int prev_num_frames = num_frames;
+		num_frames = (int)fmax(atoi(num_frame_ebox->GetText()), 1);
+		cur_frame = (int)fmin(cur_frame, num_frames - 1);
+
+		frames.resize(num_frames * 4);
+		ResizeSpriteRect();
+
+		if (prev_num_frames < num_frames)
+		{
+			prev_num_frames--;
+
+			for (int i = prev_num_frames + 1; i < num_frames; i++)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					frames[i * 4 + j] = frames[prev_num_frames * 4 + j];
+				}
+			}
+		}
+
+		UpdateSpriteRect();
+
+		img_wgt->Redraw();
+	}
+
+	if (sender == frame_time_ebox)
+	{
+		sprite->frame_time = fmax(0.025f, frame_time_ebox->GetAsFloat());
+	}
+
+	if (sender == pivot_x_ebox)
+	{
+		sprite->rects[cur_frame].offset.x = pivot_x_ebox->GetAsFloat();
+		img_wgt->Redraw();
+	}
+
+	if (sender == pivot_y_ebox)
+	{
+		sprite->rects[cur_frame].offset.y = pivot_y_ebox->GetAsFloat();
 		img_wgt->Redraw();
 	}
 }
@@ -632,10 +949,46 @@ void SpriteWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 {
 	if (sender != img_wgt) return;
 
-	drag = DragRects;
-	prev_ms = Vector2((float)mx, (float)my);
+	SetFocus(*(HWND*)img_wgt->GetNative());
 
 	Vector2 ps(prev_ms.x - origin.x * pixel_density, origin.y * pixel_density - prev_ms.y);
+
+	if (sprite->type == Sprite::Frames)
+	{
+		Vector2 point = frames[cur_frame * 4] * pixel_density;
+		Vector2 point2 = frames[cur_frame * 4 + 3] * pixel_density;
+
+		int sel_frame = -1;
+
+		if (point.x < ps.x && ps.x < point2.x &&
+			point2.y < ps.y && ps.y < point.y)
+		{
+			sel_frame = cur_frame;
+		}
+
+		if (sel_frame == -1)
+		{
+			for (int i = 0; i < num_frames; i++)
+			{
+				Vector2 point = frames[i * 4] * pixel_density;
+				Vector2 point2 = frames[i * 4 + 3] * pixel_density;
+
+				if (point.x < ps.x && ps.x < point2.x &&
+					point2.y < ps.y && ps.y < point.y)
+				{
+					sel_frame = i;
+				}
+			}
+
+			if (sel_frame != -1)
+			{
+				cur_frame_ebox->SetText(sel_frame);
+			}
+		}
+	}
+
+	drag = DragRects;
+	prev_ms = Vector2((float)mx, (float)my);
 
 	sel_col = -1;
 	sel_row = -1;
@@ -654,7 +1007,7 @@ void SpriteWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 			}
 		}
 
-	img_wgt->CaptureMouse();
+	//img_wgt->CaptureMouse();
 
 	if (sel_row != -1)
 	{
@@ -673,13 +1026,13 @@ void SpriteWindow::OnMouseMove(EUIWidget* sender, int mx, int my)
 
 	if (fabs(delta_mouse.x) > 1.0f)
 	{
-		delta.x = delta_mouse.x;
+		delta.x = floor(delta_mouse.x);
 		delta_mouse.x = 0.0f;
 	}
 
 	if (fabs(delta_mouse.y) > 1.0f)
 	{
-		delta.y = delta_mouse.y;
+		delta.y = floor(delta_mouse.y);
 		delta_mouse.y = 0.0f;
 	}
 
@@ -709,14 +1062,14 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 		if (fileName)
 		{
-			SetImage(fileName);
+			SetImage(fileName, true);
 			img_wgt->Redraw();
 		}
 	}
 
 	if (sender == del_image)
 	{
-		SetImage("");
+		SetImage("", false);
 		img_wgt->Redraw();
 	}
 
@@ -748,7 +1101,7 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		sel_col = -1;
 		sel_row = -1;
 		drag = DragNone;
-		img_wgt->ReleaseMouse();
+		//img_wgt->ReleaseMouse();
 		img_wgt->Redraw();
 	}
 }
@@ -764,6 +1117,25 @@ void SpriteWindow::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 {
 	drag = DragNone;
 	img_wgt->ReleaseMouse();
+}
+
+void SpriteWindow::OnKey(EUIWidget* sender, int key)
+{
+	Vector2 delta = 0.0f;
+
+	switch (key)
+	{
+		case VK_UP : delta.y = 1.0f; break;
+		case VK_DOWN: delta.y = -1.0f; break;
+		case VK_LEFT: delta.x = 1.0f; break;
+		case VK_RIGHT: delta.x = -1.0f; break;
+	}
+
+	if (fabs(delta.x) > 0.0f || fabs(delta.y) > 0.0f)
+	{
+		MoveRects(delta);
+		img_wgt->Redraw();
+	}
 }
 
 void SpriteWindow::OnWinClose(EUIWidget* sender)

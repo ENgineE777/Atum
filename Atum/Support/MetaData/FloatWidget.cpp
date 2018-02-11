@@ -1,12 +1,7 @@
 
 #include "FloatWidget.h"
 
-void FloatWidget::Listiner::OnEditBoxEnterPressed(EUIWidget* sender)
-{
-	owner->SetEditedData();
-}
-
-void FloatWidget::Listiner::OnEditBoxChange(EUIWidget* sender)
+void FloatWidget::Listiner::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	owner->SetEditedData();
 }

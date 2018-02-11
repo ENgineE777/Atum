@@ -35,20 +35,20 @@ private:
 	};
 
 #ifdef PLATFORM_PC
-	uint8_t					btns[256];
+	uint8_t                 btns[256];
 
-	LPDIRECTINPUT8			pDI;
-	LPDIRECTINPUTDEVICE8	pKeyboard;
-	LPDIRECTINPUTDEVICE8	pMouse;
+	LPDIRECTINPUT8          pDI;
+	LPDIRECTINPUTDEVICE8    pKeyboard;
+	LPDIRECTINPUTDEVICE8    pMouse;
 
-	uint32_t				dwElements;
-	byte					diks[256];
-	DIMOUSESTATE2			dims2;
-	uint32_t				dwMsElements;
-	byte					ms_bts[10];
-	int						ms_x, ms_y;
-	int						prev_ms_x, prev_ms_y;
-	HWND					hwnd;
+	uint32_t                dwElements;
+	byte                    diks[256];
+	DIMOUSESTATE2           dims2;
+	uint32_t                dwMsElements;
+	byte                    ms_bts[10];
+	int                     ms_x, ms_y;
+	int                     prev_ms_x, prev_ms_y;
+	HWND                    hwnd;
 	XINPUT_STATE            joy_prev_states[XUSER_MAX_COUNT];
 	XINPUT_STATE            joy_states[XUSER_MAX_COUNT];
 	bool                    joy_active[XUSER_MAX_COUNT];

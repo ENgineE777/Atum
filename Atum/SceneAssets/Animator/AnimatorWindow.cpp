@@ -353,7 +353,7 @@ void AnimatorWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 }
 
-void AnimatorWindow::OnEditBoxChange(EUIWidget* sender)
+void AnimatorWindow::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	switch (sender->GetID())
 	{

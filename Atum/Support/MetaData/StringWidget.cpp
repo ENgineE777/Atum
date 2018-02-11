@@ -1,12 +1,7 @@
 
 #include "StringWidget.h"
 
-void StringWidget::Listiner::OnEditBoxEnterPressed(EUIWidget* sender)
-{
-	owner->SetEditedData();
-}
-
-void StringWidget::Listiner::OnEditBoxChange(EUIWidget* sender)
+void StringWidget::Listiner::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	owner->SetEditedData();
 }

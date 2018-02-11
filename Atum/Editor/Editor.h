@@ -11,7 +11,7 @@
 #include "Gizmo.h"
 #include "Support/Timer.h"
 
-class Editor : public Object
+class Editor : public Object, public EUIWidget::Listener
 {
 	enum Const
 	{
@@ -39,27 +39,7 @@ class Editor : public Object
 		MenuSceneAssetID = 15000
 	};
 
-	class Listener : public EUIWidget::Listener
-	{
-		bool allowCopy = false;
-		Editor* owner;
-	public:
-		Listener(Editor* owner);
-
-		virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
-		virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
-		virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-		virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
-		virtual void OnMenuItem(EUIWidget* sender, int id);
-		virtual void OnUpdate(EUIWidget* sender);
-		virtual void OnListBoxChange(EUIWidget* sender, int index);
-		virtual void OnEditBoxChange(EUIWidget* sender);
-		virtual void OnResize(EUIWidget* sender);
-		virtual void OnWinClose(EUIWidget* sender);
-	};
-
 	FreeCamera freecamera;
-	Listener   listener;
 	bool       gizmoMove;
 	bool       gizmoGlobal;
 
@@ -91,6 +71,8 @@ class Editor : public Object
 	Scene scene;
 	Gizmo gizmo;
 
+	bool allowCopy = false;
+
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 
 public:
@@ -108,16 +90,24 @@ public:
 	void CreateSceneObject(const char* name);
 	void DeleteSceneObject(SceneObject* obj);
 	void SetUniqueName(SceneObject* obj, const char* name);
-	void OnObjectNameChanged();
 	void SelectAsset(SceneAsset* obj);
 	void CopyAsset(SceneAsset* obj);
 	void CreateSceneAsset(const char* name);
 	void DeleteSceneAsset(SceneAsset* obj);
 	void SetUniqueAssetName(SceneAsset* obj, const char* name);
 	void ShowVieport();
-	void ProcessMenu(int id);
-	void Update();
 	void StartScene();
 	void StopScene();
 	void Draw(float dt);
+
+	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
+	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
+	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
+	virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
+	virtual void OnMenuItem(EUIWidget* sender, int id);
+	virtual void OnUpdate(EUIWidget* sender);
+	virtual void OnListBoxChange(EUIWidget* sender, int index);
+	virtual void OnEditBoxStopEditing(EUIWidget* sender);
+	virtual void OnResize(EUIWidget* sender);
+	virtual void OnWinClose(EUIWidget* sender);
 };

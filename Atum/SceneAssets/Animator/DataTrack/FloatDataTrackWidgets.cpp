@@ -38,7 +38,7 @@ void FloatDataTrackWidgets::StopEditKey()
 	ShowBlendControls(false);
 }
 
-void FloatDataTrackWidgets::OnEditBoxChange(EUIWidget* sender)
+void FloatDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
 {
 	*value = (float)atof(prop_ed->GetText());
 }

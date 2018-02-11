@@ -14,8 +14,7 @@ public:
 	public:
 		FloatWidget* owner;
 
-		virtual void OnEditBoxEnterPressed(EUIWidget* sender);
-		virtual void OnEditBoxChange(EUIWidget* sender);
+		virtual void OnEditBoxStopEditing(EUIWidget* sender);
 	};
 
 	Listiner listiner;

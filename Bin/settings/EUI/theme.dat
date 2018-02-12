@@ -64,6 +64,18 @@
 		"color": { "R": 238, "G": 56, "B": 68 }
 	},
 	{
+		"name": "FONT_EDITBOX_CHANGED",
+		"color": {	"R": 238, "G": 56,	"B": 68 }
+	},
+	{
+		"name": "FONT_EDITBOX_CHANGED",
+		"color": {	"R": 238, "G": 56,	"B": 68 }
+	},
+	{
+		"name": "LABEL_BACK",
+		"color": { "R": 240, "G": 240, "B": 240	}
+	},
+	{
 		"name": "BUTTON_BACK",
 		"color": { "R": 248, "G": 248, "B": 248	}
 	},

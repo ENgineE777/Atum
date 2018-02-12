@@ -205,7 +205,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 
 		FillRects();
 		UpdateAnimRect();
-		UpdateSavedPos(true);
+		UpdateSavedPos();
 		UpdateSpriteRect();
 		FitImage();
 	}
@@ -292,6 +292,11 @@ void SpriteWindow::UpdateSpriteRect()
 		return;
 	}
 
+	if (sprite->rects.size() == 0)
+	{
+		return;
+	}
+
 	for (int i = 0; i<rect_height - 1; i++)
 		for (int j = 0; j < rect_width - 1; j++)
 		{
@@ -372,7 +377,7 @@ void SpriteWindow::Prepare()
 				index++;
 			}
 
-		UpdateSavedPos(true);
+		UpdateSavedPos();
 	}
 
 	if (sprite->type == Sprite::Frames)
@@ -406,6 +411,22 @@ void SpriteWindow::ShowFrameWidgets()
 	frame_time_ebox->Show(show);
 	cur_frame_time_label->Show(show);
 	cur_frame_time_ebox->Show(show);
+}
+
+void SpriteWindow::SetCurFrame(int frame)
+{
+	cur_frame = frame;
+
+	for (int j = 0; j < 4; j++)
+	{
+		points[j] = frames[cur_frame * 4 + j];
+	}
+
+	cur_frame_time_ebox->SetText(sprite->rects[cur_frame].frame_time);
+	pivot_x_ebox->SetText((int)sprite->rects[cur_frame].offset.x);
+	pivot_y_ebox->SetText((int)sprite->rects[cur_frame].offset.y);
+	UpdateSavedPos();
+	img_wgt->Redraw();
 }
 
 void SpriteWindow::SelectRect()
@@ -770,7 +791,7 @@ void SpriteWindow::MoveRects(Vector2 delta)
 		}
 	}
 
-	UpdateSavedPos(true);
+	UpdateSavedPos();
 	UpdateAnimRect();
 	UpdateSpriteRect();
 }
@@ -783,7 +804,7 @@ void SpriteWindow::UpdateAnimRect()
 	}
 }
 
-void SpriteWindow::UpdateSavedPos(bool need_update_ui)
+void SpriteWindow::UpdateSavedPos()
 {
 	sprite_pos = points[0];
 	sprite_size = points[rect_height * rect_width - 1] - points[0];
@@ -801,14 +822,11 @@ void SpriteWindow::UpdateSavedPos(bool need_update_ui)
 		sprite_offset_y.y = points[2 * rect_width].y - points[3 * rect_width].y;
 	}
 
-	if (need_update_ui)
-	{
-		prop_x_ebox->SetText((int)sprite_pos.x);
-		prop_y_ebox->SetText((int)(sprite->height - sprite_pos.y));
+	prop_x_ebox->SetText((int)sprite_pos.x);
+	prop_y_ebox->SetText((int)(sprite->height - sprite_pos.y));
 
-		prop_w_ebox->SetText((int)sprite_size.x);
-		prop_h_ebox->SetText((int)sprite_size.y);
-	}
+	prop_w_ebox->SetText((int)sprite_size.x);
+	prop_h_ebox->SetText((int)sprite_size.y);
 }
 
 void SpriteWindow::OnComboBoxChange(EUIWidget* sender, int index)
@@ -859,7 +877,7 @@ void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
 				points[rect_width * i + j] -= Vector2(delta_x, -delta_y);
 			}
 
-		UpdateSavedPos(false);
+		UpdateSavedPos();
 		UpdateAnimRect();
 		UpdateSpriteRect();
 		img_wgt->Redraw();
@@ -886,25 +904,17 @@ void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
 
 	if (sender == cur_frame_ebox)
 	{
-		cur_frame = (int)fmin(atoi(cur_frame_ebox->GetText()), num_frames - 1);
-
-		for (int j = 0; j < 4; j++)
-		{
-			points[j] = frames[cur_frame * 4 + j];
-		}
-
-		cur_frame_time_ebox->SetText(sprite->rects[cur_frame].frame_time);
-		pivot_x_ebox->SetText((int)sprite->rects[cur_frame].offset.x);
-		pivot_y_ebox->SetText((int)sprite->rects[cur_frame].offset.y);
-		UpdateSavedPos(true);
-		img_wgt->Redraw();
+		SetCurFrame((int)fmin(atoi(cur_frame_ebox->GetText()), num_frames - 1));
+		cur_frame_ebox->SetText(cur_frame);
 	}
 
 	if (sender == num_frame_ebox)
 	{
 		int prev_num_frames = num_frames;
 		num_frames = (int)fmax(atoi(num_frame_ebox->GetText()), 1);
-		cur_frame = (int)fmin(cur_frame, num_frames - 1);
+		num_frame_ebox->SetText(num_frames);
+
+		SetCurFrame((int)fmin(cur_frame, num_frames - 1));
 
 		frames.resize(num_frames * 4);
 		ResizeSpriteRect();
@@ -923,7 +933,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
 		}
 
 		UpdateSpriteRect();
-
 		img_wgt->Redraw();
 	}
 
@@ -982,7 +991,7 @@ void SpriteWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 
 			if (sel_frame != -1)
 			{
-				cur_frame_ebox->SetText(sel_frame);
+				SetCurFrame(sel_frame);
 			}
 		}
 	}

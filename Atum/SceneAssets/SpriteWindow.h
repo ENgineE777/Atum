@@ -92,12 +92,13 @@ public:
 	void UpdateImageBackground();
 	void Prepare();
 	void ShowFrameWidgets();
+	void SetCurFrame(int frame);
 
 	void SelectRect();
 	void FillRects();
 	void MoveRects(Vector2 delta);
 	void UpdateAnimRect();
-	void UpdateSavedPos(bool need_update_ui);
+	void UpdateSavedPos();
 	void ActualPixels();
 	void FitImage();
 	void MakeZoom(bool zoom_in);

@@ -71,6 +71,7 @@ class Editor : public Object, public EUIWidget::Listener
 	Scene scene;
 	Gizmo gizmo;
 
+	Vector2 prev_mx;
 	bool allowCopy = false;
 
 	TaskExecutor::SingleTaskPool* renderTaskPool;
@@ -103,6 +104,7 @@ public:
 	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
 	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
 	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
+	virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my);
 	virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
 	virtual void OnMenuItem(EUIWidget* sender, int id);
 	virtual void OnUpdate(EUIWidget* sender);

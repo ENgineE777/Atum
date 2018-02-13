@@ -70,7 +70,7 @@ public:
 	void DebugTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color);
 	void DebugPrintText(Vector2 pos, Color color, const char* text);
 	void DebugPrintText(Vector pos, float dist, Color color, const char* text);
-	void DrawSprite(Texture* texture, Vector2& pos, Vector2& size);
+	void DebugSprite(Texture* texture, Vector2& pos, Vector2& size);
 
 	Vector TransformToScreen(const Vector& pos, int type);
 

@@ -584,7 +584,7 @@ void Gizmo::Render()
 				else
 				{
 					ancorns[i] = Vector2(p1.x, p1.y);
-					render.DrawSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
+					render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
 				}
 			}
 		}
@@ -592,7 +592,7 @@ void Gizmo::Render()
 		p1 = Vector(0.0f, 0.0f, 0.0f);
 		p1 = p1 * trans2D->local_trans;
 		origin = Vector2(p1.x, p1.y) - Vector2(4.0f);
-		render.DrawSprite(center, origin, Vector2(8.0f));
+		render.DebugSprite(center, origin, Vector2(8.0f));
 
 		return;
 	}

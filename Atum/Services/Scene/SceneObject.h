@@ -51,6 +51,11 @@ public:
 
 #ifdef EDITOR
 	virtual void SetEditMode(bool ed);
+	virtual void OnMouseMove(int dmx, int dmy);
+	virtual void OnLeftMouseDown(int mx, int my);
+	virtual void OnLeftMouseUp(int mx, int my);
+	virtual void OnRightMouseDown(int mx, int my);
+	virtual void OnRightMouseUp(int mx, int my);
 #endif
 };
 

@@ -96,4 +96,29 @@ void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
 }
+
+void SceneObject::OnMouseMove(int dmx, int dmy)
+{
+
+}
+
+void SceneObject::OnLeftMouseDown(int mx, int my)
+{
+
+}
+
+void SceneObject::OnLeftMouseUp(int mx, int my)
+{
+
+}
+
+void SceneObject::OnRightMouseDown(int mx, int my)
+{
+
+}
+
+void SceneObject::OnRightMouseUp(int mx, int my)
+{
+
+}
 #endif

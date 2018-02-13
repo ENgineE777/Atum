@@ -498,6 +498,15 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 	{
 		gizmo.OnMouseMove((float)mx, (float)my);
 
+		if (selectedObject)
+		{
+			selectedObject->OnMouseMove(mx, my);
+		}
+
+		if (selectedAsset)
+		{
+			selectedAsset->OnMouseMove(mx - (int)prev_mx.x, my - (int)prev_mx.y);
+		}
 
 		if (selectedObject && !scene.Playing())
 		{
@@ -513,16 +522,30 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			selectedObject->Trans() = gizmo.transform;
 		}
 	}
+
+	prev_mx = Vector2((float)mx, (float)my);
 }
 
 void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 {
+	prev_mx = Vector2((float)mx, (float)my);
+
 	if (sender->GetID() == Editor::ViewportID ||
 		sender->GetID() == Editor::AssetViewportID)
 	{
 		allowCopy = true;
 		gizmo.OnLeftMouseDown((float)mx, (float)my);
 		sender->CaptureMouse();
+
+		if (selectedObject)
+		{
+			selectedObject->OnLeftMouseDown(mx, my);
+		}
+
+		if (selectedAsset)
+		{
+			selectedAsset->OnLeftMouseDown(mx, my);
+		}
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
@@ -540,6 +563,16 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		gizmo.OnLeftMouseUp();
 		sender->ReleaseMouse();
+
+		if (selectedObject)
+		{
+			selectedObject->OnLeftMouseUp(mx, my);
+		}
+
+		if (selectedAsset)
+		{
+			selectedAsset->OnLeftMouseUp(mx, my);
+		}
 	}
 
 	if (sender->GetID() == Editor::MoveBtnID)
@@ -572,8 +605,44 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 }
 
+void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
+{
+	prev_mx = Vector2((float)mx, (float)my);
+
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID)
+	{
+		sender->CaptureMouse();
+
+		if (selectedObject)
+		{
+			selectedObject->OnRightMouseDown(mx, my);
+		}
+
+		if (selectedAsset)
+		{
+			selectedAsset->OnRightMouseDown(mx, my);
+		}
+	}
+}
+
 void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 {
+	if (sender->GetID() == Editor::ViewportID ||
+		sender->GetID() == Editor::AssetViewportID)
+	{
+		sender->ReleaseMouse();
+
+		if (selectedObject)
+		{
+			selectedObject->OnRightMouseUp(mx, my);
+		}
+
+		if (selectedAsset)
+		{
+			selectedAsset->OnRightMouseUp(mx, my);
+		}
+	}
 }
 
 void Editor::OnMenuItem(EUIWidget* sender, int activated_id)

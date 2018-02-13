@@ -24,8 +24,7 @@ public:
 	virtual void Save(JSONWriter* saver);
 	void Draw(float dt);
 
+#ifdef EDITOR
 	virtual void SetEditMode(bool ed);
-
-	void Play();
-	void Stop();
+#endif
 };

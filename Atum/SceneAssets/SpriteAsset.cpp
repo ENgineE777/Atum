@@ -58,6 +58,7 @@ void SpriteAsset::Draw(float dt)
 	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &quad);
 }
 
+#ifdef EDITOR
 void SpriteAsset::SetEditMode(bool ed)
 {
 	if (ed)
@@ -70,13 +71,4 @@ void SpriteAsset::SetEditMode(bool ed)
 		SpriteWindow::StopEdit();
 	}
 }
-
-void SpriteAsset::Play()
-{
-	SceneObject::Play();
-}
-
-void SpriteAsset::Stop()
-{
-	SceneObject::Stop();
-}
+#endif

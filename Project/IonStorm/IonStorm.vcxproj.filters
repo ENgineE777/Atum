@@ -322,6 +322,9 @@
     <ClCompile Include="..\..\Atum\Support\MetaData\CallbackWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Atum\SceneAssets\SpriteGraphAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Atum\SceneObjects\correction.h">
@@ -638,6 +641,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Atum\Support\MetaData\CallbackWidget.h">
       <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Atum\SceneAssets\SpriteGraphAsset.h">
+      <Filter>SceneAssets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -53,11 +53,11 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 		lines = new DebugLines();
 		lines->Init(debugTaskPool);
 
-		font = new DebugFont();
-		font->Init(debugTaskPool);
-
 		sprites = new DebugSprites();
 		sprites->Init(debugTaskPool);
+
+		font = new DebugFont();
+		font->Init(debugTaskPool);
 
 		return true;
 	}
@@ -219,7 +219,7 @@ void Render::DebugPrintText(Vector pos, float dist, Color color, const char* tex
 	font->AddText(pos, dist, color, text);
 }
 
-void Render::DrawSprite(Texture* texture, Vector2& pos, Vector2& size)
+void Render::DebugSprite(Texture* texture, Vector2& pos, Vector2& size)
 {
 	sprites->AddSprite(texture, pos, size);
 }

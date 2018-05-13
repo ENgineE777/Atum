@@ -18,6 +18,7 @@ Currently the engine consists from:
 - Support of PhysX 3.0, there are samples in repo that use physics;
 - Network code which allows to create server/clinet; there is some code in repo which allows
   to create a simple network game
+- Sprite Editor
 
 I plan to use this engine in multiplayer game - so, I definitely will evolve the engine. Also
 I plan to add support for mobile devices. And of course, the main focus is to create a toolset

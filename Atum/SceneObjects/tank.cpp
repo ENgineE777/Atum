@@ -1,8 +1,8 @@
-#include "Tank.h"
-#include "TankClient.h"
+#include "tank.h"
+#include "tankclient.h"
 #include "Services/Controls/Controls.h"
 
-CLASSDECLDECL(SceneObject, Tank)
+CLASSDECLDECL(Tank)
 
 META_DATA_DESC(Tank)
 META_DATA_DESC_END()
@@ -52,15 +52,15 @@ void Tank::Play()
 		client = (TankClient*)group.objects[0];
 	}
 
-	if (netClient.Connect("192.168.0.19", 7890))
+/*	if (netClient.Connect("192.168.0.19", 7890))
 	{
 		netClient.delegedate = this;
 
 		is_server = false;
 	}
-	else
+	else*/
 	{
-		netServer.Start("192.168.0.19", 7890);
+		//netServer.Start("192.168.0.19", 7890);
 
 		netServer.delegedate = this;
 
@@ -388,35 +388,42 @@ void Tank::Update(float dt)
 			}
 		}
 
-		if (inst.serverState.tower_angel < PI * 0.5f && inst.clientState.needed_tower_angel > PI)
-		{
-			inst.clientState.needed_tower_angel -= PI * 2.0f;
-		}
+		inst.serverState.angle += inst.serverState.strafe_speed * dt;
 
-		if (inst.clientState.needed_tower_angel > inst.serverState.tower_angel)
+		if (inst.clientState.needed_tower_angel > -999.9f)
 		{
-			inst.serverState.tower_angel += 1.0f * dt;
-
-			if (inst.clientState.needed_tower_angel < inst.serverState.tower_angel)
+			if (inst.serverState.tower_angel < PI * 0.5f && inst.clientState.needed_tower_angel > PI)
 			{
-				inst.clientState.needed_tower_angel = inst.serverState.tower_angel;
+				inst.clientState.needed_tower_angel -= PI * 2.0f;
 			}
-		}
-		else
-		{
-			inst.serverState.tower_angel -= 1.0f * dt;
 
 			if (inst.clientState.needed_tower_angel > inst.serverState.tower_angel)
 			{
-				inst.clientState.needed_tower_angel = inst.serverState.tower_angel;
+				inst.serverState.tower_angel += 1.0f * dt;
+
+				if (inst.clientState.needed_tower_angel < inst.serverState.tower_angel)
+				{
+					inst.clientState.needed_tower_angel = inst.serverState.tower_angel;
+				}
 			}
+			else
+			{
+				inst.serverState.tower_angel -= 1.0f * dt;
+
+				if (inst.clientState.needed_tower_angel > inst.serverState.tower_angel)
+				{
+					inst.clientState.needed_tower_angel = inst.serverState.tower_angel;
+				}
+			}
+
+			inst.serverState.angle += inst.serverState.strafe_speed * dt;
+		}
+		else
+		{
+			inst.serverState.tower_angel = inst.serverState.angle;
 		}
 
-		char str[128];
-		sprintf(str, "%4.3f %4.3f \n", inst.clientState.needed_tower_angel, inst.serverState.tower_angel);
-		OutputDebugString(str);
-
-		inst.serverState.angle += inst.serverState.strafe_speed * dt;
+		render.DebugPrintText(Vector2(10.0f, 30.0f), COLOR_GREEN, "%4.3f %4.3f \n", inst.clientState.needed_tower_angel, inst.serverState.tower_angel);
 
 		dir *= inst.serverState.move_speed;
 		dir.y = -9.8f;

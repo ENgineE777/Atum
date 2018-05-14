@@ -29,6 +29,5 @@ public:
 	virtual void Apply(int slot);
 
 	virtual void Update(int level, int layer, uint8_t* data, int stride);
-	virtual void* GetData();
 	virtual void Release();
 };

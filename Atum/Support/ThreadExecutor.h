@@ -1,7 +1,9 @@
 
 #pragma once
 
+#ifdef PLATFORM_PC
 #include <windows.h>
+#endif
 
 class CriticalSection
 {
@@ -13,7 +15,9 @@ public:
 	void UnLock();
 
 private:
+#ifdef PLATFORM_PC
 	CRITICAL_SECTION critSection;
+#endif
 };
 
 class ThreadCaller
@@ -34,9 +38,12 @@ class ThreadExecutor
 	};
 
 	State state = Idle;
+
+#ifdef PLATFORM_PC
 	HANDLE thread = 0;
 
 	static DWORD WINAPI Entry(void* arg);
+#endif
 
 public:
 

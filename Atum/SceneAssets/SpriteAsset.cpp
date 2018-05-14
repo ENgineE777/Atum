@@ -1,25 +1,32 @@
 
 #include "SpriteAsset.h"
 #include "Services/Render/Render.h"
+#include "SceneObjects/RenderLevels.h"
 
 #include "SpriteWindow.h"
 #include "Editor/Gizmo.h"
 
+#ifdef EDITOR
 void StartEditSprite(void* owner)
 {
 	SpriteAsset* sprite = (SpriteAsset*)owner;
 	SpriteWindow::StartEdit(&sprite->sprite);
 }
+#endif
 
-CLASSDECLDECL(SceneObject, SpriteAsset)
+CLASSDECLDECL(SpriteAsset)
 
 META_DATA_DESC(SpriteAsset)
 FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteAsset, trans.size.x, 100.0f, "Prop", "width")
 FLOAT_PROP(SpriteAsset, trans.size.y, 100.0f, "Prop", "height")
+#ifdef EDITOR
 CALLBACK_PROP(SpriteAsset, StartEditSprite, "Prop", "EditSprite")
+#endif
 META_DATA_DESC_END()
+
+Sprite::FrameState SpriteAsset::state;
 
 SpriteAsset::SpriteAsset() : SceneAsset()
 {
@@ -31,20 +38,19 @@ SpriteAsset::~SpriteAsset()
 
 void SpriteAsset::Init()
 {
-	quad.Init();
+	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
 
-	//Tasks()->AddTask(100, this, (Object::Delegate)&Animation::Draw);
-	RenderTasks()->AddTask(0, this, (Object::Delegate)&SpriteAsset::Draw);
+	owner->AddToGroup(this, "SpriteAsset");
 }
 
-void SpriteAsset::Load(JSONReader* loader)
+void SpriteAsset::Load(JSONReader& loader)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(loader);
 	Sprite::Load(loader, &sprite);
 }
 
-void SpriteAsset::Save(JSONWriter* saver)
+void SpriteAsset::Save(JSONWriter& saver)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(saver);
@@ -54,11 +60,30 @@ void SpriteAsset::Save(JSONWriter* saver)
 void SpriteAsset::Draw(float dt)
 {
 	trans.BuildLocalTrans();
-	sprite.Update(dt);
-	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &quad);
+	Sprite::UpdateFrame(&sprite, &state, dt);
+
+#ifdef EDITOR
+	if (Gizmo::inst->trans2D == &trans && SpriteWindow::instance && !SpriteWindow::instance->show_anim)
+	{
+		state.cur_frame = SpriteWindow::instance->cur_frame;
+	}
+
+	if (SpriteWindow::instance)
+	{
+		SpriteWindow::instance->CheckStateOfBorder();
+	}
+#endif
+
+	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &state);
 }
 
 #ifdef EDITOR
+void SpriteAsset::Copy(SceneObject* src)
+{
+	Sprite::Copy(&((SpriteAsset*)src)->sprite, &sprite);
+	SceneAsset::Copy(src);
+}
+
 void SpriteAsset::SetEditMode(bool ed)
 {
 	if (ed)

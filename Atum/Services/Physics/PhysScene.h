@@ -4,6 +4,7 @@
 #include "PhysObject.h"
 #include "PhysController.h"
 #include "PhysHeightmap.h"
+#include "Support/Buffer.h"
 
 using namespace physx;
 
@@ -13,6 +14,7 @@ class PhysScene
 	PxScene* scene = nullptr;
 	bool needFetch = false;
 	PxControllerManager* manager = nullptr;
+
 public:
 
 	struct RaycastDesc
@@ -24,9 +26,9 @@ public:
 		Vector hitNormal;
 	};
 
-	PhysObject*     CreateBox(Vector& size, Matrix& trans, bool isStatic);
+	PhysObject*     CreateBox(Vector size, Matrix trans, bool isStatic);
 	PhysController* CreateController(PhysControllerDesc& desc);
-	PhysHeightmap*  CreateHeightmap(PhysHeightmapDesc& desc);
+	PhysHeightmap* CreateHeightmap(PhysHeightmap::Desc& desc, const char* name);
 
 	bool RayCast(RaycastDesc& desc);
 

@@ -147,12 +147,12 @@ void Scene::DeleteAllObjects()
 	DeleteObjects(assets);
 }
 
-void Scene::Load(JSONReader* reader, std::vector<SceneObject*>& objects, const char* block)
+void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block)
 {
-	while (reader->EnterBlock(block))
+	while (reader.EnterBlock(block))
 	{
 		char type[512];
-		reader->Read("type", type, 512);
+		reader.Read("type", type, 512);
 
 		SceneObject* obj = nullptr;
 
@@ -168,64 +168,70 @@ void Scene::Load(JSONReader* reader, std::vector<SceneObject*>& objects, const c
 		if (obj)
 		{
 			char name[512];
-			reader->Read("name", name, 512);
+			reader.Read("name", name, 512);
 
 			obj->SetName(name);
-			reader->Read("transform", obj->Trans());
+			reader.Read("transform", obj->Trans());
 
 			obj->Load(reader);
 		}
 
-		reader->LeaveBlock();
+		reader.LeaveBlock();
+	}
+
+	for (auto asset : assets)
+	{
+		asset->ApplyProperties();
+	}
+
+	for (auto object : objects)
+	{
+		object->ApplyProperties();
 	}
 }
 
 void Scene::Load(const char* name)
 {
-	JSONReader* reader = new JSONReader();
+	JSONReader reader;
 	
-	if (reader->Parse(name))
+	if (reader.Parse(name))
 	{
 		Load(reader, assets, "SceneAsset");
 		Load(reader, objects, "SceneObject");
 	}
-
-	reader->Release();
 }
 
-void Scene::Save(JSONWriter* writer, std::vector<SceneObject*>& objects, const char* block)
+void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block)
 {
-	writer->StartArray(block);
+	writer.StartArray(block);
 
 	for (int i = 0; i < objects.size(); i++)
 	{
-		writer->StartBlock(NULL);
+		writer.StartBlock(NULL);
 
 		SceneObject* obj = objects[i];
 
-		writer->Write("type", obj->GetClassName());
-		writer->Write("name", obj->GetName());
-		writer->Write("transform", obj->Trans());
+		writer.Write("type", obj->GetClassName());
+		writer.Write("name", obj->GetName());
+		writer.Write("transform", obj->Trans());
 
 		obj->Save(writer);
 
-		writer->FinishBlock();
+		writer.FinishBlock();
 	}
 
-	writer->FinishArray();
+	writer.FinishArray();
 }
 
 void Scene::Save(const char* name)
 {
-	JSONWriter* writer = new JSONWriter();
+	JSONWriter writer;
 
-	if (writer->Start(name))
+	if (writer.Start(name))
 	{
 		Save(writer, assets, "SceneAsset");
 		Save(writer, objects, "SceneObject");
 	}
-
-	writer->Release();
 }
 
 void Scene::Execute(float dt)
@@ -279,6 +285,21 @@ void Scene::EnableTasks(bool enable)
 	renderTaskPool->SetActive(enable);
 }
 
+SceneObject* Scene::FindInGroup(const char* group_name, const char* name)
+{
+	Scene::Group& group = GetGroup(group_name);
+
+	for (auto object : group.objects)
+	{
+		if (StringUtils::IsEqual(object->GetName(), name))
+		{
+			return object;
+		}
+	}
+
+	return nullptr;
+}
+
 Scene::Group& Scene::GetGroup(const char* name)
 {
 	if (groups.find(name) == groups.end())
@@ -319,4 +340,14 @@ void Scene::DelFromAllGroups(SceneObject* obj)
 	{
 		DelFromGroup(it->second, obj);
 	}
+}
+
+void Scene::Release()
+{
+	delete taskPool;
+	render.DelTaskPool(renderTaskPool);
+
+	DeleteAllObjects();
+
+	delete this;
 }

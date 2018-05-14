@@ -25,7 +25,7 @@ public:\
 	{\
 		for (ClassFactory##baseClass* decl = first; decl != NULL; decl = decl->next)\
 		{\
-			if (_stricmp(decl->GetName(), name) == 0)\
+			if (StringUtils::IsEqual(decl->GetName(), name))\
 			{\
 				return decl;\
 			}\
@@ -52,12 +52,12 @@ protected:\
 ClassFactory##baseClass* ClassFactory##baseClass::first = NULL;
 
 #define CLASSDECLDIF(baseClass, childClass) \
-class ClassFactory##childClass : public ClassFactory##baseClass \
+class ClassFactory : public ClassFactory##baseClass \
 {\
 	virtual const char* GetName() { return #childClass; };\
-	virtual baseClass* Create() { return new childClass##(); };\
+	virtual baseClass* Create() { return new childClass(); };\
 };\
-static ClassFactory##childClass classFactory##childClass##decl;
+static ClassFactory classFactory;
 
-#define CLASSDECLDECL(baseClass, childClass) \
-childClass##::ClassFactory##childClass childClass##::classFactory##childClass##decl;
+#define CLASSDECLDECL(childClass) \
+childClass::ClassFactory childClass::classFactory;

@@ -2,16 +2,59 @@
 
 Physics physics;
 
+#ifdef PLATFORM_ANDROID
+extern "C"
+{
+	int android_getCpuCount()
+	{
+		return 1;
+	}
+}
+#endif
+
 void Physics::Init()
 {
 	PxTolerancesScale tolerancesScale;
 
 	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, defaultAllocatorCallback, defaultErrorCallback);
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, tolerancesScale, true);
+
+#ifdef PLATFORM_PC
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(tolerancesScale));
+#endif
 
 	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.95f);
 }
+
+#ifdef PLATFORM_PC
+void Physics::CookHeightmap(PhysHeightmap::Desc& desc, const char* name)
+{
+	PxHeightFieldSample* samples = new PxHeightFieldSample[desc.width * desc.height];
+
+	for (int x = 0; x < desc.width; x++)
+		for (int y = 0; y < desc.height; y++)
+		{
+			samples[x + y * desc.width].height = PxI16(desc.hmap[((x)* desc.width + y)]);
+			samples[x + y * desc.width].setTessFlag();
+			samples[x + y * desc.width].materialIndex0 = 1;
+			samples[x + y * desc.width].materialIndex1 = 1;
+		}
+
+	PxHeightFieldDesc heightFieldDesc;
+
+	heightFieldDesc.format = PxHeightFieldFormat::eS16_TM;
+	heightFieldDesc.nbColumns = desc.width;
+	heightFieldDesc.nbRows = desc.height;
+	heightFieldDesc.samples.data = samples;
+	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
+
+	StraemWriter writer;
+	if (writer.Prepere(name))
+	{
+		cooking->cookHeightField(heightFieldDesc, writer);
+	}
+}
+#endif
 
 PhysScene* Physics::CreateScene()
 {

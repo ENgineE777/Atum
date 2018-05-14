@@ -13,6 +13,11 @@ JSONWriter::JSONWriter()
 	block_started[0] = true;
 }
 
+JSONWriter::~JSONWriter()
+{
+	Close();
+}
+
 bool JSONWriter::Start(const char* name)
 {
 	file = fopen(name, "w");
@@ -236,7 +241,6 @@ void JSONWriter::WriteFormatedStr(bool addComa, const char* format, ...)
 		va_start(argptr, format);
 		vsprintf(dest, format, argptr);
 		va_end(argptr);
-		printf(dest);
 
 		for (int i=0; i<offset; i++)
 		{
@@ -255,7 +259,7 @@ void JSONWriter::WriteStr(const char* str)
 	}
 }
 
-void JSONWriter::Release()
+void JSONWriter::Close()
 {
 	offset = 0;
 	WriteStr("\n}");
@@ -263,7 +267,6 @@ void JSONWriter::Release()
 	if (file)
 	{
 		fclose(file);
+		file = nullptr;
 	}
-
-	delete this;
 }

@@ -19,42 +19,42 @@ Transform2DDataTrack::~Transform2DDataTrack()
 	values.clear();
 }
 
-void Transform2DDataTrack::Load(JSONReader* stream, int num)
+void Transform2DDataTrack::Load(JSONReader& stream, int num)
 {
 	keys.resize(num);
 	values.resize(num);
 
 	for (int i=0; i<num; i++)
 	{
-		if (!stream->EnterBlock("Transform2DData")) break;
+		if (!stream.EnterBlock("Transform2DData")) break;
 
-		stream->Read("pos", values[i].pos);
-		stream->Read("size", values[i].size);
-		stream->Read("rotation", values[i].rotation);
-		stream->Read("time", keys[i].time);
+		stream.Read("pos", values[i].pos);
+		stream.Read("size", values[i].size);
+		stream.Read("rotation", values[i].rotation);
+		stream.Read("time", keys[i].time);
 
 		keys[i].blend = DataTrack::BlendLinear;
-		stream->Read("blend", (int&)keys[i].blend);
+		stream.Read("blend", (int&)keys[i].blend);
 
-		stream->LeaveBlock();
+		stream.LeaveBlock();
 	}
 }
 
-void Transform2DDataTrack::Save(JSONWriter* stream)
+void Transform2DDataTrack::Save(JSONWriter& stream)
 {
-	stream->StartArray("Transform2DData");
+	stream.StartArray("Transform2DData");
 
 	for (int i=0;i<keys.size();i++)
 	{
-		stream->StartBlock(nullptr);
+		stream.StartBlock(nullptr);
 
-		stream->Write("pos", values[i].pos);
-		stream->Write("size", values[i].size);
-		stream->Write("rotation", values[i].rotation);
-		stream->Write("time", keys[i].time);
-		stream->Write("blend", (int&)keys[i].blend);
+		stream.Write("pos", values[i].pos);
+		stream.Write("size", values[i].size);
+		stream.Write("rotation", values[i].rotation);
+		stream.Write("time", keys[i].time);
+		stream.Write("blend", (int&)keys[i].blend);
 		
-		stream->FinishBlock();
+		stream.FinishBlock();
 	}
 }
 

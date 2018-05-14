@@ -489,7 +489,7 @@ struct PxPackValidation
 };
 #endif
 #if !PX_APPLE_FAMILY && !PX_EMSCRIPTEN
-PX_COMPILE_TIME_ASSERT(PX_OFFSET_OF(PxPackValidation, a) == 8);
+//PX_COMPILE_TIME_ASSERT(PX_OFFSET_OF(PxPackValidation, a) == 8);
 #endif
 
 // use in a cpp file to suppress LNK4221

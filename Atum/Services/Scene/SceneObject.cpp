@@ -38,14 +38,13 @@ const char* SceneObject::GetClassName()
 	return className.c_str();
 }
 
-void SceneObject::Load(JSONReader* reader)
+void SceneObject::Load(JSONReader& reader)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(reader);
-	ApplyProperties();
 }
 
-void SceneObject::Save(JSONWriter* writer)
+void SceneObject::Save(JSONWriter& writer)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(writer);
@@ -92,32 +91,39 @@ void SceneObject::Release()
 }
 
 #ifdef EDITOR
+void SceneObject::Copy(SceneObject* src)
+{
+	Trans() = src->Trans();
+	GetMetaData()->Copy(src);
+	ApplyProperties();
+}
+
 void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
 }
 
-void SceneObject::OnMouseMove(int dmx, int dmy)
+void SceneObject::OnMouseMove(Vector2 delta_ms)
 {
 
 }
 
-void SceneObject::OnLeftMouseDown(int mx, int my)
+void SceneObject::OnLeftMouseDown(Vector2 ms)
 {
 
 }
 
-void SceneObject::OnLeftMouseUp(int mx, int my)
+void SceneObject::OnLeftMouseUp()
 {
 
 }
 
-void SceneObject::OnRightMouseDown(int mx, int my)
+void SceneObject::OnRightMouseDown(Vector2 ms)
 {
 
 }
 
-void SceneObject::OnRightMouseUp(int mx, int my)
+void SceneObject::OnRightMouseUp()
 {
 
 }

@@ -1,35 +1,33 @@
 
 #include "programs.h"
 
-Programs::TriangleProgram*   Programs::prg = nullptr;
-Programs::ShTriangleProgram* Programs::shprg;
-Programs::ColorProgram*      Programs::color_prg;
-Programs::QuadProgram*       Programs::quad_prg;
-Programs::BlurProgram*       Programs::blur_prg;
-Programs::CombineProgram*    Programs::combine_prg;
+CLASSDECLDECL(Programs::TriangleProgram)
+CLASSDECLDECL(Programs::ShTriangleProgram)
+CLASSDECLDECL(Programs::ColorProgram)
+CLASSDECLDECL(Programs::BlurProgram)
+CLASSDECLDECL(Programs::CombineProgram)
+CLASSDECLDECL(Programs::QuadProgram)
 
-void Programs::Init()
+Program* Programs::GetTranglPrg()
 {
-	if (prg)
+	static Program* prg = nullptr;
+
+	if (!prg)
 	{
-		return;
+		prg = render.GetProgram("TriangleProgram");
 	}
 
-	prg = new TriangleProgram();
-	prg->Init();
+	return prg;
+}
 
-	shprg = new ShTriangleProgram();
-	shprg->Init();
+Program* Programs::GetShdTranglPrg()
+{
+	static Program* prg = nullptr;
 
-	color_prg = new ColorProgram();
-	color_prg->Init();
+	if (!prg)
+	{
+		prg = render.GetProgram("ShTriangleProgram");
+	}
 
-	quad_prg = new QuadProgram();
-	quad_prg->Init();
-
-	blur_prg = new BlurProgram();
-	blur_prg->Init();
-
-	combine_prg = new CombineProgram();
-	combine_prg->Init();
+	return prg;
 }

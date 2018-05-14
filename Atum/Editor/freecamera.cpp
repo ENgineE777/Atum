@@ -1,6 +1,7 @@
 #include "FreeCamera.h"
 #include "Services/Controls/Controls.h"
 #include "Services/Render/Render.h"
+#include "SceneAssets/Sprite.h"
 
 void FreeCamera::Init()
 {
@@ -20,6 +21,17 @@ void FreeCamera::Init()
 
 void FreeCamera::Update(float dt)
 {
+	if (mode_2d)
+	{
+		if (controls.GetAliasState(alias_rotate_active, Controls::Active))
+		{
+			Sprite::ed_cam_pos.x -= controls.GetAliasValue(alias_rotate_x, true);
+			Sprite::ed_cam_pos.y -= controls.GetAliasValue(alias_rotate_y, true);
+		}
+
+		return;
+	}
+
 	if (controls.GetAliasState(alias_reset_view))
 	{
 		angles = Vector2(0.0f, -0.5f);

@@ -1,11 +1,10 @@
 
 #include <string.h>
-#include <Ws2tcpip.h>
 
 #include "SimpleServer.h"
 #include "Services/Render/Render.h"
 
-CLASSDECLDECL(SceneObject, SimpleServer)
+CLASSDECLDECL(SimpleServer)
 
 META_DATA_DESC(SimpleServer)
 META_DATA_DESC_END()

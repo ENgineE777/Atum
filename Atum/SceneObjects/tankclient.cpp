@@ -1,9 +1,10 @@
-#include "TankClient.h"
+#include "tankclient.h"
 #include "Services/Controls/Controls.h"
 
-CLASSDECLDECL(SceneObject, TankClient)
+CLASSDECLDECL(TankClient)
 
 META_DATA_DESC(TankClient)
+STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
 META_DATA_DESC_END()
 
 void TankClient::Init()
@@ -19,11 +20,16 @@ void TankClient::Init()
 	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
 	alias_fire = controls.GetAlias("Tank.FIRE");
 
-	hover_model.LoadModelMS3D("Media//tank_base.ms3d");
-	tower_model.LoadModelMS3D("Media//tank_tower.ms3d");
-	gun_model.LoadModelMS3D("Media//tank_gun.ms3d");
+	hover_model.LoadModelMS3D("Media/tank_base.ms3d");
+	tower_model.LoadModelMS3D("Media/tank_tower.ms3d");
+	gun_model.LoadModelMS3D("Media/tank_gun.ms3d");
 
 	Tasks()->AddTask(0, this, (Object::Delegate)&TankClient::Update);
+}
+
+void TankClient::ApplyProperties()
+{
+	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str());
 }
 
 void TankClient::Play()
@@ -91,8 +97,6 @@ void TankClient::Update(float dt)
 				}
 			}
 
-			float speed = 25.0f;
-
 			view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 55, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
 			proj.BuildProjection(45.0f * RADIAN, (float)render.GetDevice()->GetHeight() / (float)render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 
@@ -102,7 +106,7 @@ void TankClient::Update(float dt)
 			inst.clientState.needed_tower_angel = inst.serverState.angle;
 
 			Vector2 screepos = Vector2((float)controls.GetAliasValue(alias_rotate_x, false) / (float)render.GetDevice()->GetWidth(),
-										(float)controls.GetAliasValue(alias_rotate_y, false) / (float)render.GetDevice()->GetHeight());
+			                           (float)controls.GetAliasValue(alias_rotate_y, false) / (float)render.GetDevice()->GetHeight());
 
 			Vector v;
 			v.x = (2.0f * screepos.x - 1) / proj._11;
@@ -140,10 +144,43 @@ void TankClient::Update(float dt)
 				}
 			}
 
-			inst.clientState.up = (int)controls.GetAliasValue(alias_forward, false);
-			inst.clientState.rotate = (int)controls.GetAliasValue(alias_strafe, false);
+			if (vjoy)
+			{
+				inst.clientState.up = 0;
 
-			inst.clientState.fired = controls.GetAliasState(alias_fire);
+				if (vjoy->stick_asb_delta.y > 0.5f)
+				{
+					inst.clientState.up = 1;
+				}
+				else
+				if (vjoy->stick_asb_delta.y <-0.5f)
+				{
+					inst.clientState.up =-1;
+				}
+
+				inst.clientState.rotate = 0;
+
+				if (vjoy->stick_asb_delta.x > 0.5f)
+				{
+					inst.clientState.rotate = 1;
+				}
+				else
+				if (vjoy->stick_asb_delta.x <-0.5f)
+				{
+					inst.clientState.rotate =-1;
+				}
+
+				inst.clientState.fired = vjoy->button_a_pressed;
+
+				inst.clientState.needed_tower_angel = -1000.0f;
+			}
+			else
+			{
+				inst.clientState.up = (int)controls.GetAliasValue(alias_forward, false);
+				inst.clientState.rotate = (int)controls.GetAliasValue(alias_strafe, false);
+
+				inst.clientState.fired = controls.GetAliasState(alias_fire);
+			}
 		}
 
 		float under = 1.0f;

@@ -18,41 +18,41 @@ FloatDataTrack::~FloatDataTrack()
 	values.clear();
 }
 
-void FloatDataTrack::Load(JSONReader* stream, int num)
+void FloatDataTrack::Load(JSONReader& stream, int num)
 {
 	keys.resize(num);
 	values.resize(num);
 
 	for (int i=0; i < num; i++)
 	{
-		if (!stream->EnterBlock("FloatData")) break;
+		if (!stream.EnterBlock("FloatData")) break;
 
-		stream->Read("val", values[i]);
-		stream->Read("time", keys[i].time);
+		stream.Read("val", values[i]);
+		stream.Read("time", keys[i].time);
 
 		keys[i].blend = DataTrack::BlendLinear;
-		stream->Read("blend", (int&)keys[i].blend);
+		stream.Read("blend", (int&)keys[i].blend);
 
-		stream->LeaveBlock();
+		stream.LeaveBlock();
 	}
 }
 
-void FloatDataTrack::Save(JSONWriter* stream)
+void FloatDataTrack::Save(JSONWriter& stream)
 {
-	stream->StartArray("FloatData");
+	stream.StartArray("FloatData");
 
 	for (int i=0; i < keys.size(); i++)
 	{
-		stream->StartBlock(nullptr);
+		stream.StartBlock(nullptr);
 
-		stream->Write("val", values[i]);
-		stream->Write("time", keys[i].time);
-		stream->Write("blend", (int&)keys[i].blend);
+		stream.Write("val", values[i]);
+		stream.Write("time", keys[i].time);
+		stream.Write("blend", (int&)keys[i].blend);
 		
-		stream->FinishBlock();
+		stream.FinishBlock();
 	}
 
-	stream->FinishArray();
+	stream.FinishArray();
 }
 
 void FloatDataTrack::CalcValue(int index, float blend)

@@ -2,9 +2,15 @@
 
 void PhysHeightmap::Release()
 {
-	actor->release();
-	heightField->release();
-	delete[] samples;
+	if (actor)
+	{
+		actor->release();
+	}
+
+	if (heightField)
+	{
+		heightField->release();
+	}
 
 	delete this;
 }

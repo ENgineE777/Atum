@@ -3,6 +3,9 @@
 
 void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+
 	vbuffer = render.GetDevice()->CreateBuffer(SidesCount * (RigsCount + 1), sizeof(Vertex));
 
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
@@ -61,7 +64,9 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	ibuffer->Unlock();
 
-	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugSpheres::Draw);
+	prg = render.GetProgram("DbgTriangle");
+
+	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugSpheres::Draw);
 }
 
 void DebugSpheres::AddSphere(Vector& pos, Color& color, float radius)
@@ -81,13 +86,15 @@ void DebugSpheres::Draw(float dt)
 		return;
 	}
 
-	DebugPrograms::tri_prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, vbuffer);
 	render.GetDevice()->SetIndexBuffer(ibuffer);
 
 	Matrix view_proj;
-	render.SetTransform(Render::World, Matrix());
+	Matrix tmp;
+	render.SetTransform(Render::World, tmp);
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view;
@@ -95,8 +102,8 @@ void DebugSpheres::Draw(float dt)
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
-	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
-	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
+	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
 
 	render.GetDevice()->SetAlphaBlend(true);
 
@@ -105,11 +112,12 @@ void DebugSpheres::Draw(float dt)
 		Sphere& sphere = spheres[i];
 
 		Matrix mat;
-		mat.Scale(Vector(sphere.radius));
+		Vector scale = Vector(sphere.radius);
+		mat.Scale(scale);
 		mat.Pos() = sphere.pos;
 
-		DebugPrograms::tri_prg->VS_SetMatrix("trans", &mat, 1);
-		DebugPrograms::tri_prg->PS_SetVector("color", (Vector4*)&sphere.color, 1);
+		prg->SetMatrix(Program::Vertex, "trans", &mat, 1);
+		prg->SetVector(Program::Pixel, "color", (Vector4*)&sphere.color, 1);
 
 		render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, PrimCount);
 	}

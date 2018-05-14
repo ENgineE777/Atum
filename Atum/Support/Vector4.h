@@ -28,8 +28,8 @@ public:
 	Vector4(double d);
 	Vector4(float x, float y, float z);
 	Vector4(float x, float y, float z, float w);
-	Vector4(const float f[3]);
-	Vector4(const double d[3]);
+	Vector4(float f[3]);
+	Vector4(double d[3]);
 	Vector4(const Vector& v);
 	Vector4(const Vector4& v);
 
@@ -93,7 +93,7 @@ inline Vector4::Vector4(float x, float y, float z, float w)
 	this->w = w;
 }
 
-inline Vector4::Vector4(const float f[3])
+inline Vector4::Vector4(float f[3])
 {
 	x = f[0];
 	y = f[1];
@@ -101,7 +101,7 @@ inline Vector4::Vector4(const float f[3])
 	w = 1.0f;
 }
 
-inline Vector4::Vector4(const double d[3])
+inline Vector4::Vector4(double d[3])
 {
 	x = float(d[0]);
 	y = float(d[1]);

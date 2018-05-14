@@ -8,48 +8,33 @@
 
 class ShaderDX11 : public Shader
 {
+	friend class VertexDeclDX11;
+
 	struct ID3D11VertexShader* vshader;
-	struct ID3D11PixelShader* pshader;
-	struct ID3D11InputLayout*  layout;
+	struct ID3D11PixelShader*  pshader;
 
 	struct ConstantBuffer
 	{
-		uint8_t*	  rawdata;
-		int           size;
-		int			  slot;
-		struct ID3D11Buffer* buffer;
-		bool		  dirty;
-
-		ConstantBuffer()
-		{
-			rawdata = NULL;
-			slot = 0;
-			size = 0;
-			buffer = NULL;
-			dirty = false;
-		};
+		uint8_t* rawdata = nullptr;
+		int      size = 0;
+		int      slot = 0;
+		bool     dirty = false;
+		struct ID3D11Buffer* buffer = nullptr;
 	};
 
 	struct ShaderParamInfo
 	{
-		int slot;
-		int offset;
-		int size;
-
-		ShaderParamInfo()
-		{
-			slot = -1;
-			offset = 0;
-			size = 0;
-		};
+		int slot = -1;
+		int offset = 0;
+		int size = 0;
 	};
 
 	std::vector<ConstantBuffer> buffers;
 	std::map<std::string, ShaderParamInfo> constantsInfo;
 	std::map<std::string, ShaderParamInfo> samplersInfo;
 
-	Texture* textures[16];
-	bool texDirty;
+	Buffer buffer;
+	class TextureDX11* textures[16];
 
 public:
 

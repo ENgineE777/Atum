@@ -31,7 +31,13 @@ private:
 	{
 		Keyboard,
 		Mouse,
-		Joystick
+		Joystick,
+		Touch
+	};
+
+	enum Consts
+	{
+		TouchCount = 10
 	};
 
 #ifdef PLATFORM_PC
@@ -66,7 +72,6 @@ private:
 
 		return val /= 1.0f - deadzone;
 	}
-
 #endif
 
 	struct HardwareAlias
@@ -110,6 +115,17 @@ private:
 	bool  GetHardwareAliasState(int alias, AliasAction action, int device_index);
 	float GetHardwareAliasValue(int alias, bool delta, int device_index);
 
+	struct TouchState
+	{
+		int state = 0;
+		int x = 0;
+		int y = 0;
+		int prev_x = 0;
+		int prev_y = 0;
+	};
+
+	TouchState touches[TouchCount];
+
 public:
 
 	struct AliasMappig
@@ -132,7 +148,9 @@ public:
 	bool  Init(const char* haliases, bool allowDebugKeys);
 	bool  LoadAliases(const char* aliases);
 
+#ifdef PLATFORM_PC
 	void  SetWindow(void* wnd);
+#endif
 
 	int   GetAlias(const char* name);
 
@@ -144,7 +162,12 @@ public:
 	bool  DebugKeyPressed(const char* name, AliasAction action = Activated);
 	bool  DebugHotKeyPressed(const char* name, const char* name2, const char* name3 = nullptr);
 
-	void  OverrideMousePos(int mx, int my);
+#ifdef PLATFORM_PC
+	void OverrideMousePos(int mx, int my);
+#endif
+	void TouchStart(int index, int x, int y);
+	void TouchUpdate(int index, int x, int y);
+	void TouchEnd(int index);
 
 	void  Update(float dt);
 };

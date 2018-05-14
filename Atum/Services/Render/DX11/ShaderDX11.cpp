@@ -1,13 +1,20 @@
 
 #include "ShaderDX11.h"
 #include "DeviceDX11.h"
+#include "VertexDeclDX11.h"
+#include "TextureDX11.h"
 
 #include "d3d11.h"
 #include "d3dcompiler.h"
 
 ShaderDX11::ShaderDX11(Type tp, const char* name) : Shader(tp)
 {
-	Buffer buffer(name);
+	char path[1024];
+	StringUtils::Printf(path, 1024, "Shaders/PC/%s", name);
+	if (!buffer.Load(path))
+	{
+		return;
+	}
 
 	if (tp == Shader::Vertex)
 	{
@@ -84,74 +91,9 @@ ShaderDX11::ShaderDX11(Type tp, const char* name) : Shader(tp)
 		}
 	}
 
-	if (sdr_type == Vertex)
-	{
-		unsigned int byteOffset = 0;
-		std::vector<D3D11_INPUT_ELEMENT_DESC> inputLayoutDesc;
-
-		for (unsigned int i = 0; i< shaderDesc.InputParameters; ++i)
-		{
-			D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
-			pVertexShaderReflection->GetInputParameterDesc(i, &paramDesc);
-
-			// create input element desc
-			D3D11_INPUT_ELEMENT_DESC elementDesc;
-			elementDesc.SemanticName = paramDesc.SemanticName;
-			elementDesc.SemanticIndex = paramDesc.SemanticIndex;
-			elementDesc.InputSlot = 0;
-			elementDesc.AlignedByteOffset = byteOffset;
-			elementDesc.InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
-			elementDesc.InstanceDataStepRate = 0;
-
-			if (strcmp(paramDesc.SemanticName, "COLOR") == 0)
-			{
-				elementDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-				byteOffset += 4;
-			}
-			else
-			// determine DXGI format
-			if (paramDesc.Mask == 1)
-			{
-				if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32_UINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32_SINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32_FLOAT;
-				byteOffset += 4;
-			}
-			else if (paramDesc.Mask <= 3)
-			{
-				if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32_UINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32_SINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32_FLOAT;
-				byteOffset += 8;
-			}
-			else if (paramDesc.Mask <= 7)
-			{
-				if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_UINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_SINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32_FLOAT;
-				byteOffset += 12;
-			}
-			else if (paramDesc.Mask <= 15)
-		   {
-				if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_UINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_UINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_SINT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_SINT;
-				else if (paramDesc.ComponentType == D3D_REGISTER_COMPONENT_FLOAT32) elementDesc.Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
-				byteOffset += 16;
-			}
-
-			inputLayoutDesc.push_back(elementDesc);
-		}
-
-		DeviceDX11::instance->pd3dDevice->CreateInputLayout(&inputLayoutDesc[0], (UINT)inputLayoutDesc.size(), buffer.GetData(), (size_t)buffer.GetSize(), &layout);
-	}
-	else
-	{
-		layout = NULL;
-	}
-
 	for (int i = 0; i < 16; i++)
 	{
-		textures[i] = NULL;
+		textures[i] = nullptr;
 	}
 }
 
@@ -188,7 +130,7 @@ bool ShaderDX11::SetMatrix(const char* param, Matrix* m, int count)
 	Matrix tmp(false);
 	memcpy(&tmp.matrix[0], &m->matrix[0], 64);
 	
-	tmp.Transposition();
+	tmp.Transpose();
 
 	memcpy((void*)&buffer->rawdata[spInfo.offset], &tmp.matrix[0], spInfo.size);
 
@@ -206,7 +148,7 @@ bool ShaderDX11::SetTexture(const char* param, Texture* tex)
 		return false;
 	}
 
-	textures[spInfo.slot] = tex;
+	textures[spInfo.slot] = (TextureDX11*)tex;
 
 	return true;
 }
@@ -216,8 +158,6 @@ void ShaderDX11::Apply()
 	if (sdr_type == Shader::Vertex)
 	{
 		DeviceDX11::instance->immediateContext->VSSetShader(vshader, 0, 0);
-
-		if (layout) DeviceDX11::instance->immediateContext->IASetInputLayout(layout);
 	}
 	else
 	{
@@ -262,7 +202,7 @@ void ShaderDX11::UpdateConstants()
 
 		if (textures[spInfo.slot])
 		{
-			ID3D11ShaderResourceView* sh_view = (ID3D11ShaderResourceView*)textures[spInfo.slot]->GetData();
+			ID3D11ShaderResourceView* sh_view = (ID3D11ShaderResourceView*)textures[spInfo.slot]->srview;
 
 			textures[spInfo.slot]->Apply(spInfo.slot);
 			DeviceDX11::instance->immediateContext->PSSetShaderResources(spInfo.slot, 1, &sh_view);

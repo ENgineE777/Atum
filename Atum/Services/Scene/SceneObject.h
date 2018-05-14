@@ -39,8 +39,8 @@ public:
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
-	virtual void Load(JSONReader* reader);
-	virtual void Save(JSONWriter* writer);
+	virtual void Load(JSONReader& reader);
+	virtual void Save(JSONWriter& writer);
 	virtual TaskExecutor::SingleTaskPool* Tasks();
 	virtual TaskExecutor::SingleTaskPool* RenderTasks();
 	virtual void Play();
@@ -50,12 +50,13 @@ public:
 	virtual void Release();
 
 #ifdef EDITOR
+	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
-	virtual void OnMouseMove(int dmx, int dmy);
-	virtual void OnLeftMouseDown(int mx, int my);
-	virtual void OnLeftMouseUp(int mx, int my);
-	virtual void OnRightMouseDown(int mx, int my);
-	virtual void OnRightMouseUp(int mx, int my);
+	virtual void OnMouseMove(Vector2 delta_ms);
+	virtual void OnLeftMouseDown(Vector2 ms);
+	virtual void OnLeftMouseUp();
+	virtual void OnRightMouseDown(Vector2 ms);
+	virtual void OnRightMouseUp();
 #endif
 };
 

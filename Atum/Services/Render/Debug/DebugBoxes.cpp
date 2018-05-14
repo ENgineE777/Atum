@@ -1,8 +1,10 @@
 #include "DebugBoxes.h"
-#include "DebugPrograms.h"
 
 void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+
 	vbuffer = render.GetDevice()->CreateBuffer(24, sizeof(Vertex));
 
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
@@ -76,7 +78,9 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	ibuffer->Unlock();
 
-	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugBoxes::Draw);
+	prg = render.GetProgram("DbgTriangle");
+
+	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugBoxes::Draw);
 }
 
 void DebugBoxes::AddBox(Matrix& trans, Color& color, Vector& scale)
@@ -95,13 +99,15 @@ void DebugBoxes::Draw(float dt)
 		return;
 	}
 
-	DebugPrograms::tri_prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, vbuffer);
 	render.GetDevice()->SetIndexBuffer(ibuffer);
 
 	Matrix view_proj;
-	render.SetTransform(Render::World, Matrix());
+	Matrix tmp;
+	render.SetTransform(Render::World, tmp);
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view;
@@ -109,8 +115,8 @@ void DebugBoxes::Draw(float dt)
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
-	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
-	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
+	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
 
 	render.GetDevice()->SetAlphaBlend(false);
 
@@ -118,8 +124,8 @@ void DebugBoxes::Draw(float dt)
 	{
 		Box& box = boxes[i];
 
-		DebugPrograms::tri_prg->VS_SetMatrix("trans", &box.trans, 1);
-		DebugPrograms::tri_prg->PS_SetVector("color", (Vector4*)&box.color, 1);
+		prg->SetMatrix(Program::Vertex, "trans", &box.trans, 1);
+		prg->SetVector(Program::Pixel, "color", (Vector4*)&box.color, 1);
 
 		render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, 12);
 	}

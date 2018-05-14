@@ -4,6 +4,7 @@
 class Plane : public Object
 {
 public:
+	VertexDecl*     vdecl;
 	GeometryBuffer* buffer;
 	Texture*        texture;
 

@@ -4,13 +4,14 @@
 #include "Support/Support.h"
 
 class Texture
-{	
+{
 public:
 
 	enum Format
 	{
 		FMT_A8R8G8B8 = 0,
 		FMT_A8R8,
+		FMT_A8,
 		FMT_R16_FLOAT,
 		FMT_D16
 	};
@@ -53,6 +54,9 @@ public:
 		adressW = Wrap;
 	};
 
+	static void NextMip(int& width, int& height, int block_size);
+	static int GetLevels(int width, int height, int block_size);
+
 	virtual ~Texture() {};
 
 	virtual int GetWidth()  { return width; };
@@ -88,8 +92,6 @@ public:
 	{
 		adressW = adress;
 	};
-
-	virtual void* GetData() = 0;
 
 	virtual void GenerateMips() = 0;
 	virtual void Apply(int slot) = 0;

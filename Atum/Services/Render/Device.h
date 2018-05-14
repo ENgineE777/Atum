@@ -5,15 +5,27 @@
 #include "Shader.h"
 #include "GeometryBuffer.h"
 #include "Program.h"
+#include "VertexDecl.h"
 #include "Texture.h"
 
 class Device
 {
 	friend class Render;
 	friend class Program;
+	friend class DeviceDX11;
+	friend class DeviceGLES;
+
+	int  scr_w = 0;
+	int  scr_h = 0;
+	int  cur_rt_w = 0;
+	int  cur_rt_h = 0;
+	float cur_aspect = 0.0f;
 
 	virtual bool Init(int width, int height, void* data) = 0;
+	virtual void PrepareProgram(Program* program) = 0;
 	virtual void Release() = 0;
+
+	Program* cur_program = nullptr;
 
 public:
 
@@ -85,30 +97,27 @@ public:
 		ArgInvDestColor
 	};
 
-	virtual void SetVideoMode(int wgt, int hgt, void* data) = 0;
-	virtual int  GetWidth() = 0;
-	virtual int  GetHeight() = 0;
+	virtual void  SetVideoMode(int wgt, int hgt, void* data) = 0;
+	virtual int   GetWidth() = 0;
+	virtual int   GetHeight() = 0;
+	virtual float GetAspect() = 0;
 
 	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue) = 0;
 	virtual void Present() = 0;
 
+	virtual void SetProgram(Program* program) = 0;
+
+	virtual VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems) = 0;
+	virtual void SetVertexDecl(VertexDecl* vdecl) = 0;
+
 	virtual GeometryBuffer* CreateBuffer(int count, int stride) = 0;
 	virtual void SetVertexBuffer(int slot, GeometryBuffer* buffer) = 0;
-	
 	virtual void SetIndexBuffer(GeometryBuffer* buffer) = 0;
 
 	virtual Texture* CreateTexture(int w, int h, Texture::Format f, int l, bool rt, Texture::Type tp) = 0;
 
-	void PreDraw()
-	{
-		if (Program::current)
-		{
-			Program::current->SetShaders();
-		}
-	}
-
 	virtual void Draw(Primitive prim, int startVertex, int primCount) = 0;
-	virtual void DrawIndexed(Primitive prim, int startVertex, int starIndex, int primCount) = 0;
+	virtual void DrawIndexed(Primitive prim, int startVertex, int startIndex, int primCount) = 0;
 
 	virtual void SetAlphaBlend(bool enable) = 0;
 	virtual void SetBlendFunc(BlendArg src, BlendArg dest) = 0;
@@ -119,9 +128,6 @@ public:
 	virtual void SetCulling(CullMode mode) = 0;
 	virtual void SetupSlopeZBias(bool enable, float slopeZBias, float depthOffset) = 0;
 
-	virtual void SetScissor(bool enable) = 0;
-	virtual void SetScissorRect(const Rect& rect) = 0;
-	virtual void GetScissorRect(Rect& rect) = 0;
 	virtual void SetViewport(const Viewport& viewport) = 0;
 	virtual void GetViewport(Viewport& viewport) = 0;
 

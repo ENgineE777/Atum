@@ -2,8 +2,9 @@
 #include "BoxPlayer.h"
 #include "Services/Render/Render.h"
 #include "../Animator.h"
+#include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(TrackPlayer, BoxPlayer)
+CLASSDECLDECL(BoxPlayer)
 
 META_DATA_DESC(BoxPlayer)
 META_DATA_DESC_END()
@@ -24,7 +25,7 @@ void BoxPlayer::Init()
 	AddFloatDataTrack(sizeY, &size.y, nullptr, 1.0f)
 	AddFloatDataTrack(sizeZ, &size.z, nullptr, 1.0f)
 
-	owner->RenderTasks()->AddTask(0, this, (Object::Delegate)&BoxPlayer::Draw);
+	owner->RenderTasks()->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&BoxPlayer::Draw);
 }
 
 void BoxPlayer::Draw(float dt)

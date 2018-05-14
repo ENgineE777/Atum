@@ -4,14 +4,15 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "model.h"
-#include "Terrain.h"
+#include "terrain.h"
 #include "PhysBox.h"
 
 #include "Services/Physics/Physics.h"
 
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"
-#include "Tank.h"
+#include "tank.h"
+#include "VirtualJoystick.h"
 
 class TankClient : public SceneObject
 {
@@ -35,6 +36,9 @@ public:
 	Model tower_model;
 	Model gun_model;
 
+	VirtualJoystick* vjoy = nullptr;
+	string vjoy_name;
+
 	struct Instance
 	{
 		bool is_contralable;
@@ -48,7 +52,8 @@ public:
 
 	std::vector<Instance> instances;
 
-	void Init();
+	virtual void Init();
+	virtual void ApplyProperties();
 
 	void AddIsntance(int id, bool  is_contralable);
 

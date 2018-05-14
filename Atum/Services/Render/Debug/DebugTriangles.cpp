@@ -3,9 +3,14 @@
 
 void DebugTriangles::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+
 	vbuffer = render.GetDevice()->CreateBuffer(3000, sizeof(Vertex));
 
-	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugTriangles::Draw);
+	prg = render.GetProgram("DbgTriangle");
+
+	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugTriangles::Draw);
 }
 
 void DebugTriangles::AddTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color)
@@ -26,12 +31,14 @@ void DebugTriangles::Draw(float dt)
 		return;
 	}
 
-	DebugPrograms::tri_prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, vbuffer);
 
 	Matrix view_proj;
-	render.SetTransform(Render::World, Matrix());
+	Matrix tmp;
+	render.SetTransform(Render::World, tmp);
 	render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view;
@@ -39,13 +46,13 @@ void DebugTriangles::Draw(float dt)
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
-	DebugPrograms::tri_prg->VS_SetMatrix("view_proj", &view_proj, 1);
-	DebugPrograms::tri_prg->PS_SetVector("lightDir", &vz, 1);
+	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
 
 	Matrix trans;
 	Color color = COLOR_WHITE;
-	DebugPrograms::tri_prg->VS_SetMatrix("trans", &trans, 1);
-	DebugPrograms::tri_prg->PS_SetVector("color", (Vector4*)&color, 1);
+	prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
+	prg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
 
 	int index = 0;
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
@@ -55,7 +62,8 @@ void DebugTriangles::Draw(float dt)
 		Triangle& triangle = triangles[i];
 
 		Vector normal = (triangle.p[0] - triangle.p[1]);
-		normal.Cross(triangle.p[2] - triangle.p[1]);
+		Vector dir = triangle.p[2] - triangle.p[1];
+		normal.Cross(dir);
 
 		for (int j = 0; j < 3; j++)
 		{

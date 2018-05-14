@@ -48,6 +48,8 @@ public:
 		GeometryBuffer* buffer;
 	};
 
+	VertexDecl* vdecl;
+
 	Vector bb_max;
 	Vector bb_min;
 

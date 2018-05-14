@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Support/Support.h"
-#include "../quad.h"
+#include "Services/Render/Render.h"
 
 class GUIWidget
 {
@@ -16,7 +16,6 @@ public:
 	};
 
 	static Texture* tex;
-	static Quad quad;
 
 	Matrix   pos;
 	SizeType sizeTypes[2];

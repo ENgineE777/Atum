@@ -1,5 +1,5 @@
 #include "DebugFont.h"
-#include "Services/Font/FontService.h"
+#include "Services/Font/Fonts.h"
 
 DebugFont::DebugFont()
 {

@@ -1,23 +1,15 @@
 
-#pragma once
-
 #include "DeviceDX11.h"
 #include "GeometryBufferDX11.h"
 #include "ShaderDX11.h"
+#include "VertexDeclDX11.h"
 #include "TextureDX11.h"
+#include "Services/Core/Core.h"
 
 DeviceDX11* DeviceDX11::instance = NULL;
 
 DeviceDX11::DeviceDX11()
 {
-	pd3dDevice = NULL;
-	immediateContext = NULL;
-	swapChain = NULL;
-	renderTargetView = NULL;
-	depthStencil = NULL;
-	depthStencilView = NULL;
-	factory = NULL;
-
 	instance = this;
 
 	blend_desc = new D3D11_BLEND_DESC();
@@ -78,10 +70,10 @@ DeviceDX11::DeviceDX11()
 
 	for (int i = 0; i < 6; i++)
 	{
-		cur_rt[i] = NULL;
+		cur_rt[i] = nullptr;
 	}
 
-	cur_depth = NULL;
+	cur_depth = nullptr;
 	need_set_rt = true;
 
 	vp_was_setted = false;
@@ -135,11 +127,13 @@ bool DeviceDX11::Init(int width, int height, void* data)
 
 void DeviceDX11::SetVideoMode(int wgt, int hgt, void* data)
 {
+	core.Log("Render", "Set videomode : %i x %i", wgt, hgt);
 	HWND hwnd = *((HWND*)data);
 
 	scr_w = wgt;
 	scr_h = hgt;
-	
+	cur_aspect = (float)hgt / (float)wgt;
+
 	RELEASE(depthStencilView)
 	RELEASE(depthStencil)
 	RELEASE(renderTargetView)
@@ -207,6 +201,11 @@ int DeviceDX11::GetHeight()
 	return scr_h;
 }
 
+float DeviceDX11::GetAspect()
+{
+	return cur_aspect;
+}
+
 void DeviceDX11::Clear(bool renderTarget, Color color, bool zbuffer, float zValue)
 {
 	if (renderTarget)
@@ -231,6 +230,35 @@ void DeviceDX11::Present()
 	swapChain->Present(0, 0);
 }
 
+void DeviceDX11::PrepareProgram(Program* program)
+{
+
+}
+
+void DeviceDX11::SetProgram(Program* program)
+{
+	if (cur_program != program)
+	{
+		cur_program = program;
+		need_apply_prog = true;
+		need_apply_vdecl = true;
+	}
+}
+
+VertexDecl* DeviceDX11::CreateVertexDecl(int count, VertexDecl::ElemDesc* elems)
+{
+	return new VertexDeclDX11(count, elems);
+}
+
+void DeviceDX11::SetVertexDecl(VertexDecl* vdecl)
+{
+	if (cur_vdecl != vdecl)
+	{
+		need_apply_vdecl = true;
+		cur_vdecl = (VertexDeclDX11*)vdecl;
+	}
+}
+
 GeometryBuffer* DeviceDX11::CreateBuffer(int count, int stride)
 {
 	return new GeometryBufferDX11(count, stride);
@@ -243,12 +271,12 @@ void DeviceDX11::SetVertexBuffer(int slot, GeometryBuffer* buffer)
 
 	if (buffer)
 	{
-		vb = (ID3D11Buffer*)buffer->GetData();
+		vb = ((GeometryBufferDX11*)buffer)->buffer;
 		stride = buffer->GetStride();
 	}
 
 	unsigned int offset = 0;
-	immediateContext->IASetVertexBuffers(0, 1, &vb, &stride, &offset);
+	immediateContext->IASetVertexBuffers(slot, 1, &vb, &stride, &offset);
 }
 
 void DeviceDX11::SetIndexBuffer(GeometryBuffer* buffer)
@@ -258,7 +286,7 @@ void DeviceDX11::SetIndexBuffer(GeometryBuffer* buffer)
 
 	if (buffer)
 	{
-		ib = (ID3D11Buffer*)buffer->GetData();
+		ib = ((GeometryBufferDX11*)buffer)->buffer;
 		if (buffer->GetStride() == 4)
 		{
 			fmt = DXGI_FORMAT_R32_UINT;
@@ -343,25 +371,16 @@ void DeviceDX11::Draw(Primitive prim, int startVertex, int primCount)
 {
 	UpdateStates();
 
-	if (primCount > 5000)
-	{
-		int k = 0;
-		k++;
-	}
-	Device::PreDraw();
-
 	immediateContext->IASetPrimitiveTopology((D3D_PRIMITIVE_TOPOLOGY)GetPrimitiveType(prim));
 	immediateContext->Draw(CalcPrimCount(prim, primCount), startVertex);
 }
 
-void DeviceDX11::DrawIndexed(Primitive prim, int startVertex, int starIndex, int primCount)
+void DeviceDX11::DrawIndexed(Primitive prim, int startVertex, int startIndex, int primCount)
 {
 	UpdateStates();
 
-	Device::PreDraw();
-
 	immediateContext->IASetPrimitiveTopology((D3D_PRIMITIVE_TOPOLOGY)GetPrimitiveType(prim));
-	immediateContext->DrawIndexed(CalcPrimCount(prim, primCount), starIndex, startVertex);
+	immediateContext->DrawIndexed(CalcPrimCount(prim, primCount), startIndex, startVertex);
 }
 
 
@@ -438,41 +457,8 @@ void DeviceDX11::SetupSlopeZBias(bool enable, float slopeZBias, float depthOffse
 
 void DeviceDX11::UpdateStates()
 {
-	if (blend_changed)
-	{
-		RELEASE(blend_state)
-
-		pd3dDevice->CreateBlendState(blend_desc, &blend_state);
-		immediateContext->OMSetBlendState(blend_state, 0, 0xffffffff);
-
-		blend_changed = false;
-	}
-
-	if (ds_changed)
-	{
-		RELEASE(ds_state)
-
-		instance->pd3dDevice->CreateDepthStencilState(ds_desc, &ds_state);
-		immediateContext->OMSetDepthStencilState(ds_state, 255);
-
-		ds_changed = false;
-	}
-
-	if (raster_changed)
-	{
-		RELEASE(raster_state)
-
-		pd3dDevice->CreateRasterizerState(raster_desc, &raster_state);
-		immediateContext->RSSetState(raster_state);
-
-		raster_changed = false;
-	}
-
 	if (need_set_rt)
 	{
-		ID3D11ShaderResourceView* pSRV[3] = { NULL, NULL, NULL };
-		immediateContext->PSSetShaderResources(0, 3, pSRV);
-
 		int count = 0;
 
 		for (int i = 0; i < 6; i++)
@@ -509,35 +495,69 @@ void DeviceDX11::UpdateStates()
 		vp.TopLeftY = 0;
 		immediateContext->RSSetViewports(1, &vp);
 	}
-}
 
-void DeviceDX11::SetScissor(bool enable)
-{
-	raster_desc->ScissorEnable = enable;
-	raster_changed = true;
-}
+	if (cur_program)
+	{
+		if (need_apply_prog)
+		{
+			if (cur_program->vshader) cur_program->vshader->Apply();
+			if (cur_program->pshader) cur_program->pshader->Apply();
 
-void DeviceDX11::SetScissorRect(const Rect& rect)
-{
-	D3D11_RECT rc;
-	rc.bottom = rect.bottom;
-	rc.left = rect.left;
-	rc.right = rect.right;
-	rc.top = rect.top;
+			SetAlphaBlend(false);
+			SetDepthTest(true);
+			SetDepthWriting(true);
 
-	immediateContext->RSSetScissorRects(1, &rc);
-}
+			cur_program->ApplyStates();
+			need_apply_prog = false;
+		}
 
-void DeviceDX11::GetScissorRect(Rect& rect)
-{
-	D3D11_RECT rc;
-	unsigned int num = 1;
-	immediateContext->RSGetScissorRects(&num, &rc);
+		if (cur_program->vshader)
+		{
+			cur_program->vshader->UpdateConstants();
 
-	rect.left = (short)rc.left;
-	rect.top = (short)rc.top;
-	rect.right = (short)rc.right;
-	rect.bottom = (short)rc.bottom;
+			if (need_apply_vdecl)
+			{
+				if (cur_vdecl)
+				{
+					cur_vdecl->Apply((ShaderDX11*)cur_program->vshader);
+				}
+
+				need_apply_vdecl = false;
+			}
+		}
+
+		if (cur_program->pshader) cur_program->pshader->UpdateConstants();
+	}
+
+	if (blend_changed)
+	{
+		RELEASE(blend_state)
+
+		pd3dDevice->CreateBlendState(blend_desc, &blend_state);
+		immediateContext->OMSetBlendState(blend_state, 0, 0xffffffff);
+
+		blend_changed = false;
+	}
+
+	if (ds_changed)
+	{
+		RELEASE(ds_state)
+
+		instance->pd3dDevice->CreateDepthStencilState(ds_desc, &ds_state);
+		immediateContext->OMSetDepthStencilState(ds_state, 255);
+
+		ds_changed = false;
+	}
+
+	if (raster_changed)
+	{
+		RELEASE(raster_state)
+
+		pd3dDevice->CreateRasterizerState(raster_desc, &raster_state);
+		immediateContext->RSSetState(raster_state);
+
+		raster_changed = false;
+	}
 }
 
 void DeviceDX11::SetViewport(const Viewport& viewport)

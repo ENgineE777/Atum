@@ -3,10 +3,16 @@
 #include <string>
 #include <map>
 
+using namespace std;
+
 class StringUtils
 {
+	static map<wchar_t, int> upper2lower;
+	static map<wchar_t, int> lower2upper;
+
 public:
 
+	static void Init();
 	static int  GetLen(const char* str);
 	static bool IsEmpty(const char* str);
 	static bool IsEqual(const char* str1, const char* str2);
@@ -25,7 +31,10 @@ public:
 	static int  ExtractNameNumber(const char* str, char* wo_n_str, int len);
 	static void EscapeChars(const char* in, char* out, int len);
 	static bool BuildUtf16fromUtf8(char c, int& bytes, int& w);
-	static void BuildUtf8fromUtf16(int c, std::string& dest);
-	static void Utf8toUtf16(std::wstring& dest, const char* src);
-	static void Utf16toUtf8(std::string& dest, const wchar_t* src);
+	static void BuildUtf8fromUtf16(int c, string& dest);
+	static void LowerCase(string& str);
+	static void UpperCase(string& str);
+	static bool CompareABC(const char* str1, const char* str2);
+	static void Utf8toUtf16(wstring& dest, const char* src);
+	static void Utf16toUtf8(string& dest, const wchar_t* src);
 };

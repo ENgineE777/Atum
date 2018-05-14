@@ -35,8 +35,8 @@ private:
 	PhysScene* pscene = nullptr;;
 	void DelFromGroup(Group& group, SceneObject* obj);
 
-	void Load(JSONReader* reader, std::vector<SceneObject*>& objects, const char* block);
-	void Save(JSONWriter* writer, std::vector<SceneObject*>& objects, const char* block);
+	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block);
+	void Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block);
 
 	void DeleteObjects(std::vector<SceneObject*>& objects);
 
@@ -70,8 +70,11 @@ public:
 
 	virtual void EnableTasks(bool enable);
 
+	SceneObject* FindInGroup(const char* group_name, const char* name);
 	Group& GetGroup(const char* name);
 	void AddToGroup(SceneObject* obj, const char* name);
 	void DelFromGroup(SceneObject* obj, const char* name);
 	void DelFromAllGroups(SceneObject* obj);
+
+	void Release();
 };

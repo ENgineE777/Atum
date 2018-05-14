@@ -45,16 +45,16 @@ public:
 	
 	void SetIdentity();
 	void Set(float qx, float qy, float qz, float qw);
-	void Set(const Matrix & mtx);
+	void Set(Matrix mtx);
 	inline Quaternion& Set(float angle, Vector v);
 	Quaternion& Normalize();
 	Quaternion& Conjugate();
 	Quaternion& Inverse();
-	Quaternion& SLerp(const Quaternion & from, const Quaternion & to, float kBlend);
-	Matrix& GetMatrix(Matrix & mtx);
+	Quaternion& SLerp(Quaternion from, Quaternion to, float kBlend);
+	void GetMatrix(Matrix& mtx);
 	float GetLength();
 	float GetLengthSqr();
-	void Rotate(Vector& v);
+	void Rotate(Vector v);
 };
 
 inline Quaternion::Quaternion()
@@ -295,7 +295,7 @@ Quaternion& Quaternion:: Set(float angle, Vector v)
 	return (*this);
 }
 
-inline void Quaternion::Set(const Matrix & mtx)
+inline void Quaternion::Set(Matrix mtx)
 {
 	float tr = mtx.m[0][0] + mtx.m[1][1] + mtx.m[2][2];
 	if (tr > 0.0f)
@@ -379,7 +379,7 @@ inline Quaternion & Quaternion::Inverse()
 	return *this;
 }
 
-inline Quaternion & Quaternion::SLerp(const Quaternion & from, const Quaternion & to, float kBlend)
+inline Quaternion & Quaternion::SLerp(Quaternion from, Quaternion to, float kBlend)
 {
 	double cosomega = from.x*to.x + from.y*to.y + from.z*to.z + from.w*to.w;
 	double k = 1.0f;
@@ -421,7 +421,7 @@ inline Quaternion & Quaternion::SLerp(const Quaternion & from, const Quaternion 
 	return *this;
 }
 
-inline Matrix& Quaternion::GetMatrix(Matrix& mtx)
+inline void Quaternion::GetMatrix(Matrix& mtx)
 {
 	float kLen = x*x + y*y + z*z + w*w;
 
@@ -446,7 +446,6 @@ inline Matrix& Quaternion::GetMatrix(Matrix& mtx)
 	mtx.m[3][1] = 0.0f;
 	mtx.m[3][2] = 0.0f;
 	mtx.m[3][3] = 1.0f;
-	return mtx;
 }
 
 inline float Quaternion::GetLength()
@@ -459,12 +458,12 @@ inline float Quaternion::GetLengthSqr()
 	return x*x + y*y + z*z + w*w;
 }
 
-inline void Quaternion::Rotate(Vector& v)
+inline void Quaternion::Rotate(Vector v)
 {
-	Quaternion r ( v.x * w + v.z * y - v.y * z,
-					v.y * w + v.x * z - v.z * x,
-					v.z * w + v.y * x - v.x * y,
-					v.x * x + v.y * y + v.z * z );
+	Quaternion r (v.x * w + v.z * y - v.y * z,
+	              v.y * w + v.x * z - v.z * x,
+	              v.z * w + v.y * x - v.x * y,
+	              v.x * x + v.y * y + v.z * z );
 
 	v.x = w * r.x + x * r.w + y * r.z - z * r.y;
 	v.y = w * r.y + y * r.w + z * r.x - x * r.z;

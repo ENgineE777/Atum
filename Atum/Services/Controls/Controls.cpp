@@ -1,6 +1,6 @@
 
 #include "Controls.h"
-#include "Services/Render/Render.h"
+#include "Support/StringUtils.h"
 #include "Support/json/JSONReader.h"
 
 Controls controls;
@@ -132,72 +132,84 @@ bool Controls::Init(const char* name_haliases, bool allowDebugKeys)
 	prev_ms_x = prev_ms_y = -1000;
 #endif
 
-	JSONReader* reader = new JSONReader();
+	JSONReader reader;
 
-	if (reader->Parse(name_haliases))
+	if (reader.Parse(name_haliases))
 	{
-		while (reader->EnterBlock("keyboard"))
+		while (reader.EnterBlock("keyboard"))
 		{
 			haliases.push_back(HardwareAlias());
 			HardwareAlias& halias = haliases[haliases.size() - 1];
 
 			halias.device = Keyboard;
-			reader->Read("name", halias.name);
-			reader->Read("index", halias.index);
+			reader.Read("name", halias.name);
+			reader.Read("index", halias.index);
 
 			debeugMap[halias.name] = (int)haliases.size() - 1;
 
-			reader->LeaveBlock();
+			reader.LeaveBlock();
 		}
 
-		while (reader->EnterBlock("mouse"))
+		while (reader.EnterBlock("mouse"))
 		{
 			haliases.push_back(HardwareAlias());
 			HardwareAlias& halias = haliases[(int)haliases.size() - 1];
 
 			halias.device = Mouse;
-			reader->Read("name", halias.name);
-			reader->Read("index", halias.index);
+			reader.Read("name", halias.name);
+			reader.Read("index", halias.index);
 
 			debeugMap[halias.name] = (int)haliases.size() - 1;
 
-			reader->LeaveBlock();
+			reader.LeaveBlock();
 		}
 
-		while (reader->EnterBlock("joystick"))
+		while (reader.EnterBlock("joystick"))
 		{
 			haliases.push_back(HardwareAlias());
 			HardwareAlias& halias = haliases[(int)haliases.size() - 1];
 
 			halias.device = Joystick;
-			reader->Read("name", halias.name);
-			reader->Read("index", halias.index);
+			reader.Read("name", halias.name);
+			reader.Read("index", halias.index);
 
 			debeugMap[halias.name] = (int)haliases.size() - 1;
 
-			reader->LeaveBlock();
+			reader.LeaveBlock();
+		}
+
+		while (reader.EnterBlock("touch"))
+		{
+			haliases.push_back(HardwareAlias());
+			HardwareAlias& halias = haliases[(int)haliases.size() - 1];
+
+			halias.device = Touch;
+			reader.Read("name", halias.name);
+			reader.Read("index", halias.index);
+
+			debeugMap[halias.name] = (int)haliases.size() - 1;
+
+			reader.LeaveBlock();
 		}
 	}
-
-	reader->Release();
 
 	return true;
 }
 
 bool Controls::LoadAliases(const char* name_aliases)
 {
-	JSONReader* reader = new JSONReader();
+	JSONReader reader;
 
 	bool res = false;
 
-	if (reader->Parse(name_aliases))
+	if (reader.Parse(name_aliases))
 	{
 		res = true;
 
-		while (reader->EnterBlock("Aliases"))
+		while (reader.EnterBlock("Aliases"))
 		{
 			std::string name;
-			reader->Read("name", name);
+			reader.Read("name", name);
 
 			int index = GetAlias(name.c_str());
 
@@ -217,16 +229,16 @@ bool Controls::LoadAliases(const char* name_aliases)
 				alias->aliasesRef.clear();
 			}
 
-			while (reader->EnterBlock("AliasesRef"))
+			while (reader.EnterBlock("AliasesRef"))
 			{
 				alias->aliasesRef.push_back(AliasRef());
 				AliasRef& aliasRef = alias->aliasesRef.back();
 
-				while (reader->EnterBlock("names"))
+				while (reader.EnterBlock("names"))
 				{
-					string name;
+					std::string name;
 
-					if (reader->IsString("") && reader->Read("", name))
+					if (reader.IsString("") && reader.Read("", name))
 					{
 						aliasRef.refs.push_back(AliasRefState());
 						aliasRef.refs.back().name = name;
@@ -235,25 +247,23 @@ bool Controls::LoadAliases(const char* name_aliases)
 					{
 						if (aliasRef.refs.size() != 0)
 						{
-							reader->Read("", aliasRef.refs.back().device_index);
+							reader.Read("", aliasRef.refs.back().device_index);
 						}
 					}
 
-					reader->LeaveBlock();
+					reader.LeaveBlock();
 				}
 
-				reader->Read("modifier", aliasRef.modifier);
+				reader.Read("modifier", aliasRef.modifier);
 
-				reader->LeaveBlock();
+				reader.LeaveBlock();
 			}
 
-			reader->LeaveBlock();
+			reader.LeaveBlock();
 		}
 
 		ResolveAliases();
 	}
-
-	reader->Release();
 
 	return res;
 }
@@ -326,10 +336,12 @@ void Controls::CheckDeadEnds(Alias& alias)
 	alias.visited = false;
 }
 
+#ifdef PLATFORM_PC
 void Controls::SetWindow(void* wnd)
 {
 	hwnd = *((HWND*)wnd);
 }
+#endif
 
 int Controls::GetAlias(const char* name)
 {
@@ -347,6 +359,7 @@ bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_i
 
 	switch (halias.device)
 	{ 
+#ifdef PLATFORM_PC
 		case Joystick:
 		{
 			if (halias.index<100 || halias.index > 109)
@@ -426,6 +439,24 @@ bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_i
 					return (ms_bts[halias.index] > 0);
 				}
 			}
+			break;
+		}
+#endif
+		case Touch:
+		{
+			if (halias.index < 10)
+			{
+				if (action == Activated)
+				{
+					return (touches[halias.index].state == 1);
+				}
+
+				if (action == Active)
+				{
+					return (touches[halias.index].state > 0);
+				}
+			}
+			break;
 		}
 	}
 
@@ -443,13 +474,20 @@ bool Controls::GetAliasState(int index, AliasAction action)
 
 	for (auto& aliasRef : alias.aliasesRef)
 	{
-		bool val = true;
+		bool prepare_val = false;
+		bool val = false;
 
 		for (auto& ref : aliasRef.refs)
 		{
 			if (ref.aliasIndex == -1)
 			{
 				continue;
+			}
+
+			if (!prepare_val)
+			{
+				val = true;
+				prepare_val = true;
 			}
 
 			if (ref.refer2hardware)
@@ -499,6 +537,7 @@ float Controls::GetHardwareAliasValue(int index, bool delta, int device_index)
 
 	switch (halias.device)
 	{
+#ifdef PLATFORM_PC
 		case Joystick:
 		{
 			if (halias.index >= 100 && halias.index <= 109)
@@ -663,6 +702,38 @@ float Controls::GetHardwareAliasValue(int index, bool delta, int device_index)
 			}
 			break;
 		}
+#endif
+		case Touch:
+		{
+			if (halias.index < 10)
+			{
+				if (touches[halias.index].state > 0)
+				{
+					return 1.0f;
+				}
+			}
+			else
+			if (halias.index < 20)
+			{
+				if (delta)
+				{
+					return (float)(touches[halias.index - 10].x - touches[halias.index - 10].prev_x);
+				}
+
+				return (float)touches[halias.index - 10].x;
+			}
+			else
+			if (halias.index < 30)
+			{
+				if (delta)
+				{
+					return (float)(touches[halias.index - 20].y - touches[halias.index - 20].prev_y);
+				}
+
+				return (float)touches[halias.index - 20].y;
+			}
+			break;
+		}
 	}
 
 	return 0.0f;
@@ -715,10 +786,12 @@ const char* Controls::GetActivatedKey(int& device_index)
 
 		int count = 1;
 
+#ifdef PLATFORM_PC
 		if (halias.device == Joystick)
 		{
 			count = XUSER_MAX_COUNT;
 		}
+#endif
 
 		for (device_index = 0; device_index<count; device_index++)
 		{
@@ -772,6 +845,7 @@ bool Controls::DebugHotKeyPressed(const char* name, const char* name2, const cha
 	return false;
 }
 
+#ifdef PLATFORM_PC
 void Controls::OverrideMousePos(int mx, int my)
 {
 	if (prev_ms_x == -1000)
@@ -789,9 +863,48 @@ void Controls::OverrideMousePos(int mx, int my)
 	prev_ms_y = ms_y;
 	ms_y = my;
 }
+#endif
+
+void Controls::TouchStart(int index, int x, int y)
+{
+	touches[index].state = 1;
+	touches[index].x = x;
+	touches[index].y = y;
+
+	touches[index].prev_x = x;
+	touches[index].prev_y = y;
+}
+
+void Controls::TouchUpdate(int index, int x, int y)
+{
+	touches[index].prev_x = touches[index].x;
+	touches[index].prev_y = touches[index].y;
+
+	touches[index].x = x;
+	touches[index].y = y;
+}
+
+void Controls::TouchEnd(int index)
+{
+	touches[index].state = 0;
+
+	touches[index].x = 0;
+	touches[index].y = 0;
+
+	touches[index].prev_x = 0;
+	touches[index].prev_y = 0;
+}
 
 void Controls::Update(float dt)
 {
+	for (int i = 0; i < TouchCount; i++)
+	{
+		if (touches[i].state == 1)
+		{
+			touches[i].state = 2;
+		}
+	}
+
 #ifdef PLATFORM_PC
 	if (GetFocus() != hwnd)
 	{

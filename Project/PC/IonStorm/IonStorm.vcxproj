@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D6AC1B03-8DC4-4D64-9217-69741686D986}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Atum\Editor\Editor.cpp" />
+    <ClCompile Include="..\..\..\Atum\Editor\freecamera.cpp" />
+    <ClCompile Include="..\..\..\Atum\Editor\Gizmo.cpp" />
+    <ClCompile Include="..\..\..\Atum\main.cpp" />
+    <ClCompile Include="..\..\..\Atum\Platform\Android\android_fopen.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Android\gles3jni.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\Animator.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\AnimatorObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\AnimatorWindow.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteWindow.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Sprite.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\correction.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\hovertank.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\model.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PathFinder\PathFinder.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PhysBox.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\plane.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\programs.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\scene2.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleClient.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleServer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SpriteObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\tank.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\tankclient.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\terrain.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\VirtualJoystick.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Controls\Controls.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Core\Core.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Font\Font.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysController.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysHeightmap.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physics\Physics.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysScene.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugFont.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugPrograms.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\TextureGLES.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\VertexDeclGLES.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Program.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Render.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Texture.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Scene\Scene.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\json\json.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\ColorWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\FileNameWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\FloatWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\IntWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\MetaData.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\ProperyWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\StringWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\StringUtils.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\ThreadExecutor.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\Timer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Atum\Editor\Editor.h" />
+    <ClInclude Include="..\..\..\Atum\Editor\freecamera.h" />
+    <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h" />
+    <ClInclude Include="..\..\..\Atum\Platform\Android\android_fopen.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\Animator.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\AnimatorObject.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\AnimatorWindow.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrack.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteWindow.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Sprite.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\hovertank.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\model.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\PathFinder.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\Vec2.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PhysBox.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\plane.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\programs.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\RenderLevels.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\scene2.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleClient.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleServer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SpriteObject.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\tank.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\tankclient.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\terrain.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\VirtualJoystick.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Controls\Controls.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Core\Core.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Font\Font.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Font\FontRes.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Font\stb_truetype.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Network\Network.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysController.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysHeightmap.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physics\Physics.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysObject.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysScene.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\Debug.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugFont.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugLines.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugPrograms.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Device.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GeometryBuffer.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\TextureGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\VertexDeclGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Program.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Render.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Shader.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Texture.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\VertexDecl.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Scene\Scene.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneAsset.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h" />
+    <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Buffer.h" />
+    <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Color.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Defines.h" />
+    <ClInclude Include="..\..\..\Atum\Support\json\block_allocator.h" />
+    <ClInclude Include="..\..\..\Atum\Support\json\json.h" />
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h" />
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONWriter.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\ColorWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\FileNameWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\FloatWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\IntWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\MetaData.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\ProperyWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\StringWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Quaternion.h" />
+    <ClInclude Include="..\..\..\Atum\Support\std.h" />
+    <ClInclude Include="..\..\..\Atum\Support\StringUtils.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Delegate.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Support.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Matrix.h" />
+    <ClInclude Include="..\..\..\Atum\Support\ThreadExecutor.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Timer.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Types.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Vector.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Vector2.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Vector4.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>IonStorm_DEBUG</TargetName>
+    <OutDir>..\..\..\Bin\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\..\..\Bin\</OutDir>
+    <TargetName>IonStorm</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,739 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Services">
+      <UniqueIdentifier>{a0897050-2cb2-444a-b0a6-0a3db832f621}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Controls">
+      <UniqueIdentifier>{2d30e21c-f4c9-4666-9ed9-2f66a8ea64fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Files">
+      <UniqueIdentifier>{8eeeb1ba-81bd-4287-abec-943fcf5428ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render">
+      <UniqueIdentifier>{d9f2079f-c236-4266-9249-90dccd4454f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Scene">
+      <UniqueIdentifier>{664bf707-e0cd-4444-b089-fd9b4a1fc86f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support">
+      <UniqueIdentifier>{ebed6885-e31e-45b9-ab82-737bb5cd452e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render\Debug">
+      <UniqueIdentifier>{21cc3c4b-142e-4a10-89ce-e83fe475e135}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render\DX11">
+      <UniqueIdentifier>{01bccd13-43d9-4a59-b89f-f97830024282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\json">
+      <UniqueIdentifier>{4b6c33e6-3446-43db-8a0e-cf045140e9c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\MetaData">
+      <UniqueIdentifier>{b987916e-2187-4e15-a3a8-542d396efe97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Editor">
+      <UniqueIdentifier>{8b15df3b-e0dd-4449-b282-d3d7b6d21c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\TaskExecutor">
+      <UniqueIdentifier>{57c7a380-4755-4bd2-b6a5-2bec53ce5d8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Physics">
+      <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Network">
+      <UniqueIdentifier>{37a754a9-0c6d-491d-a58c-a4039e7d2ed7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Font">
+      <UniqueIdentifier>{e14be2ec-e80c-4d99-b894-ad3151d21918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets">
+      <UniqueIdentifier>{ca4ab6fa-ec73-4af0-bd27-a8309bdddc81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects">
+      <UniqueIdentifier>{606362ba-7307-482c-a137-6de9b2e4a21c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects\PathFinder">
+      <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects\GUI">
+      <UniqueIdentifier>{d632e837-c76c-4ac9-8c82-7f19d65f3658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets\Animator">
+      <UniqueIdentifier>{f981d4f6-7a7f-4728-946a-af7d3682beb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets\Animator\DataTrack">
+      <UniqueIdentifier>{a88d1cfd-6fb2-4337-bd58-8b3081fa1411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneAssets\Animator\TrackPlayers">
+      <UniqueIdentifier>{6bf5ef33-f9e3-429a-96e5-6a6b4de34a59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Core">
+      <UniqueIdentifier>{8720f28a-7dc7-4472-a9eb-ce5460f21905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{b820970c-90da-4f6c-94d2-7499dec07175}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Android">
+      <UniqueIdentifier>{9e9ed0c8-d27e-458d-a5ff-d12a5e256b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Render\GLES3">
+      <UniqueIdentifier>{767fda66-ebac-4a0e-9a5d-86e3ec331183}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\correction.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\hovertank.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\model.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\plane.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\programs.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\terrain.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\main.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Controls\Controls.cpp">
+      <Filter>Services\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Program.cpp">
+      <Filter>Services\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Render.cpp">
+      <Filter>Services\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugLines.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugPrograms.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\StringUtils.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\json.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\ColorWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\FileNameWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\FloatWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\IntWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\MetaData.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\ProperyWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\StringWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Scene\Scene.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObject.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\Editor.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\freecamera.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\Gizmo.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\scene2.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp">
+      <Filter>Services\TaskExecutor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PhysBox.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PathFinder\PathFinder.cpp">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.cpp">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\tank.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physics\Physics.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysObject.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysScene.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysController.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysHeightmap.cpp">
+      <Filter>Services\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\ThreadExecutor.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleClient.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleServer.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\tankclient.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp">
+      <Filter>Services\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugFont.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Font\Font.cpp">
+      <Filter>Services\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.cpp">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.cpp">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\Animator.cpp">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\AnimatorWindow.cpp">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\AnimatorObject.cpp">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.cpp">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Sprite.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteWindow.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SpriteObject.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Core\Core.cpp">
+      <Filter>Services\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp">
+      <Filter>Services\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp">
+      <Filter>Services\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Android\android_fopen.cpp">
+      <Filter>Platform\Android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Android\gles3jni.cpp">
+      <Filter>Platform\Android</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\VertexDeclGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\TextureGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Texture.cpp">
+      <Filter>Services\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\VirtualJoystick.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\hovertank.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\model.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\plane.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\programs.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\terrain.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Buffer.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Color.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Delegate.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Matrix.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Timer.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Vector.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Vector2.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Vector4.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Controls\Controls.h">
+      <Filter>Services\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Device.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GeometryBuffer.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Program.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Render.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Shader.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Texture.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\Debug.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugLines.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugPrograms.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\StringUtils.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Support.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Quaternion.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\block_allocator.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\json.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONWriter.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\ColorWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\FileNameWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\FloatWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\IntWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\MetaData.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\ProperyWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\StringWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\Scene.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\freecamera.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\scene2.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h">
+      <Filter>Services\TaskExecutor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PhysBox.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.h">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\PathFinder.h">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\Vec2.h">
+      <Filter>SceneObjects\PathFinder</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\tank.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physics\Physics.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysController.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysHeightmap.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysObject.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysScene.h">
+      <Filter>Services\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\ThreadExecutor.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleClient.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleServer.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\tankclient.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Font\FontRes.h">
+      <Filter>Services\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Font\stb_truetype.h">
+      <Filter>Services\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugFont.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Font\Font.h">
+      <Filter>Services\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.h">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.h">
+      <Filter>SceneObjects\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneAsset.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\Animator.h">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\AnimatorWindow.h">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\TransformDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\DataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\FloatDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteAsset.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\BoxPlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\ColorDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\AnimatorObject.h">
+      <Filter>SceneAssets\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h">
+      <Filter>SceneAssets\Animator\TrackPlayers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrack.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\DataTrack\Transform2DDataTrackWidgets.h">
+      <Filter>SceneAssets\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Types.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Defines.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\std.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.h">
+      <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Sprite.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteWindow.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SpriteObject.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Core\Core.h">
+      <Filter>Services\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Network\Network.h">
+      <Filter>Services\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h">
+      <Filter>Services\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Platform\Android\android_fopen.h">
+      <Filter>Platform\Android</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\VertexDecl.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.h">
+      <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\VertexDeclGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\TextureGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\VirtualJoystick.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\RenderLevels.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

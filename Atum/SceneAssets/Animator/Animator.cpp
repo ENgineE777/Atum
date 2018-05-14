@@ -1,7 +1,7 @@
 
 #include "Animator.h"
 
-CLASSDECLDECL(SceneAsset, Animator)
+CLASSDECLDECL(Animator)
 
 META_DATA_DESC(Animator)
 FLOAT_PROP(Animator, timeLenght, 3.0f, "Prop", "TimeLenght")
@@ -18,22 +18,22 @@ void Animator::Init()
 	toTime = 3.0f;
 }
 
-void Animator::Load(JSONReader* stream)
+void Animator::Load(JSONReader& stream)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(stream);
 	toTime = timeLenght;
 
 	int num = 0;
-	stream->Read("NumPlayers", num);
+	stream.Read("NumPlayers", num);
 	players.resize(num);
 
 	for (int i=0;i<num;i++)
 	{
-		if (!stream->EnterBlock("TrackPlayer")) break;
+		if (!stream.EnterBlock("TrackPlayer")) break;
 
 		char tp[64];
-		stream->Read("Type", tp, 64);
+		stream.Read("Type", tp, 64);
 
 		players[i] = ClassFactoryTrackPlayer::Create(tp);
 		players[i]->owner = this;
@@ -48,36 +48,36 @@ void Animator::Load(JSONReader* stream)
 			players[i]->Load(stream);
 		}
 
-		stream->LeaveBlock();
+		stream.LeaveBlock();
 	}
 }
 
-void Animator::Save(JSONWriter* stream)
+void Animator::Save(JSONWriter& stream)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(stream);
 	
-	stream->Write("NumPlayers", (int)players.size());
+	stream.Write("NumPlayers", (int)players.size());
 
-	stream->StartArray("TrackPlayer");
+	stream.StartArray("TrackPlayer");
 
 	for (int i=0;i<players.size();i++)
 	{
-		stream->StartBlock(nullptr);
+		stream.StartBlock(nullptr);
 
 		players[i]->Save(stream);
 
-		stream->FinishBlock();
+		stream.FinishBlock();
 	}
 
-	stream->FinishArray();
+	stream.FinishArray();
 }
 
+#ifdef EDITOR
 void Animator::SetEditMode(bool ed)
 {
 	//SceneEntity::SetEditMode(ed);
 
-#ifdef EDITOR
 	if (!wnd)
 	{
 		if (!AnimatorWindow::instance)
@@ -100,7 +100,6 @@ void Animator::SetEditMode(bool ed)
 	{
 		Tasks()->DelTask(0, this);
 	}
-#endif
 }
 
 void Animator::Work(float dt)
@@ -123,6 +122,7 @@ void Animator::Work(float dt)
 		players[i]->SetTime(edCurTime);
 	}
 }
+#endif
 
 void Animator::Reset()
 {

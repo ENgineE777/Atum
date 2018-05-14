@@ -2,7 +2,7 @@
 #include "PhysBox.h"
 #include "Services/Render/Render.h"
 
-CLASSDECLDECL(SceneObject, PhysBox)
+CLASSDECLDECL(PhysBox)
 
 META_DATA_DESC(PhysBox)
 COLOR_PROP(PhysBox, color, COLOR_YELLOW, "Geometry", "color")

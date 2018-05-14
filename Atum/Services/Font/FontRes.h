@@ -41,8 +41,7 @@ protected:
 	int      cur_tex_y;
 	int      cur_tex_row_height;
 
-	byte*    tex_buffer;
-	byte*    tex_buffer2;
+	uint8_t* tex_buffer;
 
 	int height;
 	float used_height;

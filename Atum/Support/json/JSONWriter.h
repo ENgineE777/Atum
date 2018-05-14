@@ -18,6 +18,7 @@ class JSONWriter
 public:
 
 	JSONWriter();
+	~JSONWriter();
 
 	bool Start(const char* name);
 
@@ -38,7 +39,7 @@ public:
 	void Write(const char* name, Color& val);
 	void Write(const char* name, Quaternion& val);
 
-	void Release();
+	void Close();
 
 protected:
 

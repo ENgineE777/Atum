@@ -2,7 +2,7 @@
 #pragma once
 
 #include "model.h"
-#include "Terrain.h"
+#include "terrain.h"
 #include "PhysBox.h"
 
 #include "PxPhysicsAPI.h"

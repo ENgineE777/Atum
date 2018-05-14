@@ -3,7 +3,13 @@
 
 void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 }, { VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+
 	buffer = render.GetDevice()->CreateBuffer(MaxSize * 2, sizeof(Vertex));
+
+	prg = render.GetProgram("DbgLine");
+	prg_depth = render.GetProgram("DbgLineWithDepth");
 
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugLines::Draw);
 }
@@ -35,7 +41,9 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 {
 	if (lines.size()==0) return;
 
-	prog->Apply();
+	render.GetDevice()->SetProgram(prog);
+
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 
 	Matrix view_proj;
@@ -53,7 +61,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 		inv_view.InverseComplette();
 	}
 
-	prog->VS_SetMatrix("view_proj", &view_proj, 1);
+	prog->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
 
 	Vertex* v = (Vertex*)buffer->Lock();
 
@@ -72,7 +80,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 				v[count * 2 + j].p.y = -(2.0f * v[count * 2 + j].p.y / (float)render.GetDevice()->GetHeight() - 1) / proj._22;
 
 				Vector dir = inv_view.MulNormal(v[count * 2 + j].p);
-				v[count * 2 + j].p = inv_view.Pos() + dir * 100.0f;
+				v[count * 2 + j].p = inv_view.Pos() + dir * 10.0f;
 			}
 		}
 
@@ -101,9 +109,9 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 
 void DebugLines::Draw(float dt)
 {
-	DrawLines(DebugPrograms::line_with_depth_prg, lines_with_depth, false);
-	DrawLines(DebugPrograms::line_prg, lines, false);
-	DrawLines(DebugPrograms::line_prg, lines_2d, true);
+	DrawLines(prg_depth, lines_with_depth, false);
+	DrawLines(prg, lines, false);
+	DrawLines(prg, lines_2d, true);
 }
 
 void DebugLines::Release()

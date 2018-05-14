@@ -19,6 +19,8 @@ class DebugTriangles : public Object
 	};
 
 	std::vector<Triangle> triangles;
+	Program*        prg;
+	VertexDecl*     vdecl;
 	GeometryBuffer* vbuffer;
 
 public:

@@ -11,8 +11,8 @@ public:
 	FloatDataTrack(TrackPlayer* own, const char* nm, float* value, ChangeKeyFunc changeKey_Func);
 	virtual ~FloatDataTrack();
 
-	virtual void Load(JSONReader* stream, int num);
-	virtual void Save(JSONWriter* stream);
+	virtual void Load(JSONReader& stream, int num);
+	virtual void Save(JSONWriter& stream);
 	virtual void CalcValue(int index, float blend);
 
 #ifdef EDITOR

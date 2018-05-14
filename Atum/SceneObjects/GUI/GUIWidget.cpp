@@ -2,7 +2,6 @@
 #include "GUIWidget.h"
 
 Texture* GUIWidget::tex;
-Quad GUIWidget::quad;
 
 GUIWidget::GUIWidget()
 {

@@ -6,20 +6,23 @@
 
 using namespace physx;
 
-struct PhysHeightmapDesc
-{
-	int      width;
-	int      height;
-	Vector2  scale;
-	uint8_t* hmap;
-};
 
 class PhysHeightmap
 {
 	friend class PhysScene;
-	PxHeightFieldSample* samples;
-	PxHeightField*       heightField;
-	PxRigidActor*        actor;
+	PxHeightField* heightField = nullptr;
+	PxRigidActor*  actor = nullptr;
 public:
+
+	struct Desc
+	{
+		int      width;
+		int      height;
+		Vector2  scale;
+#ifdef PLATFORM_PC
+		uint8_t* hmap = nullptr;
+#endif
+	};
+
 	void Release();
 };

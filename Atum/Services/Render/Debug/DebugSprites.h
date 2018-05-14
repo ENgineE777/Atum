@@ -11,21 +11,25 @@ class DebugSprites : public Object
 		Vector2 Texcoords;
 	};
 
+	Program*        prg;
+	VertexDecl*     vdecl;
 	GeometryBuffer* vbuffer;
 
 	struct Sprite
 	{
 		Texture* texture;
-		Vector2 pos;
-		Vector2 size;
+		Color    color;
+		Vector2  pos;
+		Vector2  size;
 	};
 
+	Texture* whiteTex = nullptr;
 	std::vector<Sprite> sprites; 
 
 public:
 
 	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddSprite(Texture* texture, Vector2& pos, Vector2& size);
+	void AddSprite(Texture* texture, Vector2& pos, Vector2& size, Color& color);
 	void Draw(float dt);
 	void Release();
 };

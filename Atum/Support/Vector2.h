@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <math.h>
+
 struct Vector2
 {
 public:
@@ -23,9 +25,8 @@ public:
 	Vector2(float f);
 	Vector2(double d);
 	Vector2(float x, float y);
-	Vector2(const float f[2]);
-	Vector2(const double d[2]);
-	Vector2(const Vector2& v);
+	Vector2(float f[2]);
+	Vector2(double d[2]);
 
 public:
 
@@ -54,11 +55,11 @@ public:
 	void Normalize();
 	float Length();
 
-	bool InSquare(const Vector2 & min, const Vector2 & max) const;
+	bool InSquare(Vector2 min, Vector2 max) const;
 	
-	float Distance(const ::Vector2 & v) const;
+	float Distance(Vector2 v) const;
 
-	Vector2 & Lerp(const Vector2 & from, const Vector2 & to, float kBlend);
+	Vector2& Lerp(Vector2 from, Vector2 to, float kBlend);
 };
 
 inline Vector2::Vector2(){}
@@ -79,22 +80,16 @@ inline Vector2::Vector2(float x, float y)
 	this->y = y;
 }
 
-inline Vector2::Vector2(const float f[2])
+inline Vector2::Vector2(float f[2])
 {
 	x = f[0];
 	y = f[1];
 }
 
-inline Vector2::Vector2(const double d[2])
+inline Vector2::Vector2(double d[2])
 {
 	x = float(d[0]);
 	y = float(d[1]);
-}
-
-inline Vector2::Vector2(const Vector2& vc)
-{
-	x = vc.x;
-	y = vc.y;
 }
 
 inline Vector2& Vector2::operator = (float f)
@@ -301,21 +296,21 @@ inline float operator | (const Vector2& v1, const Vector2& v2)
 	return v1.x*v2.x + v1.y*v2.y;
 }
 
-inline bool Vector2::InSquare(const Vector2 & min, const Vector2 & max) const
+inline bool Vector2::InSquare(Vector2 min, Vector2 max) const
 {
 	if (y < min.y || y > max.y) return false;
 	if (x < min.x || x > max.x) return false;
 	return true;
 }
 
-inline float Vector2::Distance(const ::Vector2 & v) const
+inline float Vector2::Distance(Vector2 v) const
 {
 	float dx = x - v.x;
 	float dy = y - v.y;
 	return ::sqrtf(dx * dx + dy * dy);
 }
 
-inline Vector2 & Vector2::Lerp(const Vector2 & from, const Vector2 & to, float kBlend)
+inline Vector2 & Vector2::Lerp(Vector2 from, Vector2 to, float kBlend)
 {
 	x = from.x + (to.x - from.x) * kBlend;
 	y = from.y + (to.y - from.y) * kBlend;

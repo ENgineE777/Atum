@@ -34,47 +34,47 @@ TransformDataTrack::~TransformDataTrack()
 	}
 }
 
-void TransformDataTrack::Load(JSONReader* stream, int num)
+void TransformDataTrack::Load(JSONReader& stream, int num)
 {
 	keys.resize(num);
 	values.resize(num);
 
 	for (int i=0; i < num; i++)
 	{
-		if (!stream->EnterBlock("TransformData")) break;
+		if (!stream.EnterBlock("TransformData")) break;
 
-		stream->Read("pos", values[i].pos);
-		stream->Read("rot", values[i].rot);
+		stream.Read("pos", values[i].pos);
+		stream.Read("rot", values[i].rot);
 
-		stream->Read("time", keys[i].time);
+		stream.Read("time", keys[i].time);
 
 		keys[i].blend = BlendLinear;
-		stream->Read("blend",(int&)keys[i].blend);
+		stream.Read("blend",(int&)keys[i].blend);
 
-		stream->LeaveBlock();
+		stream.LeaveBlock();
 	}
 
 	Prepare();
 }
 
-void TransformDataTrack::Save(JSONWriter* stream)
+void TransformDataTrack::Save(JSONWriter& stream)
 {
-	stream->StartArray("TransformData");
+	stream.StartArray("TransformData");
 
 	for (int i=0; i < keys.size(); i++)
 	{
-		stream->StartBlock(nullptr);
+		stream.StartBlock(nullptr);
 
-		stream->Write("pos", values[i].pos);
-		stream->Write("rot", values[i].rot);
+		stream.Write("pos", values[i].pos);
+		stream.Write("rot", values[i].rot);
 
-		stream->Write("time", keys[i].time);
-		stream->Write("blend", (int&)keys[i].blend);
+		stream.Write("time", keys[i].time);
+		stream.Write("blend", (int&)keys[i].blend);
 		
-		stream->FinishBlock();
+		stream.FinishBlock();
 	}
 
-	stream->FinishArray();
+	stream.FinishArray();
 }
 
 void TransformDataTrack::BezierFunc(Vector& p1, Vector& p2,Vector& p3,Vector& p4, Vector& pos, float t)

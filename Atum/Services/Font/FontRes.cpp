@@ -1,5 +1,5 @@
-
-#include "FontService.h"
+﻿
+#include "Fonts.h"
 
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "Support/stb/stb_truetype.h"
@@ -89,7 +89,7 @@ bool FontRes::Load()
 	int nums = (int)(1024.0f / height);
 
 	tex_w = 1024;
-	tex_h = GetPow2((int)((400.0f / nums) * height));
+	tex_h = 128;// GetPow2((int)((400.0f / nums) * height));
 
 	if (tex_h > 2048)
 	{
@@ -100,15 +100,12 @@ bool FontRes::Load()
 	cur_tex_y = 1;
 	cur_tex_row_height = 0;
 
-	tex_buffer = new byte[tex_w * tex_h];
-	memset(tex_buffer,0,tex_w * tex_h);
+	tex_buffer = new uint8_t[tex_w * tex_h];
+	memset(tex_buffer, 0, tex_w * tex_h);
 
 	stbtt_PackBegin(&context, tex_buffer, tex_w, tex_h, 0, 1, nullptr);
 
-	tex_buffer2 = new byte[tex_w * tex_h * 2];
-	memset(tex_buffer2, 0, tex_w * tex_h * 2);
-
-	tex = render.GetDevice()->CreateTexture(tex_w, tex_h, Texture::FMT_A8R8, 1, false, Texture::Tex2D);
+	tex = render.GetDevice()->CreateTexture(tex_w, tex_h, Texture::FMT_A8, 1, false, Texture::Tex2D);
 
 	return true;
 }
@@ -134,14 +131,16 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 {
 	if (!tex) return;
 
+	//render.DebugSprite(tex, 0.0f, 1024.0f);
+
 	int len = 0;
 
 	len = StringUtils::GetLen(text);
 
 	if (len == 0) return;
 
-	fonts.fntProg->Apply();
-	
+	render.GetDevice()->SetProgram(fonts.fntProg);
+
 	Matrix tmp;
 
 	Vector4 params[4];
@@ -152,13 +151,10 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 
 	tmp = transform;
 
-	params[0] = Vector4((float)render.GetDevice()->GetWidth(),
-						(float)render.GetDevice()->GetHeight(),
-						0.5f,
-						0.0f);
+	params[0] = Vector4((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight(), 0.5f, 0.0f);
 
-	fonts.fntProg->VS_SetVector("desc", &params[0], 1);
-	fonts.fntProg->VS_SetMatrix("transform", &tmp, 1);
+	fonts.fntProg->SetVector(Program::Vertex, "desc", &params[0], 1);
+	fonts.fntProg->SetMatrix(Program::Vertex, "transform", &tmp, 1);
 
 	if (font_scale > 1.01f)
 	{
@@ -169,10 +165,11 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 		tex->SetFilters(Texture::Point, Texture::Point);
 	}
 
+	render.GetDevice()->SetVertexDecl(fonts.vdecl);
 	render.GetDevice()->SetVertexBuffer(0, fonts.vbuffer);
 
-	fonts.fntProg->PS_SetTexture("diffuseMap", tex);
-	fonts.fntProg->PS_SetVector("color", (Vector4*)&color, 1);
+	fonts.fntProg->SetTexture(Program::Pixel, "diffuseMap", tex);
+	fonts.fntProg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
 
 	float scr_x = 0;
 
@@ -184,10 +181,10 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 
 	int dr_index = 0;
 	
-	FontService::FontVertex* v = (FontService::FontVertex*)fonts.vbuffer->Lock();
+	Fonts::FontVertex* v = (Fonts::FontVertex*)fonts.vbuffer->Lock();
 
 	int w = 0;
-	int bytes = 0;	
+	int bytes = 0;
 
 	int line = -1;
 	int x_offset = 0;
@@ -244,13 +241,13 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 			v[dr_index * 6 + 4].pos = Vector(char_x + char_w,  char_y, 0.5f);
 			v[dr_index * 6 + 5].pos = Vector(char_x + char_w, char_y + char_h, 0.5f);
 		
-			v[dr_index * 6 + 0].uv = Vector2( char_u, char_v + char_dv);
-			v[dr_index * 6 + 1].uv = Vector2( char_u, char_v);
-			v[dr_index * 6 + 2].uv = Vector2( char_u + char_du, char_v);
+			v[dr_index * 6 + 0].uv = Vector2(char_u, char_v + char_dv);
+			v[dr_index * 6 + 1].uv = Vector2(char_u, char_v);
+			v[dr_index * 6 + 2].uv = Vector2(char_u + char_du, char_v);
 
-			v[dr_index * 6 + 3].uv = Vector2( char_u, char_v + char_dv);
-			v[dr_index * 6 + 4].uv = Vector2( char_u + char_du, char_v);
-			v[dr_index * 6 + 5].uv = Vector2( char_u + char_du, char_v + char_dv);
+			v[dr_index * 6 + 3].uv = Vector2(char_u, char_v + char_dv);
+			v[dr_index * 6 + 4].uv = Vector2(char_u + char_du, char_v);
+			v[dr_index * 6 + 5].uv = Vector2(char_u + char_du, char_v + char_dv);
 			
 			dr_index++;
 		}
@@ -267,7 +264,7 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 
 			dr_index = 0;
 
-			v = (FontService::FontVertex*)fonts.vbuffer->Lock();
+			v = (Fonts::FontVertex*)fonts.vbuffer->Lock();
 		}
 	}
 	
@@ -294,16 +291,7 @@ int FontRes::GetCharHeight()
 void FontRes::UpdateTexture()
 {
 	need_update_tex = false;
-
-	for (int i = 0; i < tex_w; i++)
-	{
-		for (int j = 0; j < tex_h; j++)
-		{
-			tex_buffer2[(i + tex_w * j) * 2 + 0] = tex_buffer[i + tex_w * j];
-			tex_buffer2[(i + tex_w * j) * 2 + 1] = tex_buffer[i + tex_w * j];
-		}
-	}
-	tex->Update(0, 0, tex_buffer2, tex_w * 2);
+	tex->Update(0, 0, tex_buffer, tex_w);
 }
 
 void FontRes::Release()
@@ -311,7 +299,6 @@ void FontRes::Release()
 	if (tex_buffer)
 	{
 		free(tex_buffer);
-		free(tex_buffer2);
 		stbtt_PackEnd(&context);
 	}
 

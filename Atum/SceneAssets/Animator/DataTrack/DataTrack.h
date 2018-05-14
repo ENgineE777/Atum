@@ -48,8 +48,8 @@ public:
 	virtual ~DataTrack() {};
 
 	virtual const char* GetName() = 0;
-	virtual void Load(JSONReader* reader, int num) = 0;
-	virtual void Save(JSONWriter* writer) = 0;
+	virtual void Load(JSONReader& reader, int num) = 0;
+	virtual void Save(JSONWriter& writer) = 0;
 	virtual void Reset() = 0;
 	virtual void CalcValue(int index, float blend) = 0;
 	virtual void SetTime(float time) = 0;
@@ -93,8 +93,8 @@ protected:
 
 public:
 
-#ifdef EDITOR
 	DataType def_value;
+#ifdef EDITOR
 	AllowedBlend blendRage = AllowedBlendOnlyLinear;
 #endif
 

@@ -2,7 +2,7 @@
 #pragma once
 
 #include "TrackPlayer.h"
-#include "../../../SceneObjects/quad.h"
+#include "Services/Render/Render.h"
 
 class SpritePlayer : public TrackPlayer
 {
@@ -10,9 +10,7 @@ public:
 	META_DATA_DECL(SpritePlayer)
 
 	Transform2D trans;
-
 	Texture* tex;
-	Quad quad;
 
 	CLASSDECLDIF(TrackPlayer, SpritePlayer)
 	SpritePlayer();

@@ -20,7 +20,7 @@ void MetaData::Prepare(void* set_owner)
 	for (int i = 0; i < properties.size(); i++)
 	{
 		Property& prop = properties[i];
-		prop.value = (byte*)owner + prop.offset;
+		prop.value = (uint8_t*)owner + prop.offset;
 	}
 }
 
@@ -65,7 +65,7 @@ void MetaData::SetDefValuesPrepare()
 	}
 }
 
-void MetaData::Load(JSONReader* reader)
+void MetaData::Load(JSONReader& reader)
 {
 	for (int i = 0; i < properties.size(); i++)
 	{
@@ -74,7 +74,7 @@ void MetaData::Load(JSONReader* reader)
 		if (prop.type == Boolean)
 		{
 			bool val;
-			if (reader->Read(prop.propName.c_str(), val))
+			if (reader.Read(prop.propName.c_str(), val))
 			{
 				memcpy(prop.value, &val, sizeof(bool));
 			}
@@ -83,7 +83,7 @@ void MetaData::Load(JSONReader* reader)
 		if (prop.type == Integer || prop.type == Enum)
 		{
 			int val;
-			if (reader->Read(prop.propName.c_str(), val))
+			if (reader.Read(prop.propName.c_str(), val))
 			{
 				memcpy(prop.value, &val, sizeof(int));
 			}
@@ -92,7 +92,7 @@ void MetaData::Load(JSONReader* reader)
 		if (prop.type == Float)
 		{
 			float val;
-			if (reader->Read(prop.propName.c_str(), val))
+			if (reader.Read(prop.propName.c_str(), val))
 			{
 				memcpy(prop.value, &val, sizeof(float));
 			}
@@ -100,17 +100,17 @@ void MetaData::Load(JSONReader* reader)
 		else
 		if (prop.type == String || prop.type == FileName)
 		{
-			reader->Read(prop.propName.c_str(), *((std::string*)prop.value));
+			reader.Read(prop.propName.c_str(), *((std::string*)prop.value));
 		}
 		else
 		if (prop.type == Clor)
 		{
-			reader->Read(prop.propName.c_str(), *((Color*)prop.value));
+			reader.Read(prop.propName.c_str(), *((Color*)prop.value));
 		}
 	}
 }
 
-void MetaData::Save(JSONWriter* writer)
+void MetaData::Save(JSONWriter& writer)
 {
 	for (int i = 0; i < properties.size(); i++)
 	{
@@ -118,27 +118,27 @@ void MetaData::Save(JSONWriter* writer)
 
 		if (prop.type == Boolean)
 		{
-			writer->Write(prop.propName.c_str(), *((bool*)prop.value));
+			writer.Write(prop.propName.c_str(), *((bool*)prop.value));
 		}
 		else
 		if (prop.type == Integer || prop.type == Enum)
 		{
-			writer->Write(prop.propName.c_str(), *((int*)prop.value));
+			writer.Write(prop.propName.c_str(), *((int*)prop.value));
 		}
 		else
 		if (prop.type == Float)
 		{
-			writer->Write(prop.propName.c_str(), *((float*)prop.value));
+			writer.Write(prop.propName.c_str(), *((float*)prop.value));
 		}
 		else
 		if (prop.type == String || prop.type == FileName)
 		{
-			writer->Write(prop.propName.c_str(), ((std::string*)prop.value)->c_str());
+			writer.Write(prop.propName.c_str(), ((std::string*)prop.value)->c_str());
 		}
 		else
 		if (prop.type == Clor)
 		{
-			writer->Write(prop.propName.c_str(), *((Color*)prop.value));
+			writer.Write(prop.propName.c_str(), *((Color*)prop.value));
 		}
 	}
 }
@@ -149,7 +149,7 @@ void MetaData::Copy(void* source)
 	{
 		Property& prop = properties[i];
 
-		byte* src = (byte*)source + prop.offset;
+		uint8_t* src = (uint8_t*)source + prop.offset;
 
 		if (prop.type == Boolean)
 		{
@@ -178,6 +178,7 @@ void MetaData::Copy(void* source)
 	}
 }
 
+#ifdef EDITOR
 void MetaData::PrepareWidgets(EUICategories* parent)
 {
 	for (int i = 0; i < properties.size(); i++)
@@ -272,3 +273,4 @@ void MetaData::HideWidgets()
 		properties[i].widget->Show(false);
 	}
 }
+#endif

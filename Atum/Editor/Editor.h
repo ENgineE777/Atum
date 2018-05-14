@@ -2,14 +2,13 @@
 #pragma once
 
 #include "Support/Support.h"
-#include "Services/Render/Render.h"
-#include "Services/Controls/Controls.h"
+#include "Services/Core/Core.h"
 #include "Services/Scene/SceneObject.h"
 #include "Services/Scene/SceneAsset.h"
 #include <EUI.h>
 #include "freecamera.h"
 #include "Gizmo.h"
-#include "Support/Timer.h"
+#include <map>
 
 class Editor : public Object, public EUIWidget::Listener
 {
@@ -57,6 +56,7 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIButton* rotateBtn;
 	EUIButton* globalBtn;
 	EUIButton* localBtn;
+	EUIButton* mode2DBtn;
 	EUIButton* playBtn;
 	EUICategories* objCat;
 	EUIPanel* viewport;
@@ -67,11 +67,15 @@ class Editor : public Object, public EUIWidget::Listener
 
 	EUIWindow* mainWnd;
 	EUIWindow* gameWnd;
+	EUIPanel* game_viewport = nullptr;
 
-	Scene scene;
+	map<int, string> id2name;
+
+	Scene ed_scene;
+	Scene* scene = nullptr;
 	Gizmo gizmo;
 
-	Vector2 prev_mx;
+	Vector2 prev_ms;
 	bool allowCopy = false;
 
 	TaskExecutor::SingleTaskPool* renderTaskPool;

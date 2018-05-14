@@ -15,6 +15,6 @@ public:
 
 	bool IsSatic();
 	void GetTransform(Matrix& mat);
-	void AddForceAt(Vector& pos, Vector& force);
+	void AddForceAt(Vector pos, Vector force);
 	void Release();
 };

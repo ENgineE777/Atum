@@ -19,6 +19,11 @@ public:
 		Set(R,G,B,1.0f);
 	};
 
+	Color(float c)
+	{
+		Set(c, c, c, 1.0f);
+	};
+
 	Color(const Color& other)
 	{
 		Set(other.r,other.g,other.b,other.a);

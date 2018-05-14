@@ -29,23 +29,6 @@ void GeometryBufferDX11::Unlock()
 	DeviceDX11::instance->immediateContext->Unmap(buffer, 0);
 }
 
-void GeometryBufferDX11::StartDesc()
-{	
-}
-
-void GeometryBufferDX11::AddDescElem(ElemUsage usage, ElemType type, const char* name)
-{
-}
-
-void GeometryBufferDX11::EndDesc()
-{
-}
-
-void* GeometryBufferDX11::GetData()
-{
-	return buffer;
-}
-
 void GeometryBufferDX11::Release()
 {
 	RELEASE(buffer)

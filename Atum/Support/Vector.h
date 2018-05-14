@@ -1,7 +1,6 @@
 
 #pragma once
 
-#include <stdlib.h>
 #include <math.h>
 
 struct Vector
@@ -23,11 +22,10 @@ public:
 	Vector();
 	Vector(float f);
 	Vector(float x, float y, float z);
-	Vector(const Vector& v);
 
 	void Set(float f);
 	void Set(float x, float y, float z);
-	void Set(const Vector&v);
+	void Set(Vector v);
 
 	Vector operator - () const;
 	Vector& operator = (float f);
@@ -42,18 +40,18 @@ public:
 	Vector& operator /= (const Vector& v);
 
 	float Normalize();
-	Vector& Min(Vector& v);
-	Vector& Max(Vector& v);
+	Vector& Min(Vector v);
+	Vector& Max(Vector v);
 
 	float Length();
 	float Length2();
 
-	Vector& Lerp(Vector& from, Vector& to, float kBlend);
+	Vector& Lerp(Vector from, Vector to, float kBlend);
 
-	bool Equals(Vector& pos, float delta);
+	bool Equals(Vector pos, float delta);
 
-	float Dot(Vector& v);
-	Vector Cross(Vector& v);
+	float Dot(Vector v);
+	Vector Cross(Vector v);
 };
 
 
@@ -72,13 +70,6 @@ inline Vector::Vector(float x, float y, float z)
 	this->z = z;
 }
 
-inline Vector::Vector(const Vector& v)
-{
-	x = v.x;
-	y = v.y;
-	z = v.z;
-}
-
 inline void Vector::Set(float f)
 {
 	x = f;
@@ -93,7 +84,7 @@ inline void Vector::Set(float set_x, float set_y, float set_z)
 	z = set_z;
 }
 
-inline void Vector::Set(const Vector& v)
+inline void Vector::Set(Vector v)
 {
 	x = v.x;
 	y = v.y;
@@ -289,7 +280,7 @@ inline float Vector::Normalize()
 	return float(len);
 }
 
-inline Vector& Vector::Min(Vector& v)
+inline Vector& Vector::Min(Vector v)
 {
 	if(x > v.x) x = v.x;
 	if(y > v.y) y = v.y;
@@ -297,7 +288,7 @@ inline Vector& Vector::Min(Vector& v)
 	return *this;
 }
 
-inline Vector& Vector::Max(Vector& v)
+inline Vector& Vector::Max(Vector v)
 {
 	if(x < v.x) x = v.x;
 	if(y < v.y) y = v.y;
@@ -315,7 +306,7 @@ inline float Vector::Length2()
 	return x*x + y*y + z*z;
 }
 
-inline Vector& Vector::Lerp(Vector& from, Vector& to, float kBlend)
+inline Vector& Vector::Lerp(Vector from, Vector to, float kBlend)
 {
 	x = from.x + (to.x - from.x)*kBlend;
 	y = from.y + (to.y - from.y)*kBlend;
@@ -323,17 +314,17 @@ inline Vector& Vector::Lerp(Vector& from, Vector& to, float kBlend)
 	return *this;
 }
 
-inline bool Vector::Equals(Vector& pos, float delta)
+inline bool Vector::Equals(Vector pos, float delta)
 {
 	return ((fabs(x - pos.x)<delta) && (fabs(y - pos.y)<delta) && (fabs(y - pos.y)<delta));
 }
 
-inline float Vector::Dot(Vector& v)
+inline float Vector::Dot(Vector v)
 {
 	return x * v.x + y * v.y + z * v.z;
 }
 
-inline Vector Vector::Cross(Vector& v)
+inline Vector Vector::Cross(Vector v)
 {
 	Vector v_res;
 	v_res.x = y * v.z - z * v.y;

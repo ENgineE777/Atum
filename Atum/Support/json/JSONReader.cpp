@@ -1,8 +1,13 @@
 
 #include "JSONReader.h"
+#include "Support/StringUtils.h"
 #include "stdio.h"
 #include <string.h>
 #include <stdlib.h>
+
+#ifdef PLATFORM_ANDROID
+#include "Platform/Android/android_fopen.h"
+#endif
 
 JSONReader::JSONReader() : allocator(1 << 10)
 {
@@ -11,6 +16,12 @@ JSONReader::JSONReader() : allocator(1 << 10)
 	curDepth = 0;
 
 	buffer = NULL;
+}
+
+JSONReader::~JSONReader()
+{
+	Close();
+	allocator.free();
 }
 
 bool JSONReader::Parse(const char* name)
@@ -420,7 +431,7 @@ json_value* JSONReader::FindValue(const char* name)
 
 	for (json_value *it = curNode->first_child; it; it = it->next_sibling)
 	{
-		if (_stricmp(name, it->name) == 0)
+		if (StringUtils::IsEqual(name, it->name))
 		{
 			return it;
 		}
@@ -429,14 +440,10 @@ json_value* JSONReader::FindValue(const char* name)
 	return NULL;
 }
 
-void JSONReader::Release()
+void JSONReader::Close()
 {
 	if (buffer)
 	{
 		free(buffer);
 	}
-
-	allocator.free();
-
-	delete this;
 }

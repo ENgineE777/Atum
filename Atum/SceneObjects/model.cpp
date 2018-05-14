@@ -1,13 +1,14 @@
 
-#include <windows.h>
 #include "model.h"
 #include "programs.h"
+#include "Support/Buffer.h"
+#include "SceneObjects/RenderLevels.h"
 
 void Model::Drawer::Init(Model* model, TaskExecutor::SingleTaskPool* taskPool)
 {
 	res = model;
 
-	taskPool->AddTask(0, this, (Object::Delegate)&Model::Drawer::Render);
+	taskPool->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&Model::Drawer::Render);
 	//render.AddDelegate("toshadow", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("geometry", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
@@ -41,12 +42,12 @@ void Model::Drawer::Show(bool set)
 
 void Model::Drawer::Render(float dt)
 {
-	Render(Programs::prg);
+	Render(Programs::GetTranglPrg());
 }
 
 void Model::Drawer::ShRender(float dt)
 {
-	Render(Programs::shprg);
+	Render(Programs::GetShdTranglPrg());
 }
 
 void Model::Drawer::Render(Program* prg)
@@ -59,11 +60,13 @@ void Model::Drawer::Render(Program* prg)
 	Matrix trans;
 	render.GetTransform(Render::WrldViewProj, trans);
 
-	prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
-	prg->VS_SetMatrix("trans", &world, 1);
-	prg->VS_SetMatrix("view_proj", &trans, 1);
-	prg->PS_SetVector("color", &color, 1);
+	prg->SetMatrix(Program::Vertex, "trans", &world, 1);
+	prg->SetMatrix(Program::Vertex, "view_proj", &trans, 1);
+	prg->SetVector(Program::Pixel, "color", &color, 1);
+
+	render.GetDevice()->SetVertexDecl(res->vdecl);
 
 	for (int i = 0; i < res->meshes.size(); i++)
 	{
@@ -71,13 +74,16 @@ void Model::Drawer::Render(Program* prg)
 		
 		render.GetDevice()->SetVertexBuffer(0, mesh.buffer);
 
-		prg->PS_SetTexture("diffuseMap", res->textures[mesh.texture]);
+		prg->SetTexture(Program::Pixel, "diffuseMap", res->textures[mesh.texture]);
 		render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);
 	}
 }
 
 void Model::LoadModelMS3D(const char* filename)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+
 	// File header
 	struct MS3DHeader
 	{
@@ -127,65 +133,60 @@ void Model::LoadModelMS3D(const char* filename)
 		char  alphamap[128];
 	};
 
-	FILE* file = fopen(filename, "rb");
-
-	if (!file)
+	Buffer file;
+	
+	if (!file.Load(filename))
 	{
 		return;
 	}
 
 	char id[10];
-	fread(id, sizeof(char), 10, file);
+	file.Read(&id, 10);
 	if (strncmp(id, "MS3D000000", 10) != 0)
 	{
-		fclose(file);
 		return;
 	}
 
 	int version;
-	fread(&version, sizeof(int), 1, file);
+	file.Read(&version, sizeof(int));
 	if (version != 4)
 	{
-		fclose(file);
 		return;
 	}
 
-	// vertices
 	unsigned short numVertices;
-	fread(&numVertices, sizeof(unsigned short), 1, file);
+	file.Read(&numVertices, sizeof(unsigned short));
 
 	std::vector<MS3DVertex> vertices;
-
 	vertices.resize(numVertices);
+
 	for (int i = 0; i < numVertices; i++)
 	{
-		fread(&vertices[i].flags, sizeof(unsigned char), 1, file);
-		fread(&vertices[i].vertex, sizeof(float), 3, file);
-		fread(&vertices[i].boneID, sizeof(char), 1, file);
-		fread(&vertices[i].refCount, sizeof(unsigned char), 1, file);
+		file.Read(&vertices[i].flags, sizeof(unsigned char));
+		file.Read(&vertices[i].vertex, sizeof(float) * 3);
+		file.Read(&vertices[i].boneID, sizeof(char));
+		file.Read(&vertices[i].refCount, sizeof(unsigned char));
 	}
 
-	// triangles
 	unsigned short numTriangles;
-	fread(&numTriangles, sizeof(unsigned short), 1, file);
+	file.Read(&numTriangles, sizeof(unsigned short));
 
 	std::vector<MS3DTriangle> triangles;
-
 	triangles.resize(numTriangles);
 
 	for (int i = 0; i < numTriangles; i++)
 	{
-		fread(&triangles[i].flags, sizeof(unsigned short), 1, file);
-		fread(triangles[i].vertexIndices, sizeof(unsigned short), 3, file);
-		fread(triangles[i].vertexNormals, sizeof(float), 3 * 3, file);
-		fread(triangles[i].s, sizeof(float), 3, file);
-		fread(triangles[i].t, sizeof(float), 3, file);
-		fread(&triangles[i].smoothingGroup, sizeof(unsigned char), 1, file);
-		fread(&triangles[i].groupIndex, sizeof(unsigned char), 1, file);
+		file.Read(&triangles[i].flags, sizeof(unsigned short));
+		file.Read(triangles[i].vertexIndices, sizeof(unsigned short) * 3);
+		file.Read(triangles[i].vertexNormals, sizeof(float) * 3 * 3);
+		file.Read(triangles[i].s, sizeof(float) * 3);
+		file.Read(triangles[i].t, sizeof(float) * 3);
+		file.Read(&triangles[i].smoothingGroup, 1);
+		file.Read(&triangles[i].groupIndex, 1);
 	}
 
 	unsigned short numGroups;
-	fread(&numGroups, sizeof(unsigned short), 1, file);
+	file.Read(&numGroups, sizeof(unsigned short));
 
 	std::vector<MS3DGroup> groups;
 	groups.resize(numGroups);
@@ -195,17 +196,19 @@ void Model::LoadModelMS3D(const char* filename)
 
 	for (int i = 0; i < numGroups; i++)
 	{
-		fread(&groups[i].flags, sizeof(unsigned char), 1, file);
-		fread(groups[i].name, sizeof(char), 32, file);
+		file.Read(&groups[i].flags, sizeof(unsigned char));
+		file.Read(groups[i].name, 32);
 
 		unsigned short numGroupTriangles;
-		fread(&numGroupTriangles, sizeof(unsigned short), 1, file);
+		file.Read(&numGroupTriangles, sizeof(unsigned short));
 		groups[i].triangleIndices.resize(numGroupTriangles);
 
 		if (numGroupTriangles > 0)
-			fread(&groups[i].triangleIndices[0], sizeof(unsigned short), numGroupTriangles, file);
+		{
+			file.Read(&groups[i].triangleIndices[0], sizeof(unsigned short) * numGroupTriangles);
+		}
 
-		fread(&groups[i].materialIndex, sizeof(char), 1, file);
+		file.Read(&groups[i].materialIndex, 1);
 
 		if (groups[i].name[0] == 'l' && groups[i].name[1] == 'o' &&
 			groups[i].name[2] == 'c' && groups[i].name[3] == '_')
@@ -269,7 +272,7 @@ void Model::LoadModelMS3D(const char* filename)
 
 	// materials
 	unsigned short numMaterials;
-	fread(&numMaterials, sizeof(unsigned short), 1, file);
+	file.Read(&numMaterials, sizeof(unsigned short));
 
 	std::vector<MS3DMaterial> materials;
 	materials.resize(numMaterials);
@@ -278,16 +281,16 @@ void Model::LoadModelMS3D(const char* filename)
 
 	for (int i = 0; i < numMaterials; i++)
 	{
-		fread(materials[i].name, sizeof(char), 32, file);
-		fread(&materials[i].ambient, sizeof(float), 4, file);
-		fread(&materials[i].diffuse, sizeof(float), 4, file);
-	    fread(&materials[i].specular, sizeof(float), 4, file);
-		fread(&materials[i].emissive, sizeof(float), 4, file);
-		fread(&materials[i].shininess, sizeof(float), 1, file);
-		fread(&materials[i].transparency, sizeof(float), 1, file);
-		fread(&materials[i].mode, sizeof(unsigned char), 1, file);
-		fread(materials[i].texture, sizeof(char), 128, file);
-		fread(materials[i].alphamap, sizeof(char), 128, file);
+		file.Read(materials[i].name, sizeof(char) * 32);
+		file.Read(materials[i].ambient, sizeof(float) * 4);
+		file.Read(materials[i].diffuse, sizeof(float) * 4);
+		file.Read(materials[i].specular, sizeof(float) * 4);
+		file.Read(materials[i].emissive, sizeof(float) * 4);
+		file.Read(&materials[i].shininess, sizeof(float));
+		file.Read(&materials[i].transparency, sizeof(float));
+		file.Read(&materials[i].mode, 1);
+		file.Read(materials[i].texture, 128);
+		file.Read(materials[i].alphamap, 128);
 
 		// set alpha
 		materials[i].ambient[3] = materials[i].transparency;

@@ -28,8 +28,12 @@ class SpriteWindow : public EUIWidget::Listener
 
 	EUILabel*    cur_frame_label;
 	EUIEditBox*  cur_frame_ebox;
+	EUIButton*   btn_del_frame;
 	EUILabel*    num_frame_label;
 	EUIEditBox*  num_frame_ebox;
+
+	EUILabel*    show_anim_label;
+	EUICheckBox* show_anim_box;
 
 	EUILabel*    frame_time_label;
 	EUIEditBox*  frame_time_ebox;
@@ -68,7 +72,7 @@ class SpriteWindow : public EUIWidget::Listener
 	int sel_col = -1;
 	Vector2 prev_ms;
 
-	int     cur_frame = 0;
+	bool    border_drawed = false;
 	int     num_frames = 1;
 	std::vector<Vector2> frames;
 
@@ -76,6 +80,8 @@ public:
 
 	EUIWindow* wnd;
 	EUIPanel*  img_wgt;
+	int     cur_frame = 0;
+	bool show_anim = true;
 
 	static Sprite::Data* sprite;
 	static SpriteWindow* instance;
@@ -102,6 +108,7 @@ public:
 	void ActualPixels();
 	void FitImage();
 	void MakeZoom(bool zoom_in);
+	void CheckStateOfBorder();
 
 	virtual void OnDraw(EUIWidget* sender);
 	virtual void OnComboBoxChange(EUIWidget* sender, int index);

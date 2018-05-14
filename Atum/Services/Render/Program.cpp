@@ -2,13 +2,11 @@
 #include "Render.h"
 #include "Program.h"
 
-Program* Program::current = NULL;
-int Program::set_stage = 0;
+CLASSFACTORYDECL(Program)
 
 std::map<std::string, Vector4>  Program::vectors;
 std::map<std::string, Matrix>   Program::matrixes;
 std::map<std::string, Texture*> Program::textures;
-
 
 void Program::SetVector(const char* param, Vector4* v)
 {
@@ -27,12 +25,6 @@ void Program::SetTexture(const char* param, Texture* texture)
 	textures[param] = texture;
 }
 
-Program::Program()
-{	
-	vshader = NULL;
-	pshader = NULL;
-}
-	
 bool Program::Init()
 {
 	if (GetVsName())
@@ -48,55 +40,39 @@ bool Program::Init()
 	return true;
 }
 
-void Program::Apply()
+void Program::SetVector(Stage stage, const char* param, Vector4* v, int count)
 {
-	if (current != this)
+	if (stage == Program::Vertex)
 	{
-		set_stage = 0;
-		current = this;
+		if (vshader) vshader->SetVector(param, v, count);
+	}
+	if (stage == Program::Pixel)
+	{
+		if (pshader) pshader->SetVector(param, v, count);
 	}
 }
 
-void Program::SetShaders()
+void Program::SetMatrix(Stage stage, const char* param, Matrix* mat, int count)
 {
-	if (set_stage == 0)
+	if (stage == Program::Vertex)
 	{
-		if (vshader) vshader->Apply();
-		if (pshader) pshader->Apply();
-
-		set_stage = 1;
+		if (vshader) vshader->SetMatrix(param, mat, count);
 	}
-
-	if (vshader) vshader->UpdateConstants();
-	if (pshader) pshader->UpdateConstants();
+	if (stage == Program::Pixel)
+	{
+		if (pshader) pshader->SetMatrix(param, mat, count);
+	}
 }
 
-void Program::VS_SetVector(const char* param, Vector4* v, int count)
+void Program::SetTexture(Stage stage, const char* param, Texture* texture)
 {
-	if (vshader) vshader->SetVector(param, v, count);
+	if (stage == Program::Vertex)
+	{
+		if (vshader) vshader->SetTexture(param, texture);
+	}
+	if (stage == Program::Pixel)
+	{
+		if (pshader) pshader->SetTexture(param, texture);
+	}
 }
 
-void Program::VS_SetMatrix(const char* param, Matrix* mat, int count)
-{
-	if (vshader) vshader->SetMatrix(param, mat, count);
-}
-
-void Program::VS_SetTexture(const char* param, Texture* texture)
-{
-	if (vshader) vshader->SetTexture(param, texture);
-}
-
-void Program::PS_SetVector(const char* param, Vector4* v, int count)
-{
-	if (pshader) pshader->SetVector(param, v, count);
-}
-
-void Program::PS_SetMatrix(const char* param, Matrix* mat, int count)
-{
-	if (pshader) pshader->SetMatrix(param, mat, count);
-}
-
-void Program::PS_SetTexture(const char* param, Texture* texture)
-{
-	if (pshader) pshader->SetTexture(param, texture);
-}

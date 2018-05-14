@@ -22,6 +22,7 @@ class JSONReader
 public:
 
 	JSONReader();
+	~JSONReader();
 
 	bool Parse(const char* name);
 
@@ -41,7 +42,7 @@ public:
 	bool Read(const char* name, Color& val);
 	bool Read(const char* name, Quaternion& val);
 
-	void Release();
+	void Close();
 
 protected:
 

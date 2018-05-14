@@ -26,6 +26,9 @@ class DebugLines : public Object
 	std::vector<Vertex> lines_with_depth;
 	std::vector<Vertex> lines_2d;
 
+	Program*        prg;
+	Program*        prg_depth;
+	VertexDecl*     vdecl;
 	GeometryBuffer* buffer;
 
 public:

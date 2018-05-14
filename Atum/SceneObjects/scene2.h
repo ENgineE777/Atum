@@ -4,9 +4,7 @@
 
 #include "model.h"
 #include "plane.h"
-#include "quad.h"
-#include "correction.h"
-#include "Terrain.h"
+#include "terrain.h"
 #include "hovertank.h"
 
 class Scene2 : public Object
@@ -18,8 +16,6 @@ public:
 	Model::Drawer* model_drawers;
 
 	Plane plane;
-	Quad  quad;
-	ColorCorrection correction;
 
 	Terrain    terrain;
 	HoverTank  hoverTank;

@@ -37,9 +37,9 @@ public:
 
 	Node* AllocNode(Vec2 pos, Node* parent = nullptr);
 
-	bool  DetectCollision(Vec2& pos);
+	bool  DetectCollision(Vec2 pos);
 	Node* FindNodeOnList(NodeSet& nodes, Vec2 pos);
-	int   GetHeuristic(Vec2& src, Vec2& dst);
+	int   GetHeuristic(Vec2 src, Vec2 dst);
 
 	CoordinateList direction;
 	int   sz;
@@ -51,6 +51,6 @@ public:
 
 	AStar();
 	virtual ~AStar();
-	void LoadWorld(const char* name, Vec2& worldSize);
-	bool FindPath(AStar::CoordinateList& path, Vec2& src, Vec2& dest);
+	void LoadWorld(const char* name, Vec2 worldSize);
+	bool FindPath(AStar::CoordinateList& path, Vec2 src, Vec2 dest);
 };

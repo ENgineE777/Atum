@@ -1,6 +1,4 @@
 
-#include "Windows.h"
-
 #include "TaskExecutor.h"
 
 TaskExecutor taskExecutor;

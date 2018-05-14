@@ -1,9 +1,10 @@
 
-#include "Terrain.h"
-#include "Programs.h"
+#include "terrain.h"
+#include "programs.h"
 #include "Services/Render/Render.h"
+#include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(SceneObject, Terrain)
+CLASSDECLDECL(Terrain)
 
 META_DATA_DESC(Terrain)
 FLOAT_PROP(Terrain, scaleh, 0.5f, "Geometry", "ScaleH")
@@ -25,9 +26,10 @@ Terrain::~Terrain()
 
 void Terrain::Init()
 {
-	Programs::Init();
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
 
-	RenderTasks()->AddTask(0, this, (Object::Delegate)&Terrain::Render);
+	RenderTasks()->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&Terrain::Render);
 
 	owner->AddToGroup(this, "Terrain");
 }
@@ -181,19 +183,18 @@ Vector Terrain::GetVecHeight(int i, int j)
 
 void Terrain::LoadHMap(const char* hgt_name)
 {
-	Buffer hbuffer(hgt_name);
+	Buffer hbuffer;
 
 	FREE_PTR(hmap)
 
-	uint8_t* ptr = hbuffer.GetData();
-
-	if (!ptr)
+	if (!hbuffer.Load(hgt_name))
 	{
 		hwidth = 512;
 		hheight = 512;
 
 		return;
 	}
+	uint8_t* ptr = hbuffer.GetData();
 
 	ptr += 2;
 
@@ -229,23 +230,39 @@ void Terrain::LoadHMap(const char* hgt_name)
 			hmap[i * hheight + j] = ptr[((j)* imageWidth + i) * colorMode];
 		}
 	}
+
+#ifdef PLATFORM_PC
+	string cooked_name = hgt_name + string("hm");
+
+	if (!Buffer::IsFileExist(cooked_name.c_str()))
+	{
+		PhysHeightmap::Desc hdesc;
+		hdesc.width = hwidth;
+		hdesc.height = hheight;
+		hdesc.scale = Vector2(scaleh, scalev);
+		hdesc.hmap = hmap;
+
+		physics.CookHeightmap(hdesc, cooked_name.c_str());
+	}
+#endif
 }
 
 void Terrain::Render(float dt)
 {
-	Render(Programs::prg);
+	Render(Programs::GetTranglPrg());
 }
 
 void Terrain::ShRender(float dt)
 {
-	Render(Programs::shprg);
+	Render(Programs::GetShdTranglPrg());
 }
 
 void Terrain::Render(Program* prg)
 {
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 
-	prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
 	render.SetTransform(Render::World, Matrix());
 
@@ -255,23 +272,22 @@ void Terrain::Render(Program* prg)
 	Matrix mat;
 	Matrix world;
 
-	prg->VS_SetMatrix("trans", &world, 1);
-	prg->VS_SetMatrix("view_proj", &view_proj, 1);
-	prg->PS_SetVector("color", (Vector4*)&color, 1);
-	prg->PS_SetTexture("diffuseMap", texture);
+	prg->SetMatrix(Program::Vertex, "trans", &world, 1);
+	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
+	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
 
 	render.GetDevice()->Draw(Device::TrianglesList, 0, sz);
 }
 
 void Terrain::Play()
 {
-	PhysHeightmapDesc hdesc;
+	PhysHeightmap::Desc hdesc;
 	hdesc.width = hwidth;
 	hdesc.height = hheight;
-	hdesc.hmap = hmap;
 	hdesc.scale = Vector2(scaleh, scalev);
 
-	hm = PScene()->CreateHeightmap(hdesc);
+	hm = PScene()->CreateHeightmap(hdesc, (hgt_name + string("hm")).c_str());
 }
 
 void Terrain::Stop()

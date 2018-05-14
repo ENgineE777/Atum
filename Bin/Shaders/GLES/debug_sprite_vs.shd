@@ -1,0 +1,21 @@
+
+#version 300 es
+
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec2 texCoord;
+
+uniform vec4 desc[2];
+
+out vec2 vTexCoord;
+
+void main()
+{
+    vec4 posTemp = vec4(desc[1].x + desc[1].z * position.x,
+					    desc[1].y + desc[1].w * position.y, 0, 1.0f);
+
+	posTemp.z = -1.0f + posTemp.x/desc[0].x * 2.0;
+	posTemp.w = 1.0f - posTemp.y/desc[0].y * 2.0f;
+
+	gl_Position = vec4( posTemp.z, posTemp.w, 0.5f, 1.0f);
+	vTexCoord = texCoord;
+}

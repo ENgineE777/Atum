@@ -10,18 +10,19 @@ class DeviceDX11 : public Device
 	friend class GeometryBufferDX11;
 	friend class ShaderDX11;
 	friend class TextureDX11;
+	friend class VertexDeclDX11;
 
-	struct ID3D11Device*	          pd3dDevice;
-	struct ID3D11DeviceContext*    immediateContext;
-	struct IDXGISwapChain*         swapChain;
-	struct ID3D11RenderTargetView* renderTargetView;
-	struct ID3D11Texture2D*        depthStencil;
-	struct ID3D11DepthStencilView* depthStencilView;
-	struct IDXGIFactory1* factory;
+	struct ID3D11Device*           pd3dDevice = nullptr;
+	struct ID3D11DeviceContext*    immediateContext = nullptr;
+	struct IDXGISwapChain*         swapChain = nullptr;
+	struct ID3D11RenderTargetView* renderTargetView = nullptr;
+	struct ID3D11Texture2D*        depthStencil = nullptr;
+	struct ID3D11DepthStencilView* depthStencilView = nullptr;
+	struct IDXGIFactory1* factory = nullptr;
 
-	struct D3D11_BLEND_DESC* blend_desc;
+	struct D3D11_BLEND_DESC*  blend_desc;
 	struct ID3D11BlendState*  blend_state;
-	bool                     blend_changed;
+	bool                      blend_changed;
 
 	struct D3D11_DEPTH_STENCIL_DESC* ds_desc;
 	struct ID3D11DepthStencilState*  ds_state;
@@ -32,20 +33,21 @@ class DeviceDX11 : public Device
 	struct ID3D11RasterizerState* raster_state;
 	bool                          raster_changed;
 
-	int  scr_w;
-	int  scr_h;
 	bool vp_was_setted;
 
 	struct ID3D11RenderTargetView* cur_rt[6];
 	struct ID3D11DepthStencilView* cur_depth;
 	bool need_set_rt;
-	int  cur_rt_w;
-	int  cur_rt_h;
 	int  cur_depth_w;
 	int  cur_depth_h;
 
+	bool need_apply_prog = false;
+	class VertexDeclDX11* cur_vdecl = nullptr;
+	bool need_apply_vdecl = false;
+
 	DeviceDX11();
 	virtual bool Init(int width, int height, void* data);
+	virtual void PrepareProgram(Program* program);
 	virtual void Release();
 
 	virtual Shader* CreateShader(Shader::Type type, const char* name);
@@ -55,12 +57,19 @@ public:
 
 	static DeviceDX11* instance;
 
-	virtual void SetVideoMode(int wgt, int hgt, void* data);
-	virtual int  GetWidth();
-	virtual int  GetHeight();
+	virtual void  SetVideoMode(int wgt, int hgt, void* data);
+	virtual int   GetWidth();
+	virtual int   GetHeight();
+	virtual float GetAspect();
 
 	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue);
 	virtual void Present();
+
+	virtual void SetProgram(Program* program);
+
+	virtual VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems);
+	virtual void SetVertexDecl(VertexDecl* vdecl);
+
 	virtual GeometryBuffer* CreateBuffer(int count, int stride);
 	virtual void SetVertexBuffer(int slot, GeometryBuffer* buffer);
 	virtual void SetIndexBuffer(GeometryBuffer* buffer);
@@ -70,7 +79,7 @@ public:
 	int GetPrimitiveType(Primitive type);
 	int CalcPrimCount(Primitive type, int primCount);
 	virtual void Draw(Primitive prim, int startVertex, int primCount);
-	virtual void DrawIndexed(Primitive prim, int startVertex, int starIndex, int primCount);
+	virtual void DrawIndexed(Primitive prim, int startVertex, int startIndex, int primCount);
 
 	virtual void SetAlphaBlend(bool enable);
 	virtual void SetBlendFunc(BlendArg src, BlendArg dest);
@@ -81,9 +90,6 @@ public:
 	virtual void SetCulling(CullMode mode);
 	virtual void SetupSlopeZBias(bool enable, float slopeZBias, float depthOffset);
 
-	virtual void SetScissor(bool enable);
-	virtual void SetScissorRect(const Rect& rect);
-	virtual void GetScissorRect(Rect& rect);
 	virtual void SetViewport(const Viewport& viewport);
 	virtual void GetViewport(Viewport& viewport);
 

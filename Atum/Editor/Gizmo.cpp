@@ -1,6 +1,7 @@
 
 #include "Gizmo.h"
 #include "Services/Render/Render.h"
+#include "SceneAssets/Sprite.h"
 
 Gizmo* Gizmo::inst = nullptr;
 
@@ -520,6 +521,8 @@ void Gizmo::Render()
 
 	if (trans2D)
 	{
+		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
 		trans2D->BuildLocalTrans();
 
 		Vector p1, p2;
@@ -577,13 +580,16 @@ void Gizmo::Render()
 				p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
 				p2 = p2 * trans2D->local_trans;
 
+				p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+				p2 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+
 				if (phase == 1)
 				{
-					render.DebugLine2D(Vector2(p1.x, p1.y), COLOR_WHITE, Vector2(p2.x, p2.y), COLOR_WHITE);
+					render.DebugLine2D(Vector2(p1.x, p1.y) * scale, COLOR_WHITE, Vector2(p2.x, p2.y) * scale, COLOR_WHITE);
 				}
 				else
 				{
-					ancorns[i] = Vector2(p1.x, p1.y);
+					ancorns[i] = Vector2(p1.x, p1.y) * scale;
 					render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
 				}
 			}
@@ -591,7 +597,9 @@ void Gizmo::Render()
 
 		p1 = Vector(0.0f, 0.0f, 0.0f);
 		p1 = p1 * trans2D->local_trans;
-		origin = Vector2(p1.x, p1.y) - Vector2(4.0f);
+		p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+
+		origin = Vector2(p1.x, p1.y) * scale - Vector2(4.0f);
 		render.DebugSprite(center, origin, Vector2(8.0f));
 
 		return;

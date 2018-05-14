@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include "Services/Render/Device.h"
-#include "Services/Render/Program.h"
+#include "Support/Support.h"
 #include <vector>
 #include <map>
 

@@ -5,7 +5,7 @@
 
 #include "model.h"
 #include "Services/Scene/SceneObject.h"
-#include "Services/Network/NetworkService.h"
+#include "Services/Network/Network.h"
 
 class SimpleClient : public SceneObject
 {

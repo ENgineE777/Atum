@@ -11,6 +11,7 @@ int TextureDX11::GetFormat(Format fmt)
 	{
 		case FMT_A8R8G8B8: return DXGI_FORMAT_R8G8B8A8_UNORM;
 		case FMT_A8R8: return DXGI_FORMAT_R8G8_UNORM;
+		case FMT_A8: return DXGI_FORMAT_R8_UNORM;
 		case FMT_R16_FLOAT: return DXGI_FORMAT_R16_FLOAT;
 		case FMT_D16: return DXGI_FORMAT_R16_TYPELESS;
 	}
@@ -26,16 +27,20 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 
 	D3D11_TEXTURE2D_DESC desc;
 
+	if (lods == 0)
+	{
+		lods = GetLevels(width, height, 1);
+	}
+
 	desc.Width = width;
 	desc.Height = height;
-	desc.MipLevels = l;
+	desc.MipLevels = lods;
 	desc.ArraySize = 1;
 	desc.Format = fmt;
 	desc.SampleDesc.Count = 1;
 	desc.SampleDesc.Quality = 0;
 
 	desc.Usage = D3D11_USAGE_DEFAULT;
-
 
 	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
 
@@ -53,12 +58,6 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 
 	DeviceDX11::instance->pd3dDevice->CreateTexture2D(&desc, NULL, &texture);
 
-	if (l == 0)
-	{
-		texture->GetDesc(&desc);
-		l = desc.MipLevels;
-	}
-
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 
 	srvDesc.Format = fmt;
@@ -70,12 +69,12 @@ TextureDX11::TextureDX11(int w, int h, Format f, int l, bool is_rt, Type tp) : T
 
 	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MostDetailedMip = 0;
-	srvDesc.Texture2D.MipLevels = l;
+	srvDesc.Texture2D.MipLevels = lods;
 
 	sampler = NULL;
 	sampler_need_recrete = true;
 
-	DeviceDX11::instance->pd3dDevice->CreateShaderResourceView( texture, &srvDesc, &srview );
+	DeviceDX11::instance->pd3dDevice->CreateShaderResourceView(texture, &srvDesc, &srview);
 
 	rt = NULL;
 	depth = NULL;
@@ -152,7 +151,7 @@ void TextureDX11::Apply(int slot)
 		if (magminf == Linear && mipmapf == Linear)
 		{
 			filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-		}		
+		}
 
 		sampDesc.Filter = filter;
 		sampDesc.AddressU = (D3D11_TEXTURE_ADDRESS_MODE)(adressU + 1);
@@ -174,11 +173,6 @@ void TextureDX11::Update(int level, int layer, uint8_t* data, int stride)
 {
 	UINT index = D3D11CalcSubresource(level, layer, 1);
 	DeviceDX11::instance->immediateContext->UpdateSubresource(texture, index, NULL, data, stride, 0);
-}
-
-void* TextureDX11::GetData()
-{
-	return srview;
 }
 
 void TextureDX11::Release()

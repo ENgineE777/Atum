@@ -1,8 +1,5 @@
 #pragma once
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
 struct Timer
 {
 	static double lastTime;
@@ -18,6 +15,7 @@ struct Timer
 
 	static float CountDeltaTime();
 	static float GetDeltaTime();
-	static int  GetFPS();
+	static int   GetFPS();
+
 	static const char* GetTimeStamp();
 };

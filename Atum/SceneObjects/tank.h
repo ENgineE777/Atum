@@ -4,7 +4,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "model.h"
-#include "Terrain.h"
+#include "terrain.h"
 #include "PhysBox.h"
 
 #include "Services/Physics/Physics.h"
@@ -12,7 +12,7 @@
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"
 
-#include "Services/Network/NetworkService.h"
+#include "Services/Network/Network.h"
 
 class Tank : public SceneObject, public NetworkDelegate
 {

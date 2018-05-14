@@ -2,7 +2,7 @@
 #include "SimpleClient.h"
 #include "Services/Render/Render.h"
 
-CLASSDECLDECL(SceneObject, SimpleClient)
+CLASSDECLDECL(SimpleClient)
 
 META_DATA_DESC(SimpleClient)
 META_DATA_DESC_END()

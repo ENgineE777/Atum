@@ -1,7 +1,7 @@
 
 #include "AnimatorObject.h"
 
-CLASSDECLDECL(SceneObject, AnimatorObject)
+CLASSDECLDECL(AnimatorObject)
 
 META_DATA_DESC(AnimatorObject)
 STRING_PROP(AnimatorObject, animator_name, "", "Properties", "Animator")

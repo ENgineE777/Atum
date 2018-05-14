@@ -1,0 +1,35 @@
+{
+	"touch" :
+	[
+		{ "name" : "TOUCH_TAP0", "index" : 0 },
+		{ "name" : "TOUCH_TAP1", "index" : 1 },
+		{ "name" : "TOUCH_TAP2", "index" : 2 },
+		{ "name" : "TOUCH_TAP3", "index" : 3 },
+		{ "name" : "TOUCH_TAP4", "index" : 4 },
+		{ "name" : "TOUCH_TAP5", "index" : 5 },
+		{ "name" : "TOUCH_TAP6", "index" : 6 },
+		{ "name" : "TOUCH_TAP7", "index" : 7 },
+		{ "name" : "TOUCH_TAP8", "index" : 8 },
+		{ "name" : "TOUCH_TAP9", "index" : 9 },
+		{ "name" : "TOUCH_DELTA_X0", "index" : 10 },
+		{ "name" : "TOUCH_DELTA_X1", "index" : 11 },
+		{ "name" : "TOUCH_DELTA_X2", "index" : 12 },
+		{ "name" : "TOUCH_DELTA_X3", "index" : 13 },
+		{ "name" : "TOUCH_DELTA_X4", "index" : 14 },
+		{ "name" : "TOUCH_DELTA_X5", "index" : 15 },
+		{ "name" : "TOUCH_DELTA_X6", "index" : 16 },
+		{ "name" : "TOUCH_DELTA_X7", "index" : 17 },
+		{ "name" : "TOUCH_DELTA_X8", "index" : 18 },
+		{ "name" : "TOUCH_DELTA_X9", "index" : 19 },
+		{ "name" : "TOUCH_DELTA_Y0", "index" : 20 },
+		{ "name" : "TOUCH_DELTA_Y1", "index" : 21 },
+		{ "name" : "TOUCH_DELTA_Y2", "index" : 22 },
+		{ "name" : "TOUCH_DELTA_Y3", "index" : 23 },
+		{ "name" : "TOUCH_DELTA_Y4", "index" : 24 },
+		{ "name" : "TOUCH_DELTA_Y5", "index" : 25 },
+		{ "name" : "TOUCH_DELTA_Y6", "index" : 26 },
+		{ "name" : "TOUCH_DELTA_Y7", "index" : 27 },
+		{ "name" : "TOUCH_DELTA_Y8", "index" : 28 },
+		{ "name" : "TOUCH_DELTA_Y9", "index" : 29 }
+	]
+}

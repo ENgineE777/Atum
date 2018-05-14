@@ -1,0 +1,13 @@
+#version 300 es
+
+precision mediump float;
+in vec2 vTexCoord;
+layout(location = 0) out vec4 outColor;
+uniform sampler2D diffuseMap;
+uniform vec4 color;
+
+void main()
+{
+   vec4 tex = texture(diffuseMap, vTexCoord);
+   outColor = vec4(tex.x, tex.y, tex.z, 1.0f) * color;
+}

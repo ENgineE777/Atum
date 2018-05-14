@@ -17,7 +17,7 @@ void PhysObject::GetTransform(Matrix& mat)
 	mat.Pos() = Vector(pT.p.x, pT.p.y, pT.p.z);
 }
 
-void PhysObject::AddForceAt(Vector& pos, Vector& force)
+void PhysObject::AddForceAt(Vector pos, Vector force)
 {
 	if (isStatic)
 	{

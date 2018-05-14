@@ -1,6 +1,34 @@
 
 #include "StringUtils.h"
+#include "Support\json\JSONReader.h"
+#include "Support\json\JSONWriter.h"
 #include <stdarg.h>
+
+map<wchar_t, int> StringUtils::upper2lower;
+map<wchar_t, int> StringUtils::lower2upper;
+
+void StringUtils::Init()
+{
+	JSONReader reader;
+
+	reader.Parse("settings/low2hi.dat");
+
+	string str;
+
+	while (reader.EnterBlock("table"))
+	{
+		reader.Read("lo", str);
+		unsigned int lo = std::stoul(str.c_str(), nullptr, 16);
+
+		reader.Read("hi", str);
+		unsigned int hi = std::stoul(str.c_str(), nullptr, 16);
+
+		upper2lower[lo] = hi;
+		lower2upper[hi] = lo;
+
+		reader.LeaveBlock();
+	}
+}
 
 int StringUtils::GetLen(const char* str)
 {
@@ -14,7 +42,11 @@ bool StringUtils::IsEmpty(const char* str)
 
 bool StringUtils::IsEqual(const char* str1, const char* str2)
 { 
+#ifdef PLATFORM_PC
 	return (_stricmp(str1, str2) == 0);
+#else
+	return (strcasecmp(str1, str2) == 0);
+#endif
 }
 
 void StringUtils::Copy(char* str1, int len, const char* str2)
@@ -47,11 +79,7 @@ void StringUtils::Printf(char* str, int len, const char* format, ...)
 	va_list args;
 	va_start(args, format);
 
-	#ifdef PLATFORM_PC
-	_vsnprintf(buffer, sizeof(buffer) - 4, format, args);
-	#else
 	vsnprintf(buffer, sizeof(buffer) - 4, format, args);
-	#endif
 
 	va_end(args);
 
@@ -327,7 +355,172 @@ void StringUtils::EscapeChars(const char* in, char* out, int len)
 	out[index] = 0;
 }
 
-void StringUtils::Utf16toUtf8(std::string& dest, const wchar_t* src)
+void StringUtils::LowerCase(string& str)
+{
+	string text = str;
+	str.clear();
+
+	int w = 0;
+	int bytes = 0;
+
+	int len = (int)text.size();
+
+	string tmp;
+	map<wchar_t, int>::iterator it;
+
+
+	for (int i = 0; i<len; i++)
+	{
+		if (!BuildUtf16fromUtf8(text[i], bytes, w))
+		{
+			continue;
+		}
+
+		it = upper2lower.find(w);
+
+		if (it != upper2lower.end())
+		{
+			w = it->second;
+		}
+
+		BuildUtf8fromUtf16(w, tmp);
+		str += tmp;
+	}
+}
+
+void StringUtils::UpperCase(string& str)
+{
+	string text = str;
+	str.clear();
+
+	int w = 0;
+	int bytes = 0;
+
+	int len = (int)text.size();
+
+	string tmp;
+	map<wchar_t, int>::iterator it;
+
+	for (int i = 0; i<len; i++)
+	{
+		if (!BuildUtf16fromUtf8(text[i], bytes, w))
+		{
+			continue;
+		}
+
+		it = lower2upper.find(w);
+
+		if (it != lower2upper.end())
+		{
+			w = it->second;
+		}
+
+		BuildUtf8fromUtf16(w, tmp);
+		str += tmp;
+	}
+}
+
+bool StringUtils::CompareABC(const char* str1, const char* str2)
+{
+	int bytes = 0;
+
+	int w1 = 0;
+	int len1 = (int)strlen(str1);
+	int index1 = 0;
+
+	int w2 = 0;
+	int len2 = (int)strlen(str2);
+	int index2 = 0;
+
+	map<wchar_t, int>::iterator it;
+
+	bool finished = false;
+	int stage = 0;
+
+	while (!finished)
+	{
+		if (stage == 0)
+		{
+			if (BuildUtf16fromUtf8(str1[index1], bytes, w1))
+			{
+				it = upper2lower.find(w1);
+
+				if (it != upper2lower.end())
+				{
+					w1 = it->second;
+				}
+
+				stage++;
+			}
+			else
+			{
+				if (index1 + 1 >= len1)
+				{
+					return true;
+				}
+			}
+
+			index1++;
+		}
+		else
+		if (stage == 1)
+		{
+			if (BuildUtf16fromUtf8(str2[index2], bytes, w2))
+			{
+				it = upper2lower.find(w2);
+
+				if (it != upper2lower.end())
+				{
+					w2 = it->second;
+				}
+
+				stage++;
+			}
+			else
+			{
+				if (index2 + 1 >= len2)
+				{
+					break;
+				}
+			}
+
+			index2++;
+		}
+		else
+		{
+			if (w1 != w2)
+			{
+				if (w1 > 128 && w2 < 128)
+				{
+					return true;
+				}
+
+				if (w2 > 128 && w1 < 128)
+				{
+					return false;
+				}
+
+				return (w1 < w2);
+			}
+
+			if (index1 >= len1 && index2 < len2)
+			{
+				return true;
+			}
+
+			if (index2 >= len2 && index1 < len1)
+			{
+				break;
+			}
+
+			stage = 0;
+		}
+	}
+
+	return false;
+}
+
+void StringUtils::Utf16toUtf8(string& dest, const wchar_t* src)
 {
 	dest.clear();
 
@@ -418,7 +611,7 @@ bool StringUtils::BuildUtf16fromUtf8(char c, int& bytes, int& w)
 	return false;
 }
 
-void StringUtils::BuildUtf8fromUtf16(int c, std::string& dest)
+void StringUtils::BuildUtf8fromUtf16(int c, string& dest)
 {
 	dest.clear();
 
@@ -449,7 +642,7 @@ void StringUtils::BuildUtf8fromUtf16(int c, std::string& dest)
 	}
 }
 
-void StringUtils::Utf8toUtf16(std::wstring& dest, const char* src)
+void StringUtils::Utf8toUtf16(wstring& dest, const char* src)
 {
 	dest.clear();
 	wchar_t w = 0;

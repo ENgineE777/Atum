@@ -1,7 +1,7 @@
 
 #include "TestGUI.h"
 
-CLASSDECLDECL(SceneObject, TestGUI)
+CLASSDECLDECL(TestGUI)
 
 META_DATA_DESC(TestGUI)
 
@@ -22,8 +22,6 @@ TestGUI::~TestGUI()
 
 void TestGUI::Init()
 {
-	GUIWidget::quad.Init();
-
 	GUIWidget::tex = render.LoadTexture("Media/sprite_level16_2-hd.png");
 
 	//Tasks()->AddTask(100, this, (Object::Delegate)&TestGUI::Work);

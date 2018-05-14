@@ -39,8 +39,8 @@ public:
 	TransformDataTrack(TrackPlayer* own, const char* nm, Matrix* value, float radius, bool orinet, ChangeKeyFunc changeKey_Func);
 	virtual ~TransformDataTrack();
 
-	virtual void Load(JSONReader* stream, int num);
-	virtual void Save(JSONWriter* stream);
+	virtual void Load(JSONReader& stream, int num);
+	virtual void Save(JSONWriter& stream);
 
 	void BezierFunc(Vector& p1, Vector& p2,Vector& p3,Vector& p4, Vector& pos, float t);
 	void CubicFunc(int index, Vector& pos, float s);

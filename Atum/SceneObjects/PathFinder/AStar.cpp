@@ -1,5 +1,6 @@
 #include "AStar.h"
 #include <algorithm>
+#include "Support/Buffer.h"
 
 AStar::Node::Node(Vec2 set_pos, Node* set_parent)
 {
@@ -37,7 +38,7 @@ AStar::~AStar()
 	}
 }
 
-void AStar::LoadWorld(const char* name, Vec2& set_worldSize)
+void AStar::LoadWorld(const char* name, Vec2 set_worldSize)
 {
 	if (field)
 	{
@@ -46,23 +47,13 @@ void AStar::LoadWorld(const char* name, Vec2& set_worldSize)
 
 	worldSize = set_worldSize;
 
-	FILE* f = fopen(name, "r");
+	Buffer file;
 
-	if (!f)
+	if (file.Load(name))
 	{
-		return;
+		field = (char*)malloc(sz);
+		visited = (char*)malloc(sz);
 	}
-
-	fseek(f, 0, SEEK_END);
-	sz = ftell(f);
-	fseek(f, 0, SEEK_SET);
-
-	field = (char*)malloc(sz);
-	fread(field, sz, 1, f);
-
-	fclose(f);
-
-	visited = (char*)malloc(sz);
 }
 
 AStar::Node* AStar::AllocNode(Vec2 pos, Node* parent)
@@ -85,7 +76,7 @@ AStar::Node* AStar::AllocNode(Vec2 pos, Node* parent)
 	return node;
 }
 
-bool AStar::FindPath(AStar::CoordinateList& path, Vec2& src, Vec2& dest)
+bool AStar::FindPath(AStar::CoordinateList& path, Vec2 src, Vec2 dest)
 {
 	path.clear();
 
@@ -187,13 +178,13 @@ AStar::Node* AStar::FindNodeOnList(NodeSet& nodes, Vec2 pos)
 	return nullptr;
 }
 
-int AStar::GetHeuristic(Vec2& src, Vec2& dest)
+int AStar::GetHeuristic(Vec2 src, Vec2 dest)
 {
 	auto delta = std::move(src.GetDelta(dest));
 	return 10 * (delta.x + delta.y) + (-6) * std::min(delta.x, delta.y);
 }
 
-bool AStar::DetectCollision(Vec2& pos)
+bool AStar::DetectCollision(Vec2 pos)
 {
 	if (pos.x < 0 || pos.x >= worldSize.x ||
 		pos.y < 0 || pos.y >= worldSize.y)

@@ -11,8 +11,9 @@
 
 class TrackPlayer : public Object
 {
-	char  name[64];
-	char  type[64];
+	char name[64];
+	char type[64];
+	bool active = true;
 
 public:
 
@@ -47,8 +48,6 @@ public:
 	};
 
 #ifdef EDITOR
-	bool active;
-
 	virtual void InitControls(EUIWidget* parent);
 	virtual void DataFromGizmo();
 	virtual void DebugDraw();
@@ -60,8 +59,8 @@ public:
 
 	virtual MetaData* GetMetaData() = 0;
 
-	virtual void Load(JSONReader* stream);
-	virtual void Save(JSONWriter* stream);
+	virtual void Load(JSONReader& stream);
+	virtual void Save(JSONWriter& stream);
 
 	virtual void Reset();
 	virtual void SetTime(float time);

@@ -9,8 +9,9 @@ class Terrain : public SceneObject
 public:
 	META_DATA_DECL(Terrain)
 
-	GeometryBuffer* buffer = NULL;
-	Texture*        texture = NULL;
+	VertexDecl*     vdecl;
+	GeometryBuffer* buffer = nullptr;
+	Texture*        texture = nullptr;
 	int      hwidth;
 	int      hheight;
 	float    scaleh;

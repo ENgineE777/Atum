@@ -1,9 +1,12 @@
 
-#include "Plane.h"
+#include "plane.h"
 #include "programs.h"
 
 void Plane::Init(float plane_y, const char* tex_name)
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+
 	int stride = sizeof(VertexTri);
 	buffer = render.GetDevice()->CreateBuffer(6, stride);
 
@@ -36,19 +39,20 @@ void Plane::Init(float plane_y, const char* tex_name)
 
 void Plane::Render(float dt)
 {
-	Render(Programs::prg);
+	Render(Programs::GetTranglPrg());
 }
 
 void Plane::ShRender(float dt)
 {
-	Render(Programs::shprg);
+	Render(Programs::GetShdTranglPrg());
 }
 
 void Plane::Render(Program* prg)
 {
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 
-	prg->Apply();
+	render.GetDevice()->SetProgram(prg);
 
 	Vector4 color(1.0f, 1.0f, 1.0f, 1.0f);
 
@@ -58,10 +62,10 @@ void Plane::Render(Program* prg)
 	render.GetTransform(Render::WrldViewProj, trans);
 
 	Matrix mat;
-	prg->VS_SetMatrix("world", &mat, 1);
-	prg->VS_SetMatrix("trans", &trans, 1);
-	prg->PS_SetVector("color", &color, 1);
-	prg->PS_SetTexture("diffuseMap", texture);
+	prg->SetMatrix(Program::Vertex, "world", &mat, 1);
+	prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
+	prg->SetVector(Program::Pixel, "color", &color, 1);
+	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
 
 	render.GetDevice()->Draw(Device::TrianglesList, 0, 2);
 }

@@ -6,7 +6,6 @@ CLASSFACTORYDECL(TrackPlayer)
 
 TrackPlayer::TrackPlayer()
 {
-	active = true;
 	name[0] = 0;
 }
 
@@ -26,7 +25,6 @@ void TrackPlayer::Clear()
 }
 
 #ifdef EDITOR
-
 void TrackPlayer::InitControls(EUIWidget* parent)
 {
 	for (int i=0; i<tracks.size();i++)
@@ -50,64 +48,69 @@ void TrackPlayer::DebugDraw()
 		tracks[i]->DebugDraw();
 	}
 }
+
+void TrackPlayer::SetActive(bool value)
+{
+	active = value;
+}
 #endif
 
-void TrackPlayer::Load(JSONReader* stream)
+void TrackPlayer::Load(JSONReader& stream)
 {
-	stream->Read("Name", name, 64);
-	stream->Read("Active", active);
+	stream.Read("Name", name, 64);
+	stream.Read("Active", active);
 
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(stream);
 
 	int count = 0;
-	stream->Read("Count", count);
+	stream.Read("Count", count);
 
 	for (int i=0; i<count;i++)
 	{
-		if (!stream->EnterBlock("DataTrack")) break;
+		if (!stream.EnterBlock("DataTrack")) break;
 
 		int num_keys = 0;
-		stream->Read("Count", num_keys);
+		stream.Read("Count", num_keys);
 
 		char trackName[64];
-		stream->Read("Name", trackName, 64);
+		stream.Read("Name", trackName, 64);
 
 		tracks[i]->Load(stream, num_keys);
 
-		stream->LeaveBlock();
+		stream.LeaveBlock();
 	}
 }
 
-void TrackPlayer::Save(JSONWriter* stream)
+void TrackPlayer::Save(JSONWriter& stream)
 {
-	stream->Write("Type", type);
-	stream->Write("Name", name);
-	stream->Write("Active", active);
+	stream.Write("Type", type);
+	stream.Write("Name", name);
+	stream.Write("Active", active);
 
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(stream);
 
 	int count = (int)tracks.size();
-	stream->Write("Count", count);
+	stream.Write("Count", count);
 
-	stream->StartArray("DataTrack");
+	stream.StartArray("DataTrack");
 
 	for (int i=0; i<count;i++)
 	{
-		stream->StartBlock(NULL);
+		stream.StartBlock(NULL);
 
 		int num_keys = tracks[i]->GetKeysCount();
-		stream->Write("Count", num_keys);
+		stream.Write("Count", num_keys);
 
-		stream->Write("Name", tracks[i]->GetName());
+		stream.Write("Name", tracks[i]->GetName());
 
 		tracks[i]->Save(stream);
 
-		stream->FinishBlock();
+		stream.FinishBlock();
 	}
 
-	stream->FinishArray();
+	stream.FinishArray();
 }
 
 void TrackPlayer::Reset()
@@ -133,17 +136,12 @@ void TrackPlayer::Release()
 	delete this;
 }
 
-void TrackPlayer::SetActive(bool value)
-{
-	active = value;
-}
-
 DataTrack* TrackPlayer::GetDataTrack( const char* _name )
 {
-	dword size = (int)tracks.size();
-	for (dword i = 0; i < size; ++i)
+	int size = (int)tracks.size();
+	for (int i = 0; i < size; ++i)
 	{
-		if (!strcmp(tracks[i]->GetName(), _name))
+		if (StringUtils::IsEqual(tracks[i]->GetName(), _name))
 			return tracks[i];
 	}
 

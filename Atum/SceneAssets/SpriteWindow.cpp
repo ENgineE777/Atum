@@ -108,18 +108,25 @@ void SpriteWindow::Init()
 	frame_time_ebox->SetListener(-1, this, 0);
 
 	cur_frame_label = new EUILabel(panel, "Current Frame", 5, 370, 90, 20);
-	cur_frame_ebox = new EUIEditBox(panel,"0", 95, 370, 100, 20, EUIEditBox::InputUInteger);
+	cur_frame_ebox = new EUIEditBox(panel,"0", 95, 370, 80, 20, EUIEditBox::InputUInteger);
 	cur_frame_ebox->SetListener(-1, this, 0);
-	cur_frame_time_label = new EUILabel(panel, "Frame Time", 5, 400, 90, 20);
-	cur_frame_time_ebox = new EUIEditBox(panel, "1", 95, 400, 100, 20, EUIEditBox::InputFloat);
+	btn_del_frame = new EUIButton(panel, "X", 175, 370, 20, 20);
+	btn_del_frame->SetListener(-1, this, 0);
+
+	show_anim_label = new EUILabel(panel, "Frames Time", 5, 400, 90, 20);
+	show_anim_box = new EUICheckBox(panel, "", 95, 400, 90, 20);
+	show_anim_box->SetChecked(show_anim);
+	show_anim_box->SetListener(-1, this, 0);
+
+	cur_frame_time_label = new EUILabel(panel, "Frame Time", 5, 430, 90, 20);
+	cur_frame_time_ebox = new EUIEditBox(panel, "1", 95, 430, 100, 20, EUIEditBox::InputFloat);
 	cur_frame_time_ebox->SetListener(-1, this, 0);
 
-
-	pivot_x_label = new EUILabel(panel, "Pivot x", 5, 430, 90, 20);
-	pivot_x_ebox = new EUIEditBox(panel, "0", 95, 430, 100, 20, EUIEditBox::InputInteger);
+	pivot_x_label = new EUILabel(panel, "Pivot x", 5, 460, 90, 20);
+	pivot_x_ebox = new EUIEditBox(panel, "0", 95, 460, 100, 20, EUIEditBox::InputInteger);
 	pivot_x_ebox->SetListener(-1, this, 0);
-	pivot_y_label = new EUILabel(panel, "Pivot y", 5, 460, 90, 20);
-	pivot_y_ebox = new EUIEditBox(panel, "1", 95, 460, 100, 20, EUIEditBox::InputInteger);
+	pivot_y_label = new EUILabel(panel, "Pivot y", 5, 490, 90, 20);
+	pivot_y_ebox = new EUIEditBox(panel, "1", 95, 490, 100, 20, EUIEditBox::InputInteger);
 	pivot_y_ebox->SetListener(-1, this, 0);
 
 	img_wgt = new EUIPanel(wnd_lt, 270, 5, 700, 550);
@@ -161,7 +168,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	}
 
 	sprite->tex_name = img;
-	sprite->Load();
+	sprite->LoadTexture();
 
 	load_image->SetText(img);
 
@@ -183,7 +190,13 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	image = CreateDIBSection(hdcScreen, &bminfo, DIB_RGB_COLORS, (void**)&imageBits, NULL, 0);
 	ReleaseDC(NULL, hdcScreen);
 
-	Buffer buffer(img);
+	Buffer buffer;
+
+	if (!buffer.Load(img))
+	{
+		return;
+	}
+
 	uint8_t* ptr = buffer.GetData();
 
 	int bytes;
@@ -404,8 +417,12 @@ void SpriteWindow::ShowFrameWidgets()
 
 	cur_frame_label->Show(show);
 	cur_frame_ebox->Show(show);
+	btn_del_frame->Show(show);
 	num_frame_label->Show(show);
 	num_frame_ebox->Show(show);
+
+	show_anim_label->Show(show);
+	show_anim_box->Show(show);
 
 	frame_time_label->Show(show);
 	frame_time_ebox->Show(show);
@@ -422,6 +439,7 @@ void SpriteWindow::SetCurFrame(int frame)
 		points[j] = frames[cur_frame * 4 + j];
 	}
 
+	cur_frame_ebox->SetText(cur_frame);
 	cur_frame_time_ebox->SetText(sprite->rects[cur_frame].frame_time);
 	pivot_x_ebox->SetText((int)sprite->rects[cur_frame].offset.x);
 	pivot_y_ebox->SetText((int)sprite->rects[cur_frame].offset.y);
@@ -552,6 +570,15 @@ void SpriteWindow::MakeZoom(bool zoom_in)
 	img_wgt->Redraw();
 }
 
+void SpriteWindow::CheckStateOfBorder()
+{
+	if (!img_wgt->IsFocused() && border_drawed)
+	{
+		img_wgt->Redraw();
+		border_drawed = false;
+	}
+}
+
 void SpriteWindow::OnDraw(EUIWidget* sender)
 {
 	HWND handle = *((HWND*)sender->GetNative());
@@ -576,6 +603,7 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 	HBRUSH green = CreateSolidBrush(RGB(0, 255, 0));
 	HPEN pen_white = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
 	HPEN pen_green = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
+	HPEN pen_red = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
 	HPEN pen_black = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
 	HPEN pen_axis = CreatePen(PS_SOLID, 2, RGB(55, 55, 55));
 	HPEN pen_bcgr = CreatePen(PS_SOLID, 1, RGB(color.r * 255, color.g * 255, color.b * 255));
@@ -595,6 +623,29 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 
 	MoveToEx(hdc, (int)((origin.x - wd) * pixel_density), (int)(origin.y * pixel_density), 0);
 	LineTo(hdc, (int)((origin.x + wd) * pixel_density), (int)(origin.y * pixel_density));
+
+	if (sender->IsFocused())
+	{
+		SelectObject(hdc, pen_red);
+
+		for (int i = 0; i < 3; i++)
+		{
+			MoveToEx(hdc, 1, 1 + i, 0);
+			LineTo(hdc, sender->GetWidth(), 1 + i);
+
+			MoveToEx(hdc, 1, sender->GetHeight() - 1 - i, 0);
+			LineTo(hdc, sender->GetWidth(), sender->GetHeight() - 1 - i);
+
+			MoveToEx(hdc, 1 + i, 1, 0);
+			LineTo(hdc, 1 + i, sender->GetHeight());
+
+			MoveToEx(hdc, sender->GetWidth() - 1 - i, 1, 0);
+			LineTo(hdc, sender->GetWidth() -1 - i, sender->GetHeight() - 1);
+		}
+
+		border_drawed = true;
+	}
+
 
 	if (sprite->texture)
 	{
@@ -866,7 +917,7 @@ void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
 
 	if (sender == prop_y_ebox)
 	{
-	delta_y = (sprite->height - prop_y_ebox->GetAsInt()) - sprite_pos.y;
+		delta_y = (sprite->height - prop_y_ebox->GetAsInt()) - sprite_pos.y;
 	}
 
 	if (fabs(delta_x) > 0.0f || fabs(delta_y) > 0.0f)
@@ -905,31 +956,45 @@ void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
 	if (sender == cur_frame_ebox)
 	{
 		SetCurFrame((int)fmin(atoi(cur_frame_ebox->GetText()), num_frames - 1));
-		cur_frame_ebox->SetText(cur_frame);
 	}
 
 	if (sender == num_frame_ebox)
 	{
+		int prev_cur_frames = cur_frame;
 		int prev_num_frames = num_frames;
 		num_frames = (int)fmax(atoi(num_frame_ebox->GetText()), 1);
 		num_frame_ebox->SetText(num_frames);
-
-		SetCurFrame((int)fmin(cur_frame, num_frames - 1));
 
 		frames.resize(num_frames * 4);
 		ResizeSpriteRect();
 
 		if (prev_num_frames < num_frames)
 		{
-			prev_num_frames--;
+			for (int i = prev_num_frames - 1; i >= prev_cur_frames; i--)
+			{
+				for (int j = 0; j < 4; j++)
+				{
+					frames[(i + 1) * 4 + j] = frames[i * 4 + j];
+				}
+			}
 
 			for (int i = prev_num_frames + 1; i < num_frames; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					frames[i * 4 + j] = frames[prev_num_frames * 4 + j];
+					frames[i * 4 + j] = frames[(prev_num_frames) * 4 + j];
 				}
 			}
+		}
+
+		if (cur_frame >= num_frames)
+		{
+			SetCurFrame(num_frames - 1);
+		}
+		else
+		if (prev_num_frames < num_frames)
+		{
+			SetCurFrame(prev_cur_frames + 1);
 		}
 
 		UpdateSpriteRect();
@@ -958,7 +1023,7 @@ void SpriteWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 {
 	if (sender != img_wgt) return;
 
-	SetFocus(*(HWND*)img_wgt->GetNative());
+	img_wgt->SetFocused();
 
 	Vector2 ps(prev_ms.x - origin.x * pixel_density, origin.y * pixel_density - prev_ms.y);
 
@@ -1067,11 +1132,18 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
 	if (sender == load_image)
 	{
-		const char* fileName = EUI::OpenOpenDialog(wnd->GetNative(), "Image files", "*");
+		const char* file_name = EUI::OpenOpenDialog(wnd->GetNative(), "Image files", "*");
 
-		if (fileName)
+		char cur_dir[2048];
+		GetCurrentDirectory(512, cur_dir);
+
+		if (file_name)
 		{
-			SetImage(fileName, true);
+			char cropped_path[1024];
+			StringUtils::GetCropPath(cur_dir, file_name, cropped_path, 1024);
+			StringUtils::RemoveFirstChar(cropped_path);
+
+			SetImage(cropped_path, true);
 			img_wgt->Redraw();
 		}
 	}
@@ -1105,6 +1177,32 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		FitImage();
 	}
 
+	if (sender == btn_del_frame && num_frames > 1)
+	{
+		for (int i = cur_frame + 1; i < num_frames; i++)
+		{
+			for (int j = 0; j < 4; j++)
+			{
+				frames[(i - 1) * 4 + j] = frames[i * 4 + j];
+			}
+		}
+
+		num_frames--;
+		frames.resize(num_frames * 4);
+		ResizeSpriteRect();
+
+		SetCurFrame((int)fmin(cur_frame, num_frames - 1));
+		num_frame_ebox->SetText(num_frames);
+
+		UpdateSpriteRect();
+		img_wgt->Redraw();
+	}
+
+	if (sender == show_anim_box)
+	{
+		show_anim = !show_anim;
+	}
+
 	if (sender == img_wgt)
 	{
 		sel_col = -1;
@@ -1131,6 +1229,11 @@ void SpriteWindow::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 void SpriteWindow::OnKey(EUIWidget* sender, int key)
 {
 	Vector2 delta = 0.0f;
+
+	if (!border_drawed)
+	{
+		return;
+	}
 
 	switch (key)
 	{

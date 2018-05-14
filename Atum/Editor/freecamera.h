@@ -12,6 +12,8 @@ public:
 	Matrix  view;
 	Matrix  proj;
 
+	bool mode_2d = false;
+
 	int alias_forward;
 	int alias_strafe;
 	int alias_fast;

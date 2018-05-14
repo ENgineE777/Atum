@@ -1,7 +1,7 @@
 #include "hovertank.h"
 #include "Services/Controls/Controls.h"
 
-CLASSDECLDECL(SceneObject, HoverTank)
+CLASSDECLDECL(HoverTank)
 
 META_DATA_DESC(HoverTank)
 META_DATA_DESC_END()
@@ -34,7 +34,9 @@ void HoverTank::Init()
 	mFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, tolerancesScale, true);
 
+#ifdef PLATFORM_PC
 	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(tolerancesScale));
+#endif
 
 	alias_forward = controls.GetAlias("MOVE_FORWARD");
 	alias_strafe = controls.GetAlias("MOVE_STRAFE");

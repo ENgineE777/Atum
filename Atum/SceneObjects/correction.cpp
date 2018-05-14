@@ -1,8 +1,17 @@
 #include "correction.h"
 #include "programs.h"
+#include "SceneObjects/RenderLevels.h"
+
+CLASSDECLDECL(ColorCorrection)
+
+META_DATA_DESC(ColorCorrection)
+META_DATA_DESC_END()
 
 void ColorCorrection::Init()
 {
+	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float2, VertexDecl::Position, 0 } };
+	vdecl = render.GetDevice()->CreateVertexDecl(1, desc);
+
 	buffer = render.GetDevice()->CreateBuffer(4, sizeof(Vector2));
 
 	Vector2* v = (Vector2*)buffer->Lock();
@@ -14,44 +23,75 @@ void ColorCorrection::Init()
 
 	buffer->Unlock();
 
+	color_prg = render.GetProgram("ColorProgram");
+	blur_prg = render.GetProgram("BlurProgram");
+	combine_prg = render.GetProgram("CombineProgram");
+
+	ring_rt[0] = nullptr;
+	ring_rt[1] = nullptr;
+
+	ReCreateRT();
+
+	RenderTasks()->AddTask(RenderLevels::Prepare, this, (Object::Delegate)&ColorCorrection::SetRT);
+	RenderTasks()->AddTask(RenderLevels::PostProcess, this, (Object::Delegate)&ColorCorrection::Draw);
+}
+
+void ColorCorrection::ReCreateRT()
+{
+	RELEASE(scene_rt)
+	RELEASE(scene_depth)
+
 	for (int i = 0; i < 2; i++)
 	{
-		ring_rt[i] = render.GetDevice()->CreateTexture(400, 300, Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
+		RELEASE(ring_rt[i])
+		ring_rt[i] = render.GetDevice()->CreateTexture((int)(render.GetDevice()->GetWidth() * 0.5f), (int)(render.GetDevice()->GetHeight() * 0.5f), Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
 		ring_rt[i]->SetAdressU(Texture::Border);
 		ring_rt[i]->SetAdressV(Texture::Border);
 	}
+
+	scene_rt = render.GetDevice()->CreateTexture(render.GetDevice()->GetWidth(), render.GetDevice()->GetHeight(), Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
+	scene_depth = render.GetDevice()->CreateTexture(render.GetDevice()->GetWidth(), render.GetDevice()->GetHeight(), Texture::FMT_D16, 1, true, Texture::Tex2D);
 }
 
-float ComputeGaussian(float n)
+float ColorCorrection::ComputeGaussian(float n)
 {
 	float theta = 4.0f;
 
 	return (float)((1.0 / sqrtf(2 * PI * theta)) * expf(-(n * n) / (2 * theta * theta)));
 }
 
-
-void ColorCorrection::Draw(Texture* rt)
+void ColorCorrection::SetRT(float dt)
 {
+	render.GetDevice()->SetRenderTarget(0, scene_rt);
+	render.GetDevice()->SetDepth(scene_depth);
+
+	render.GetDevice()->Clear(true, COLOR_BLACK, true, 1.0f);
+}
+
+void ColorCorrection::Draw(float dt)
+{
+	render.GetDevice()->RestoreRenderTarget();
+
 	render.GetDevice()->SetRenderTarget(0, ring_rt[0]);
 	render.GetDevice()->SetDepth(NULL);
 
+	render.GetDevice()->SetVertexDecl(vdecl);
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 
 	Vector4 threshold;
 	threshold.x = 0.6f;
 
-	Programs::color_prg->Apply();
-	Programs::color_prg->PS_SetVector("treshold", &threshold, 1);
-	Programs::color_prg->PS_SetTexture("rt", rt);
+	render.GetDevice()->SetProgram(color_prg);
+
+	color_prg->SetVector(Program::Vertex, "treshold", &threshold, 1);
+	color_prg->SetTexture(Program::Pixel, "rt", scene_rt);
 
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 
-
-
 	render.GetDevice()->SetRenderTarget(0, ring_rt[1]);
 
-	Programs::blur_prg->Apply();
-	Programs::blur_prg->PS_SetTexture("rt", ring_rt[0]);
+	render.GetDevice()->SetProgram(blur_prg);
+	blur_prg->SetTexture(Program::Pixel, "rt", ring_rt[0]);
 
 	Vector4 samples[15];
 
@@ -88,7 +128,7 @@ void ColorCorrection::Draw(Texture* rt)
 		samples[i].z /= totalWeights;
 	}
 
-	Programs::blur_prg->PS_SetVector("samples", samples, 15);
+	blur_prg->SetVector(Program::Pixel, "samples", samples, 15);
 
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 
@@ -100,19 +140,26 @@ void ColorCorrection::Draw(Texture* rt)
 		samples[i].y = samples[i].w;
 	}
 
-	Programs::blur_prg->PS_SetTexture("rt", ring_rt[1]);
-	Programs::blur_prg->PS_SetVector("samples", samples, 15);
+	blur_prg->SetTexture(Program::Pixel, "rt", ring_rt[1]);
+	blur_prg->SetVector(Program::Pixel, "samples", samples, 15);
 
 
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
-
-	render.GetDevice()->RestoreRenderTarget();
 
 	threshold.x = 0.0f;
 
-	Programs::combine_prg->Apply();
-	Programs::combine_prg->PS_SetTexture("rt", ring_rt[0]);
-	Programs::combine_prg->PS_SetTexture("rt1", rt);
+	render.GetDevice()->RestoreRenderTarget();
+
+	render.GetDevice()->SetProgram(combine_prg);
+	combine_prg->SetTexture(Program::Pixel, "rt", ring_rt[0]);
+	combine_prg->SetTexture(Program::Pixel, "rt1", scene_rt);
 
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
+}
+
+void ColorCorrection::Release()
+{
+	RELEASE(scene_rt)
+	RELEASE(scene_depth)
+	SceneObject::Release();
 }

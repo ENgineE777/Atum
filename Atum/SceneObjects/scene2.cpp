@@ -1,12 +1,10 @@
-#include "Scene2.h"
+#include "scene2.h"
 
 void Scene2::Init()
 {
-	quad.Init();
-
 	//plane.Init(5.0f, "Media//grass.tga");
 
-	correction.Init();
+	//correction.Init();
 
 	//freeCamera.Init();
 
@@ -106,7 +104,7 @@ void Scene2::RenderCorrection(float dt)
 {
 	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
-	correction.Draw(scene_rt);
+	//correction.Draw(scene_rt);
 
 	//quad.Draw(logo_tex, Vector2(380.0f, 280.0f), Vector2(40.0f));
 }

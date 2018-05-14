@@ -1,4 +1,5 @@
-#include <windows.h>
+
+#pragma once
 
 #include "Services/Render/Render.h"
 
@@ -6,67 +7,49 @@ class DebugPrograms
 {
 public:
 
-	
-	class LineProgram : public Program
+	class DbgLine : public Program
 	{
 	public:
-		virtual const char* GetVsName() { return "shaders//debug_line_vs.shd"; };
-		virtual const char* GetPsName() { return "shaders//debug_line_ps.shd"; };
+		virtual const char* GetVsName() { return "debug_line_vs.shd"; };
+		virtual const char* GetPsName() { return "debug_line_ps.shd"; };
 
-		virtual void Apply()
+		virtual void ApplyStates()
 		{
-			Program::Apply();
-
 			render.GetDevice()->SetDepthTest(false);
 			render.GetDevice()->SetDepthWriting(false);
 		};
+
+		CLASSDECLDIF(Program, DbgLine)
 	};
 
-	class LineWithDepthProgram : public LineProgram
+	class DbgLineWithDepth : public DbgLine
 	{
 	public:
 
-		virtual void Apply()
-		{
-			Program::Apply();
-
-			render.GetDevice()->SetDepthTest(true);
-			render.GetDevice()->SetDepthWriting(true);
-		};
+		CLASSDECLDIF(Program, DbgLineWithDepth)
 	};
 
-	class TriangleProgram : public Program
+	class DbgTriangle : public Program
 	{
 	public:
-		virtual const char* GetVsName() { return "shaders//debug_triangle_vs.shd"; };
-		virtual const char* GetPsName() { return "shaders//debug_triangle_ps.shd"; };
+		virtual const char* GetVsName() { return "debug_triangle_vs.shd"; };
+		virtual const char* GetPsName() { return "debug_triangle_ps.shd"; };
 
-		virtual void Apply()
-		{
-			Program::Apply();
-			render.GetDevice()->SetDepthTest(true);
-			render.GetDevice()->SetDepthWriting(true);
-		};
+		CLASSDECLDIF(Program, DbgTriangle)
 	};
 
-	class SpriteProgram : public Program
+	class DbgSprite : public Program
 	{
 	public:
-		virtual const char* GetVsName() { return "shaders//debug_sprite_vs.shd"; };
-		virtual const char* GetPsName() { return "shaders//debug_sprite_ps.shd"; };
+		virtual const char* GetVsName() { return "debug_sprite_vs.shd"; };
+		virtual const char* GetPsName() { return "debug_sprite_ps.shd"; };
 
-		virtual void Apply()
+		virtual void ApplyStates()
 		{
-			Program::Apply();
-			render.GetDevice()->SetDepthTest(true);
-			render.GetDevice()->SetDepthWriting(true);
+			render.GetDevice()->SetDepthTest(false);
+			render.GetDevice()->SetDepthWriting(false);
 		};
+
+		CLASSDECLDIF(Program, DbgSprite)
 	};
-
-	static LineProgram*          line_prg;
-	static LineWithDepthProgram* line_with_depth_prg;
-	static TriangleProgram*      tri_prg;
-	static SpriteProgram*        sprite_prg;
-
-	static void Init();
 };

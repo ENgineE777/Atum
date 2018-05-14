@@ -1,5 +1,6 @@
 
 #include "FileNameWidget.h"
+#include "Support\StringUtils.h"
 
 void FileNameWidget::Listiner::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
@@ -35,12 +36,19 @@ void FileNameWidget::SetData(void* set_data)
 
 void FileNameWidget::OpenFileDialog()
 {
-	const char* fileName = EUI::OpenOpenDialog(openBtn->GetNativeRoot(), "Any file", NULL);
+	const char* file_name = EUI::OpenOpenDialog(openBtn->GetNativeRoot(), "Any file", NULL);
 
-	if (fileName)
+	char cur_dir[2048];
+	GetCurrentDirectory(512, cur_dir);
+
+	if (file_name)
 	{
-		*data = fileName;
-		openBtn->SetText(fileName);
+		char cropped_path[1024];
+		StringUtils::GetCropPath(cur_dir, file_name, cropped_path, 1024);
+		StringUtils::RemoveFirstChar(cropped_path);
+
+		*data = cropped_path;
+		openBtn->SetText(cropped_path);
 		changed = true;
 	}
 }

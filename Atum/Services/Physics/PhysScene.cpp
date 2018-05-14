@@ -2,7 +2,7 @@
 #include "Physics.h"
 #include "Services/Render/Render.h"
 
-PhysObject* PhysScene::CreateBox(Vector& size, Matrix& trans, bool isStatic)
+PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, bool isStatic)
 {
 	PhysObject* obj = new PhysObject();
 
@@ -54,39 +54,27 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
 	return controller;
 }
 
-PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmapDesc& desc)
+PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char* name)
 {
 	PhysHeightmap* hm = new PhysHeightmap();
 
-	hm->samples = new PxHeightFieldSample[desc.width * desc.height];
+	Physics::StraemReader reader;
+	if (reader.buffer.Load(name))
+	{
+		hm->heightField = physics.physics->createHeightField(reader);
 
-	for (int x = 0; x < desc.width; x++)
-		for (int y = 0; y < desc.height; y++)
+		if (hm->heightField)
 		{
-			hm->samples[x + y*desc.width].height = PxI16(desc.hmap[((x)* desc.width + y)]);
-			hm->samples[x + y*desc.width].setTessFlag();
-			hm->samples[x + y*desc.width].materialIndex0 = 1;
-			hm->samples[x + y*desc.width].materialIndex1 = 1;
+			PxTransform pose = PxTransform(PxVec3(-desc.width * 0.5f * desc.scale.x, 0.0f, -desc.height * 0.5f * desc.scale.x), PxQuat(PxIdentity));
+
+			hm->actor = physics.physics->createRigidStatic(pose);
+
+			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
+			PxShape* hfShape = hm->actor->createShape(hfGeom, *physics.defMaterial);
+
+			scene->addActor(*hm->actor);
 		}
-
-	PxHeightFieldDesc heightFieldDesc;
-
-	heightFieldDesc.format = PxHeightFieldFormat::eS16_TM;
-	heightFieldDesc.nbColumns = desc.width;
-	heightFieldDesc.nbRows = desc.height;
-	heightFieldDesc.samples.data = hm->samples;
-	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
-
-	hm->heightField = physics.cooking->createHeightField(heightFieldDesc, physics.physics->getPhysicsInsertionCallback());
-
-	PxTransform pose = PxTransform(PxVec3(-desc.width * 0.5f * desc.scale.x, 0.0f, -desc.height * 0.5f * desc.scale.x), PxQuat(PxIdentity));
-
-	hm->actor = physics.physics->createRigidStatic(pose);
-
-	PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
-	PxShape* hfShape = hm->actor->createShape(hfGeom, *physics.defMaterial);
-
-	scene->addActor(*hm->actor);
+	}
 
 	return hm;
 }

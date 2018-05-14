@@ -6,7 +6,6 @@
 class SceneAsset : public SceneObject
 {
 	friend class Scene;
-	friend class Scene;
 
 	TaskExecutor::SingleTaskPool* taskPool;
 	TaskExecutor::SingleTaskPool* renderTaskPool;

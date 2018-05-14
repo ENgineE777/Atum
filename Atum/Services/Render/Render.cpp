@@ -1,14 +1,17 @@
 
 #include "Render.h"
 
-#include "Render.h"
-#include "DX11/DeviceDX11.h"
 #include "Debug/Debug.h"
 #include <memory>
 
-//#define STBI_NO_JPEG
+#ifdef PLATFORM_PC
+#include "DX11/DeviceDX11.h"
+#endif
 
-//STBI_NO_TGA
+#ifdef PLATFORM_ANDROID
+#include "Services/Render/GLES3/DeviceGLES.h"
+#endif
+
 #define STBI_NO_GIF
 #define STBI_NO_HDR
 #define STBI_NO_PIC
@@ -28,41 +31,47 @@ Render::Render()
 
 bool Render::Init(const char* device_name, int width, int height, void* data)
 {
+#ifdef PLATFORM_PC
 	device = new DeviceDX11();
+#endif
+
+#ifdef PLATFORM_ANDROID
+	device = new DeviceGLES();
+#endif
 
 	groupTaskPool = taskExecutor.CreateGroupTaskPool();
 	debugTaskPool = groupTaskPool->AddTaskPool();
 
 	taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
 
-	if (device->Init(width, height, data))
+	if (!device->Init(width, height, data))
 	{
-		device->SetCulling(Device::CullCCW);
-
-		DebugPrograms::Init();
-
-		spheres = new DebugSpheres();
-		spheres->Init(debugTaskPool);
-
-		boxes = new DebugBoxes();
-		boxes->Init(debugTaskPool);
-
-		triangles = new DebugTriangles();
-		triangles->Init(debugTaskPool);
-
-		lines = new DebugLines();
-		lines->Init(debugTaskPool);
-
-		sprites = new DebugSprites();
-		sprites->Init(debugTaskPool);
-
-		font = new DebugFont();
-		font->Init(debugTaskPool);
-
-		return true;
+		return false;
 	}
 
-	return false;
+	device->SetCulling(Device::CullCCW);
+	device->SetBlendFunc(Device::ArgSrcAlpha, Device::ArgInvSrcAlpha);
+	device->SetDepthTest(true);
+
+	spheres = new DebugSpheres();
+	spheres->Init(debugTaskPool);
+
+	boxes = new DebugBoxes();
+	boxes->Init(debugTaskPool);
+
+	triangles = new DebugTriangles();
+	triangles->Init(debugTaskPool);
+
+	lines = new DebugLines();
+	lines->Init(debugTaskPool);
+
+	sprites = new DebugSprites();
+	sprites->Init(debugTaskPool);
+
+	font = new DebugFont();
+	font->Init(debugTaskPool);
+
+	return true;
 }
 
 Device* Render::GetDevice()
@@ -70,7 +79,7 @@ Device* Render::GetDevice()
 	return device;
 }
 
-void Render::SetTransform(Transform _trans, Matrix& mat)
+void Render::SetTransform(Transform _trans, Matrix mat)
 {
 	if (_trans != WrldViewProj)
 	{
@@ -95,6 +104,22 @@ void Render::CalcTrans()
 	need_calc_trans = false;
 }
 
+Program* Render::GetProgram(const char* name)
+{
+	if (programs.count(name) > 0)
+	{
+		return programs[name];
+	}
+
+	Program * prg = ClassFactoryProgram::Create(name);
+	prg->Init();
+	device->PrepareProgram(prg);
+
+	programs[name] = prg;
+
+	return prg;
+}
+
 Texture* Render::LoadTexture(const char* name)
 {
 	if (textures.count(name) > 0)
@@ -105,14 +130,14 @@ Texture* Render::LoadTexture(const char* name)
 		return ref.texture;
 	}
 
-	Buffer buffer(name);
+	Buffer buffer;
+
+	if (!buffer.Load(name))
+	{
+		return nullptr;
+	}
 
 	uint8_t* ptr = buffer.GetData();
-
-	if (!ptr)
-	{
-		return NULL;
-	}
 
 	int bytes;
 	int width;
@@ -184,47 +209,61 @@ void Render::Execute(float dt)
 	groupTaskPool->Execute(dt);
 }
 
-void Render::DebugLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth)
+void Render::DebugLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth)
 {
 	lines->AddLine(from, from_clr, to, to_clr, use_depth);
 }
 
-void Render::DebugLine2D(Vector2& from, Color& from_clr, Vector2& to, Color& to_clr)
+void Render::DebugLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr)
 {
 	lines->AddLine2D(from, from_clr, to, to_clr);
 }
 
-void Render::DebugSphere(Vector& pos, Color& color, float radius)
+void Render::DebugSphere(Vector pos, Color color, float radius)
 {
 	spheres->AddSphere(pos, color, radius);
 }
 
-void Render::DebugBox(Matrix& pos, Color& color, Vector& scale)
+void Render::DebugBox(Matrix pos, Color color, Vector scale)
 {
 	boxes->AddBox(pos, color, scale);
 }
 
-void Render::DebugTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color)
+void Render::DebugTriangle(Vector p1, Vector p2, Vector p3, Color color)
 {
 	triangles->AddTriangle(p1, p2, p3, color);
 }
 
-void Render::DebugPrintText(Vector2 pos, Color color, const char* text)
+void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)
 {
-	font->AddText(pos, color, text);
+	char buffer[256];
+	va_list args;
+	va_start(args, text);
+	vsnprintf(buffer, 256, text, args);
+	perror(buffer);
+	va_end(args);
+
+	font->AddText(pos, color, buffer);
 }
 
-void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text)
+void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text, ...)
 {
-	font->AddText(pos, dist, color, text);
+	char buffer[256];
+	va_list args;
+	va_start(args, text);
+	vsnprintf(buffer, 256, text, args);
+	perror(buffer);
+	va_end(args);
+
+	font->AddText(pos, dist, color, buffer);
 }
 
-void Render::DebugSprite(Texture* texture, Vector2& pos, Vector2& size)
+void Render::DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color)
 {
-	sprites->AddSprite(texture, pos, size);
+	sprites->AddSprite(texture, pos, size, color);
 }
 
-Vector Render::TransformToScreen(const Vector& pos, int type)
+Vector Render::TransformToScreen(Vector pos, int type)
 {
 	Matrix view;
 	render.GetTransform(Render::View, view);

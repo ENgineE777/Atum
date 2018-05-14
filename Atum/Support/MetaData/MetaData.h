@@ -4,6 +4,8 @@
 #include "Support/Support.h"
 #include "Support/json/JSONReader.h"
 #include "Support/json/JSONWriter.h"
+
+#ifdef EDITOR
 #include "BoolWidget.h"
 #include "IntWidget.h"
 #include "FloatWidget.h"
@@ -12,6 +14,7 @@
 #include "ColorWidget.h"
 #include "EnumWidget.h"
 #include "CallbackWidget.h"
+#endif
 
 struct MetaDataEnum
 {
@@ -54,11 +57,13 @@ public:
 		int            offset;
 		Type           type;
 		DefValue       defvalue;
-		byte*          value;
+		uint8_t*       value;
 		std::string    catName;
 		std::string    propName;
+#ifdef EDITOR
 		ProperyWidget* widget;
 		CallbackWidget::Callback callback;
+#endif
 	};
 
 	bool inited;
@@ -70,27 +75,29 @@ public:
 	virtual void Init() = 0;
 	void Prepare(void* owner);
 	void SetDefValuesPrepare();
-	void Load(JSONReader* reader);
-	void Save(JSONWriter* writer);
+	void Load(JSONReader& reader);
+	void Save(JSONWriter& writer);
 	void Copy(void* source);
+#ifdef EDITOR
 	void PrepareWidgets(EUICategories* parent);
 	bool IsValueWasChanged();
 	void HideWidgets();
+#endif
 };
 
 #define META_DATA_DECL(className)\
-class MetaData##className : public MetaData\
+class MetaDataImpl : public MetaData\
 {\
 public:\
 	virtual void Init();\
 };\
-static MetaData##className meta_data;\
+static MetaDataImpl meta_data;\
 virtual MetaData* GetMetaData();
 
 #define META_DATA_DESC(className)\
-className##::MetaData##className className##::meta_data;\
-MetaData* className##::GetMetaData() { return &className##::meta_data; };\
-void className##::MetaData##className##::Init()\
+className::MetaDataImpl className::meta_data;\
+MetaData* className::GetMetaData() { return &className::meta_data; };\
+void className::MetaDataImpl::Init()\
 {
 
 #define META_DATA_DESC_END()\
@@ -104,7 +111,7 @@ void className##::MetaData##className##::Init()\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.type = tp;\
-	prop.defvalue.##defValueName = defValue;\
+	prop.defvalue.defValueName = defValue;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\
@@ -143,7 +150,8 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.type = Clor;\
-	memcpy(&prop.defvalue, &defValue, sizeof(float) * 4);\
+	Color tmp = defValue;\
+	memcpy(&prop.defvalue, &tmp, sizeof(float) * 4);\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\
@@ -169,6 +177,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	properties.push_back(prop);\
 }
 
+#ifdef EDITOR
 #define CALLBACK_PROP(className, set_callback, strCatName, strPropName)\
 {\
 	Property prop;\
@@ -178,3 +187,4 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.callback = set_callback;\
 	properties.push_back(prop);\
 }
+#endif

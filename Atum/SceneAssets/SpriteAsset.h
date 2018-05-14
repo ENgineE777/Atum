@@ -2,7 +2,6 @@
 #pragma once
 
 #include "Services/Scene/SceneAsset.h"
-#include "../SceneObjects/quad.h"
 #include "Sprite.h"
 
 class SpriteAsset : public SceneAsset
@@ -13,18 +12,19 @@ public:
 	Transform2D trans;
 
 	Sprite::Data sprite;
-	Quad quad;
+	static Sprite::FrameState state;
 
 	CLASSDECLDIF(SceneAsset, SpriteAsset)
 	SpriteAsset();
 	virtual ~SpriteAsset();
 
 	virtual void Init();
-	virtual void Load(JSONReader* loader);
-	virtual void Save(JSONWriter* saver);
+	virtual void Load(JSONReader& loader);
+	virtual void Save(JSONWriter& saver);
 	void Draw(float dt);
 
 #ifdef EDITOR
+	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
 #endif
 };

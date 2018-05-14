@@ -3,7 +3,7 @@
 
 #include "Services/Scene/SceneObject.h"
 #include "GUIWidget.h"
-#include "../Programs.h"
+#include "SceneObjects/programs.h"
 
 class TestGUI : public SceneObject
 {

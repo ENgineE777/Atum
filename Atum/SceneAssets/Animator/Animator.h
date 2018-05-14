@@ -23,10 +23,12 @@ public:
 	std::vector<TrackPlayer*> players;
 
 	virtual void Init();
-	virtual void Load(JSONReader* loader);
-	virtual void Save(JSONWriter* saver);
+	virtual void Load(JSONReader& loader);
+	virtual void Save(JSONWriter& saver);
 
+#ifdef EDITOR
 	virtual void SetEditMode(bool ed);
 	void Work(float dt);
+#endif
 	void Reset();
 };

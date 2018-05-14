@@ -13,7 +13,7 @@ public:
 		float matrix[16];
 		float m[4][4];
 		struct
-		{			
+		{
 			float _11,_12,_13,_14;
 			float _21,_22,_23,_24;
 			float _31,_32,_33,_34;
@@ -32,30 +32,30 @@ public:
 
 	Matrix& Identity();
 	Matrix& SetZero();
-	Matrix& Set(Matrix & Matrix);
+	Matrix& Set(Matrix& Matrix);
 
-	bool    IsEqual(Matrix& mat);
+	bool IsEqual(Matrix& mat);
 
-	Matrix& BuildProjection(float viewAngle, float aspect, float zNear, float zFar);
-	bool    BuildView(Vector lookFrom, Vector lookTo, Vector upVector);
+	void BuildProjection(float viewAngle, float aspect, float zNear, float zFar);
+	bool BuildView(Vector lookFrom, Vector lookTo, Vector upVector);
 
 	Matrix& RotateX(float ang);
 	Matrix& RotateY(float ang);
 	Matrix& RotateZ(float ang);
 
-	Matrix& Move(Vector & pos);
-	Matrix& Scale(Vector & scale);
+	Matrix& Move(Vector pos);
+	Matrix& Scale(Vector scale);
 	Matrix& Inverse();
 	bool InverseComplette();
-	Matrix& Transposition();
+	void Transpose();
 
-	Vector  MulVertex(const Vector & v) const;
-	Vector4 MulVertex4(const Vector & v) const;
-	Vector  MulNormal(Vector & v);
-	Vector  MulVertexByInverse(Vector & v);
-	Vector  MulNormalByInverse(Vector & v);
+	Vector  MulVertex(Vector v) const;
+	Vector4 MulVertex4(Vector v) const;
+	Vector  MulNormal(Vector v);
+	Vector  MulVertexByInverse(Vector v);
+	Vector  MulNormalByInverse(Vector v);
 
-	Matrix& Multiply(const Matrix & m1, const Matrix & m2);
+	Matrix& Multiply(Matrix m1, Matrix m2);
 };
 
 inline Matrix::Matrix(bool empty)
@@ -86,7 +86,7 @@ inline Vector operator * (const Vector & v, const Matrix & mtx)
 	return mtx.MulVertex(v);
 }
 
-inline Matrix & Matrix::Identity()
+inline Matrix& Matrix::Identity()
 {
 	matrix[0] = 1.0f;
 	matrix[1] = 0.0f;
@@ -111,7 +111,7 @@ inline Matrix & Matrix::Identity()
 	return *this;
 }
 
-inline Matrix & Matrix::SetZero()
+inline Matrix& Matrix::SetZero()
 {
 	matrix[0] = 0.0f;
 	matrix[1] = 0.0f;
@@ -136,7 +136,7 @@ inline Matrix & Matrix::SetZero()
 	return *this;
 }
 
-inline Matrix & Matrix::Set(Matrix & matrix)
+inline Matrix & Matrix::Set(Matrix& matrix)
 {
 	this->matrix[0] = matrix.matrix[0]; 
 	this->matrix[1] = matrix.matrix[1];
@@ -174,7 +174,7 @@ inline bool Matrix::IsEqual(Matrix& mat)
 	return true;
 }
 
-inline Matrix & Matrix::BuildProjection(float viewAngle, float aspect, float zNear, float zFar)
+inline void Matrix::BuildProjection(float viewAngle, float aspect, float zNear, float zFar)
 {
 	SetZero();
 
@@ -184,8 +184,6 @@ inline Matrix & Matrix::BuildProjection(float viewAngle, float aspect, float zNe
 	m[2][2] = float(Q);
 	m[2][3] = 1.0f;
 	m[3][2] = float(-Q*zNear);
-
-	return *this;
 }
 
 inline bool Matrix::BuildView(Vector lookFrom, Vector lookTo, Vector upVector)
@@ -205,7 +203,7 @@ inline bool Matrix::BuildView(Vector lookFrom, Vector lookTo, Vector upVector)
 	if (upVector.Normalize() == 0.0f) upVector.y = 1.0f;
 	
 	Vector v = upVector.Cross(lookTo);
-	if (v.Normalize() != 0.0f)
+	if (v.Normalize() > 0.0f)
 	{
 		m[0][0] = v.x;
 		m[1][0] = v.y;
@@ -263,7 +261,7 @@ inline Matrix & Matrix::RotateZ(float ang)
 	return *this;
 }
 
-inline Matrix & Matrix::Move(Vector & pos)
+inline Matrix & Matrix::Move(Vector pos)
 {
 	this->Pos().x += pos.x;
 	this->Pos().y += pos.y;
@@ -271,7 +269,7 @@ inline Matrix & Matrix::Move(Vector & pos)
 	return *this;
 }
 
-inline Matrix & Matrix::Scale(Vector & scale)
+inline Matrix & Matrix::Scale(Vector scale)
 {
 	m[0][0] *= scale.x;
 	m[1][0] *= scale.x;
@@ -437,7 +435,7 @@ inline bool Matrix::InverseComplette()
 	return true;
 }
 
-inline Matrix & Matrix::Transposition()
+inline void Matrix::Transpose()
 {
 	float tmp;
 	tmp = m[0][1]; m[0][1] = m[1][0]; m[1][0] = tmp;
@@ -446,11 +444,9 @@ inline Matrix & Matrix::Transposition()
 	tmp = m[1][2]; m[1][2] = m[2][1]; m[2][1] = tmp;
 	tmp = m[1][3]; m[1][3] = m[3][1]; m[3][1] = tmp;
 	tmp = m[2][3]; m[2][3] = m[3][2]; m[3][2] = tmp;
-
-	return *this;
 }
 
-inline Matrix & Matrix::Multiply(const Matrix & m1, const Matrix & m2)
+inline Matrix & Matrix::Multiply(Matrix m1, Matrix m2)
 {
 	m[0][0] = m2.m[0][0]*m1.m[0][0] + m2.m[1][0]*m1.m[0][1] + m2.m[2][0]*m1.m[0][2] + m2.m[3][0]*m1.m[0][3];
 	m[0][1] = m2.m[0][1]*m1.m[0][0] + m2.m[1][1]*m1.m[0][1] + m2.m[2][1]*m1.m[0][2] + m2.m[3][1]*m1.m[0][3];
@@ -472,7 +468,7 @@ inline Matrix & Matrix::Multiply(const Matrix & m1, const Matrix & m2)
 	return *this;
 }
 
-inline Vector Matrix::MulVertex(const Vector & v) const
+inline Vector Matrix::MulVertex(Vector v) const
 {
 	Vector tv;
 	tv.x = m[0][0]*v.x + m[1][0]*v.y + m[2][0]*v.z + m[3][0];
@@ -482,7 +478,7 @@ inline Vector Matrix::MulVertex(const Vector & v) const
 	return tv;
 }
 
-inline Vector4 Matrix::MulVertex4(const Vector & v) const
+inline Vector4 Matrix::MulVertex4(Vector v) const
 {
 	Vector4 tv;
 	tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
@@ -493,7 +489,7 @@ inline Vector4 Matrix::MulVertex4(const Vector & v) const
 	return tv;
 }
 
-inline Vector Matrix::MulNormal(Vector & v)
+inline Vector Matrix::MulNormal(Vector v)
 {
 	Vector tv;
 	tv.x = m[0][0]*v.x + m[1][0]*v.y + m[2][0]*v.z;
@@ -503,7 +499,7 @@ inline Vector Matrix::MulNormal(Vector & v)
 	return tv;
 }
 
-inline Vector Matrix::MulVertexByInverse(Vector & v)
+inline Vector Matrix::MulVertexByInverse(Vector v)
 {
 	Vector tv;
 	tv.x = m[0][0]*(v.x - m[3][0]) + m[0][1]*(v.y - m[3][1]) + m[0][2]*(v.z - m[3][2]);
@@ -513,7 +509,7 @@ inline Vector Matrix::MulVertexByInverse(Vector & v)
 	return tv;
 }
 
-inline Vector Matrix::MulNormalByInverse(Vector & v)
+inline Vector Matrix::MulNormalByInverse(Vector v)
 {
 	Vector tv;
 	tv.x = m[0][0]*v.x + m[0][1]*v.y + m[0][2]*v.z;

@@ -1,0 +1,19 @@
+
+#version 300 es
+
+precision mediump float;
+in vec3 vNormal;
+in vec2 vTexCoord;
+layout(location = 0) out vec4 outColor;
+
+uniform sampler2D diffuseMap;
+uniform vec4 color;
+
+void main()
+{
+	vec3 lightDir = vec3(0.5f, 0.3f, 0.3f);
+    lightDir = normalize(lightDir);
+    float light = 0.6f + 0.6f * clamp(dot(lightDir, vNormal), 0.0f, 1.0f);
+
+    outColor = (color * 0.7f + texture(diffuseMap, vTexCoord) * 0.3f) * light;
+}

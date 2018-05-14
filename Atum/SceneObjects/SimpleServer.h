@@ -4,7 +4,7 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "Services/Scene/SceneObject.h"
-#include "Services/Network/NetworkService.h"
+#include "Services/Network/Network.h"
 
 class SimpleServer : public SceneObject
 {

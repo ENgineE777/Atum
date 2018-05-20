@@ -459,6 +459,9 @@ void DeviceDX11::UpdateStates()
 {
 	if (need_set_rt)
 	{
+		ID3D11ShaderResourceView* emties[] = {nullptr, nullptr};
+		DeviceDX11::instance->immediateContext->PSSetShaderResources(0, 2, emties);
+
 		int count = 0;
 
 		for (int i = 0; i < 6; i++)
@@ -567,8 +570,8 @@ void DeviceDX11::SetViewport(const Viewport& viewport)
 	vp.Height = (float)viewport.height;
 	vp.MinDepth = viewport.minZ;
 	vp.MaxDepth = viewport.maxZ;
-	vp.TopLeftX = viewport.x;
-	vp.TopLeftY = viewport.y;
+	vp.TopLeftX = (float)viewport.x;
+	vp.TopLeftY = (float)viewport.y;
 
 	immediateContext->RSSetViewports(1, &vp);
 
@@ -583,17 +586,17 @@ void DeviceDX11::GetViewport(Viewport& viewport)
 		unsigned int num = 1;
 		immediateContext->RSGetViewports(&num, &d3dviewport);
 
-		viewport.x = (short)d3dviewport.TopLeftX;
-		viewport.y = (short)d3dviewport.TopLeftY;
-		viewport.width = (short)d3dviewport.Width;
-		viewport.height = (short)d3dviewport.Height;
-		viewport.minZ = (short)d3dviewport.MinDepth;
-		viewport.maxZ = (short)d3dviewport.MaxDepth;
+		viewport.x = (int)d3dviewport.TopLeftX;
+		viewport.y = (int)d3dviewport.TopLeftY;
+		viewport.width = (int)d3dviewport.Width;
+		viewport.height = (int)d3dviewport.Height;
+		viewport.minZ = d3dviewport.MinDepth;
+		viewport.maxZ = d3dviewport.MaxDepth;
 	}
 	else
 	{
 		viewport.x = 0;
-		viewport.y = 0;
+		viewport.y = 0; 
 
 		if (cur_rt[0])
 		{
@@ -682,12 +685,13 @@ void DeviceDX11::SetDepth(Texture* depth)
 
 void DeviceDX11::RestoreRenderTarget()
 {
+	vp_was_setted = false;
 	cur_rt_w = scr_w;
 	cur_rt_h = scr_h;
 	
 	for (int i = 0; i < 6; i++)
 	{
-		cur_rt[0] = NULL;
+		cur_rt[i] = nullptr;
 	}
 
 	cur_rt[0] = renderTargetView;

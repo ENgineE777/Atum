@@ -503,6 +503,8 @@ void Editor::StartScene()
 		ed_scene.EnableTasks(false);
 	}
 
+	ed_scene.Save(sceneName.c_str());
+
 	scene = new Scene();
 	scene->Init();
 	scene->Load(sceneName.c_str());

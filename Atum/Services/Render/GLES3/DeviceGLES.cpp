@@ -11,6 +11,11 @@ DeviceGLES* DeviceGLES::instance = NULL;
 DeviceGLES::DeviceGLES()
 {
 	instance = this;
+
+	for (int i = 0; i < 6; i++)
+	{
+		cur_rt[i] = nullptr;
+	}
 }
 
 bool DeviceGLES::Init(int width, int height, void* data)
@@ -19,6 +24,10 @@ bool DeviceGLES::Init(int width, int height, void* data)
 	core.Log("Render", "Vendor %i", GL_VENDOR);
 	core.Log("Render", "Renderer %i", GL_RENDERER);
 	core.Log("Render", "Extensions %i", GL_EXTENSIONS);
+
+	glGenFramebuffers(1, &frame_buffer);
+
+	SetVideoMode(width, height, data);
 
 	return true;
 }
@@ -52,6 +61,8 @@ float DeviceGLES::GetAspect()
 
 void DeviceGLES::Clear(bool renderTarget, Color color, bool zbuffer, float zValue)
 {
+	UpdateStates();
+
 	glClearColor(color.r, color.g, color.b, color.a);
 	glClearDepthf(zbuffer);
 
@@ -261,6 +272,37 @@ void DeviceGLES::DrawIndexed(Primitive prim, int startVertex, int startIndex, in
 
 void DeviceGLES::UpdateStates()
 {
+	if (need_set_rt)
+	{
+		if (use_def_backbuffer)
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+			glViewport(0, 0, scr_w, scr_h);
+		}
+		else
+		{
+			glBindFramebuffer(GL_FRAMEBUFFER, frame_buffer);
+
+			for (int i = 0; i<1;i++)
+			{
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + i, GL_TEXTURE_2D, cur_rt[i] ? cur_rt[i]->texture : 0, 0);
+			}
+
+			glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, cur_depth ? cur_depth->texture : 0, 0);
+
+			GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+
+			if (status != GL_FRAMEBUFFER_COMPLETE)
+			{
+				core.Log("Render", "glBindFramebuffer error - %i", status);
+			}
+
+			glViewport(0, 0, cur_rt_w, cur_rt_h);
+		}
+
+		need_set_rt = false;
+	}
+
 	if (need_apply_vdecl)
 	{
 		cur_vdecl->Apply();
@@ -457,33 +499,84 @@ void DeviceGLES::SetupSlopeZBias(bool enable, float slopeZBias, float depthOffse
 
 void DeviceGLES::SetViewport(const Viewport& viewport)
 {
-	//lastViewport = viewport;
-	//glViewport(viewport.x, viewport.y, viewport.width, viewport.height);
-	
-	//glDepthRangef(viewport.minZ, viewport.maxZ);
-	//CheckGlError("glDepthRangef")
+	cur_viewport = viewport;
+	glViewport(cur_viewport.x, cur_viewport.y, cur_viewport.width, cur_viewport.height);
+	glDepthRangef(cur_viewport.minZ, cur_viewport.maxZ);
+
+	vp_was_setted = true;
 }
 
 void DeviceGLES::GetViewport(Viewport& viewport)
 {
-	/*viewport.width = lastViewport.width;
-	viewport.height = lastViewport.height;
-	viewport.x = lastViewport.x;
-	viewport.y = lastViewport.y;
-	viewport.minZ = lastViewport.minZ;
-	viewport.maxZ = lastViewport.maxZ;*/
+	if (vp_was_setted)
+	{
+		viewport.width = cur_viewport.width;
+		viewport.height = cur_viewport.height;
+		viewport.x = cur_viewport.x;
+		viewport.y = cur_viewport.y;
+		viewport.minZ = cur_viewport.minZ;
+		viewport.maxZ = cur_viewport.maxZ;
+	}
+	else
+	{
+		viewport.x = 0;
+		viewport.y = 0;
+
+		if (cur_rt[0])
+		{
+			viewport.width = cur_rt_w;
+			viewport.height = cur_rt_h;
+		}
+		else
+		{
+			viewport.width = cur_depth_w;
+			viewport.height = cur_depth_h;
+		}
+
+		viewport.minZ = 0.0f;
+		viewport.maxZ = 1.0f;
+	}
 }
 
 void DeviceGLES::SetRenderTarget(int slot, Texture* rt)
 {
+	vp_was_setted = false;
+	need_set_rt = true;
+	use_def_backbuffer = false;
+	cur_rt[slot] = rt ? (TextureGLES*)rt : nullptr;
+
+	if (slot == 0)
+	{
+		cur_rt_w = rt ? rt->GetWidth() : -1;
+		cur_rt_h = rt ? rt->GetHeight() : -1;
+	}
 }
 
 void DeviceGLES::SetDepth(Texture* depth)
 {
+	vp_was_setted = false;
+	need_set_rt = true;
+	use_def_backbuffer = false;
+	cur_depth = depth ? (TextureGLES*)depth : nullptr;
+	cur_depth_w = cur_depth ? cur_depth->GetWidth() : -1;
+	cur_depth_h = cur_depth ? cur_depth->GetHeight() :-1;
 }
 
 void DeviceGLES::RestoreRenderTarget()
 {
+	vp_was_setted = false;
+	cur_rt_w = scr_w;
+	cur_rt_h = scr_h;
+
+	need_set_rt = true;
+	use_def_backbuffer = true;
+
+	for (int i = 0; i < 6; i++)
+	{
+		cur_rt[i] = nullptr;
+	}
+
+	cur_depth = nullptr;
 }
 
 void DeviceGLES::Release()

@@ -31,20 +31,15 @@ public:
 
 	struct Viewport
 	{
-		short x;
-		short y;
-		short width;
-		short height;
-		float minZ;
-		float maxZ;
+		int x, y;
+		int width, height;
+		float minZ, maxZ;
 	};
 
 	struct Rect
 	{
-		short left;
-		short right;
-		short top;
-		short bottom;
+		int left, right;
+		int top, bottom;
 	};
 
 	enum Primitive

@@ -10,11 +10,9 @@
 class TextureGLES : public Texture
 {
 public:
+
 	GLuint texture;
 	GLuint gl_type;
-	void SetAdressImpl(GLuint coord, TextureAddress adress);
-
-public:
 
 	struct FormatDesc
 	{
@@ -30,6 +28,7 @@ public:
 	TextureGLES(int w, int h, Format f, int l, bool rt, Type tp);
 
 	virtual void SetFilters(FilterType magmin, FilterType mipmap);
+	void SetAdressImpl(GLuint coord, TextureAddress adress);
 	virtual void SetAdress(TextureAddress adress);
 	virtual void SetAdressU(TextureAddress adress);
 	virtual void SetAdressV(TextureAddress adress);

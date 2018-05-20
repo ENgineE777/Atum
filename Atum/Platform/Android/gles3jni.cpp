@@ -8,16 +8,7 @@
 
 #include "Services/Scene/Scene.h"
 
-class TestTriangleProgram : public Program
-{
-public:
-	virtual const char* GetVsName() { return "vertex.txt"; };
-	virtual const char* GetPsName() { return "pixel.txt"; };
-
-	CLASSDECLDIF(Program, TestTriangleProgram)
-};
-
-CLASSDECLDECL(TestTriangleProgram)
+#include "SceneObjects/RenderLevels.h"
 
 TaskExecutor::SingleTaskPool* renderTaskPool;
 
@@ -139,88 +130,35 @@ class Renderer : public Object
 public:
 
 	Scene scene;
-	Program * prg;
-	GeometryBuffer* vbuffer;
-	VertexDecl* vdecl;
-	Texture* texture;
-	Texture* texture_sec;
-	float tri_angle = 0.0f;
+	bool inited = false;
 
 	void Init()
 	{
-		prg = render.GetProgram("TestTriangleProgram");
-
-		struct Vertex
+		if (inited)
 		{
-			Vector pos;
-			uint32_t color;
-		};
-
-		texture = render.LoadTexture("bat.jpg");
-		texture_sec = render.LoadTexture("folder.jpg");
-
-		Vertex vertices[] = { { Vector(0.5f, 0.0f, 0.0f), COLOR_GREEN.Get() },
-		{ Vector(0.0f, 1.0f, 0.0f), COLOR_RED.Get() },
-		{ Vector(1.0f, 1.0f, 0.0f), COLOR_CYAN.Get() } };
-
-		vbuffer = render.GetDevice()->CreateBuffer(3, sizeof(Vertex));
-
-		Vertex* ptr = (Vertex*)vbuffer->Lock();
-		memcpy(ptr, vertices, vbuffer->GetSize());
-		vbuffer->Unlock();
-
-		VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
-		vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+			return;
+		}
 
 		scene.Init();
-		scene.Load("Media/beatemup.scn");
-		//scene.Load("Media/Scene.scn");
+		//scene.Load("Media/beatemup.scn");
+		scene.Load("Media/Scene.scn");
 		scene.Play();
+
+		inited = true;
 	}
 
 	void Draw(float dt)
 	{
-		/*render.DebugSprite(texture, 30.0f, 200.0f);
-		render.DebugSphere(0.0f, COLOR_RED, 0.25f);
-		render.DebugLine2D(1.0f, COLOR_BLUE, 800.0f, COLOR_GREEN);
-		render.DebugLine(Vector(-0.5f, -0.5f, 0.0f), COLOR_WHITE, Vector(0.5f, 0.5f, 0.0f), COLOR_GREEN);
-		render.DebugPrintText(5.0f, COLOR_GREEN, "FPS: 999");*/
-
 		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
-		/*tri_angle += dt;
-
-		Matrix proj;
-		proj.BuildProjection(45 * RADIAN, render.GetDevice()->GetAspect(), 1.0f, 1000.0f);
-
-		Matrix view;
-		view.BuildView(Vector(0.0f, 0.0f, 5.0f), 0.0f, Vector(0.0f, 1.0f, 0.0f));
-
-		render.SetTransform(Render::View, view);
-		render.SetTransform(Render::Projection, proj);
-
-		Matrix rot;
-		rot.RotateY(tri_angle);
-
-		Matrix mat = rot * view * proj;
-
-		render.GetDevice()->SetProgram(prg);
-
-		prg->SetMatrix(Program::Vertex, "mvpMatrix", &mat, 1);
-
-		Vector4 color = 0.95f;
-		prg->SetVector(Program::Pixel, "color", &color, 1);
-
-		prg->SetTexture(Program::Pixel, "s_texture", texture);
-		prg->SetTexture(Program::Pixel, "s_texture2", texture_sec);
-
-		render.GetDevice()->SetVertexDecl(vdecl);
-		render.GetDevice()->SetVertexBuffer(0, vbuffer);
-
-		render.GetDevice()->Draw(Device::TrianglesList, 0, 1);*/
-
-		render.ExecutePool(0, dt);
-		render.ExecutePool(1000, dt);
+		render.ExecutePool(RenderLevels::Camera, dt);
+		render.ExecutePool(RenderLevels::Prepare, dt);
+		render.ExecutePool(RenderLevels::Geometry, dt);
+		render.ExecutePool(RenderLevels::DebugGeometry, dt);
+		render.ExecutePool(RenderLevels::Sprites, dt);
+		render.ExecutePool(RenderLevels::PostProcess, dt);
+		render.ExecutePool(RenderLevels::GUI, dt);
+		render.ExecutePool(RenderLevels::Debug, dt);
 	}
 };
 
@@ -237,8 +175,6 @@ Java_com_atum_engine_GLES3JNILib_Init(JNIEnv* env, jobject obj)
 
 	renderTaskPool = render.AddTaskPool();
 	renderTaskPool->AddTask(1, &renderer, (Object::Delegate)&Renderer::Draw);
-
-	renderer.Init();
 }
 
 JNIEXPORT void JNICALL
@@ -247,6 +183,8 @@ Java_com_atum_engine_GLES3JNILib_Resize(JNIEnv* env, jobject obj, jint width, ji
 	UpdateJavaEnv(env, obj);
 
 	render.GetDevice()->SetVideoMode(width, height, nullptr);
+
+	renderer.Init();
 }
 
 JNIEXPORT void JNICALL
@@ -281,6 +219,6 @@ JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchUpdate(JNIEnv* env,
 
 JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchEnd(JNIEnv* env, jobject obj, int index)
 {
-	core.Log("Touch", "Touch %i ended", index);
+	//core.Log("Touch", "Touch %i ended", index);
 	controls.TouchEnd(index);
 }

@@ -41,7 +41,6 @@ add_library(gles3jni SHARED
             ${atum_DIR}/SceneObjects/SpriteObject.cpp
             ${atum_DIR}/SceneObjects/tank.cpp
             ${atum_DIR}/SceneObjects/tankclient.cpp
-            ${atum_DIR}/SceneObjects/TDPrt.cpp
             ${atum_DIR}/SceneObjects/terrain.cpp
             ${atum_DIR}/SceneObjects/VirtualJoystick.cpp
             ${atum_DIR}/Support/json/block_allocator.cpp

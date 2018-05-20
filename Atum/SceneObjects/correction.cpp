@@ -41,12 +41,17 @@ void ColorCorrection::ReCreateRT()
 	RELEASE(scene_rt)
 	RELEASE(scene_depth)
 
+	float scale = 0.5f;
+#ifdef PLATFORM_ANDROID
+	scale = 0.25f;
+#endif
+
 	for (int i = 0; i < 2; i++)
 	{
 		RELEASE(ring_rt[i])
-		ring_rt[i] = render.GetDevice()->CreateTexture((int)(render.GetDevice()->GetWidth() * 0.5f), (int)(render.GetDevice()->GetHeight() * 0.5f), Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
-		ring_rt[i]->SetAdressU(Texture::Border);
-		ring_rt[i]->SetAdressV(Texture::Border);
+		ring_rt[i] = render.GetDevice()->CreateTexture((int)(render.GetDevice()->GetWidth() * scale), (int)(render.GetDevice()->GetHeight() * scale), Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
+		ring_rt[i]->SetAdressU(Texture::Clamp);
+		ring_rt[i]->SetAdressV(Texture::Clamp);
 	}
 
 	scene_rt = render.GetDevice()->CreateTexture(render.GetDevice()->GetWidth(), render.GetDevice()->GetHeight(), Texture::FMT_A8R8G8B8, 1, true, Texture::Tex2D);
@@ -143,10 +148,7 @@ void ColorCorrection::Draw(float dt)
 	blur_prg->SetTexture(Program::Pixel, "rt", ring_rt[1]);
 	blur_prg->SetVector(Program::Pixel, "samples", samples, 15);
 
-
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
-
-	threshold.x = 0.0f;
 
 	render.GetDevice()->RestoreRenderTarget();
 

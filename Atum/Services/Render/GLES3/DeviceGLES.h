@@ -22,6 +22,16 @@ class DeviceGLES : public Device
 
 	bool need_apply_vdecl = false;
 
+	bool vp_was_setted = false;
+	Viewport cur_viewport;
+	int  cur_depth_w;
+	int  cur_depth_h;
+	GLuint frame_buffer = 0;
+	bool need_set_rt = false;
+	bool use_def_backbuffer = true;
+	class TextureGLES* cur_rt[6];
+	class TextureGLES* cur_depth = nullptr;
+
 	DeviceGLES();
 	virtual bool Init(int width, int height, void* data);
 	virtual void PrepareProgram(Program* program);

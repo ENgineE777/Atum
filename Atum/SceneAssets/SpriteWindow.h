@@ -110,16 +110,16 @@ public:
 	void MakeZoom(bool zoom_in);
 	void CheckStateOfBorder();
 
-	virtual void OnDraw(EUIWidget* sender);
-	virtual void OnComboBoxChange(EUIWidget* sender, int index);
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
-	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
-	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
-	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my);
-	virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnKey(EUIWidget* sender, int key);
-	virtual void OnWinClose(EUIWidget* sender);
+	void OnDraw(EUIWidget* sender) override;
+	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
+	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnRightMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnKey(EUIWidget* sender, int key) override;
+	void OnWinClose(EUIWidget* sender) override;
 };
 
 #endif

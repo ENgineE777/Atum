@@ -15,7 +15,6 @@ public:
 
 	Animator* animator = nullptr;
 
-	CLASSDECLDIF(SceneObject, AnimatorObject)
 	AnimatorObject();
 	virtual ~AnimatorObject();
 

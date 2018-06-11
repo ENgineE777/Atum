@@ -51,7 +51,6 @@ public:
 
 	Alias aliases[AliasCount];
 
-	CLASSDECLDIF(SceneObject, VirtualJoystick)
 	VirtualJoystick();
 	virtual ~VirtualJoystick();
 

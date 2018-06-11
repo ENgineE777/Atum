@@ -76,7 +76,6 @@ public:
 		bool GotoNode(const char* node);
 	};
 
-	CLASSDECLDIF(SceneAsset, SpriteGraphAsset)
 	SpriteGraphAsset();
 	virtual ~SpriteGraphAsset();
 

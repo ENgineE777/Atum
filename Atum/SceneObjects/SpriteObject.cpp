@@ -4,7 +4,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(SpriteObject)
+CLASSREG(SceneObject, SpriteObject)
 
 META_DATA_DESC(SpriteObject)
 FLOAT_PROP(SpriteObject, trans.pos.x, 100.0f, "Geometry", "PosX")
@@ -41,9 +41,9 @@ void SpriteObject::Draw(float dt)
 	}
 
 	trans.size = asset->trans.size;
-	trans.BuildLocalTrans();
+	trans.BuildMatrices();
 	Sprite::UpdateFrame(&asset->sprite, &state, dt);
-	Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &state);
+	Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &state, true);
 }
 
 #ifdef EDITOR

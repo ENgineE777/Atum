@@ -20,14 +20,14 @@ public:
 
 	struct Rect
 	{
-		Vector2 pos;
-		Vector2 size;
-		Vector2 uv;
-		Vector2 duv;
+		Vector2 pos = 0.0f;
+		Vector2 size = 0.0f;
+		Vector2 uv = 0.0f;
+		Vector2 duv = 1.0f;
 		Vector2 offset = 0.0f;
 		float frame_time = -1.0f;
 	};
-		
+
 	struct Data
 	{
 		Texture* texture = nullptr;
@@ -55,7 +55,8 @@ public:
 		float cur_time = -1.0f;
 	};
 
-	static Program*        quad_prg;
+	static Program*        quad_prg_depth;
+	static Program*        quad_prg_no_depth;
 	static VertexDecl*     vdecl;
 	static GeometryBuffer* buffer;
 	static bool inited;
@@ -69,6 +70,6 @@ public:
 	static void Copy(Sprite::Data* src, Sprite::Data* dest);
 	static void UpdateFrame(Sprite::Data* data, FrameState* state, float dt);
 	static void Init();
-	static void Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool flipped = false);
-	static void Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state);
+	static void Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped = false);
+	static void Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth);
 };

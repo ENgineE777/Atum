@@ -31,9 +31,9 @@ public:
 	void StartEditKey(TransformKey* value);
 	void StopEditKey();
 
-	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
-	virtual void OnComboBoxChange(EUIWidget* sender, int index);
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
+	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 
 	void Show(bool show);
 };

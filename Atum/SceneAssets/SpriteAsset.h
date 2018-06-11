@@ -14,7 +14,6 @@ public:
 	Sprite::Data sprite;
 	static Sprite::FrameState state;
 
-	CLASSDECLDIF(SceneAsset, SpriteAsset)
 	SpriteAsset();
 	virtual ~SpriteAsset();
 

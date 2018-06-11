@@ -27,7 +27,6 @@ public:
 	};
 
 	META_DATA_DECL(Tank)
-	CLASSDECLDIF(SceneObject, Tank)
 
 	struct Projectile
 	{

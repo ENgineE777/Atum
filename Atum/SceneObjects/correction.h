@@ -9,7 +9,6 @@ class ColorCorrection : public SceneObject
 public:
 
 	META_DATA_DECL(ColorCorrection)
-	CLASSDECLDIF(SceneObject, ColorCorrection)
 
 	Program*        color_prg = nullptr;
 	Program*        blur_prg = nullptr;

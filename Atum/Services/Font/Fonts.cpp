@@ -2,7 +2,7 @@
 
 Fonts fonts;
 
-CLASSDECLDECL(Fonts::FontProgram)
+CLASSREGEX(Program, FontProgram, Fonts::FontProgram)
 
 Fonts::Fonts()
 {
@@ -13,7 +13,7 @@ bool Fonts::Init()
 	return true;
 }
 
-Font* Fonts::CreateFont(const char* file_name, bool is_bold, bool is_italic, int height)
+Font* Fonts::LoadFont(const char* file_name, bool is_bold, bool is_italic, int height)
 {
 	if (!vbuffer)
 	{

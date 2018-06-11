@@ -5,7 +5,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(SimpleCharacter2D)
+CLASSREG(SceneObject, SimpleCharacter2D)
 
 META_DATA_DESC(SimpleCharacter2D)
 FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "PosX")
@@ -196,17 +196,17 @@ void SimpleCharacter2D::Draw(float dt)
 	trans.size = graph_instance.cur_node->asset->trans.size;
 	trans.depth = 0.74f - ((trans.pos.y - floor_margin.x) / floor_height) * 0.5f;
 	graph_instance.state.horz_flipped = flipped;
-	trans.BuildLocalTrans();
+	trans.BuildMatrices();
 
-	trans.local_trans.Pos().y -= graph_instance.cur_node->asset->trans.size.y * 0.5f;
+	trans.mat_global.Pos().y -= graph_instance.cur_node->asset->trans.size.y * 0.5f;
 
 	if (arraive > 0.0f)
 	{
-		trans.local_trans.Pos().y -= 1024.0f * arraive;
+		trans.mat_global.Pos().y -= 1024.0f * arraive;
 	}
 
 	graph_instance.Update(dt);
-	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state);
+	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true);
 }
 
 SimpleCharacter2D* SimpleCharacter2D::FindTarget()

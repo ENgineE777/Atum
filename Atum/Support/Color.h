@@ -68,7 +68,7 @@ public:
 		a = from.a + (to.a - from.a) * blend;
 	}
 
-	Color& operator *= (Color& color)
+	Color& operator *= (const Color& color)
 	{
 		r *= color.r;
 		g *= color.g;
@@ -90,6 +90,13 @@ public:
 		return *this;
 	};
 };
+
+inline Color operator * (const Color& c1, const Color& c2)
+{
+	Color c(c1);
+	c *= c2;
+	return c;
+}
 
 #define COLOR_WHITE Color()
 #define COLOR_BLACK Color(0.0f, 0.0f, 0.0f)

@@ -12,8 +12,6 @@ public:
 	Color  color;
 	Vector size;
 
-
-	CLASSDECLDIF(TrackPlayer, BoxPlayer)
 	BoxPlayer();
 	virtual ~BoxPlayer();
 

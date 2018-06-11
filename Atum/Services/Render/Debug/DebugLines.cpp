@@ -1,6 +1,8 @@
 #include "DebugLines.h"
 #include "DebugPrograms.h"
 
+#include "Services/Font/Fonts.h"
+
 void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 }, { VertexDecl::Ubyte4, VertexDecl::Color, 0 } };

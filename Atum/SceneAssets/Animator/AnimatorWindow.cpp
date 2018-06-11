@@ -353,7 +353,7 @@ void AnimatorWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 }
 
-void AnimatorWindow::OnEditBoxStopEditing(EUIWidget* sender)
+void AnimatorWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	switch (sender->GetID())
 	{
@@ -406,7 +406,7 @@ void AnimatorWindow::OnEditBoxStopEditing(EUIWidget* sender)
 	}
 }
 
-void AnimatorWindow::OnComboBoxChange(EUIWidget* sender, int index)
+void AnimatorWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	if (sender->GetID() == AddPlayerID)
 	{
@@ -435,7 +435,7 @@ void AnimatorWindow::OnComboBoxChange(EUIWidget* sender, int index)
 	}
 }
 
-void AnimatorWindow::OnSrollerPosChange(EUIWidget* sender, int pos)
+void AnimatorWindow::OnSrollerPosChange(EUIScrollBar* sender, int pos)
 {
 	timeline_panel->Redraw();
 }

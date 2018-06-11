@@ -58,7 +58,7 @@ public:
 	bool InSquare(Vector2 min, Vector2 max) const;
 	
 	float Distance(Vector2 v) const;
-
+	float Dot(Vector2 v);
 	Vector2& Lerp(Vector2 from, Vector2 to, float kBlend);
 };
 
@@ -291,11 +291,6 @@ inline Vector2 operator - (const Vector2 & v1, const Vector2 & v2)
 	return tv;
 }
 
-inline float operator | (const Vector2& v1, const Vector2& v2)
-{
-	return v1.x*v2.x + v1.y*v2.y;
-}
-
 inline bool Vector2::InSquare(Vector2 min, Vector2 max) const
 {
 	if (y < min.y || y > max.y) return false;
@@ -308,6 +303,11 @@ inline float Vector2::Distance(Vector2 v) const
 	float dx = x - v.x;
 	float dy = y - v.y;
 	return ::sqrtf(dx * dx + dy * dy);
+}
+
+inline float Vector2::Dot(Vector2 v)
+{
+	return x * v.x + y * v.y;
 }
 
 inline Vector2 & Vector2::Lerp(Vector2 from, Vector2 to, float kBlend)

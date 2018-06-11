@@ -79,6 +79,9 @@
     <Filter Include="Services\Render\GLES3">
       <UniqueIdentifier>{767fda66-ebac-4a0e-9a5d-86e3ec331183}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SceneAssets\UI">
+      <UniqueIdentifier>{bef2fd4d-9c70-4864-862f-e952070b022e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\SceneObjects\correction.cpp">
@@ -375,6 +378,24 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\VirtualJoystick.cpp">
       <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIService.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIViewAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -734,6 +755,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\RenderLevels.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIService.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIViewAsset.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.h">
+      <Filter>SceneAssets\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -29,8 +29,8 @@ public:
 	void Init();
 	void Show(bool sh);
 
-	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnWinClose(EUIWidget* sender);
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnWinClose(EUIWidget* sender) override;
 };
 
 #endif

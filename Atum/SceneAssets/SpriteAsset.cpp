@@ -14,7 +14,7 @@ void StartEditSprite(void* owner)
 }
 #endif
 
-CLASSDECLDECL(SpriteAsset)
+CLASSREG(SceneAsset, SpriteAsset)
 
 META_DATA_DESC(SpriteAsset)
 FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")
@@ -59,7 +59,7 @@ void SpriteAsset::Save(JSONWriter& saver)
 
 void SpriteAsset::Draw(float dt)
 {
-	trans.BuildLocalTrans();
+	trans.BuildMatrices();
 	Sprite::UpdateFrame(&sprite, &state, dt);
 
 #ifdef EDITOR
@@ -74,7 +74,7 @@ void SpriteAsset::Draw(float dt)
 	}
 #endif
 
-	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &state);
+	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &state, true);
 }
 
 #ifdef EDITOR

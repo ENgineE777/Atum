@@ -17,7 +17,6 @@ public:
 	float left_border = -300.0f;
 	float right_border =300.0f; 
 	
-	CLASSDECLDIF(SceneObject, CharacterCamera2D)
 	CharacterCamera2D();
 	virtual ~CharacterCamera2D();
 

@@ -5,7 +5,7 @@
 #include "Services/Core/Core.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(VirtualJoystick)
+CLASSREG(SceneObject, VirtualJoystick)
 
 META_DATA_DESC(VirtualJoystick)
 FILENAME_PROP(VirtualJoystick, tex_name_stick_pad, "", "Properties", "StickPad")
@@ -163,15 +163,15 @@ void VirtualJoystick::Draw(float dt)
 	}
 
 	mat.Pos().y = 0.5f;
-	Sprite::Draw(tex_stick, clr, mat, (pos - stick_size * 0.5 + delta) * scale, stick_size * scale, 0.0f, 1.0f);
+	Sprite::Draw(tex_stick, clr, mat, (pos - stick_size * 0.5 + delta) * scale, stick_size * scale, 0.0f, 1.0f, false);
 
 	mat.Pos().y = 0.45f;
-	Sprite::Draw(tex_stick_pad, clr, mat, (pos - stick_pad_size * 0.5) * scale, stick_pad_size * scale, 0.0f, 1.0f);
+	Sprite::Draw(tex_stick_pad, clr, mat, (pos - stick_pad_size * 0.5) * scale, stick_pad_size * scale, 0.0f, 1.0f, false);
 
 	if (tex_button_a)
 	{
 		clr.a = (button_a_pressed > 0) ? 1.0f : 0.5f;
-		Sprite::Draw(tex_button_a, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_a_pos.x * scale, render.GetDevice()->GetHeight() - button_a_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f);
+		Sprite::Draw(tex_button_a, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_a_pos.x * scale, render.GetDevice()->GetHeight() - button_a_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
 
 		if (button_a_pressed != 0 && button_a_pressed < 3)
 		{
@@ -182,7 +182,7 @@ void VirtualJoystick::Draw(float dt)
 	if (tex_button_b)
 	{
 		clr.a = (button_b_pressed > 0) ? 1.0f : 0.5f;
-		Sprite::Draw(tex_button_b, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_b_pos.x * scale, render.GetDevice()->GetHeight() - button_b_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f);
+		Sprite::Draw(tex_button_b, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_b_pos.x * scale, render.GetDevice()->GetHeight() - button_b_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
 
 		if (button_b_pressed != 0 && button_b_pressed < 3)
 		{

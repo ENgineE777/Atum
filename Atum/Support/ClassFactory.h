@@ -49,15 +49,15 @@ protected:\
 };
 
 #define CLASSFACTORYDECL(baseClass)\
-ClassFactory##baseClass* ClassFactory##baseClass::first = NULL;
+ClassFactory##baseClass* ClassFactory##baseClass::first = nullptr;
 
-#define CLASSDECLDIF(baseClass, childClass) \
-class ClassFactory : public ClassFactory##baseClass \
+#define CLASSREGEX(baseClass, shortClassName, fullClassName) \
+class ClassFactory##shortClassName : public ClassFactory##baseClass \
 {\
-	virtual const char* GetName() { return #childClass; };\
-	virtual baseClass* Create() { return new childClass(); };\
+	virtual const char* GetName() { return #shortClassName; };\
+	virtual baseClass* Create() { return new fullClassName(); };\
 };\
-static ClassFactory classFactory;
+ClassFactory##shortClassName classFactory##shortClassName;
 
-#define CLASSDECLDECL(childClass) \
-childClass::ClassFactory childClass::classFactory;
+#define CLASSREG(baseClass, className) \
+CLASSREGEX(baseClass, className, className)

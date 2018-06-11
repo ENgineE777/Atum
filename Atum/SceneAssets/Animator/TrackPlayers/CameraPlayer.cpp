@@ -2,7 +2,7 @@
 #include "CameraPlayer.h"
 #include "Services/Render/Render.h"
 
-CLASSDECLDECL(CameraPlayer)
+CLASSREG(TrackPlayer, CameraPlayer)
 
 META_DATA_DESC(CameraPlayer)
 META_DATA_DESC_END()

@@ -15,7 +15,6 @@ class HoverTank : public SceneObject
 public:
 
 	META_DATA_DECL(HoverTank)
-	CLASSDECLDIF(SceneObject, HoverTank)
 
 	struct Projectile
 	{

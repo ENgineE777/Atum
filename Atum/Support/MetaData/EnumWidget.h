@@ -16,7 +16,7 @@ public:
 	public:
 		EnumWidget* owner;
 
-		virtual void OnComboBoxChange(EUIWidget* sender, int index);
+		void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 	};
 
 	Listiner listiner;

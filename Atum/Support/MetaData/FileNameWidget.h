@@ -15,7 +15,7 @@ public:
 	public:
 		FileNameWidget* owner;
 
-		virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
+		void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	};
 
 	Listiner listiner;

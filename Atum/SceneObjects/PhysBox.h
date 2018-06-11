@@ -16,7 +16,6 @@ public:
 
 	PhysObject* obj = nullptr;
 
-	CLASSDECLDIF(SceneObject, PhysBox)
 	PhysBox();
 	virtual ~PhysBox();
 

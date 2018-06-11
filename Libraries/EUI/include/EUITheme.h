@@ -84,4 +84,5 @@ public:
 protected:
 	virtual void LoadColors(JSONReader* reader) = 0;
 	virtual void LoadFonts(JSONReader* reader) = 0;
+	virtual void LoadCursors(JSONReader* reader) = 0;
 };

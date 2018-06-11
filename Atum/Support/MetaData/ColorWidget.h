@@ -15,7 +15,7 @@ public:
 	public:
 		ColorWidget* owner;
 
-		virtual void OnLeftDoubliClick(EUIWidget* sender, int mx, int my);
+		void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
 	};
 
 	Listiner listiner;

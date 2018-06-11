@@ -48,7 +48,8 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIListBox*  sceneList;
 
 	SceneAsset*  selectedAsset = nullptr;
-	EUIListBox*  assetList;
+	SceneAsset*  selectedAsset2Drag = nullptr;
+	EUITreeView* assets_treeview;
 
 	EUIEditBox*  objectName;
 
@@ -60,6 +61,8 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIButton* playBtn;
 	EUICategories* objCat;
 	EUIPanel* viewport;
+	EUIPanel* asset_treeview_panel;
+	EUITreeView* asset_treeview;
 	EUIPanel* asset_viewport;
 
 	EUILayout* viewport_lt;
@@ -78,6 +81,7 @@ class Editor : public Object, public EUIWidget::Listener
 	Vector2 prev_ms;
 	bool allowCopy = false;
 
+	bool asset_drag_as_inst = false;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 
 public:
@@ -105,15 +109,20 @@ public:
 	void StopScene();
 	void Draw(float dt);
 
-	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
-	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
-	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my);
-	virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnMenuItem(EUIWidget* sender, int id);
-	virtual void OnUpdate(EUIWidget* sender);
-	virtual void OnListBoxChange(EUIWidget* sender, int index);
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
-	virtual void OnResize(EUIWidget* sender);
-	virtual void OnWinClose(EUIWidget* sender);
+	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
+	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnRightMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnMenuItem(EUIMenu* sender, int id) override;
+	void OnUpdate(EUIWidget* sender) override;
+	void OnListBoxSelChange(EUIListBox* sender, int index) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
+	void OnResize(EUIWidget* sender) override;
+	void OnWinClose(EUIWidget* sender) override;
+	void OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) override;
+	void OnTreeViewSelChange(EUITreeView* sender, void* item) override;
+	void OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr) override;
+	void OnTreeViewPopupItem(EUITreeView* sender, int id) override;
+	void OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index) override;
 };

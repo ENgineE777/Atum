@@ -13,8 +13,7 @@ public:
 	string asset_name; 
 	Transform2D trans;
 	Sprite::FrameState state;
-	
-	CLASSDECLDIF(SceneObject, SpriteObject)
+
 	SpriteObject();
 	virtual ~SpriteObject();
 

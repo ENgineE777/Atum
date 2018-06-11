@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Font.h"
-#include "FontRes.h"
 #include <map>
 
 class Fonts
@@ -15,6 +14,12 @@ class Fonts
 		Vector2 uv;
 	};
 
+	Program*        fntProg = nullptr;
+	GeometryBuffer* vbuffer = nullptr;
+	VertexDecl*     vdecl = nullptr;
+
+public: 
+
 	class FontProgram : public Program
 	{
 	public:
@@ -27,19 +32,11 @@ class Fonts
 			render.GetDevice()->SetDepthWriting(false);
 			render.GetDevice()->SetDepthTest(false);
 		};
-
-		CLASSDECLDIF(Program, FontProgram)
 	};
-
-	Program*        fntProg = nullptr;
-	GeometryBuffer* vbuffer = nullptr;
-	VertexDecl*     vdecl = nullptr;
-
-public: 
 
 	Fonts();
 	virtual bool Init();
-	virtual Font* CreateFont(const char* file_name, bool is_bold, bool is_italic, int height);
+	virtual Font* LoadFont(const char* file_name, bool is_bold, bool is_italic, int height);
 	virtual void DeleteRes(FontRes* res);
 	virtual void Release();
 };

@@ -13,7 +13,8 @@ bool Sprite::use_ed_cam = true;
 Vector2 Sprite::cam_pos = 0.0f;
 Vector2 Sprite::ed_cam_pos = 0.0f;
 
-Program*        Sprite::quad_prg;
+Program*        Sprite::quad_prg_depth;
+Program*        Sprite::quad_prg_no_depth;
 VertexDecl*     Sprite::vdecl;
 GeometryBuffer* Sprite::buffer;
 bool Sprite::inited = false;
@@ -220,12 +221,13 @@ void Sprite::Init()
 
 	buffer->Unlock();
 
-	quad_prg = render.GetProgram("QuadProgram");
+	quad_prg_depth = render.GetProgram("QuadProgramDepth");
+	quad_prg_no_depth = render.GetProgram("QuadProgramNoDepth");
 
 	inited = true;
 }
 
-void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool flipped)
+void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
 {
 	if (!inited)
 	{
@@ -233,8 +235,9 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 	}
 
 	render.GetDevice()->SetVertexBuffer(0, buffer);
-
 	render.GetDevice()->SetVertexDecl(vdecl);
+
+	Program* quad_prg = use_depth ? quad_prg_depth : quad_prg_no_depth;
 	render.GetDevice()->SetProgram(quad_prg);
 
 	Device::Viewport viewport;
@@ -259,14 +262,14 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }
 
-void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state)
+void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth)
 {
 	if (!sprite->texture) return;
 
 	sprite->texture->SetAdress(sprite->mode);
 	sprite->texture->SetFilters(sprite->filter, sprite->filter);
 
-	Matrix local_trans = trans->local_trans;
+	Matrix local_trans = trans->mat_global;
 
 	float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
@@ -311,7 +314,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 		dpos += Vector2((size.x - sz.x) * 0.5f, size.y - sz.y);
 
-		Draw(sprite->texture, clr, local_trans, pos + dpos, sz, rect.uv, rect.duv, state->horz_flipped);
+		Draw(sprite->texture, clr, local_trans, pos + dpos, sz, rect.uv, rect.duv, use_depth, state->horz_flipped);
 	}
 	else
 	if (sprite->type == ThreeSlicesVert)
@@ -321,7 +324,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 		for (int i = 0; i < 3; i++)
 		{
 			Rect& rect = sprite->rects[i];
-			Draw(sprite->texture, clr, local_trans, pos + Vector2(0.0f, y[i]), Vector2(size.x, y[i+1] - y[i]), rect.uv, rect.duv);
+			Draw(sprite->texture, clr, local_trans, pos + Vector2(0.0f, y[i]), Vector2(size.x, y[i+1] - y[i]), rect.uv, rect.duv, use_depth);
 		}
 	}
 	else
@@ -332,7 +335,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 		for (int i = 0; i < 3; i++)
 		{
 			Rect& rect = sprite->rects[i];
-			Draw(sprite->texture, clr, local_trans, pos + Vector2(x[i], 0.0f), Vector2(x[i + 1] - x[i], size.y), rect.uv, rect.duv);
+			Draw(sprite->texture, clr, local_trans, pos + Vector2(x[i], 0.0f), Vector2(x[i + 1] - x[i], size.y), rect.uv, rect.duv, use_depth);
 		}
 	}
 	else
@@ -346,7 +349,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 			for (int j = 0; j < 3; j++)
 			{
 				Rect& rect = sprite->rects[index];
-				Draw(sprite->texture, clr, local_trans, pos + Vector2(x[j], y[i]), Vector2(x[j + 1] - x[j], y[i + 1] - y[i]), rect.uv, rect.duv);
+				Draw(sprite->texture, clr, local_trans, pos + Vector2(x[j], y[i]), Vector2(x[j + 1] - x[j], y[i + 1] - y[i]), rect.uv, rect.duv, use_depth);
 				index++;
 			}
 	}

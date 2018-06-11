@@ -16,7 +16,6 @@ public:
 
 	GUIWidget widget;
 
-	CLASSDECLDIF(SceneObject, TestGUI)
 	TestGUI();
 	virtual ~TestGUI();
 

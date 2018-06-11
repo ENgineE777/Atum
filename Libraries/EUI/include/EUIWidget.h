@@ -27,6 +27,7 @@ class EUIWidget
 	friend class WinTabPanel;
 	friend class WinTabSheet;
 	friend class WinScrollBar;
+	friend class WinTreeView;
 
 public:
 
@@ -59,18 +60,24 @@ public:
 		virtual void OnWinClose(EUIWidget* sender) {};
 		virtual void OnWinShow(EUIWidget* sender) {};
 
-		virtual void OnMenuItem(EUIWidget* sender, int id) {};
+		virtual void OnMenuItem(class EUIMenu* sender, int id) {};
 
-		virtual void OnTabChange(EUIWidget* sender, int index) {};
+		virtual void OnTabChange(class EUITabPanel* sender, int index) {};
 
-		virtual void OnComboBoxChange(EUIWidget* sender, int index) {};
+		virtual void OnComboBoxSelChange(class EUIComboBox* sender, int index) {};
 
-		virtual void OnListBoxChange(EUIWidget* sender, int index) {};
-		virtual void OnListBoxDblClick(EUIWidget* sender, int index) {};
+		virtual void OnListBoxSelChange(class EUIListBox* sender, int index) {};
+		virtual void OnListBoxDblClick(class EUIListBox* sender, int index) {};
 
-		virtual void OnEditBoxStopEditing(EUIWidget* sender) {};
+		virtual void OnEditBoxStopEditing(class EUIEditBox* sender) {};
 
-		virtual void OnSrollerPosChange(EUIWidget* sender, int pos) {};
+		virtual void OnSrollerPosChange(class EUIScrollBar* sender, int pos) {};
+
+		virtual void OnTreeViewItemDragged(class EUITreeView* sender, class EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) {};
+		virtual void OnTreeViewSelChange(class EUITreeView* sender, void* item) {};
+		virtual void OnTreeReCreateItem(class EUITreeView* sender, void* item, void* ptr) {};
+		virtual void OnTreeViewPopupItem(class EUITreeView* sender, int id) {};
+		virtual void OnTreeViewRightClick(class EUITreeView* sender, void* item, int child_index) {};
 	};
 
 protected:

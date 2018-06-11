@@ -91,10 +91,18 @@ void SceneObject::Release()
 }
 
 #ifdef EDITOR
+void SceneObject::CheckProperties()
+{
+	if (GetMetaData()->IsValueWasChanged())
+	{
+		ApplyProperties();
+	}
+}
+
 void SceneObject::Copy(SceneObject* src)
 {
 	Trans() = src->Trans();
-	GetMetaData()->Copy(src);
+	src->GetMetaData()->Copy(src);
 	ApplyProperties();
 }
 

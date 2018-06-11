@@ -29,7 +29,7 @@ public:
 	void StartEditKey(Transform2D* value);
 	void StopEditKey();
 
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 
 	void Show(bool show);
 };

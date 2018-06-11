@@ -181,10 +181,8 @@ void MetaData::Copy(void* source)
 #ifdef EDITOR
 void MetaData::PrepareWidgets(EUICategories* parent)
 {
-	for (int i = 0; i < properties.size(); i++)
+	for (auto& prop : properties)
 	{
-		Property& prop = properties[i];
-
 		if (!widgets_inited)
 		{
 			if (prop.type == Boolean)
@@ -245,6 +243,21 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 	if (!widgets_inited)
 	{
 		widgets_inited = true;
+	}
+}
+
+void MetaData::UpdateWidgets()
+{
+	for (auto& prop : properties)
+	{
+		if (prop.type == Callback)
+		{
+			((CallbackWidget*)prop.widget)->Prepare(owner, prop.callback);
+		}
+		else
+		{
+			prop.widget->SetData(prop.value);
+		}
 	}
 }
 

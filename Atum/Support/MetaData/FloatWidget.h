@@ -14,7 +14,7 @@ public:
 	public:
 		FloatWidget* owner;
 
-		virtual void OnEditBoxStopEditing(EUIWidget* sender);
+		void OnEditBoxStopEditing(EUIEditBox* sender) override;
 	};
 
 	Listiner listiner;

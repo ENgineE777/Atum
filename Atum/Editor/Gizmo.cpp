@@ -5,19 +5,6 @@
 
 Gizmo* Gizmo::inst = nullptr;
 
-Gizmo::Gizmo()
-{
-	bViewPortResized = false;
-	mode = 1;
-	selAxis = -1;
-	enabled = false;
-	useLocalSpace = false;
-	scale = 1.0f;
-	transform.Identity();
-	mousedPressed = false;
-	prev_mx = prev_my = 0;
-}
-
 void Gizmo::Init()
 {
 	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
@@ -254,7 +241,7 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2,
 		if (x1 < mx && mx < x2 &&
 			y1 < my && my < y2)
 		{
-			ms_dir = Vector(pos2_post.x - pos_post.x, pos2_post.y - pos_post.y, 0.0f);
+			ms_dir = Vector2(pos2_post.x - pos_post.x, pos2_post.y - pos_post.y);
 			ms_dir.Normalize();
 
 			return true;
@@ -359,8 +346,6 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 
 void Gizmo::MouseProcess(float mx, float my)
 {
-	if (!enabled) return;
-
 	selAxis = -1;
 
 	if (MouseProcess(0, mx, my)) selAxis = 0;
@@ -373,11 +358,11 @@ void Gizmo::MouseMove(float mx, float my)
 	if (trans2D)
 	{
 		Vector2 ms = Vector2(mx, my);
-		Vector2 prev_ms = Vector2(prev_mx, prev_my);
 
 		if (selAxis == 0)
 		{
-			trans2D->pos += ms;
+			trans2D->pos.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
+			trans2D->pos.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
 		}
 		else
 		if (selAxis == 9)
@@ -441,8 +426,8 @@ void Gizmo::MouseMove(float mx, float my)
 				float dot1 = 0.0f;
 				float dot2 = 0.0f;
 
-				dot1 = ms.x * trans2D->local_trans.Vx().x + ms.y * trans2D->local_trans.Vx().y;
-				dot2 = ms.x * trans2D->local_trans.Vy().x + ms.y * trans2D->local_trans.Vy().y;
+				dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
+				dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
 
 				trans2D->size.x += dist * k1 * dot1;
 				trans2D->size.y += dist * k2 * dot2;
@@ -452,12 +437,12 @@ void Gizmo::MouseMove(float mx, float my)
 		return;
 	}
 
-	if (selAxis == -1 || !enabled)
+	if (selAxis == -1)
 	{
 		return;
 	}
 
-	Vector cur_dir(mx, my, 0);
+	Vector2 cur_dir(mx, my);
 	float da = cur_dir.Length();
 	cur_dir.Normalize();
 
@@ -523,12 +508,17 @@ void Gizmo::Render()
 	{
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
-		trans2D->BuildLocalTrans();
+		trans2D->BuildMatrices();
 
 		Vector p1, p2;
 
 		for (int phase = 1; phase <= 2; phase++)
 		{
+			if (!allow_transform && phase != 1)
+			{
+				continue;
+			}
+
 			for (int i = 0; i < 4 * phase; i++)
 			{
 				if (i == 0)
@@ -576,9 +566,9 @@ void Gizmo::Render()
 				}
 
 				p1 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-				p1 = p1 * trans2D->local_trans;
+				p1 = p1 * trans2D->mat_global;
 				p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-				p2 = p2 * trans2D->local_trans;
+				p2 = p2 * trans2D->mat_global;
 
 				p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
 				p2 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
@@ -595,12 +585,15 @@ void Gizmo::Render()
 			}
 		}
 
-		p1 = Vector(0.0f, 0.0f, 0.0f);
-		p1 = p1 * trans2D->local_trans;
-		p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+		if (allow_transform)
+		{
+			p1 = Vector(0.0f, 0.0f, 0.0f);
+			p1 = p1 * trans2D->mat_global;
+			p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
 
-		origin = Vector2(p1.x, p1.y) * scale - Vector2(4.0f);
-		render.DebugSprite(center, origin, Vector2(8.0f));
+			origin = Vector2(p1.x, p1.y) * scale - Vector2(4.0f);
+			render.DebugSprite(center, origin, Vector2(8.0f));
+		}
 
 		return;
 	}
@@ -634,11 +627,13 @@ void Gizmo::Render()
 
 void Gizmo::OnMouseMove(float mx, float my)
 {
+	if (!enabled || !allow_transform) return;
+
 	if (mousedPressed)
 	{
-		MouseMove(mx - prev_mx, my - prev_my);
-		prev_mx = mx;
-		prev_my = my;
+		MouseMove(mx - prev_ms.x, my - prev_ms.y);
+		prev_ms.x = mx;
+		prev_ms.y = my;
 	}
 	else
 	{
@@ -681,8 +676,8 @@ void Gizmo::OnLeftMouseDown(float mx, float my)
 			}
 		}
 
-		prev_mx = mx;
-		prev_my = my;
+		prev_ms.x = mx;
+		prev_ms.y = my;
 		mousedPressed = true;
 	}
 }

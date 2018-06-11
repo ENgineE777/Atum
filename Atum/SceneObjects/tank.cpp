@@ -2,7 +2,7 @@
 #include "tankclient.h"
 #include "Services/Controls/Controls.h"
 
-CLASSDECLDECL(Tank)
+CLASSREG(SceneObject, Tank)
 
 META_DATA_DESC(Tank)
 META_DATA_DESC_END()

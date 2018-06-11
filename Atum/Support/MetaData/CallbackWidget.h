@@ -16,7 +16,7 @@ public:
 	public:
 		CallbackWidget* owner;
 
-		virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
+		void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	};
 
 	void* owner;

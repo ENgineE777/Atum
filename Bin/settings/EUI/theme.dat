@@ -42,6 +42,13 @@
 			"underline" : true
 		}
 	],
+	"cursors":
+	[
+		{
+			"name" : "DRAG_CURSOR",
+			"filename" : "drag_cursor.cur"
+		}
+	],
 	"colors": [
 	{
 		"name": "FONT_NORMAL",
@@ -62,10 +69,6 @@
 	{
 		"name": "FONT_BACK_SELECTED",
 		"color": { "R": 238, "G": 56, "B": 68 }
-	},
-	{
-		"name": "FONT_EDITBOX_CHANGED",
-		"color": {	"R": 238, "G": 56,	"B": 68 }
 	},
 	{
 		"name": "FONT_EDITBOX_CHANGED",

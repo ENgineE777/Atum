@@ -1,7 +1,7 @@
 #include "tankclient.h"
 #include "Services/Controls/Controls.h"
 
-CLASSDECLDECL(TankClient)
+CLASSREG(SceneObject, TankClient)
 
 META_DATA_DESC(TankClient)
 STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")

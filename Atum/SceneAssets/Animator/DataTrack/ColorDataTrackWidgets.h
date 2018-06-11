@@ -19,8 +19,8 @@ public:
 	void StartEditKey(Color* value);
 	void StopEditKey();
 
-	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my);
-	void OnEditBoxStopEditing(EUIWidget* sender);
+	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 };
 
 #endif

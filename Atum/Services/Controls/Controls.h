@@ -112,8 +112,8 @@ private:
 
 	void  ResolveAliases();
 	void  CheckDeadEnds(Alias& alias);
-	bool  GetHardwareAliasState(int alias, AliasAction action, int device_index);
-	float GetHardwareAliasValue(int alias, bool delta, int device_index);
+	bool  GetHardwareAliasState(int alias, AliasAction action, int device_index, bool ignore_focus);
+	float GetHardwareAliasValue(int alias, bool delta, int device_index, bool ignore_focus);
 
 	struct TouchState
 	{
@@ -159,7 +159,7 @@ public:
 
 	const char* GetActivatedKey(int& device_index);
 
-	bool  DebugKeyPressed(const char* name, AliasAction action = Activated);
+	bool  DebugKeyPressed(const char* name, AliasAction action = Activated, bool ignore_focus = false);
 	bool  DebugHotKeyPressed(const char* name, const char* name2, const char* name3 = nullptr);
 
 #ifdef PLATFORM_PC

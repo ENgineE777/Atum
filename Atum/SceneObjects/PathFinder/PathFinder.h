@@ -16,7 +16,6 @@ public:
 	AStar astar;
 	AStar::CoordinateList path;
 
-	CLASSDECLDIF(SceneObject, PathFinder)
 	PathFinder();
 	virtual ~PathFinder();
 

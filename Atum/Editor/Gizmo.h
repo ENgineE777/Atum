@@ -10,19 +10,19 @@ public:
 
 	Transform2D* trans2D = nullptr;
 
-	bool   bViewPortResized;
-	Matrix transform;
-	int    mode;
-	int    selAxis;
-	bool   useLocalSpace;
-	Vector ms_dir;
-	bool   enabled;
-	float  scale;
-	bool   mousedPressed;
-	float  prev_mx, prev_my;
+	Matrix  transform;
+	int     mode = 1;
+	int     selAxis = -1;
+	bool    useLocalSpace = false;
+	Vector2 ms_dir = 0.0f;
+	Vector2 prev_ms = 0.0f;
+	bool    enabled = false;
+	bool    allow_transform = true;
+	float   scale = 1.0f;
+	bool    mousedPressed = false;
 
-	class Texture* anchorn;
-	class Texture* center;
+	class Texture* anchorn = nullptr;
+	class Texture* center = nullptr;
 
 	Vector2 origin;
 	Vector2 ancorns[8];
@@ -30,9 +30,6 @@ public:
 	Matrix center_transform;
 	Matrix rot_matrix;
 
-	Vector2 prev_ms;
-
-	Gizmo();
 	void Init();
 	Color CheckColor(int axis);
 	void DrawAxis(int axis);

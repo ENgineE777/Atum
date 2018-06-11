@@ -336,9 +336,9 @@ void Scene::DelFromGroup(SceneObject* obj, const char* name)
 
 void Scene::DelFromAllGroups(SceneObject* obj)
 {
-	for (std::map<std::string, Group>::iterator it = groups.begin(); it != groups.end(); it++)
+	for (auto& group : groups)
 	{
-		DelFromGroup(it->second, obj);
+		DelFromGroup(group.second, obj);
 	}
 }
 

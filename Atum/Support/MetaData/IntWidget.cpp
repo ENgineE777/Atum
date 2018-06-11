@@ -1,7 +1,7 @@
 
 #include "IntWidget.h"
 
-void IntWidget::Listiner::OnEditBoxStopEditing(EUIWidget* sender)
+void IntWidget::Listiner::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	owner->SetEditedData();
 }

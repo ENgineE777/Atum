@@ -37,7 +37,6 @@ public:
 	int cur_hp = 100;
 	int next_kick = -1;
 
-	CLASSDECLDIF(SceneObject, SimpleCharacter2D)
 	SimpleCharacter2D();
 	virtual ~SimpleCharacter2D();
 

@@ -12,7 +12,6 @@ public:
 	Transform2D trans;
 	Texture* tex;
 
-	CLASSDECLDIF(TrackPlayer, SpritePlayer)
 	SpritePlayer();
 	virtual ~SpritePlayer();
 

@@ -19,7 +19,6 @@ class TankClient : public SceneObject
 public:
 
 	META_DATA_DECL(TankClient)
-	CLASSDECLDIF(SceneObject, TankClient)
 
 	Vector2 angles;
 	Matrix  view;

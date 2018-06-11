@@ -15,6 +15,7 @@ class SceneObject : public Object
 	friend class Scene;
 
 protected:
+public:
 	Scene* owner;
 	std::string  name;
 	std::string  className;
@@ -50,6 +51,7 @@ public:
 	virtual void Release();
 
 #ifdef EDITOR
+	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
 	virtual void OnMouseMove(Vector2 delta_ms);

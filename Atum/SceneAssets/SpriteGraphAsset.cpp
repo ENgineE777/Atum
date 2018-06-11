@@ -103,7 +103,7 @@ void StartEditGraphSprite(void* owner)
 }
 #endif
 
-CLASSDECLDECL(SpriteGraphAsset)
+CLASSREG(SceneAsset, SpriteGraphAsset)
 
 META_DATA_DESC(SpriteGraphAsset)
 FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
@@ -279,9 +279,9 @@ void SpriteGraphAsset::Draw(float dt)
 
 			trans.pos = node.asset->trans.size * 0.5f;
 			trans.size = node.asset->trans.size;
-			trans.BuildLocalTrans();
+			trans.BuildMatrices();
 			Sprite::UpdateFrame(&node.asset->sprite, &state, dt);
-			Sprite::Draw(&trans, COLOR_WHITE, &node.asset->sprite, &state);
+			Sprite::Draw(&trans, COLOR_WHITE, &node.asset->sprite, &state, true);
 		}
 	}
 

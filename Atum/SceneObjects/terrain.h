@@ -32,7 +32,6 @@ public:
 
 	PhysHeightmap*  hm;
 
-	CLASSDECLDIF(SceneObject, Terrain)
 	Terrain();
 	virtual ~Terrain();
 

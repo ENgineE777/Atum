@@ -5,7 +5,7 @@ Font::Font(FontRes* set_res)
 	res = set_res;
 }
 
-void Font::TextOut(Matrix& transform, float font_scale, Color color, const char* text)
+void Font::Print(Matrix& transform, float font_scale, Color color, const char* text)
 {
 	if (!text[0]) return;
 

@@ -5,7 +5,7 @@
 #include "SceneAssets/Sprite.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSDECLDECL(SpritePlayer)
+CLASSREG(TrackPlayer, SpritePlayer)
 
 META_DATA_DESC(SpritePlayer)
 META_DATA_DESC_END()
@@ -29,6 +29,6 @@ void SpritePlayer::Init()
 
 void SpritePlayer::Draw(float dt)
 {
-	trans.BuildLocalTrans();
-	Sprite::Draw(tex, COLOR_WHITE, trans.local_trans, trans.offset * trans.size * -1.0f, trans.size, 0.0f, 1.0f);
+	trans.BuildMatrices();
+	Sprite::Draw(tex, COLOR_WHITE, trans.mat_global, trans.offset * trans.size * -1.0f, trans.size, 0.0f, 1.0f, true);
 }

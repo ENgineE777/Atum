@@ -29,6 +29,8 @@ FontRes::FontRes(const char* fl_name, int hgt)
 
 	need_update_tex = false;
 	tex_buffer = nullptr;
+
+	context = new stbtt_pack_context();
 }
 
 FontRes::Glyph* FontRes::GenerateChar(int ch)
@@ -36,7 +38,7 @@ FontRes::Glyph* FontRes::GenerateChar(int ch)
 	Glyph& set_glyph = glyphs[ch];
 
 	stbtt_packedchar packed;
-	stbtt_PackFontRange(&context, font_fb.GetData(), 0, STBTT_POINT_SIZE(used_height), ch, 1, &packed);
+	stbtt_PackFontRange(context, font_fb.GetData(), 0, STBTT_POINT_SIZE(used_height), ch, 1, &packed);
 
 	float w = packed.xoff2 - packed.xoff;
 	float h = packed.yoff2 - packed.yoff;
@@ -103,7 +105,7 @@ bool FontRes::Load()
 	tex_buffer = new uint8_t[tex_w * tex_h];
 	memset(tex_buffer, 0, tex_w * tex_h);
 
-	stbtt_PackBegin(&context, tex_buffer, tex_w, tex_h, 0, 1, nullptr);
+	stbtt_PackBegin(context, tex_buffer, tex_w, tex_h, 0, 1, nullptr);
 
 	tex = render.GetDevice()->CreateTexture(tex_w, tex_h, Texture::FMT_A8, 1, false, Texture::Tex2D);
 
@@ -296,10 +298,11 @@ void FontRes::UpdateTexture()
 
 void FontRes::Release()
 {
+	DELETE_PTR(context)
 	if (tex_buffer)
 	{
 		free(tex_buffer);
-		stbtt_PackEnd(&context);
+		stbtt_PackEnd(context);
 	}
 
 	RELEASE(tex)

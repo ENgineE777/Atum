@@ -80,6 +80,7 @@ public:
 	void Copy(void* source);
 #ifdef EDITOR
 	void PrepareWidgets(EUICategories* parent);
+	void UpdateWidgets();
 	bool IsValueWasChanged();
 	void HideWidgets();
 #endif
@@ -173,7 +174,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 
 #define ENUM_END\
 	enums.push_back(enm);\
-	prop.defvalue.enumIndex = enums.size() - 1;\
+	prop.defvalue.enumIndex = (int)enums.size() - 1;\
 	properties.push_back(prop);\
 }
 

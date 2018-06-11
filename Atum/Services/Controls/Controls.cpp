@@ -353,8 +353,15 @@ int Controls::GetAlias(const char* name)
 	return aliasesMap[name];
 }
 
-bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_index)
+bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_index, bool ignore_focus)
 {
+#ifdef PLATFORM_PC
+	if (!ignore_focus && GetFocus() != hwnd)
+	{
+		return false;
+	}
+#endif
+
 	HardwareAlias& halias = haliases[index];
 
 	switch (halias.device)
@@ -398,14 +405,14 @@ bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_i
 			}
 			else
 			{
-				float val = GetHardwareAliasValue(index, false, device_index);
+				float val = GetHardwareAliasValue(index, false, device_index, false);
 
 				if (action == Active)
 				{
 					return val > 0.99f;
 				}
 
-				float prev_val = val - GetHardwareAliasValue(index, true, device_index);
+				float prev_val = val - GetHardwareAliasValue(index, true, device_index, false);
 
 				return (val > 0.99f) && (prev_val < 0.99f);
 			}
@@ -492,7 +499,7 @@ bool Controls::GetAliasState(int index, AliasAction action)
 
 			if (ref.refer2hardware)
 			{
-				val &= GetHardwareAliasState(ref.aliasIndex, Active, ref.device_index);
+				val &= GetHardwareAliasState(ref.aliasIndex, Active, ref.device_index, false);
 			}
 			else
 			{
@@ -513,7 +520,7 @@ bool Controls::GetAliasState(int index, AliasAction action)
 
 				if (ref.refer2hardware)
 				{
-					val |= GetHardwareAliasState(ref.aliasIndex, Activated, ref.device_index);
+					val |= GetHardwareAliasState(ref.aliasIndex, Activated, ref.device_index, false);
 				}
 				else
 				{
@@ -531,8 +538,15 @@ bool Controls::GetAliasState(int index, AliasAction action)
 	return false;
 }
 
-float Controls::GetHardwareAliasValue(int index, bool delta, int device_index)
+float Controls::GetHardwareAliasValue(int index, bool delta, int device_index, bool ignore_focus)
 {
+#ifdef PLATFORM_PC
+	if (!ignore_focus && GetFocus() != hwnd)
+	{
+		return 0.0f;
+	}
+#endif
+
 	HardwareAlias& halias = haliases[index];
 
 	switch (halias.device)
@@ -648,7 +662,7 @@ float Controls::GetHardwareAliasValue(int index, bool delta, int device_index)
 			}
 			else
 			{
-				return GetHardwareAliasState(index, Active, device_index) ? 1.0f : 0.0f;
+				return GetHardwareAliasState(index, Active, device_index, false) ? 1.0f : 0.0f;
 			}
 
 			break;
@@ -761,7 +775,7 @@ float Controls::GetAliasValue(int index, bool delta)
 
 			if (ref.refer2hardware)
 			{
-				val = GetHardwareAliasValue(ref.aliasIndex, delta, ref.device_index);
+				val = GetHardwareAliasValue(ref.aliasIndex, delta, ref.device_index, false);
 			}
 			else
 			{
@@ -795,7 +809,7 @@ const char* Controls::GetActivatedKey(int& device_index)
 
 		for (device_index = 0; device_index<count; device_index++)
 		{
-			if (GetHardwareAliasState(index, Activated, device_index))
+			if (GetHardwareAliasState(index, Activated, device_index, false))
 			{
 				return halias.name.c_str();
 			}
@@ -805,7 +819,7 @@ const char* Controls::GetActivatedKey(int& device_index)
 	return nullptr;
 }
 
-bool Controls::DebugKeyPressed(const char* name, AliasAction action)
+bool Controls::DebugKeyPressed(const char* name, AliasAction action, bool ignore_focus)
 {
 	if (!allowDebugKeys || !name)
 	{
@@ -817,7 +831,7 @@ bool Controls::DebugKeyPressed(const char* name, AliasAction action)
 		return false;
 	}
 
-	return GetHardwareAliasState(debeugMap[name], action, 0);
+	return GetHardwareAliasState(debeugMap[name], action, 0, ignore_focus);
 }
 
 bool Controls::DebugHotKeyPressed(const char* name, const char* name2, const char* name3)
@@ -906,14 +920,6 @@ void Controls::Update(float dt)
 	}
 
 #ifdef PLATFORM_PC
-	if (GetFocus() != hwnd)
-	{
-		ZeroMemory(btns, 256);
-		ZeroMemory(ms_bts, 10);
-
-		return;
-	}
-
 	static byte tmp_diks[256];
 	ZeroMemory(tmp_diks, sizeof(tmp_diks));
 	HRESULT hr = pKeyboard->GetDeviceState(sizeof(tmp_diks), tmp_diks);

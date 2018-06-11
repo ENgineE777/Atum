@@ -33,7 +33,7 @@ void DataTrackWidgets::ShowBlendControls(bool show)
 	blend_cb->Show(show);
 }
 
-void DataTrackWidgets::OnComboBoxChange(EUIWidget* sender, int index)
+void DataTrackWidgets::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	if (sender == blend_cb)
 	{

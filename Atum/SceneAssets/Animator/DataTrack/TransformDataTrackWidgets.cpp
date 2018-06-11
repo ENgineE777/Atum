@@ -65,7 +65,7 @@ void TransformDataTrackWidgets::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 }
 
-void TransformDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
+void TransformDataTrackWidgets::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	float* val_ptr = nullptr;
 
@@ -95,9 +95,9 @@ void TransformDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
 	}
 }
 
-void TransformDataTrackWidgets::OnComboBoxChange(EUIWidget* sender, int index)
+void TransformDataTrackWidgets::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
-	DataTrackWidgets::OnComboBoxChange(sender, index);
+	DataTrackWidgets::OnComboBoxSelChange(sender, index);
 
 	if (sender == blend_cb)
 	{

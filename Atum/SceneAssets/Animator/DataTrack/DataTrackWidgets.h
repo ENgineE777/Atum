@@ -17,7 +17,7 @@ public:
 	void InitBlendControls(EUIWidget* parent, DataTrack::AllowedBlend blend);
 	void ShowBlendControls(bool show);
 
-	virtual void OnComboBoxChange(EUIWidget* sender, int index);
+	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 };
 
 #endif

@@ -16,7 +16,6 @@ public:
 	NetworkClient client;
 	META_DATA_DECL(SimpleClient)
 
-	CLASSDECLDIF(SceneObject, SimpleClient)
 	SimpleClient();
 	virtual ~SimpleClient();
 

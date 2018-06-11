@@ -4,18 +4,14 @@
 			"name" : "FreeCamera.MOVE_FORWARD",
 			"AliasesRef" : [
 				{ "names" : ["KEY_W"], "modifier" : 1.0 },
-				{ "names" : ["KEY_I"], "modifier" : 1.0 },
 				{ "names" : ["KEY_S"], "modifier" : -1.0 },
-				{ "names" : ["KEY_K"], "modifier" : -1.0 }
 			]
 		},
 		{
 			"name" : "FreeCamera.MOVE_STRAFE",
 			"AliasesRef" : [
 				{ "names" : ["KEY_A"], "modifier" : -1.0 },
-				{ "names" : ["KEY_J"], "modifier" : -1.0 },
 				{ "names" : ["KEY_D"], "modifier" : 1.0 },
-				{ "names" : ["KEY_L"], "modifier" : 1.0 }
 			]
 		},
 		{

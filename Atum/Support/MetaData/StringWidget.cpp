@@ -1,7 +1,7 @@
 
 #include "StringWidget.h"
 
-void StringWidget::Listiner::OnEditBoxStopEditing(EUIWidget* sender)
+void StringWidget::Listiner::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	owner->SetEditedData();
 }

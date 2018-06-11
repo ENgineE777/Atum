@@ -61,7 +61,7 @@ void Transform2DDataTrackWidgets::StopEditKey()
 	Show(false);
 }
 
-void Transform2DDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
+void Transform2DDataTrackWidgets::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	float* val_ptr = nullptr;
 

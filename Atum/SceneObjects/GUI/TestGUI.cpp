@@ -1,7 +1,7 @@
 
 #include "TestGUI.h"
 
-CLASSDECLDECL(TestGUI)
+CLASSREG(SceneObject, TestGUI)
 
 META_DATA_DESC(TestGUI)
 

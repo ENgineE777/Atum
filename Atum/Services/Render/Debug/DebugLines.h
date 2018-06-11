@@ -4,7 +4,7 @@
 #include "Services/Render/Render.h"
 
 class DebugLines : public Object
-{		
+{
 	enum
 	{
 		MaxSize = 10000

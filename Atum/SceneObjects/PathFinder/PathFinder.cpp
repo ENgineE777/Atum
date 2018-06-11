@@ -2,7 +2,7 @@
 #include "PathFinder.h"
 #include "Services/Render/Render.h"
 
-CLASSDECLDECL(PathFinder)
+CLASSREG(SceneObject, PathFinder)
 
 META_DATA_DESC(PathFinder)
 FILENAME_PROP(PathFinder, world, "", "Common", "World")

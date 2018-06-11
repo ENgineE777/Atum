@@ -5,7 +5,7 @@ class Programs
 {
 public:
 
-	class QuadProgram : public Program
+	class QuadProgramDepth : public Program
 	{
 	public:
 		virtual const char* GetVsName() { return "screen_vs.shd"; };
@@ -15,8 +15,17 @@ public:
 		{
 			render.GetDevice()->SetAlphaBlend(true);
 		};
+	};
 
-		CLASSDECLDIF(Program, QuadProgram)
+	class QuadProgramNoDepth : public QuadProgramDepth
+	{
+	public:
+
+		virtual void ApplyStates()
+		{
+			render.GetDevice()->SetAlphaBlend(true);
+			render.GetDevice()->SetDepthTest(false);
+		};
 	};
 
 	class TriangleProgram : public Program
@@ -24,8 +33,6 @@ public:
 	public:
 		virtual const char* GetVsName() { return "triangle_vs.shd"; };
 		virtual const char* GetPsName() { return "triangle_ps.shd"; };
-
-		CLASSDECLDIF(Program, TriangleProgram)
 	};
 
 	class ShTriangleProgram : public Program
@@ -39,8 +46,6 @@ public:
 			SetMatrix(Vertex, "sh_trans", &(matrixes["sh_trans"]), 1);
 			SetTexture(Pixel, "shdMap", textures["shdMap"]);
 		};
-
-		CLASSDECLDIF(Program, ShTriangleProgram)
 	};
 
 	class ColorProgram : public Program
@@ -53,8 +58,6 @@ public:
 		{
 			render.GetDevice()->SetDepthTest(false);
 		};
-
-		CLASSDECLDIF(Program, ColorProgram)
 	};
 
 	class BlurProgram : public Program
@@ -67,8 +70,6 @@ public:
 		{
 			render.GetDevice()->SetDepthTest(false);
 		};
-
-		CLASSDECLDIF(Program, BlurProgram)
 	};
 
 	class CombineProgram : public Program
@@ -81,8 +82,6 @@ public:
 		{
 			render.GetDevice()->SetDepthTest(false);
 		};
-
-		CLASSDECLDIF(Program, CombineProgram)
 	};
 
 	static Program* GetTranglPrg();

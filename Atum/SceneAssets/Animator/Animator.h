@@ -13,7 +13,6 @@ class Animator : public SceneAsset
 public:
 
 	META_DATA_DECL(Animator)
-	CLASSDECLDIF(SceneAsset, Animator)
 
 	float edCurTime;
 	float fromTime;

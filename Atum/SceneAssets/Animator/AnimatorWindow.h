@@ -90,15 +90,15 @@ public:
 	void PrepareWidgets(Animator* anim);
 	void Clear();
 
-	virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my);
-	virtual void OnMouseMove(EUIWidget* sender, int mx, int my);
-	virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my);
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
-	virtual void OnComboBoxChange(EUIWidget* sender, int index);
-	virtual void OnSrollerPosChange(EUIWidget* sender, int pos);
-	virtual void OnDraw(EUIWidget* sender);
-	virtual void OnResize(EUIWidget* sender);
-	virtual void OnUpdate(EUIWidget* sender);
+	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
+	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
+	void OnSrollerPosChange(EUIScrollBar* sender, int pos) override;
+	void OnDraw(EUIWidget* sender) override;
+	void OnResize(EUIWidget* sender) override;
+	void OnUpdate(EUIWidget* sender) override;
 
 	void SetSelection(int player, int track, int key);
 	void SetCurTime(float time);

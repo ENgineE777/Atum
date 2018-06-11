@@ -17,7 +17,7 @@ public:
 	void StartEditKey(float* vl, const char* name);
 	void StopEditKey();
 
-	virtual void OnEditBoxStopEditing(EUIWidget* sender);
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 };
 
 #endif

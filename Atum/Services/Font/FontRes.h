@@ -4,7 +4,6 @@ class  Texture;
 
 #include "Support/Support.h"
 #include "Services/Render/Render.h"
-#include "Support/stb/stb_truetype.h"
 
 class Font;
 
@@ -49,7 +48,7 @@ protected:
 	int tex_w;
 	int tex_h;
 
-	stbtt_pack_context context;
+	struct stbtt_pack_context* context;
 	bool need_update_tex;
 	Buffer font_fb;
 

@@ -1,7 +1,7 @@
 
 #include "DebugPrograms.h"
 
-CLASSDECLDECL(DebugPrograms::DbgLine)
-CLASSDECLDECL(DebugPrograms::DbgLineWithDepth)
-CLASSDECLDECL(DebugPrograms::DbgTriangle)
-CLASSDECLDECL(DebugPrograms::DbgSprite)
+CLASSREGEX(Program, DbgLine, DebugPrograms::DbgLine)
+CLASSREGEX(Program, DbgLineWithDepth, DebugPrograms::DbgLineWithDepth)
+CLASSREGEX(Program, DbgTriangle, DebugPrograms::DbgTriangle)
+CLASSREGEX(Program, DbgSprite, DebugPrograms::DbgSprite)

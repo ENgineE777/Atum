@@ -73,7 +73,7 @@ void ColorDataTrackWidgets::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 	}
 }
 
-void ColorDataTrackWidgets::OnEditBoxStopEditing(EUIWidget* sender)
+void ColorDataTrackWidgets::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	value->a = (float)atof(alpha_ed->GetText());
 }

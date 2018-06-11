@@ -15,7 +15,6 @@ public:
 	META_DATA_DECL(SimpleServer)
 
 	NetworkServer server;
-	CLASSDECLDIF(SceneObject, SimpleServer)
 	SimpleServer();
 	virtual ~SimpleServer();
 

@@ -880,7 +880,7 @@ void SpriteWindow::UpdateSavedPos()
 	prop_h_ebox->SetText((int)sprite_size.y);
 }
 
-void SpriteWindow::OnComboBoxChange(EUIWidget* sender, int index)
+void SpriteWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	if (sender == texture_mode)
 	{
@@ -905,7 +905,7 @@ void SpriteWindow::OnComboBoxChange(EUIWidget* sender, int index)
 	}
 }
 
-void SpriteWindow::OnEditBoxStopEditing(EUIWidget* sender)
+void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	float delta_x = 0.0f;
 	float delta_y = 0.0f;

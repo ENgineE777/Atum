@@ -15,7 +15,7 @@ bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugFont::Draw);
 
-	font = fonts.CreateFont("settings/helvetica", false, false, 16);
+	font = fonts.LoadFont("settings/helvetica", false, false, 16);
 
 	return true;
 }
@@ -57,7 +57,7 @@ void DebugFont::Draw(float dt)
 		if (pos.z>0 && pos.z<txt->dist)
 		{
 			mat.Pos() = Vector(pos.x * render.GetDevice()->GetWidth(), pos.y * render.GetDevice()->GetHeight(), 0);
-			font->TextOut(mat, 1.0f, txt->color, txt->text);
+			font->Print(mat, 1.0f, txt->color, txt->text);
 		}
 	}
 
@@ -68,7 +68,7 @@ void DebugFont::Draw(float dt)
 		Text* txt = &texts[i];
 
 		mat.Pos() = Vector(txt->pos.x, txt->pos.y, 0);
-		font->TextOut(mat, 1.0f, txt->color, txt->text);
+		font->Print(mat, 1.0f, txt->color, txt->text);
 	}
 
 	texts.clear();

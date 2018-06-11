@@ -2,7 +2,7 @@
 #include "EnumWidget.h"
 #include "MetaData.h"
 
-void EnumWidget::Listiner::OnComboBoxChange(EUIWidget* sender, int index)
+void EnumWidget::Listiner::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	owner->SetEditedData(index);
 }

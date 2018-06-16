@@ -1,8 +1,6 @@
 
 #include "SceneAsset.h"
 
-CLASSFACTORYDECL(SceneAsset)
-
 SceneAsset::SceneAsset() : SceneObject()
 {
 	taskPool = taskExecutor.CreateSingleTaskPool();
@@ -45,11 +43,6 @@ bool SceneAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* i
 }
 
 void SceneAsset::OnAssetTreeSelChange(SceneAsset* item)
-{
-
-}
-
-void SceneAsset::OnAssetTreeReCreateItem(void* item, void* ptr)
 {
 
 }

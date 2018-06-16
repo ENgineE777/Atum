@@ -2,8 +2,6 @@
 #include "UIWidgetAsset.h"
 #include "Editor/Gizmo.h"
 
-CLASSFACTORYDECL(UIWidgetAsset)
-
 UIWidgetAsset::~UIWidgetAsset()
 {
 }
@@ -35,7 +33,7 @@ void UIWidgetAsset::Load(JSONReader& reader)
 		char source_name[512];
 		if (reader.Read("source", source_name, 512))
 		{
-			SetSource((UIWidgetAsset*)owner->FindAsset(source_name), false);
+			SetSource((UIWidgetAsset*)owner->Find(source_name, true), false);
 		}
 	}
 

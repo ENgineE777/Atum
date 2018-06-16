@@ -4,7 +4,7 @@
 #include "SimpleServer.h"
 #include "Services/Render/Render.h"
 
-CLASSREG(SceneObject, SimpleServer)
+CLASSREG(SceneObject, SimpleServer, "SimpleServer")
 
 META_DATA_DESC(SimpleServer)
 META_DATA_DESC_END()

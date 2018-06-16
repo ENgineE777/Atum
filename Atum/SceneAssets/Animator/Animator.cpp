@@ -1,7 +1,7 @@
 
 #include "Animator.h"
 
-CLASSREG(SceneAsset, Animator)
+CLASSREG(SceneAsset, Animator, "Animator")
 
 META_DATA_DESC(Animator)
 FLOAT_PROP(Animator, timeLenght, 3.0f, "Prop", "TimeLenght")

@@ -11,7 +11,7 @@ void StartEditUIImageAsset(void* owner)
 }
 #endif
 
-CLASSREG(UIWidgetAsset, UIImageAsset)
+CLASSREG(UIWidgetAsset, UIImageAsset, "Image")
 
 META_DATA_DESC(UIImageAsset)
 FLOAT_PROP(UIImageAsset, trans.pos.x, 100.0f, "Prop", "x")
@@ -140,7 +140,7 @@ void UIImageAsset::SetEditMode(bool ed)
 }
 #endif
 
-CLASSREG(UIWidgetAsset, UIImageAssetInst)
+CLASSREG(UIWidgetAsset, UIImageAssetInst, "ImageInst")
 
 #ifdef EDITOR
 void StartEditUIImageAssetInst(void* owner)

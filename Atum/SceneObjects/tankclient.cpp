@@ -1,7 +1,7 @@
 #include "tankclient.h"
 #include "Services/Controls/Controls.h"
 
-CLASSREG(SceneObject, TankClient)
+CLASSREG(SceneObject, TankClient, "TankClient")
 
 META_DATA_DESC(TankClient)
 STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
@@ -29,7 +29,7 @@ void TankClient::Init()
 
 void TankClient::ApplyProperties()
 {
-	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str());
+	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str(), false);
 }
 
 void TankClient::Play()

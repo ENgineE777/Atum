@@ -4,7 +4,7 @@
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, Terrain)
+CLASSREG(SceneObject, Terrain, "Terrain")
 
 META_DATA_DESC(Terrain)
 FLOAT_PROP(Terrain, scaleh, 0.5f, "Geometry", "ScaleH")

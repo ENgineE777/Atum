@@ -1,7 +1,7 @@
 
 #include "AnimatorObject.h"
 
-CLASSREG(SceneObject, AnimatorObject)
+CLASSREG(SceneObject, AnimatorObject, "AnimatorObject")
 
 META_DATA_DESC(AnimatorObject)
 STRING_PROP(AnimatorObject, animator_name, "", "Properties", "Animator")
@@ -57,7 +57,7 @@ void AnimatorObject::Play()
 {
 	curTime = 0.0f;
 	SceneObject::Play();
-	animator = (Animator*)owner->FindAsset(animator_name.c_str());
+	animator = (Animator*)owner->Find(animator_name.c_str(), true);
 
 	if (animator)
 	{

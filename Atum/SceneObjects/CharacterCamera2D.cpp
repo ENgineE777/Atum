@@ -4,7 +4,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, CharacterCamera2D)
+CLASSREG(SceneObject, CharacterCamera2D, "CharacterCamera2D")
 
 META_DATA_DESC(CharacterCamera2D)
 FLOAT_PROP(CharacterCamera2D, trans.pos.x, 100.0f, "Geometry", "PosX")

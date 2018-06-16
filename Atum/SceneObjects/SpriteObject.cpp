@@ -4,7 +4,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, SpriteObject)
+CLASSREG(SceneObject, SpriteObject, "SpriteObject")
 
 META_DATA_DESC(SpriteObject)
 FLOAT_PROP(SpriteObject, trans.pos.x, 100.0f, "Geometry", "PosX")

@@ -20,9 +20,6 @@ class Editor : public Object, public EUIWidget::Listener
 		MenuSaveAsID = 1003,
 		MenuExitID = 1004,
 
-		MenuCopyID = 1100,
-		MenuDeleteID = 1101,
-
 		ViewportID = 1500,
 		MoveBtnID = 1501,
 		RotateBtnID = 1502,
@@ -45,7 +42,7 @@ class Editor : public Object, public EUIWidget::Listener
 	std::string  sceneName;
 
 	SceneObject* selectedObject;
-	EUIListBox*  sceneList;
+	EUITreeView* scene_treeview;
 
 	SceneAsset*  selectedAsset = nullptr;
 	SceneAsset*  selectedAsset2Drag = nullptr;
@@ -72,8 +69,6 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIWindow* gameWnd;
 	EUIPanel* game_viewport = nullptr;
 
-	map<int, string> id2name;
-
 	Scene ed_scene;
 	Scene* scene = nullptr;
 	Gizmo gizmo;
@@ -81,8 +76,24 @@ class Editor : public Object, public EUIWidget::Listener
 	Vector2 prev_ms;
 	bool allowCopy = false;
 
+	void*        popup_item = nullptr;
+	SceneObject* popup_scene_item = nullptr;
+	int          popup_child_index = -1;
+	SceneObject* object_to_copy = nullptr;
 	bool asset_drag_as_inst = false;
+	bool allow_delete_objects_by_tree = false;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
+
+	struct SceneTreeNode
+	{
+		int type = 0;
+		string name;
+		int index_in_scene = -1;
+	};
+
+	bool in_select_asset = false;
+	vector<SceneTreeNode> scene_nodes;
+	vector<SceneTreeNode> assets_nodes;
 
 public:
 
@@ -95,19 +106,27 @@ public:
 	void ClearScene();
 	void UpdateGizmoToolbar();
 	void SelectObject(SceneObject* obj);
-	void CopyObject(SceneObject* obj);
-	void CreateSceneObject(const char* name);
+	void CopyObject(SceneObject* obj, void* parent, bool is_asset);
+	void CreateSceneObject(const char* name, void* parent, bool is_asset);
 	void DeleteSceneObject(SceneObject* obj);
-	void SetUniqueName(SceneObject* obj, const char* name);
+	void SetUniqueName(SceneObject* obj, const char* name, bool is_asset);
 	void SelectAsset(SceneAsset* obj);
-	void CopyAsset(SceneAsset* obj);
-	void CreateSceneAsset(const char* name);
 	void DeleteSceneAsset(SceneAsset* obj);
-	void SetUniqueAssetName(SceneAsset* obj, const char* name);
 	void ShowVieport();
 	void StartScene();
 	void StopScene();
 	void Draw(float dt);
+	void Load();
+	void Save();
+	void LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const char* group);
+	void SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const char* group);
+	void RestoreTreeviewNodes();
+	void RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, bool is_asset);
+	void RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, int& index, void* item, bool is_asset);
+	void GrabTreeviewNodes();
+	void GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& scene_nodes, void* item, bool is_asset);
+	void CreatePopup(EUITreeView* treeview, bool is_asset);
+	void ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
@@ -116,13 +135,14 @@ public:
 	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnMenuItem(EUIMenu* sender, int id) override;
 	void OnUpdate(EUIWidget* sender) override;
-	void OnListBoxSelChange(EUIListBox* sender, int index) override;
 	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 	void OnResize(EUIWidget* sender) override;
 	void OnWinClose(EUIWidget* sender) override;
-	void OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) override;
+	bool OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) override;
 	void OnTreeViewSelChange(EUITreeView* sender, void* item) override;
 	void OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr) override;
+	void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) override;
 	void OnTreeViewPopupItem(EUITreeView* sender, int id) override;
 	void OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index) override;
+	void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) override;
 };

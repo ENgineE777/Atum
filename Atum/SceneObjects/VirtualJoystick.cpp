@@ -5,7 +5,7 @@
 #include "Services/Core/Core.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, VirtualJoystick)
+CLASSREG(SceneObject, VirtualJoystick, "VirtualJoystick")
 
 META_DATA_DESC(VirtualJoystick)
 FILENAME_PROP(VirtualJoystick, tex_name_stick_pad, "", "Properties", "StickPad")

@@ -2,7 +2,7 @@
 #include "PhysBox.h"
 #include "Services/Render/Render.h"
 
-CLASSREG(SceneObject, PhysBox)
+CLASSREG(SceneObject, PhysBox, "PhysBox")
 
 META_DATA_DESC(PhysBox)
 COLOR_PROP(PhysBox, color, COLOR_YELLOW, "Geometry", "color")

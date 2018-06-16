@@ -1,13 +1,13 @@
 
 #include "programs.h"
 
-CLASSREGEX(Program, TriangleProgram, Programs::TriangleProgram)
-CLASSREGEX(Program, ShTriangleProgram, Programs::ShTriangleProgram)
-CLASSREGEX(Program, ColorProgram, Programs::ColorProgram)
-CLASSREGEX(Program, BlurProgram, Programs::BlurProgram)
-CLASSREGEX(Program, CombineProgram, Programs::CombineProgram)
-CLASSREGEX(Program, QuadProgramDepth, Programs::QuadProgramDepth)
-CLASSREGEX(Program, QuadProgramNoDepth, Programs::QuadProgramNoDepth)
+CLASSREGEX(Program, TriangleProgram, Programs::TriangleProgram, "TriangleProgram")
+CLASSREGEX(Program, ShTriangleProgram, Programs::ShTriangleProgram, "ShTriangleProgram")
+CLASSREGEX(Program, ColorProgram, Programs::ColorProgram, "ColorProgram")
+CLASSREGEX(Program, BlurProgram, Programs::BlurProgram, "BlurProgram")
+CLASSREGEX(Program, CombineProgram, Programs::CombineProgram, "CombineProgram")
+CLASSREGEX(Program, QuadProgramDepth, Programs::QuadProgramDepth, "QuadProgramDepth")
+CLASSREGEX(Program, QuadProgramNoDepth, Programs::QuadProgramNoDepth, "QuadProgramNoDepth")
 
 Program* Programs::GetTranglPrg()
 {

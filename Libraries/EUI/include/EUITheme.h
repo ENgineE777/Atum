@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "json/JSONReader.h"
+#include "json/JSONParser.h"
 
 class EUITheme
 {
@@ -82,7 +82,7 @@ public:
 	virtual void Ulnload() = 0;
 
 protected:
-	virtual void LoadColors(JSONReader* reader) = 0;
-	virtual void LoadFonts(JSONReader* reader) = 0;
-	virtual void LoadCursors(JSONReader* reader) = 0;
+	virtual void LoadColors(JSONParser* reader) = 0;
+	virtual void LoadFonts(JSONParser* reader) = 0;
+	virtual void LoadCursors(JSONParser* reader) = 0;
 };

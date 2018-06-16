@@ -73,9 +73,11 @@ public:
 
 		virtual void OnSrollerPosChange(class EUIScrollBar* sender, int pos) {};
 
-		virtual void OnTreeViewItemDragged(class EUITreeView* sender, class EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) {};
+		virtual bool OnTreeViewItemDragged(class EUITreeView* sender, class EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) { return false; };
 		virtual void OnTreeViewSelChange(class EUITreeView* sender, void* item) {};
+		virtual void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) {};
 		virtual void OnTreeReCreateItem(class EUITreeView* sender, void* item, void* ptr) {};
+		virtual void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) {};
 		virtual void OnTreeViewPopupItem(class EUITreeView* sender, int id) {};
 		virtual void OnTreeViewRightClick(class EUITreeView* sender, void* item, int child_index) {};
 	};

@@ -2,7 +2,7 @@
 #include "programs.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, ColorCorrection)
+CLASSREG(SceneObject, ColorCorrection, "ColorCorrection")
 
 META_DATA_DESC(ColorCorrection)
 META_DATA_DESC_END()

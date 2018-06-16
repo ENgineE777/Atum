@@ -35,7 +35,7 @@ private:
 	PhysScene* pscene = nullptr;;
 	void DelFromGroup(Group& group, SceneObject* obj);
 
-	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block);
+	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block, bool is_asset);
 	void Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block);
 
 	void DeleteObjects(std::vector<SceneObject*>& objects);
@@ -47,19 +47,14 @@ public:
 
 	void Init();
 
-	SceneObject* AddObject(const char* name);
-	SceneObject* Find(const char* name);
-	SceneObject* GetObj(int index);
-	int  GetObjectsCount();
-	void DeleteObject(SceneObject* obj);
+	SceneObject* AddObject(const char* name, bool is_asset);
+	SceneObject* Find(const char* name, bool is_asset);
+	SceneObject* GetObj(int index, bool is_asset);
+	int          GetObjectIndex(SceneObject* obj, bool is_asset);
+	int          GetObjectsCount(bool is_asset);
+	void         DeleteObject(SceneObject* obj, bool is_asset);
 
-	SceneAsset* AddAsset(const char* name);
-	SceneAsset* FindAsset(const char* name);
-	SceneAsset* GetAsset(int index);
-	int  GetAssetsCount();
-	void DeleteAsset(SceneAsset* obj);
-
-	void DeleteAllObjects();
+	void Clear();
 
 	void Load(const char* name);
 	void Save(const char* name);

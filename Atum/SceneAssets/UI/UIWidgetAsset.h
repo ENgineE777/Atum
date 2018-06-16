@@ -66,7 +66,6 @@ public:
 	virtual void SetSource(UIWidgetAsset* source, bool remove_from_prev);
 #ifdef EDITOR
 	vector<UIWidgetAsset*> instances;
-	void* item = nullptr;
 	void SetEditMode(bool ed) override;
 	virtual void StoreProperties();
 	virtual void RestoreProperties();

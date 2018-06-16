@@ -42,83 +42,6 @@ void Editor::Init()
 
 	menu->EndSubMenu();
 
-	menu->StartSubMenu("Edit");
-
-	menu->AddItem(MenuCopyID, "Copy");
-	menu->AddItem(MenuDeleteID, "Delete");
-
-	menu->EndSubMenu();
-
-	menu->StartSubMenu("Create");
-
-	menu->StartSubMenu("Object");
-
-	ClassFactorySceneObject* decl = ClassFactorySceneObject::First();
-
-	int id = MenuSceneObjectID;
-
-	vector<const char*> names;
-
-	while (decl)
-	{
-		names.push_back(decl->GetName());
-
-		for (int i = (int)names.size() - 1; i > 0; i--)
-		{
-			if (StringUtils::CompareABC(names[i], names[i - 1]))
-			{
-				const char* tmp = names[i - 1];
-				names[i - 1] = names[i];
-				names[i] = tmp;
-			}
-		}
-
-		decl = decl->Next();
-	}
-
-	for (auto name : names)
-	{
-		menu->AddItem(id, name);
-		id2name[id] = name;
-		id++;
-	}
-
-	menu->EndSubMenu();
-
-	menu->StartSubMenu("Asset");
-
-	ClassFactorySceneAsset* declAsset = ClassFactorySceneAsset::First();
-
-	id = MenuSceneAssetID;
-
-	names.clear();
-
-	while (declAsset)
-	{
-		names.push_back(declAsset->GetName());
-
-		for (int i = (int)names.size() - 1; i > 0; i--)
-		{
-			if (StringUtils::CompareABC(names[i], names[i - 1]))
-			{
-				const char* tmp = names[i - 1];
-				names[i - 1] = names[i];
-				names[i] = tmp;
-			}
-		}
-
-		declAsset = declAsset->Next();
-	}
-
-	for (auto name : names)
-	{
-		menu->AddItem(id, name);
-		id2name[id] = name;
-		id++;
-	}
-
-	menu->EndSubMenu();
-
 	menu->EndSubMenu();
 
 	menu->AddItem(1301, "About");
@@ -163,12 +86,18 @@ void Editor::Init()
 
 	EUILayout* scene_lt = new EUILayout(sheet, true);
 
-	sceneList = new EUIListBox(scene_lt, 200, 10, 200, 100, true);
-	scene_lt->SetChildSize(sceneList, 0.5, true);
-	sceneList->SetListener(SceneListID, this, 0);
+	scene_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
+	scene_lt->SetChildSize(scene_treeview, 0.5, true);
+	scene_treeview->SetListener(SceneListID, this, 0);
 
-	assets_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100);
+	scene_treeview->AddImage("settings/editor/folder.bmp");
+	scene_treeview->AddImage("settings/editor/scene_elem.bmp");
+
+	assets_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
 	assets_treeview->SetListener(AssetListID, this, 0);
+
+	assets_treeview->AddImage("settings/editor/folder.bmp");
+	assets_treeview->AddImage("settings/editor/scene_elem.bmp");
 
 	EUITabPanel* viewportPanels = new EUITabPanel(lt, 30, 50, 100, 30);
 	viewportPanels->SetListener(-1, this, 0);
@@ -185,10 +114,9 @@ void Editor::Init()
 	asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, 200, false);
 
 	EUILayout* panelBLt = new EUILayout(asset_treeview_panel, false);
-	asset_treeview = new EUITreeView(panelBLt, 0, 0, 100, 100);
+	asset_treeview = new EUITreeView(panelBLt, 0, 0, 100, 100, false, true);
 
 	asset_treeview->AddImage("settings/editor/folder.bmp");
-	asset_treeview->AddImage("settings/editor/scene_image.bmp");
 	asset_treeview->AddImage("settings/editor/scene_elem.bmp");
 
 	asset_treeview->SetListener(AssetListID + 100, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
@@ -237,9 +165,9 @@ void Editor::ClearScene()
 {
 	SelectObject(NULL);
 	sceneName.clear();
-	sceneList->ClearList();
+	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
-	ed_scene.DeleteAllObjects();
+	ed_scene.Clear();
 }
 
 void Editor::UpdateGizmoToolbar()
@@ -254,6 +182,13 @@ void Editor::UpdateGizmoToolbar()
 
 void Editor::SelectObject(SceneObject* obj)
 {
+	if (in_select_asset)
+	{
+		return;
+	}
+
+	in_select_asset = true;
+
 	if (selectedAsset)
 	{
 		selectedAsset->GetMetaData()->HideWidgets();
@@ -283,38 +218,46 @@ void Editor::SelectObject(SceneObject* obj)
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
 		obj->SetEditMode(true);
-		sceneList->SelectItemByData(obj);
+		scene_treeview->SelectItem(obj->item);
 	}
 	else
 	{
 		objectName->SetText("");
-		sceneList->SelectItemByData(NULL);
 	}
 
 	ShowVieport();
+
+	in_select_asset = false;
 }
 
-void Editor::CopyObject(SceneObject* obj)
+void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 {
 	if (!obj)
 	{
 		return;
 	}
 
-	SceneObject* copy = ed_scene.AddObject(obj->GetClassName());
+	SceneObject* copy = ed_scene.AddObject(obj->GetClassName(), is_asset);
 
 	copy->Copy(obj);
 
-	SetUniqueName(copy, obj->GetName());
-	sceneList->AddItem(copy->GetName(), copy);
-	sceneList->SelectItemByData(copy);
+	SetUniqueName(copy, obj->GetName(), is_asset);
 
-	SelectObject(copy);
+	if (is_asset)
+	{
+		copy->item = assets_treeview->AddItem(copy->GetName(), 1, copy, parent, -1, false);
+		assets_treeview->SelectItem(copy->item);
+	}
+	else
+	{
+		copy->item = scene_treeview->AddItem(copy->GetName(), 1, copy, parent, -1, false);
+		scene_treeview->SelectItem(copy->item);
+	}
 }
 
-void Editor::SetUniqueName(SceneObject* obj, const char* name)
+void Editor::SetUniqueName(SceneObject* obj, const char* name, bool is_asset)
 {
-	if (!ed_scene.Find(name))
+	if (!ed_scene.Find(name, is_asset))
 	{
 		obj->SetName(name);
 		return;
@@ -329,25 +272,32 @@ void Editor::SetUniqueName(SceneObject* obj, const char* name)
 	{
 		StringUtils::Printf(uniqueName, 512, "%s%i", baseName, index);
 		index++;
-		unique = (ed_scene.Find(uniqueName) == NULL);
+		unique = (ed_scene.Find(uniqueName, is_asset) == nullptr);
 	}
 
 	obj->SetName(uniqueName);
 	objectName->SetText(uniqueName);
 }
 
-void Editor::CreateSceneObject(const char* name)
+void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 {
-	SceneObject* obj = ed_scene.AddObject(name);
+	SceneObject* obj = ed_scene.AddObject(name, is_asset);
 	obj->ApplyProperties();
 
 	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
 
-	SetUniqueName(obj, name);
-	sceneList->AddItem(obj->GetName(), obj);
-	sceneList->SelectItemByData(obj);
+	SetUniqueName(obj, name, is_asset);
 
-	SelectObject(obj);
+	if (is_asset)
+	{
+		obj->item = assets_treeview->AddItem(obj->GetName(), 1, obj, parent, -1, false);
+		assets_treeview->SelectItem(obj->item);
+	}
+	else
+	{
+		obj->item = scene_treeview->AddItem(obj->GetName(), 1, obj, parent, -1, false);
+		scene_treeview->SelectItem(obj->item);
+	}
 }
 
 void Editor::DeleteSceneObject(SceneObject* obj)
@@ -359,20 +309,27 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 
 	if (selectedObject == obj)
 	{
-		SelectObject(NULL);
+		SelectObject(nullptr);
 	}
 
-	sceneList->DeleteItemByData(obj);
-	ed_scene.DeleteObject(obj);
+	scene_treeview->DeleteItem(obj);
+	ed_scene.DeleteObject(obj, false);
 }
 
 void Editor::SelectAsset(SceneAsset* obj)
 {
+	if (in_select_asset)
+	{
+		return;
+	}
+
+	in_select_asset = true;
+
 	if (selectedObject)
 	{
 		selectedObject->GetMetaData()->HideWidgets();
 		selectedObject->SetEditMode(true);
-		sceneList->SelectItemByData(nullptr);
+		scene_treeview->SelectItem(nullptr);
 		selectedObject = nullptr;
 	}
 
@@ -397,7 +354,8 @@ void Editor::SelectAsset(SceneAsset* obj)
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
 		obj->SetEditMode(true);
-		//assets_treeview->SelectItemByData(obj);
+
+		assets_treeview->SelectItem(obj->item);
 
 		selectedAsset->EnableTasks(true);
 		asset_treeview->ClearTree();
@@ -411,49 +369,8 @@ void Editor::SelectAsset(SceneAsset* obj)
 	}
 
 	ShowVieport();
-}
 
-void Editor::CopyAsset(SceneAsset* obj)
-{
-	if (!obj)
-	{
-		return;
-	}
-
-	SceneAsset* copy = ed_scene.AddAsset(obj->GetClassName());
-
-	copy->Copy(obj);
-
-	SetUniqueAssetName(copy, obj->GetName());
-	assets_treeview->AddItem(copy->GetName(), 0, copy, nullptr, -1, false);
-	//assets_treeview->SelectItemByData(copy);
-
-	SelectAsset(copy);
-}
-
-void Editor::SetUniqueAssetName(SceneAsset* obj, const char* name)
-{
-	if (!ed_scene.FindAsset(name))
-	{
-		obj->SetName(name);
-		return;
-	}
-
-	char baseName[512];
-	int index = StringUtils::ExtractNameNumber(name, baseName, 512);
-	bool unique = false;
-	char uniqueName[512];
-
-	while (!unique)
-	{
-		StringUtils::Printf(uniqueName, 512, "%s%i", baseName, index);
-
-		index++;
-		unique = (ed_scene.FindAsset(uniqueName) == NULL);
-	}
-
-	obj->SetName(uniqueName);
-	objectName->SetText(uniqueName);
+	in_select_asset = false;
 }
 
 void Editor::ShowVieport()
@@ -475,20 +392,6 @@ void Editor::ShowVieport()
 	controls.SetWindow(vp->GetNative());
 }
 
-void Editor::CreateSceneAsset(const char* name)
-{
-	SceneAsset* obj = ed_scene.AddAsset(name);
-	obj->ApplyProperties();
-
-	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
-
-	SetUniqueAssetName(obj, name);
-	assets_treeview->AddItem(obj->GetName(), 0, obj, nullptr, -1, false);
-	//assets_treeview->SelectItemByData(obj);
-
-	SelectAsset(obj);
-}
-
 void Editor::DeleteSceneAsset(SceneAsset* obj)
 {
 	if (!obj)
@@ -501,8 +404,8 @@ void Editor::DeleteSceneAsset(SceneAsset* obj)
 		SelectAsset(nullptr);
 	}
 
-	//assets_treeview->DeleteItemByData(obj);
-	ed_scene.DeleteAsset(obj);
+	assets_treeview->DeleteItem(obj->item);
+	ed_scene.DeleteObject(obj, true);
 }
 
 void Editor::StartScene()
@@ -516,7 +419,7 @@ void Editor::StartScene()
 		ed_scene.EnableTasks(false);
 	}
 
-	ed_scene.Save(sceneName.c_str());
+	Save();
 
 	scene = new Scene();
 	scene->Init();
@@ -579,6 +482,294 @@ void Editor::Draw(float dt)
 	render.GetDevice()->Present();
 }
 
+void Editor::LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const char* group)
+{
+	while (reader->EnterBlock(group))
+	{
+		nodes.push_back(SceneTreeNode());
+		SceneTreeNode& node = nodes.back();
+
+		reader->Read("index_in_scene", node.index_in_scene);
+		reader->Read("name", node.name);
+		reader->Read("type", node.type);
+
+		reader->LeaveBlock();
+	}
+}
+
+void Editor::Load()
+{
+	ed_scene.Load(sceneName.c_str());
+
+	string scene_tree = sceneName;
+	scene_tree.resize(scene_tree.size() - 3);
+	scene_tree += "snt";
+
+	JSONReader reader;
+	if (reader.Parse(scene_tree.c_str()))
+	{
+		LoadNodes(&reader, scene_nodes, "scene_nodes");
+		LoadNodes(&reader, assets_nodes, "asset_nodes");
+	}
+	
+	RestoreTreeviewNodes();
+}
+
+void Editor::SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const char* group)
+{
+	writer->StartArray(group);
+
+	for (auto& node : nodes)
+	{
+		writer->StartBlock(nullptr);
+
+		writer->Write("index_in_scene", node.index_in_scene);
+		writer->Write("name", node.name.c_str());
+		writer->Write("type", node.type);
+
+		writer->FinishBlock();
+	}
+
+	writer->FinishArray();
+}
+
+void Editor::Save()
+{
+	GrabTreeviewNodes();
+	ed_scene.Save(sceneName.c_str());
+	string scene_tree = sceneName;
+	scene_tree.resize(scene_tree.size() - 3);
+	scene_tree+="snt";
+
+	JSONWriter writer;
+	writer.Start(scene_tree.c_str());
+
+	SaveNode(&writer, scene_nodes, "scene_nodes");
+	SaveNode(&writer, assets_nodes, "asset_nodes");
+}
+
+void Editor::RestoreTreeviewNodes()
+{
+	RestoreTreeviewNodes(scene_treeview, scene_nodes, false);
+	RestoreTreeviewNodes(assets_treeview, assets_nodes, true);
+}
+
+void Editor::RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, bool is_asset)
+{
+	if (nodes.size() == 0)
+	{
+		for (int i = 0; i < ed_scene.GetObjectsCount(is_asset); i++)
+		{
+			SceneObject* obj = ed_scene.GetObj(i, is_asset);
+			obj->item = treeview->AddItem(obj->GetName(), 1, obj, nullptr, -1, false);
+		}
+	}
+	else
+	{
+		int index = 0;
+		treeview->ClearTree();
+		RestoreTreeviewNodes(treeview, nodes, index, nullptr, is_asset);
+	}
+}
+
+void Editor::RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, int& index, void* item, bool is_asset)
+{
+	SceneTreeNode& node = nodes[index];
+	index++;
+	
+	while (node.type != 2)
+	{
+		SceneObject* asset = (node.index_in_scene != -1) ? ed_scene.GetObj(node.index_in_scene, is_asset) : nullptr;
+
+		void* child = treeview->AddItem(node.name.c_str(), node.type, asset, item , -1, (node.type == 0));
+
+		if (asset)
+		{
+			asset->item = child;
+		}
+		else
+		{
+			RestoreTreeviewNodes(treeview, nodes, index, child, is_asset);
+		}
+
+		node = nodes[index];
+		index++;
+	}
+}
+
+void Editor::GrabTreeviewNodes()
+{
+	scene_nodes.clear();
+	GrabTreeviewNodes(scene_treeview, scene_nodes, nullptr, false);
+
+	assets_nodes.clear();
+	GrabTreeviewNodes(assets_treeview, assets_nodes, nullptr, true);
+}
+
+void Editor::GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, void* item, bool is_asset)
+{
+	int count = treeview->GetItemChildCount(item);
+
+	for (int i = 0; i < count; i++)
+	{
+		void* child = treeview->GetItemChild(item, i);
+
+		nodes.push_back(SceneTreeNode());
+		SceneTreeNode& node = nodes.back();
+
+		treeview->GetItemText(child, node.name);
+		SceneAsset* asset = (SceneAsset*)treeview->GetItemPtr(child);
+
+		if (asset)
+		{
+			node.type = 1;
+			node.index_in_scene = ed_scene.GetObjectIndex(asset, is_asset);
+		}
+		else
+		{
+			GrabTreeviewNodes(treeview, nodes, child, is_asset);
+		}
+	}
+
+	nodes.push_back(SceneTreeNode());
+	SceneTreeNode& node = nodes.back();
+	node.type = 2;
+}
+
+void Editor::CreatePopup(EUITreeView* treeview, bool is_asset)
+{
+	treeview->StartPopupMenu();
+
+	treeview->PopupMenuAddItem(3500, "Create Folder");
+
+	if (!popup_scene_item && popup_item)
+	{
+		treeview->PopupMenuAddItem(3501, "Create Folder as child");
+	}
+
+	treeview->PopupMenuStartSubMenu("Create");
+
+	int id = 1000;
+
+	if (is_asset)
+	{
+		for (const auto& decl : ClassFactorySceneAsset::Decls())
+		{
+			treeview->PopupMenuAddItem(id, decl->GetShortName());
+			id++;
+		}
+	}
+	else
+	{
+		for (const auto& decl : ClassFactorySceneObject::Decls())
+		{
+			treeview->PopupMenuAddItem(id, decl->GetShortName());
+			id++;
+		}
+	}
+
+	treeview->PopupMenuEndSubMenu();
+
+	if (!popup_scene_item && popup_item)
+	{
+		treeview->PopupMenuStartSubMenu("Create as child");
+
+		if (is_asset)
+		{
+			int id = 500;
+			for (const auto& decl : ClassFactorySceneAsset::Decls())
+			{
+				treeview->PopupMenuAddItem(id, decl->GetShortName());
+				id++;
+			}
+		}
+		else
+		{
+			int id = 500;
+			for (const auto& decl : ClassFactorySceneObject::Decls())
+			{
+				treeview->PopupMenuAddItem(id, decl->GetShortName());
+				id++;
+			}
+		}
+
+		treeview->PopupMenuEndSubMenu();
+	}
+
+	if (!popup_scene_item && object_to_copy)
+	{
+		treeview->PopupMenuAddItem(3505, "Paste");
+		treeview->PopupMenuAddItem(3504, "Paste as child");
+	}
+	else
+	if (popup_scene_item)
+	{
+		treeview->PopupMenuAddSeparator();
+		treeview->PopupMenuAddItem(3502, "Duplicate");
+		treeview->PopupMenuAddItem(3503, "Copy");
+
+		if (object_to_copy)
+		{
+			treeview->PopupMenuAddItem(3505, "Paste");
+		}
+	}
+
+	if (popup_item)
+	{
+		treeview->PopupMenuAddItem(3506, "Delete");
+	}
+}
+
+void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
+{
+	if (id == 3500)
+	{
+		treeview->AddItem("Folder", 0, nullptr, popup_item ? treeview->GetItemParent(popup_item) : nullptr, -1, true);
+	}
+
+	if (id == 3501)
+	{
+		treeview->AddItem("Folder", 0, nullptr, popup_item, -1, true);
+	}
+
+	if (id == 3502 && popup_scene_item)
+	{
+		CopyObject(popup_scene_item, treeview->GetItemParent(popup_scene_item->item), is_asset);
+	}
+
+	if (id == 3503 && popup_scene_item)
+	{
+		object_to_copy = popup_scene_item;
+	}
+
+	if (id == 3504 && object_to_copy)
+	{
+		CopyObject(object_to_copy, popup_item, is_asset);
+	}
+
+	if (id == 3505 && object_to_copy)
+	{
+		CopyObject(object_to_copy, treeview->GetItemParent(popup_item), is_asset);
+	}
+
+	if (id == 3506)
+	{
+		allow_delete_objects_by_tree = true;
+		treeview->DeleteItem(popup_item);
+		allow_delete_objects_by_tree = false;
+	}
+
+	if (id >= 500 && id <= 900)
+	{
+		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - 500]->GetName() : ClassFactorySceneObject::Decls()[id - 500]->GetName(), popup_item, is_asset);
+	}
+
+	if (id >= 1000 && id <= 1400)
+	{
+		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - 1000]->GetName() : ClassFactorySceneObject::Decls()[id - 1000]->GetName(), treeview->GetItemParent(popup_item), is_asset);
+	}
+}
+
 void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 {
 	if (sender->GetID() == Editor::ViewportID ||
@@ -618,7 +809,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 				if (!selectedObject->Trans().IsEqual(gizmo.transform))
 				{
 					allowCopy = false;
-					CopyObject(selectedObject);
+					CopyObject(selectedObject, selectedObject->item, false);
 				}
 			}
 
@@ -757,32 +948,6 @@ void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 
 void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 {
-	if (activated_id == MenuCopyID)
-	{
-		if (selectedObject)
-		{
-			CopyObject(selectedObject);
-		}
-		else
-		if (selectedAsset)
-		{
-			CopyAsset(selectedAsset);
-		}
-	}
-
-	if (activated_id == MenuDeleteID)
-	{
-		if (selectedObject)
-		{
-			DeleteSceneObject(selectedObject);
-		}
-		else
-		if (selectedAsset)
-		{
-			DeleteSceneAsset(selectedAsset);
-		}
-	}
-
 	if (activated_id == MenuNewID)
 	{
 		ClearScene();
@@ -790,7 +955,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 	if (activated_id == MenuSaveID && sceneName.size() != 0)
 	{
-		ed_scene.Save(sceneName.c_str());
+		Save();
 	}
 
 	if ((activated_id == MenuSaveID && sceneName.size() == 0) ||
@@ -803,7 +968,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 			sceneName = fileName;
 		}
 
-		ed_scene.Save(sceneName.c_str());
+		Save();
 	}
 
 	if (activated_id == MenuOpenID)
@@ -814,30 +979,8 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 		{
 			ClearScene();
 			sceneName = fileName;
-			ed_scene.Load(fileName);
-
-			for (int i = 0; i<ed_scene.GetObjectsCount(); i++)
-			{
-				SceneObject* obj = ed_scene.GetObj(i);
-				sceneList->AddItem(obj->GetName(), obj);
-			}
-
-			for (int i = 0; i<ed_scene.GetAssetsCount(); i++)
-			{
-				SceneAsset* obj = ed_scene.GetAsset(i);
-				assets_treeview->AddItem(obj->GetName(), 0, obj, nullptr, -1, false);
-			}
+			Load();
 		}
-	}
-
-	if (activated_id >= MenuSceneObjectID && activated_id <= MenuSceneObjectID + 1000)
-	{
-		CreateSceneObject(id2name[activated_id].c_str());
-	}
-
-	if (activated_id >= MenuSceneAssetID && activated_id <= MenuSceneAssetID + 100)
-	{
-		CreateSceneAsset(id2name[activated_id].c_str());
 	}
 
 	if (activated_id == MenuExitID)
@@ -907,6 +1050,8 @@ void Editor::OnUpdate(EUIWidget* sender)
 	{
 		if (selectedAsset)
 		{
+			//assets_treeview->SetItemText(selectedAsset->item, "sdsdgs");
+
 			selectedAsset->Tasks()->Execute(dt);
 		}
 		else
@@ -920,14 +1065,6 @@ void Editor::OnUpdate(EUIWidget* sender)
 	core.Update();
 }
 
-void Editor::OnListBoxSelChange(EUIListBox* sender, int index)
-{
-	if (sender->GetID() == SceneListID)
-	{
-		SelectObject((SceneObject*)sceneList->GetSelectedItemData());
-	}
-}
-
 void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	if (sender == objectName)
@@ -939,8 +1076,8 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 				return;
 			}
 
-			SetUniqueName(selectedObject, objectName->GetText());
-			sceneList->ChangeItemNameByData(objectName->GetText(), selectedObject);
+			SetUniqueName(selectedObject, objectName->GetText(), false);
+			scene_treeview->SetItemText(selectedObject->item, objectName->GetText());
 		}
 
 		if (selectedAsset)
@@ -950,8 +1087,8 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 				return;
 			}
 
-			SetUniqueAssetName(selectedAsset, objectName->GetText());
-			//assetList->ChangeItemNameByData(objectName->GetText(), selectedAsset);
+			SetUniqueName(selectedAsset, objectName->GetText(), true);
+			assets_treeview->SetItemText(selectedAsset->item, objectName->GetText());
 		}
 	}
 }
@@ -977,15 +1114,19 @@ void Editor::OnWinClose(EUIWidget* sender)
 	StopScene();
 }
 
-void Editor::OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index)
+bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index)
 {
 	if ((sender == assets_treeview || sender == asset_treeview ) && target == asset_treeview && selectedAsset)
 	{
-		if (selectedAsset->OnAssetTreeViewItemDragged((sender == assets_treeview), (SceneAsset*)sender->GetItemPtr(item), prev_child_index, (SceneObject*)target->GetItemPtr(parent), child_index))
-		{
-			asset_treeview->MoveDraggedItem();
-		}
+		return selectedAsset->OnAssetTreeViewItemDragged((sender == assets_treeview), (SceneAsset*)sender->GetItemPtr(item), prev_child_index, (SceneObject*)target->GetItemPtr(parent), child_index);
 	}
+
+	if (sender == scene_treeview || sender == assets_treeview)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
@@ -995,9 +1136,14 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 		selectedAsset->OnAssetTreeSelChange((SceneAsset*)asset_treeview->GetItemPtr(item));
 	}
 	else
+	if (sender == scene_treeview)
+	{
+		SelectObject((SceneObject*)sender->GetItemPtr(item));
+	}
+	else
 	if (sender == assets_treeview)
 	{
-		SceneAsset* asset = (SceneAsset*)assets_treeview->GetItemPtr(item);
+		SceneAsset* asset = (SceneAsset*)sender->GetItemPtr(item);
 
 		if (asset_drag_as_inst)
 		{
@@ -1015,9 +1161,37 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 
 void Editor::OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr)
 {
-	if (sender == asset_treeview && selectedAsset)
+	if (sender == scene_treeview || sender == assets_treeview)
 	{
-		selectedAsset->OnAssetTreeReCreateItem(item, ptr);
+		SceneObject* obj = (SceneObject*)ptr;
+
+		if (obj)
+		{
+			obj->item = item;
+		}
+	}
+}
+
+void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
+{
+	if ((sender == scene_treeview || sender == assets_treeview) && allow_delete_objects_by_tree)
+	{
+		if (ptr)
+		{
+			SceneObject* object = (SceneObject*)ptr;
+
+			if (object == selectedObject)
+			{
+				SelectObject(nullptr);
+			}
+
+			if (object == selectedAsset)
+			{
+				SelectAsset(nullptr);
+			}
+
+			ed_scene.DeleteObject(object, (sender == assets_treeview));
+		}
 	}
 }
 
@@ -1027,12 +1201,41 @@ void Editor::OnTreeViewPopupItem(EUITreeView* sender, int id)
 	{
 		selectedAsset->OnAssetTreePopupItem(id);
 	}
+
+	if (sender == scene_treeview || sender == assets_treeview)
+	{
+		ProcesTreeviewPopup(sender, id, (sender == assets_treeview));
+	}
 }
 
 void Editor::OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index)
 {
 	if (sender == asset_treeview && selectedAsset)
 	{
-		selectedAsset->OnAssetTreeRightClick((SceneAsset*)asset_treeview->GetItemPtr(item), child_index);
+		selectedAsset->OnAssetTreeRightClick((SceneAsset*)sender->GetItemPtr(item), child_index);
+	}
+
+	if (sender == scene_treeview || sender == assets_treeview)
+	{
+		popup_item = item;
+		popup_scene_item = (SceneAsset*)sender->GetItemPtr(item);
+		popup_child_index = child_index;
+
+		CreatePopup(sender, (sender == assets_treeview));
+	}
+}
+
+void Editor::OnTreeViewSelItemTextChanged(EUITreeView* sender, void* item, const char* text)
+{
+	if (sender == scene_treeview || sender == assets_treeview)
+	{
+		SceneObject* object = (SceneObject*)sender->GetItemPtr(item);
+
+		if (object)
+		{
+			object->SetName(text);
+		}
+
+		sender->SetItemText(item, text);
 	}
 }

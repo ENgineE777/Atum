@@ -1,7 +1,7 @@
 #include "hovertank.h"
 #include "Services/Controls/Controls.h"
 
-CLASSREG(SceneObject, HoverTank)
+CLASSREG(SceneObject, HoverTank, "HoverTank")
 
 META_DATA_DESC(HoverTank)
 META_DATA_DESC_END()

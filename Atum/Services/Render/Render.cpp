@@ -111,6 +111,7 @@ Program* Render::GetProgram(const char* name)
 		return programs[name];
 	}
 
+	auto decls = ClassFactoryProgram::Decls();
 	Program * prg = ClassFactoryProgram::Create(name);
 	prg->Init();
 	device->PrepareProgram(prg);

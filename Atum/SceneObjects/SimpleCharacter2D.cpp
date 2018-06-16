@@ -5,7 +5,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(SceneObject, SimpleCharacter2D)
+CLASSREG(SceneObject, SimpleCharacter2D, "SimpleCharacter2D")
 
 META_DATA_DESC(SimpleCharacter2D)
 FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "PosX")
@@ -49,7 +49,7 @@ void SimpleCharacter2D::ApplyProperties()
 		}
 	}
 
-	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str());
+	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str(), false);
 }
 
 void SimpleCharacter2D::Update(float dt)

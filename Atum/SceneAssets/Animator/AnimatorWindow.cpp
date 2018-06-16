@@ -23,12 +23,10 @@ void AnimatorWindow::Init()
 	cb_addObject = new EUIComboBox(toolsPanel, 10, 10, 110, 95);
 	cb_addObject->SetListener(AddPlayerID, this, 0);
 
-	ClassFactoryTrackPlayer* decl = ClassFactoryTrackPlayer::First();
-
-	while (decl)
+	ClassFactoryTrackPlayer::Sort();
+	for (const auto& decl : ClassFactoryTrackPlayer::Decls())
 	{
-		cb_addObject->AddItem(decl->GetName());
-		decl = decl->Next();
+		cb_addObject->AddItem(decl->GetShortName());
 	}
 
 	cb_addObject->SetCurString(-1);
@@ -410,7 +408,7 @@ void AnimatorWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	if (sender->GetID() == AddPlayerID)
 	{
-		TrackPlayer* player = ClassFactoryTrackPlayer::Create(cb_addObject->GetCurString());
+		TrackPlayer* player = ClassFactoryTrackPlayer::Decls()[cb_addObject->GetCurStringIndex()]->Create();
 
 		if (player)
 		{

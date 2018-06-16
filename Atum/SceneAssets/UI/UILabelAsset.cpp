@@ -3,7 +3,7 @@
 #include "SceneObjects/RenderLevels.h"
 #include "Services/Font/Fonts.h"
 
-CLASSREG(UIWidgetAsset, UILabelAsset)
+CLASSREG(UIWidgetAsset, UILabelAsset, "Label")
 
 META_DATA_DESC(UILabelAsset)
 FLOAT_PROP(UILabelAsset, trans.pos.x, 100.0f, "Prop", "x")
@@ -97,7 +97,7 @@ void UILabelAsset::SetEditMode(bool ed)
 }
 #endif
 
-CLASSREG(UIWidgetAsset, UILabelAssetInst)
+CLASSREG(UIWidgetAsset, UILabelAssetInst, "LabelInst")
 
 META_DATA_DESC(UILabelAssetInst)
 COLOR_PROP(UILabelAssetInst, color, COLOR_WHITE, "Prop", "color")

@@ -7,32 +7,37 @@ class ClassFactory##baseClass \
 public:\
 	ClassFactory##baseClass()\
 	{\
-		if (first)\
-		{\
-			next = first;\
-			first = this;\
-		}\
-		else\
-		{\
-			first = this;\
-			next = NULL;\
-		}\
+		Decls().push_back(this);\
 	};\
+	static void Sort()\
+	{\
+		for (int i=0; i<Decls().size() - 1; i++)\
+		{\
+			for (int j = i + 1; j < Decls().size(); j++)\
+			{\
+				if (!StringUtils::CompareABC(Decls()[i]->GetName(), Decls()[j]->GetName()))\
+				{\
+					ClassFactory##baseClass* tmp = Decls()[i];\
+					Decls()[i] = Decls()[j];\
+					Decls()[j] = tmp;\
+				}\
+			}\
+		}\
+	}\
 	virtual ~ClassFactory##baseClass() {};\
-	static ClassFactory##baseClass* First() { return first; };\
-	ClassFactory##baseClass* Next() { return next; };\
 	static ClassFactory##baseClass* Find(const char* name)\
 	{\
-		for (ClassFactory##baseClass* decl = first; decl != NULL; decl = decl->next)\
+		for (auto& decl : Decls())\
 		{\
 			if (StringUtils::IsEqual(decl->GetName(), name))\
 			{\
 				return decl;\
 			}\
 		}\
-		return NULL;\
+		return nullptr;\
 	}\
 	virtual const char* GetName() = 0;\
+	virtual const char* GetShortName() = 0;\
 	virtual baseClass* Create() = 0;\
 	static baseClass* Create(const char* name)\
 	{\
@@ -41,23 +46,23 @@ public:\
 		{\
 			return decl->Create();\
 		}\
-		return NULL;\
+		return nullptr;\
 	}\
-protected:\
-	static ClassFactory##baseClass* first;\
-	ClassFactory##baseClass* next;\
+	static vector<ClassFactory##baseClass*>& Decls()\
+	{\
+		static vector<ClassFactory##baseClass*> decls;\
+		return decls;\
+	}\
 };
 
-#define CLASSFACTORYDECL(baseClass)\
-ClassFactory##baseClass* ClassFactory##baseClass::first = nullptr;
-
-#define CLASSREGEX(baseClass, shortClassName, fullClassName) \
+#define CLASSREGEX(baseClass, shortClassName, fullClassName, shortName) \
 class ClassFactory##shortClassName : public ClassFactory##baseClass \
 {\
 	virtual const char* GetName() { return #shortClassName; };\
+	virtual const char* GetShortName() { return shortName; };;\
 	virtual baseClass* Create() { return new fullClassName(); };\
 };\
 ClassFactory##shortClassName classFactory##shortClassName;
 
-#define CLASSREG(baseClass, className) \
-CLASSREGEX(baseClass, className, className)
+#define CLASSREG(baseClass, className, shortName) \
+CLASSREGEX(baseClass, className, className, shortName)

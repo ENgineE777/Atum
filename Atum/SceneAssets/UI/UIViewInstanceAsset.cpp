@@ -2,7 +2,7 @@
 #include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(UIWidgetAsset, UIViewInstanceAsset)
+CLASSREG(UIWidgetAsset, UIViewInstanceAsset, "UIViewInst")
 
 META_DATA_DESC(UIViewInstanceAsset)
 FLOAT_PROP(UIViewInstanceAsset, trans.pos.x, 00.0f, "Prop", "x")

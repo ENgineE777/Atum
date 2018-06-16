@@ -103,7 +103,7 @@ void StartEditGraphSprite(void* owner)
 }
 #endif
 
-CLASSREG(SceneAsset, SpriteGraphAsset)
+CLASSREG(SceneAsset, SpriteGraphAsset, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphAsset)
 FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
@@ -140,7 +140,7 @@ void SpriteGraphAsset::ApplyProperties()
 
 	for (auto& node : nodes)
 	{
-		node.asset = (SpriteAsset*)owner->FindAsset(node.asset_name.c_str());
+		node.asset = (SpriteAsset*)owner->Find(node.asset_name.c_str(), true);
 
 		if (!node.asset)
 		{
@@ -264,7 +264,7 @@ void SpriteGraphAsset::Draw(float dt)
 	if (selNode != -1)
 	{
 		Node& node = nodes[selNode];
-		SpriteAsset* asset = (SpriteAsset*)owner->FindAsset(node.asset_name.c_str());
+		SpriteAsset* asset = (SpriteAsset*)owner->Find(node.asset_name.c_str(), true);
 
 		if (node.asset != asset)
 		{

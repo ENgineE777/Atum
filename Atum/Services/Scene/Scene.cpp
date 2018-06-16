@@ -21,9 +21,9 @@ void Scene::Init()
 	renderTaskPool = render.AddTaskPool();
 }
 
-SceneObject* Scene::AddObject(const char* name)
+SceneObject* Scene::AddObject(const char* name, bool is_asset)
 {
-	SceneObject* obj = ClassFactorySceneObject::Create(name);
+	SceneObject* obj = is_asset ? ClassFactorySceneAsset::Create(name) : ClassFactorySceneObject::Create(name);
 
 	if (obj)
 	{
@@ -34,99 +34,79 @@ SceneObject* Scene::AddObject(const char* name)
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->SetDefValuesPrepare();
 
-		objects.push_back(obj);
+		if (is_asset)
+		{
+			assets.push_back(obj);
+		}
+		else
+		{
+			objects.push_back(obj);
+		}
 	}
 
 	return obj;
 }
 
-SceneObject* Scene::Find(const char* name)
+SceneObject* Scene::Find(const char* name, bool is_asset)
 {
-	for (int i = 0; i < objects.size(); i++)
+	if (is_asset)
 	{
-		if (StringUtils::IsEqual(objects[i]->GetName(), name))
+		for (auto asset : assets)
 		{
-			return objects[i];
+			if (StringUtils::IsEqual(asset->GetName(), name))
+			{
+				return (SceneAsset*)asset;
+			}
+		}
+	}
+	else
+	{
+		for (auto obj : objects)
+		{
+			if (StringUtils::IsEqual(obj->GetName(), name))
+			{
+				return obj;
+			}
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
-SceneObject* Scene::GetObj(int index)
+SceneObject* Scene::GetObj(int index, bool is_asset)
 {
-	return objects[index];
+	return is_asset ? assets[index] : objects[index];
 }
 
-int Scene::GetObjectsCount()
+int Scene::GetObjectsCount(bool is_asset)
 {
-	return (int)objects.size();
+	return is_asset ? (int)assets.size() : (int)objects.size();
 }
 
-void Scene::DeleteObject(SceneObject* obj)
+void Scene::DeleteObject(SceneObject* obj, bool is_asset)
 {
-	for (int i = 0; i < objects.size(); i++)
+	if (is_asset)
 	{
-		if (objects[i] == obj)
+		for (int i = 0; i < assets.size(); i++)
 		{
-			objects.erase(objects.begin() + i);
-			obj->Release();
-			break;
+			if ((SceneAsset*)assets[i] == obj)
+			{
+				assets.erase(assets.begin() + i);
+				obj->Release();
+				break;
+			}
 		}
 	}
-}
-
-SceneAsset* Scene::AddAsset(const char* name)
-{
-	SceneAsset* obj = ClassFactorySceneAsset::Create(name);
-
-	if (obj)
+	else
 	{
-		obj->owner = this;
-		obj->className = name;
-		obj->Init();
-
-		obj->GetMetaData()->Prepare(obj);
-		obj->GetMetaData()->SetDefValuesPrepare();
-
-		assets.push_back(obj);
-	}
-
-	return obj;
-}
-
-SceneAsset* Scene::FindAsset(const char* name)
-{
-	for (int i = 0; i < assets.size(); i++)
-	{
-		if (StringUtils::IsEqual(assets[i]->GetName(), name))
+		for (int i = 0; i < objects.size(); i++)
 		{
-			return (SceneAsset*)assets[i];
-		}
-	}
-
-	return NULL;
-}
-
-SceneAsset* Scene::GetAsset(int index)
-{
-	return (SceneAsset*)assets[index];
-}
-
-int Scene::GetAssetsCount()
-{
-	return (int)assets.size();
-}
-
-void Scene::DeleteAsset(SceneAsset* obj)
-{
-	for (int i = 0; i < assets.size(); i++)
-	{
-		if ((SceneAsset*)assets[i] == obj)
-		{
-			assets.erase(assets.begin() + i);
-			obj->Release();
-			break;
+			if (objects[i] == obj)
+			{
+				objects.erase(objects.begin() + i);
+				obj->Release();
+				break;
+			}
 		}
 	}
 }
@@ -141,13 +121,45 @@ void Scene::DeleteObjects(std::vector<SceneObject*>& objects)
 	objects.clear();
 }
 
-void Scene::DeleteAllObjects()
+int Scene::GetObjectIndex(SceneObject* object, bool is_asset)
+{
+	int index = 0;
+
+	if (is_asset)
+	{
+		for (auto& asset : assets)
+		{
+			if (object == asset)
+			{
+				return index;
+			}
+
+			index++;
+		}
+	}
+	else
+	{
+		for (auto& obj : objects)
+		{
+			if (obj == object)
+			{
+				return index;
+			}
+
+			index++;
+		}
+	}
+
+	return -1;
+}
+
+void Scene::Clear()
 {
 	DeleteObjects(objects);
 	DeleteObjects(assets);
 }
 
-void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block)
+void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block, bool is_asset)
 {
 	while (reader.EnterBlock(block))
 	{
@@ -156,14 +168,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 		SceneObject* obj = nullptr;
 
-		if (StringUtils::IsEqual(block, "SceneAsset"))
-		{
-			obj = AddAsset(type);
-		}
-		else
-		{
-			obj = AddObject(type);
-		}
+		obj = AddObject(type, is_asset);
 
 		if (obj)
 		{
@@ -196,8 +201,8 @@ void Scene::Load(const char* name)
 	
 	if (reader.Parse(name))
 	{
-		Load(reader, assets, "SceneAsset");
-		Load(reader, objects, "SceneObject");
+		Load(reader, assets, "SceneAsset", true);
+		Load(reader, objects, "SceneObject", false);
 	}
 }
 
@@ -344,10 +349,10 @@ void Scene::DelFromAllGroups(SceneObject* obj)
 
 void Scene::Release()
 {
+	Clear();
+
 	delete taskPool;
 	render.DelTaskPool(renderTaskPool);
-
-	DeleteAllObjects();
 
 	delete this;
 }

@@ -14,7 +14,7 @@ void StartEditSprite(void* owner)
 }
 #endif
 
-CLASSREG(SceneAsset, SpriteAsset)
+CLASSREG(SceneAsset, SpriteAsset, "Sprite")
 
 META_DATA_DESC(SpriteAsset)
 FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")

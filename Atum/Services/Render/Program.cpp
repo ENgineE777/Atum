@@ -2,8 +2,6 @@
 #include "Render.h"
 #include "Program.h"
 
-CLASSFACTORYDECL(Program)
-
 std::map<std::string, Vector4>  Program::vectors;
 std::map<std::string, Matrix>   Program::matrixes;
 std::map<std::string, Texture*> Program::textures;

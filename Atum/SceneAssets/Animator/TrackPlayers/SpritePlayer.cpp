@@ -5,7 +5,7 @@
 #include "SceneAssets/Sprite.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(TrackPlayer, SpritePlayer)
+CLASSREG(TrackPlayer, SpritePlayer, "Sprite")
 
 META_DATA_DESC(SpritePlayer)
 META_DATA_DESC_END()

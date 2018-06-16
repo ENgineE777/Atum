@@ -443,11 +443,11 @@ bool StringUtils::CompareABC(const char* str1, const char* str2)
 		{
 			if (BuildUtf16fromUtf8(str1[index1], bytes, w1))
 			{
-				it = upper2lower.find(w1);
+				//it = upper2lower.find(w1);
 
-				if (it != upper2lower.end())
+				//if (it != upper2lower.end())
 				{
-					w1 = it->second;
+					//w1 = it->second;
 				}
 
 				stage++;
@@ -467,11 +467,11 @@ bool StringUtils::CompareABC(const char* str1, const char* str2)
 		{
 			if (BuildUtf16fromUtf8(str2[index2], bytes, w2))
 			{
-				it = upper2lower.find(w2);
+				//it = upper2lower.find(w2);
 
-				if (it != upper2lower.end())
+				//if (it != upper2lower.end())
 				{
-					w2 = it->second;
+					//w2 = it->second;
 				}
 
 				stage++;

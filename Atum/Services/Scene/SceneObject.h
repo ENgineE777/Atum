@@ -51,6 +51,7 @@ public:
 	virtual void Release();
 
 #ifdef EDITOR
+	void* item = nullptr;
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);

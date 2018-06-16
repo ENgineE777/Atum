@@ -2,8 +2,6 @@
 #include "TrackPlayer.h"
 #include "../Animator.h"
 
-CLASSFACTORYDECL(TrackPlayer)
-
 TrackPlayer::TrackPlayer()
 {
 	name[0] = 0;
@@ -98,7 +96,7 @@ void TrackPlayer::Save(JSONWriter& stream)
 
 	for (int i=0; i<count;i++)
 	{
-		stream.StartBlock(NULL);
+		stream.StartBlock(nullptr);
 
 		int num_keys = tracks[i]->GetKeysCount();
 		stream.Write("Count", num_keys);

@@ -26,12 +26,12 @@ public:
 	bool PrepareWidgets(EUITreeView* asset_treeview, EUICategories* cat, EUIEditBox* obj_name) override;
 	bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index) override;
 	void OnAssetTreeSelChange(SceneAsset* item) override;
-	void OnAssetTreeReCreateItem(void* item, void* ptr) override;
 	void OnAssetTreePopupItem(int id) override;
 	void OnAssetTreeRightClick(SceneAsset* item, int child_index) override;
 	void AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item);
 	void ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst);
 	void CheckProperties() override;
 	bool IsInstance(UIWidgetAsset* node, UIWidgetAsset* source);
+	void FillPopupCreateMenu(const char* name, int id);
 #endif
 };

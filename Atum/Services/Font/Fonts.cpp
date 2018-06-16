@@ -2,7 +2,7 @@
 
 Fonts fonts;
 
-CLASSREGEX(Program, FontProgram, Fonts::FontProgram)
+CLASSREGEX(Program, FontProgram, Fonts::FontProgram, "FontProgram")
 
 Fonts::Fonts()
 {

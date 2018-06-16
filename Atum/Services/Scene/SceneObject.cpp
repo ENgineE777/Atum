@@ -1,8 +1,6 @@
 
 #include "SceneObject.h"
 
-CLASSFACTORYDECL(SceneObject)
-
 SceneObject::SceneObject()
 {
 	owner = NULL;

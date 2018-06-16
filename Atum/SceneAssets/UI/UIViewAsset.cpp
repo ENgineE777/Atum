@@ -3,7 +3,7 @@
 #include "SceneObjects/RenderLevels.h"
 #include "UIViewInstanceAsset.h"
 
-CLASSREG(SceneAsset, UIViewAsset)
+CLASSREG(SceneAsset, UIViewAsset, "UIView")
 
 META_DATA_DESC(UIViewAsset)
 FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x")
@@ -266,16 +266,6 @@ void UIViewAsset::OnAssetTreeSelChange(SceneAsset* item)
 	}
 }
 
-void UIViewAsset::OnAssetTreeReCreateItem(void* item, void* ptr)
-{
-	UIWidgetAsset* widget = (UIWidgetAsset*)ptr;
-
-	if (widget)
-	{
-		widget->item = item;
-	}
-}
-
 void UIViewAsset::AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item)
 {
 	widget->item = asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className.c_str());
@@ -290,14 +280,14 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 {
 	const char* item_classname = nullptr;
 
-	if (id == 2500 || id == 2600)
+	if (id >= 2500 && id < 2600)
 	{
-		item_classname = "UIImageAsset";
+		item_classname = ClassFactoryUIWidgetAsset::Decls()[id - 2500]->GetName();
 	}
 
-	if (id == 2501 || id == 2601)
+	if (id >= 2600 && id < 2700)
 	{
-		item_classname = "UILabelAsset";
+		item_classname = ClassFactoryUIWidgetAsset::Decls()[id - 2600]->GetName();
 	}
 
 	if (item_classname)
@@ -323,8 +313,8 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			popup_item->parent->AddChild(child, child_index);
 		}
 
-		const char* names[] = { "Image", "Label" };
-		const char* name = names[(id >= 2600) ? id - 2600 : id - 2500];
+		const char* name = (id >= 2600) ? ClassFactoryUIWidgetAsset::Decls()[id - 2600]->GetShortName() : ClassFactoryUIWidgetAsset::Decls()[id - 2500]->GetShortName();
+
 		child->SetName(name);
 
 		child->item = asset_treeview->AddItem(name, 1, child, (child_index == -1) ? popup_item->item : popup_item->parent->item, child_index, true, item_classname);
@@ -515,6 +505,22 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	}
 }
 
+void UIViewAsset::FillPopupCreateMenu(const char* name, int id)
+{
+	asset_treeview->PopupMenuStartSubMenu(name);
+
+	for (auto decl : ClassFactoryUIWidgetAsset::Decls())
+	{
+		if (!strstr(decl->GetName(), "Inst"))
+		{
+			asset_treeview->PopupMenuAddItem(id, decl->GetShortName());
+		}
+		id++;
+	}
+
+	asset_treeview->PopupMenuEndSubMenu();
+}
+
 void UIViewAsset::OnAssetTreeRightClick(SceneAsset* item, int child_index)
 {
 	if (item == nullptr)
@@ -525,36 +531,33 @@ void UIViewAsset::OnAssetTreeRightClick(SceneAsset* item, int child_index)
 	popup_child_index = child_index;
 	popup_item = (UIWidgetAsset*)item;
 
-	if (popup_item->parent->source)
+	if (popup_item->parent && popup_item->parent->source)
 	{
 		return;
 	}
 
 	asset_treeview->StartPopupMenu();
 
+	if (popup_item != this)
+	{
+		FillPopupCreateMenu("Create", 2600);
+	}
+
 	if (!popup_item->source)
 	{
-		asset_treeview->PopupMenuStartSubMenu("Create child");
-		asset_treeview->PopupMenuAddItem(2500, "UIImageAsset");
-		asset_treeview->PopupMenuAddItem(2501, "UILabelAsset");
-		asset_treeview->PopupMenuEndSubMenu();
+		FillPopupCreateMenu("Create as child", 2500);
 	}
 
 	if (popup_item != this)
 	{
-		asset_treeview->PopupMenuStartSubMenu("Insert after");
-		asset_treeview->PopupMenuAddItem(2600, "UIImageAsset");
-		asset_treeview->PopupMenuAddItem(2601, "UILabelAsset");
-		asset_treeview->PopupMenuEndSubMenu();
-
 		asset_treeview->PopupMenuAddSeparator();
 		asset_treeview->PopupMenuAddItem(2400, "Duplicate");
 		asset_treeview->PopupMenuAddItem(2401, "Copy");
 
 		if (asset_to_copy)
 		{
+			asset_treeview->PopupMenuAddItem(2403, "Paste");
 			asset_treeview->PopupMenuAddItem(2402, "Paste as child");
-			asset_treeview->PopupMenuAddItem(2403, "Paste after");
 		}
 
 		asset_treeview->PopupMenuAddItem(2404, "Delete");

@@ -4,7 +4,7 @@
 #include "../Animator.h"
 #include "SceneObjects/RenderLevels.h"
 
-CLASSREG(TrackPlayer, BoxPlayer)
+CLASSREG(TrackPlayer, BoxPlayer, "Box")
 
 META_DATA_DESC(BoxPlayer)
 META_DATA_DESC_END()

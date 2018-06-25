@@ -12,12 +12,14 @@ FLOAT_PROP(PhysBox, sizeZ, 1.0f, "Geometry", "SizeZ")
 BOOL_PROP(PhysBox, isStatic, false, "Physics", "Is Static")
 META_DATA_DESC_END()
 
-PhysBox::PhysBox() : SceneObject()
+Matrix& PhysBox::Trans()
 {
+	return transform;
 }
 
-PhysBox::~PhysBox()
+bool PhysBox::Is3DObject()
 {
+	return true;
 }
 
 void PhysBox::Init()

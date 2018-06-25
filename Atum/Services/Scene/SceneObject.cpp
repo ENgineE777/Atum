@@ -43,7 +43,8 @@ void SceneObject::SetName(const char* set_name)
 
 Matrix& SceneObject::Trans()
 {
-	return transform;
+	static Matrix mat;
+	return mat;
 }
 
 const char* SceneObject::GetClassName()
@@ -95,19 +96,17 @@ TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 	return owner->renderTaskPool;
 }
 
+bool SceneObject::Playing()
+{
+	return owner->playing;
+}
+
 void SceneObject::Play()
 {
-	initTransform = transform;
 }
 
 void SceneObject::Stop()
 {
-	transform = initTransform;
-}
-
-bool SceneObject::Playing()
-{
-	return owner->playing;
 }
 
 ScriptContext* SceneObject::Scipt()
@@ -141,6 +140,11 @@ void SceneObject::Release()
 	delete this;
 }
 
+bool SceneObject::Is3DObject()
+{
+	return false;
+}
+
 #ifdef EDITOR
 void SceneObject::CheckProperties()
 {
@@ -160,6 +164,7 @@ void SceneObject::Copy(SceneObject* src)
 void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
+	Gizmo::inst->enabled = false;
 }
 
 void SceneObject::OnMouseMove(Vector2 delta_ms)

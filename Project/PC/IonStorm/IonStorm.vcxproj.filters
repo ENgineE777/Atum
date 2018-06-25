@@ -52,9 +52,6 @@
     <Filter Include="SceneObjects\PathFinder">
       <UniqueIdentifier>{a6f9f6ce-9cf6-43fc-917b-620ef546619c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SceneObjects\GUI">
-      <UniqueIdentifier>{d632e837-c76c-4ac9-8c82-7f19d65f3658}</UniqueIdentifier>
-    </Filter>
     <Filter Include="SceneAssets\Animator">
       <UniqueIdentifier>{f981d4f6-7a7f-4728-946a-af7d3682beb3}</UniqueIdentifier>
     </Filter>
@@ -240,12 +237,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Font\Font.cpp">
       <Filter>Services\Font</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.cpp">
-      <Filter>SceneObjects\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.cpp">
-      <Filter>SceneObjects\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp">
       <Filter>Services\Scene</Filter>
@@ -635,12 +626,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Font\Font.h">
       <Filter>Services\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.h">
-      <Filter>SceneObjects\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.h">
-      <Filter>SceneObjects\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneAsset.h">
       <Filter>Services\Scene</Filter>

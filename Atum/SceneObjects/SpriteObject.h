@@ -14,14 +14,13 @@ public:
 	Transform2D trans;
 	Sprite::FrameState state;
 
-	SpriteObject();
-	virtual ~SpriteObject();
+	virtual ~SpriteObject() = default;
 
-	virtual void Init();
-	virtual void ApplyProperties();
+	void Init() override;
+	void ApplyProperties() override;
 	void Draw(float dt);
 
 #ifdef EDITOR
-	void SetEditMode(bool ed);
+	void SetEditMode(bool ed) override;
 #endif
 };

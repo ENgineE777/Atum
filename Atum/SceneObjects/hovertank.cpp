@@ -8,10 +8,10 @@ META_DATA_DESC_END()
 
 using namespace physx;
 
-PxFoundation*							mFoundation;
-PxPhysics*								mPhysics;
+PxFoundation* mFoundation;
+PxPhysics* mPhysics;
 PxCooking* mCooking;
-PxScene*								mScene;
+PxScene* mScene;
 
 PxRigidDynamic* box;
 PxHeightField*  heightField;
@@ -28,6 +28,16 @@ float HoverTank::Projectile::maxTimeLife = 4.0f;
 float HoverTank::Projectile::speed = 50.0f;
 float HoverTank::Projectile::splashTime = 0.35f;
 float HoverTank::Projectile::splashMaxRadius = 5.0f;
+
+Matrix& HoverTank::Trans()
+{
+	return transform;
+}
+
+bool HoverTank::Is3DObject()
+{
+	return true;
+}
 
 void HoverTank::Init()
 {

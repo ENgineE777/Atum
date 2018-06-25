@@ -14,6 +14,7 @@ class HoverTank : public SceneObject
 {
 public:
 
+	Matrix transform;
 	META_DATA_DECL(HoverTank)
 
 	struct Projectile
@@ -68,10 +69,14 @@ public:
 	Model gun_model;
 	Model::Drawer* gun_drawer;
 
-	void Init();
+	virtual ~HoverTank() = default;
 
-	void Play();
-	void Stop();
+	Matrix& Trans() override;
+	bool Is3DObject() override;
+	void Init() override;
+
+	void Play() override;
+	void Stop() override;
 	void Update(float dt);
 	void AddHover(Matrix& mat, Vector offset);
 	void AddSplash(Vector& pos, float radius, float force);

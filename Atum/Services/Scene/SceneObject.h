@@ -10,6 +10,10 @@
 #include "Services/Controls/Controls.h"
 #include "Scene.h"
 
+#ifdef EDITOR
+#include "Editor/Gizmo.h"
+#endif
+
 class SceneObject : public Object
 {
 	friend class Scene;
@@ -22,8 +26,6 @@ protected:
 	Scene* owner;
 	std::string  name;
 	std::string  className;
-	Matrix       transform;
-	Matrix       initTransform;
 #ifdef EDITOR
 	bool         edited = false;
 #endif
@@ -37,7 +39,7 @@ public:
 
 	const char* GetName();
 	virtual void SetName(const char* name);
-	Matrix& Trans();
+	virtual Matrix& Trans();
 	const char* GetClassName();
 
 	virtual bool EnableTasks(bool enable);
@@ -54,6 +56,7 @@ public:
 	ScriptContext* Scipt();
 	PhysScene* PScene();
 	virtual void Release();
+	virtual bool Is3DObject();
 
 #ifdef EDITOR
 	void* item = nullptr;
@@ -65,8 +68,6 @@ public:
 	virtual void OnLeftMouseUp();
 	virtual void OnRightMouseDown(Vector2 ms);
 	virtual void OnRightMouseUp();
-
-	//virtual void OnRightMouseUp();
 #endif
 };
 

@@ -7,12 +7,14 @@ CLASSREG(SceneObject, SimpleClient, "SimpleClient")
 META_DATA_DESC(SimpleClient)
 META_DATA_DESC_END()
 
-SimpleClient::SimpleClient() : SceneObject()
+Matrix& SimpleClient::Trans()
 {
+	return transform;
 }
 
-SimpleClient::~SimpleClient()
+bool SimpleClient::Is3DObject()
 {
+	return true;
 }
 
 void SimpleClient::Init()

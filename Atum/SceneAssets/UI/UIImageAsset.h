@@ -19,7 +19,6 @@ public:
 
 #ifdef EDITOR
 	void Copy(SceneObject* src) override;
-	void SetEditMode(bool ed) override;
 #endif
 };
 
@@ -31,7 +30,6 @@ public:
 
 #ifdef EDITOR
 	static UIImageAssetInst* temp;
-	void SetEditMode(bool ed) override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

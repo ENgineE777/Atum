@@ -18,10 +18,6 @@ public:
 	void ApplyProperties() override;
 
 	void Draw(float dt) override;
-
-#ifdef EDITOR
-	void SetEditMode(bool ed) override;
-#endif
 };
 
 class UILabelAssetInst : public UILabelAsset
@@ -32,7 +28,6 @@ public:
 
 #ifdef EDITOR
 	static UILabelAssetInst* temp;
-	void SetEditMode(bool ed) override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

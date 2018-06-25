@@ -1,5 +1,4 @@
 #include "UIViewAsset.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 #include "UIViewInstanceAsset.h"
 
@@ -89,14 +88,8 @@ void UIViewAsset::SetEditMode(bool ed)
 {
 	UIWidgetAsset::SetEditMode(ed);
 
-	if (ed)
+	if (!ed)
 	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-
 		if (sel_ui_asset && sel_ui_asset != this)
 		{
 			sel_ui_asset->GetMetaData()->HideWidgets();

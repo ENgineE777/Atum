@@ -2,7 +2,6 @@
 #include "SimpleCharacter2D.h"
 #include "Services/Render/Render.h"
 #include "SceneAssets/SpriteAsset.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 CLASSREG(SceneObject, SimpleCharacter2D, "SimpleCharacter2D")
@@ -17,14 +16,6 @@ BOOL_PROP(SimpleCharacter2D, is_enemy, true, "Prop", "IsEnemy")
 INT_PROP(SimpleCharacter2D, max_hp, 100, "Prop", "HP")
 FLOAT_PROP(SimpleCharacter2D, floor_height, 200.0f, "Prop", "FloorHeight")
 META_DATA_DESC_END()
-
-SimpleCharacter2D::SimpleCharacter2D() : SceneObject()
-{
-}
-
-SimpleCharacter2D::~SimpleCharacter2D()
-{
-}
 
 void SimpleCharacter2D::Init()
 {
@@ -448,13 +439,7 @@ void SimpleCharacter2D::Stop()
 #ifdef EDITOR
 void SimpleCharacter2D::SetEditMode(bool ed)
 {
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
+	Gizmo::inst->trans2D = ed ? &trans : nullptr;
+	Gizmo::inst->enabled = ed;
 }
 #endif

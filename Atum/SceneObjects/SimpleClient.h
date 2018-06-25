@@ -11,15 +11,18 @@ class SimpleClient : public SceneObject
 {
 public:
 
+	Matrix transform;
 	float koef = 0.0f;
 
 	NetworkClient client;
 	META_DATA_DECL(SimpleClient)
 
-	SimpleClient();
-	virtual ~SimpleClient();
+	virtual ~SimpleClient() = default;
 
-	virtual void Init();
-	virtual void Play();
-	virtual void Work(float dt);
+	Matrix& Trans() override;
+	bool Is3DObject() override;
+
+	void Init() override;
+	void Play() override;
+	void Work(float dt);
 };

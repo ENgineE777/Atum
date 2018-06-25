@@ -26,6 +26,8 @@ public:
 		SERVERSTATE
 	};
 
+	Matrix transform;
+
 	META_DATA_DECL(Tank)
 
 	struct Projectile
@@ -81,6 +83,9 @@ public:
 	void Init();
 
 	void AddIsntance(int id);
+
+	Matrix& Trans() override;
+	bool Is3DObject() override;
 
 	void Play();
 	void Stop();

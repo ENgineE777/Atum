@@ -1,5 +1,4 @@
 #include "UIButtonAsset.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 CLASSREG(UIWidgetAsset, UIButtonAsset, "Button")
@@ -64,22 +63,6 @@ void UIButtonAsset::Draw(float dt)
 	}
 }
 
-#ifdef EDITOR
-void UIButtonAsset::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-}
-#endif
-
 CLASSREG(UIWidgetAsset, UIButtonAssetInst, "ButtonInst")
 
 META_DATA_DESC(UIButtonAssetInst)
@@ -126,23 +109,6 @@ void UIButtonAssetInst::Draw(float dt)
 	}
 
 	UIButtonAsset::Draw(dt);
-}
-
-void UIButtonAssetInst::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	Gizmo::inst->allow_transform = !ed;
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-
-	Gizmo::inst->allow_transform = !ed;
 }
 
 void UIButtonAssetInst::StoreProperties()

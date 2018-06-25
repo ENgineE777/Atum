@@ -1,7 +1,6 @@
 
 #include "SpriteObject.h"
 #include "Services/Render/Render.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 CLASSREG(SceneObject, SpriteObject, "SpriteObject")
@@ -13,14 +12,6 @@ FLOAT_PROP(SpriteObject, trans.depth, 0.5f, "Geometry", "Depth")
 STRING_PROP(SpriteObject, asset_name, "", "Prop", "Asset")
 BOOL_PROP(SpriteObject, state.reversed, false, "Node", "Reversed")
 META_DATA_DESC_END()
-
-SpriteObject::SpriteObject() : SceneObject()
-{
-}
-
-SpriteObject::~SpriteObject()
-{
-}
 
 void SpriteObject::Init()
 {
@@ -49,13 +40,7 @@ void SpriteObject::Draw(float dt)
 #ifdef EDITOR
 void SpriteObject::SetEditMode(bool ed)
 {
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
+	Gizmo::inst->trans2D = ed ? &trans : nullptr;
+	Gizmo::inst->enabled = ed;
 }
 #endif

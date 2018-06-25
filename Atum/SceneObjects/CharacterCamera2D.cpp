@@ -1,7 +1,6 @@
 
 #include "CharacterCamera2D.h"
 #include "Services/Render/Render.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 CLASSREG(SceneObject, CharacterCamera2D, "CharacterCamera2D")

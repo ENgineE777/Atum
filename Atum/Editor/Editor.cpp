@@ -8,15 +8,6 @@ char appdir[1024];
 EUITabPanel* Editor::outputPanels = nullptr;
 map<string, EUIListBox*> Editor::output_boxes;
 
-Editor::Editor()
-{
-	Gizmo::inst = &gizmo;
-}
-
-Editor::~Editor()
-{
-}
-
 void Editor::Init()
 {
 	GetCurrentDirectory(1024, appdir);
@@ -69,10 +60,6 @@ void Editor::Init()
 	localBtn = new EUIButton(toolsPanel, "Loc", 110, 5, 30, 20);
 	localBtn->SetPushable(true);
 	localBtn->SetListener(LocalBtnID, this, 0);
-
-	mode2DBtn = new EUIButton(toolsPanel, "2D", 145, 5, 30, 20);
-	mode2DBtn->SetPushable(true);
-	mode2DBtn->SetListener(-1, this, 0);
 
 	playBtn = new EUIButton(toolsPanel, "Play", 215, 5, 30, 20);
 	playBtn->SetListener(PlayBtnID, this, 0);
@@ -163,6 +150,8 @@ void Editor::Init()
 
 	ShowVieport();
 
+	checker_texture = render.LoadTexture("settings/editor/checker.png");
+	checker_texture->SetFilters(Texture::Point, Texture::Point);
 }
 
 int Editor::Run()
@@ -249,7 +238,6 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 	if (selectedObject)
 	{
 		objectName->SetText(obj->GetName());
-		gizmo.transform = obj->Trans();
 
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
@@ -459,6 +447,15 @@ void Editor::StopScene()
 void Editor::Draw(float dt)
 {
 	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
+
+	if (!scene && selectedObject && selectedObject->EnableTasks(true) && !selectedObject->Is3DObject())
+	{
+		Transform2D trans;
+		Sprite::FrameState state;
+		Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
+		             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
+		             0.0f, Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
+	}
 
 	render.ExecutePool(RenderLevels::Camera, dt);
 	render.ExecutePool(RenderLevels::Prepare, dt);
@@ -787,7 +784,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			selectedObject->OnMouseMove(ms - prev_ms);
 		}
 
-		if (selectedObject && !scene)
+		if (selectedObject && !scene && selectedObject->Is3DObject())
 		{
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 			{
@@ -868,11 +865,6 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		gizmoGlobal = false;
 		UpdateGizmoToolbar();
-	}
-
-	if (sender == mode2DBtn)
-	{
-		freecamera.mode_2d = !freecamera.mode_2d;
 	}
 
 	if (sender->GetID() == Editor::PlayBtnID)
@@ -968,7 +960,9 @@ void Editor::OnUpdate(EUIWidget* sender)
 	{
 		asset_drag_as_inst = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
 
-		if (!freecamera.mode_2d)
+		freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : false;
+
+		if (!freecamera.mode_2d && (!selectedObject || !selectedObject->EnableTasks(true)))
 		{
 			for (int i = 0; i <= 20; i++)
 			{

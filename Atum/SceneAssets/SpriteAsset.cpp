@@ -2,9 +2,7 @@
 #include "SpriteAsset.h"
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
-
 #include "SpriteWindow.h"
-#include "Editor/Gizmo.h"
 
 #ifdef EDITOR
 void StartEditSprite(void* owner)

@@ -12,10 +12,6 @@ public:
 	void Init() override;
 
 	void Draw(float dt) override;
-
-#ifdef EDITOR
-	void SetEditMode(bool ed) override;
-#endif
 };
 
 class UIButtonAssetInst : public UIButtonAsset
@@ -35,7 +31,6 @@ public:
 
 #ifdef EDITOR
 	static UIButtonAssetInst* temp;
-	void SetEditMode(bool ed) override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

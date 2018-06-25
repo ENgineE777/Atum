@@ -57,8 +57,6 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\correction.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\hovertank.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\model.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.cpp" />
@@ -188,8 +186,6 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\CharacterCamera2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\GUIWidget.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\GUI\TestGUI.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\hovertank.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\model.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\PathFinder\AStar.h" />

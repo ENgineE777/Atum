@@ -7,6 +7,7 @@ Gizmo* Gizmo::inst = nullptr;
 
 void Gizmo::Init()
 {
+	inst = this;
 	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
 	center = render.LoadTexture("settings\\editor\\gizmo_center.png");
 }

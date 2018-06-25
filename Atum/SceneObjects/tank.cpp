@@ -41,6 +41,16 @@ void Tank::AddIsntance(int id)
 	client->instances[client->instances.size() - 1].serverState.controller = PScene()->CreateController(cdesc);
 }
 
+Matrix& Tank::Trans()
+{
+	return transform;
+}
+
+bool Tank::Is3DObject()
+{
+	return true;
+}
+
 void Tank::Play()
 {
 	time = 0.0f;

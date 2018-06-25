@@ -1,5 +1,4 @@
 #include "UIViewInstanceAsset.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 CLASSREG(UIWidgetAsset, UIViewInstanceAsset, "UIViewInst")
@@ -42,22 +41,6 @@ void UIViewInstanceAsset::Draw(float dt)
 		child->Draw(dt);
 	}
 }
-
-#ifdef EDITOR
-void UIViewInstanceAsset::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-}
-#endif
 
 void UIViewInstanceAsset::Release()
 {
@@ -106,19 +89,3 @@ void UIViewInstance::Draw(float dt)
 		child->Draw(dt);
 	}
 }
-
-#ifdef EDITOR
-void UIViewInstance::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-}
-#endif

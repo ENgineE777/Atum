@@ -1,6 +1,5 @@
 #include "UIImageAsset.h"
 #include "SceneAssets/SpriteWindow.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 
 #ifdef EDITOR
@@ -123,21 +122,6 @@ void UIImageAsset::Copy(SceneObject* src)
 	Sprite::Copy(&((UIImageAsset*)src)->sprite, &sprite);
 	SceneAsset::Copy(src);
 }
-
-void UIImageAsset::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-		SpriteWindow::StopEdit();
-	}
-}
 #endif
 
 CLASSREG(UIWidgetAsset, UIImageAssetInst, "ImageInst")
@@ -160,24 +144,6 @@ META_DATA_DESC_END()
 
 #ifdef EDITOR
 UIImageAssetInst* UIImageAssetInst::temp = nullptr;
-
-void UIImageAssetInst::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	Gizmo::inst->allow_transform = !ed;
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-		SpriteWindow::StopEdit();
-	}
-
-	Gizmo::inst->allow_transform = !ed;
-}
 
 void UIImageAssetInst::StoreProperties()
 {

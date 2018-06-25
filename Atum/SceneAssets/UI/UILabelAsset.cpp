@@ -1,5 +1,4 @@
 #include "UILabelAsset.h"
-#include "Editor/Gizmo.h"
 #include "SceneObjects/RenderLevels.h"
 #include "Services/Font/Fonts.h"
 
@@ -81,22 +80,6 @@ void UILabelAsset::Draw(float dt)
 	}
 }
 
-#ifdef EDITOR
-void UILabelAsset::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-}
-#endif
-
 CLASSREG(UIWidgetAsset, UILabelAssetInst, "LabelInst")
 
 META_DATA_DESC(UILabelAssetInst)
@@ -107,23 +90,6 @@ META_DATA_DESC_END()
 
 #ifdef EDITOR
 UILabelAssetInst* UILabelAssetInst::temp = nullptr;
-
-void UILabelAssetInst::SetEditMode(bool ed)
-{
-	UIWidgetAsset::SetEditMode(ed);
-
-	Gizmo::inst->allow_transform = !ed;
-	if (ed)
-	{
-		Gizmo::inst->trans2D = &trans;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
-	}
-
-	Gizmo::inst->allow_transform = !ed;
-}
 
 void UILabelAssetInst::StoreProperties()
 {

@@ -1,6 +1,5 @@
 
 #include "VirtualJoystick.h"
-#include "Editor/Gizmo.h"
 #include "SceneAssets/Sprite.h"
 #include "Services/Core/Core.h"
 #include "SceneObjects/RenderLevels.h"
@@ -190,10 +189,3 @@ void VirtualJoystick::Draw(float dt)
 		}
 	}
 }
-
-#ifdef EDITOR
-void VirtualJoystick::SetEditMode(bool ed)
-{
-	Gizmo::inst->trans2D = nullptr;
-}
-#endif

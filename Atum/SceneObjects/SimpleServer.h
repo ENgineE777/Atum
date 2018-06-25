@@ -11,15 +11,18 @@ class SimpleServer : public SceneObject
 public:
 
 	float koef = 0.0f;
+	Matrix transform;
 
 	META_DATA_DECL(SimpleServer)
 
 	NetworkServer server;
-	SimpleServer();
-	virtual ~SimpleServer();
+	virtual ~SimpleServer() = default;
 
-	virtual void Init();
-	virtual void Play();
+	Matrix& Trans() override;
+	bool Is3DObject() override;
+
+	void Init() override;
+	void Play() override;
 	void Work(float dt);
 	void Blink(float dt);
 };

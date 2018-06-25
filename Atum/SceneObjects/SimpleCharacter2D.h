@@ -37,16 +37,15 @@ public:
 	int cur_hp = 100;
 	int next_kick = -1;
 
-	SimpleCharacter2D();
-	virtual ~SimpleCharacter2D();
+	virtual ~SimpleCharacter2D() = default;
 
-	virtual void Init();
-	virtual void ApplyProperties();
+	void Init() override;
+	void ApplyProperties() override;
 	void Update(float dt);
 	void Draw(float dt);
 
-	void Play();
-	void Stop();
+	void Play() override;
+	void Stop() override;
 
 	SimpleCharacter2D* FindTarget();
 	void ControlPlayer(float dt);
@@ -55,6 +54,6 @@ public:
 	void Respawn();
 
 #ifdef EDITOR
-	void SetEditMode(bool ed);
+	void SetEditMode(bool ed) override;
 #endif
 };

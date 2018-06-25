@@ -1,12 +1,8 @@
 
 #include "SpriteGraphAsset.h"
 #include "Services/Render/Render.h"
-
 #include "SpriteGraphWindow.h"
-#include "Editor/Gizmo.h"
-
 #include "SpriteAsset.h"
-
 #include "SceneObjects/RenderLevels.h"
 
 META_DATA_DESC(SpriteGraphAsset::Link)

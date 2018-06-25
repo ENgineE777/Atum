@@ -9,20 +9,11 @@ CLASSREG(SceneObject, SimpleServer, "SimpleServer")
 META_DATA_DESC(SimpleServer)
 META_DATA_DESC_END()
 
-SimpleServer::SimpleServer() : SceneObject()
-{
-}
-
-SimpleServer::~SimpleServer()
-{
-}
-
 void SimpleServer::Init()
 {
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleServer::Work);
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleServer::Blink, 1.0f);
 }
-
 
 void SimpleServer::Play()
 {
@@ -39,6 +30,16 @@ void SimpleServer::Blink(float dt)
 	koef = 1.0f;
 
 	server.Send2All(&koef, 4);
+}
+
+Matrix& SimpleServer::Trans()
+{
+	return transform;
+}
+
+bool SimpleServer::Is3DObject()
+{
+	return true;
 }
 
 void SimpleServer::Work(float dt)

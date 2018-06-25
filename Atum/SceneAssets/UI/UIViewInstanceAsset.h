@@ -9,9 +9,6 @@ public:
 	void Init() override;
 	void ApplyProperties() override;
 	void Draw(float dt) override;
-#ifdef EDITOR
-	void SetEditMode(bool ed) override;
-#endif
 	void Release() override;
 };
 
@@ -23,7 +20,4 @@ public:
 	void Init() override;
 	void ApplyProperties() override;
 	void Draw(float dt) override;
-#ifdef EDITOR
-	void SetEditMode(bool ed) override;
-#endif
 };

@@ -98,10 +98,11 @@ class Editor : public Object, public EUIWidget::Listener
 	vector<SceneTreeNode> scene_nodes;
 	vector<SceneTreeNode> assets_nodes;
 
+	Texture* checker_texture = nullptr;
+
 public:
 
-	Editor();
-	virtual ~Editor();
+	~Editor() = default;
 
 	void Init();
 	int  Run();

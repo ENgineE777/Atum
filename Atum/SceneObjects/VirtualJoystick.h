@@ -57,8 +57,4 @@ public:
 	virtual void Init();
 	virtual void ApplyProperties();
 	void Draw(float dt);
-
-#ifdef EDITOR
-	void SetEditMode(bool ed);
-#endif
 };

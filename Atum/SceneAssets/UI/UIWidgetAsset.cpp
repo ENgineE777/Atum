@@ -1,6 +1,5 @@
 
 #include "UIWidgetAsset.h"
-#include "Editor/Gizmo.h"
 
 UIWidgetAsset::~UIWidgetAsset()
 {
@@ -216,6 +215,12 @@ void UIWidgetAsset::DeleteChilds()
 void UIWidgetAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);
+
+#ifdef EDITOR
+	Gizmo::inst->trans2D = ed ? &trans : nullptr;
+	Gizmo::inst->enabled = ed;
+	Gizmo::inst->allow_transform = !source || StringUtils::IsEqual(source->className.c_str(), "UIViewInstanceAsset");
+#endif
 }
 
 void UIWidgetAsset::StoreProperties()

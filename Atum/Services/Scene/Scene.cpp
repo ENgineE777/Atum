@@ -176,7 +176,11 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 			reader.Read("name", name, 512);
 
 			obj->SetName(name);
-			reader.Read("transform", obj->Trans());
+
+			if (obj->Is3DObject())
+			{
+				reader.Read("transform", obj->Trans());
+			}
 
 			obj->Load(reader);
 		}
@@ -218,7 +222,11 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 
 		writer.Write("type", obj->GetClassName());
 		writer.Write("name", obj->GetName());
-		writer.Write("transform", obj->Trans());
+
+		if (obj->Is3DObject())
+		{
+			writer.Write("transform", obj->Trans());
+		}
 
 		obj->Save(writer);
 

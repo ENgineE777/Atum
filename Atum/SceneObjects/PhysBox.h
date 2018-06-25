@@ -6,6 +6,8 @@
 class PhysBox : public SceneObject
 {
 public:
+
+	Matrix transform;
 	META_DATA_DECL(PhysBox)
 
 	float sizeX;
@@ -16,10 +18,11 @@ public:
 
 	PhysObject* obj = nullptr;
 
-	PhysBox();
-	virtual ~PhysBox();
+	virtual ~PhysBox() = default;
 
-	virtual void Init();
+	Matrix& Trans() override;
+	bool Is3DObject() override;
+	void Init() override;
 	void Draw(float dt);
 
 	void Play();

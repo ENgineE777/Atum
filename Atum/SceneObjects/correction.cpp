@@ -32,8 +32,8 @@ void ColorCorrection::Init()
 
 	ReCreateRT();
 
-	RenderTasks()->AddTask(RenderLevels::Prepare, this, (Object::Delegate)&ColorCorrection::SetRT);
-	RenderTasks()->AddTask(RenderLevels::PostProcess, this, (Object::Delegate)&ColorCorrection::Draw);
+	RenderTasks(false)->AddTask(RenderLevels::Prepare, this, (Object::Delegate)&ColorCorrection::SetRT);
+	RenderTasks(false)->AddTask(RenderLevels::PostProcess, this, (Object::Delegate)&ColorCorrection::Draw);
 }
 
 void ColorCorrection::ReCreateRT()

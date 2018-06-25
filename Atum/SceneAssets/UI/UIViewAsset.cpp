@@ -27,7 +27,7 @@ UIWidgetAsset* UIViewAsset::popup_item = nullptr;
 
 void UIViewAsset::Init()
 {
-	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&UIViewAsset::Draw);
+	RenderTasks(true)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&UIViewAsset::Draw);
 }
 
 void UIViewAsset::ApplyProperties()
@@ -58,13 +58,30 @@ void UIViewAsset::Release()
 	for (auto inst : instances)
 	{
 		inst->DeleteChilds();
-		inst->parent->DeleteChild(inst);
+		if (inst->parent)
+		{
+			inst->parent->DeleteChild(inst);
+		}
 		delete inst;
 	}
 
 	DeleteChilds();
 
 	UIWidgetAsset::Release();
+}
+
+SceneObject* UIViewAsset::CreateInstance()
+{
+	UIViewInstanceAsset* child = (UIViewInstanceAsset*)owner->AddObject("UIViewInstance", false);
+
+	child->SetSource(this, true);
+	child->ApplyProperties();
+
+	child->SetName(GetName());
+
+	ReCreteChilds(this, child, true);
+
+	return child;
 }
 
 #ifdef EDITOR
@@ -208,7 +225,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 		dest->AddChild(dest_child);
 		dest_child->SetName(src_child->GetName());
 
-		dest_child->item = asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className.c_str());
+		//dest_child->item = asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className.c_str());
 
 		for (auto dest_inst : dest->instances)
 		{

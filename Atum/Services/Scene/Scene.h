@@ -4,7 +4,8 @@
 #include "Services/TaskExecutor/TaskExecutor.h"
 #include <vector>
 
-#include "Services/Physics/Physics.h"
+#include "Services/Script/Scripts.h"
+#include "Services/Physic/Physics.h"
 
 #include "Support/json/JSONReader.h"
 #include "Support/json/JSONWriter.h"
@@ -32,7 +33,8 @@ private:
 	Group emptyGroup;
 	std::map<std::string, Group> groups;
 
-	PhysScene* pscene = nullptr;;
+	ScriptContext* script = nullptr;
+	PhysScene* pscene = nullptr;
 	void DelFromGroup(Group& group, SceneObject* obj);
 
 	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block, bool is_asset);

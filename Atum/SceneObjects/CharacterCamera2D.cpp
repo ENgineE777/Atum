@@ -25,7 +25,7 @@ CharacterCamera2D::~CharacterCamera2D()
 
 void CharacterCamera2D::Init()
 {
-	RenderTasks()->AddTask(RenderLevels::Camera, this, (Object::Delegate)&CharacterCamera2D::Update);
+	RenderTasks(false)->AddTask(RenderLevels::Camera, this, (Object::Delegate)&CharacterCamera2D::Update);
 }
 
 void CharacterCamera2D::Update(float dt)

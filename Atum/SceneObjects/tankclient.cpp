@@ -24,7 +24,7 @@ void TankClient::Init()
 	tower_model.LoadModelMS3D("Media/tank_tower.ms3d");
 	gun_model.LoadModelMS3D("Media/tank_gun.ms3d");
 
-	Tasks()->AddTask(0, this, (Object::Delegate)&TankClient::Update);
+	Tasks(false)->AddTask(0, this, (Object::Delegate)&TankClient::Update);
 }
 
 void TankClient::ApplyProperties()
@@ -53,13 +53,13 @@ void TankClient::AddIsntance(int id, bool is_contralable)
 	inst.is_contralable = is_contralable;
 
 	inst.hover_drawer = new Model::Drawer;
-	inst.hover_drawer->Init(&hover_model, RenderTasks());
+	inst.hover_drawer->Init(&hover_model, RenderTasks(false));
 
 	inst.tower_drawer = new Model::Drawer;
-	inst.tower_drawer->Init(&tower_model, RenderTasks());
+	inst.tower_drawer->Init(&tower_model, RenderTasks(false));
 
 	inst.gun_drawer = new Model::Drawer;
-	inst.gun_drawer->Init(&gun_model, RenderTasks());
+	inst.gun_drawer->Init(&gun_model, RenderTasks(false));
 
 	instances.push_back(inst);
 }

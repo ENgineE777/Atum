@@ -18,7 +18,7 @@ AnimatorObject::~AnimatorObject()
 
 void AnimatorObject::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&AnimatorObject::Work);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&AnimatorObject::Work);
 }
 
 void AnimatorObject::Work(float dt)

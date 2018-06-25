@@ -128,7 +128,7 @@ SpriteGraphAsset::~SpriteGraphAsset()
 void SpriteGraphAsset::Init()
 {
 #ifdef EDITOR
-	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteGraphAsset::Draw);
+	RenderTasks(true)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteGraphAsset::Draw);
 #endif
 
 	owner->AddToGroup(this, "SpriteGraphAsset");

@@ -7,7 +7,7 @@
 #include "terrain.h"
 #include "PhysBox.h"
 
-#include "Services/Physics/Physics.h"
+#include "Services/Physic/Physics.h"
 
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"

@@ -17,7 +17,7 @@ SimpleClient::~SimpleClient()
 
 void SimpleClient::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&SimpleClient::Work);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleClient::Work);
 }
 
 void SimpleClient::Play()

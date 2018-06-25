@@ -36,37 +36,40 @@ class Editor : public Object, public EUIWidget::Listener
 	};
 
 	FreeCamera freecamera;
-	bool       gizmoMove;
-	bool       gizmoGlobal;
+	bool       gizmoMove = true;
+	bool       gizmoGlobal = true;
 
 	std::string  sceneName;
 
-	SceneObject* selectedObject;
-	EUITreeView* scene_treeview;
+	SceneObject* selectedObject = nullptr;
+	bool         isSelectedAsset = false;
+	EUITreeView* scene_treeview = nullptr;
 
-	SceneAsset*  selectedAsset = nullptr;
 	SceneAsset*  selectedAsset2Drag = nullptr;
-	EUITreeView* assets_treeview;
+	EUITreeView* assets_treeview = nullptr;
 
-	EUIEditBox*  objectName;
+	EUIEditBox*  objectName = nullptr;
 
-	EUIButton* moveBtn;
-	EUIButton* rotateBtn;
-	EUIButton* globalBtn;
-	EUIButton* localBtn;
-	EUIButton* mode2DBtn;
-	EUIButton* playBtn;
-	EUICategories* objCat;
-	EUIPanel* viewport;
-	EUIPanel* asset_treeview_panel;
-	EUITreeView* asset_treeview;
-	EUIPanel* asset_viewport;
+	static EUITabPanel* outputPanels;
+	static map<string, EUIListBox*> output_boxes;
 
-	EUILayout* viewport_lt;
-	EUILayout* asset_vp_sheet_lt;
+	EUIButton* moveBtn = nullptr;
+	EUIButton* rotateBtn = nullptr;
+	EUIButton* globalBtn = nullptr;
+	EUIButton* localBtn = nullptr;
+	EUIButton* mode2DBtn = nullptr;
+	EUIButton* playBtn = nullptr;
+	EUICategories* objCat = nullptr;
+	EUIPanel* viewport = nullptr;
+	EUIPanel* asset_treeview_panel = nullptr;
+	EUITreeView* asset_treeview = nullptr;
+	EUIPanel* asset_viewport = nullptr;
 
-	EUIWindow* mainWnd;
-	EUIWindow* gameWnd;
+	EUILayout* viewport_lt = nullptr;
+	EUILayout* asset_vp_sheet_lt = nullptr;
+
+	EUIWindow* mainWnd = nullptr;
+	EUIWindow* gameWnd = nullptr;
 	EUIPanel* game_viewport = nullptr;
 
 	Scene ed_scene;
@@ -91,7 +94,7 @@ class Editor : public Object, public EUIWidget::Listener
 		int index_in_scene = -1;
 	};
 
-	bool in_select_asset = false;
+	bool in_select_object = false;
 	vector<SceneTreeNode> scene_nodes;
 	vector<SceneTreeNode> assets_nodes;
 
@@ -103,14 +106,15 @@ public:
 	void Init();
 	int  Run();
 
+	static void LogToOutputBox(const char* name, const char* text);
+	static void AddOutputBox(const char* name);
 	void ClearScene();
 	void UpdateGizmoToolbar();
-	void SelectObject(SceneObject* obj);
+	void SelectObject(SceneObject* obj, bool is_asset);
 	void CopyObject(SceneObject* obj, void* parent, bool is_asset);
 	void CreateSceneObject(const char* name, void* parent, bool is_asset);
 	void DeleteSceneObject(SceneObject* obj);
 	void SetUniqueName(SceneObject* obj, const char* name, bool is_asset);
-	void SelectAsset(SceneAsset* obj);
 	void DeleteSceneAsset(SceneAsset* obj);
 	void ShowVieport();
 	void StartScene();

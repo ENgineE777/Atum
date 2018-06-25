@@ -29,7 +29,7 @@ void Terrain::Init()
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
 	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
 
-	RenderTasks()->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&Terrain::Render);
+	RenderTasks(false)->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&Terrain::Render);
 
 	owner->AddToGroup(this, "Terrain");
 }

@@ -24,7 +24,7 @@ void SpritePlayer::Init()
 
 	tex = render.LoadTexture("Media/sprite_level16_2-hd.png");
 
-	owner->RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpritePlayer::Draw);
+	owner->RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpritePlayer::Draw);
 }
 
 void SpritePlayer::Draw(float dt)

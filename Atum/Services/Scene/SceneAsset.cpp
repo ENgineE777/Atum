@@ -1,34 +1,9 @@
 
 #include "SceneAsset.h"
 
-SceneAsset::SceneAsset() : SceneObject()
+SceneObject* SceneAsset::CreateInstance()
 {
-	taskPool = taskExecutor.CreateSingleTaskPool();
-	renderTaskPool = render.AddTaskPool();
-
-	taskPool->SetActive(false);
-	renderTaskPool->SetActive(false);
-}
-
-SceneAsset::~SceneAsset()
-{
-
-}
-
-TaskExecutor::SingleTaskPool* SceneAsset::Tasks()
-{
-	return taskPool;
-}
-
-TaskExecutor::SingleTaskPool* SceneAsset::RenderTasks()
-{
-	return renderTaskPool;
-}
-
-void SceneAsset::EnableTasks(bool enable)
-{
-	taskPool->SetActive(enable);
-	renderTaskPool->SetActive(enable);
+	return nullptr;
 }
 
 #ifdef EDITOR

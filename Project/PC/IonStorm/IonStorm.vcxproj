@@ -48,6 +48,7 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteWindow.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\Sprite.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIService.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\plane.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\programs.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\scene2.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Script.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleClient.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleServer.cpp" />
@@ -80,11 +82,11 @@
     <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysController.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysHeightmap.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physics\Physics.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysObject.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysScene.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysScene.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugFont.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugLines.cpp" />
@@ -123,6 +125,14 @@
     <ClCompile Include="..\..\..\Atum\Services\Scene\Scene.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptarray.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scripthandle.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptmath.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\json.cpp" />
@@ -169,6 +179,7 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteWindow.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\Sprite.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIService.h" />
@@ -189,6 +200,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\programs.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\RenderLevels.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\scene2.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Script.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleClient.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleServer.h" />
@@ -204,11 +216,11 @@
     <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\stb_truetype.h" />
     <ClInclude Include="..\..\..\Atum\Services\Network\Network.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysController.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysHeightmap.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physics\Physics.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysObject.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysScene.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObject.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysScene.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\Debug.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugFont.h" />
@@ -237,6 +249,13 @@
     <ClInclude Include="..\..\..\Atum\Services\Scene\Scene.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneAsset.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptarray.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scripthandle.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h" />
     <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
     <ClInclude Include="..\..\..\Atum\Support\Buffer.h" />
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />
@@ -312,13 +331,13 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -331,7 +350,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -339,7 +358,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\Angelscript\lib\angelscript64.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

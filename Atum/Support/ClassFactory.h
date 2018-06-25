@@ -56,13 +56,13 @@ public:\
 };
 
 #define CLASSREGEX(baseClass, shortClassName, fullClassName, shortName) \
-class ClassFactory##shortClassName : public ClassFactory##baseClass \
+class ClassFactory##shortClassName##baseClass : public ClassFactory##baseClass \
 {\
 	virtual const char* GetName() { return #shortClassName; };\
 	virtual const char* GetShortName() { return shortName; };;\
 	virtual baseClass* Create() { return new fullClassName(); };\
 };\
-ClassFactory##shortClassName classFactory##shortClassName;
+ClassFactory##shortClassName##baseClass classFactory##shortClassName##baseClass;
 
 #define CLASSREG(baseClass, className, shortName) \
 CLASSREGEX(baseClass, className, className, shortName)

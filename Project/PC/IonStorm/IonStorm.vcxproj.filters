@@ -37,9 +37,6 @@
     <Filter Include="Services\TaskExecutor">
       <UniqueIdentifier>{57c7a380-4755-4bd2-b6a5-2bec53ce5d8e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Services\Physics">
-      <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Services\Network">
       <UniqueIdentifier>{37a754a9-0c6d-491d-a58c-a4039e7d2ed7}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,15 @@
     </Filter>
     <Filter Include="SceneAssets\UI">
       <UniqueIdentifier>{bef2fd4d-9c70-4864-862f-e952070b022e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Script">
+      <UniqueIdentifier>{1494105d-6eb4-4735-a05c-4fb92971fa4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Physic">
+      <UniqueIdentifier>{78b7081e-54e0-40d6-b906-a7907c6589b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Script\Libs">
+      <UniqueIdentifier>{fa1b980f-2e35-414e-8acb-5b7b62e0bc16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -213,21 +219,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\tank.cpp">
       <Filter>SceneObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physics\Physics.cpp">
-      <Filter>Services\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysObject.cpp">
-      <Filter>Services\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysScene.cpp">
-      <Filter>Services\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysController.cpp">
-      <Filter>Services\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physics\PhysHeightmap.cpp">
-      <Filter>Services\Physics</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Support\ThreadExecutor.cpp">
       <Filter>Support</Filter>
@@ -396,6 +387,51 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.cpp">
       <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp">
+      <Filter>Services\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObject.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysScene.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp">
+      <Filter>Services\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Script.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptarray.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scripthandle.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptmath.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp">
+      <Filter>Services\Script\Libs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -575,21 +611,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\tank.h">
       <Filter>SceneObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physics\Physics.h">
-      <Filter>Services\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysController.h">
-      <Filter>Services\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysHeightmap.h">
-      <Filter>Services\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysObject.h">
-      <Filter>Services\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physics\PhysScene.h">
-      <Filter>Services\Physics</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\ThreadExecutor.h">
       <Filter>Support</Filter>
@@ -773,6 +794,48 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.h">
       <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h">
+      <Filter>Services\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h">
+      <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h">
+      <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h">
+      <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObject.h">
+      <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysScene.h">
+      <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h">
+      <Filter>Services\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Script.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.h">
+      <Filter>SceneAssets\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptarray.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scripthandle.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h">
+      <Filter>Services\Script\Libs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

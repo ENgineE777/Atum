@@ -25,7 +25,7 @@ void BoxPlayer::Init()
 	AddFloatDataTrack(sizeY, &size.y, nullptr, 1.0f)
 	AddFloatDataTrack(sizeZ, &size.z, nullptr, 1.0f)
 
-	owner->RenderTasks()->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&BoxPlayer::Draw);
+	owner->RenderTasks(false)->AddTask(RenderLevels::Geometry, this, (Object::Delegate)&BoxPlayer::Draw);
 }
 
 void BoxPlayer::Draw(float dt)

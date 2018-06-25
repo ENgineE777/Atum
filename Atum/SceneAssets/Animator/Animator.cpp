@@ -94,11 +94,11 @@ void Animator::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		Tasks()->AddTask(0, this, (Object::Delegate)&Animator::Work);
+		Tasks(false)->AddTask(0, this, (Object::Delegate)&Animator::Work);
 	}
 	else
 	{
-		Tasks()->DelTask(0, this);
+		Tasks(false)->DelTask(0, this);
 	}
 }
 

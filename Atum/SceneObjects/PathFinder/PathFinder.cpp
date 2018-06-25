@@ -18,7 +18,7 @@ PathFinder::~PathFinder()
 
 void PathFinder::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&PathFinder::Draw);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&PathFinder::Draw);
 }
 
 void PathFinder::ApplyProperties()

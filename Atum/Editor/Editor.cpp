@@ -5,13 +5,11 @@
 
 char appdir[1024];
 
+EUITabPanel* Editor::outputPanels = nullptr;
+map<string, EUIListBox*> Editor::output_boxes;
+
 Editor::Editor()
 {
-	selectedObject = NULL;
-	selectedAsset = nullptr;
-	gizmoMove = true;
-	gizmoGlobal = true;
-	gameWnd = false;
 	Gizmo::inst = &gizmo;
 }
 
@@ -99,16 +97,21 @@ void Editor::Init()
 	assets_treeview->AddImage("settings/editor/folder.bmp");
 	assets_treeview->AddImage("settings/editor/scene_elem.bmp");
 
-	EUITabPanel* viewportPanels = new EUITabPanel(lt, 30, 50, 100, 30);
-	viewportPanels->SetListener(-1, this, 0);
+	EUIPanel* voPanels = new EUIPanel(lt, 30, 50, 100, 30);
 
-	sheet = viewportPanels->AddTab("View");
-	viewport_lt = new EUILayout(sheet, true);
+	EUILayout* vo_lt = new EUILayout(voPanels, true);
+
+	EUIPanel* viewportPanels = new EUIPanel(vo_lt, 30, 50, 100, 30);
+
+	outputPanels = new EUITabPanel(vo_lt, 30, 50, 100, 30);
+	vo_lt->SetChildSize(outputPanels, 250, false);
+
+	viewport_lt = new EUILayout(viewportPanels, true);
 
 	viewport = new EUIPanel(viewport_lt, 10, 10, 100, 30);
 	viewport->SetListener(ViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
-	asset_vp_sheet_lt = new EUILayout(sheet, false);
+	asset_vp_sheet_lt = new EUILayout(viewportPanels, false);
 
 	asset_treeview_panel = new EUIPanel(asset_vp_sheet_lt, 30, 50, 100, 30);
 	asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, 200, false);
@@ -136,6 +139,11 @@ void Editor::Init()
 
 	objCat = new EUICategories(object_lt, 0, 0, 100, 100);
 
+	AddOutputBox("Output");
+
+	//FIXME
+	AddOutputBox("Script");
+
 	core.Init(viewport->GetNative());
 
 	render.AddExecutedLevelPool(1);
@@ -154,6 +162,7 @@ void Editor::Init()
 	mainWnd->Maximaze();
 
 	ShowVieport();
+
 }
 
 int Editor::Run()
@@ -161,9 +170,28 @@ int Editor::Run()
 	return EUI::Run();
 }
 
+void Editor::LogToOutputBox(const char* name, const char* text)
+{
+	if (output_boxes.find(name) == output_boxes.end())
+	{
+		Editor::AddOutputBox(name);
+	}
+
+	output_boxes["Output"]->AddItem(text, nullptr);
+	output_boxes[name]->AddItem(text, nullptr);
+}
+
+void Editor::AddOutputBox(const char* name)
+{
+	EUITabSheet* output_sheet = outputPanels->AddTab(name);
+	EUILayout* output_viewport_lt = new EUILayout(output_sheet, true);
+
+	output_boxes[name] = new EUIListBox(output_viewport_lt, 0, 0, 100, 100, false);
+}
+
 void Editor::ClearScene()
 {
-	SelectObject(NULL);
+	SelectObject(nullptr, false);
 	sceneName.clear();
 	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
@@ -180,31 +208,39 @@ void Editor::UpdateGizmoToolbar()
 	localBtn->SetPushed(!gizmoGlobal);
 }
 
-void Editor::SelectObject(SceneObject* obj)
+void Editor::SelectObject(SceneObject* obj, bool is_asset)
 {
-	if (in_select_asset)
+	if (obj == selectedObject)
 	{
 		return;
 	}
 
-	in_select_asset = true;
-
-	if (selectedAsset)
+	if (in_select_object)
 	{
-		selectedAsset->GetMetaData()->HideWidgets();
-		selectedAsset->EnableTasks(false);
-		selectedAsset->SetEditMode(false);
-		assets_treeview->SelectItem(nullptr);
-		selectedAsset = nullptr;
+		return;
 	}
+
+	in_select_object = true;
 
 	if (selectedObject)
 	{
-		selectedObject->SetEditMode(false);
 		selectedObject->GetMetaData()->HideWidgets();
+		selectedObject->EnableTasks(false);
+		selectedObject->SetEditMode(false);
+		selectedObject->EnableTasks(false);
+
+		if (isSelectedAsset)
+		{
+			assets_treeview->SelectItem(nullptr);
+		}
+		else
+		{
+			scene_treeview->SelectItem(nullptr);
+		}
 	}
 
 	selectedObject = obj;
+	isSelectedAsset = is_asset;
 
 	bool enabled = (selectedObject != nullptr);
 	objectName->Enable(enabled);
@@ -218,7 +254,20 @@ void Editor::SelectObject(SceneObject* obj)
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
 		obj->SetEditMode(true);
-		scene_treeview->SelectItem(obj->item);
+
+		if (isSelectedAsset)
+		{
+			assets_treeview->SelectItem(obj->item);
+
+			asset_treeview->ClearTree();
+			int panel_width = ((SceneAsset*)selectedObject)->PrepareWidgets(asset_treeview, objCat, objectName) ? 200 : 1;
+			asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)panel_width, false);
+			asset_vp_sheet_lt->Resize();
+		}
+		else
+		{
+			scene_treeview->SelectItem(obj->item);
+		}
 	}
 	else
 	{
@@ -227,7 +276,7 @@ void Editor::SelectObject(SceneObject* obj)
 
 	ShowVieport();
 
-	in_select_asset = false;
+	in_select_object = false;
 }
 
 void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
@@ -309,73 +358,17 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 
 	if (selectedObject == obj)
 	{
-		SelectObject(nullptr);
+		SelectObject(nullptr, false);
 	}
 
 	scene_treeview->DeleteItem(obj);
 	ed_scene.DeleteObject(obj, false);
 }
 
-void Editor::SelectAsset(SceneAsset* obj)
-{
-	if (in_select_asset)
-	{
-		return;
-	}
-
-	in_select_asset = true;
-
-	if (selectedObject)
-	{
-		selectedObject->GetMetaData()->HideWidgets();
-		selectedObject->SetEditMode(true);
-		scene_treeview->SelectItem(nullptr);
-		selectedObject = nullptr;
-	}
-
-	if (selectedAsset)
-	{
-		selectedAsset->GetMetaData()->HideWidgets();
-		selectedAsset->EnableTasks(false);
-		selectedAsset->SetEditMode(false);
-	}
-
-	selectedAsset = obj;
-
-	bool enabled = (selectedAsset != nullptr);
-	objectName->Enable(enabled);
-	gizmo.enabled = enabled;
-
-	if (selectedAsset)
-	{
-		objectName->SetText(obj->GetName());
-		gizmo.transform = obj->Trans();
-
-		obj->GetMetaData()->Prepare(obj);
-		obj->GetMetaData()->PrepareWidgets(objCat);
-		obj->SetEditMode(true);
-
-		assets_treeview->SelectItem(obj->item);
-
-		selectedAsset->EnableTasks(true);
-		asset_treeview->ClearTree();
-		int panel_width = selectedAsset->PrepareWidgets(asset_treeview, objCat, objectName) ? 200 : 1;
-		asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)panel_width, false);
-		asset_vp_sheet_lt->Resize();
-	}
-	else
-	{
-		objectName->SetText("");
-	}
-
-	ShowVieport();
-
-	in_select_asset = false;
-}
-
 void Editor::ShowVieport()
 {
-	EUIPanel* vp = selectedAsset ? asset_viewport : viewport;
+	EUIPanel* vp = isSelectedAsset ? asset_viewport : viewport;
+	vp->Show(true);
 
 	if (scene)
 	{
@@ -383,9 +376,8 @@ void Editor::ShowVieport()
 	}
 	else
 	{
-		viewport_lt->Show(selectedObject || !selectedAsset);
-		asset_vp_sheet_lt->Show(selectedAsset != nullptr);
-		ed_scene.EnableTasks(selectedAsset == nullptr);
+		viewport_lt->Show(!isSelectedAsset);
+		asset_vp_sheet_lt->Show(isSelectedAsset);
 	}
 
 	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
@@ -399,9 +391,9 @@ void Editor::DeleteSceneAsset(SceneAsset* obj)
 		return;
 	}
 
-	if (selectedAsset == obj)
+	if (selectedObject == obj)
 	{
-		SelectAsset(nullptr);
+		SelectObject(nullptr, false);
 	}
 
 	assets_treeview->DeleteItem(obj->item);
@@ -410,16 +402,15 @@ void Editor::DeleteSceneAsset(SceneAsset* obj)
 
 void Editor::StartScene()
 {
-	if (selectedAsset)
+	if (selectedObject)
 	{
-		selectedAsset->EnableTasks(false);
-	}
-	else
-	{
+		selectedObject->EnableTasks(false);
 		ed_scene.EnableTasks(false);
 	}
 
 	Save();
+
+	scripts.Start();
 
 	scene = new Scene();
 	scene->Init();
@@ -451,12 +442,11 @@ void Editor::StopScene()
 	scene->Stop();
 	RELEASE(scene);
 
-	if (selectedAsset)
+	scripts.Stop();
+
+	if (selectedObject)
 	{
-		selectedAsset->EnableTasks(true);
-	}
-	else
-	{
+		selectedObject->EnableTasks(true);
 		ed_scene.EnableTasks(true);
 	}
 
@@ -797,11 +787,6 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			selectedObject->OnMouseMove(ms - prev_ms);
 		}
 
-		if (selectedAsset)
-		{
-			selectedAsset->OnMouseMove(ms - prev_ms);
-		}
-
 		if (selectedObject && !scene)
 		{
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
@@ -836,11 +821,6 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		{
 			selectedObject->OnLeftMouseDown(prev_ms);
 		}
-
-		if (selectedAsset)
-		{
-			selectedAsset->OnLeftMouseDown(prev_ms);
-		}
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
@@ -863,11 +843,6 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		if (selectedObject)
 		{
 			selectedObject->OnLeftMouseUp();
-		}
-
-		if (selectedAsset)
-		{
-			selectedAsset->OnLeftMouseUp();
 		}
 	}
 
@@ -919,11 +894,6 @@ void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 		{
 			selectedObject->OnRightMouseDown(prev_ms);
 		}
-
-		if (selectedAsset)
-		{
-			selectedAsset->OnRightMouseDown(prev_ms);
-		}
 	}
 }
 
@@ -937,11 +907,6 @@ void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 		if (selectedObject)
 		{
 			selectedObject->OnRightMouseUp();
-		}
-
-		if (selectedAsset)
-		{
-			selectedAsset->OnRightMouseUp();
 		}
 	}
 }
@@ -1022,11 +987,6 @@ void Editor::OnUpdate(EUIWidget* sender)
 		{
 			selectedObject->CheckProperties();
 		}
-
-		if (selectedAsset)
-		{
-			selectedAsset->CheckProperties();
-		}
 	}
 
 	if (viewport->IsFocused() || asset_viewport->IsFocused())
@@ -1048,14 +1008,14 @@ void Editor::OnUpdate(EUIWidget* sender)
 	}
 	else
 	{
-		if (selectedAsset)
+		if (selectedObject && selectedObject->EnableTasks(true))
 		{
-			//assets_treeview->SetItemText(selectedAsset->item, "sdsdgs");
-
-			selectedAsset->Tasks()->Execute(dt);
+			ed_scene.EnableTasks(false);
+			selectedObject->Tasks(true)->Execute(dt);
 		}
 		else
 		{
+			ed_scene.EnableTasks(true);
 			ed_scene.Execute(dt);
 		}
 	}
@@ -1078,17 +1038,6 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 
 			SetUniqueName(selectedObject, objectName->GetText(), false);
 			scene_treeview->SetItemText(selectedObject->item, objectName->GetText());
-		}
-
-		if (selectedAsset)
-		{
-			if (StringUtils::IsEqual(objectName->GetText(), selectedAsset->GetName()))
-			{
-				return;
-			}
-
-			SetUniqueName(selectedAsset, objectName->GetText(), true);
-			assets_treeview->SetItemText(selectedAsset->item, objectName->GetText());
 		}
 	}
 }
@@ -1116,14 +1065,21 @@ void Editor::OnWinClose(EUIWidget* sender)
 
 bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index)
 {
-	if ((sender == assets_treeview || sender == asset_treeview ) && target == asset_treeview && selectedAsset)
+	if ((sender == assets_treeview || sender == asset_treeview ) && target == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		return selectedAsset->OnAssetTreeViewItemDragged((sender == assets_treeview), (SceneAsset*)sender->GetItemPtr(item), prev_child_index, (SceneObject*)target->GetItemPtr(parent), child_index);
+		return ((SceneAsset*)selectedObject)->OnAssetTreeViewItemDragged((sender == assets_treeview), (SceneAsset*)sender->GetItemPtr(item), prev_child_index, (SceneObject*)target->GetItemPtr(parent), child_index);
 	}
 
-	if (sender == scene_treeview || sender == assets_treeview)
+	if (sender == target)
 	{
 		return true;
+	}
+
+	if (sender == assets_treeview && target == scene_treeview && selectedObject && isSelectedAsset)
+	{
+		SceneObject* inst = ((SceneAsset*)selectedObject)->CreateInstance();
+		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, nullptr, -1, false);
+		scene_treeview->SelectItem(inst->item);
 	}
 
 	return false;
@@ -1131,14 +1087,14 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, voi
 
 void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 {
-	if (sender == asset_treeview && selectedAsset)
+	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		selectedAsset->OnAssetTreeSelChange((SceneAsset*)asset_treeview->GetItemPtr(item));
+		((SceneAsset*)selectedObject)->OnAssetTreeSelChange((SceneAsset*)asset_treeview->GetItemPtr(item));
 	}
 	else
 	if (sender == scene_treeview)
 	{
-		SelectObject((SceneObject*)sender->GetItemPtr(item));
+		SelectObject((SceneObject*)sender->GetItemPtr(item), false);
 	}
 	else
 	if (sender == assets_treeview)
@@ -1147,14 +1103,14 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 
 		if (asset_drag_as_inst)
 		{
-			if (selectedAsset != asset)
+			if (selectedObject != asset)
 			{
 				selectedAsset2Drag = asset;
 			}
 		}
 		else
 		{
-			SelectAsset(asset);
+			SelectObject(asset, true);
 		}
 	}
 }
@@ -1182,12 +1138,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 
 			if (object == selectedObject)
 			{
-				SelectObject(nullptr);
-			}
-
-			if (object == selectedAsset)
-			{
-				SelectAsset(nullptr);
+				SelectObject(nullptr, false);
 			}
 
 			ed_scene.DeleteObject(object, (sender == assets_treeview));
@@ -1197,9 +1148,9 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 
 void Editor::OnTreeViewPopupItem(EUITreeView* sender, int id)
 {
-	if (sender == asset_treeview && selectedAsset)
+	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		selectedAsset->OnAssetTreePopupItem(id);
+		((SceneAsset*)selectedObject)->OnAssetTreePopupItem(id);
 	}
 
 	if (sender == scene_treeview || sender == assets_treeview)
@@ -1210,9 +1161,9 @@ void Editor::OnTreeViewPopupItem(EUITreeView* sender, int id)
 
 void Editor::OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index)
 {
-	if (sender == asset_treeview && selectedAsset)
+	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		selectedAsset->OnAssetTreeRightClick((SceneAsset*)sender->GetItemPtr(item), child_index);
+		((SceneAsset*)selectedObject)->OnAssetTreeRightClick((SceneAsset*)sender->GetItemPtr(item), child_index);
 	}
 
 	if (sender == scene_treeview || sender == assets_treeview)

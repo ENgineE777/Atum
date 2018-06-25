@@ -28,8 +28,8 @@ SimpleCharacter2D::~SimpleCharacter2D()
 
 void SimpleCharacter2D::Init()
 {
-	Tasks()->AddTask(10, this, (Object::Delegate)&SimpleCharacter2D::Update);
-	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SimpleCharacter2D::Draw);
+	Tasks(false)->AddTask(10, this, (Object::Delegate)&SimpleCharacter2D::Update);
+	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SimpleCharacter2D::Draw);
 
 	owner->AddToGroup(this, "SimpleCharacter2D");
 }

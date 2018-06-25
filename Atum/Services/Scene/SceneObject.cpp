@@ -3,12 +3,27 @@
 
 SceneObject::SceneObject()
 {
-	owner = NULL;
+	owner = nullptr;
 }
 
 SceneObject::~SceneObject()
 {
 
+}
+
+bool SceneObject::EnableTasks(bool enable)
+{
+	if (taskPool)
+	{
+		taskPool->SetActive(enable);;
+	}
+
+	if (renderTaskPool)
+	{
+		renderTaskPool->SetActive(enable);
+	}
+
+	return taskPool || renderTaskPool;
 }
 
 void SceneObject::ApplyProperties()
@@ -48,13 +63,35 @@ void SceneObject::Save(JSONWriter& writer)
 	GetMetaData()->Save(writer);
 }
 
-TaskExecutor::SingleTaskPool* SceneObject::Tasks()
+TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 {
+	if (editor)
+	{
+		if (!taskPool)
+		{
+			taskPool = taskExecutor.CreateSingleTaskPool();
+			taskPool->SetActive(false);
+		}
+
+		return taskPool;
+	}
+
 	return owner->taskPool;
 }
 
-TaskExecutor::SingleTaskPool* SceneObject::RenderTasks()
+TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 {
+	if (editor)
+	{
+		if (!renderTaskPool)
+		{
+			renderTaskPool = renderTaskPool = render.AddTaskPool();
+			renderTaskPool->SetActive(false);
+		}
+
+		return renderTaskPool;
+	}
+
 	return owner->renderTaskPool;
 }
 
@@ -73,6 +110,11 @@ bool SceneObject::Playing()
 	return owner->playing;
 }
 
+ScriptContext* SceneObject::Scipt()
+{
+	return owner->script;
+}
+
 PhysScene* SceneObject::PScene()
 {
 	return owner->pscene;
@@ -80,8 +122,19 @@ PhysScene* SceneObject::PScene()
 
 void SceneObject::Release()
 {
-	Tasks()->DelAllTasks(this);
-	RenderTasks()->DelAllTasks(this);
+	owner->taskPool->DelAllTasks(this);
+
+	if (taskPool)
+	{
+		taskPool->DelAllTasks(this);
+	}
+
+	owner->renderTaskPool->DelAllTasks(this);
+
+	if (renderTaskPool)
+	{
+		renderTaskPool->DelAllTasks(this);
+	}
 
 	owner->DelFromAllGroups(this);
 

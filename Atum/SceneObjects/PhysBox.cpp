@@ -22,7 +22,7 @@ PhysBox::~PhysBox()
 
 void PhysBox::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&PhysBox::Draw);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&PhysBox::Draw);
 	owner->AddToGroup(this, "PhysBox");
 }
 

@@ -11,17 +11,11 @@ class SceneAsset : public SceneObject
 {
 	friend class Scene;
 
-	TaskExecutor::SingleTaskPool* taskPool;
-	TaskExecutor::SingleTaskPool* renderTaskPool;
-
 public:
 
-	SceneAsset();
-	virtual ~SceneAsset();
+	virtual ~SceneAsset() = default;
 
-	virtual TaskExecutor::SingleTaskPool* Tasks();
-	virtual TaskExecutor::SingleTaskPool* RenderTasks();
-	virtual void EnableTasks(bool enable);
+	virtual SceneObject* CreateInstance();
 
 #ifdef EDITOR
 	virtual bool PrepareWidgets(EUITreeView* asset_treeview, EUICategories* cat, EUIEditBox* obj_name);

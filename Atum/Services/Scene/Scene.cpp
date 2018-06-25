@@ -253,6 +253,7 @@ void Scene::Play()
 
 	playing = true;
 
+	script = scripts.CreateContext();
 	pscene = physics.CreateScene();
 
 	for (int i = 0; i < objects.size(); i++)
@@ -275,6 +276,7 @@ void Scene::Stop()
 		objects[i]->Stop();
 	}
 
+	RELEASE(script)
 	physics.DestroyScene(pscene);
 	pscene = nullptr;
 }

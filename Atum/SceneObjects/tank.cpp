@@ -14,9 +14,9 @@ float Tank::Projectile::splashMaxRadius = 5.0f;
 
 void Tank::Init()
 {
-	Tasks()->AddTask(0, this, (Object::Delegate)&Tank::Update);
-	Tasks()->AddTask(0, this, (Object::Delegate)&Tank::SendServerState, 1.0f / 15.0f);
-	Tasks()->AddTask(0, this, (Object::Delegate)&Tank::SendClientState, 1.0f / 15.0f);
+	Tasks(false)->AddTask(0, this, (Object::Delegate)&Tank::Update);
+	Tasks(false)->AddTask(0, this, (Object::Delegate)&Tank::SendServerState, 1.0f / 15.0f);
+	Tasks(false)->AddTask(0, this, (Object::Delegate)&Tank::SendClientState, 1.0f / 15.0f);
 }
 
 void Tank::AddIsntance(int id)

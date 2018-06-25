@@ -38,7 +38,7 @@ SpriteAsset::~SpriteAsset()
 
 void SpriteAsset::Init()
 {
-	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
+	RenderTasks(true)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
 
 	owner->AddToGroup(this, "SpriteAsset");
 }

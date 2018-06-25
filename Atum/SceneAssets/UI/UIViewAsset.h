@@ -21,6 +21,8 @@ public:
 
 	void Release() override;
 
+	SceneObject* CreateInstance() override;
+
 #ifdef EDITOR
 	void SetEditMode(bool ed) override;
 	bool PrepareWidgets(EUITreeView* asset_treeview, EUICategories* cat, EUIEditBox* obj_name) override;

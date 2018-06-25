@@ -13,9 +13,12 @@
 class SceneObject : public Object
 {
 	friend class Scene;
+	friend class UIViewAsset;
+
+	TaskExecutor::SingleTaskPool* taskPool = nullptr;
+	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 
 protected:
-public:
 	Scene* owner;
 	std::string  name;
 	std::string  className;
@@ -33,20 +36,22 @@ public:
 	virtual ~SceneObject();
 
 	const char* GetName();
-	void SetName(const char* name);
+	virtual void SetName(const char* name);
 	Matrix& Trans();
 	const char* GetClassName();
 
+	virtual bool EnableTasks(bool enable);
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
 	virtual void Load(JSONReader& reader);
 	virtual void Save(JSONWriter& writer);
-	virtual TaskExecutor::SingleTaskPool* Tasks();
-	virtual TaskExecutor::SingleTaskPool* RenderTasks();
+	virtual TaskExecutor::SingleTaskPool* Tasks(bool edtitor);
+	virtual TaskExecutor::SingleTaskPool* RenderTasks(bool editor);
 	virtual void Play();
 	virtual void Stop();
 	bool Playing();
+	ScriptContext* Scipt();
 	PhysScene* PScene();
 	virtual void Release();
 
@@ -60,6 +65,8 @@ public:
 	virtual void OnLeftMouseUp();
 	virtual void OnRightMouseDown(Vector2 ms);
 	virtual void OnRightMouseUp();
+
+	//virtual void OnRightMouseUp();
 #endif
 };
 

@@ -48,7 +48,7 @@ void HoverTank::Init()
 	hover_model.LoadModelMS3D("Media//hover.ms3d");
 
 	hover_drawer = new Model::Drawer;
-	hover_drawer->Init(&hover_model, RenderTasks());
+	hover_drawer->Init(&hover_model, RenderTasks(false));
 
 	Vector4 color(0.0f, 1.0f, 1.0f);
 	hover_drawer->SetColor(color);
@@ -56,18 +56,18 @@ void HoverTank::Init()
 	tower_model.LoadModelMS3D("Media//tower.ms3d");
 
 	tower_drawer = new Model::Drawer;
-	tower_drawer->Init(&tower_model, RenderTasks());
+	tower_drawer->Init(&tower_model, RenderTasks(false));
 
 	tower_drawer->SetColor(color);
 
 	gun_model.LoadModelMS3D("Media//gun.ms3d");
 
 	gun_drawer = new Model::Drawer;
-	gun_drawer->Init(&gun_model, RenderTasks());
+	gun_drawer->Init(&gun_model, RenderTasks(false));
 
 	gun_drawer->SetColor(color);
 
-	Tasks()->AddTask(0, this, (Object::Delegate)&HoverTank::Update);
+	Tasks(false)->AddTask(0, this, (Object::Delegate)&HoverTank::Update);
 }
 
 void HoverTank::Play()

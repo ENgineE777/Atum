@@ -24,7 +24,7 @@ SpriteObject::~SpriteObject()
 
 void SpriteObject::Init()
 {
-	RenderTasks()->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteObject::Draw);
+	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteObject::Draw);
 }
 
 void SpriteObject::ApplyProperties()

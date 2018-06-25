@@ -7,6 +7,10 @@
 #include <android/log.h>
 #endif
 
+#ifdef EDITOR
+#include "Editor/Editor.h"
+#endif
+
 Core core;
 
 Core::Core()
@@ -85,6 +89,10 @@ void Core::Log(const char* name, const char* text, ...)
 
 #ifdef PLATFORM_ANDROID
 	__android_log_print(ANDROID_LOG_ERROR, name, "%s", buffer);
+#endif
+
+#ifdef EDITOR
+	Editor::LogToOutputBox(name, buffer);
 #endif
 }
 

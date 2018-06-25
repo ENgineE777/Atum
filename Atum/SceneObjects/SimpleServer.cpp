@@ -19,8 +19,8 @@ SimpleServer::~SimpleServer()
 
 void SimpleServer::Init()
 {
-	Tasks()->AddTask(100, this, (Object::Delegate)&SimpleServer::Work);
-	Tasks()->AddTask(100, this, (Object::Delegate)&SimpleServer::Blink, 1.0f);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleServer::Work);
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleServer::Blink, 1.0f);
 }
 
 

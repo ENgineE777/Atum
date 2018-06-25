@@ -25,7 +25,7 @@ void TestGUI::Init()
 	GUIWidget::tex = render.LoadTexture("Media/sprite_level16_2-hd.png");
 
 	//Tasks()->AddTask(100, this, (Object::Delegate)&TestGUI::Work);
-	RenderTasks()->AddTask(0, this, (Object::Delegate)&TestGUI::Work);
+	RenderTasks(false)->AddTask(0, this, (Object::Delegate)&TestGUI::Work);
 }
 
 void TestGUI::ApplyProperties()

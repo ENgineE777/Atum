@@ -36,7 +36,7 @@ void VirtualJoystick::Init()
 		alias.touchY = controls.GetAlias(str);
 	}
 
-	RenderTasks()->AddTask(RenderLevels::GUI, this, (Object::Delegate)&VirtualJoystick::Draw);
+	RenderTasks(false)->AddTask(RenderLevels::GUI, this, (Object::Delegate)&VirtualJoystick::Draw);
 }
 
 void VirtualJoystick::ApplyProperties()

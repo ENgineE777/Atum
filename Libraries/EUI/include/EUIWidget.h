@@ -78,8 +78,7 @@ public:
 		virtual void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) {};
 		virtual void OnTreeReCreateItem(class EUITreeView* sender, void* item, void* ptr) {};
 		virtual void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) {};
-		virtual void OnTreeViewPopupItem(class EUITreeView* sender, int id) {};
-		virtual void OnTreeViewRightClick(class EUITreeView* sender, void* item, int child_index) {};
+		virtual void OnTreeViewRightClick(class EUITreeView* sender, int x, int y, void* item, int child_index) {};
 	};
 
 protected:

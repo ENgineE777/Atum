@@ -16,13 +16,12 @@ BOOL_PROP(UIViewAsset, scaleChilds, false, "Prop", "scale_childs")
 BOOL_PROP(UIViewAsset, clipChilds, false, "Prop", "clip_childs")
 META_DATA_DESC_END()
 
-EUITreeView *  UIViewAsset::asset_treeview = nullptr;
-EUICategories* UIViewAsset::cat = nullptr;
-EUIEditBox*    UIViewAsset::objName = nullptr;
+#ifdef EDITOR
 UIWidgetAsset* UIViewAsset::sel_ui_asset = nullptr;
 UIWidgetAsset* UIViewAsset::asset_to_copy = nullptr;
 int            UIViewAsset::popup_child_index = -1;
 UIWidgetAsset* UIViewAsset::popup_item = nullptr;
+#endif
 
 void UIViewAsset::Init()
 {
@@ -84,6 +83,11 @@ SceneObject* UIViewAsset::CreateInstance()
 }
 
 #ifdef EDITOR
+bool UIViewAsset::UseAseetsTree()
+{
+	return true;
+}
+
 void UIViewAsset::SetEditMode(bool ed)
 {
 	UIWidgetAsset::SetEditMode(ed);
@@ -96,18 +100,10 @@ void UIViewAsset::SetEditMode(bool ed)
 			sel_ui_asset->SetEditMode(false);
 		}
 	}
-}
-
-bool UIViewAsset::PrepareWidgets(EUITreeView* set_asset_treeview, EUICategories* set_cat, EUIEditBox* set_obj_name)
-{
-	asset_treeview = set_asset_treeview;
-	cat = set_cat;
-	objName = set_obj_name;
-	sel_ui_asset = this;
-
-	AddWidgetToTreeView(this, nullptr);
-
-	return true;
+	else
+	{
+		sel_ui_asset = this;
+	}
 }
 
 bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index)
@@ -517,21 +513,21 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 void UIViewAsset::FillPopupCreateMenu(const char* name, int id)
 {
-	asset_treeview->PopupMenuStartSubMenu(name);
+	popup_menu->StartSubMenu(name);
 
 	for (auto decl : ClassFactoryUIWidgetAsset::Decls())
 	{
 		if (!strstr(decl->GetName(), "Inst"))
 		{
-			asset_treeview->PopupMenuAddItem(id, decl->GetShortName());
+			popup_menu->AddItem(id, decl->GetShortName());
 		}
 		id++;
 	}
 
-	asset_treeview->PopupMenuEndSubMenu();
+	popup_menu->EndSubMenu();
 }
 
-void UIViewAsset::OnAssetTreeRightClick(SceneAsset* item, int child_index)
+void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index)
 {
 	if (item == nullptr)
 	{
@@ -546,7 +542,7 @@ void UIViewAsset::OnAssetTreeRightClick(SceneAsset* item, int child_index)
 		return;
 	}
 
-	asset_treeview->StartPopupMenu();
+	popup_menu->StartMenu(true);
 
 	if (popup_item != this)
 	{
@@ -560,18 +556,20 @@ void UIViewAsset::OnAssetTreeRightClick(SceneAsset* item, int child_index)
 
 	if (popup_item != this)
 	{
-		asset_treeview->PopupMenuAddSeparator();
-		asset_treeview->PopupMenuAddItem(2400, "Duplicate");
-		asset_treeview->PopupMenuAddItem(2401, "Copy");
+		popup_menu->AddSeparator();
+		popup_menu->AddItem(2400, "Duplicate");
+		popup_menu->AddItem(2401, "Copy");
 
 		if (asset_to_copy)
 		{
-			asset_treeview->PopupMenuAddItem(2403, "Paste");
-			asset_treeview->PopupMenuAddItem(2402, "Paste as child");
+			popup_menu->AddItem(2403, "Paste");
+			popup_menu->AddItem(2402, "Paste as child");
 		}
 
-		asset_treeview->PopupMenuAddItem(2404, "Delete");
+		popup_menu->AddItem(2404, "Delete");
 	}
+
+	popup_menu->ShowAsPopup(asset_treeview, x, y);
 }
 
 void UIViewAsset::CheckProperties()

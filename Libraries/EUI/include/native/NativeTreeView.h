@@ -25,9 +25,4 @@ public:
 	virtual void* GetItemParent(void* item) = 0;
 	virtual int   GetItemChildCount(void* item) = 0;
 	virtual void* GetItemChild(void* item, int index) = 0;
-	virtual void  StartPopupMenu() = 0;
-	virtual void  PopupMenuAddItem(int id, const char* name) = 0;
-	virtual void  PopupMenuAddSeparator() = 0;
-	virtual void  PopupMenuStartSubMenu(const char* name) = 0;
-	virtual void  PopupMenuEndSubMenu() = 0;
 };

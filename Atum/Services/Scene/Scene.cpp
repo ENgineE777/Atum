@@ -182,6 +182,11 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 				reader.Read("transform", obj->Trans());
 			}
 
+			if (obj->UsingCamera2DPos())
+			{
+				reader.Read("ed_camera_2d", obj->Camera2DPos());
+			}
+
 			obj->Load(reader);
 		}
 
@@ -205,6 +210,7 @@ void Scene::Load(const char* name)
 	
 	if (reader.Parse(name))
 	{
+		reader.Read("camera_pos", camera_pos);
 		Load(reader, assets, "SceneAsset", true);
 		Load(reader, objects, "SceneObject", false);
 	}
@@ -227,6 +233,11 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 		{
 			writer.Write("transform", obj->Trans());
 		}
+		
+		if (obj->UsingCamera2DPos())
+		{
+			writer.Write("ed_camera_2d", obj->Camera2DPos());
+		}
 
 		obj->Save(writer);
 
@@ -242,6 +253,7 @@ void Scene::Save(const char* name)
 
 	if (writer.Start(name))
 	{
+		writer.Write("camera_pos", camera_pos);
 		Save(writer, assets, "SceneAsset");
 		Save(writer, objects, "SceneObject");
 	}

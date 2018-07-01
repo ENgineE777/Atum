@@ -53,6 +53,8 @@ class Editor : public Object, public EUIWidget::Listener
 	static EUITabPanel* outputPanels;
 	static map<string, EUIListBox*> output_boxes;
 
+	EUIWidget* popup_parent = nullptr;
+	EUIMenu* popup_menu = nullptr;
 	EUIButton* moveBtn = nullptr;
 	EUIButton* rotateBtn = nullptr;
 	EUIButton* globalBtn = nullptr;
@@ -130,7 +132,7 @@ public:
 	void RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, int& index, void* item, bool is_asset);
 	void GrabTreeviewNodes();
 	void GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& scene_nodes, void* item, bool is_asset);
-	void CreatePopup(EUITreeView* treeview, bool is_asset);
+	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
 	void ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
@@ -147,7 +149,7 @@ public:
 	void OnTreeViewSelChange(EUITreeView* sender, void* item) override;
 	void OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr) override;
 	void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) override;
-	void OnTreeViewPopupItem(EUITreeView* sender, int id) override;
-	void OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index) override;
+	void OnTreeViewPopupItem(EUITreeView* sender, int id);
+	void OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item, int child_index) override;
 	void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) override;
 };

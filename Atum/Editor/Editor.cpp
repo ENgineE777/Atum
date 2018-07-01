@@ -17,9 +17,13 @@ void Editor::Init()
 	mainWnd = new EUIWindow("Editor", EUIWindow::Normal, true, 30, 30, 800, 600);
 	mainWnd->SetListener(-1, this, 0);
 
-	EUIMenu* menu = new EUIMenu(mainWnd);
+	popup_menu = new EUIMenu();
+	popup_menu->SetListener(-1, this, 0);
+
+	EUIMenu* menu = new EUIMenu();
 	menu->SetListener(-1, this, 0);
 
+	menu->StartMenu(false);
 	menu->StartSubMenu("File");
 
 	menu->AddItem(MenuNewID, "New...");
@@ -34,6 +38,8 @@ void Editor::Init()
 	menu->EndSubMenu();
 
 	menu->AddItem(1301, "About");
+
+	menu->AttachToWidget(mainWnd);
 
 	EUILayout* lt = new EUILayout(mainWnd, false);
 
@@ -126,6 +132,11 @@ void Editor::Init()
 
 	objCat = new EUICategories(object_lt, 0, 0, 100, 100);
 
+	SceneObject::asset_treeview = asset_treeview;
+	SceneObject::cat = objCat;
+	SceneObject::objName = objectName;
+	SceneObject::popup_menu = popup_menu;
+
 	AddOutputBox("Output");
 
 	//FIXME
@@ -213,10 +224,15 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
+		if (selectedObject->UsingCamera2DPos())
+		{
+			selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
+			Sprite::ed_cam_pos = ed_scene.camera_pos;
+		}
+
 		selectedObject->GetMetaData()->HideWidgets();
 		selectedObject->EnableTasks(false);
 		selectedObject->SetEditMode(false);
-		selectedObject->EnableTasks(false);
 
 		if (isSelectedAsset)
 		{
@@ -241,14 +257,20 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
+		obj->EnableTasks(true);
 		obj->SetEditMode(true);
+
+		if (selectedObject->UsingCamera2DPos())
+		{
+			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
+		}
 
 		if (isSelectedAsset)
 		{
 			assets_treeview->SelectItem(obj->item);
 
 			asset_treeview->ClearTree();
-			int panel_width = ((SceneAsset*)selectedObject)->PrepareWidgets(asset_treeview, objCat, objectName) ? 200 : 1;
+			int panel_width = ((SceneAsset*)selectedObject)->UseAseetsTree() ? 200 : 1;
 			asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)panel_width, false);
 			asset_vp_sheet_lt->Resize();
 		}
@@ -358,6 +380,8 @@ void Editor::ShowVieport()
 	EUIPanel* vp = isSelectedAsset ? asset_viewport : viewport;
 	vp->Show(true);
 
+	SceneObject::vieport = vp;
+
 	if (scene)
 	{
 		vp = game_viewport;
@@ -405,6 +429,8 @@ void Editor::StartScene()
 	scene->Load(sceneName.c_str());
 	scene->Play();
 
+	Sprite::ed_cam_pos = 0.0f;
+
 	gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
 	gameWnd->SetListener(-1, this, 0);
 	
@@ -436,6 +462,15 @@ void Editor::StopScene()
 	{
 		selectedObject->EnableTasks(true);
 		ed_scene.EnableTasks(true);
+
+		if (selectedObject->UsingCamera2DPos())
+		{
+			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
+		}
+		else
+		{
+			Sprite::ed_cam_pos = ed_scene.camera_pos;
+		}
 	}
 
 	ShowVieport();
@@ -448,7 +483,7 @@ void Editor::Draw(float dt)
 {
 	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
-	if (!scene && selectedObject && selectedObject->EnableTasks(true) && !selectedObject->Is3DObject())
+	if (!scene && selectedObject && selectedObject->HasOwnTasks() && !selectedObject->Is3DObject())
 	{
 		Transform2D trans;
 		Sprite::FrameState state;
@@ -623,18 +658,18 @@ void Editor::GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nod
 	node.type = 2;
 }
 
-void Editor::CreatePopup(EUITreeView* treeview, bool is_asset)
+void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 {
-	treeview->StartPopupMenu();
+	popup_menu->StartMenu(true);
 
-	treeview->PopupMenuAddItem(3500, "Create Folder");
+	popup_menu->AddItem(3500, "Create Folder");
 
 	if (!popup_scene_item && popup_item)
 	{
-		treeview->PopupMenuAddItem(3501, "Create Folder as child");
+		popup_menu->AddItem(3501, "Create Folder as child");
 	}
 
-	treeview->PopupMenuStartSubMenu("Create");
+	popup_menu->StartSubMenu("Create");
 
 	int id = 1000;
 
@@ -642,7 +677,7 @@ void Editor::CreatePopup(EUITreeView* treeview, bool is_asset)
 	{
 		for (const auto& decl : ClassFactorySceneAsset::Decls())
 		{
-			treeview->PopupMenuAddItem(id, decl->GetShortName());
+			popup_menu->AddItem(id, decl->GetShortName());
 			id++;
 		}
 	}
@@ -650,23 +685,23 @@ void Editor::CreatePopup(EUITreeView* treeview, bool is_asset)
 	{
 		for (const auto& decl : ClassFactorySceneObject::Decls())
 		{
-			treeview->PopupMenuAddItem(id, decl->GetShortName());
+			popup_menu->AddItem(id, decl->GetShortName());
 			id++;
 		}
 	}
 
-	treeview->PopupMenuEndSubMenu();
+	popup_menu->EndSubMenu();
 
 	if (!popup_scene_item && popup_item)
 	{
-		treeview->PopupMenuStartSubMenu("Create as child");
+		popup_menu->StartSubMenu("Create as child");
 
 		if (is_asset)
 		{
 			int id = 500;
 			for (const auto& decl : ClassFactorySceneAsset::Decls())
 			{
-				treeview->PopupMenuAddItem(id, decl->GetShortName());
+				popup_menu->AddItem(id, decl->GetShortName());
 				id++;
 			}
 		}
@@ -675,36 +710,38 @@ void Editor::CreatePopup(EUITreeView* treeview, bool is_asset)
 			int id = 500;
 			for (const auto& decl : ClassFactorySceneObject::Decls())
 			{
-				treeview->PopupMenuAddItem(id, decl->GetShortName());
+				popup_menu->AddItem(id, decl->GetShortName());
 				id++;
 			}
 		}
 
-		treeview->PopupMenuEndSubMenu();
+		popup_menu->EndSubMenu();
 	}
 
 	if (!popup_scene_item && object_to_copy)
 	{
-		treeview->PopupMenuAddItem(3505, "Paste");
-		treeview->PopupMenuAddItem(3504, "Paste as child");
+		popup_menu->AddItem(3505, "Paste");
+		popup_menu->AddItem(3504, "Paste as child");
 	}
 	else
 	if (popup_scene_item)
 	{
-		treeview->PopupMenuAddSeparator();
-		treeview->PopupMenuAddItem(3502, "Duplicate");
-		treeview->PopupMenuAddItem(3503, "Copy");
+		popup_menu->AddSeparator();
+		popup_menu->AddItem(3502, "Duplicate");
+		popup_menu->AddItem(3503, "Copy");
 
 		if (object_to_copy)
 		{
-			treeview->PopupMenuAddItem(3505, "Paste");
+			popup_menu->AddItem(3505, "Paste");
 		}
 	}
 
 	if (popup_item)
 	{
-		treeview->PopupMenuAddItem(3506, "Delete");
+		popup_menu->AddItem(3506, "Delete");
 	}
+
+	popup_menu->ShowAsPopup(treeview, x, y);
 }
 
 void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
@@ -949,6 +986,21 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 			gameWnd->Close();
 		}
 	}
+
+	if (popup_parent == asset_treeview && selectedObject && isSelectedAsset)
+	{
+		((SceneAsset*)selectedObject)->OnAssetTreePopupItem(activated_id);
+	}
+	else
+	if (popup_parent == scene_treeview || popup_parent == assets_treeview)
+	{
+		ProcesTreeviewPopup((EUITreeView*)popup_parent, activated_id, (popup_parent == assets_treeview));
+	}
+	else
+	if (selectedObject)
+	{
+		selectedObject->OnPopupMenuItem(activated_id);
+	}
 }
 
 void Editor::OnUpdate(EUIWidget* sender)
@@ -962,7 +1014,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 		freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : false;
 
-		if (!freecamera.mode_2d && (!selectedObject || !selectedObject->EnableTasks(true)))
+		if (!freecamera.mode_2d && (!selectedObject || !selectedObject->HasOwnTasks()))
 		{
 			for (int i = 0; i <= 20; i++)
 			{
@@ -1002,7 +1054,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 	}
 	else
 	{
-		if (selectedObject && selectedObject->EnableTasks(true))
+		if (selectedObject && selectedObject->HasOwnTasks())
 		{
 			ed_scene.EnableTasks(false);
 			selectedObject->Tasks(true)->Execute(dt);
@@ -1140,24 +1192,12 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 	}
 }
 
-void Editor::OnTreeViewPopupItem(EUITreeView* sender, int id)
+void Editor::OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item, int child_index)
 {
 	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		((SceneAsset*)selectedObject)->OnAssetTreePopupItem(id);
-	}
-
-	if (sender == scene_treeview || sender == assets_treeview)
-	{
-		ProcesTreeviewPopup(sender, id, (sender == assets_treeview));
-	}
-}
-
-void Editor::OnTreeViewRightClick(EUITreeView* sender, void* item, int child_index)
-{
-	if (sender == asset_treeview && selectedObject && isSelectedAsset)
-	{
-		((SceneAsset*)selectedObject)->OnAssetTreeRightClick((SceneAsset*)sender->GetItemPtr(item), child_index);
+		popup_parent = sender;
+		((SceneAsset*)selectedObject)->OnAssetTreeRightClick(x, y, (SceneAsset*)sender->GetItemPtr(item), child_index);
 	}
 
 	if (sender == scene_treeview || sender == assets_treeview)
@@ -1166,7 +1206,8 @@ void Editor::OnTreeViewRightClick(EUITreeView* sender, void* item, int child_ind
 		popup_scene_item = (SceneAsset*)sender->GetItemPtr(item);
 		popup_child_index = child_index;
 
-		CreatePopup(sender, (sender == assets_treeview));
+		popup_parent = sender;
+		CreatePopup(sender, x, y, (sender == assets_treeview));
 	}
 }
 

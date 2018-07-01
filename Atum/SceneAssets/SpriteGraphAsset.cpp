@@ -151,7 +151,6 @@ void SpriteGraphAsset::Load(JSONReader& loader)
 	GetMetaData()->Load(loader);
 	Sprite::Load(loader, &sprite);
 
-	loader.Read("camera_pos", camera_pos);
 	loader.Read("def_node", def_node);
 
 	int count = 0;
@@ -202,8 +201,6 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 	GetMetaData()->Save(saver);
 	Sprite::Save(saver, &sprite);
 
-	saver.Write("camera_pos", camera_pos);
-
 	saver.Write("def_node", def_node);
 
 	int count = (int)nodes.size();
@@ -213,7 +210,7 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 
 	for (int i = 0; i<count; i++)
 	{
-		saver.StartBlock(NULL);
+		saver.StartBlock(nullptr);
 
 		Node& node = nodes[i];
 		saver.Write("type", (int&)node.type);
@@ -231,7 +228,7 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 
 		for (int j = 0; j < link_count; j++)
 		{
-			saver.StartBlock(NULL);
+			saver.StartBlock(nullptr);
 
 			Link& link = node.links[j];
 
@@ -254,7 +251,7 @@ void SpriteGraphAsset::Draw(float dt)
 {
 	if (drag == AddLink)
 	{
-		render.DebugLine2D(nodes[selNode].pos - camera_pos + nodeSize * 0.5f, COLOR_WHITE, mouse_pos, COLOR_WHITE);
+		render.DebugLine2D(nodes[selNode].pos - Sprite::ed_cam_pos + nodeSize * 0.5f, COLOR_WHITE, mouse_pos, COLOR_WHITE);
 	}
 
 	if (selNode != -1)
@@ -326,8 +323,8 @@ void SpriteGraphAsset::Draw(float dt)
 				}
 			}
 
-			Vector2 p1 = node.pos - camera_pos + nodeSize * 0.5f;
-			Vector2 p2 = nodes[link.index].pos - camera_pos + nodeSize * 0.5f;
+			Vector2 p1 = node.pos - Sprite::ed_cam_pos + nodeSize * 0.5f;
+			Vector2 p2 = nodes[link.index].pos - Sprite::ed_cam_pos + nodeSize * 0.5f;
 
 			render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
 
@@ -361,13 +358,23 @@ void SpriteGraphAsset::Draw(float dt)
 			color.b = 1.0f;
 		}
 
-		render.DebugSprite(nullptr, node.pos - camera_pos, nodeSize, color);
-		render.DebugPrintText(node.pos + Vector2(10.0f) - camera_pos, COLOR_WHITE,node.name.c_str());
+		render.DebugSprite(nullptr, node.pos - Sprite::ed_cam_pos, nodeSize, color);
+		render.DebugPrintText(node.pos + Vector2(10.0f) - Sprite::ed_cam_pos, COLOR_WHITE,node.name.c_str());
 
 		index++;
 	}
 }
 #endif
+
+bool SpriteGraphAsset::UsingCamera2DPos()
+{
+	return true;
+}
+
+Vector2& SpriteGraphAsset::Camera2DPos()
+{
+	return camera_pos;
+}
 
 void SpriteGraphAsset::PrepareInstance(Instance* inst)
 {
@@ -388,8 +395,8 @@ int SpriteGraphAsset::GetNodeIndex(Vector2& ms)
 	int index = 0;
 	for (auto& node : nodes)
 	{
-		if (node.pos.x - camera_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - camera_pos.x &&
-			node.pos.y - camera_pos.y < ms.y && ms.y < node.pos.y + nodeSize.y - camera_pos.y)
+		if (node.pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
+			node.pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
 		{
 			selected = index;
 		}
@@ -409,7 +416,7 @@ void SpriteGraphAsset::CreateNode(NodeType type)
 
 	Node node;
 	node.type = type;
-	node.pos = camera_pos;
+	node.pos = Sprite::ed_cam_pos;
 	node.name = "Node";
 
 	nodes.push_back(node);
@@ -555,11 +562,6 @@ void SpriteGraphAsset::OnMouseMove(Vector2 delta_ms)
 	if (drag == None)
 	{
 		return;
-	}
-
-	if (drag == MoveField)
-	{
-		camera_pos -= delta_ms;
 	}
 
 	if (drag == MoveNode)

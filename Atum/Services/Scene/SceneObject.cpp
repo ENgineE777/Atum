@@ -1,6 +1,15 @@
 
 #include "SceneObject.h"
 
+#ifdef EDITOR
+EUITreeView *  SceneObject::asset_treeview = nullptr;
+EUICategories* SceneObject::cat = nullptr;
+EUIEditBox*    SceneObject::objName = nullptr;
+EUIMenu*       SceneObject::popup_menu = nullptr;
+EUIPanel*      SceneObject::vieport;
+#endif
+
+
 SceneObject::SceneObject()
 {
 	owner = nullptr;
@@ -11,7 +20,7 @@ SceneObject::~SceneObject()
 
 }
 
-bool SceneObject::EnableTasks(bool enable)
+void SceneObject::EnableTasks(bool enable)
 {
 	if (taskPool)
 	{
@@ -22,7 +31,10 @@ bool SceneObject::EnableTasks(bool enable)
 	{
 		renderTaskPool->SetActive(enable);
 	}
+}
 
+bool SceneObject::HasOwnTasks()
+{
 	return taskPool || renderTaskPool;
 }
 
@@ -45,6 +57,17 @@ Matrix& SceneObject::Trans()
 {
 	static Matrix mat;
 	return mat;
+}
+
+bool SceneObject::UsingCamera2DPos()
+{
+	return false;
+}
+
+Vector2& SceneObject::Camera2DPos()
+{
+	static Vector2 vec = 0.0f;
+	return vec;
 }
 
 const char* SceneObject::GetClassName()
@@ -146,6 +169,11 @@ bool SceneObject::Is3DObject()
 }
 
 #ifdef EDITOR
+bool SceneObject::UseAseetsTree()
+{
+	return false;
+}
+
 void SceneObject::CheckProperties()
 {
 	if (GetMetaData()->IsValueWasChanged())
@@ -188,6 +216,11 @@ void SceneObject::OnRightMouseDown(Vector2 ms)
 }
 
 void SceneObject::OnRightMouseUp()
+{
+
+}
+
+void SceneObject::OnPopupMenuItem(int id)
 {
 
 }

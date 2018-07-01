@@ -18,11 +18,10 @@ public:
 	virtual SceneObject* CreateInstance();
 
 #ifdef EDITOR
-	virtual bool PrepareWidgets(EUITreeView* asset_treeview, EUICategories* cat, EUIEditBox* obj_name);
 	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index);
 	virtual void OnAssetTreeSelChange(SceneAsset* item);
 	virtual void OnAssetTreePopupItem(int id);
-	virtual void OnAssetTreeRightClick(SceneAsset* item, int child_index);
+	virtual void OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index);
 #endif
 };
 

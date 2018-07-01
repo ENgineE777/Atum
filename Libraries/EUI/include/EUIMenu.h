@@ -12,9 +12,13 @@ class EUIMenu : public EUIWidget
 
 public:
 
-	EUIMenu(EUIWidget* parent);
+	EUIMenu();
 	virtual ~EUIMenu();
 
+	void AttachToWidget(EUIWidget* widget);
+	void ShowAsPopup(EUIWidget* parent, int x, int y);
+
+	void StartMenu(bool is_popup);
 	void AddItem(int id, const char* name);
 	void AddSeparator();
 	void StartSubMenu(const char* name);

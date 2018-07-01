@@ -87,6 +87,8 @@ public:
 	void PrepareInstance(Instance* inst);
 
 	Vector2 camera_pos = 0.0f;
+	bool UsingCamera2DPos() override;
+	Vector2& Camera2DPos() override;
 
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(100.0f, 50.0f);

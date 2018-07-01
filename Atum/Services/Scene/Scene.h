@@ -24,6 +24,8 @@ public:
 		std::vector<SceneObject*> objects;
 	};
 
+	Vector2 camera_pos = 0.0f;
+
 private:
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;

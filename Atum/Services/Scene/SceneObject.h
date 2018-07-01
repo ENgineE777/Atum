@@ -32,7 +32,13 @@ protected:
 
 public:
 
-	bool test;
+#ifdef EDITOR
+	static EUITreeView *  asset_treeview;
+	static EUICategories* cat;
+	static EUIEditBox*    objName;
+	static EUIMenu*       popup_menu;
+	static EUIPanel*      vieport;
+#endif
 
 	SceneObject();
 	virtual ~SceneObject();
@@ -40,9 +46,12 @@ public:
 	const char* GetName();
 	virtual void SetName(const char* name);
 	virtual Matrix& Trans();
+	virtual bool UsingCamera2DPos();
+	virtual Vector2& Camera2DPos();
 	const char* GetClassName();
 
-	virtual bool EnableTasks(bool enable);
+	virtual void EnableTasks(bool enable);
+	virtual bool HasOwnTasks();
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
@@ -60,6 +69,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual bool UseAseetsTree();
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
@@ -68,6 +78,7 @@ public:
 	virtual void OnLeftMouseUp();
 	virtual void OnRightMouseDown(Vector2 ms);
 	virtual void OnRightMouseUp();
+	virtual void OnPopupMenuItem(int id);
 #endif
 };
 

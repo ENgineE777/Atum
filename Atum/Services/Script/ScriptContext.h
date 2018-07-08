@@ -1,5 +1,6 @@
 #pragma once
 #include <angelscript.h>
+#include "Libs/aswrappedcall.h"
 
 class ScriptContext
 {

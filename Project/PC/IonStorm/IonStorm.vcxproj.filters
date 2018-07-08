@@ -310,9 +310,6 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp">
       <Filter>SceneAssets</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.cpp">
-      <Filter>SceneAssets</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
@@ -711,9 +708,6 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h">
       <Filter>SceneAssets</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphWindow.h">
-      <Filter>SceneAssets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.h">
       <Filter>SceneObjects</Filter>
     </ClInclude>
@@ -820,6 +814,9 @@
       <Filter>Services\Script\Libs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\aswrappedcall.h">
       <Filter>Services\Script\Libs</Filter>
     </ClInclude>
   </ItemGroup>

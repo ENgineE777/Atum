@@ -27,6 +27,12 @@
 			]
 		},
 		{
+			"name" : "FreeCamera.MOVE2D_ACTIVE",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN2"] }
+			]
+		},
+		{
 			"name" : "FreeCamera.ROTATE_X",
 			"AliasesRef" : [
 				{ "names" : ["MS_X"] }

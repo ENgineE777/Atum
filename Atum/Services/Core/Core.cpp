@@ -25,6 +25,7 @@ Core::~Core()
 
 void Core::Init(void* data)
 {
+	srand((unsigned int)time(nullptr));
 	StringUtils::Init();
 
 	Timer::CountDeltaTime();

@@ -5,6 +5,8 @@
 CLASSREG(SceneObject, SimpleClient, "SimpleClient")
 
 META_DATA_DESC(SimpleClient)
+BASE_SCENE_OBJ_NAME_PROP(SimpleClient)
+BASE_SCENE_OBJ_STATE_PROP(SimpleClient)
 META_DATA_DESC_END()
 
 Matrix& SimpleClient::Trans()

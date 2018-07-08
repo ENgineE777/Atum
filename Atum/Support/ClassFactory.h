@@ -52,7 +52,9 @@ public:\
 	{\
 		static vector<ClassFactory##baseClass*> decls;\
 		return decls;\
-	}\
+	}
+
+#define CLASSFACTORYDEF_END()\
 };
 
 #define CLASSREGEX(baseClass, shortClassName, fullClassName, shortName) \

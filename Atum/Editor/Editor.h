@@ -32,7 +32,8 @@ class Editor : public Object, public EUIWidget::Listener
 		AssetListID = 1509,
 
 		MenuSceneObjectID = 10000,
-		MenuSceneAssetID = 15000
+		MenuSceneAssetID = 15000,
+		MenuLastSceneID = 19999
 	};
 
 	FreeCamera freecamera;
@@ -45,10 +46,7 @@ class Editor : public Object, public EUIWidget::Listener
 	bool         isSelectedAsset = false;
 	EUITreeView* scene_treeview = nullptr;
 
-	SceneAsset*  selectedAsset2Drag = nullptr;
 	EUITreeView* assets_treeview = nullptr;
-
-	EUIEditBox*  objectName = nullptr;
 
 	static EUITabPanel* outputPanels;
 	static map<string, EUIListBox*> output_boxes;
@@ -117,7 +115,6 @@ public:
 	void CopyObject(SceneObject* obj, void* parent, bool is_asset);
 	void CreateSceneObject(const char* name, void* parent, bool is_asset);
 	void DeleteSceneObject(SceneObject* obj);
-	void SetUniqueName(SceneObject* obj, const char* name, bool is_asset);
 	void DeleteSceneAsset(SceneAsset* obj);
 	void ShowVieport();
 	void StartScene();
@@ -142,10 +139,9 @@ public:
 	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnMenuItem(EUIMenu* sender, int id) override;
 	void OnUpdate(EUIWidget* sender) override;
-	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 	void OnResize(EUIWidget* sender) override;
 	void OnWinClose(EUIWidget* sender) override;
-	bool OnTreeViewItemDragged(EUITreeView* sender, EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) override;
+	bool OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void* item, int prev_child_index, void* parent, int child_index) override;
 	void OnTreeViewSelChange(EUITreeView* sender, void* item) override;
 	void OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr) override;
 	void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) override;

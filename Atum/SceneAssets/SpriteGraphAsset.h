@@ -79,10 +79,10 @@ public:
 	SpriteGraphAsset();
 	virtual ~SpriteGraphAsset();
 
-	virtual void Init();
-	virtual void ApplyProperties();
-	virtual void Load(JSONReader& loader);
-	virtual void Save(JSONWriter& saver);
+	void Init() override;
+	void ApplyProperties() override;
+	void Load(JSONReader& loader) override;
+	void Save(JSONWriter& saver) override;
 
 	void PrepareInstance(Instance* inst);
 
@@ -93,9 +93,9 @@ public:
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(100.0f, 50.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);
-	int selNode = -1;
-	int targetNode = -1;
-	int selLink = -1;
+	int sel_node = -1;
+	int target_node = -1;
+	int sel_link = -1;
 	DragMode drag = None;
 	Vector2 mouse_pos;
 
@@ -106,12 +106,12 @@ public:
 	void Delete();
 	void MakeNodeAsDefault();
 	void ShowProperties(bool show);
-	virtual void Copy(SceneObject* src);
-	virtual void SetEditMode(bool ed);
-	virtual void OnMouseMove(Vector2 delta_ms);
-	virtual void OnLeftMouseDown(Vector2 ms);
-	virtual void OnLeftMouseUp();
-	virtual void OnRightMouseDown(Vector2 ms);
-	virtual void OnRightMouseUp();
+	void Copy(SceneObject* src) override;
+	void SetEditMode(bool ed) override;
+	void OnMouseMove(Vector2 delta_ms) override;
+	void OnLeftMouseDown(Vector2 ms) override;
+	void OnLeftMouseUp() override;
+	void OnRightMouseDown(Vector2 ms) override;
+	void OnPopupMenuItem(int id) override;
 #endif
 };

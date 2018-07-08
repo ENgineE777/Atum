@@ -4,6 +4,8 @@
 CLASSREG(SceneObject, HoverTank, "HoverTank")
 
 META_DATA_DESC(HoverTank)
+BASE_SCENE_OBJ_NAME_PROP(HoverTank)
+BASE_SCENE_OBJ_STATE_PROP(HoverTank)
 META_DATA_DESC_END()
 
 using namespace physx;

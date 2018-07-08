@@ -17,6 +17,7 @@ public:
 	virtual void  DeleteItem(void* item) = 0;
 	virtual void  ClearTree() = 0;
 	virtual void* AddItem(const char* txt, int image, void* ptr, void* parent, int child_index, bool can_have_childs, const char* tooltip) = 0;
+	virtual void  SetABSortChilds(void* item, bool sort) = 0;
 	virtual void  SetItemText(void* item, const char* text) = 0;
 	virtual void* GetSelectedItem() = 0;
 	virtual void  SelectItem(void* item) = 0;

@@ -5,6 +5,7 @@
 CLASSREG(SceneAsset, UIViewAsset, "UIView")
 
 META_DATA_DESC(UIViewAsset)
+BASE_SCENE_OBJ_NAME_PROP(UIViewAsset)
 FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x")
 FLOAT_PROP(UIViewAsset, trans.pos.y, 300.0f, "Prop", "y")
 FLOAT_PROP(UIViewAsset, trans.size.x, 500.0f, "Prop", "width")
@@ -77,7 +78,7 @@ SceneObject* UIViewAsset::CreateInstance()
 
 	child->SetName(GetName());
 
-	ReCreteChilds(this, child, true);
+	ReCreteChilds(this, child, true, false);
 
 	return child;
 }
@@ -106,6 +107,11 @@ void UIViewAsset::SetEditMode(bool ed)
 	}
 }
 
+void UIViewAsset::PreapreAssetTree()
+{
+	AddWidgetToTreeView(this, nullptr);
+}
+
 bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index)
 {
 	if (item_from_assets)
@@ -131,9 +137,9 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				parent->AddChild(child, child_index);
 				child->SetName("View");
 
-				child->item = asset_treeview->AddItem("View", 1, child, parent->item, child_index, true, "UIViewInstanceAsset");
+				child->item = ed_asset_treeview->AddItem("View", 1, child, parent->item, child_index, true, "UIViewInstanceAsset");
 
-				ReCreteChilds((UIWidgetAsset*)item, child, true);
+				ReCreteChilds((UIWidgetAsset*)item, child, true, true);
 			}
 		}
 
@@ -173,7 +179,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 	return true;
 }
 
-void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst)
+void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst, bool create_item)
 {
 	for (auto src_child : source->childs)
 	{
@@ -214,7 +220,10 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 		dest->AddChild(dest_child);
 		dest_child->SetName(src_child->GetName());
 
-		//dest_child->item = asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className.c_str());
+		if (create_item)
+		{
+			dest_child->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className.c_str());
+		}
 
 		for (auto dest_inst : dest->instances)
 		{
@@ -244,7 +253,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			dest_child_inst->SetName(dest_child->GetName());
 		}
 
-		ReCreteChilds(src_child, dest_child, childs_as_inst);
+		ReCreteChilds(src_child, dest_child, childs_as_inst, create_item);
 	}
 }
 
@@ -260,21 +269,15 @@ void UIViewAsset::OnAssetTreeSelChange(SceneAsset* item)
 
 	if (sel_ui_asset)
 	{
-		objName->SetText(sel_ui_asset->GetName());
-
 		sel_ui_asset->GetMetaData()->Prepare(sel_ui_asset);
-		sel_ui_asset->GetMetaData()->PrepareWidgets(cat);
+		sel_ui_asset->GetMetaData()->PrepareWidgets(ed_obj_cat);
 		sel_ui_asset->SetEditMode(true);
-	}
-	else
-	{
-		objName->SetText("");
 	}
 }
 
 void UIViewAsset::AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className.c_str());
+	widget->item = ed_asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className.c_str());
 
 	for (auto child : widget->childs)
 	{
@@ -323,7 +326,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(name);
 
-		child->item = asset_treeview->AddItem(name, 1, child, (child_index == -1) ? popup_item->item : popup_item->parent->item, child_index, true, item_classname);
+		child->item = ed_asset_treeview->AddItem(name, 1, child, (child_index == -1) ? popup_item->item : popup_item->parent->item, child_index, true, item_classname);
 
 		string inst_className = item_classname + string("Inst");
 
@@ -372,7 +375,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(popup_item->GetName());
 
-		child->item = asset_treeview->AddItem(popup_item->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
 
 		string inst_className = popup_item->className + string("Inst");
 
@@ -398,7 +401,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->SetName(popup_item->GetName());
 		}
 
-		ReCreteChilds(popup_item, child, false);
+		ReCreteChilds(popup_item, child, false, true);
 	}
 
 	if (id == 2401)
@@ -421,7 +424,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = asset_treeview->AddItem(child->GetName(), 1, child, popup_item->item, -1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(child->GetName(), 1, child, popup_item->item, -1, true, child->className.c_str());
 
 		string inst_className = asset_to_copy->className + string("Inst");
 
@@ -447,7 +450,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->SetName(asset_to_copy->GetName());
 		}
 
-		ReCreteChilds(asset_to_copy, child, false);
+		ReCreteChilds(asset_to_copy, child, false, true);
 	}
 
 	if (id == 2403 && asset_to_copy)
@@ -465,7 +468,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = asset_treeview->AddItem(asset_to_copy->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
 
 		string inst_className = asset_to_copy->className + string("Inst");
 
@@ -491,7 +494,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->SetName(asset_to_copy->GetName());
 		}
 
-		ReCreteChilds(asset_to_copy, child, false);
+		ReCreteChilds(asset_to_copy, child, false, true);
 	}
 
 	if (id == 2404)
@@ -506,25 +509,25 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		popup_item->SetSource(nullptr, true);
 		popup_item->DeleteChilds();
 		popup_item->parent->DeleteChild(popup_item);
-		asset_treeview->DeleteItem(popup_item->item);
+		ed_asset_treeview->DeleteItem(popup_item->item);
 		delete popup_item;
 	}
 }
 
 void UIViewAsset::FillPopupCreateMenu(const char* name, int id)
 {
-	popup_menu->StartSubMenu(name);
+	ed_popup_menu->StartSubMenu(name);
 
 	for (auto decl : ClassFactoryUIWidgetAsset::Decls())
 	{
 		if (!strstr(decl->GetName(), "Inst"))
 		{
-			popup_menu->AddItem(id, decl->GetShortName());
+			ed_popup_menu->AddItem(id, decl->GetShortName());
 		}
 		id++;
 	}
 
-	popup_menu->EndSubMenu();
+	ed_popup_menu->EndSubMenu();
 }
 
 void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index)
@@ -542,7 +545,7 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int chil
 		return;
 	}
 
-	popup_menu->StartMenu(true);
+	ed_popup_menu->StartMenu(true);
 
 	if (popup_item != this)
 	{
@@ -556,20 +559,20 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int chil
 
 	if (popup_item != this)
 	{
-		popup_menu->AddSeparator();
-		popup_menu->AddItem(2400, "Duplicate");
-		popup_menu->AddItem(2401, "Copy");
+		ed_popup_menu->AddSeparator();
+		ed_popup_menu->AddItem(2400, "Duplicate");
+		ed_popup_menu->AddItem(2401, "Copy");
 
 		if (asset_to_copy)
 		{
-			popup_menu->AddItem(2403, "Paste");
-			popup_menu->AddItem(2402, "Paste as child");
+			ed_popup_menu->AddItem(2403, "Paste");
+			ed_popup_menu->AddItem(2402, "Paste as child");
 		}
 
-		popup_menu->AddItem(2404, "Delete");
+		ed_popup_menu->AddItem(2404, "Delete");
 	}
 
-	popup_menu->ShowAsPopup(asset_treeview, x, y);
+	ed_popup_menu->ShowAsPopup(ed_asset_treeview, x, y);
 }
 
 void UIViewAsset::CheckProperties()

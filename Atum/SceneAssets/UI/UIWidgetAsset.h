@@ -64,6 +64,9 @@ public:
 	void DeleteChild(UIWidgetAsset* node);
 	void DeleteChilds();
 	virtual void SetSource(UIWidgetAsset* source, bool remove_from_prev);
+
+	uint32_t GetParentUID() override;
+	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
 	vector<UIWidgetAsset*> instances;
 	void SetEditMode(bool ed) override;
@@ -73,3 +76,4 @@ public:
 };
 
 CLASSFACTORYDEF(UIWidgetAsset)
+CLASSFACTORYDEF_END()

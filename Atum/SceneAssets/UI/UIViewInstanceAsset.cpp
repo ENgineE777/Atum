@@ -4,6 +4,8 @@
 CLASSREG(UIWidgetAsset, UIViewInstanceAsset, "UIViewInst")
 
 META_DATA_DESC(UIViewInstanceAsset)
+BASE_SCENE_OBJ_NAME_PROP(UIViewInstanceAsset)
+BASE_SCENE_OBJ_STATE_PROP(UIViewInstanceAsset)
 FLOAT_PROP(UIViewInstanceAsset, trans.pos.x, 00.0f, "Prop", "x")
 FLOAT_PROP(UIViewInstanceAsset, trans.pos.y, 00.0f, "Prop", "y")
 FLOAT_PROP(UIViewInstanceAsset, trans.size.x, 500.0f, "Prop", "width")
@@ -47,9 +49,10 @@ void UIViewInstanceAsset::Release()
 
 }
 
-CLASSREG(SceneObject, UIViewInstance, "UIViewInstance")
+CLASSREG(SceneObject, UIViewInstance, "UIView")
 
 META_DATA_DESC(UIViewInstance)
+BASE_SCENE_OBJ_STATE_PROP(UIViewInstance)
 FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x")
 FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y")
 FLOAT_PROP(UIViewInstance, trans.size.x, 500.0f, "Prop", "width")
@@ -89,3 +92,35 @@ void UIViewInstance::Draw(float dt)
 		child->Draw(dt);
 	}
 }
+
+void UIViewInstance::BindClassToScript()
+{
+	for (const auto& decl : ClassFactoryUIWidgetAsset::Decls())
+	{
+		SceneObject* obj = decl->Create();
+		obj->scriptClassName = decl->GetShortName();
+		obj->BindClassToScript();
+		obj->Release();
+	}
+}
+
+#ifdef EDITOR
+void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item)
+{
+	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->GetClassName());
+	treeview->SetABSortChilds(widget->item, false);
+
+	for (auto child : widget->childs)
+	{
+		AddWidgetToTreeView(treeview, child, widget->item);
+	}
+}
+
+void UIViewInstance::AddChildsToTree(EUITreeView* treeview)
+{
+	for (auto child : childs)
+	{
+		AddWidgetToTreeView(treeview, child, item);
+	}
+}
+#endif

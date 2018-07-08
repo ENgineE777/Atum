@@ -26,8 +26,11 @@ public:
 
 	META_DATA_DECL(UILabelAssetInst)
 
+	void BindClassToScript() override;
+	void SetText(string& text);
 #ifdef EDITOR
 	static UILabelAssetInst* temp;
+	bool AddedToTreeByParent() override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

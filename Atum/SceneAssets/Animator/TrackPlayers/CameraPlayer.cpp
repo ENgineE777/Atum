@@ -3,7 +3,6 @@
 #include "Services/Render/Render.h"
 
 CLASSREG(TrackPlayer, CameraPlayer, "Camera")
-
 META_DATA_DESC(CameraPlayer)
 META_DATA_DESC_END()
 

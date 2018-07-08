@@ -32,7 +32,7 @@ void UIWidgetAsset::Load(JSONReader& reader)
 		char source_name[512];
 		if (reader.Read("source", source_name, 512))
 		{
-			SetSource((UIWidgetAsset*)owner->Find(source_name, true), false);
+			SetSource((UIWidgetAsset*)owner->FindByName(source_name, true), false);
 		}
 	}
 
@@ -56,12 +56,28 @@ void UIWidgetAsset::Load(JSONReader& reader)
 			obj->owner = owner;
 			obj->SetSource(source_child, false);
 			obj->className = type;
+			obj->scriptClassName = ClassFactoryUIWidgetAsset::Find(type)->GetShortName();
 			reader.Read("name", type, 512);
 
 			obj->SetName(type);
 			obj->Init();
 
 			AddChild(obj);
+
+			if (obj->AddedToTreeByParent())
+			{
+				obj->uid = source_child->GetUID();
+			}
+			else
+			{
+				reader.Read("uid", obj->uid);
+
+				if (obj->uid == 0)
+				{
+					owner->GenerateChildUID(obj);
+				}
+			}
+
 			obj->Load(reader);
 			obj->ApplyProperties();
 		}
@@ -92,6 +108,11 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 
 		writer.Write("type", child->GetClassName());
 		writer.Write("name", child->GetName());
+
+		if (!child->AddedToTreeByParent())
+		{
+			writer.Write("uid", child->uid);
+		}
 
 		child->Save(writer);
 
@@ -199,6 +220,36 @@ void UIWidgetAsset::SetSource(UIWidgetAsset* set_source, bool remove_from_prev)
 #endif
 }
 
+uint32_t UIWidgetAsset::GetParentUID()
+{
+	if (parent)
+	{
+		return parent->GetParentUID();
+	}
+
+	return GetUID();
+}
+
+SceneObject* UIWidgetAsset::GetChild(uint32_t uid)
+{
+	for (auto child : childs)
+	{
+		if (child->GetUID() == uid)
+		{
+			return child;
+		}
+
+		SceneObject* res = child->GetChild(uid);
+
+		if (res)
+		{
+			return res;
+		}
+	}
+
+	return nullptr;
+}
+
 void UIWidgetAsset::DeleteChilds()
 {
 	for (auto child : childs)
@@ -219,7 +270,7 @@ void UIWidgetAsset::SetEditMode(bool ed)
 #ifdef EDITOR
 	Gizmo::inst->trans2D = ed ? &trans : nullptr;
 	Gizmo::inst->enabled = ed;
-	Gizmo::inst->allow_transform = !source || StringUtils::IsEqual(source->className.c_str(), "UIViewInstanceAsset");
+	Gizmo::inst->allow_transform = !AddedToTreeByParent();
 #endif
 }
 

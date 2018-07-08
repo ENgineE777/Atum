@@ -4,6 +4,8 @@
 CLASSREG(SceneObject, AnimatorObject, "AnimatorObject")
 
 META_DATA_DESC(AnimatorObject)
+BASE_SCENE_OBJ_NAME_PROP(AnimatorObject)
+BASE_SCENE_OBJ_STATE_PROP(AnimatorObject)
 STRING_PROP(AnimatorObject, animator_name, "", "Properties", "Animator")
 BOOL_PROP(AnimatorObject, isLooped, false, "Properties", "Looped")
 META_DATA_DESC_END()
@@ -57,7 +59,7 @@ void AnimatorObject::Play()
 {
 	curTime = 0.0f;
 	SceneObject::Play();
-	animator = (Animator*)owner->Find(animator_name.c_str(), true);
+	animator = (Animator*)owner->FindByName(animator_name.c_str(), true);
 
 	if (animator)
 	{

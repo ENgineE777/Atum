@@ -304,6 +304,36 @@ bool JSONReader::Read(const char* name, int& val)
 	return false;
 }
 
+bool JSONReader::Read(const char* name, uint32_t& val)
+{
+	json_value* node = FindValue(name);
+
+	if (node)
+	{
+		if (node->type == JSON_INT)
+		{
+			val = node->int_value;
+
+			return true;
+		}
+		else
+			if (node->type == JSON_NULL)
+			{
+				val = 0;
+
+				return true;
+			}
+			else
+				if (node->type == JSON_STRING)
+				{
+					val = atoi(node->string_value);
+					return true;
+				}
+	}
+
+	return false;
+}
+
 bool JSONReader::Read(const char* name, int64_t& val)
 {
 	json_value* node = FindValue(name);

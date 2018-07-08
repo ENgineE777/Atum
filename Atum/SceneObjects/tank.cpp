@@ -5,6 +5,8 @@
 CLASSREG(SceneObject, Tank, "Tank")
 
 META_DATA_DESC(Tank)
+BASE_SCENE_OBJ_NAME_PROP(Tank)
+BASE_SCENE_OBJ_STATE_PROP(Tank)
 META_DATA_DESC_END()
 
 float Tank::Projectile::maxTimeLife = 4.0f;

@@ -48,3 +48,4 @@ public:
 };
 
 CLASSFACTORYDEF(Program)
+CLASSFACTORYDEF_END()

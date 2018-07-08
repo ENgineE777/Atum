@@ -4,6 +4,7 @@
 CLASSREG(SceneAsset, Animator, "Animator")
 
 META_DATA_DESC(Animator)
+BASE_SCENE_OBJ_NAME_PROP(Animator)
 FLOAT_PROP(Animator, timeLenght, 3.0f, "Prop", "TimeLenght")
 META_DATA_DESC_END()
 

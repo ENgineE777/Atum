@@ -7,6 +7,11 @@ SceneObject* SceneAsset::CreateInstance()
 }
 
 #ifdef EDITOR
+void SceneAsset::PreapreAssetTree()
+{
+
+}
+
 bool SceneAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index)
 {
 	return false;
@@ -14,7 +19,8 @@ bool SceneAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* i
 
 void SceneAsset::OnAssetTreeSelChange(SceneAsset* item)
 {
-
+	auto kl = &SceneAsset::OnAssetTreePopupItem;
+	(this->*kl)(0);
 }
 
 void SceneAsset::OnAssetTreePopupItem(int id)

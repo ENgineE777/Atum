@@ -5,6 +5,8 @@
 CLASSREG(UIWidgetAsset, UILabelAsset, "Label")
 
 META_DATA_DESC(UILabelAsset)
+BASE_SCENE_OBJ_NAME_PROP(UILabelAsset)
+BASE_SCENE_OBJ_STATE_PROP(UILabelAsset)
 FLOAT_PROP(UILabelAsset, trans.pos.x, 100.0f, "Prop", "x")
 FLOAT_PROP(UILabelAsset, trans.pos.y, 100.0f, "Prop", "y")
 ENUM_PROP(UILabelAsset, horzAlign, 0, "Prop", "horz_align")
@@ -80,16 +82,33 @@ void UILabelAsset::Draw(float dt)
 	}
 }
 
-CLASSREG(UIWidgetAsset, UILabelAssetInst, "LabelInst")
+CLASSREG(UIWidgetAsset, UILabelAssetInst, "UILabel")
 
 META_DATA_DESC(UILabelAssetInst)
+BASE_SCENE_OBJ_STATE_PROP(UILabelAssetInst)
 COLOR_PROP(UILabelAssetInst, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UILabelAssetInst, color.a, 1.0f, "Prop", "alpha")
 STRING_PROP(UILabelAssetInst, text, "Label", "Prop", "text")
 META_DATA_DESC_END()
 
+void UILabelAssetInst::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(UILabelAssetInst)
+	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText), asCALL_GENERIC);
+}
+
+void UILabelAssetInst::SetText(string& set_text)
+{
+	text = set_text;
+}
+
 #ifdef EDITOR
 UILabelAssetInst* UILabelAssetInst::temp = nullptr;
+
+bool UILabelAssetInst::AddedToTreeByParent()
+{
+	return true;
+}
 
 void UILabelAssetInst::StoreProperties()
 {

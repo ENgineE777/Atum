@@ -36,7 +36,7 @@ void FileNameWidget::SetData(void* set_data)
 
 void FileNameWidget::OpenFileDialog()
 {
-	const char* file_name = EUI::OpenOpenDialog(openBtn->GetNativeRoot(), "Any file", NULL);
+	const char* file_name = EUI::OpenOpenDialog(openBtn->GetRoot()->GetNative(), "Any file", NULL);
 
 	char cur_dir[2048];
 	GetCurrentDirectory(512, cur_dir);

@@ -20,4 +20,11 @@ public:
 	void Init() override;
 	void ApplyProperties() override;
 	void Draw(float dt) override;
+
+	void BindClassToScript() override;
+
+#ifdef EDITOR
+	void AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item);
+	void AddChildsToTree(EUITreeView* treeview) override;
+#endif
 };

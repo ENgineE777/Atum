@@ -73,7 +73,7 @@ public:
 
 		virtual void OnSrollerPosChange(class EUIScrollBar* sender, int pos) {};
 
-		virtual bool OnTreeViewItemDragged(class EUITreeView* sender, class EUITreeView* target, void* item, int prev_child_index, void* parent, int child_index) { return false; };
+		virtual bool OnTreeViewItemDragged(class EUITreeView* sender, class EUIWidget* target, void* item, int prev_child_index, void* parent, int child_index) { return false; };
 		virtual void OnTreeViewSelChange(class EUITreeView* sender, void* item) {};
 		virtual void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) {};
 		virtual void OnTreeReCreateItem(class EUITreeView* sender, void* item, void* ptr) {};
@@ -136,6 +136,8 @@ public:
 	virtual void DelChild(EUIWidget* child);
 	virtual int  GetIndexAsChild();
 
+	virtual void GetMousePos(int& x, int& y);
+
 	virtual void Update();
 	virtual void Redraw();
 
@@ -143,7 +145,7 @@ public:
 	virtual void ReleaseMouse();
 
 	virtual void* GetNative();
-	virtual void* GetNativeRoot();
+	virtual EUIWidget* GetRoot();
 
 	EUIWidget* GetParent();
 	int        GetChildsCount();

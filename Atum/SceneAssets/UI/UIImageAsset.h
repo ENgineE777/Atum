@@ -8,7 +8,7 @@ public:
 	META_DATA_DECL(UIImageAsset)
 
 	Sprite::Data sprite;
-	static Sprite::FrameState state;
+	static Sprite::FrameState frame_state;
 
 	virtual ~UIImageAsset();
 
@@ -28,8 +28,11 @@ public:
 
 	META_DATA_DECL(UIImageAssetInst)
 
+	void BindClassToScript() override;
+
 #ifdef EDITOR
 	static UIImageAssetInst* temp;
+	bool AddedToTreeByParent() override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

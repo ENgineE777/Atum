@@ -31,6 +31,9 @@ public:
 	{
 		META_DATA_DECL(NodeSceneObject)
 
+		uint32_t object_uid;
+		uint32_t object_child_uid;
+
 		SceneObject* object = nullptr;
 
 		void Load(JSONReader& loader) override;
@@ -102,6 +105,7 @@ public:
 	Vector2 ms_pos = 0.0f;
 	bool in_drag = false;
 	bool link_drag = false;
+	void OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms) override;
 	void ShowProperties(bool show);
 	void OnMouseMove(Vector2 delta_ms) override;
 	void OnLeftMouseDown(Vector2 ms) override;

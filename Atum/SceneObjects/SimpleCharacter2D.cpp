@@ -7,6 +7,8 @@
 CLASSREG(SceneObject, SimpleCharacter2D, "SimpleCharacter2D")
 
 META_DATA_DESC(SimpleCharacter2D)
+BASE_SCENE_OBJ_NAME_PROP(SimpleCharacter2D)
+BASE_SCENE_OBJ_STATE_PROP(SimpleCharacter2D)
 FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "PosX")
 FLOAT_PROP(SimpleCharacter2D, trans.pos.y, 100.0f, "Geometry", "PosY")
 STRING_PROP(SimpleCharacter2D, vjoy_name, "", "Prop", "VJoy")
@@ -40,7 +42,7 @@ void SimpleCharacter2D::ApplyProperties()
 		}
 	}
 
-	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str(), false);
+	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
 }
 
 void SimpleCharacter2D::Update(float dt)

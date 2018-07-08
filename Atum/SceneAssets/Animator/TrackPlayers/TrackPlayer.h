@@ -77,3 +77,4 @@ public:
 };
 
 CLASSFACTORYDEF(TrackPlayer)
+CLASSFACTORYDEF_END()

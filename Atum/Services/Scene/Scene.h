@@ -29,6 +29,7 @@ public:
 private:
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;
+	std::vector<SceneObject*> pool_childs;
 	TaskExecutor::SingleTaskPool* taskPool;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 	bool playing = false;
@@ -43,6 +44,8 @@ private:
 	void Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block);
 
 	void DeleteObjects(std::vector<SceneObject*>& objects);
+	SceneObject* FindByName(const char* name, std::vector<SceneObject*>& objects);
+	SceneObject* FindByUID(uint32_t uid, uint32_t parent_uid, std::vector<SceneObject*>& objects);
 
 public:
 
@@ -52,7 +55,8 @@ public:
 	void Init();
 
 	SceneObject* AddObject(const char* name, bool is_asset);
-	SceneObject* Find(const char* name, bool is_asset);
+	SceneObject* FindByName(const char* name, bool is_asset);
+	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 	SceneObject* GetObj(int index, bool is_asset);
 	int          GetObjectIndex(SceneObject* obj, bool is_asset);
 	int          GetObjectsCount(bool is_asset);
@@ -69,6 +73,8 @@ public:
 
 	virtual void EnableTasks(bool enable);
 
+	void GenerateUID(SceneObject* obj, bool is_asset);
+	void GenerateChildUID(SceneObject* obj);
 	SceneObject* FindInGroup(const char* group_name, const char* name);
 	Group& GetGroup(const char* name);
 	void AddToGroup(SceneObject* obj, const char* name);

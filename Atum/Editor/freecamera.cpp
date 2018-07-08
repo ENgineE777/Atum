@@ -13,6 +13,7 @@ void FreeCamera::Init()
 	alias_forward = controls.GetAlias("FreeCamera.MOVE_FORWARD");
 	alias_strafe = controls.GetAlias("FreeCamera.MOVE_STRAFE");
 	alias_fast = controls.GetAlias("FreeCamera.MOVE_FAST");
+	alias_move2d_active = controls.GetAlias("FreeCamera.MOVE2D_ACTIVE");
 	alias_rotate_active = controls.GetAlias("FreeCamera.ROTATE_ACTIVE");
 	alias_rotate_x = controls.GetAlias("FreeCamera.ROTATE_X");
 	alias_rotate_y = controls.GetAlias("FreeCamera.ROTATE_Y");
@@ -23,7 +24,7 @@ void FreeCamera::Update(float dt)
 {
 	if (mode_2d)
 	{
-		if (controls.GetAliasState(alias_rotate_active, Controls::Active))
+		if (controls.GetAliasState(alias_move2d_active, Controls::Active))
 		{
 			Sprite::ed_cam_pos.x -= controls.GetAliasValue(alias_rotate_x, true);
 			Sprite::ed_cam_pos.y -= controls.GetAliasValue(alias_rotate_y, true);

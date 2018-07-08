@@ -4,6 +4,8 @@
 CLASSREG(SceneObject, TankClient, "TankClient")
 
 META_DATA_DESC(TankClient)
+BASE_SCENE_OBJ_NAME_PROP(TankClient)
+BASE_SCENE_OBJ_STATE_PROP(TankClient)
 STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
 META_DATA_DESC_END()
 
@@ -29,7 +31,7 @@ void TankClient::Init()
 
 void TankClient::ApplyProperties()
 {
-	vjoy = (VirtualJoystick*)owner->Find(vjoy_name.c_str(), false);
+	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
 }
 
 void TankClient::Play()

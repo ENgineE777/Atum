@@ -19,25 +19,36 @@ class SceneObject : public Object
 	friend class Scene;
 	friend class UIViewAsset;
 
-	TaskExecutor::SingleTaskPool* taskPool = nullptr;
-	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
+public:
+	enum State
+	{
+		Invisible,
+		Inactive,
+		Active
+	};
 
 protected:
+public:
+	TaskExecutor::SingleTaskPool* taskPool = nullptr;
+	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
+	
 	Scene* owner;
-	std::string  name;
-	std::string  className;
+	std::string name;
+	std::string className;
+	std::string scriptClassName;
+	uint32_t uid = 0;
+	State state = Active;
 #ifdef EDITOR
-	bool         edited = false;
+	bool edited = false;
 #endif
 
 public:
 
 #ifdef EDITOR
-	static EUITreeView *  asset_treeview;
-	static EUICategories* cat;
-	static EUIEditBox*    objName;
-	static EUIMenu*       popup_menu;
-	static EUIPanel*      vieport;
+	static EUITreeView *  ed_asset_treeview;
+	static EUICategories* ed_obj_cat;
+	static EUIMenu*       ed_popup_menu;
+	static EUIPanel*      ed_vieport;
 #endif
 
 	SceneObject();
@@ -45,6 +56,10 @@ public:
 
 	const char* GetName();
 	virtual void SetName(const char* name);
+	virtual uint32_t GetUID();
+	virtual uint32_t GetParentUID();
+	virtual void SetState(int state);
+	virtual State GetState();
 	virtual Matrix& Trans();
 	virtual bool UsingCamera2DPos();
 	virtual Vector2& Camera2DPos();
@@ -66,10 +81,17 @@ public:
 	PhysScene* PScene();
 	virtual void Release();
 	virtual bool Is3DObject();
+	virtual SceneObject* GetChild(uint32_t uid);
+
+	virtual void BindClassToScript();
+
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual bool AddedToTreeByParent();
+	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();
+	virtual void OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms);
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
@@ -83,3 +105,19 @@ public:
 };
 
 CLASSFACTORYDEF(SceneObject)
+CLASSFACTORYDEF_END()
+
+#define BASE_SCENE_OBJ_NAME_PROP(className)\
+STRING_PROP(className, name, "", "Common", "Name")
+
+#define BASE_SCENE_OBJ_STATE_PROP(className)\
+ENUM_PROP(className, state, 2, "Common", "State")\
+	ENUM_ELEM("Invisible", 0)\
+	ENUM_ELEM("Inactive", 1)\
+	ENUM_ELEM("Active", 2)\
+ENUM_END
+
+#define BIND_TYPE_TO_SCRIPT(className)\
+scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);

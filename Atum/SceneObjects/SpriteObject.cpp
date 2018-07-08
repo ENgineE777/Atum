@@ -6,6 +6,8 @@
 CLASSREG(SceneObject, SpriteObject, "SpriteObject")
 
 META_DATA_DESC(SpriteObject)
+BASE_SCENE_OBJ_NAME_PROP(SpriteObject)
+BASE_SCENE_OBJ_STATE_PROP(SpriteObject)
 FLOAT_PROP(SpriteObject, trans.pos.x, 100.0f, "Geometry", "PosX")
 FLOAT_PROP(SpriteObject, trans.pos.y, 100.0f, "Geometry", "PosY")
 FLOAT_PROP(SpriteObject, trans.depth, 0.5f, "Geometry", "Depth")

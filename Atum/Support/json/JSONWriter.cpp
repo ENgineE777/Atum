@@ -138,6 +138,18 @@ void JSONWriter::Write(const char* name, float val)
 	}
 }
 
+void JSONWriter::Write(const char* name, uint32_t val)
+{
+	if (name)
+	{
+		WriteFormatedStr(true, "\"%s\" : %i", name, val);
+	}
+	else
+	{
+		WriteFormatedStr(true, "%i", name);
+	}
+}
+
 void JSONWriter::Write(const char* name, int64_t val)
 {
 	if (name)

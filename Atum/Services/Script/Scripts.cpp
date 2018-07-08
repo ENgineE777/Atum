@@ -6,6 +6,7 @@
 #include "Libs/scripthandle.h"
 #include "Libs/scriptmath.h"
 #include "Libs/scriptstdstring.h"
+#include "Services/Scene/SceneObject.h"
 
 Scripts scripts;
 
@@ -45,6 +46,14 @@ void Scripts::Start()
 	RegisterScriptMath(engine);
 
 	engine->RegisterGlobalFunction("void Log(string&in text)", asFUNCTION(PrintString_Generic), asCALL_GENERIC);
+
+	for (const auto& decl : ClassFactorySceneObject::Decls())
+	{
+		SceneObject* obj = decl->Create();
+		obj->scriptClassName = decl->GetShortName();
+		obj->BindClassToScript();
+		obj->Release();
+	}
 
 }
 

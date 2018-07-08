@@ -7,6 +7,8 @@
 CLASSREG(SceneObject, VirtualJoystick, "VirtualJoystick")
 
 META_DATA_DESC(VirtualJoystick)
+BASE_SCENE_OBJ_NAME_PROP(VirtualJoystick)
+BASE_SCENE_OBJ_STATE_PROP(VirtualJoystick)
 FILENAME_PROP(VirtualJoystick, tex_name_stick_pad, "", "Properties", "StickPad")
 FILENAME_PROP(VirtualJoystick, tex_name_stick, "", "Properties", "Stick")
 FILENAME_PROP(VirtualJoystick, tex_name_button_a, "", "Properties", "ButtonA")

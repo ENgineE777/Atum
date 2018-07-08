@@ -61,7 +61,7 @@ void ColorDataTrackWidgets::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 {
 	if (sender == color_ed)
 	{
-		if (EUI::OpenColorDialog(color_ed->GetNativeRoot(), &value->r))
+		if (EUI::OpenColorDialog(color_ed->GetRoot()->GetNative(), &value->r))
 		{
 			int clr[3];
 			clr[0] = (int)(value->r * 255.0f);

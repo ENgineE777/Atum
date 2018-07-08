@@ -4,6 +4,8 @@
 CLASSREG(UIWidgetAsset, UIButtonAsset, "Button")
 
 META_DATA_DESC(UIButtonAsset)
+BASE_SCENE_OBJ_NAME_PROP(UIButtonAsset)
+BASE_SCENE_OBJ_STATE_PROP(UIButtonAsset)
 FLOAT_PROP(UIButtonAsset, trans.pos.x, 100.0f, "Prop", "x")
 FLOAT_PROP(UIButtonAsset, trans.pos.y, 100.0f, "Prop", "y")
 ENUM_PROP(UIButtonAsset, horzAlign, 0, "Prop", "horz_align")
@@ -63,15 +65,26 @@ void UIButtonAsset::Draw(float dt)
 	}
 }
 
-CLASSREG(UIWidgetAsset, UIButtonAssetInst, "ButtonInst")
+CLASSREG(UIWidgetAsset, UIButtonAssetInst, "UIButton")
 
 META_DATA_DESC(UIButtonAssetInst)
+BASE_SCENE_OBJ_STATE_PROP(UIButtonAssetInst)
 COLOR_PROP(UIButtonAssetInst, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIButtonAssetInst, color.a, 1.0f, "Prop", "alpha")
 META_DATA_DESC_END()
 
+void UIButtonAssetInst::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(UIButtonAssetInst)
+}
+
 #ifdef EDITOR
 UIButtonAssetInst* UIButtonAssetInst::temp = nullptr;
+
+bool UIButtonAssetInst::AddedToTreeByParent()
+{
+	return true;
+}
 
 void UIButtonAssetInst::Init()
 {

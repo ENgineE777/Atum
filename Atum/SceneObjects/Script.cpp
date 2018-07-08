@@ -40,6 +40,8 @@ void StartScriptEdit(void* owner)
 #endif
 
 META_DATA_DESC(Script)
+BASE_SCENE_OBJ_NAME_PROP(Script)
+BASE_SCENE_OBJ_STATE_PROP(Script)
 #ifdef EDITOR
 CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
 #endif
@@ -65,11 +67,17 @@ void Script::Node::Save(JSONWriter& saver)
 void Script::NodeSceneObject::Load(JSONReader& loader)
 {
 	Node::Load(loader);
+
+	loader.Read("object_uid", object_uid);
+	loader.Read("object_child_uid", object_child_uid);
 }
 
 void Script::NodeSceneObject::Save(JSONWriter& saver)
 {
 	Node::Save(saver);
+
+	saver.Write("object_uid", object_uid);
+	saver.Write("object_child_uid", object_child_uid);
 }
 
 void Script::NodeScriptProperty::Load(JSONReader& loader)
@@ -168,7 +176,7 @@ void Script::Init()
 
 void Script::Load(JSONReader& loader)
 {
-	UIViewInstance* uiinst = (UIViewInstance*)owner->Find("Menu", false);
+	UIViewInstance* uiinst = (UIViewInstance*)owner->FindByName("Menu", false);
 
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(loader);
@@ -203,19 +211,10 @@ void Script::Load(JSONReader& loader)
 		node->type = (NodeType)type;
 		node->Load(loader);
 
-		if (type == ScnCallback && StringUtils::IsEqual(node->name.c_str(), "Button1"))
+		if (type == ScnCallback || type == ScnObject)
 		{
-			((NodeSceneObject*)node)->object = uiinst->childs[1]->childs[0];
-		}
-
-		if (type == ScnCallback && StringUtils::IsEqual(node->name.c_str(), "Button2"))
-		{
-			((NodeSceneObject*)node)->object = uiinst->childs[2]->childs[0];
-		}
-
-		if (type == ScnObject && StringUtils::IsEqual(node->name.c_str(), "Label"))
-		{
-			((NodeSceneObject*)node)->object = uiinst->childs[3];
+			NodeSceneObject* scene_node = (NodeSceneObject*)node;
+			scene_node->object = owner->FindByUID(scene_node->object_uid, scene_node->object_child_uid, false);
 		}
 
 		loader.LeaveBlock();
@@ -256,13 +255,6 @@ void Script::SetName(const char* set_name)
 	}
 }
 
-void LabelSetText_Generic(asIScriptGeneric *gen)
-{
-	UILabelAssetInst* inst = (UILabelAssetInst*)gen->GetObject();
-	string* arg = (string*)(gen->GetArgAddress(0));
-	inst->text = *arg;
-}
-
 void Script::Play()
 {
 	string filename = string("Media//") + string(GetName()) + ".asc";
@@ -277,9 +269,6 @@ void Script::Play()
 	script.resize(len);
 	size_t c = fread(&script[0], len, 1, f);
 	fclose(f);
-
-	scripts.engine->RegisterObjectType("UILabel", sizeof(UILabelAssetInst), asOBJ_REF | asOBJ_NOCOUNT);
-	scripts.engine->RegisterObjectMethod("UILabel", "void SetText(string&in)", asFUNCTION(LabelSetText_Generic), asCALL_GENERIC);
 
 	mod = scripts.engine->GetModule(0, asGM_ALWAYS_CREATE);
 	mod->AddScriptSection("script", &script[0], len);
@@ -440,6 +429,12 @@ void Script::EditorWork(float dt)
 
 		const char* names[] = {"SceneObject:", "Callback:", "Property:", "Method:"};
 		render.DebugPrintText(node->pos + Vector2(10.0f, 10.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
+
+		if (node->type == ScnObject || node->type == ScnCallback)
+		{
+			NodeSceneObject* scene_node = (NodeSceneObject*)node;
+			render.DebugPrintText(node->pos + Vector2(10.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node->object ? scene_node->object->GetName() : "NULL");
+		}
 
 		index++;
 	}
@@ -607,26 +602,19 @@ void Script::OnRightMouseDown(Vector2 ms)
 {
 	ms_pos = ms;
 
-	popup_menu->StartMenu(true);
+	ed_popup_menu->StartMenu(true);
 
-	popup_menu->StartSubMenu("Create Link to");
-	popup_menu->AddItem(5000, "Object");
-	popup_menu->AddItem(5001, "Callback");
-	popup_menu->AddItem(5002, "Property");
-	popup_menu->AddItem(5003, "Method");
-	popup_menu->EndSubMenu();
+	ed_popup_menu->StartSubMenu("Create Link to");
+	ed_popup_menu->AddItem(5000, "Object");
+	ed_popup_menu->AddItem(5001, "Callback");
+	ed_popup_menu->AddItem(5002, "Property");
+	ed_popup_menu->AddItem(5003, "Method");
+	ed_popup_menu->EndSubMenu();
 
-	if (sel_node != -1)
-	{
-		if (sel_link == -1)
-		{
-			//popup_menu->AddItem(5004, "Duplicate");
-		}
+	ed_popup_menu->AddItem(5004, "Duplicate", (sel_node != -1 && sel_link == -1));
+	ed_popup_menu->AddItem(5005, "Delete", (sel_node != -1));
 
-		popup_menu->AddItem(5005, "Delete");
-	}
-
-	popup_menu->ShowAsPopup(vieport, (int)ms.x, (int)ms.y);
+	ed_popup_menu->ShowAsPopup(ed_vieport, (int)ms.x, (int)ms.y);
 }
 
 void Script::OnPopupMenuItem(int id)
@@ -637,6 +625,7 @@ void Script::OnPopupMenuItem(int id)
 	{
 		NodeSceneObject* scene_node = new NodeSceneObject();
 		scene_node->type = ScnObject;
+		scene_node->name = "Object";
 		node = scene_node;
 	}
 
@@ -644,6 +633,7 @@ void Script::OnPopupMenuItem(int id)
 	{
 		NodeSceneObject* scene_node = new NodeSceneObject();
 		scene_node->type = ScnCallback;
+		scene_node->name = "Object";
 		node = scene_node;
 	}
 
@@ -651,6 +641,7 @@ void Script::OnPopupMenuItem(int id)
 	{
 		NodeScriptProperty* prop_node = new NodeScriptProperty();
 		prop_node->type = ScriptProperty;
+		prop_node->name = "property";
 		node = prop_node;
 	}
 
@@ -658,14 +649,13 @@ void Script::OnPopupMenuItem(int id)
 	{
 		NodeScriptMethod* method_node = new NodeScriptMethod();
 		method_node->type = ScriptMethod;
-		node->name = "property";
+		method_node->name = "method";
 		node = method_node;
 	}
 
 	if (node)
 	{
 		node->pos = ms_pos + Sprite::ed_cam_pos;
-		node->name = "method";
 		nodes.push_back(node);
 	}
 
@@ -735,6 +725,28 @@ void Script::OnPopupMenuItem(int id)
 	}
 }
 
+void Script::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
+{
+	for (auto& node : nodes)
+	{
+		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
+			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+		{
+			if (node->type == ScnCallback || node->type == ScnObject)
+			{
+				NodeSceneObject* scene_node = (NodeSceneObject*)node;
+
+				scene_node->object_uid = object->GetParentUID();
+				scene_node->object_child_uid = object->GetUID();
+
+				scene_node->object = object;
+			}
+
+			break;
+		}
+	}
+}
+
 void Script::ShowProperties(bool show)
 {
 	if (show)
@@ -745,7 +757,7 @@ void Script::ShowProperties(bool show)
 			if (link->GetMetaData())
 			{
 				link->GetMetaData()->Prepare(link);
-				link->GetMetaData()->PrepareWidgets(cat);
+				link->GetMetaData()->PrepareWidgets(ed_obj_cat);
 			}
 		}
 		else
@@ -753,7 +765,7 @@ void Script::ShowProperties(bool show)
 		{
 			Node* node = nodes[sel_node];
 			node->GetMetaData()->Prepare(node);
-			node->GetMetaData()->PrepareWidgets(cat);
+			node->GetMetaData()->PrepareWidgets(ed_obj_cat);
 		}
 	}
 	else

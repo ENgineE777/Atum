@@ -5,6 +5,8 @@
 CLASSREG(SceneObject, ColorCorrection, "ColorCorrection")
 
 META_DATA_DESC(ColorCorrection)
+BASE_SCENE_OBJ_NAME_PROP(ColorCorrection)
+BASE_SCENE_OBJ_STATE_PROP(ColorCorrection)
 META_DATA_DESC_END()
 
 void ColorCorrection::Init()

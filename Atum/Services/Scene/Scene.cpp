@@ -27,6 +27,11 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 
 	if (obj)
 	{
+		if (!is_asset)
+		{
+			obj->scriptClassName = is_asset ? ClassFactorySceneAsset::Find(name)->GetShortName() : ClassFactorySceneObject::Find(name)->GetShortName();
+		}
+
 		obj->owner = this;
 		obj->className = name;
 		obj->Init();
@@ -47,30 +52,50 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 	return obj;
 }
 
-SceneObject* Scene::Find(const char* name, bool is_asset)
+SceneObject* Scene::FindByName(const char* name, std::vector<SceneObject*>& objects)
 {
-	if (is_asset)
+	for (auto obj : objects)
 	{
-		for (auto asset : assets)
+		if (StringUtils::IsEqual(obj->GetName(), name))
 		{
-			if (StringUtils::IsEqual(asset->GetName(), name))
-			{
-				return (SceneAsset*)asset;
-			}
-		}
-	}
-	else
-	{
-		for (auto obj : objects)
-		{
-			if (StringUtils::IsEqual(obj->GetName(), name))
-			{
-				return obj;
-			}
+			return (SceneAsset*)obj;
 		}
 	}
 
 	return nullptr;
+}
+
+SceneObject* Scene::FindByName(const char* name, bool is_asset)
+{
+	if (is_asset)
+	{
+		return FindByName(name, assets);
+	}
+
+	return FindByName(name, objects);
+}
+
+SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, std::vector<SceneObject*>& objects)
+{
+	for (auto obj : objects)
+	{
+		if (obj->GetUID() == uid)
+		{
+			return (child_uid == 0) ? obj : obj->GetChild(child_uid);
+		}
+	}
+
+	return nullptr;
+}
+
+SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset)
+{
+	if (is_asset)
+	{
+		return FindByUID(uid, child_uid, assets);
+	}
+
+	return FindByUID(uid, child_uid, objects);
 }
 
 SceneObject* Scene::GetObj(int index, bool is_asset)
@@ -174,6 +199,12 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 		{
 			char name[512];
 			reader.Read("name", name, 512);
+			reader.Read("uid", obj->uid);
+
+			if (obj->uid == 0)
+			{
+				GenerateUID(obj, is_asset);
+			}
 
 			obj->SetName(name);
 
@@ -228,6 +259,7 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 
 		writer.Write("type", obj->GetClassName());
 		writer.Write("name", obj->GetName());
+		writer.Write("uid", obj->GetUID());
 
 		if (obj->Is3DObject())
 		{
@@ -310,6 +342,49 @@ void Scene::EnableTasks(bool enable)
 {
 	taskPool->SetActive(enable);
 	renderTaskPool->SetActive(enable);
+}
+
+void Scene::GenerateUID(SceneObject* obj, bool is_asset)
+{
+	uint32_t uid = 0;
+
+	while (!uid)
+	{
+		float koef = rnd() * 0.99f;
+		uid = (uint32_t)(koef * uint32_t(-1));
+		uid = FindByUID(uid, 0, is_asset) ? 0 : uid;
+	}
+
+	obj->uid = uid;
+}
+
+void Scene::GenerateChildUID(SceneObject* obj)
+{
+	bool need_add = true;
+
+	for (auto child : pool_childs)
+	{
+		if (child == obj)
+		{
+			need_add = false;
+		}
+	}
+
+	if (need_add)
+	{
+		pool_childs.push_back(obj);
+	}
+
+	uint32_t uid = 0;
+
+	while (!uid)
+	{
+		float koef = rnd() * 0.99f;
+		uid = (uint32_t)(koef * uint32_t(-1));
+		uid = FindByUID(uid, 0, pool_childs) ? 0 : uid;
+	}
+
+	obj->uid = uid;
 }
 
 SceneObject* Scene::FindInGroup(const char* group_name, const char* name)

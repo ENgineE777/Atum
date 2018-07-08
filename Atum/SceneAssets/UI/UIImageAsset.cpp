@@ -13,6 +13,8 @@ void StartEditUIImageAsset(void* owner)
 CLASSREG(UIWidgetAsset, UIImageAsset, "Image")
 
 META_DATA_DESC(UIImageAsset)
+BASE_SCENE_OBJ_NAME_PROP(UIImageAsset)
+BASE_SCENE_OBJ_STATE_PROP(UIImageAsset)
 FLOAT_PROP(UIImageAsset, trans.pos.x, 100.0f, "Prop", "x")
 FLOAT_PROP(UIImageAsset, trans.pos.y, 100.0f, "Prop", "y")
 ENUM_PROP(UIImageAsset, horzAlign, 0, "Prop", "horz_align")
@@ -54,7 +56,7 @@ CALLBACK_PROP(UIImageAsset, StartEditUIImageAsset, "Prop", "EditSprite")
 #endif
 META_DATA_DESC_END()
 
-Sprite::FrameState UIImageAsset::state;
+Sprite::FrameState UIImageAsset::frame_state;
 
 UIImageAsset::~UIImageAsset()
 {
@@ -94,7 +96,7 @@ void UIImageAsset::Draw(float dt)
 
 	CalcState();
 
-	Sprite::UpdateFrame(&sprite, &state, dt);
+	Sprite::UpdateFrame(&sprite, &frame_state, dt);
 
 #ifdef EDITOR
 	/*if (Gizmo::inst->trans2D == &trans && SpriteWindow::instance && !SpriteWindow::instance->show_anim)
@@ -108,7 +110,7 @@ void UIImageAsset::Draw(float dt)
 	}*/
 #endif
 
-	Sprite::Draw(&trans, cur_color, &sprite, &state, false);
+	Sprite::Draw(&trans, cur_color, &sprite, &frame_state, false);
 
 	for (auto child : childs)
 	{
@@ -124,7 +126,7 @@ void UIImageAsset::Copy(SceneObject* src)
 }
 #endif
 
-CLASSREG(UIWidgetAsset, UIImageAssetInst, "ImageInst")
+CLASSREG(UIWidgetAsset, UIImageAssetInst, "UIImage")
 
 #ifdef EDITOR
 void StartEditUIImageAssetInst(void* owner)
@@ -135,15 +137,26 @@ void StartEditUIImageAssetInst(void* owner)
 #endif
 
 META_DATA_DESC(UIImageAssetInst)
-COLOR_PROP(UIImageAsset, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(UIImageAsset, color.a, 1.0f, "Prop", "alpha")
+BASE_SCENE_OBJ_STATE_PROP(UIImageAssetInst)
+COLOR_PROP(UIImageAssetInst, color, COLOR_WHITE, "Prop", "color")
+FLOAT_PROP(UIImageAssetInst, color.a, 1.0f, "Prop", "alpha")
 #ifdef EDITOR
-CALLBACK_PROP(UIImageAsset, StartEditUIImageAssetInst, "Prop", "EditSprite")
+CALLBACK_PROP(UIImageAssetInst, StartEditUIImageAssetInst, "Prop", "EditSprite")
 #endif
 META_DATA_DESC_END()
 
+void UIImageAssetInst::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(UIImageAssetInst)
+}
+
 #ifdef EDITOR
 UIImageAssetInst* UIImageAssetInst::temp = nullptr;
+
+bool UIImageAssetInst::AddedToTreeByParent()
+{
+	return true;
+}
 
 void UIImageAssetInst::StoreProperties()
 {

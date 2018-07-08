@@ -26,11 +26,13 @@ public:
 	META_DATA_DECL(UIButtonAssetInst)
 
 	void Init() override;
-
 	void Draw(float dt) override;
+
+	void BindClassToScript() override;
 
 #ifdef EDITOR
 	static UIButtonAssetInst* temp;
+	bool AddedToTreeByParent() override;
 	void StoreProperties() override;
 	void RestoreProperties() override;
 #endif

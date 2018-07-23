@@ -1,28 +1,16 @@
 ﻿{
 
+	"camera_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
 	"SceneAsset" : [
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_Idle",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -264459008,
+			"Name" : "SpriteBat_Idle",
 			"x" : 683.000000,
 			"y" : 411.000000,
 			"width" : 232.000000,
@@ -32,6 +20,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -268,25 +263,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_Walk",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 1992026240,
+			"Name" : "SpriteBat_Walk",
 			"x" : 632.000000,
 			"y" : 414.000000,
 			"width" : 232.000000,
@@ -296,6 +274,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -504,25 +489,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_LegKick1",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1122985728,
+			"Name" : "SpriteBat_LegKick1",
 			"x" : 648.000000,
 			"y" : 417.000000,
 			"width" : 232.000000,
@@ -532,6 +500,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -740,25 +715,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_LegKick2",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 1463492352,
+			"Name" : "SpriteBat_LegKick2",
 			"x" : 579.000000,
 			"y" : 367.000000,
 			"width" : 232.000000,
@@ -768,6 +726,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -976,25 +941,13 @@
 		{
 			"type" : "SpriteGraphAsset",
 			"name" : "SpriteBat_Graph",
-			"transform" :
+			"uid" : -420047360,
+			"ed_camera_2d" :
 			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
+				"x" : 161.000000,
+				"y" : 97.000000
 			},
+			"Name" : "SpriteBat_Graph",
 			"x" : 116.000000,
 			"y" : 200.000000,
 			"width" : 232.000000,
@@ -1004,17 +957,19 @@
 				"width" : 0,
 				"height" : 0,
 				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "",
 				"texMode" : 0,
 				"texFilter" : 1,
 				"count" : 0,
 				"Rect" : [
 				]
-			},
-			"camera_pos" :
-			{
-				"x" : 0.000000,
-				"y" : 0.000000
 			},
 			"def_node" : 0,
 			"Count" : 8,
@@ -1228,25 +1183,13 @@
 		{
 			"type" : "SpriteGraphAsset",
 			"name" : "SpriteEnemy1_Graph",
-			"transform" :
+			"uid" : -1474000640,
+			"ed_camera_2d" :
 			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
+				"x" : 100.000000,
+				"y" : 10.000000
 			},
+			"Name" : "SpriteEnemy1_Graph",
 			"x" : 82.000000,
 			"y" : 156.000000,
 			"width" : 164.000000,
@@ -1256,17 +1199,19 @@
 				"width" : 0,
 				"height" : 0,
 				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "",
 				"texMode" : 0,
 				"texFilter" : 1,
 				"count" : 0,
 				"Rect" : [
 				]
-			},
-			"camera_pos" :
-			{
-				"x" : 13.000000,
-				"y" : 38.000000
 			},
 			"def_node" : 0,
 			"Count" : 8,
@@ -1480,25 +1425,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBackground",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -336218880,
+			"Name" : "SpriteBackground",
 			"x" : 573.000000,
 			"y" : 418.000000,
 			"width" : 3246.000000,
@@ -1508,6 +1436,13 @@
 				"width" : 634,
 				"height" : 256,
 				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39450.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -1546,25 +1481,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteFloor",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 1716145280,
+			"Name" : "SpriteFloor",
 			"x" : 623.000000,
 			"y" : 488.000000,
 			"width" : 3246.000000,
@@ -1574,6 +1492,13 @@
 				"width" : 634,
 				"height" : 256,
 				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39450.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -1612,25 +1537,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Idle",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 502451008,
+			"Name" : "SpriteEnemy1_Idle",
 			"x" : 273.000000,
 			"y" : 278.000000,
 			"width" : 184.000000,
@@ -1640,6 +1548,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -1932,25 +1847,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Walk",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 857748224,
+			"Name" : "SpriteEnemy1_Walk",
 			"x" : 699.000000,
 			"y" : 396.000000,
 			"width" : 164.000000,
@@ -1960,6 +1858,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -2196,25 +2101,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Kick1",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -485838336,
+			"Name" : "SpriteEnemy1_Kick1",
 			"x" : 593.000000,
 			"y" : 378.000000,
 			"width" : 179.000000,
@@ -2224,6 +2112,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -2432,25 +2327,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Kick2",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1743912448,
+			"Name" : "SpriteEnemy1_Kick2",
 			"x" : 692.000000,
 			"y" : 399.000000,
 			"width" : 184.000000,
@@ -2460,6 +2338,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -2752,25 +2637,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Hit",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1035524096,
+			"Name" : "SpriteEnemy1_Hit",
 			"x" : 643.000000,
 			"y" : 479.000000,
 			"width" : 149.000000,
@@ -2780,6 +2648,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -2932,25 +2807,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_Hit",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 64882620,
+			"Name" : "SpriteBat_Hit",
 			"x" : 579.000000,
 			"y" : 367.000000,
 			"width" : 232.000000,
@@ -2960,6 +2818,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -3112,25 +2977,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Death",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1032279808,
+			"Name" : "SpriteEnemy1_Death",
 			"x" : 857.000000,
 			"y" : 389.000000,
 			"width" : 297.000000,
@@ -3140,6 +2988,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -3320,25 +3175,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_Death",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 1213953792,
+			"Name" : "SpriteBat_Death",
 			"x" : 721.000000,
 			"y" : 418.000000,
 			"width" : 312.000000,
@@ -3348,6 +3186,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -3528,25 +3373,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteEnemy1_Resp",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 428225312,
+			"Name" : "SpriteEnemy1_Resp",
 			"x" : 699.000000,
 			"y" : 396.000000,
 			"width" : 307.000000,
@@ -3556,6 +3384,13 @@
 				"width" : 686,
 				"height" : 1200,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -3596,25 +3431,8 @@
 		{
 			"type" : "SpriteAsset",
 			"name" : "SpriteBat_Resp",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -182577152,
+			"Name" : "SpriteBat_Resp",
 			"x" : 632.000000,
 			"y" : 414.000000,
 			"width" : 307.000000,
@@ -3624,6 +3442,13 @@
 				"width" : 1765,
 				"height" : 1890,
 				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
 				"texName" : "Media/44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
@@ -3660,31 +3485,2549 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "MainMenu",
+			"uid" : 572264768,
+			"Name" : "MainMenu",
+			"x" : 578.000000,
+			"y" : 236.000000,
+			"width" : 226.000000,
+			"height" : 353.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIImageAsset",
+					"name" : "Image",
+					"uid" : 1818659840,
+					"Name" : "Image",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 226.000000,
+					"height" : 353.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "Image",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 226.000000,
+					"height" : 353.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAsset",
+					"name" : "Container",
+					"uid" : 540342464,
+					"Name" : "Container",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 322.000000,
+					"height" : 355.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : 1135835264,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 190.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 322.000000,
+							"height" : 30.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Label",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "Button",
+									"uid" : -1117535488,
+									"Name" : "Button",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 322.000000,
+									"height" : 30.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : 684900928,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 137.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 322.000000,
+							"height" : 28.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Label",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "Button",
+									"uid" : 2094411008,
+									"Name" : "Button",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 322.000000,
+									"height" : 28.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "AboutMenu",
+			"uid" : 514389440,
+			"Name" : "AboutMenu",
+			"x" : 562.000000,
+			"y" : 199.000000,
+			"width" : 578.000000,
+			"height" : 608.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIImageAsset",
+					"name" : "Background",
+					"uid" : 1394457344,
+					"Name" : "Background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 578.000000,
+					"height" : 608.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 32.000000
+								},
+								"size" :
+								{
+									"x" : 32.000000,
+									"y" : 32.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "Background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 578.000000,
+					"height" : 608.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"name" : "Image",
+					"uid" : 917051008,
+					"Name" : "Image",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : -100.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 500.000000,
+					"height" : 183.800629,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 642,
+						"height" : 236,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Media/AtumLogo.png",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 236.000000
+								},
+								"size" :
+								{
+									"x" : 642.000000,
+									"y" : 236.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "Image",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : -100.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 500.000000,
+					"height" : 183.800629,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UILabelAsset",
+					"name" : "Label",
+					"uid" : 632994880,
+					"Name" : "Label",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 50.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 236.000000,
+					"height" : 113.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"font_name" : "settings/helvetica",
+					"font_height" : 15,
+					"text" : "Back",
+					"text_horz_align" : 1,
+					"text_vert_align" : 1,
+					"Childs" : [
+						{
+							"type" : "UIButtonAsset",
+							"name" : "Button",
+							"uid" : 1630500352,
+							"Name" : "Button",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 236.000000,
+							"height" : 113.000000,
+							"horz_size" : 1,
+							"vert_size" : 1,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UILabelAsset",
+					"name" : "Label",
+					"uid" : 1866543232,
+					"Name" : "Label",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : -210.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 199.000000,
+					"height" : 44.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"font_name" : "settings/helvetica",
+					"font_height" : 15,
+					"text" : "Powered by",
+					"text_horz_align" : 1,
+					"text_vert_align" : 1,
+					"Childs" : [
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "HPBar",
+			"uid" : 1894183168,
+			"Name" : "HPBar",
+			"x" : 300.000000,
+			"y" : 300.000000,
+			"width" : 500.000000,
+			"height" : 50.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UILabelAsset",
+					"name" : "title",
+					"uid" : 1963218304,
+					"Name" : "title",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 120.000000,
+					"height" : 50.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"font_name" : "settings/helvetica",
+					"font_height" : 15,
+					"text" : "Label",
+					"text_horz_align" : 1,
+					"text_vert_align" : 1,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"name" : "hp_under",
+					"uid" : 1991117952,
+					"Name" : "hp_under",
+					"State" : 2,
+					"x" : 120.000000,
+					"y" : 10.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 200.000000,
+					"height" : 35.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 0.082353,
+							"b" : 0.082353,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "hp_under",
+					"State" : 2,
+					"x" : 120.000000,
+					"y" : 10.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 200.000000,
+					"height" : 35.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"name" : "hp_above",
+					"uid" : -1510983936,
+					"Name" : "hp_above",
+					"State" : 2,
+					"x" : 120.000000,
+					"y" : 10.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 200.000000,
+					"height" : 35.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.945098,
+							"g" : 0.980392,
+							"b" : 0.552941,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "hp_above",
+					"State" : 2,
+					"x" : 120.000000,
+					"y" : 10.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 200.000000,
+					"height" : 35.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "HUD",
+			"uid" : -1606880256,
+			"Name" : "HUD",
+			"x" : 240.000000,
+			"y" : 168.000000,
+			"width" : 1149.000000,
+			"height" : 715.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIViewInstanceAsset",
+					"name" : "player_hp",
+					"uid" : 1471148544,
+					"Name" : "player_hp",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"width" : 350.000000,
+					"height" : 50.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"source" : "HPBar",
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "title",
+							"uid" : -570834688,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Player",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_under",
+							"uid" : -2092980992,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 0.082353,
+									"b" : 0.082353,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_above",
+							"uid" : 960911616,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.945098,
+									"g" : 0.980392,
+									"b" : 0.552941,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIViewInstanceAsset",
+					"name" : "enemy_hp",
+					"uid" : 1031893184,
+					"Name" : "enemy_hp",
+					"State" : 2,
+					"x" : 350.000000,
+					"y" : 0.000000,
+					"width" : 350.000000,
+					"height" : 50.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"source" : "HPBar",
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "title",
+							"uid" : -1590659584,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Enemy",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_under",
+							"uid" : -78245632,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 0.082353,
+									"b" : 0.082353,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_above",
+							"uid" : 428355072,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.945098,
+									"g" : 0.980392,
+									"b" : 0.552941,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UILabelAsset",
+					"name" : "Label",
+					"uid" : -1503587328,
+					"Name" : "Label",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 2,
+					"vert_align" : 3,
+					"width" : 173.000000,
+					"height" : 59.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"font_name" : "settings/helvetica",
+					"font_height" : 15,
+					"text" : "Pause",
+					"text_horz_align" : 1,
+					"text_vert_align" : 1,
+					"Childs" : [
+						{
+							"type" : "UIButtonAsset",
+							"name" : "Button",
+							"uid" : -2052883456,
+							"Name" : "Button",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 173.000000,
+							"height" : 59.000000,
+							"horz_size" : 1,
+							"vert_size" : 1,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"Childs" : [
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "PauseMenu",
+			"uid" : 868518720,
+			"Name" : "PauseMenu",
+			"x" : 503.000000,
+			"y" : 258.000000,
+			"width" : 500.000000,
+			"height" : 500.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIImageAsset",
+					"name" : "Background",
+					"uid" : 1077959936,
+					"Name" : "Background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 500.000000,
+					"height" : 500.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.500000
+					},
+					"alpha" : 0.500000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "Background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 500.000000,
+					"height" : 500.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.500000
+					},
+					"alpha" : 0.500000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAsset",
+					"name" : "View",
+					"uid" : -1079254784,
+					"Name" : "View",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 400.000000,
+					"height" : 110.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+						{
+							"type" : "UILabelAsset",
+							"name" : "l_exit",
+							"uid" : -302869248,
+							"Name" : "l_exit",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 60.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 400.000000,
+							"height" : 50.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Return to Main Menu",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "b_exit",
+									"uid" : -767039744,
+									"Name" : "b_exit",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 400.000000,
+									"height" : 50.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "l_resume",
+							"uid" : 1084188544,
+							"Name" : "l_resume",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 400.000000,
+							"height" : 50.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Resume Game",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "b_resume",
+									"uid" : 1044999488,
+									"Name" : "b_resume",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 400.000000,
+									"height" : 50.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"name" : "HPBSelectCharacter",
+			"uid" : 29326944,
+			"Name" : "HPBSelectCharacter",
+			"x" : 558.000000,
+			"y" : 247.000000,
+			"width" : 500.000000,
+			"height" : 450.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIImageAsset",
+					"name" : "background",
+					"uid" : 1456744576,
+					"Name" : "background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 500.000000,
+					"height" : 450.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.007843,
+							"g" : 0.007843,
+							"b" : 0.007843,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Name" : "background",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 500.000000,
+					"height" : 450.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAsset",
+					"name" : "Container",
+					"uid" : -1160358144,
+					"Name" : "Container",
+					"State" : 2,
+					"x" : -2.000000,
+					"y" : 0.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 500.000000,
+					"height" : 450.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : 67867224,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 300.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 50.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Change",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "b_NextPlayer",
+									"uid" : 430301568,
+									"Name" : "b_NextPlayer",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 200.000000,
+									"height" : 50.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : 1802568960,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 300.000000,
+							"y" : 300.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 50.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Change",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "b_NextEnemy",
+									"uid" : -94206976,
+									"Name" : "b_NextEnemy",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 200.000000,
+									"height" : 50.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : 581478016,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 150.000000,
+							"y" : 400.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 50.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Start ",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"name" : "b_start_game",
+									"uid" : -2060929024,
+									"Name" : "b_start_game",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 200.000000,
+									"height" : 50.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : -2045875968,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 200.000000,
+							"y" : 175.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 100.000000,
+							"height" : 50.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "VS",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"name" : "Label",
+							"uid" : -1683831296,
+							"Name" : "Label",
+							"State" : 2,
+							"x" : 100.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 300.000000,
+							"height" : 50.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"font_name" : "settings/helvetica",
+							"font_height" : 15,
+							"text" : "Select Characters",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"name" : "PlayerImageCnt",
+							"uid" : 791567936,
+							"Name" : "PlayerImageCnt",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 100.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 200.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.552941,
+									"g" : 0.517647,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Name" : "PlayerImageCnt",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 100.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 200.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"Childs" : [
+								{
+									"type" : "UIImageAsset",
+									"name" : "PlayerImage",
+									"uid" : 388257600,
+									"Name" : "PlayerImage",
+									"State" : 2,
+									"x" : 26.289928,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 147.420151,
+									"height" : 200.000000,
+									"horz_size" : 2,
+									"vert_size" : 2,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"slice" :
+									{
+										"width" : 0,
+										"height" : 0,
+										"type" : 0,
+										"color" :
+										{
+											"r" : 1.000000,
+											"g" : 1.000000,
+											"b" : 1.000000,
+											"a" : 1.000000
+										},
+										"texName" : "",
+										"texMode" : 0,
+										"texFilter" : 1,
+										"count" : 1,
+										"Rect" : [
+											{
+												"pos" :
+												{
+													"x" : 0.000000,
+													"y" : 814.000000
+												},
+												"size" :
+												{
+													"x" : 600.000000,
+													"y" : 814.000000
+												},
+												"uv" :
+												{
+													"x" : 0.000000,
+													"y" : 1.000000
+												},
+												"duv" :
+												{
+													"x" : 1.000000,
+													"y" : 1.000000
+												},
+												"offset" :
+												{
+													"x" : 0.000000,
+													"y" : 0.000000
+												}
+											}
+										]
+									},
+									"Name" : "PlayerImage",
+									"State" : 2,
+									"x" : 26.289928,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 147.420151,
+									"height" : 200.000000,
+									"horz_size" : 2,
+									"vert_size" : 2,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"name" : "EnemyImageCnt",
+							"uid" : 835169088,
+							"Name" : "EnemyImageCnt",
+							"State" : 2,
+							"x" : 300.000000,
+							"y" : 100.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 200.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.980392,
+									"g" : 0.439216,
+									"b" : 0.450980,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Name" : "EnemyImageCnt",
+							"State" : 2,
+							"x" : 300.000000,
+							"y" : 100.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 200.000000,
+							"height" : 200.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"Childs" : [
+								{
+									"type" : "UIImageAsset",
+									"name" : "EnemyImage",
+									"uid" : -253688320,
+									"Name" : "EnemyImage",
+									"State" : 2,
+									"x" : 26.289928,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 147.420151,
+									"height" : 200.000000,
+									"horz_size" : 2,
+									"vert_size" : 2,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"slice" :
+									{
+										"width" : 0,
+										"height" : 0,
+										"type" : 0,
+										"color" :
+										{
+											"r" : 1.000000,
+											"g" : 1.000000,
+											"b" : 1.000000,
+											"a" : 1.000000
+										},
+										"texName" : "",
+										"texMode" : 0,
+										"texFilter" : 1,
+										"count" : 1,
+										"Rect" : [
+											{
+												"pos" :
+												{
+													"x" : 0.000000,
+													"y" : 814.000000
+												},
+												"size" :
+												{
+													"x" : 600.000000,
+													"y" : 814.000000
+												},
+												"uv" :
+												{
+													"x" : 0.000000,
+													"y" : 1.000000
+												},
+												"duv" :
+												{
+													"x" : 1.000000,
+													"y" : 1.000000
+												},
+												"offset" :
+												{
+													"x" : 0.000000,
+													"y" : 0.000000
+												}
+											}
+										]
+									},
+									"Name" : "EnemyImage",
+									"State" : 2,
+									"x" : 26.289928,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 147.420151,
+									"height" : 200.000000,
+									"horz_size" : 2,
+									"vert_size" : 2,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	],
 	"SceneObject" : [
 		{
 			"type" : "SpriteObject",
 			"name" : "Background",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1456741888,
+			"Name" : "Background",
+			"State" : 0,
 			"PosX" : 793.000000,
 			"PosY" : 347.000000,
 			"Depth" : 0.750000,
@@ -3693,26 +6036,10 @@
 		},
 		{
 			"type" : "SpriteObject",
-			"name" : "Flloor",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"name" : "Floor",
+			"uid" : 1956081280,
+			"Name" : "Floor",
+			"State" : 0,
 			"PosX" : 793.000000,
 			"PosY" : 859.000000,
 			"Depth" : 0.750000,
@@ -3722,25 +6049,9 @@
 		{
 			"type" : "SimpleCharacter2D",
 			"name" : "Player",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -2065470720,
+			"Name" : "Player",
+			"State" : 0,
 			"PosX" : 674.503052,
 			"PosY" : 709.000000,
 			"VJoy" : "VJoy",
@@ -3753,25 +6064,9 @@
 		{
 			"type" : "SimpleCharacter2D",
 			"name" : "Enemy",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : 587187712,
+			"Name" : "Enemy",
+			"State" : 0,
 			"PosX" : 1264.556152,
 			"PosY" : 699.725525,
 			"VJoy" : "VJoy",
@@ -3784,25 +6079,9 @@
 		{
 			"type" : "CharacterCamera2D",
 			"name" : "Camera",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -129243392,
+			"Name" : "Camera",
+			"State" : 2,
 			"PosX" : 794.000000,
 			"PosY" : 512.000000,
 			"Target" : "Player",
@@ -3813,29 +6092,1952 @@
 		{
 			"type" : "VirtualJoystick",
 			"name" : "VJoy",
-			"transform" :
-			{
-				"m0" : 1.000000,
-				"m1" : 0.000000,
-				"m2" : 0.000000,
-				"m3" : 0.000000,
-				"m4" : 0.000000,
-				"m5" : 1.000000,
-				"m6" : 0.000000,
-				"m7" : 0.000000,
-				"m8" : 0.000000,
-				"m9" : 0.000000,
-				"m10" : 1.000000,
-				"m11" : 0.000000,
-				"m12" : 5.000000,
-				"m13" : 3.602872,
-				"m14" : 0.000000,
-				"m15" : 1.000000
-			},
+			"uid" : -1756629248,
+			"Name" : "VJoy",
+			"State" : 0,
 			"StickPad" : "Media/stick_pad.png",
 			"Stick" : "Media/stick.png",
 			"ButtonA" : "Media/button.png",
 			"ButtonB" : "Media/button.png"
+		},
+		{
+			"type" : "UIViewInstance",
+			"name" : "MainMenu",
+			"uid" : 1064983296,
+			"State" : 2,
+			"x" : 0.000000,
+			"y" : 0.000000,
+			"horz_align" : 1,
+			"vert_align" : 1,
+			"width" : 2013.729614,
+			"height" : 1024.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "MainMenu",
+			"Childs" : [
+				{
+					"type" : "UIImageAssetInst",
+					"name" : "Image",
+					"uid" : -272893696,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAssetInst",
+					"name" : "Container",
+					"uid" : 1238609152,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : -388514560,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "About",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "Button",
+									"uid" : -1627772672,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : 2060152960,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Start Game",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "Button",
+									"uid" : 841916928,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewInstance",
+			"name" : "AboutMenu",
+			"uid" : 1641140992,
+			"State" : 0,
+			"x" : 0.000000,
+			"y" : -50.000000,
+			"horz_align" : 1,
+			"vert_align" : 1,
+			"width" : 500.000000,
+			"height" : 500.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "AboutMenu",
+			"Childs" : [
+				{
+					"type" : "UIImageAssetInst",
+					"name" : "Background",
+					"uid" : 259530,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"name" : "Image",
+					"uid" : -590429184,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"slice" :
+					{
+						"width" : 642,
+						"height" : 236,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Media/AtumLogo.png",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 236.000000
+								},
+								"size" :
+								{
+									"x" : 642.000000,
+									"y" : 236.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UILabelAssetInst",
+					"name" : "Label",
+					"uid" : -1698624256,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"text" : "Back",
+					"Childs" : [
+						{
+							"type" : "UIButtonAssetInst",
+							"name" : "Button",
+							"uid" : 1185535360,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UILabelAssetInst",
+					"name" : "Label",
+					"uid" : 1193450880,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"text" : "Powered by",
+					"Childs" : [
+					]
+				}
+			]
+		},
+		{
+			"type" : "SceneScript",
+			"name" : "Script",
+			"uid" : 1806721408,
+			"ed_camera_2d" :
+			{
+				"x" : 387.000000,
+				"y" : -109.000000
+			},
+			"Name" : "Script",
+			"State" : 2,
+			"Count" : 34,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "enemy",
+					"pos" :
+					{
+						"x" : 47.000000,
+						"y" : 36.000000
+					},
+					"object_uid" : 587187712,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "player",
+					"pos" :
+					{
+						"x" : 241.000000,
+						"y" : 35.000000
+					},
+					"object_uid" : -2065470720,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "background",
+					"pos" :
+					{
+						"x" : 443.000000,
+						"y" : 34.000000
+					},
+					"object_uid" : -1456741888,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "floor",
+					"pos" :
+					{
+						"x" : 635.000000,
+						"y" : 36.000000
+					},
+					"object_uid" : 1956081280,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "vjoy",
+					"pos" :
+					{
+						"x" : 833.000000,
+						"y" : 38.000000
+					},
+					"object_uid" : -1756629248,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 52.000000,
+						"y" : 159.000000
+					},
+					"object_uid" : 1064983296,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "about_menu",
+					"pos" :
+					{
+						"x" : 217.000000,
+						"y" : 157.000000
+					},
+					"object_uid" : 1641140992,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "hud",
+					"pos" :
+					{
+						"x" : 402.000000,
+						"y" : 158.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 0,
+					"name" : "about_menu",
+					"pos" :
+					{
+						"x" : 55.000000,
+						"y" : 280.000000
+					},
+					"object_uid" : 1641140992,
+					"object_child_uid" : 1185535360
+				},
+				{
+					"type" : 0,
+					"name" : "main_start",
+					"pos" :
+					{
+						"x" : 47.000000,
+						"y" : 489.000000
+					},
+					"object_uid" : 1064983296,
+					"object_child_uid" : 841916928
+				},
+				{
+					"type" : 0,
+					"name" : "main_about",
+					"pos" :
+					{
+						"x" : 50.000000,
+						"y" : 377.000000
+					},
+					"object_uid" : 1064983296,
+					"object_child_uid" : -1627772672
+				},
+				{
+					"type" : 2,
+					"name" : "ShowAbout",
+					"pos" :
+					{
+						"x" : 395.000000,
+						"y" : 310.000000
+					},
+					"param_type" : 1,
+					"Count" : 2,
+					"Link" : [
+						{
+							"node" : 8,
+							"param" : "0"
+						},
+						{
+							"node" : 10,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ShowSelect",
+					"pos" :
+					{
+						"x" : 397.000000,
+						"y" : 491.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 9,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ReturnToMainMenu",
+					"pos" :
+					{
+						"x" : 969.000000,
+						"y" : 264.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 14,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "pause_back",
+					"pos" :
+					{
+						"x" : 619.000000,
+						"y" : 267.000000
+					},
+					"object_uid" : 1281691392,
+					"object_child_uid" : 739402368
+				},
+				{
+					"type" : 0,
+					"name" : "hud_pause",
+					"pos" :
+					{
+						"x" : 635.000000,
+						"y" : 367.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 1615447424
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 985.000000,
+						"y" : 358.000000
+					},
+					"param_type" : 1,
+					"Count" : 2,
+					"Link" : [
+						{
+							"node" : 17,
+							"param" : "0"
+						},
+						{
+							"node" : 15,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "pause_resume",
+					"pos" :
+					{
+						"x" : 1228.000000,
+						"y" : 351.000000
+					},
+					"object_uid" : 1281691392,
+					"object_child_uid" : 1949203584
+				},
+				{
+					"type" : 1,
+					"name" : "pause_menu",
+					"pos" :
+					{
+						"x" : 602.000000,
+						"y" : 157.000000
+					},
+					"object_uid" : 1281691392,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "camera",
+					"pos" :
+					{
+						"x" : 1028.000000,
+						"y" : 42.000000
+					},
+					"object_uid" : -129243392,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "select_character",
+					"pos" :
+					{
+						"x" : 795.000000,
+						"y" : 149.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 0,
+					"name" : "slect_start",
+					"pos" :
+					{
+						"x" : 640.000000,
+						"y" : 472.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : -442107392
+				},
+				{
+					"type" : 2,
+					"name" : "StartGame",
+					"pos" :
+					{
+						"x" : 976.000000,
+						"y" : 470.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 21,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "select_next_enemy",
+					"pos" :
+					{
+						"x" : 642.000000,
+						"y" : 582.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : 1914815872
+				},
+				{
+					"type" : 2,
+					"name" : "NextEnemy",
+					"pos" :
+					{
+						"x" : 983.000000,
+						"y" : 582.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 23,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "NextPlayer",
+					"pos" :
+					{
+						"x" : 405.000000,
+						"y" : 593.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 26,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "select_next_player",
+					"pos" :
+					{
+						"x" : 56.000000,
+						"y" : 604.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : 651681024
+				},
+				{
+					"type" : 1,
+					"name" : "lbl_next_player",
+					"pos" :
+					{
+						"x" : 1216.000000,
+						"y" : 41.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : -2030304256
+				},
+				{
+					"type" : 1,
+					"name" : "lbl_next_enemy",
+					"pos" :
+					{
+						"x" : 1390.000000,
+						"y" : 42.000000
+					},
+					"object_uid" : 740051136,
+					"object_child_uid" : 515816832
+				},
+				{
+					"type" : 1,
+					"name" : "hp_player",
+					"pos" :
+					{
+						"x" : 1228.000000,
+						"y" : 142.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 1471148544
+				},
+				{
+					"type" : 1,
+					"name" : "hp_enemy",
+					"pos" :
+					{
+						"x" : 1408.000000,
+						"y" : 147.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 1031893184
+				},
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 1229.000000,
+						"y" : 499.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "hp_player_bar",
+					"pos" :
+					{
+						"x" : 1227.000000,
+						"y" : 241.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 1994491776
+				},
+				{
+					"type" : 1,
+					"name" : "hp_enemy_bar",
+					"pos" :
+					{
+						"x" : 1418.000000,
+						"y" : 245.000000
+					},
+					"object_uid" : -1879906304,
+					"object_child_uid" : 2089609600
+				}
+			]
+		},
+		{
+			"type" : "UIViewInstance",
+			"name" : "HUD",
+			"uid" : -1879906304,
+			"State" : 0,
+			"x" : 1.000000,
+			"y" : -2.000000,
+			"horz_align" : 0,
+			"vert_align" : 3,
+			"width" : 2013.729614,
+			"height" : 1024.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.000000,
+			"anchorn_y" : 0.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "HUD",
+			"Childs" : [
+				{
+					"type" : "UIViewInstanceAsset",
+					"name" : "player_hp",
+					"uid" : 1471148544,
+					"Name" : "player_hp",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"width" : 350.000000,
+					"height" : 50.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"source" : "HPBar",
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "title",
+							"uid" : -1067705600,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Player",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_under",
+							"uid" : -628839936,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 0.082353,
+									"b" : 0.082353,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_above",
+							"uid" : 1994491776,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.945098,
+									"g" : 0.980392,
+									"b" : 0.552941,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIViewInstanceAsset",
+					"name" : "enemy_hp",
+					"uid" : 1031893184,
+					"Name" : "enemy_hp",
+					"State" : 2,
+					"x" : 350.000000,
+					"y" : 0.000000,
+					"width" : 350.000000,
+					"height" : 50.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"source" : "HPBar",
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "title",
+							"uid" : -864882688,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Enemy",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_under",
+							"uid" : 407852160,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 0.082353,
+									"b" : 0.082353,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "hp_above",
+							"uid" : 2089609600,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.945098,
+									"g" : 0.980392,
+									"b" : 0.552941,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UILabelAssetInst",
+					"name" : "Label",
+					"uid" : -2139955968,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"text" : "Pause",
+					"Childs" : [
+						{
+							"type" : "UIButtonAssetInst",
+							"name" : "Button",
+							"uid" : 1615447424,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewInstance",
+			"name" : "PauseMenu",
+			"uid" : 1281691392,
+			"State" : 0,
+			"x" : 0.000000,
+			"y" : 0.000000,
+			"horz_align" : 1,
+			"vert_align" : 1,
+			"width" : 500.000000,
+			"height" : 110.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "PauseMenu",
+			"Childs" : [
+				{
+					"type" : "UIImageAssetInst",
+					"name" : "Background",
+					"uid" : -348676608,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.500000
+					},
+					"alpha" : 0.500000,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.000000,
+							"g" : 0.000000,
+							"b" : 0.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.500000
+					},
+					"alpha" : 0.500000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAssetInst",
+					"name" : "View",
+					"uid" : -2146184704,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "l_exit",
+							"uid" : 1853696384,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Return to Main Menu",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "b_exit",
+									"uid" : 739402368,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "l_resume",
+							"uid" : 1358382592,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Resume Game",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "b_resume",
+									"uid" : 1949203584,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "UIViewInstance",
+			"name" : "SelectCharacter",
+			"uid" : 740051136,
+			"State" : 0,
+			"x" : 0.000000,
+			"y" : 0.000000,
+			"horz_align" : 1,
+			"vert_align" : 1,
+			"width" : 500.000000,
+			"height" : 450.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "HPBSelectCharacter",
+			"Childs" : [
+				{
+					"type" : "UIImageAssetInst",
+					"name" : "background",
+					"uid" : -666212096,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"slice" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 0.007843,
+							"g" : 0.007843,
+							"b" : 0.007843,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"size" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAssetInst",
+					"name" : "Container",
+					"uid" : 498039008,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : -778978048,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Change",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "b_NextPlayer",
+									"uid" : 651681024,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : 1835529344,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Change",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "b_NextEnemy",
+									"uid" : 1914815872,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : 1927273344,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Start ",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"name" : "b_start_game",
+									"uid" : -442107392,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : -1113772544,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "VS",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"name" : "Label",
+							"uid" : 1547191040,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Select Characters",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "PlayerImageCnt",
+							"uid" : 1532397696,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.682353,
+									"g" : 1.000000,
+									"b" : 0.737255,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+								{
+									"type" : "UIImageAssetInst",
+									"name" : "PlayerImage",
+									"uid" : -2030304256,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"slice" :
+									{
+										"width" : 600,
+										"height" : 814,
+										"type" : 0,
+										"color" :
+										{
+											"r" : 1.000000,
+											"g" : 1.000000,
+											"b" : 1.000000,
+											"a" : 1.000000
+										},
+										"texName" : "Media/7673.png",
+										"texMode" : 0,
+										"texFilter" : 1,
+										"count" : 1,
+										"Rect" : [
+											{
+												"pos" :
+												{
+													"x" : 0.000000,
+													"y" : 814.000000
+												},
+												"size" :
+												{
+													"x" : 600.000000,
+													"y" : 814.000000
+												},
+												"uv" :
+												{
+													"x" : 0.000000,
+													"y" : 1.000000
+												},
+												"duv" :
+												{
+													"x" : 1.000000,
+													"y" : 1.000000
+												},
+												"offset" :
+												{
+													"x" : 0.000000,
+													"y" : 0.000000
+												}
+											}
+										]
+									},
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"name" : "EnemyImageCnt",
+							"uid" : -246810880,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"slice" :
+							{
+								"width" : 0,
+								"height" : 0,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 0.737255,
+									"g" : 0.690196,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "",
+								"texMode" : 0,
+								"texFilter" : 1,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"size" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+								{
+									"type" : "UIImageAssetInst",
+									"name" : "EnemyImage",
+									"uid" : 515816832,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"slice" :
+									{
+										"width" : 600,
+										"height" : 814,
+										"type" : 0,
+										"color" :
+										{
+											"r" : 1.000000,
+											"g" : 1.000000,
+											"b" : 1.000000,
+											"a" : 1.000000
+										},
+										"texName" : "Media/7673.png",
+										"texMode" : 0,
+										"texFilter" : 1,
+										"count" : 1,
+										"Rect" : [
+											{
+												"pos" :
+												{
+													"x" : 0.000000,
+													"y" : 814.000000
+												},
+												"size" :
+												{
+													"x" : 600.000000,
+													"y" : 814.000000
+												},
+												"uv" :
+												{
+													"x" : 0.000000,
+													"y" : 1.000000
+												},
+												"duv" :
+												{
+													"x" : 1.000000,
+													"y" : 1.000000
+												},
+												"offset" :
+												{
+													"x" : 0.000000,
+													"y" : 0.000000
+												}
+											}
+										]
+									},
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
 		}
 	]
 }

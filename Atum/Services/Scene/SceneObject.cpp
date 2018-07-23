@@ -151,7 +151,7 @@ void SceneObject::Stop()
 {
 }
 
-ScriptContext* SceneObject::Scipt()
+ScriptContext* SceneObject::Script()
 {
 	return owner->script;
 }

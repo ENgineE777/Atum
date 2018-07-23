@@ -10,9 +10,6 @@ FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x")
 FLOAT_PROP(UIViewAsset, trans.pos.y, 300.0f, "Prop", "y")
 FLOAT_PROP(UIViewAsset, trans.size.x, 500.0f, "Prop", "width")
 FLOAT_PROP(UIViewAsset, trans.size.y, 500.0f, "Prop", "height")
-FLOAT_PROP(UIViewAsset, anchor.x, 0.5f, "Prop", "anchor_x")
-FLOAT_PROP(UIViewAsset, anchor.y, 0.5f, "Prop", "anchor_y")
-BOOL_PROP(UIViewAsset, abs_anchor, true, "Prop", "anchor_abs")
 BOOL_PROP(UIViewAsset, scaleChilds, false, "Prop", "scale_childs")
 BOOL_PROP(UIViewAsset, clipChilds, false, "Prop", "clip_childs")
 META_DATA_DESC_END()
@@ -36,6 +33,11 @@ void UIViewAsset::ApplyProperties()
 
 void UIViewAsset::Draw(float dt)
 {
+	if (state == Invisible)
+	{
+		return;
+	}
+
 #ifdef EDITOR
 	if (edited)
 	{

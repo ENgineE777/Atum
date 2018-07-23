@@ -27,9 +27,10 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 	SceneAsset::Load(reader);
 	
+	char source_name[512];
+
 	if (source_is_asset)
 	{
-		char source_name[512];
 		if (reader.Read("source", source_name, 512))
 		{
 			SetSource((UIWidgetAsset*)owner->FindByName(source_name, true), false);
@@ -64,18 +65,11 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 			AddChild(obj);
 
-			if (obj->AddedToTreeByParent())
-			{
-				obj->uid = source_child->GetUID();
-			}
-			else
-			{
-				reader.Read("uid", obj->uid);
+			reader.Read("uid", obj->uid);
 
-				if (obj->uid == 0)
-				{
-					owner->GenerateChildUID(obj);
-				}
+			if (obj->uid == 0)
+			{
+				owner->GenerateChildUID(obj);
 			}
 
 			obj->Load(reader);
@@ -109,10 +103,7 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 		writer.Write("type", child->GetClassName());
 		writer.Write("name", child->GetName());
 
-		if (!child->AddedToTreeByParent())
-		{
-			writer.Write("uid", child->uid);
-		}
+		writer.Write("uid", child->uid);
 
 		child->Save(writer);
 
@@ -126,29 +117,73 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 
 void UIWidgetAsset::CalcState()
 {
-	cur_color = parent->color * color;
+	Vector2 parent_size;
 
-	trans.offset = 0.0f;
-	trans.mat_parent = parent->trans.mat_global;
+	if (parent)
+	{
+		parent_size = parent->trans.size;
+		cur_color = parent->color * color;
+	}
+	else
+	{
+		parent_size.x = render.GetDevice()->GetWidth() * 1024.0f / render.GetDevice()->GetHeight();
+		parent_size.y = 1024.0f;
 
+		cur_color = color;
+	}
+
+	if (horzSize == fill_parent)
+	{
+		trans.pos.x = 0;
+		trans.size.x = parent_size.x - right_padding.x - left_padding.x;
+	}
+
+	if (vertSize == fill_parent)
+	{
+		trans.pos.y = 0;
+		trans.size.y = parent_size.y - right_padding.y - left_padding.y;
+	}
+
+	if (parent)
+	{
+		trans.mat_parent = parent->trans.mat_global;
+		Vector2 offset = parent->trans.size * parent->trans.offset;
+		trans.mat_parent.Pos().x -= offset.x;
+		trans.mat_parent.Pos().y -= offset.y;
+	}
+	else
+	{
+		trans.mat_parent = Matrix();
+	}
+
+	if (horzAlign == align_left)
+	{
+		trans.mat_parent.Pos().x += left_padding.x;
+	}
+	else
 	if (horzAlign == align_center)
 	{
-		trans.mat_parent.Pos().x += parent->trans.size.x * 0.5f;
+		trans.mat_parent.Pos().x += left_padding.x + (parent_size.x - right_padding.x - left_padding.x) * 0.5f;
 	}
 	else
 	if (horzAlign == align_right)
 	{
-		trans.mat_parent.Pos().x += parent->trans.size.x;
+		trans.mat_parent.Pos().x += -right_padding.x + parent_size.x;
 	}
 
+	if (vertAlign == align_top)
+	{
+		trans.mat_parent.Pos().y += left_padding.y;
+	}
+	else
 	if (vertAlign == align_center)
 	{
-		trans.mat_parent.Pos().y += parent->trans.size.y * 0.5f;
+		trans.mat_parent.Pos().y += left_padding.y + (parent_size.y - right_padding.x - left_padding.x) * 0.5f;
 	}
 	else
 	if (vertAlign == align_bottom)
 	{
-		trans.mat_parent.Pos().y += parent->trans.size.y;
+		trans.mat_parent.Pos().y += (-right_padding.y) + parent_size.y;
 	}
 
 	trans.axis.x = (horzAlign == align_right) ? -1.0f : 1.0f;

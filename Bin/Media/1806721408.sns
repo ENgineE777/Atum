@@ -1,0 +1,151 @@
+
+class Controller
+{
+    SimpleCharacter2D@ enemy;
+    SimpleCharacter2D@ player;
+    SpriteObject@ floor;
+    SpriteObject@ background;
+    VirtualJoystick@ vjoy;
+    CharacterCamera2D@ camera;
+    UIView@ main_menu;
+    UIView@ about_menu;
+    UIView@ pause_menu;
+    UIView@ select_character;
+    UIView@ hud;
+    UIView@ hp_player;
+    UIView@ hp_enemy;
+    UIImage@ hp_player_bar;
+    UIImage@ hp_enemy_bar;
+    UIImage@ lbl_next_player;
+    UIImage@ lbl_next_enemy;
+
+    int cur_player = 0;
+    int cur_enemy = 1;
+    float hp_width = -1;
+
+    void ReturnToMainMenu()
+    {
+        SetGameState(0);
+        pause_menu.SetState(0);
+        hud.SetState(0);
+        main_menu.SetState(2);
+    }
+
+    void ShowPauseMenu(int show)
+    {
+        int state = (show > 0) ? 2 : 0;
+        pause_menu.SetState(state);
+        SetGameState(state > 0 ? 1 : 2);
+    }
+
+    void SetGameState(int state)
+    {
+        enemy.SetState(state);
+        player.SetState(state);
+        floor.SetState(state);
+        background.SetState(state);
+        vjoy.SetState(state);
+    }
+
+    void ShowSelect()
+    {
+        main_menu.SetState(0);
+        select_character.SetState(2);
+
+        SetSelectLabelImage(cur_player, lbl_next_player);
+        SetSelectLabelImage(cur_enemy, lbl_next_enemy);
+    }
+    
+    void SetSelectLabelImage(int current, UIImage@ image)
+    {
+        if (current == 0)
+        {
+            image.SetSpriteFromAsset("SpriteBat_Idle");
+        }
+        else
+        if (current == 1)
+        {
+            image.SetSpriteFromAsset("SpriteEnemy1_Idle");
+        }
+    }
+
+    void NextPlayer()
+    {
+        cur_player++;
+
+        if (cur_player >= 2)
+        {
+            cur_player = 0;
+        }
+
+        SetSelectLabelImage(cur_player, lbl_next_player);
+    }
+
+    void NextEnemy()
+    {
+        cur_enemy++;
+
+        if (cur_enemy >= 2)
+        {
+            cur_enemy = 0;
+        }
+
+        SetSelectLabelImage(cur_enemy, lbl_next_enemy);
+    }
+
+    void SetSelectAnimGraph(int current, SimpleCharacter2D@ chracter)
+    {
+        if (current == 0)
+        {
+            chracter.SetAnimGraph("SpriteBat_Graph");
+        }
+        else
+        if (current == 1)
+        {
+            chracter.SetAnimGraph("SpriteEnemy1_Graph");
+        }
+    }
+
+    void StartGame()
+    {
+        select_character.SetState(0);
+        hud.SetState(2);
+        SetGameState(2);
+
+        SetSelectAnimGraph(cur_enemy, enemy);
+        SetSelectAnimGraph(cur_player, player);
+
+        enemy.Reset();
+        player.Reset();
+        camera.Reset();
+    }
+
+    void ShowAbout(int show)
+    {
+        int state = (show > 0) ? 2 : 0;
+
+        about_menu.SetState(state);
+        main_menu.SetState(2 - state);
+    }
+
+    void UpdateHPBar(SimpleCharacter2D@ character, UIView@ hb_bar, UIImage@ bar)
+    {
+        float k1 = character.cur_hp;
+        float k2 = character.HP;
+        
+        bar.width = k1 / k2 * hp_width;
+
+        hb_bar.SetState((character.cur_hp == 0) ? 0 : 2);
+    }
+
+    void Update(float dt)
+    {
+        if (hp_width < 0)
+        {
+            hp_width = hp_player_bar.width;
+        }
+
+        UpdateHPBar(player, hp_player, hp_player_bar);
+        UpdateHPBar(enemy, hp_enemy, hp_enemy_bar);
+    }
+}

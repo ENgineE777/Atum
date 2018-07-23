@@ -1,4 +1,5 @@
 
+#include <angelscript.h>
 #include "MetaData.h"
 
 MetaData::MetaData()
@@ -145,10 +146,8 @@ void MetaData::Save(JSONWriter& writer)
 
 void MetaData::Copy(void* source)
 {
-	for (int i = 0; i < properties.size(); i++)
+	for (auto& prop : properties)
 	{
-		Property& prop = properties[i];
-
 		uint8_t* src = (uint8_t*)source + prop.offset;
 
 		if (prop.type == Boolean)
@@ -175,6 +174,37 @@ void MetaData::Copy(void* source)
 		{
 			memcpy(prop.value, src, sizeof(float) * 4);
 		}
+	}
+}
+
+void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_class_name)
+{
+	for (auto& prop : properties)
+	{
+		char decl[128];
+
+		decl[0] = 0;
+
+		if (prop.type == Boolean)
+		{
+			StringUtils::Printf(decl, 128, "bool %s", prop.propName.c_str());
+		}
+		else
+		if (prop.type == Integer || prop.type == Enum)
+		{
+			StringUtils::Printf(decl, 128, "int %s", prop.propName.c_str());
+		}
+		else
+		if (prop.type == Float)
+		{
+			StringUtils::Printf(decl, 128, "float %s", prop.propName.c_str());
+		}
+
+		if (decl[0])
+		{
+			engine->RegisterObjectProperty(script_class_name, decl, prop.offset);
+		}
+		
 	}
 }
 

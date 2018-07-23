@@ -37,7 +37,11 @@ public:
 	int cur_hp = 100;
 	int next_kick = -1;
 
+	Vector2 init_pos;
+
 	virtual ~SimpleCharacter2D() = default;
+
+	void BindClassToScript() override;
 
 	void Init() override;
 	void ApplyProperties() override;
@@ -52,6 +56,8 @@ public:
 	void ControlEnemy(float dt);
 	void MakeHit(Vector2 pos, int damage);
 	void Respawn();
+	void Reset();
+	void SetAnimGraph(string& graph);
 
 #ifdef EDITOR
 	void SetEditMode(bool ed) override;

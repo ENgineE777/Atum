@@ -44,6 +44,9 @@ class SpriteWindow : public EUIWidget::Listener
 	EUILabel*    pivot_y_label;
 	EUIEditBox*  pivot_y_ebox;
 
+	EUILabel*    prop_color_label;
+	EUILabel*    prop_color_edlabel;
+
 	EUILabel*    prop_x_label;
 	EUIEditBox*  prop_x_ebox;
 	EUILabel*    prop_y_label;
@@ -109,6 +112,7 @@ public:
 	void FitImage();
 	void MakeZoom(bool zoom_in);
 	void CheckStateOfBorder();
+	void SetColorToLabel();
 
 	void OnDraw(EUIWidget* sender) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
@@ -116,6 +120,7 @@ public:
 	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
 	void OnRightMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnKey(EUIWidget* sender, int key) override;

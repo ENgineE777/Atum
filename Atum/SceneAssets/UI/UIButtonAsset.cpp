@@ -6,8 +6,8 @@ CLASSREG(UIWidgetAsset, UIButtonAsset, "Button")
 META_DATA_DESC(UIButtonAsset)
 BASE_SCENE_OBJ_NAME_PROP(UIButtonAsset)
 BASE_SCENE_OBJ_STATE_PROP(UIButtonAsset)
-FLOAT_PROP(UIButtonAsset, trans.pos.x, 100.0f, "Prop", "x")
-FLOAT_PROP(UIButtonAsset, trans.pos.y, 100.0f, "Prop", "y")
+FLOAT_PROP(UIButtonAsset, trans.pos.x, 0.0f, "Prop", "x")
+FLOAT_PROP(UIButtonAsset, trans.pos.y, 0.0f, "Prop", "y")
 ENUM_PROP(UIButtonAsset, horzAlign, 0, "Prop", "horz_align")
 	ENUM_ELEM("Left", 0)
 	ENUM_ELEM("Center", 1)
@@ -30,13 +30,12 @@ ENUM_PROP(UIButtonAsset, vertSize, 0, "Prop", "vert_size")
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
+FLOAT_PROP(UIButtonAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x")
+FLOAT_PROP(UIButtonAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y")
 FLOAT_PROP(UIButtonAsset, left_padding.x, 0.0f, "Prop", "left_padding")
 FLOAT_PROP(UIButtonAsset, left_padding.y, 0.0f, "Prop", "top_padding")
-FLOAT_PROP(UIButtonAsset, right_padding.x, 100.0f, "Prop", "right_padding")
-FLOAT_PROP(UIButtonAsset, right_padding.y, 100.0f, "Prop", "bottom_padding")
-FLOAT_PROP(UIButtonAsset, anchor.x, 0.5f, "Prop", "anchor_x")
-FLOAT_PROP(UIButtonAsset, anchor.y, 0.5f, "Prop", "anchor_y")
-BOOL_PROP(UIButtonAsset, abs_anchor, true, "Prop", "anchor_abs")
+FLOAT_PROP(UIButtonAsset, right_padding.x, 0.0f, "Prop", "right_padding")
+FLOAT_PROP(UIButtonAsset, right_padding.y, 0.0f, "Prop", "bottom_padding")
 FLOAT_PROP(UIButtonAsset, rotate, 0.0f, "Prop", "rotate")
 COLOR_PROP(UIButtonAsset, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIButtonAsset, color.a, 1.0f, "Prop", "alpha")
@@ -57,6 +56,11 @@ void UIButtonAsset::Draw(float dt)
 	}
 #endif
 
+	if (state == Invisible)
+	{
+		return;
+	}
+
 	CalcState();
 
 	for (auto child : childs)
@@ -75,7 +79,7 @@ META_DATA_DESC_END()
 
 void UIButtonAssetInst::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(UIButtonAssetInst)
+	BIND_INST_TYPE_TO_SCRIPT(UIButtonAssetInst, UIButtonAsset)
 }
 
 #ifdef EDITOR
@@ -95,6 +99,11 @@ void UIButtonAssetInst::Init()
 
 void UIButtonAssetInst::Draw(float dt)
 {
+	if (state == Invisible)
+	{
+		return;
+	}
+
 	if (Playing())
 	{
 		if (controls.GetAliasState(alias_fire))

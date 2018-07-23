@@ -12,8 +12,13 @@ FLOAT_PROP(SpriteObject, trans.pos.x, 100.0f, "Geometry", "PosX")
 FLOAT_PROP(SpriteObject, trans.pos.y, 100.0f, "Geometry", "PosY")
 FLOAT_PROP(SpriteObject, trans.depth, 0.5f, "Geometry", "Depth")
 STRING_PROP(SpriteObject, asset_name, "", "Prop", "Asset")
-BOOL_PROP(SpriteObject, state.reversed, false, "Node", "Reversed")
+BOOL_PROP(SpriteObject, frame_state.reversed, false, "Node", "Reversed")
 META_DATA_DESC_END()
+
+void SpriteObject::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(SpriteObject)
+}
 
 void SpriteObject::Init()
 {
@@ -22,12 +27,17 @@ void SpriteObject::Init()
 
 void SpriteObject::ApplyProperties()
 {
-	state.cur_time = -1.0f;
+	frame_state.cur_time = -1.0f;
 	asset = (SpriteAsset*)owner->FindInGroup("SpriteAsset", asset_name.c_str());
 }
 
 void SpriteObject::Draw(float dt)
 {
+	if (state == Invisible)
+	{
+		return;
+	}
+
 	if (!asset)
 	{
 		return;
@@ -35,8 +45,13 @@ void SpriteObject::Draw(float dt)
 
 	trans.size = asset->trans.size;
 	trans.BuildMatrices();
-	Sprite::UpdateFrame(&asset->sprite, &state, dt);
-	Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &state, true);
+
+	if (state == Active)
+	{
+		Sprite::UpdateFrame(&asset->sprite, &frame_state, dt);
+	}
+
+	Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &frame_state, true, false);
 }
 
 #ifdef EDITOR

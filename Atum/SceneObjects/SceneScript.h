@@ -3,13 +3,12 @@
 
 #include "Services/Scene/SceneObject.h"
 
-class Script : public SceneObject
+class SceneScript : public SceneObject
 {
 public:
 
 	enum NodeType
 	{
-		ScnObject,
 		ScnCallback,
 		ScriptProperty,
 		ScriptMethod
@@ -40,28 +39,17 @@ public:
 		void Save(JSONWriter& saver) override;
 	};
 
-	struct LinkToProperty
-	{
-		int node;
-		Vector2 arrow_pos;
-
-		virtual MetaData* GetMetaData() { return nullptr; };
-	};
-
-	struct NodeScriptProperty : Node
+	struct NodeScriptProperty : NodeSceneObject
 	{
 		META_DATA_DECL(NodeScriptProperty)
-
-		vector<LinkToProperty*> links;
-
-		void Load(JSONReader& loader) override;
-		void Save(JSONWriter& saver) override;
 	};
 
-	struct LinkToMethod : LinkToProperty
+	struct LinkToMethod
 	{
 		META_DATA_DECL(LinkToMethod)
 
+		int node;
+		Vector2 arrow_pos;
 		string param;
 	};
 
@@ -71,6 +59,7 @@ public:
 
 		int param_type;
 		asIScriptFunction* method = nullptr;
+		vector<LinkToMethod*> links;
 
 		void Load(JSONReader& loader) override;
 		void Save(JSONWriter& saver) override;
@@ -95,6 +84,8 @@ public:
 	Vector2 camera_pos = 0.0f;
 	bool UsingCamera2DPos() override;
 	Vector2& Camera2DPos() override;
+
+	static void GetScriptFileName(uint32_t id, string& filename);
 
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);

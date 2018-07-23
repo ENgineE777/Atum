@@ -12,9 +12,11 @@ public:
 	SpriteAsset* asset = nullptr;
 	string asset_name; 
 	Transform2D trans;
-	Sprite::FrameState state;
+	Sprite::FrameState frame_state;
 
 	virtual ~SpriteObject() = default;
+
+	void BindClassToScript() override;
 
 	void Init() override;
 	void ApplyProperties() override;

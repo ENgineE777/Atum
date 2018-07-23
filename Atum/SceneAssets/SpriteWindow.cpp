@@ -61,36 +61,40 @@ void SpriteWindow::Init()
 	del_image = new EUIButton(panel, "X", 175, 70, 20, 20);
 	del_image->SetListener(-1, this, 0);
 
-	prop_x_label = new EUILabel(panel, "x", 5, 100, 90, 20);
-	prop_x_ebox = new EUIEditBox(panel, "0", 95, 100, 100, 20, EUIEditBox::InputInteger);
+	prop_color_label = new EUILabel(panel, "color", 5, 100, 90, 20);
+	prop_color_edlabel = new EUILabel(panel, "", 95, 100, 100, 20);
+	prop_color_edlabel->SetListener(-1, this, 0);
+
+	prop_x_label = new EUILabel(panel, "x", 5, 130, 90, 20);
+	prop_x_ebox = new EUIEditBox(panel, "0", 95, 130, 100, 20, EUIEditBox::InputInteger);
 	prop_x_ebox->SetListener(-1, this, 0);
-	prop_y_label = new EUILabel(panel, "y", 5, 130, 90, 20);
-	prop_y_ebox = new EUIEditBox(panel, "0", 95, 130, 100, 20, EUIEditBox::InputInteger);
+	prop_y_label = new EUILabel(panel, "y", 5, 160, 90, 20);
+	prop_y_ebox = new EUIEditBox(panel, "0", 95, 160, 100, 20, EUIEditBox::InputInteger);
 	prop_y_ebox->SetListener(-1, this, 0);
-	prop_w_label = new EUILabel(panel, "width", 5, 160, 90, 20);
-	prop_w_ebox = new EUIEditBox(panel, "0", 95, 160, 100, 20, EUIEditBox::InputUInteger);
+	prop_w_label = new EUILabel(panel, "width", 5, 190, 90, 20);
+	prop_w_ebox = new EUIEditBox(panel, "0", 95, 190, 100, 20, EUIEditBox::InputUInteger);
 	prop_w_ebox->SetListener(-1, this, 0);
-	prop_h_label = new EUILabel(panel, "height", 5, 190, 90, 20);
-	prop_h_ebox = new EUIEditBox(panel, "0", 95, 190, 100, 20, EUIEditBox::InputUInteger);
+	prop_h_label = new EUILabel(panel, "height", 5, 220, 90, 20);
+	prop_h_ebox = new EUIEditBox(panel, "0", 95, 220, 100, 20, EUIEditBox::InputUInteger);
 	prop_h_ebox->SetListener(-1, this, 0);
 
-	prop_label = new EUILabel(panel, "Tile Mode", 5, 220, 90, 20);
-	texture_mode = new EUIComboBox(panel, 95, 220, 100, 250);
+	prop_label = new EUILabel(panel, "Tile Mode", 5, 250, 90, 20);
+	texture_mode = new EUIComboBox(panel, 95, 250, 100, 250);
 	texture_mode->SetListener(-1, this, 0);
 	texture_mode->AddItem("clamp");
 	texture_mode->AddItem("wrap");
 	texture_mode->AddItem("mirror");
 	texture_mode->SetCurString(0);
 
-	prop_label = new EUILabel(panel, "Filter", 5, 250, 90, 20);
-	texture_filter = new EUIComboBox(panel, 95, 250, 100, 250);
+	prop_label = new EUILabel(panel, "Filter", 5, 280, 90, 20);
+	texture_filter = new EUIComboBox(panel, 95, 280, 100, 250);
 	texture_filter->SetListener(-1, this, 0);
 	texture_filter->AddItem("point");
 	texture_filter->AddItem("linear");
 	texture_filter->SetCurString(0);
 
-	prop_label = new EUILabel(panel, "Type", 5, 280, 90, 20);
-	cb_type = new EUIComboBox(panel, 95, 280, 100, 250);
+	prop_label = new EUILabel(panel, "Type", 5, 310, 90, 20);
+	cb_type = new EUIComboBox(panel, 95, 310, 100, 250);
 	cb_type->SetListener(-1, this, 0);
 	cb_type->AddItem("Image");
 	cb_type->AddItem("3 Horz slice");
@@ -99,34 +103,34 @@ void SpriteWindow::Init()
 	cb_type->AddItem("Frames");
 	cb_type->SetCurString(0);
 
-	num_frame_label = new EUILabel(panel, "Frames Count", 5, 310, 90, 20);
-	num_frame_ebox = new EUIEditBox(panel, "1", 95, 310, 100, 20, EUIEditBox::InputUInteger);
+	num_frame_label = new EUILabel(panel, "Frames Count", 5, 340, 90, 20);
+	num_frame_ebox = new EUIEditBox(panel, "1", 95, 340, 100, 20, EUIEditBox::InputUInteger);
 	num_frame_ebox->SetListener(-1, this, 0);
 
-	frame_time_label = new EUILabel(panel, "Frames Time", 5, 340, 90, 20);
-	frame_time_ebox = new EUIEditBox(panel, "0", 95, 340, 100, 20, EUIEditBox::InputUFloat);
+	frame_time_label = new EUILabel(panel, "Frames Time", 5, 370, 90, 20);
+	frame_time_ebox = new EUIEditBox(panel, "0", 95, 370, 100, 20, EUIEditBox::InputUFloat);
 	frame_time_ebox->SetListener(-1, this, 0);
 
-	cur_frame_label = new EUILabel(panel, "Current Frame", 5, 370, 90, 20);
-	cur_frame_ebox = new EUIEditBox(panel,"0", 95, 370, 80, 20, EUIEditBox::InputUInteger);
+	cur_frame_label = new EUILabel(panel, "Current Frame", 5, 400, 90, 20);
+	cur_frame_ebox = new EUIEditBox(panel,"0", 95, 400, 80, 20, EUIEditBox::InputUInteger);
 	cur_frame_ebox->SetListener(-1, this, 0);
-	btn_del_frame = new EUIButton(panel, "X", 175, 370, 20, 20);
+	btn_del_frame = new EUIButton(panel, "X", 175, 400, 20, 20);
 	btn_del_frame->SetListener(-1, this, 0);
 
-	show_anim_label = new EUILabel(panel, "Frames Time", 5, 400, 90, 20);
-	show_anim_box = new EUICheckBox(panel, "", 95, 400, 90, 20);
+	show_anim_label = new EUILabel(panel, "Frames Time", 5, 430, 90, 20);
+	show_anim_box = new EUICheckBox(panel, "", 95, 430, 90, 20);
 	show_anim_box->SetChecked(show_anim);
 	show_anim_box->SetListener(-1, this, 0);
 
-	cur_frame_time_label = new EUILabel(panel, "Frame Time", 5, 430, 90, 20);
-	cur_frame_time_ebox = new EUIEditBox(panel, "1", 95, 430, 100, 20, EUIEditBox::InputFloat);
+	cur_frame_time_label = new EUILabel(panel, "Frame Time", 5, 460, 90, 20);
+	cur_frame_time_ebox = new EUIEditBox(panel, "1", 95, 460, 100, 20, EUIEditBox::InputFloat);
 	cur_frame_time_ebox->SetListener(-1, this, 0);
 
-	pivot_x_label = new EUILabel(panel, "Pivot x", 5, 460, 90, 20);
-	pivot_x_ebox = new EUIEditBox(panel, "0", 95, 460, 100, 20, EUIEditBox::InputInteger);
+	pivot_x_label = new EUILabel(panel, "Pivot x", 5, 490, 90, 20);
+	pivot_x_ebox = new EUIEditBox(panel, "0", 95, 490, 100, 20, EUIEditBox::InputInteger);
 	pivot_x_ebox->SetListener(-1, this, 0);
-	pivot_y_label = new EUILabel(panel, "Pivot y", 5, 490, 90, 20);
-	pivot_y_ebox = new EUIEditBox(panel, "1", 95, 490, 100, 20, EUIEditBox::InputInteger);
+	pivot_y_label = new EUILabel(panel, "Pivot y", 5, 520, 90, 20);
+	pivot_y_ebox = new EUIEditBox(panel, "1", 95, 520, 100, 20, EUIEditBox::InputInteger);
 	pivot_y_ebox->SetListener(-1, this, 0);
 
 	img_wgt = new EUIPanel(wnd_lt, 270, 5, 700, 550);
@@ -174,7 +178,8 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 
 	if (!sprite->texture)
 	{
-		return;
+		sprite->width = 32;
+		sprite->height = 32;
 	}
 
 	BITMAPINFO bminfo;
@@ -194,7 +199,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 
 	if (!buffer.Load(img))
 	{
-		return;
+		buffer.Load("settings\\editor\\white.png");
 	}
 
 	uint8_t* ptr = buffer.GetData();
@@ -204,7 +209,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	int height;
 	tex_data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
 
-	if (need_refill)
+	if (need_refill || !sprite->texture)
 	{
 		sprite_pos = Vector2(0, (float)sprite->height);
 		sprite_size = Vector2((float)sprite->width, (float)sprite->height);
@@ -252,9 +257,9 @@ void SpriteWindow::UpdateImageBackground()
 			uint8_t* color = &tex_data[(i + j * sprite->width) * 4];
 			float k = color[3] / 255.0f;
 
-			rows[i * 4 + 0] = (int)(k * color[2] + back_colors[sel_back_colors].b * 255 * (1 - k));
-			rows[i * 4 + 1] = (int)(k * color[1] + back_colors[sel_back_colors].g * 255 * (1 - k));
-			rows[i * 4 + 2] = (int)(k * color[0] + back_colors[sel_back_colors].r * 255 * (1 - k));
+			rows[i * 4 + 0] = (int)(k * color[2] * sprite->color.b + back_colors[sel_back_colors].b * 255 * (1 - k));
+			rows[i * 4 + 1] = (int)(k * color[1] * sprite->color.g + back_colors[sel_back_colors].g * 255 * (1 - k));
+			rows[i * 4 + 2] = (int)(k * color[0] * sprite->color.r + back_colors[sel_back_colors].r * 255 * (1 - k));
 			rows[i * 4 + 3] = 255;
 		}
 	}
@@ -392,6 +397,8 @@ void SpriteWindow::Prepare()
 
 		UpdateSavedPos();
 	}
+
+	SetColorToLabel();
 
 	if (sprite->type == Sprite::Frames)
 	{
@@ -647,7 +654,7 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 	}
 
 
-	if (sprite->texture)
+	//if (sprite->texture)
 	{
 		pre_pen = (HPEN)SelectObject(hdc, hbrBkgnd);
 
@@ -878,6 +885,16 @@ void SpriteWindow::UpdateSavedPos()
 
 	prop_w_ebox->SetText((int)sprite_size.x);
 	prop_h_ebox->SetText((int)sprite_size.y);
+}
+
+void SpriteWindow::SetColorToLabel()
+{
+	int clr[3];
+	clr[0] = (int)(sprite->color.r * 255.0f);
+	clr[1] = (int)(sprite->color.g * 255.0f);
+	clr[2] = (int)(sprite->color.b * 255.0f);
+
+	prop_color_edlabel->SetBackgroundColor(true, clr);
 }
 
 void SpriteWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
@@ -1209,6 +1226,16 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		sel_row = -1;
 		drag = DragNone;
 		//img_wgt->ReleaseMouse();
+		img_wgt->Redraw();
+	}
+}
+
+void SpriteWindow::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
+{
+	if (EUI::OpenColorDialog(wnd->GetNative(), &sprite->color.r))
+	{
+		SetColorToLabel();
+		UpdateImageBackground();
 		img_wgt->Redraw();
 	}
 }

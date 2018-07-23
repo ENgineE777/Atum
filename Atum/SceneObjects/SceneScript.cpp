@@ -1,47 +1,51 @@
-#include "Script.h"
+#include "SceneScript.h"
 #include "SceneObjects/RenderLevels.h"
+#include "Services/Core/Core.h"
 
 #include "SceneAssets/UI/UIViewInstanceAsset.h"
 #include "SceneAssets/UI/UIButtonAsset.h"
 #include "SceneAssets/UI/UILabelAsset.h"
 
-CLASSREG(SceneObject, Script, "Script")
+CLASSREG(SceneObject, SceneScript, "Script")
 
-META_DATA_DESC(Script::NodeSceneObject)
-STRING_PROP(Script::NodeSceneObject, name, "", "Property", "Name")
+META_DATA_DESC(SceneScript::NodeSceneObject)
+STRING_PROP(SceneScript::NodeSceneObject, name, "", "Property", "Name")
 META_DATA_DESC_END()
 
-META_DATA_DESC(Script::NodeScriptProperty)
-STRING_PROP(Script::NodeScriptProperty, name, "", "Property", "Name")
+META_DATA_DESC(SceneScript::NodeScriptProperty)
+STRING_PROP(SceneScript::NodeScriptProperty, name, "", "Property", "Name")
 META_DATA_DESC_END()
 
-META_DATA_DESC(Script::LinkToMethod)
-STRING_PROP(Script::LinkToMethod, param, "", "Property", "Params")
+META_DATA_DESC(SceneScript::LinkToMethod)
+STRING_PROP(SceneScript::LinkToMethod, param, "", "Property", "Params")
 META_DATA_DESC_END()
 
-META_DATA_DESC(Script::NodeScriptMethod)
-STRING_PROP(Script::NodeScriptMethod, name, "", "Property", "Name")
-ENUM_PROP(Script::NodeScriptMethod, param_type, 0, "Property", "ParamType")
+META_DATA_DESC(SceneScript::NodeScriptMethod)
+STRING_PROP(SceneScript::NodeScriptMethod, name, "", "Property", "Name")
+ENUM_PROP(SceneScript::NodeScriptMethod, param_type, 0, "Property", "ParamType")
 	ENUM_ELEM("None", 0)
 	ENUM_ELEM("Int", 1)
 	ENUM_ELEM("String", 2)
+	ENUM_ELEM("EveryFrame", 3)
 ENUM_END
 META_DATA_DESC_END()
 
 #ifdef EDITOR
 void StartScriptEdit(void* owner)
 {
-	Script* script = (Script*)owner;
+	SceneScript* script = (SceneScript*)owner;
 	char dir[1024];
 	GetCurrentDirectory(1024, dir);
-	string filename = string(dir) + string("//Media//") + string(script->GetName()) + ".asc";
+	string filename;
+	SceneScript::GetScriptFileName(script->GetUID(), filename);
+	filename = string(dir) + string("\\") +filename;
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
 #endif
 
-META_DATA_DESC(Script)
-BASE_SCENE_OBJ_NAME_PROP(Script)
-BASE_SCENE_OBJ_STATE_PROP(Script)
+META_DATA_DESC(SceneScript)
+BASE_SCENE_OBJ_NAME_PROP(SceneScript)
+BASE_SCENE_OBJ_STATE_PROP(SceneScript)
 #ifdef EDITOR
 CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
 #endif
@@ -51,20 +55,20 @@ asIScriptModule* mod = nullptr;
 asITypeInfo* class_type = nullptr;
 asIScriptObject* class_inst = nullptr;
 
-void Script::Node::Load(JSONReader& loader)
+void SceneScript::Node::Load(JSONReader& loader)
 {
 	loader.Read("name", name);
 	loader.Read("pos", pos);
 }
 
-void Script::Node::Save(JSONWriter& saver)
+void SceneScript::Node::Save(JSONWriter& saver)
 {
 	saver.Write("type", (int&)type);
 	saver.Write("name", name.c_str());
 	saver.Write("pos", pos);
 }
 
-void Script::NodeSceneObject::Load(JSONReader& loader)
+void SceneScript::NodeSceneObject::Load(JSONReader& loader)
 {
 	Node::Load(loader);
 
@@ -72,7 +76,7 @@ void Script::NodeSceneObject::Load(JSONReader& loader)
 	loader.Read("object_child_uid", object_child_uid);
 }
 
-void Script::NodeSceneObject::Save(JSONWriter& saver)
+void SceneScript::NodeSceneObject::Save(JSONWriter& saver)
 {
 	Node::Save(saver);
 
@@ -80,48 +84,7 @@ void Script::NodeSceneObject::Save(JSONWriter& saver)
 	saver.Write("object_child_uid", object_child_uid);
 }
 
-void Script::NodeScriptProperty::Load(JSONReader& loader)
-{
-	Node::Load(loader);
-
-	int link_count = 0;
-	loader.Read("Count", link_count);
-	links.resize(link_count);
-
-	for (auto& link : links)
-	{
-		loader.EnterBlock("Link");
-
-		link = new LinkToProperty();
-
-		loader.Read("node", link->node);
-
-		loader.LeaveBlock();
-	}
-}
-
-void Script::NodeScriptProperty::Save(JSONWriter& saver)
-{
-	Node::Save(saver);
-
-	int link_count = (int)links.size();
-	saver.Write("Count", link_count);
-
-	saver.StartArray("Link");
-
-	for (auto link : links)
-	{
-		saver.StartBlock(nullptr);
-
-		saver.Write("node", link->node);
-
-		saver.FinishBlock();
-	}
-
-	saver.FinishArray();
-}
-
-void Script::NodeScriptMethod::Load(JSONReader& loader)
+void SceneScript::NodeScriptMethod::Load(JSONReader& loader)
 {
 	Node::Load(loader);
 
@@ -144,7 +107,7 @@ void Script::NodeScriptMethod::Load(JSONReader& loader)
 	}
 }
 
-void Script::NodeScriptMethod::Save(JSONWriter& saver)
+void SceneScript::NodeScriptMethod::Save(JSONWriter& saver)
 {
 	Node::Save(saver);
 
@@ -168,13 +131,21 @@ void Script::NodeScriptMethod::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void Script::Init()
+void SceneScript::GetScriptFileName(uint32_t id,string& filename)
 {
-	Tasks(false)->AddTask(100, this, (Object::Delegate)&Script::Work);
-	Tasks(true)->AddTask(100, this, (Object::Delegate)&Script::EditorWork);
+	char str[1024];
+
+	StringUtils::Printf(str, 1024, "Media//%i.sns", id);
+	filename = str;
 }
 
-void Script::Load(JSONReader& loader)
+void SceneScript::Init()
+{
+	Tasks(false)->AddTask(100, this, (Object::Delegate)&SceneScript::Work);
+	Tasks(true)->AddTask(100, this, (Object::Delegate)&SceneScript::EditorWork);
+}
+
+void SceneScript::Load(JSONReader& loader)
 {
 	UIViewInstance* uiinst = (UIViewInstance*)owner->FindByName("Menu", false);
 
@@ -193,7 +164,7 @@ void Script::Load(JSONReader& loader)
 
 		loader.Read("type", type);
 
-		if (type == ScnObject || type == ScnCallback)
+		if (type == ScnCallback)
 		{
 			node = new NodeSceneObject();
 		}
@@ -211,17 +182,11 @@ void Script::Load(JSONReader& loader)
 		node->type = (NodeType)type;
 		node->Load(loader);
 
-		if (type == ScnCallback || type == ScnObject)
-		{
-			NodeSceneObject* scene_node = (NodeSceneObject*)node;
-			scene_node->object = owner->FindByUID(scene_node->object_uid, scene_node->object_child_uid, false);
-		}
-
 		loader.LeaveBlock();
 	}
 }
 
-void Script::Save(JSONWriter& saver)
+void SceneScript::Save(JSONWriter& saver)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(saver);
@@ -243,21 +208,23 @@ void Script::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void Script::SetName(const char* set_name)
+void SceneScript::SetName(const char* set_name)
 {
 	SceneObject::SetName(set_name);
 
 	if (set_name[0])
 	{
-		string filename = string("Media//") + string(GetName()) + ".asc";
+		string filename;
+		GetScriptFileName(GetUID(), filename);
 		FILE* fl = fopen(filename.c_str(), "a");
 		fclose(fl);
 	}
 }
 
-void Script::Play()
+void SceneScript::Play()
 {
-	string filename = string("Media//") + string(GetName()) + ".asc";
+	string filename;
+	GetScriptFileName(GetUID(), filename);
 
 	FILE *f = fopen(filename.c_str(), "rb");
 
@@ -275,8 +242,15 @@ void Script::Play()
 
 	mod->Build();
 
-	class_type = mod->GetTypeInfoByName("Tester");
-	class_inst = (asIScriptObject*)scripts.engine->CreateUninitializedScriptObject(class_type);
+	int count = mod->GetObjectTypeCount();
+
+	if (count == 0)
+	{
+		return;
+	}
+
+	class_type = mod->GetObjectTypeByIndex(0);
+	class_inst = (asIScriptObject*)scripts.engine->CreateScriptObject(class_type);
 
 	for (auto node : nodes)
 	{
@@ -284,16 +258,16 @@ void Script::Play()
 		{
 			NodeScriptProperty* node_prop = (NodeScriptProperty*)node;
 
-			if (node_prop->links.size() > 0)
+			for (int i = 0; i < (int)class_inst->GetPropertyCount(); i++)
 			{
-				for (int i = 0; i < (int)class_inst->GetPropertyCount(); i++)
+				if (StringUtils::IsEqual(class_inst->GetPropertyName(i), node_prop->name.c_str()))
 				{
-					if (StringUtils::IsEqual(class_inst->GetPropertyName(i), node_prop->name.c_str()))
+					if (!node_prop->object)
 					{
-						NodeSceneObject* scene_prop = (NodeSceneObject*)nodes[node_prop->links[0]->node];
-						*(asPWORD*)(class_inst->GetAddressOfProperty(i)) = (asPWORD)scene_prop->object;
-						break;
+						node_prop->object = owner->FindByUID(node_prop->object_uid, node_prop->object_child_uid, false);
 					}
+
+					*(asPWORD*)(class_inst->GetAddressOfProperty(i)) = (asPWORD)node_prop->object;
 				}
 			}
 		}
@@ -302,16 +276,25 @@ void Script::Play()
 		{
 			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
-			const char* decls[] = { "", "int", "string&in" };
+			const char* decls[] = { "", "int", "string&in", "float"};
 			char prototype[256];
 			StringUtils::Printf(prototype, 256, "void %s(%s)", node_method->name.c_str(), decls[node_method->param_type]);
 
 			node_method->method = class_type->GetMethodByDecl(prototype);
 		}
+		else
+		{
+			NodeSceneObject* scene_node = (NodeSceneObject*)node;
+
+			if (!scene_node->object)
+			{
+				scene_node->object = owner->FindByUID(scene_node->object_uid, scene_node->object_child_uid, false);
+			}
+		}
 	}
 }
 
-void Script::Work(float dt)
+void SceneScript::Work(float dt)
 {
 	if (!Playing())
 	{
@@ -324,40 +307,70 @@ void Script::Work(float dt)
 		{
 			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
-			for (auto link : node_method->links)
+			if (node_method->param_type == 3)
 			{
-				NodeSceneObject* scene_prop = (NodeSceneObject*)nodes[link->node];
-				UIButtonAssetInst* btn = (UIButtonAssetInst*)scene_prop->object;
-
-				if (btn->fired)
+				Script()->ctx->Prepare(node_method->method);
+				Script()->ctx->SetArgFloat(0, core.GetDeltaTime());
+				Script()->ctx->SetObject(class_inst);
+				if (Script()->ctx->Execute() < 0)
 				{
-					LinkToMethod* node_link = (LinkToMethod*)link;
-					Scipt()->ctx->Prepare(node_method->method);
-					Scipt()->ctx->SetArgObject(0, &node_link->param);
-					Scipt()->ctx->SetObject(class_inst);
-					Scipt()->ctx->Execute();
+					core.Log("ScriptErr", "Error occured in call of '%s'", node_method->name.c_str());
+				}
+			}
+			else
+			{
+				for (auto link : node_method->links)
+				{
+					NodeSceneObject* scene_prop = (NodeSceneObject*)nodes[link->node];
+					UIButtonAssetInst* btn = (UIButtonAssetInst*)scene_prop->object;
 
-					btn->fired = 0;
+					if (btn->fired)
+					{
+						if (node_method->method)
+						{
+							LinkToMethod* node_link = (LinkToMethod*)link;
+							Script()->ctx->Prepare(node_method->method);
+
+							if (node_method->param_type == 1)
+							{
+								int32_t value = atoi(node_link->param.c_str());
+								Script()->ctx->SetArgDWord(0, value);
+							}
+							else
+							if (node_method->param_type == 2)
+							{
+								Script()->ctx->SetArgObject(0, &node_link->param);
+							}
+						
+							Script()->ctx->SetObject(class_inst);
+							if (Script()->ctx->Execute() < 0)
+							{
+								core.Log("ScriptErr", "Error occured in call of '%s'", node_method->name.c_str());
+							}
+						}
+
+						btn->fired = 0;
+					}
 				}
 			}
 		}
 	}
 }
 
-void Script::Stop()
+void SceneScript::Stop()
 {
-	class_inst->Release();
+	RELEASE(class_inst);
 }
 
-void Script::Release()
+void SceneScript::Release()
 {
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptProperty || node->type == ScriptMethod)
+		if (node->type == ScriptMethod)
 		{
-			NodeScriptProperty* prop_node = (NodeScriptProperty*)node;
+			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
-			for (auto& link : prop_node->links)
+			for (auto& link : node_method->links)
 			{
 				delete link;
 			}
@@ -367,39 +380,21 @@ void Script::Release()
 	}
 }
 
-bool Script::UsingCamera2DPos()
+bool SceneScript::UsingCamera2DPos()
 {
 	return true;
 }
 
-Vector2& Script::Camera2DPos()
+Vector2& SceneScript::Camera2DPos()
 {
 	return camera_pos;
 }
 
-void Script::EditorWork(float dt)
+void SceneScript::EditorWork(float dt)
 {
 	int index = 0;
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptProperty)
-		{
-			int link_index = 0;
-			for (auto link : ((NodeScriptProperty*)node)->links)
-			{
-				Vector2 p1 = nodes[link->node]->pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
-				Vector2 p2 = node->pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
-
-				render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
-
-				link->arrow_pos = p1 + (p2 - p1) * 0.75f - linkSize * 0.5f;
-				Color color = (sel_node == index && link_index == sel_link) ? COLOR_CYAN : COLOR_WHITE;
-				render.DebugSprite(nullptr, link->arrow_pos, linkSize, color);
-
-				link_index++;
-			}
-		}
-
 		if (node->type == ScriptMethod)
 		{
 			int link_index = 0;
@@ -427,12 +422,18 @@ void Script::EditorWork(float dt)
 		render.DebugSprite(nullptr, node->pos - Sprite::ed_cam_pos, nodeSize, color);
 		render.DebugPrintText(node->pos + Vector2(10.0f, 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
 
-		const char* names[] = {"SceneObject:", "Callback:", "Property:", "Method:"};
+		const char* names[] = {"Callback:", "Property:", "Method:"};
 		render.DebugPrintText(node->pos + Vector2(10.0f, 10.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
 
-		if (node->type == ScnObject || node->type == ScnCallback)
+		if (node->type == ScnCallback || node->type == ScriptProperty)
 		{
-			NodeSceneObject* scene_node = (NodeSceneObject*)node;
+			NodeScriptProperty* scene_node = (NodeScriptProperty*)node;
+
+			if (!scene_node->object)
+			{
+				scene_node->object = owner->FindByUID(scene_node->object_uid, scene_node->object_child_uid, false);
+			}
+
 			render.DebugPrintText(node->pos + Vector2(10.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node->object ? scene_node->object->GetName() : "NULL");
 		}
 
@@ -449,7 +450,7 @@ void Script::EditorWork(float dt)
 }
 
 #ifdef EDITOR
-void Script::OnMouseMove(Vector2 delta_ms)
+void SceneScript::OnMouseMove(Vector2 delta_ms)
 {
 	if (in_drag)
 	{
@@ -474,7 +475,7 @@ void Script::OnMouseMove(Vector2 delta_ms)
 	}
 }
 
-void Script::OnLeftMouseDown(Vector2 ms)
+void SceneScript::OnLeftMouseDown(Vector2 ms)
 {
 	ShowProperties(false);
 
@@ -489,23 +490,6 @@ void Script::OnLeftMouseDown(Vector2 ms)
 			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
 		{
 			sel_node = index;
-		}
-
-		if (node->type == ScriptProperty)
-		{
-			int link_index = 0;
-
-			for (auto& link : ((NodeScriptProperty*)node)->links)
-			{
-				if (link->arrow_pos.x < ms.x && ms.x < link->arrow_pos.x + linkSize.x &&
-					link->arrow_pos.y < ms.y && ms.y < link->arrow_pos.y + linkSize.y)
-				{
-					sel_node = index;
-					sel_link = link_index;
-				}
-
-				link_index++;
-			}
 		}
 
 		if (node->type == ScriptMethod)
@@ -538,12 +522,11 @@ void Script::OnLeftMouseDown(Vector2 ms)
 	ShowProperties(true);
 }
 
-void Script::OnLeftMouseUp()
+void SceneScript::OnLeftMouseUp()
 {
 	if (in_drag && link_drag && target_link != -1)
 	{
-		if ((nodes[sel_node]->type == ScnObject && nodes[target_link]->type == ScriptProperty) ||
-			(nodes[sel_node]->type == ScnCallback && nodes[target_link]->type == ScriptMethod))
+		if ((nodes[sel_node]->type == ScnCallback && nodes[target_link]->type == ScriptMethod))
 		{
 			int tmp = sel_node;
 			sel_node = target_link;
@@ -553,20 +536,6 @@ void Script::OnLeftMouseUp()
 		Node* node = nodes[sel_node];
 		Node* traget = nodes[target_link];
 
-		if (node->type == ScriptProperty && traget->type == ScnObject)
-		{
-			NodeScriptProperty* prop_node = (NodeScriptProperty*)node;
-
-			if (prop_node->links.size() == 0)
-			{
-				LinkToProperty* link = new LinkToProperty();
-
-				link->node = target_link;
-
-				prop_node->links.push_back(link);
-			}
-		}
-		else
 		if (node->type == ScriptMethod && traget->type == ScnCallback)
 		{
 			NodeScriptMethod* method_node = (NodeScriptMethod*)node;
@@ -598,14 +567,13 @@ void Script::OnLeftMouseUp()
 	target_link = -1;
 }
 
-void Script::OnRightMouseDown(Vector2 ms)
+void SceneScript::OnRightMouseDown(Vector2 ms)
 {
 	ms_pos = ms;
 
 	ed_popup_menu->StartMenu(true);
 
 	ed_popup_menu->StartSubMenu("Create Link to");
-	ed_popup_menu->AddItem(5000, "Object");
 	ed_popup_menu->AddItem(5001, "Callback");
 	ed_popup_menu->AddItem(5002, "Property");
 	ed_popup_menu->AddItem(5003, "Method");
@@ -617,17 +585,9 @@ void Script::OnRightMouseDown(Vector2 ms)
 	ed_popup_menu->ShowAsPopup(ed_vieport, (int)ms.x, (int)ms.y);
 }
 
-void Script::OnPopupMenuItem(int id)
+void SceneScript::OnPopupMenuItem(int id)
 {
 	Node* node = nullptr;
-
-	if (id == 5000)
-	{
-		NodeSceneObject* scene_node = new NodeSceneObject();
-		scene_node->type = ScnObject;
-		scene_node->name = "Object";
-		node = scene_node;
-	}
 
 	if (id == 5001)
 	{
@@ -669,11 +629,11 @@ void Script::OnPopupMenuItem(int id)
 		{
 			Node* node = nodes[sel_node];
 
-			if (node->type == ScriptProperty || node->type == ScriptMethod)
+			if (node->type == ScriptMethod)
 			{
-				NodeScriptProperty* prop_node = (NodeScriptProperty*)nodes[sel_node];
+				NodeScriptMethod* node_method = (NodeScriptMethod*)nodes[sel_node];
 
-				for (auto& link : prop_node->links)
+				for (auto& link : node_method->links)
 				{
 					delete link;
 				}
@@ -682,17 +642,17 @@ void Script::OnPopupMenuItem(int id)
 			{
 				for (auto& nd : nodes)
 				{
-					if (nd->type == ScriptProperty || nd->type == ScriptMethod)
+					if (nd->type == ScriptMethod)
 					{
-						NodeScriptProperty* prop_node = (NodeScriptProperty*)nd;
+						NodeScriptMethod* node_method = (NodeScriptMethod*)nd;
 
 						int index = 0;
-						for (auto& link : prop_node->links)
+						for (auto& link : node_method->links)
 						{
 							if (link->node == sel_node)
 							{
 								delete link;
-								prop_node->links.erase(prop_node->links.begin() + index);
+								node_method->links.erase(node_method->links.begin() + index);
 							}
 							else
 							if (link->node > sel_node)
@@ -714,30 +674,40 @@ void Script::OnPopupMenuItem(int id)
 		}
 		else
 		{
-			NodeScriptProperty* prop_node = (NodeScriptProperty*)nodes[sel_node];
+			NodeScriptMethod* node_method = (NodeScriptMethod*)nodes[sel_node];
 
 			int link = sel_link;
 			ShowProperties(false);
 
-			delete prop_node->links[link];
-			prop_node->links.erase(prop_node->links.begin() + link);
+			delete node_method->links[link];
+			node_method->links.erase(node_method->links.begin() + link);
 		}
 	}
 }
 
-void Script::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
+void SceneScript::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
 {
 	for (auto& node : nodes)
 	{
 		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
 			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
 		{
-			if (node->type == ScnCallback || node->type == ScnObject)
+			if (node->type == ScnCallback || node->type == ScriptProperty)
 			{
 				NodeSceneObject* scene_node = (NodeSceneObject*)node;
 
 				scene_node->object_uid = object->GetParentUID();
 				scene_node->object_child_uid = object->GetUID();
+
+				if (scene_node->object_uid == 0)
+				{
+					scene_node->object_uid = scene_node->object_child_uid;
+					scene_node->object_child_uid = 0;
+				}
+				if (scene_node->object_uid == scene_node->object_child_uid)
+				{
+					scene_node->object_child_uid = 0;
+				}
 
 				scene_node->object = object;
 			}
@@ -747,13 +717,13 @@ void Script::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
 	}
 }
 
-void Script::ShowProperties(bool show)
+void SceneScript::ShowProperties(bool show)
 {
 	if (show)
 	{
 		if (sel_node != -1 && sel_link != -1)
 		{
-			LinkToProperty* link = ((NodeScriptProperty*)nodes[sel_node])->links[sel_link];
+			LinkToMethod* link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
 			if (link->GetMetaData())
 			{
 				link->GetMetaData()->Prepare(link);
@@ -772,7 +742,7 @@ void Script::ShowProperties(bool show)
 	{
 		if (sel_node != -1 && sel_link != -1)
 		{
-			LinkToProperty* link = ((NodeScriptProperty*)nodes[sel_node])->links[sel_link];
+			LinkToMethod* link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
 			if (link->GetMetaData())
 			{
 				link->GetMetaData()->HideWidgets();

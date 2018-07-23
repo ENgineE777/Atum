@@ -24,6 +24,12 @@ CharacterCamera2D::~CharacterCamera2D()
 {
 }
 
+void CharacterCamera2D::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(CharacterCamera2D)
+	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void Reset()", WRAP_MFN(CharacterCamera2D, Reset), asCALL_GENERIC);
+}
+
 void CharacterCamera2D::Init()
 {
 	RenderTasks(false)->AddTask(RenderLevels::Camera, this, (Object::Delegate)&CharacterCamera2D::Update);
@@ -90,6 +96,7 @@ void CharacterCamera2D::Play()
 {
 	SceneObject::Play();
 
+	init_pos = trans.pos;
 	Sprite::use_ed_cam = false;
 	target = (SimpleCharacter2D*)owner->FindInGroup("SimpleCharacter2D", target_name.c_str());
 }
@@ -100,6 +107,11 @@ void CharacterCamera2D::Stop()
 
 	Sprite::use_ed_cam = true;
 	target = nullptr;
+}
+
+void CharacterCamera2D::Reset()
+{
+	trans.pos = init_pos;
 }
 
 #ifdef EDITOR

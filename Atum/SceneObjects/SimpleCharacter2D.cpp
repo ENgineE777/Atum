@@ -19,6 +19,14 @@ INT_PROP(SimpleCharacter2D, max_hp, 100, "Prop", "HP")
 FLOAT_PROP(SimpleCharacter2D, floor_height, 200.0f, "Prop", "FloorHeight")
 META_DATA_DESC_END()
 
+void SimpleCharacter2D::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(SimpleCharacter2D)
+	scripts.engine->RegisterObjectProperty(scriptClassName.c_str(), "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
+	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph), asCALL_GENERIC);
+}
+
 void SimpleCharacter2D::Init()
 {
 	Tasks(false)->AddTask(10, this, (Object::Delegate)&SimpleCharacter2D::Update);
@@ -29,24 +37,18 @@ void SimpleCharacter2D::Init()
 
 void SimpleCharacter2D::ApplyProperties()
 {
-	asset = (SpriteGraphAsset*)owner->FindInGroup("SpriteGraphAsset", asset_name.c_str());
-
-	if (asset)
-	{
-		asset->PrepareInstance(&graph_instance);
-
-		if (graph_instance.cur_node)
-		{
-			floor_margin.y = 1024.0f;
-			floor_margin.x = floor_margin.y - floor_height;
-		}
-	}
+	SetAnimGraph(asset_name);
 
 	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
 }
 
 void SimpleCharacter2D::Update(float dt)
 {
+	if (state != Active)
+	{
+		return;
+	}
+
 	if (!asset || !graph_instance.cur_node)
 	{
 		return;
@@ -161,21 +163,16 @@ void SimpleCharacter2D::Update(float dt)
 				vanish_time = 2.0f;
 			}
 		}
-
-		if (!is_enemy)
-		{
-			render.DebugPrintText(Vector2(10.0f, 30.0f), COLOR_CYAN, "Player : %i", cur_hp);
-
-			if (target)
-			{
-				render.DebugPrintText(Vector2(10.0f, 55.0f), COLOR_CYAN, "Enemy : %i", target->cur_hp);
-			}
-		}
 	}
 }
 
 void SimpleCharacter2D::Draw(float dt)
 {
+	if (state == Invisible)
+	{
+		return;
+	}
+
 	if (!asset || !graph_instance.cur_node)
 	{
 		return;
@@ -198,8 +195,12 @@ void SimpleCharacter2D::Draw(float dt)
 		trans.mat_global.Pos().y -= 1024.0f * arraive;
 	}
 
-	graph_instance.Update(dt);
-	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true);
+	if (state == Active)
+	{
+		graph_instance.Update(dt);
+	}
+
+	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true, false);
 }
 
 SimpleCharacter2D* SimpleCharacter2D::FindTarget()
@@ -418,16 +419,56 @@ void SimpleCharacter2D::Respawn()
 	graph_instance.GotoNode("Resp");
 }
 
-void SimpleCharacter2D::Play()
+void SimpleCharacter2D::Reset()
 {
-	SceneObject::Play();
+	trans.pos = init_pos;
 
 	cur_hp = max_hp;
+
+	allow_move = false;
+	flipped = false;
+	dir_horz = 0;
+	dir_vert = 0;
+	time_2_kick = 0.5f;
+	cur_time_2_kuck = 0;
+	cur_time_to_kick = -1.0f;
+	death_fly = -1.0f;
+	vanish_time = -1.0f;
+	arraive = -1.0f;
+	resp_time = -1.0f;
+	next_kick = -1;
+
+	graph_instance.Reset();
 
 	if (is_enemy)
 	{
 		Respawn();
 	}
+}
+
+void SimpleCharacter2D::SetAnimGraph(string& graph)
+{
+	asset = (SpriteGraphAsset*)owner->FindInGroup("SpriteGraphAsset", graph.c_str());
+
+	if (asset)
+	{
+		asset->PrepareInstance(&graph_instance);
+
+		if (graph_instance.cur_node)
+		{
+			floor_margin.y = 1024.0f;
+			floor_margin.x = floor_margin.y - floor_height;
+		}
+	}
+}
+
+void SimpleCharacter2D::Play()
+{
+	SceneObject::Play();
+
+	init_pos = trans.pos;
+
+	Reset();
 }
 
 void SimpleCharacter2D::Stop()

@@ -17,14 +17,20 @@ public:
 	float left_border = -300.0f;
 	float right_border =300.0f; 
 	
+	Vector2 init_pos;
+
 	CharacterCamera2D();
 	virtual ~CharacterCamera2D();
 
-	virtual void Init();
+	void BindClassToScript() override;
+
+	void Init() override;
 	void Update(float dt);
 
 	void Play();
 	void Stop();
+
+	void Reset();
 
 #ifdef EDITOR
 	void SetEditMode(bool ed);

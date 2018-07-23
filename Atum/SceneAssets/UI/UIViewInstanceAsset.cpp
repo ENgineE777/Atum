@@ -10,9 +10,18 @@ FLOAT_PROP(UIViewInstanceAsset, trans.pos.x, 00.0f, "Prop", "x")
 FLOAT_PROP(UIViewInstanceAsset, trans.pos.y, 00.0f, "Prop", "y")
 FLOAT_PROP(UIViewInstanceAsset, trans.size.x, 500.0f, "Prop", "width")
 FLOAT_PROP(UIViewInstanceAsset, trans.size.y, 500.0f, "Prop", "height")
-FLOAT_PROP(UIViewInstanceAsset, anchor.x, 0.5f, "Prop", "anchor_x")
-FLOAT_PROP(UIViewInstanceAsset, anchor.y, 0.5f, "Prop", "anchor_y")
-BOOL_PROP(UIViewInstanceAsset, abs_anchor, true, "Prop", "anchor_abs")
+ENUM_PROP(UIViewInstanceAsset, horzSize, 0, "Prop", "horz_size")
+	ENUM_ELEM("Fixed", 0)
+	ENUM_ELEM("Fill parent", 1)
+	ENUM_ELEM("Wrap content", 2)
+ENUM_END
+ENUM_PROP(UIViewInstanceAsset, vertSize, 0, "Prop", "vert_size")
+	ENUM_ELEM("Fixed", 0)
+	ENUM_ELEM("Fill parent", 1)
+	ENUM_ELEM("Wrap content", 2)
+ENUM_END
+FLOAT_PROP(UIViewInstanceAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x")
+FLOAT_PROP(UIViewInstanceAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y")
 BOOL_PROP(UIViewInstanceAsset, scaleChilds, false, "Prop", "scale_childs")
 BOOL_PROP(UIViewInstanceAsset, clipChilds, false, "Prop", "clip_childs")
 META_DATA_DESC_END()
@@ -29,6 +38,11 @@ void UIViewInstanceAsset::ApplyProperties()
 
 void UIViewInstanceAsset::Draw(float dt)
 {
+	if (state == Invisible)
+	{
+		return;
+	}
+
 #ifdef EDITOR
 	if (edited)
 	{
@@ -55,11 +69,30 @@ META_DATA_DESC(UIViewInstance)
 BASE_SCENE_OBJ_STATE_PROP(UIViewInstance)
 FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x")
 FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y")
+ENUM_PROP(UIViewInstance, horzAlign, 0, "Prop", "horz_align")
+	ENUM_ELEM("Left", 0)
+	ENUM_ELEM("Center", 1)
+	ENUM_ELEM("Right", 2)
+ENUM_END
+ENUM_PROP(UIViewInstance, vertAlign, 0, "Prop", "vert_align")
+	ENUM_ELEM("Top", 3)
+	ENUM_ELEM("Center", 1)
+	ENUM_ELEM("Bottom", 4)
+ENUM_END
 FLOAT_PROP(UIViewInstance, trans.size.x, 500.0f, "Prop", "width")
 FLOAT_PROP(UIViewInstance, trans.size.y, 500.0f, "Prop", "height")
-FLOAT_PROP(UIViewInstance, anchor.x, 0.5f, "Prop", "anchor_x")
-FLOAT_PROP(UIViewInstance, anchor.y, 0.5f, "Prop", "anchor_y")
-BOOL_PROP(UIViewInstance, abs_anchor, true, "Prop", "anchor_abs")
+ENUM_PROP(UIViewInstance, horzSize, 0, "Prop", "horz_size")
+	ENUM_ELEM("Fixed", 0)
+	ENUM_ELEM("Fill parent", 1)
+	ENUM_ELEM("Wrap content", 2)
+ENUM_END
+ENUM_PROP(UIViewInstance, vertSize, 0, "Prop", "vert_size")
+	ENUM_ELEM("Fixed", 0)
+	ENUM_ELEM("Fill parent", 1)
+	ENUM_ELEM("Wrap content", 2)
+ENUM_END
+FLOAT_PROP(UIViewInstance, trans.offset.x, 0.0f, "Prop", "anchorn_x")
+FLOAT_PROP(UIViewInstance, trans.offset.y, 0.0f, "Prop", "anchorn_y")
 BOOL_PROP(UIViewInstance, scaleChilds, false, "Prop", "scale_childs")
 BOOL_PROP(UIViewInstance, clipChilds, false, "Prop", "clip_childs")
 META_DATA_DESC_END()
@@ -75,26 +108,10 @@ void UIViewInstance::ApplyProperties()
 	UIWidgetAsset::ApplyProperties();
 }
 
-void UIViewInstance::Draw(float dt)
-{
-#ifdef EDITOR
-	if (edited)
-	{
-		//GetMetaData()->UpdateWidgets();
-	}
-#endif
-
-	trans.offset = 0.0f;
-	trans.BuildMatrices();
-
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
-}
-
 void UIViewInstance::BindClassToScript()
 {
+	BIND_TYPE_TO_SCRIPT(UIViewInstance)
+
 	for (const auto& decl : ClassFactoryUIWidgetAsset::Decls())
 	{
 		SceneObject* obj = decl->Create();

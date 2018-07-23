@@ -19,7 +19,6 @@ public:
 
 	void Init() override;
 	void ApplyProperties() override;
-	void Draw(float dt) override;
 
 	void BindClassToScript() override;
 

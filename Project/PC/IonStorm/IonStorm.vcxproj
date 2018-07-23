@@ -51,6 +51,7 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIService.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIContainerAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIViewAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.cpp" />
@@ -64,7 +65,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\plane.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\programs.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\scene2.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Script.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SceneScript.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleClient.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\SimpleServer.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIImageAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UILabelAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIService.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIContainerAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIViewAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIViewInstanceAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIWidgetAsset.h" />
@@ -194,7 +196,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\programs.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\RenderLevels.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\scene2.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Script.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SceneScript.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleCharacter2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleClient.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\SimpleServer.h" />

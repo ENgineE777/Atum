@@ -264,7 +264,7 @@ void SpriteGraphAsset::Draw(float dt)
 			trans.size = node.asset->trans.size;
 			trans.BuildMatrices();
 			Sprite::UpdateFrame(&node.asset->sprite, &state, dt);
-			Sprite::Draw(&trans, COLOR_WHITE, &node.asset->sprite, &state, true);
+			Sprite::Draw(&trans, COLOR_WHITE, &node.asset->sprite, &state, true, true);
 		}
 	}
 

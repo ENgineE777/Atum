@@ -397,9 +397,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp">
       <Filter>Services\Script</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Script.cpp">
-      <Filter>SceneObjects</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.cpp">
       <Filter>SceneAssets\UI</Filter>
     </ClCompile>
@@ -420,6 +417,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp">
       <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\SceneScript.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\UI\UIContainerAsset.cpp">
+      <Filter>SceneAssets\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -795,9 +798,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h">
       <Filter>Services\Script</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Script.h">
-      <Filter>SceneObjects</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIButtonAsset.h">
       <Filter>SceneAssets\UI</Filter>
     </ClInclude>
@@ -818,6 +818,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\aswrappedcall.h">
       <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\SceneScript.h">
+      <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\UI\UIContainerAsset.h">
+      <Filter>SceneAssets\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

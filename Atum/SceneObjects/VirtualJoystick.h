@@ -54,7 +54,9 @@ public:
 	VirtualJoystick();
 	virtual ~VirtualJoystick();
 
-	virtual void Init();
-	virtual void ApplyProperties();
+	void BindClassToScript() override;
+
+	void Init() override;
+	void ApplyProperties() override;
 	void Draw(float dt);
 };

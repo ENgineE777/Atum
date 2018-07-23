@@ -1,18 +1,12 @@
 
 #include "ColorWidget.h"
 
-void ColorWidget::Listiner::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
-{
-	owner->ChoseColor();
-}
-
 void ColorWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {
 	ProperyWidget::Init(parent, catName, labelName);
 
 	ecolor = new EUILabel(panel, "", 90, 5, 95, 20);
-	ecolor->SetListener(-1, &listiner, 0);
-	listiner.owner = this;
+	ecolor->SetListener(-1, this, 0);
 }
 
 void ColorWidget::SetData(void* set_data)
@@ -26,7 +20,7 @@ void ColorWidget::SetData(void* set_data)
 	ecolor->SetBackgroundColor(true, clr);
 }
 
-void ColorWidget::ChoseColor()
+void ColorWidget::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 {
 	if (EUI::OpenColorDialog(ecolor->GetRoot()->GetNative(), &data->r))
 	{

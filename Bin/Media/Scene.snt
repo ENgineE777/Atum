@@ -1,0 +1,122 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"index_in_scene" : 20,
+			"name" : "ColorCorrection",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 1,
+			"name" : "HoverTank",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 2,
+			"name" : "PhysBox0",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 3,
+			"name" : "PhysBox1",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 12,
+			"name" : "PhysBox10",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 13,
+			"name" : "PhysBox11",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 14,
+			"name" : "PhysBox12",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 15,
+			"name" : "PhysBox13",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 16,
+			"name" : "PhysBox14",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 17,
+			"name" : "PhysBox15",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 4,
+			"name" : "PhysBox2",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 5,
+			"name" : "PhysBox3",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 6,
+			"name" : "PhysBox4",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 7,
+			"name" : "PhysBox5",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 8,
+			"name" : "PhysBox6",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 9,
+			"name" : "PhysBox7",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 10,
+			"name" : "PhysBox8",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 11,
+			"name" : "PhysBox9",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 18,
+			"name" : "TankClient",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 0,
+			"name" : "Terrain",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 19,
+			"name" : "VJoy",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

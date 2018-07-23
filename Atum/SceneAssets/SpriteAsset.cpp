@@ -73,7 +73,7 @@ void SpriteAsset::Draw(float dt)
 	}
 #endif
 
-	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &state, true);
+	Sprite::Draw(&trans, COLOR_WHITE, &sprite, &state, true, false);
 }
 
 #ifdef EDITOR

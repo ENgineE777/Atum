@@ -27,7 +27,6 @@ class Editor : public Object, public EUIWidget::Listener
 		LocalBtnID = 1504,
 		PlayBtnID = 1505,
 		GameViewportID = 1506,
-		AssetViewportID = 1507,
 		SceneListID = 1508,
 		AssetListID = 1509,
 
@@ -63,10 +62,8 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIPanel* viewport = nullptr;
 	EUIPanel* asset_treeview_panel = nullptr;
 	EUITreeView* asset_treeview = nullptr;
-	EUIPanel* asset_viewport = nullptr;
 
-	EUILayout* viewport_lt = nullptr;
-	EUILayout* asset_vp_sheet_lt = nullptr;
+	EUILayout* vp_sheet_lt = nullptr;
 
 	EUIWindow* mainWnd = nullptr;
 	EUIWindow* gameWnd = nullptr;
@@ -79,6 +76,7 @@ class Editor : public Object, public EUIWidget::Listener
 	Vector2 prev_ms;
 	bool allowCopy = false;
 
+	int asset_panel_width = 1;
 	void*        popup_item = nullptr;
 	SceneObject* popup_scene_item = nullptr;
 	int          popup_child_index = -1;

@@ -25,13 +25,14 @@ public:
 		int   skip;
 	};
 
-	struct LineData
-	{
-		int index;
-		float offset;
-	};
-
 	string fileName;
+
+	struct LineBreak
+	{
+		float offset = 0.0f;
+		float width  = 0.0f;
+		int index = -1;
+	};
 
 protected:
 
@@ -61,7 +62,8 @@ public:
 	Glyph* GenerateChar(int ch);
 	Font* CreateReference();
 
-	void Print(Matrix& transform, float font_scale, Color color, const char* text);
+	float GetLineBreak(std::vector<FontRes::LineBreak>& line_breaks, const char* text, int width);
+	void Print(std::vector<FontRes::LineBreak>& line_breaks, Matrix& transform, float font_scale, Color color, const char* text);
 
 	int GetHeight();
 	int GetCharHeight();

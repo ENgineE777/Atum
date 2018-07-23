@@ -4,23 +4,13 @@
 #include "ProperyWidget.h"
 #include "Support/Color.h"
 
-class ColorWidget : public ProperyWidget
+class ColorWidget : public ProperyWidget, public EUIWidget::Listener
 {
 public:
 	EUILabel* ecolor;
 	Color* data;
 
-	class Listiner : public EUIWidget::Listener
-	{
-	public:
-		ColorWidget* owner;
-
-		void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
-	};
-
-	Listiner listiner;
-
-	virtual void Init(EUICategories* parent, const char* catName, const char* labelName);
-	virtual void SetData(void* set_data);
-	void ChoseColor();
+	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
+	void SetData(void* set_data)  override;
+	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
 };

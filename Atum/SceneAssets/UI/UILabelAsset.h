@@ -11,12 +11,15 @@ public:
 	string font_name;
 	string text;
 	int font_height;
+	Align textHorzAlign = align_left;
+	Align textVertAlign = align_top;
 
 	META_DATA_DECL(UILabelAsset)
 
 	void Init() override;
 	void ApplyProperties() override;
 
+	void SetText(string& text);
 	void Draw(float dt) override;
 };
 
@@ -27,7 +30,6 @@ public:
 	META_DATA_DECL(UILabelAssetInst)
 
 	void BindClassToScript() override;
-	void SetText(string& text);
 #ifdef EDITOR
 	static UILabelAssetInst* temp;
 	bool AddedToTreeByParent() override;

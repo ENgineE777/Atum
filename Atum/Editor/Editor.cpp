@@ -2,6 +2,7 @@
 #include "Editor.h"
 #include "SceneAssets/Sprite.h"
 #include "SceneObjects/RenderLevels.h"
+#include "SceneAssets/Sprite.h"
 
 char appdir[1024];
 
@@ -99,15 +100,10 @@ void Editor::Init()
 	outputPanels = new EUITabPanel(vo_lt, 30, 50, 100, 30);
 	vo_lt->SetChildSize(outputPanels, 250, false);
 
-	viewport_lt = new EUILayout(viewportPanels, true);
+	vp_sheet_lt = new EUILayout(viewportPanels, false);
 
-	viewport = new EUIPanel(viewport_lt, 10, 10, 100, 30);
-	viewport->SetListener(ViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
-
-	asset_vp_sheet_lt = new EUILayout(viewportPanels, false);
-
-	asset_treeview_panel = new EUIPanel(asset_vp_sheet_lt, 30, 50, 100, 30);
-	asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, 200, false);
+	asset_treeview_panel = new EUIPanel(vp_sheet_lt, 30, 50, 100, 30);
+	vp_sheet_lt->SetChildSize(asset_treeview_panel, 200, false);
 
 	EUILayout* panelBLt = new EUILayout(asset_treeview_panel, false);
 	asset_treeview = new EUITreeView(panelBLt, 0, 0, 100, 100, false, true);
@@ -117,8 +113,8 @@ void Editor::Init()
 
 	asset_treeview->SetListener(AssetListID + 100, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
-	asset_viewport = new EUIPanel(asset_vp_sheet_lt, 10, 10, 100, 30);
-	asset_viewport->SetListener(AssetViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	viewport = new EUIPanel(vp_sheet_lt, 10, 10, 100, 30);
+	viewport->SetListener(ViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	EUIPanel* toolsPanel3 = new EUIPanel(lt, 10, 10, 100, 30);
 	lt->SetChildSize(toolsPanel3, 200, false);
@@ -146,6 +142,8 @@ void Editor::Init()
 	freecamera.Init();
 	ed_scene.Init();
 
+	Sprite::Init();
+
 	gizmo.Init();
 
 	UpdateGizmoToolbar();
@@ -153,6 +151,10 @@ void Editor::Init()
 	mainWnd->Show(true);
 	mainWnd->Maximaze();
 
+	ShowVieport();
+
+	vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)asset_panel_width, false);
+	vp_sheet_lt->Resize();
 	ShowVieport();
 
 	checker_texture = render.LoadTexture("settings/editor/checker.png");
@@ -230,11 +232,11 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (isSelectedAsset)
 		{
-			assets_treeview->SelectItem(nullptr);
+			//assets_treeview->SelectItem(nullptr);
 		}
 		else
 		{
-			scene_treeview->SelectItem(nullptr);
+			//scene_treeview->SelectItem(nullptr);
 		}
 	}
 
@@ -256,28 +258,33 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
 		}
 
+		int panel_width = 1;
+
 		if (isSelectedAsset)
 		{
-			assets_treeview->SelectItem(obj->item);
+			//assets_treeview->SelectItem(obj->item);
 
 			asset_treeview->ClearTree();
-			int panel_width = ((SceneAsset*)selectedObject)->UseAseetsTree() ? 200 : 1;
+			panel_width = ((SceneAsset*)selectedObject)->UseAseetsTree() ? 200 : 1;
 
 			if (panel_width > 1)
 			{
 				((SceneAsset*)selectedObject)->PreapreAssetTree();
 			}
-
-			asset_vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)panel_width, false);
-			asset_vp_sheet_lt->Resize();
 		}
 		else
 		{
-			scene_treeview->SelectItem(obj->item);
+			//scene_treeview->SelectItem(obj->item);
+		}
+
+		if (asset_panel_width != panel_width)
+		{
+			asset_panel_width = panel_width;
+			vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)panel_width, false);
+			vp_sheet_lt->Resize();
+			ShowVieport();
 		}
 	}
-
-	ShowVieport();
 
 	in_select_object = false;
 }
@@ -347,19 +354,14 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 
 void Editor::ShowVieport()
 {
-	EUIPanel* vp = isSelectedAsset ? asset_viewport : viewport;
-	vp->Show(true);
+	EUIPanel* vp = viewport;
+	viewport->Show(true);
 
 	SceneObject::ed_vieport = vp;
 
 	if (scene)
 	{
 		vp = game_viewport;
-	}
-	else
-	{
-		viewport_lt->Show(!isSelectedAsset);
-		asset_vp_sheet_lt->Show(isSelectedAsset);
 	}
 
 	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
@@ -387,8 +389,9 @@ void Editor::StartScene()
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(false);
-		ed_scene.EnableTasks(false);
 	}
+
+	ed_scene.EnableTasks(false);
 
 	Save();
 
@@ -657,12 +660,11 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 		int id = MenuSceneObjectID;
 		for (const auto& decl : ClassFactorySceneObject::Decls())
 		{
-			if (StringUtils::IsEqual(decl->GetName(), "UIViewInstance"))
+			if (!StringUtils::IsEqual(decl->GetName(), "UIViewInstance"))
 			{
-				continue;
+				popup_menu->AddItem(id, decl->GetShortName());
 			}
 
-			popup_menu->AddItem(id, decl->GetShortName());
 			id++;
 		}
 	}
@@ -774,14 +776,12 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 {
 	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		controls.OverrideMousePos(mx, my);
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		Vector2 ms((float)mx, (float)my);
@@ -821,7 +821,6 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	prev_ms = Vector2((float)mx, (float)my);
 
 	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		allowCopy = true;
@@ -835,7 +834,6 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	}
 
 	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		sender->SetFocused();
@@ -845,7 +843,6 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
 	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
 		gizmo.OnLeftMouseUp();
@@ -891,8 +888,7 @@ void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 {
 	prev_ms = Vector2((float)mx, (float)my);
 
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID)
+	if (sender->GetID() == Editor::ViewportID)
 	{
 		sender->CaptureMouse();
 
@@ -905,8 +901,7 @@ void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 
 void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::AssetViewportID)
+	if (sender->GetID() == Editor::ViewportID)
 	{
 		sender->ReleaseMouse();
 
@@ -1012,7 +1007,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 		}
 	}
 
-	if (viewport->IsFocused() || asset_viewport->IsFocused())
+	if (viewport->IsFocused())
 	{
 		Color color = COLOR_RED;
 
@@ -1031,6 +1026,38 @@ void Editor::OnUpdate(EUIWidget* sender)
 	}
 	else
 	{
+		if (selectedObject)
+		{
+			void* sel_item = isSelectedAsset ? assets_treeview->GetSelectedItem() : scene_treeview->GetSelectedItem();
+			void* item_ptr = isSelectedAsset ? assets_treeview->GetItemPtr(sel_item) : scene_treeview->GetItemPtr(sel_item);
+
+			if (selectedObject == item_ptr)
+			{
+				string name;
+
+				if (isSelectedAsset)
+				{
+					assets_treeview->GetItemText(sel_item, name);
+				}
+				else
+				{
+					scene_treeview->GetItemText(sel_item, name);
+				}
+
+				if (!StringUtils::IsEqual(selectedObject->GetName(), name.c_str()))
+				{
+					if (isSelectedAsset)
+					{
+						assets_treeview->SetItemText(sel_item, selectedObject->GetName());
+					}
+					else
+					{
+						scene_treeview->SetItemText(sel_item, selectedObject->GetName());
+					}
+				}
+			}
+		}
+
 		if (selectedObject && selectedObject->HasOwnTasks())
 		{
 			ed_scene.EnableTasks(false);
@@ -1051,7 +1078,6 @@ void Editor::OnUpdate(EUIWidget* sender)
 void Editor::OnResize(EUIWidget* sender)
 {
 	if ((sender->GetID() == Editor::ViewportID && !scene) ||
-		(sender->GetID() == Editor::AssetViewportID && !scene) ||
 		(sender->GetID() == Editor::GameViewportID && scene))
 	{
 		ShowVieport();
@@ -1115,9 +1141,9 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 	else
 	if (sender == scene_treeview || sender == assets_treeview)
 	{
-		SceneAsset* asset = (SceneAsset*)sender->GetItemPtr(item);
+		SceneObject* asset = (SceneObject*)sender->GetItemPtr(item);
 
-		if (!asset_drag_as_inst)
+		if (!asset_drag_as_inst && asset)
 		{
 			SelectObject(asset, (sender == assets_treeview));
 		}

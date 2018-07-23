@@ -129,7 +129,74 @@ FontRes::Glyph* FontRes::GetGlyph(int code)
 	return &glyphs[code];
 }
 
-void FontRes::Print(Matrix& transform, float font_scale, Color color, const char* text)
+float FontRes::GetLineBreak(vector<FontRes::LineBreak>& line_breaks, const char* text, int width)
+{
+	float scr_y =(float) height;
+
+	int w = 0;
+	int bytes = 0;
+
+	int line = -1;
+	int x_offset = 0;
+
+	line_breaks.clear();
+
+	FontRes::LineBreak breaker;
+	breaker.width = 0.5f;
+
+	int last_whitespace = -1;
+
+	int len = StringUtils::GetLen(text);
+
+	for (int i = 0; i<len; i++)
+	{
+		if (!StringUtils::BuildUtf16fromUtf8(text[i], bytes, w))
+		{
+			continue;
+		}
+
+		if (w > 65000) continue;
+
+		if (w == 10)
+		{
+			continue;
+		}
+		else
+		if (w == '\\')
+		{
+			if (i <len - 1)
+			{
+				if (text[i + 1] == 'n')
+				{
+					i++;
+
+					breaker.index = i;
+					line_breaks.push_back(breaker);
+					breaker.width = 0.5f;
+					scr_y += height;
+					last_whitespace = -1;
+					continue;
+				}
+			}
+		}
+
+		if (w == ' ')
+		{
+			last_whitespace = i;
+		}
+
+		Glyph* set_glyph = GetGlyph(w);
+		if (!set_glyph) continue;
+
+		breaker.width += set_glyph->x_advance;
+	}
+
+	line_breaks.push_back(breaker);
+
+	return scr_y;
+}
+
+void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, float font_scale, Color color, const char* text)
 {
 	if (!tex) return;
 
@@ -190,8 +257,6 @@ void FontRes::Print(Matrix& transform, float font_scale, Color color, const char
 
 	int line = -1;
 	int x_offset = 0;
-
-	int next_white_space = 0;
 
 	for (int i=0;i<len;i++)
 	{

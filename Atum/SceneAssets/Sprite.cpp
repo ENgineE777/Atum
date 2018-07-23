@@ -17,7 +17,7 @@ Program*        Sprite::quad_prg_depth;
 Program*        Sprite::quad_prg_no_depth;
 VertexDecl*     Sprite::vdecl;
 GeometryBuffer* Sprite::buffer;
-bool Sprite::inited = false;
+Texture*        Sprite::white_tex = nullptr;
 
 void Sprite::Load(JSONReader& loader, Sprite::Data* sprite)
 {
@@ -26,6 +26,7 @@ void Sprite::Load(JSONReader& loader, Sprite::Data* sprite)
 		loader.Read("width", sprite->width);
 		loader.Read("height", sprite->height);
 		loader.Read("type", (int&)sprite->type);
+		loader.Read("color", sprite->color);
 
 		loader.Read("texName", sprite->tex_name);
 		loader.Read("texMode", (int&)sprite->mode);
@@ -70,6 +71,7 @@ void Sprite::Save(JSONWriter& saver, Sprite::Data* sprite)
 	saver.Write("width", sprite->width);
 	saver.Write("height", sprite->height);
 	saver.Write("type", sprite->type);
+	saver.Write("color", sprite->color);
 
 	saver.Write("texName", sprite->tex_name.c_str());
 	saver.Write("texMode", sprite->mode);
@@ -109,6 +111,7 @@ void Sprite::Copy(Sprite::Data* src, Sprite::Data* dest)
 	dest->width = src->width;
 	dest->height = src->height;
 	dest->type = src->type;
+	dest->color = src->color;
 
 	dest->mode = src->mode;
 	dest->filter = src->filter;
@@ -224,16 +227,11 @@ void Sprite::Init()
 	quad_prg_depth = render.GetProgram("QuadProgramDepth");
 	quad_prg_no_depth = render.GetProgram("QuadProgramNoDepth");
 
-	inited = true;
+	white_tex = render.LoadTexture("settings\\editor\\white.png");
 }
 
 void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
 {
-	if (!inited)
-	{
-		Init();
-	}
-
 	render.GetDevice()->SetVertexBuffer(0, buffer);
 	render.GetDevice()->SetVertexDecl(vdecl);
 
@@ -262,12 +260,13 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }
 
-void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth)
+void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth, bool ignore_camera)
 {
-	if (!sprite->texture) return;
-
-	sprite->texture->SetAdress(sprite->mode);
-	sprite->texture->SetFilters(sprite->filter, sprite->filter);
+	if (sprite->texture)
+	{
+		sprite->texture->SetAdress(sprite->mode);
+		sprite->texture->SetFilters(sprite->filter, sprite->filter);
+	}
 
 	Matrix local_trans = trans->mat_global;
 
@@ -279,19 +278,29 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 	Vector2 pos = trans->offset * trans->size * -1.0f;
 	pos *= scale;
 
-	if (use_ed_cam)
+	if (!ignore_camera)
 	{
-		local_trans.Pos().x -= ed_cam_pos.x;
-		local_trans.Pos().y -= ed_cam_pos.y;
-	}
-	else
-	{
-		local_trans.Pos().x -= cam_pos.x * scale - render.GetDevice()->GetWidth() * 0.5f;
-		local_trans.Pos().y -= cam_pos.y * scale - 512 * scale;
+		if (use_ed_cam)
+		{
+			local_trans.Pos().x -= ed_cam_pos.x;
+			local_trans.Pos().y -= ed_cam_pos.y;
+		}
+		else
+		{
+			local_trans.Pos().x -= cam_pos.x * scale - render.GetDevice()->GetWidth() * 0.5f;
+			local_trans.Pos().y -= cam_pos.y * scale - 512 * scale;
+		}
 	}
 
 	Vector2 size = trans->size * scale;
 
+	clr *= sprite->color;
+
+	if (!sprite->texture)
+	{
+		Draw(white_tex, clr, local_trans, pos, size, 0.0f, 1.0f, false);
+	}
+	else
 	if (sprite->type == Image)
 	{
 		Rect& rect = sprite->rects[0];

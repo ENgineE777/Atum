@@ -78,6 +78,7 @@ public:
 	void Load(JSONReader& reader);
 	void Save(JSONWriter& writer);
 	void Copy(void* source);
+	void BindToScript(class asIScriptEngine* engine, const char* script_class_name);
 #ifdef EDITOR
 	void PrepareWidgets(EUICategories* parent);
 	void UpdateWidgets();

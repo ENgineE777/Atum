@@ -30,8 +30,6 @@ public:
 	Align vertAlign = align_top;
 	Size  horzSize = fixed;
 	Size  vertSize = fixed;
-	Vector anchor = 0.0f;
-	bool  abs_anchor = true;
 	float rotate = 0.0f;
 	Color color = COLOR_WHITE;
 
@@ -77,3 +75,9 @@ public:
 
 CLASSFACTORYDEF(UIWidgetAsset)
 CLASSFACTORYDEF_END()
+
+#define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
+scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+classAssetName##::meta_data.BindToScript(scripts.engine, scriptClassName.c_str());

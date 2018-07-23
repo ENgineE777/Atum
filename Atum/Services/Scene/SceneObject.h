@@ -77,7 +77,7 @@ public:
 	virtual void Play();
 	virtual void Stop();
 	bool Playing();
-	ScriptContext* Scipt();
+	ScriptContext* Script();
 	PhysScene* PScene();
 	virtual void Release();
 	virtual bool Is3DObject();
@@ -120,4 +120,5 @@ ENUM_END
 #define BIND_TYPE_TO_SCRIPT(className)\
 scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
 scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);
+scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+GetMetaData()->BindToScript(scripts.engine, scriptClassName.c_str());

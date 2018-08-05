@@ -1,5 +1,6 @@
 
 #include "SpriteAsset.h"
+#include "SpriteInst.h"
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
 #include "SpriteWindow.h"
@@ -28,10 +29,6 @@ META_DATA_DESC_END()
 Sprite::FrameState SpriteAsset::state;
 
 SpriteAsset::SpriteAsset() : SceneAsset()
-{
-}
-
-SpriteAsset::~SpriteAsset()
 {
 }
 
@@ -77,6 +74,16 @@ void SpriteAsset::Draw(float dt)
 }
 
 #ifdef EDITOR
+SceneObject* SpriteAsset::CreateInstance()
+{
+	SpriteInst* inst = (SpriteInst*)owner->AddObject("SpriteInst", false);
+	inst->asset_uid = GetUID();
+	inst->ApplyProperties();
+	inst->SetName(GetName());
+
+	return inst;
+}
+
 void SpriteAsset::Copy(SceneObject* src)
 {
 	Sprite::Copy(&((SpriteAsset*)src)->sprite, &sprite);

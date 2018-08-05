@@ -70,7 +70,7 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char*
 			hm->actor = physics.physics->createRigidStatic(pose);
 
 			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
-			PxShape* hfShape = hm->actor->createShape(hfGeom, *physics.defMaterial);
+			hm->actor->createShape(hfGeom, *physics.defMaterial);
 
 			scene->addActor(*hm->actor);
 		}

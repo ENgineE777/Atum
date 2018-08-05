@@ -11,7 +11,8 @@
     <activity android:name="GLES3JNIActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:launchMode="singleTask"
-              android:configChanges="orientation|screenSize|keyboardHidden">
+              android:configChanges="orientation|screenSize|keyboardHidden"
+              android:screenOrientation="landscape">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

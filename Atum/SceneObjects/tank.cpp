@@ -300,8 +300,6 @@ void Tank::Update(float dt)
 		return;
 	}
 
-	float speed = 25.0f;
-
 	for (auto& inst : client->instances)
 	{
 		Matrix mat;
@@ -309,8 +307,6 @@ void Tank::Update(float dt)
 		inst.serverState.controller->GetPosition(mat.Pos());
 
 		inst.serverState.pos = mat.Pos();
-
-		Vector target_pt = 0.0f;
 
 		Vector dir = mat.Vx();
 		dir.y = 0;

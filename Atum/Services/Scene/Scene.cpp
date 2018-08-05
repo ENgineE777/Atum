@@ -307,6 +307,7 @@ void Scene::Play()
 
 	script = scripts.CreateContext();
 	pscene = physics.CreateScene();
+	pscene2D = physics.CreateScene2D();
 
 	for (int i = 0; i < objects.size(); i++)
 	{
@@ -330,6 +331,7 @@ void Scene::Stop()
 
 	RELEASE(script)
 	physics.DestroyScene(pscene);
+	physics.DestroyScene2D(pscene2D);
 	pscene = nullptr;
 }
 
@@ -443,6 +445,23 @@ void Scene::DelFromAllGroups(SceneObject* obj)
 		DelFromGroup(group.second, obj);
 	}
 }
+
+#ifdef EDITOR
+SceneObject* Scene::CheckSelection(Vector2 ms)
+{
+	SceneObject* selected = nullptr;
+
+	for (auto& obj : objects)
+	{
+		if (obj->CheckSelection(ms))
+		{
+			selected = obj;
+		}
+	}
+
+	return selected;
+}
+#endif
 
 void Scene::Release()
 {

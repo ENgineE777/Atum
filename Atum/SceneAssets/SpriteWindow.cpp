@@ -631,29 +631,6 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 	MoveToEx(hdc, (int)((origin.x - wd) * pixel_density), (int)(origin.y * pixel_density), 0);
 	LineTo(hdc, (int)((origin.x + wd) * pixel_density), (int)(origin.y * pixel_density));
 
-	if (sender->IsFocused())
-	{
-		SelectObject(hdc, pen_red);
-
-		for (int i = 0; i < 3; i++)
-		{
-			MoveToEx(hdc, 1, 1 + i, 0);
-			LineTo(hdc, sender->GetWidth(), 1 + i);
-
-			MoveToEx(hdc, 1, sender->GetHeight() - 1 - i, 0);
-			LineTo(hdc, sender->GetWidth(), sender->GetHeight() - 1 - i);
-
-			MoveToEx(hdc, 1 + i, 1, 0);
-			LineTo(hdc, 1 + i, sender->GetHeight());
-
-			MoveToEx(hdc, sender->GetWidth() - 1 - i, 1, 0);
-			LineTo(hdc, sender->GetWidth() -1 - i, sender->GetHeight() - 1);
-		}
-
-		border_drawed = true;
-	}
-
-
 	//if (sprite->texture)
 	{
 		pre_pen = (HPEN)SelectObject(hdc, hbrBkgnd);
@@ -745,6 +722,28 @@ void SpriteWindow::OnDraw(EUIWidget* sender)
 		}
 
 		DeleteDC(MemDCExercising);
+	}
+
+	if (sender->IsFocused())
+	{
+		SelectObject(hdc, pen_red);
+
+		for (int i = 0; i < 3; i++)
+		{
+			MoveToEx(hdc, 1, 1 + i, 0);
+			LineTo(hdc, sender->GetWidth(), 1 + i);
+
+			MoveToEx(hdc, 1, sender->GetHeight() - 1 - i, 0);
+			LineTo(hdc, sender->GetWidth(), sender->GetHeight() - 1 - i);
+
+			MoveToEx(hdc, 1 + i, 1, 0);
+			LineTo(hdc, 1 + i, sender->GetHeight());
+
+			MoveToEx(hdc, sender->GetWidth() - 1 - i, 1, 0);
+			LineTo(hdc, sender->GetWidth() - 1 - i, sender->GetHeight() - 1);
+		}
+
+		border_drawed = true;
 	}
 
 	ReleaseDC(handle, hdc);
@@ -1232,7 +1231,7 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 void SpriteWindow::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 {
-	if (EUI::OpenColorDialog(wnd->GetNative(), &sprite->color.r))
+	if (sender == prop_color_edlabel && EUI::OpenColorDialog(wnd->GetNative(), &sprite->color.r))
 	{
 		SetColorToLabel();
 		UpdateImageBackground();

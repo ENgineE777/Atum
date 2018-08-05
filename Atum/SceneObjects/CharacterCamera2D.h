@@ -10,12 +10,12 @@ class CharacterCamera2D : public SceneObject
 public:
 	META_DATA_DECL(CharacterCamera2D)
 
-	SimpleCharacter2D* target = nullptr;
-	string target_name; 
+	Vector2 target_pos = 0.0f;
 	Transform2D trans;
 	float screen_border = 100.0f;
+	float screen_vert_border = 100.0f;
 	float left_border = -300.0f;
-	float right_border =300.0f; 
+	float right_border =300.0f;
 	
 	Vector2 init_pos;
 
@@ -27,8 +27,8 @@ public:
 	void Init() override;
 	void Update(float dt);
 
-	void Play();
-	void Stop();
+	void Play() override;
+	void Stop() override;
 
 	void Reset();
 

@@ -38,6 +38,8 @@ private:
 
 	ScriptContext* script = nullptr;
 	PhysScene* pscene = nullptr;
+	b2World* pscene2D = nullptr;
+
 	void DelFromGroup(Group& group, SceneObject* obj);
 
 	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block, bool is_asset);
@@ -80,6 +82,10 @@ public:
 	void AddToGroup(SceneObject* obj, const char* name);
 	void DelFromGroup(SceneObject* obj, const char* name);
 	void DelFromAllGroups(SceneObject* obj);
+
+#ifdef EDITOR
+	SceneObject* CheckSelection(Vector2 ms);
+#endif
 
 	void Release();
 };

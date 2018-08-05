@@ -179,6 +179,12 @@ void MetaData::Copy(void* source)
 
 void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_class_name)
 {
+	if (!inited)
+	{
+		Init();
+		inited = true;
+	}
+
 	for (auto& prop : properties)
 	{
 		char decl[128];

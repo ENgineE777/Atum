@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "SceneAssets/Sprite.h"
 
 #include "Services/Core/Core.h"
 
@@ -140,8 +141,9 @@ public:
 		}
 
 		scene.Init();
+		scene.Load("Projects/SunnyLand/SunnyLand.scn");
 		//scene.Load("Media/beatemup.scn");
-		scene.Load("Media/Scene.scn");
+		//scene.Load("Media/Scene.scn");
 		scene.Play();
 
 		inited = true;
@@ -149,6 +151,8 @@ public:
 
 	void Draw(float dt)
 	{
+		render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
+
 		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
 		render.ExecutePool(RenderLevels::Camera, dt);
@@ -170,6 +174,10 @@ Java_com_atum_engine_GLES3JNILib_Init(JNIEnv* env, jobject obj)
 	UpdateJavaEnv(env, obj);
 
 	core.Init(nullptr);
+
+	Sprite::Init();
+
+	scripts.Start();
 
 	render.AddExecutedLevelPool(1);
 
@@ -207,18 +215,18 @@ JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_SetAssetManager(JNIEnv* 
 
 JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y)
 {
-	//core.Log("Touch", "Touch %i at (%i, %i) started", index, x, y);
+	core.Log("Touch", "Touch %i at (%i, %i) started", index, x, y);
 	controls.TouchStart(index, x, y);
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y)
 {
-	//core.Log("Touch", "Touch %i updated to (%i, %i)", index, x, y);
+	core.Log("Touch", "Touch %i updated to (%i, %i)", index, x, y);
 	controls.TouchUpdate(index, x, y);
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchEnd(JNIEnv* env, jobject obj, int index)
 {
-	//core.Log("Touch", "Touch %i ended", index);
+	core.Log("Touch", "Touch %i ended", index);
 	controls.TouchEnd(index);
 }

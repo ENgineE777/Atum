@@ -80,4 +80,4 @@ CLASSFACTORYDEF_END()
 scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
 scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
 scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-classAssetName##::meta_data.BindToScript(scripts.engine, scriptClassName.c_str());
+classAssetName::meta_data.BindToScript(scripts.engine, scriptClassName.c_str());

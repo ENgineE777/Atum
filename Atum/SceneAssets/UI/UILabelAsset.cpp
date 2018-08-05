@@ -137,6 +137,7 @@ void UILabelAsset::Draw(float dt)
 
 	mat.Pos().x *= scale;
 	mat.Pos().y *= scale;
+	mat.Pos().z = 0.2f;
 
 	font->Print(line_breaks, mat, 1.0f, cur_color, text.c_str());
 

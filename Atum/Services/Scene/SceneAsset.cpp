@@ -1,12 +1,12 @@
 
 #include "SceneAsset.h"
 
+#ifdef EDITOR
 SceneObject* SceneAsset::CreateInstance()
 {
 	return nullptr;
 }
 
-#ifdef EDITOR
 void SceneAsset::PreapreAssetTree()
 {
 

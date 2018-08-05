@@ -1,0 +1,165 @@
+class EnemyEagle
+{
+    Sprite@ sprite;
+    float time_to_flight = 2.0f;
+    float dir = -1.0f;
+    int hp = 1;
+}
+
+class Game
+{
+    array<Sprite@> diamonds;
+    array<Sprite@> cherries;
+    array<EnemyEagle> eagles;
+    SpriteGraph@ hero;
+    CharacterCamera2D@ camera;
+    Sprite@ item_taken;
+    Sprite@ enemy_death;
+    VirtualJoystick@ vjoy;
+
+    float move_speed = 10.0f;
+    float accel_speed = 40.0f;
+    float stop_speed = 30.0f; 
+    float jump_impulse = -105.0f;    
+
+    void Update(float dt)
+    {
+        bool allow_jump = hero.CheckColissionNormal(0, 1.0f);
+
+        float velocity_x = hero.GetLinearVelocityX();
+        float velocity_y = hero.GetLinearVelocityY();
+
+        if (!allow_jump && velocity_y > 0.5f)
+        {
+            hero.ActivateLink("fall");
+        }
+
+        if (Control_GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
+        {
+            hero.horz_flipped = true;
+            
+            if (allow_jump)
+            {
+                hero.ActivateLink("run");
+            }
+
+            hero.SetLinearVelocity(-move_speed, 0);
+
+            velocity_x -= dt * accel_speed;
+
+            if (velocity_x < -move_speed)
+            {
+                velocity_x = -move_speed;
+            }
+        }
+        else
+        if (Control_GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_y > 0.5f)
+        {
+            hero.horz_flipped = false;
+
+            if (allow_jump)
+            {
+                hero.ActivateLink("run");
+            }
+
+            velocity_x += dt * accel_speed;
+
+            if (velocity_x > move_speed)
+            {
+                velocity_x = move_speed;
+            }
+        }
+        else
+        {
+            if (velocity_x > 0.0001f)
+            {
+                velocity_x -= dt * stop_speed;
+
+                if (velocity_x < 0.0f)
+                {
+                    velocity_x = 0.0f;
+                }
+            }
+            else
+            if (velocity_x < -0.0001f)
+            {
+                velocity_x += dt * stop_speed;
+
+                if (velocity_x > 0.0f)
+                {
+                    velocity_x = 0.0f;
+                }
+            }
+
+            if (allow_jump)
+            {
+                hero.ActivateLink("idle");
+            }
+        }
+        
+        hero.SetLinearVelocity(velocity_x, velocity_y);
+
+        if ((Control_GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
+        {
+            hero.ActivateLink("jump");
+            hero.ApplyLinearImpulse(0.0f, jump_impulse);
+        }
+
+        camera.target_pos_x = hero.PosX;
+        camera.target_pos_y = hero.PosY;
+
+        for (int i=0; i<diamonds.length();i++)
+        {
+            if (diamonds[i].GetState() == 0)
+            {
+                continue;
+            }
+
+            if (abs(diamonds[i].PosX - hero.PosX) < 32 && abs(diamonds[i].PosY - hero.PosY) < 32)
+            {
+                diamonds[i].SetState(0);
+                item_taken.AddInstance(diamonds[i].PosX, diamonds[i].PosY);
+            }
+        }
+
+        for (int i=0; i<cherries.length();i++)
+        {
+            if (cherries[i].GetState() == 0)
+            {
+                continue;
+            }
+
+            if (abs(cherries[i].PosX - hero.PosX) < 32 && abs(cherries[i].PosY - hero.PosY) < 32)
+            {
+                cherries[i].SetState(0);
+                item_taken.AddInstance(cherries[i].PosX, cherries[i].PosY);
+            }
+        }
+
+        for (int i=0; i<eagles.length();i++)
+        {
+            if (eagles[i].hp == 0)
+            {
+                continue;
+            }
+
+            eagles[i].time_to_flight -= dt;
+
+            if (eagles[i].time_to_flight < 0.0f)
+            {
+                eagles[i].dir = eagles[i].dir > 0.0f ? -1.0f : 1.0f; 
+                eagles[i].time_to_flight = 2.0f;
+            }
+
+            eagles[i].sprite.PosX += dt * 200.0f * eagles[i].dir;
+            eagles[i].sprite.horz_flipped = eagles[i].dir > 0.0f ? true : false;
+
+            if (abs(eagles[i].sprite.PosX - hero.PosX) < 32 && abs(eagles[i].sprite.PosY - hero.PosY) < 32)
+            {
+                eagles[i].hp = 0;
+                eagles[i].sprite.SetState(0);
+                enemy_death.AddInstance(eagles[i].sprite.PosX, eagles[i].sprite.PosY);
+            }
+        }
+    }
+}

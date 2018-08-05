@@ -66,6 +66,7 @@ public:
 	};
 
 	vector<Node*> nodes;
+	string main_class;
 
 	META_DATA_DECL(Script)
 
@@ -74,7 +75,6 @@ public:
 	void Save(JSONWriter& saver) override;
 	void SetName(const char* name) override;
 	void Work(float dt);
-	void EditorWork(float dt);
 
 	void Play() override;
 	void Stop() override;
@@ -88,6 +88,8 @@ public:
 	static void GetScriptFileName(uint32_t id, string& filename);
 
 #ifdef EDITOR
+	void EditorWork(float dt);
+
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);
 	int sel_node = -1;

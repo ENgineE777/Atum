@@ -27,6 +27,28 @@ void PrintString_Generic(asIScriptGeneric *gen)
 	core.Log("Script", arg->c_str());
 }
 
+void RenderPrint_Generic(asIScriptGeneric *gen)
+{
+	string* arg = (string*)(gen->GetArgAddress(2));
+	render.DebugPrintText(Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)), COLOR_WHITE, arg->c_str());
+}
+
+void Control_GetAliasIndex(asIScriptGeneric *gen)
+{
+	string* arg = (string*)(gen->GetArgAddress(0));
+	gen->SetReturnDWord(controls.GetAlias(arg->c_str()));
+}
+
+void Control_GetState(asIScriptGeneric *gen)
+{
+	gen->SetReturnDWord(controls.GetAliasState(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
+}
+
+void Control_GetDebugState(asIScriptGeneric *gen)
+{
+	string* arg = (string*)(gen->GetArgAddress(0));
+	gen->SetReturnDWord(controls.DebugKeyPressed(arg->c_str(), (Controls::AliasAction)gen->GetArgDWord(1)));
+}
 
 void Scripts::Init()
 {
@@ -46,6 +68,10 @@ void Scripts::Start()
 	RegisterScriptMath(engine);
 
 	engine->RegisterGlobalFunction("void Log(string&in text)", asFUNCTION(PrintString_Generic), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("void Render_Print(float x, float y, string&in text)", asFUNCTION(RenderPrint_Generic), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Controsl_GetAlias(string&in alias)", asFUNCTION(Control_GetAliasIndex), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Controsl_GetState(int alias, int action)", asFUNCTION(Control_GetState), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Control_GetDebugState(string&in alias, int action)", asFUNCTION(Control_GetDebugState), asCALL_GENERIC);
 
 	for (const auto& decl : ClassFactorySceneObject::Decls())
 	{

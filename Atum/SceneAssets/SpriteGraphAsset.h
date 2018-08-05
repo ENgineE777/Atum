@@ -99,6 +99,8 @@ public:
 	DragMode drag = None;
 	Vector2 mouse_pos;
 
+	SceneObject* CreateInstance() override;
+
 	void Draw(float dt);
 
 	int GetNodeIndex(Vector2& ms);

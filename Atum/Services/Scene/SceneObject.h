@@ -79,6 +79,7 @@ public:
 	bool Playing();
 	ScriptContext* Script();
 	PhysScene* PScene();
+	b2World* PScene2D();
 	virtual void Release();
 	virtual bool Is3DObject();
 	virtual SceneObject* GetChild(uint32_t uid);
@@ -88,6 +89,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual bool CheckSelection(Vector2 ms);
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();

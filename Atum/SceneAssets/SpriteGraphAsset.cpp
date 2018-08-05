@@ -1,5 +1,6 @@
 
 #include "SpriteGraphAsset.h"
+#include "SpriteGraphInst.h"
 #include "Services/Render/Render.h"
 #include "SpriteAsset.h"
 #include "SceneObjects/RenderLevels.h"
@@ -237,6 +238,16 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 }
 
 #ifdef EDITOR
+SceneObject* SpriteGraphAsset::CreateInstance()
+{
+	SpriteGraphInst* inst = (SpriteGraphInst*)owner->AddObject("SpriteGraphInst", false);
+	inst->asset_uid = GetUID();
+	inst->ApplyProperties();
+	inst->SetName(GetName());
+
+	return inst;
+}
+
 void SpriteGraphAsset::Draw(float dt)
 {
 	if (drag == AddLink)

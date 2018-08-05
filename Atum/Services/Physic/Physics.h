@@ -3,6 +3,7 @@
 
 #include "PhysScene.h"
 #include <vector>
+#include "Services/Physic/Box2D/Box2D.h"
 
 using namespace physx;
 
@@ -26,13 +27,14 @@ class Physics
 	float accum_dt = 0.0f;
 
 	std::vector<PhysScene*> scenes;
+	std::vector<b2World*> scenes2D;
 
-	class StraemWriter : public PxOutputStream
+	class StreamWriter : public PxOutputStream
 	{
 		FILE* file = nullptr;
 
 	public:
-		~StraemWriter()
+		~StreamWriter()
 		{
 			if (file)
 			{
@@ -71,7 +73,9 @@ public:
 	void CookHeightmap(PhysHeightmap::Desc& desc, const char* name);
 #endif
 	PhysScene* CreateScene();
+	b2World* CreateScene2D();
 	void DestroyScene(PhysScene* scene);
+	void DestroyScene2D(b2World* scene);
 	void Update(float dt);
 	void Fetch();
 };

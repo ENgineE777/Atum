@@ -100,7 +100,7 @@ META_DATA_DESC_END()
 void UIViewInstance::Init()
 {
 	source_is_asset = true;
-	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&UIViewInstance::Draw);
+	RenderTasks(false)->AddTask(RenderLevels::GUI, this, (Object::Delegate)&UIViewInstance::Draw);
 }
 
 void UIViewInstance::ApplyProperties()

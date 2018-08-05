@@ -15,15 +15,16 @@ public:
 	static Sprite::FrameState state;
 
 	SpriteAsset();
-	virtual ~SpriteAsset();
+	virtual ~SpriteAsset() = default;
 
-	virtual void Init();
-	virtual void Load(JSONReader& loader);
-	virtual void Save(JSONWriter& saver);
+	void Init() override;
+	void Load(JSONReader& loader) override;
+	void Save(JSONWriter& saver) override;
 	void Draw(float dt);
 
 #ifdef EDITOR
-	virtual void Copy(SceneObject* src);
-	virtual void SetEditMode(bool ed);
+	SceneObject* CreateInstance() override;
+	void Copy(SceneObject* src) override;
+	void SetEditMode(bool ed) override;
 #endif
 };

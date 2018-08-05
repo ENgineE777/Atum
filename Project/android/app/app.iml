@@ -46,11 +46,11 @@
     <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/TrackPlayers">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/TrackPlayers" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/UI">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/UI" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects" isTestSource="false" />
-    </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/GUI">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/GUI" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/PathFinder">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/PathFinder" isTestSource="false" />
@@ -67,8 +67,8 @@
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Network">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Network" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physics">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physics" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Render">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Render" isTestSource="false" />
@@ -82,6 +82,12 @@
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Scene">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Scene" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Script">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Script" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Script/Libs">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Script/Libs" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/TaskExecutor">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/TaskExecutor" isTestSource="false" />
     </content>
@@ -93,6 +99,9 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Support/json">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Support/json" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Libraries/Angelscript/source">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Libraries/Angelscript/source" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/debug" isTestSource="false" generated="true" />

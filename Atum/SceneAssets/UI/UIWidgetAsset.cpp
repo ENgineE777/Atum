@@ -188,6 +188,7 @@ void UIWidgetAsset::CalcState()
 
 	trans.axis.x = (horzAlign == align_right) ? -1.0f : 1.0f;
 	trans.axis.y = (vertAlign == align_bottom) ? -1.0f : 1.0f;
+	trans.depth = 0.2f;
 
 	trans.BuildMatrices();
 }

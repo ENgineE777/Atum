@@ -48,7 +48,7 @@ void Physics::CookHeightmap(PhysHeightmap::Desc& desc, const char* name)
 	heightFieldDesc.samples.data = samples;
 	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
 
-	StraemWriter writer;
+	StreamWriter writer;
 	if (writer.Prepere(name))
 	{
 		cooking->cookHeightField(heightFieldDesc, writer);
@@ -83,6 +83,16 @@ PhysScene* Physics::CreateScene()
 	return scene;
 }
 
+b2World* Physics::CreateScene2D()
+{
+	b2Vec2 gravity(0.0f, 20.0f);
+	b2World* world2D = new b2World(gravity);
+
+	scenes2D.push_back(world2D);
+
+	return world2D;
+}
+
 void Physics::DestroyScene(PhysScene* scene)
 {
 	for (int i=0; i<scenes.size(); i++)
@@ -95,6 +105,19 @@ void Physics::DestroyScene(PhysScene* scene)
 	}
 }
 
+void Physics::DestroyScene2D(b2World* scene)
+{
+	for (int i = 0; i<scenes2D.size(); i++)
+	{
+		if (scenes2D[i] == scene)
+		{
+			scenes2D.erase(scenes2D.begin() + i);
+			delete scene;
+		}
+	}
+}
+
+
 void Physics::Update(float dt)
 {
 	accum_dt += dt;
@@ -106,15 +129,22 @@ void Physics::Update(float dt)
 
 	if (accum_dt > physStep)
 	{
-		for (int i = 0; i < scenes.size(); i++)
+		for (auto scene : scenes)
 		{
-			PhysScene* scene = scenes[i];
-
 			if (!scene->needFetch)
 			{
 			}
-			scenes[i]->Simulate(physStep);
-			scenes[i]->needFetch = true;
+
+			scene->Simulate(physStep);
+			scene->needFetch = true;
+		}
+
+		for (auto scene : scenes2D)
+		{
+			int32 velocityIterations = 8;
+			int32 positionIterations = 3;
+
+			scene->Step(physStep, velocityIterations, positionIterations);
 		}
 
 		accum_dt -= physStep;

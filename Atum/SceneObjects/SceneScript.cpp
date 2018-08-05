@@ -6,6 +6,9 @@
 #include "SceneAssets/UI/UIButtonAsset.h"
 #include "SceneAssets/UI/UILabelAsset.h"
 
+#include "Services/Script/Libs/scriptarray.h"
+#include "SceneAssets/SpriteInst.h"
+
 CLASSREG(SceneObject, SceneScript, "Script")
 
 META_DATA_DESC(SceneScript::NodeSceneObject)
@@ -46,6 +49,7 @@ void StartScriptEdit(void* owner)
 META_DATA_DESC(SceneScript)
 BASE_SCENE_OBJ_NAME_PROP(SceneScript)
 BASE_SCENE_OBJ_STATE_PROP(SceneScript)
+STRING_PROP(SceneScript, main_class, "", "Prop", "main_class")
 #ifdef EDITOR
 CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
 #endif
@@ -135,14 +139,17 @@ void SceneScript::GetScriptFileName(uint32_t id,string& filename)
 {
 	char str[1024];
 
-	StringUtils::Printf(str, 1024, "Media//%i.sns", id);
+	StringUtils::Printf(str, 1024, "Media/%u.sns", id);
 	filename = str;
 }
 
 void SceneScript::Init()
 {
-	Tasks(false)->AddTask(100, this, (Object::Delegate)&SceneScript::Work);
-	Tasks(true)->AddTask(100, this, (Object::Delegate)&SceneScript::EditorWork);
+	Tasks(false)->AddTask(-100, this, (Object::Delegate)&SceneScript::Work);
+
+#ifdef EDITOR
+	Tasks(true)->AddTask(-100, this, (Object::Delegate)&SceneScript::EditorWork);
+#endif
 }
 
 void SceneScript::Load(JSONReader& loader)
@@ -216,8 +223,10 @@ void SceneScript::SetName(const char* set_name)
 	{
 		string filename;
 		GetScriptFileName(GetUID(), filename);
+#ifdef EDITOR
 		FILE* fl = fopen(filename.c_str(), "a");
 		fclose(fl);
+#endif
 	}
 }
 
@@ -226,19 +235,15 @@ void SceneScript::Play()
 	string filename;
 	GetScriptFileName(GetUID(), filename);
 
-	FILE *f = fopen(filename.c_str(), "rb");
+	Buffer file;
 
-	fseek(f, 0, SEEK_END);
-	int len = ftell(f);
-	fseek(f, 0, SEEK_SET);
-
-	string script;
-	script.resize(len);
-	size_t c = fread(&script[0], len, 1, f);
-	fclose(f);
+	if (!file.Load(filename.c_str()))
+	{
+		return;
+	}
 
 	mod = scripts.engine->GetModule(0, asGM_ALWAYS_CREATE);
-	mod->AddScriptSection("script", &script[0], len);
+	mod->AddScriptSection("script", (const char*)file.GetData(), file.GetSize());
 
 	mod->Build();
 
@@ -249,8 +254,112 @@ void SceneScript::Play()
 		return;
 	}
 
-	class_type = mod->GetObjectTypeByIndex(0);
+	if (mod->GetObjectTypeCount() == 0)
+	{
+		return;
+	}
+
+	if (main_class.c_str())
+	{
+		for (uint32_t i = 0; i < mod->GetObjectTypeCount(); i++)
+		{
+			asITypeInfo* tp = mod->GetObjectTypeByIndex(i);
+
+			if (StringUtils::IsEqual(main_class.c_str(), tp->GetName()))
+			{
+				class_type = tp;
+				break;
+			}
+		}
+
+		if (!class_type)
+		{
+			return;
+		}
+	}
+	else
+	{
+		class_type = mod->GetObjectTypeByIndex(0);
+	}
+
 	class_inst = (asIScriptObject*)scripts.engine->CreateScriptObject(class_type);
+
+	for (int i = 0; i < (int)class_inst->GetPropertyCount(); i++)
+	{
+		if (StringUtils::IsEqual(class_inst->GetPropertyName(i), "diamonds"))
+		{
+			CScriptArray* array = (CScriptArray*)(class_inst->GetAddressOfProperty(i));
+
+			Scene::Group& group = owner->GetGroup("DiamondItem");
+
+			array->Resize((uint32_t)group.objects.size());
+			SceneObject** objects = (SceneObject**)array->GetBuffer();
+
+			int index = 0;
+			for (auto obj : group.objects)
+			{
+				objects[index] = obj;
+
+				index++;
+			}
+		}
+
+		if (StringUtils::IsEqual(class_inst->GetPropertyName(i), "cherries"))
+		{
+			CScriptArray* array = (CScriptArray*)(class_inst->GetAddressOfProperty(i));
+
+			Scene::Group& group = owner->GetGroup("CherryItem");
+
+			array->Resize((uint32_t)group.objects.size());
+			SceneObject** objects = (SceneObject**)array->GetBuffer();
+
+			int index = 0;
+			for (auto obj : group.objects)
+			{
+				objects[index] = obj;
+
+				index++;
+			}
+		}
+
+		if (StringUtils::IsEqual(class_inst->GetPropertyName(i), "eagles"))
+		{
+			CScriptArray* array = (CScriptArray*)(class_inst->GetAddressOfProperty(i));
+
+			Scene::Group& group = owner->GetGroup("EagleFly");
+
+			array->Resize((uint32_t)group.objects.size());
+			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
+
+			int index = 0;
+			for (auto obj : group.objects)
+			{
+				*(asPWORD*)(objects[index]->GetAddressOfProperty(0)) = (asPWORD)obj;
+
+				index++;
+			}
+		}
+
+		/*if (StringUtils::IsEqual(class_inst->GetPropertyName(i), "blocks"))
+		{
+			CScriptArray* array = (CScriptArray*)(class_inst->GetAddressOfProperty(i));
+
+			Scene::Group& group = owner->GetGroup("Ground");
+
+			array->Resize((uint32_t)group.objects.size());
+			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
+
+			int index = 0;
+			for (auto obj : group.objects)
+			{
+				SpriteInst* inst = (SpriteInst*)obj;
+				*((float*)objects[index]->GetAddressOfProperty(0)) = inst->trans.pos.x;
+				*((float*)objects[index]->GetAddressOfProperty(1)) = inst->trans.pos.y;
+
+				index++;
+			}
+		}*/
+	}
 
 	for (auto node : nodes)
 	{
@@ -390,6 +499,7 @@ Vector2& SceneScript::Camera2DPos()
 	return camera_pos;
 }
 
+#ifdef EDITOR
 void SceneScript::EditorWork(float dt)
 {
 	int index = 0;
@@ -449,7 +559,6 @@ void SceneScript::EditorWork(float dt)
 	}
 }
 
-#ifdef EDITOR
 void SceneScript::OnMouseMove(Vector2 delta_ms)
 {
 	if (in_drag)

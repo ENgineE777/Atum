@@ -227,7 +227,7 @@ void Sprite::Init()
 	quad_prg_depth = render.GetProgram("QuadProgramDepth");
 	quad_prg_no_depth = render.GetProgram("QuadProgramNoDepth");
 
-	white_tex = render.LoadTexture("settings\\editor\\white.png");
+	white_tex = render.LoadTexture("settings/editor/white.png");
 }
 
 void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
@@ -304,7 +304,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 	if (sprite->type == Image)
 	{
 		Rect& rect = sprite->rects[0];
-		Draw(sprite->texture, clr, local_trans, pos, size, rect.uv, rect.duv, state->horz_flipped);
+		Draw(sprite->texture, clr, local_trans, pos, size, rect.uv, rect.duv, use_depth, state->horz_flipped);
 	}
 	else
 	if (sprite->type == Frames)

@@ -798,15 +798,12 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			selectedObject->OnMouseMove(ms - prev_ms);
 		}
 
-		if (selectedObject && !scene && selectedObject->Is3DObject())
+		if (selectedObject && !isSelectedAsset && !scene)
 		{
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 			{
-				if (!selectedObject->Trans().IsEqual(gizmo.transform))
-				{
-					allowCopy = false;
-					CopyObject(selectedObject, selectedObject->item, false);
-				}
+				allowCopy = false;
+				CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
 			}
 
 			selectedObject->Trans() = gizmo.transform;
@@ -823,13 +820,20 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	if (sender->GetID() == Editor::ViewportID ||
 		sender->GetID() == Editor::GameViewportID)
 	{
-		allowCopy = true;
-		gizmo.OnLeftMouseDown((float)mx, (float)my);
-		sender->CaptureMouse();
-
-		if (selectedObject)
+		if (controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
 		{
-			selectedObject->OnLeftMouseDown(prev_ms);
+			SelectObject(ed_scene.CheckSelection({(float)mx, (float)my}), false);
+		}
+		else
+		{
+			allowCopy = true;
+			gizmo.OnLeftMouseDown((float)mx, (float)my);
+			sender->CaptureMouse();
+
+			if (selectedObject)
+			{
+				selectedObject->OnLeftMouseDown(prev_ms);
+			}
 		}
 	}
 

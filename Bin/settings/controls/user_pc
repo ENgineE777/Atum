@@ -85,6 +85,7 @@
 		{
 			"name" : "Tank.FIRE",
 			"AliasesRef" : [
+				{ "names" : ["MS_BTN0"] },
 				{ "names" : ["MS_BTN0"] }
 			]
 		},

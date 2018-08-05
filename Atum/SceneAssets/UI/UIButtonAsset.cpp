@@ -82,14 +82,6 @@ void UIButtonAssetInst::BindClassToScript()
 	BIND_INST_TYPE_TO_SCRIPT(UIButtonAssetInst, UIButtonAsset)
 }
 
-#ifdef EDITOR
-UIButtonAssetInst* UIButtonAssetInst::temp = nullptr;
-
-bool UIButtonAssetInst::AddedToTreeByParent()
-{
-	return true;
-}
-
 void UIButtonAssetInst::Init()
 {
 	alias_rotate_x = controls.GetAlias("Tank.ROTATE_X");
@@ -131,6 +123,14 @@ void UIButtonAssetInst::Draw(float dt)
 	}
 
 	UIButtonAsset::Draw(dt);
+}
+
+#ifdef EDITOR
+UIButtonAssetInst* UIButtonAssetInst::temp = nullptr;
+
+bool UIButtonAssetInst::AddedToTreeByParent()
+{
+	return true;
 }
 
 void UIButtonAssetInst::StoreProperties()

@@ -87,14 +87,14 @@ public:
 	Matrix& Trans() override;
 	bool Is3DObject() override;
 
-	void Play();
-	void Stop();
+	void Play() override;
+	void Stop() override;
 	void Update(float dt);
 	void AddSplash(Vector& pos, float radius, float force);
 
 	void SendServerState(float dt);
 	void SendClientState(float dt);
 
-	virtual void OnDataRecieved(void* data, int size);
-	virtual void OnClientConnected(int id);
+	void OnDataRecieved(void* data, int size) override;
+	void OnClientConnected(int id) override;
 };

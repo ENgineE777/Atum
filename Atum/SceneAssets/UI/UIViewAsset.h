@@ -13,9 +13,9 @@ public:
 
 	void Release() override;
 
+#ifdef EDITOR
 	SceneObject* CreateInstance() override;
 
-#ifdef EDITOR
 	static UIWidgetAsset* sel_ui_asset;
 	static UIWidgetAsset* asset_to_copy;
 	static int            popup_child_index;

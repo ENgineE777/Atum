@@ -362,8 +362,8 @@ void Gizmo::MouseMove(float mx, float my)
 
 		if (selAxis == 0)
 		{
-			trans2D->pos.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
-			trans2D->pos.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
+			pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
+			pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
 		}
 		else
 		if (selAxis == 9)
@@ -434,6 +434,9 @@ void Gizmo::MouseMove(float mx, float my)
 				trans2D->size.y += dist * k2 * dot2;
 			}
 		}
+
+		trans2D->pos.x = align.x * ((int)(pos2d.x / align.x));
+		trans2D->pos.y = align.y * ((int)(pos2d.y / align.y));
 
 		return;
 	}

@@ -23,7 +23,7 @@ UIWidgetAsset* UIViewAsset::popup_item = nullptr;
 
 void UIViewAsset::Init()
 {
-	RenderTasks(true)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&UIViewAsset::Draw);
+	RenderTasks(true)->AddTask(RenderLevels::GUI, this, (Object::Delegate)&UIViewAsset::Draw);
 }
 
 void UIViewAsset::ApplyProperties()
@@ -56,6 +56,7 @@ void UIViewAsset::Draw(float dt)
 
 void UIViewAsset::Release()
 {
+#ifdef EDITOR
 	for (auto inst : instances)
 	{
 		inst->DeleteChilds();
@@ -65,12 +66,14 @@ void UIViewAsset::Release()
 		}
 		delete inst;
 	}
+#endif
 
 	DeleteChilds();
 
 	UIWidgetAsset::Release();
 }
 
+#ifdef EDITOR
 SceneObject* UIViewAsset::CreateInstance()
 {
 	UIViewInstanceAsset* child = (UIViewInstanceAsset*)owner->AddObject("UIViewInstance", false);
@@ -85,7 +88,6 @@ SceneObject* UIViewAsset::CreateInstance()
 	return child;
 }
 
-#ifdef EDITOR
 bool UIViewAsset::UseAseetsTree()
 {
 	return true;

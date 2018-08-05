@@ -161,6 +161,11 @@ PhysScene* SceneObject::PScene()
 	return owner->pscene;
 }
 
+b2World* SceneObject::PScene2D()
+{
+	return owner->pscene2D;
+}
+
 void SceneObject::Release()
 {
 	if (owner) owner->taskPool->DelAllTasks(this);
@@ -197,6 +202,11 @@ void SceneObject::BindClassToScript()
 }
 
 #ifdef EDITOR
+bool SceneObject::CheckSelection(Vector2 ms)
+{
+	return false;
+}
+
 bool SceneObject::AddedToTreeByParent()
 {
 	return false;

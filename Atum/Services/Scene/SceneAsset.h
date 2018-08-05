@@ -15,9 +15,9 @@ public:
 
 	virtual ~SceneAsset() = default;
 
+#ifdef EDITOR
 	virtual SceneObject* CreateInstance();
 
-#ifdef EDITOR
 	virtual void PreapreAssetTree();
 	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index);
 	virtual void OnAssetTreeSelChange(SceneAsset* item);

@@ -3,6 +3,8 @@ class EnemyEagle
     Sprite@ sprite;
     float time_to_flight = 2.0f;
     float dir = -1.0f;
+    float max_fly_time = 2.0f;
+    float speed = 200.0f;
     int hp = 1;
 }
 
@@ -148,10 +150,10 @@ class Game
             if (eagles[i].time_to_flight < 0.0f)
             {
                 eagles[i].dir = eagles[i].dir > 0.0f ? -1.0f : 1.0f; 
-                eagles[i].time_to_flight = 2.0f;
+                eagles[i].time_to_flight = eagles[i].max_fly_time;
             }
 
-            eagles[i].sprite.PosX += dt * 200.0f * eagles[i].dir;
+            eagles[i].sprite.PosX += dt * eagles[i].speed * eagles[i].dir;
             eagles[i].sprite.horz_flipped = eagles[i].dir > 0.0f ? true : false;
 
             if (abs(eagles[i].sprite.PosX - hero.PosX) < 32 && abs(eagles[i].sprite.PosY - hero.PosY) < 32)

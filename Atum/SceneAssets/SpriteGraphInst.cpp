@@ -9,8 +9,8 @@ CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 META_DATA_DESC(SpriteGraphInst)
 BASE_SCENE_OBJ_NAME_PROP(SpriteGraphInst)
 BASE_SCENE_OBJ_STATE_PROP(SpriteGraphInst)
-FLOAT_PROP(SpriteGraphInst, trans.pos.x, 100.0f, "Geometry", "PosX")
-FLOAT_PROP(SpriteGraphInst, trans.pos.y, 100.0f, "Geometry", "PosY")
+FLOAT_PROP(SpriteGraphInst, trans.pos.x, 100.0f, "Geometry", "x")
+FLOAT_PROP(SpriteGraphInst, trans.pos.y, 100.0f, "Geometry", "y")
 FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
 BOOL_PROP(SpriteGraphInst, graph_instance.state.horz_flipped, false, "Node", "horz_flipped")
 META_DATA_DESC_END()
@@ -59,13 +59,14 @@ void SpriteGraphInst::Play()
 {
 	float scale = 1.0f / 50.0f;
 
-	if (trans.size.x < 200.0f && trans.size.y < 200.0f)
 	{
 		b2BodyDef bodyDef;
 		bodyDef.type = b2_dynamicBody;
 		bodyDef.position.Set(trans.pos.x * scale, trans.pos.y * scale);
 	
 		body = PScene2D()->CreateBody(&bodyDef);
+
+		trans.size = { 64.0f, 64.0f};
 
 		b2PolygonShape dynamicBox;
 		dynamicBox.SetAsBox(trans.size.x * 0.5f * scale, trans.size.y * 0.5f * scale);

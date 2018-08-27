@@ -322,7 +322,7 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 
 	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
 
-	obj->SetName(name);
+	obj->SetName(is_asset ? ClassFactorySceneAsset::Find(name)->GetShortName() : ClassFactorySceneObject::Find(name)->GetShortName());
 
 	if (is_asset)
 	{
@@ -343,12 +343,8 @@ void Editor::DeleteSceneObject(SceneObject* obj)
 		return;
 	}
 
-	if (selectedObject == obj)
-	{
-		SelectObject(nullptr, false);
-	}
-
 	scene_treeview->DeleteItem(obj);
+	scene_treeview->SelectItem(nullptr);
 	ed_scene.DeleteObject(obj, false);
 }
 
@@ -454,15 +450,22 @@ void Editor::StopScene()
 
 void Editor::Draw(float dt)
 {
-	render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
-
-	if (!scene && selectedObject && selectedObject->HasOwnTasks() && !selectedObject->Is3DObject())
+	if (!scene)
 	{
-		Transform2D trans;
-		Sprite::FrameState state;
-		Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
-		             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
-		             0.0f, Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
+		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
+
+		if (selectedObject && selectedObject->HasOwnTasks() && !selectedObject->Is3DObject())
+		{
+			Transform2D trans;
+			Sprite::FrameState state;
+			Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
+			             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
+			             0.0f, Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
+		}
+	}
+	else
+	{
+		render.GetDevice()->Clear(false , COLOR_GRAY, true, 1.0f);
 	}
 
 	render.ExecutePool(RenderLevels::Camera, dt);
@@ -803,7 +806,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 			{
 				allowCopy = false;
-				CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
+				//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
 			}
 
 			selectedObject->Trans() = gizmo.transform;
@@ -1173,14 +1176,14 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 	{
 		if (ptr)
 		{
-			SceneObject* object = (SceneObject*)ptr;
-
-			if (object == selectedObject)
+			//if (item == selectedObject->item)
 			{
 				SelectObject(nullptr, false);
 			}
 
-			ed_scene.DeleteObject(object, (sender == assets_treeview));
+			ed_scene.DeleteObject((SceneObject*)ptr, (sender == assets_treeview));
+
+			sender->SelectItem(nullptr);
 		}
 	}
 }

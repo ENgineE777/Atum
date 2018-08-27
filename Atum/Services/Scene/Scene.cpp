@@ -449,17 +449,50 @@ void Scene::DelFromAllGroups(SceneObject* obj)
 #ifdef EDITOR
 SceneObject* Scene::CheckSelection(Vector2 ms)
 {
-	SceneObject* selected = nullptr;
+	vector<SceneObject*> tmp_under_selection;
 
 	for (auto& obj : objects)
 	{
 		if (obj->CheckSelection(ms))
 		{
-			selected = obj;
+			tmp_under_selection.push_back(obj);
 		}
 	}
 
-	return selected;
+	bool same_selection = true;
+
+	if (tmp_under_selection.size() != under_selection.size())
+	{
+		same_selection = false;
+	}
+	else
+	{
+		for (int index = 0; index < under_selection.size(); index++)
+		{
+			if (under_selection[index] != tmp_under_selection[index])
+			{
+				same_selection = false;
+				break;
+			}
+		}
+	}
+
+	if (same_selection)
+	{
+		under_selection_index++;
+
+		if (under_selection_index >= under_selection.size())
+		{
+			under_selection_index = 0;
+		}
+	}
+	else
+	{
+		under_selection_index = 0;
+		under_selection = tmp_under_selection;
+	}
+
+	return under_selection.size() > 0 ? under_selection[under_selection_index] : nullptr;
 }
 #endif
 

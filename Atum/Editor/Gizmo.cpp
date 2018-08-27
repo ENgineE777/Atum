@@ -1,5 +1,6 @@
 
 #include "Gizmo.h"
+#include "Services/Controls/Controls.h"
 #include "Services/Render/Render.h"
 #include "SceneAssets/Sprite.h"
 
@@ -366,7 +367,7 @@ void Gizmo::MouseMove(float mx, float my)
 			pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
 		}
 		else
-		if (selAxis == 9)
+		if (selAxis == 9 && controls.DebugKeyPressed("KEY_LALT", Controls::Active))
 		{
 			Vector2 p1 = prev_ms + ms - origin;
 			p1.Normalize();

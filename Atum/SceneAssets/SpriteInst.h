@@ -3,6 +3,7 @@
 
 #include "Services/Scene/SceneObject.h"
 #include "SceneAssets/SpriteAsset.h"
+#include "Services/Script/Libs/scriptarray.h"
 
 class SpriteInst : public SceneObject
 {
@@ -18,13 +19,15 @@ public:
 
 	struct Instance
 	{
-		float x, y;
+		b2Body* body = nullptr;
+		Vector2 pos;
+		int     visible = 1;
 		Sprite::FrameState frame_state;
 	};
 
-	vector<Instance> instances;
+	CScriptArray* array = nullptr;
 
-	b2Body* body = nullptr;
+	vector<Instance> instances;
 
 	virtual ~SpriteInst() = default;
 
@@ -41,8 +44,10 @@ public:
 
 	void AddInstance(float x, float y);
 #ifdef EDITOR
+	int sel_inst = -1;
 	bool CheckSelection(Vector2 ms) override;
 	void Copy(SceneObject* src) override;
 	void SetEditMode(bool ed) override;
+	void SetGizmo();
 #endif
 };

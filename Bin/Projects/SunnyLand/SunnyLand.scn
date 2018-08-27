@@ -2530,6 +2530,62 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "SpriteAsset",
+			"name" : "MovingBlock",
+			"uid" : 1689413632,
+			"Name" : "MovingBlock",
+			"x" : 768.000000,
+			"y" : 512.000000,
+			"width" : 128.000000,
+			"height" : 128.000000,
+			"slice" :
+			{
+				"width" : 400,
+				"height" : 368,
+				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
+				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texMode" : 0,
+				"texFilter" : 0,
+				"count" : 1,
+				"Rect" : [
+					{
+						"pos" :
+						{
+							"x" : 48.000000,
+							"y" : 48.000000
+						},
+						"size" :
+						{
+							"x" : 32.000000,
+							"y" : 32.000000
+						},
+						"uv" :
+						{
+							"x" : 0.120000,
+							"y" : 0.130435
+						},
+						"duv" :
+						{
+							"x" : 0.080000,
+							"y" : 0.086957
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						}
+					}
+				]
+			}
 		}
 	],
 	"SceneObject" : [
@@ -2773,41 +2829,20 @@
 			"uid" : -1915981312,
 			"Name" : "BackSky",
 			"State" : 2,
-			"PosX" : 1984.000000,
-			"PosY" : 320.000000,
 			"axis_scale" : 0.250000,
-			"allow_instances" : false,
 			"Depth" : 0.850000,
 			"horz_flipped" : false,
-			"asset_uid" : -1082369280
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "SpriteAsset",
-			"uid" : 1515787776,
-			"Name" : "SpriteAsset",
-			"State" : 2,
-			"PosX" : -128.000000,
-			"PosY" : 2440.000000,
-			"axis_scale" : 0.500000,
-			"allow_instances" : false,
-			"Depth" : 0.750000,
-			"horz_flipped" : false,
-			"asset_uid" : -239024896
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "SpriteAsset",
-			"uid" : -727461120,
-			"Name" : "SpriteAsset",
-			"State" : 2,
-			"PosX" : 4096.000000,
-			"PosY" : 2440.000000,
-			"axis_scale" : 0.500000,
-			"allow_instances" : false,
-			"Depth" : 0.750000,
-			"horz_flipped" : false,
-			"asset_uid" : -239024896
+			"asset_uid" : -1082369280,
+			"count" : 1,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 544.000000,
+						"y" : 192.000000
+					}
+				}
+			]
 		},
 		{
 			"type" : "SpriteGraphInst",
@@ -2815,95 +2850,11 @@
 			"uid" : 1485033472,
 			"Name" : "Hero_Graph",
 			"State" : 2,
-			"PosX" : 768.000000,
-			"PosY" : 192.000000,
+			"x" : 864.000000,
+			"y" : 256.000000,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
 			"asset_uid" : -389033728
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -2019793408,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 800.000000,
-			"PosY" : 640.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1563149312,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 992.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1259241856,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 672.000000,
-			"PosY" : 704.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -719805184,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 736.000000,
-			"PosY" : 704.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -508936704,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 608.000000,
-			"PosY" : 704.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1791536384,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1120.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
 		},
 		{
 			"type" : "SceneScript",
@@ -2917,7 +2868,7 @@
 			"Name" : "MainScript",
 			"State" : 2,
 			"main_class" : "Game",
-			"Count" : 6,
+			"Count" : 10,
 			"Node" : [
 				{
 					"type" : 1,
@@ -2986,6 +2937,50 @@
 					},
 					"object_uid" : -182577152,
 					"object_child_uid" : 0
+				},
+				{
+					"type" : 3,
+					"name" : "diamonds",
+					"pos" :
+					{
+						"x" : 1071.000000,
+						"y" : 164.000000
+					},
+					"object_uid" : 1988782080,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 3,
+					"name" : "cherries",
+					"pos" :
+					{
+						"x" : 1043.000000,
+						"y" : 304.000000
+					},
+					"object_uid" : -310785024,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 3,
+					"name" : "eagles",
+					"pos" :
+					{
+						"x" : 1054.000000,
+						"y" : 464.000000
+					},
+					"object_uid" : -1084704768,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 3,
+					"name" : "moving_blocks",
+					"pos" :
+					{
+						"x" : 738.000000,
+						"y" : 536.000000
+					},
+					"object_uid" : 2050420608,
+					"object_child_uid" : 0
 				}
 			]
 		},
@@ -2995,8 +2990,8 @@
 			"uid" : 1314392192,
 			"Name" : "Camera2D",
 			"State" : 2,
-			"PosX" : 1888.000000,
-			"PosY" : 1152.000000,
+			"x" : 800.000000,
+			"y" : 700.000000,
 			"ScreenBorder" : 300.000000,
 			"ScreenVertBorder" : 400.000000,
 			"LeftBorder" : -3000.000000,
@@ -3005,898 +3000,373 @@
 		{
 			"type" : "SpriteInst",
 			"name" : "Ground1_N",
-			"uid" : -1533433088,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 864.000000,
-			"PosY" : 576.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 459109408,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 928.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -2104270336,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 992.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1266505984,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1056.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 271339104,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1184.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 360617600,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1184.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1816191744,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1248.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -2000977408,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1472.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1761433344,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1472.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1040454912,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1536.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1487625984,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1600.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 32181780,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1664.000000,
-			"PosY" : 512.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1146473216,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1728.000000,
-			"PosY" : 544.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 447430560,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1728.000000,
-			"PosY" : 544.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 663878976,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1792.000000,
-			"PosY" : 576.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1907546624,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1856.000000,
-			"PosY" : 608.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 809475584,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1920.000000,
-			"PosY" : 640.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1268582400,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1984.000000,
-			"PosY" : 672.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1919617152,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1312.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 863198400,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1248.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 2142424192,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1376.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 402012704,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1440.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -621702656,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1568.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1567564160,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1504.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1722630912,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1696.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1841106688,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1632.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1353840768,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1760.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -2087011584,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1888.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -262512384,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1824.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1964253696,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1888.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1606753280,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 1952.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1360458880,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2016.000000,
-			"PosY" : 1088.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1777264768,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2080.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 835169088,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2144.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1710043648,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2144.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1148938752,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2208.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -367103232,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2272.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 405256832,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2336.000000,
-			"PosY" : 1056.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -2067417344,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2400.000000,
-			"PosY" : 1024.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1871212032,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2464.000000,
-			"PosY" : 992.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1919098112,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2528.000000,
-			"PosY" : 960.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 861381696,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2368.000000,
-			"PosY" : 832.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -470007040,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2304.000000,
-			"PosY" : 800.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 203990960,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2240.000000,
-			"PosY" : 768.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 470658528,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2176.000000,
-			"PosY" : 736.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 936126464,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 416.000000,
-			"PosY" : 800.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 143520368,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 480.000000,
-			"PosY" : 800.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1901187840,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 544.000000,
-			"PosY" : 736.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1604547200,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 256.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1242372352,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 320.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 793125184,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 2016.000000,
-			"PosY" : 1088.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 530869600,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 672.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 140016704,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 192.000000,
-			"PosY" : 1088.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1760003328,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 384.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 741348800,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 448.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1127268096,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 480.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 1237181824,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 544.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -640518656,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 864.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : 402402016,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 928.000000,
-			"PosY" : 1152.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
 			"uid" : 1645812480,
 			"Name" : "Ground1_N",
 			"State" : 2,
-			"PosX" : 992.000000,
-			"PosY" : 1152.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : false,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "Ground1_N",
-			"uid" : -1929995776,
-			"Name" : "Ground1_N",
-			"State" : 2,
-			"PosX" : 608.000000,
-			"PosY" : 1120.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 12327698
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "SpriteAsset",
-			"uid" : 1224594560,
-			"Name" : "SpriteAsset",
-			"State" : 2,
-			"PosX" : 1984.000000,
-			"PosY" : 2440.000000,
-			"axis_scale" : 0.500000,
-			"allow_instances" : false,
-			"Depth" : 0.750000,
-			"horz_flipped" : false,
-			"asset_uid" : -239024896
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "CherryItem",
-			"uid" : 285872800,
-			"Name" : "CherryItem",
-			"State" : 2,
-			"PosX" : 1632.000000,
-			"PosY" : 896.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 1435982208
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "CherryItem",
-			"uid" : 405905664,
-			"Name" : "CherryItem",
-			"State" : 2,
-			"PosX" : 1504.000000,
-			"PosY" : 896.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : 1435982208
+			"asset_uid" : 12327698,
+			"count" : 51,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 800.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 736.000000,
+						"y" : 704.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 864.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 928.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 672.000000,
+						"y" : 672.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 992.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1536.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 608.000000,
+						"y" : 640.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 544.000000,
+						"y" : 640.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1600.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 192.000000,
+						"y" : 864.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 480.000000,
+						"y" : 640.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 256.000000,
+						"y" : 864.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 480.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 608.000000,
+						"y" : 1152.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 672.000000,
+						"y" : 1152.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 416.000000,
+						"y" : 640.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 736.000000,
+						"y" : 1152.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1184.000000,
+						"y" : 1216.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 800.000000,
+						"y" : 1152.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1312.000000,
+						"y" : 1216.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1248.000000,
+						"y" : 1216.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 864.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 928.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 992.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 544.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 416.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1472.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 352.000000,
+						"y" : 1088.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1376.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1440.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1504.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1568.000000,
+						"y" : 1184.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1632.000000,
+						"y" : 1152.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1696.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1760.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1824.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1888.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1952.000000,
+						"y" : 1120.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2016.000000,
+						"y" : 1088.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2080.000000,
+						"y" : 1088.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1952.000000,
+						"y" : 832.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1888.000000,
+						"y" : 832.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1824.000000,
+						"y" : 800.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1760.000000,
+						"y" : 800.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1696.000000,
+						"y" : 800.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1408.000000,
+						"y" : 736.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2144.000000,
+						"y" : 1056.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2208.000000,
+						"y" : 1024.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2272.000000,
+						"y" : 992.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1344.000000,
+						"y" : 736.000000
+					}
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -3904,27 +3374,48 @@
 			"uid" : -310785024,
 			"Name" : "CherryItem",
 			"State" : 2,
-			"PosX" : 1760.000000,
-			"PosY" : 896.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : false,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : 1435982208
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "DiamondItem",
-			"uid" : 41395112,
-			"Name" : "DiamondItem",
-			"State" : 2,
-			"PosX" : 640.000000,
-			"PosY" : 928.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : -350622976
+			"asset_uid" : 1435982208,
+			"count" : 5,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 960.000000,
+						"y" : 1024.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 224.000000,
+						"y" : 704.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1472.000000,
+						"y" : 992.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1280.000000,
+						"y" : 1024.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 2080.000000,
+						"y" : 928.000000
+					}
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -3932,27 +3423,69 @@
 			"uid" : 1988782080,
 			"Name" : "DiamondItem",
 			"State" : 2,
-			"PosX" : 512.000000,
-			"PosY" : 928.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : false,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : -350622976
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "DiamondItem",
-			"uid" : 760035008,
-			"Name" : "DiamondItem",
-			"State" : 2,
-			"PosX" : 384.000000,
-			"PosY" : 928.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : -350622976
+			"asset_uid" : -350622976,
+			"count" : 8,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 736.000000,
+						"y" : 992.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 640.000000,
+						"y" : 992.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 512.000000,
+						"y" : 960.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 896.000000,
+						"y" : 576.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 800.000000,
+						"y" : 576.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1376.000000,
+						"y" : 576.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1472.000000,
+						"y" : 576.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1568.000000,
+						"y" : 576.000000
+					}
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -3960,13 +3493,13 @@
 			"uid" : 1225762432,
 			"Name" : "ItemTaken",
 			"State" : 2,
-			"PosX" : 288.000000,
-			"PosY" : 128.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : true,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : 780797440
+			"asset_uid" : 780797440,
+			"count" : 0,
+			"inst" : [
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -3974,13 +3507,27 @@
 			"uid" : -1084704768,
 			"Name" : "EagleFly",
 			"State" : 2,
-			"PosX" : 1280.000000,
-			"PosY" : 960.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : false,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : -1084575232
+			"asset_uid" : -1084575232,
+			"count" : 2,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 1280.000000,
+						"y" : 576.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 672.000000,
+						"y" : 480.000000
+					}
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -3988,38 +3535,80 @@
 			"uid" : -970252032,
 			"Name" : "EnemyDeath",
 			"State" : 2,
-			"PosX" : 100.000000,
-			"PosY" : 100.000000,
 			"axis_scale" : 1.000000,
-			"allow_instances" : true,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
-			"asset_uid" : -1558477824
-		},
-		{
-			"type" : "SpriteInst",
-			"name" : "EagleFly",
-			"uid" : -742773504,
-			"Name" : "EagleFly",
-			"State" : 2,
-			"PosX" : 1504.000000,
-			"PosY" : 384.000000,
-			"axis_scale" : 1.000000,
-			"allow_instances" : false,
-			"Depth" : 0.500000,
-			"horz_flipped" : false,
-			"asset_uid" : -1084575232
+			"asset_uid" : -1558477824,
+			"count" : 0,
+			"inst" : [
+			]
 		},
 		{
 			"type" : "VirtualJoystick",
 			"name" : "VirtualJoystick",
 			"uid" : -182577152,
 			"Name" : "VirtualJoystick",
-			"State" : 2,
+			"State" : 0,
 			"StickPad" : "Media/stick_pad.png",
 			"Stick" : "Media/stick.png",
 			"ButtonA" : "Media/button.png",
 			"ButtonB" : ""
+		},
+		{
+			"type" : "SpriteInst",
+			"name" : "MovingBlock",
+			"uid" : 2050420608,
+			"Name" : "MovingBlock",
+			"State" : 2,
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"horz_flipped" : false,
+			"asset_uid" : 1689413632,
+			"count" : 1,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 1184.000000,
+						"y" : 1024.000000
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"name" : "BackTrees",
+			"uid" : 1316598144,
+			"Name" : "BackTrees",
+			"State" : 2,
+			"axis_scale" : 0.500000,
+			"Depth" : 0.500000,
+			"horz_flipped" : false,
+			"asset_uid" : -239024896,
+			"count" : 3,
+			"inst" : [
+				{
+					"pos" :
+					{
+						"x" : 896.000000,
+						"y" : 1440.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : 1952.000000,
+						"y" : 1440.000000
+					}
+				},
+				{
+					"pos" :
+					{
+						"x" : -160.000000,
+						"y" : 1440.000000
+					}
+				}
+			]
 		}
 	]
 }

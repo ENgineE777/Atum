@@ -12,5 +12,5 @@ public:
 
 	virtual void Init(EUICategories* parent, const char* catName, const char* labelName);
 	virtual void SetData(void* data) = 0;
-	void Show(bool show);
+	virtual void Show(bool show);
 };

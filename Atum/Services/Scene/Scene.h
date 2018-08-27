@@ -84,6 +84,8 @@ public:
 	void DelFromAllGroups(SceneObject* obj);
 
 #ifdef EDITOR
+	int under_selection_index = 0;
+	vector<SceneObject*> under_selection;
 	SceneObject* CheckSelection(Vector2 ms);
 #endif
 

@@ -2,30 +2,15 @@
 #include "FileNameWidget.h"
 #include "Support\StringUtils.h"
 
-void FileNameWidget::Listiner::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
-{
-	if (sender == owner->openBtn)
-	{
-		owner->OpenFileDialog();
-	}
-	else
-	if (sender == owner->deleteBtn)
-	{
-		owner->ClearData();
-	}
-}
-
 void FileNameWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {
 	ProperyWidget::Init(parent, catName, labelName);
 
 	openBtn = new EUIButton(panel, "", 90, 5, 75, 20);
-	openBtn->SetListener(-1, &listiner, 0);
+	openBtn->SetListener(-1, this, 0);
 
 	deleteBtn = new EUIButton(panel, "X", 165, 5, 20, 20);
-	deleteBtn->SetListener(-1, &listiner, 0);
-
-	listiner.owner = this;
+	deleteBtn->SetListener(-1, this, 0);
 }
 
 void FileNameWidget::SetData(void* set_data)
@@ -58,4 +43,17 @@ void FileNameWidget::ClearData()
 	*data = "";
 	openBtn->SetText("");
 	changed = true;
+}
+
+void FileNameWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
+{
+	if (sender == openBtn)
+	{
+		OpenFileDialog();
+	}
+	else
+	if (sender == deleteBtn)
+	{
+		ClearData();
+	}
 }

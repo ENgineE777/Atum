@@ -11,7 +11,8 @@ public:
 	{
 		ScnCallback,
 		ScriptProperty,
-		ScriptMethod
+		ScriptMethod,
+		ScriptPropertyInst
 	};
 
 	struct Node

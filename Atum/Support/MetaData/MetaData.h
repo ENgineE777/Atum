@@ -14,6 +14,7 @@
 #include "ColorWidget.h"
 #include "EnumWidget.h"
 #include "CallbackWidget.h"
+#include "ArrayWidget.h"
 #endif
 
 struct MetaDataEnum
@@ -36,7 +37,8 @@ public:
 		FileName,
 		Clor,
 		Enum,
-		Callback
+		Callback,
+		Array
 	};
 
 	union DefValue
@@ -52,6 +54,50 @@ public:
 	std::vector<MetaDataEnum> enums;
 	std::vector<std::string> defStrings;
 
+	struct ArrayAdapter
+	{
+		uint8_t* value = nullptr;
+		virtual void Resize(int length) {};
+		virtual int GetSize() { return 0; };
+		virtual void PushBack() {};
+		virtual void Delete(int index) {};
+		virtual uint8_t* GetItem(int index) { return nullptr; };
+		virtual MetaData* GetMetaData() { return nullptr; };
+	};
+
+	template <typename StructType>
+	struct ArrayAdapterImpl : public ArrayAdapter
+	{
+		inline vector<StructType>* Vec()
+		{
+			return (vector<StructType>*)value;
+		};
+		void Resize(int length) override
+		{
+			Vec()->resize(length);
+		};
+		virtual int GetSize()
+		{
+			return (int)Vec()->size();
+		};
+		void PushBack() override
+		{
+			Vec()->push_back(StructType());
+		};
+		void Delete(int index) override
+		{
+			Vec()->erase(Vec()->begin() + index);
+		};
+		uint8_t* GetItem(int index) override
+		{
+			return (uint8_t*)&Vec()->at(index);
+		};
+		MetaData* GetMetaData() override
+		{
+			return &StructType::meta_data;
+		}
+	};
+
 	struct Property
 	{
 		int            offset;
@@ -61,17 +107,17 @@ public:
 		std::string    catName;
 		std::string    propName;
 #ifdef EDITOR
-		ProperyWidget* widget;
+		std::map<EUICategories*, ProperyWidget*> widgets;
 		CallbackWidget::Callback callback;
 #endif
+		ArrayAdapter*  adapter = nullptr;
 	};
 
-	bool inited;
-	bool widgets_inited;
-	void* owner;
+	bool inited = false;
+	void* owner = nullptr;
 	std::vector<Property> properties;
 
-	MetaData();
+	MetaData() = default;
 	virtual void Init() = 0;
 	void Prepare(void* owner);
 	void SetDefValuesPrepare();
@@ -190,3 +236,14 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	properties.push_back(prop);\
 }
 #endif
+
+#define ARRAY_PROP(className, classMember, structType, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Array;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	prop.adapter = new ArrayAdapterImpl<structType>;\
+	properties.push_back(prop);\
+}

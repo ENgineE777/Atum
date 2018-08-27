@@ -29,24 +29,24 @@ void Animator::Load(JSONReader& stream)
 	stream.Read("NumPlayers", num);
 	players.resize(num);
 
-	for (int i=0;i<num;i++)
+	for (auto player : players)
 	{
 		if (!stream.EnterBlock("TrackPlayer")) break;
 
 		char tp[64];
 		stream.Read("Type", tp, 64);
 
-		players[i] = ClassFactoryTrackPlayer::Create(tp);
-		players[i]->owner = this;
+		player = ClassFactoryTrackPlayer::Create(tp);
+		player->owner = this;
 
-		if (players[i])
+		if (player)
 		{
-			players[i]->SetName(tp);
-			players[i]->SetType(tp);
+			player->SetName(tp);
+			player->SetType(tp);
 
-			players[i]->Init();
+			player->Init();
 
-			players[i]->Load(stream);
+			player->Load(stream);
 		}
 
 		stream.LeaveBlock();
@@ -62,11 +62,11 @@ void Animator::Save(JSONWriter& stream)
 
 	stream.StartArray("TrackPlayer");
 
-	for (int i=0;i<players.size();i++)
+	for (auto player : players)
 	{
 		stream.StartBlock(nullptr);
 
-		players[i]->Save(stream);
+		player->Save(stream);
 
 		stream.FinishBlock();
 	}

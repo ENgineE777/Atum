@@ -3,341 +3,76 @@
 	"scene_nodes" : [
 		{
 			"index_in_scene" : -1,
-			"name" : "GroundBlocks",
+			"name" : "Dynamic",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 6,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 20,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 42,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 17,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 64,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 37,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 34,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 32,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 23,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 39,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 16,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 58,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 33,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 45,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 18,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 60,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 22,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 7,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 56,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 31,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 65,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 28,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 59,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
 			"index_in_scene" : 9,
-			"name" : "Ground1_N",
+			"name" : "EagleFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 53,
-			"name" : "Ground1_N",
+			"index_in_scene" : 2,
+			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 5,
-			"name" : "Ground1_N",
+			"index_in_scene" : 12,
+			"name" : "MovingBlock",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 50,
-			"name" : "Ground1_N",
-			"type" : 1
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
 		},
 		{
-			"index_in_scene" : 61,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 29,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 69,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 47,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 25,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 55,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 62,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 73,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 15,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 71,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 54,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 67,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 44,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 43,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 41,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 13,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 66,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 48,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 52,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 21,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 57,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 38,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 40,
-			"name" : "Ground1_N",
-			"type" : 1
+			"index_in_scene" : -1,
+			"name" : "FX",
+			"type" : 0
 		},
 		{
 			"index_in_scene" : 10,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 72,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 14,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 46,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 30,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 51,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 35,
-			"name" : "Ground1_N",
+			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
 			"index_in_scene" : 8,
-			"name" : "Ground1_N",
+			"name" : "ItemTaken",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 63,
-			"name" : "Ground1_N",
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 1,
+			"name" : "BackSky",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 27,
-			"name" : "Ground1_N",
+			"index_in_scene" : 13,
+			"name" : "BackTrees",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 49,
-			"name" : "Ground1_N",
+			"index_in_scene" : 6,
+			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 36,
-			"name" : "Ground1_N",
+			"index_in_scene" : 7,
+			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 24,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 26,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 68,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 70,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 19,
+			"index_in_scene" : 5,
 			"name" : "Ground1_N",
 			"type" : 1
 		},
@@ -362,92 +97,17 @@
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 1,
-			"name" : "BackSky",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 12,
+			"index_in_scene" : 4,
 			"name" : "Camera2D",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 75,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 77,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 76,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 78,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 79,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 80,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 82,
-			"name" : "EagleFly",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 84,
-			"name" : "EagleFly",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 83,
-			"name" : "EnemyDeath",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 4,
-			"name" : "Hero_Graph",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 81,
-			"name" : "ItemTaken",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 11,
+			"index_in_scene" : 3,
 			"name" : "MainScript",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 74,
-			"name" : "SpriteAsset",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 2,
-			"name" : "SpriteAsset",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 3,
-			"name" : "SpriteAsset",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 85,
+			"index_in_scene" : 11,
 			"name" : "VirtualJoystick",
 			"type" : 1
 		},
@@ -667,6 +327,11 @@
 			"index_in_scene" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"index_in_scene" : 23,
+			"name" : "MovingBlock",
+			"type" : 1
 		},
 		{
 			"index_in_scene" : -1,

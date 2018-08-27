@@ -2,12 +2,6 @@
 #include <angelscript.h>
 #include "MetaData.h"
 
-MetaData::MetaData()
-{
-	inited = false;
-	widgets_inited = false;
-}
-
 void MetaData::Prepare(void* set_owner)
 {
 	if (!inited)
@@ -22,6 +16,11 @@ void MetaData::Prepare(void* set_owner)
 	{
 		Property& prop = properties[i];
 		prop.value = (uint8_t*)owner + prop.offset;
+
+		if (prop.adapter)
+		{
+			prop.adapter->value = prop.value;
+		}
 	}
 }
 
@@ -108,6 +107,29 @@ void MetaData::Load(JSONReader& reader)
 		{
 			reader.Read(prop.propName.c_str(), *((Color*)prop.value));
 		}
+		else
+		if (prop.type == Array)
+		{
+			reader.EnterBlock(prop.propName.c_str());
+
+			int count = 0;
+			if (reader.Read("count", count))
+			{
+				prop.adapter->Resize(count);
+				
+				for (int i = 0; i < count; i++)
+				{
+					reader.EnterBlock("Elem");
+
+					prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+					prop.adapter->GetMetaData()->Load(reader);
+
+					reader.LeaveBlock();
+				}
+			}
+
+			reader.LeaveBlock();
+		}
 	}
 }
 
@@ -141,6 +163,30 @@ void MetaData::Save(JSONWriter& writer)
 		{
 			writer.Write(prop.propName.c_str(), *((Color*)prop.value));
 		}
+		else
+		if (prop.type == Array)
+		{
+			writer.StartBlock(prop.propName.c_str());
+
+			int count = prop.adapter->GetSize();
+			writer.Write("count", count);
+			
+			writer.StartArray("Elem");
+
+			for (int i = 0; i < count; i++)
+			{
+				writer.StartBlock(nullptr);
+
+				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+				prop.adapter->GetMetaData()->Save(writer);
+
+				writer.FinishBlock();
+			}
+
+			writer.FinishArray();
+
+			writer.FinishBlock();
+		}
 	}
 }
 
@@ -173,6 +219,10 @@ void MetaData::Copy(void* source)
 		if (prop.type == Clor)
 		{
 			memcpy(prop.value, src, sizeof(float) * 4);
+		}
+		else
+		if (prop.type == Array)
+		{
 		}
 	}
 }
@@ -219,72 +269,80 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 {
 	for (auto& prop : properties)
 	{
-		if (!widgets_inited)
+		ProperyWidget* widget = nullptr;
+
+		if (prop.widgets.count(parent) > 0)
+		{
+			widget = prop.widgets[parent];
+		}
+		else
 		{
 			if (prop.type == Boolean)
 			{
-				prop.widget = new BoolWidget();
+				widget = new BoolWidget();
 			}
 			else
 			if (prop.type == Integer)
 			{
-				prop.widget = new IntWidget();
+				widget = new IntWidget();
 			}
 			else
 			if (prop.type == Float)
 			{
-				prop.widget = new FloatWidget();
+				widget = new FloatWidget();
 			}
 			else
 			if (prop.type == String)
 			{
-				prop.widget = new StringWidget();
+				widget = new StringWidget();
 			}
 			else
 			if (prop.type == FileName)
 			{
-				prop.widget = new FileNameWidget();
+				widget = new FileNameWidget();
 			}
 			else
 			if (prop.type == Clor)
 			{
-				prop.widget = new ColorWidget();
+				widget = new ColorWidget();
 			}
 			else
 			if (prop.type == Enum)
 			{
-				prop.widget = new EnumWidget(&enums[prop.defvalue.enumIndex]);
+				widget = new EnumWidget(&enums[prop.defvalue.enumIndex]);
 			}
 			else
 			if (prop.type == Callback)
 			{
-				prop.widget = new CallbackWidget();
+				widget = new CallbackWidget();
+			}
+			else
+			if (prop.type == Array)
+			{
+				widget = new ArrayWidget();
+				((ArrayWidget*)widget)->prop = prop.adapter;
 			}
 
-			prop.widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());
+			widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());
+			prop.widgets[parent] = widget;
 		}
 
 		if (prop.type == Callback)
 		{
-			((CallbackWidget*)prop.widget)->Prepare(owner, prop.callback);
+			((CallbackWidget*)widget)->Prepare(owner, prop.callback);
 		}
 		else
 		{
-			prop.widget->SetData(prop.value);
+			widget->SetData(prop.value);
 		}
 
-		prop.widget->Show(true);
-	}
-
-	if (!widgets_inited)
-	{
-		widgets_inited = true;
+		widget->Show(true);
 	}
 }
 
 void MetaData::UpdateWidgets()
 {
-	for (auto& prop : properties)
+	/*for (auto& prop : properties)
 	{
 		if (prop.type == Callback)
 		{
@@ -294,7 +352,7 @@ void MetaData::UpdateWidgets()
 		{
 			prop.widget->SetData(prop.value);
 		}
-	}
+	}*/
 }
 
 bool MetaData::IsValueWasChanged()
@@ -302,9 +360,9 @@ bool MetaData::IsValueWasChanged()
 	bool res = false;
 	for (int i = 0; i < properties.size(); i++)
 	{
-		Property& prop = properties[i];
-		res |= prop.widget->changed;
-		prop.widget->changed = false;
+		//Property& prop = properties[i];
+		//res |= prop.widget->changed;
+		//prop.widget->changed = false;
 	}
 
 	return res;
@@ -312,7 +370,7 @@ bool MetaData::IsValueWasChanged()
 
 void MetaData::HideWidgets()
 {
-	if (!widgets_inited)
+	/*if (!widgets_inited)
 	{
 		return;
 	}
@@ -320,6 +378,6 @@ void MetaData::HideWidgets()
 	for (int i = 0; i < properties.size(); i++)
 	{
 		properties[i].widget->Show(false);
-	}
+	}*/
 }
 #endif

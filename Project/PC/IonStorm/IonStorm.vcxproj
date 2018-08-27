@@ -43,6 +43,7 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\ScriptMetaDataAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteInst.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="..\..\..\Atum\Support\json\json.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\ArrayWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ColorWidget.cpp" />
@@ -219,6 +221,7 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\CameraPlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\SpritePlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\Animator\TrackPlayers\TrackPlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteInst.h" />
@@ -357,6 +360,7 @@
     <ClInclude Include="..\..\..\Atum\Support\json\json.h" />
     <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h" />
     <ClInclude Include="..\..\..\Atum\Support\json\JSONWriter.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ColorWidget.h" />
@@ -442,7 +446,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Physic\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

@@ -3,25 +3,16 @@
 
 #include "ProperyWidget.h"
 
-class FileNameWidget : public ProperyWidget
+class FileNameWidget : public ProperyWidget, public EUIWidget::Listener
 {
 public:
 	EUIButton* openBtn;
 	EUIButton* deleteBtn;
 	std::string* data;
 
-	class Listiner : public EUIWidget::Listener
-	{
-	public:
-		FileNameWidget* owner;
-
-		void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
-	};
-
-	Listiner listiner;
-
-	virtual void Init(EUICategories* parent, const char* catName, const char* labelName);
-	virtual void SetData(void* set_data);
+	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
+	void SetData(void* set_data) override;
 	void OpenFileDialog();
 	void ClearData();
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 };

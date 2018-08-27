@@ -8,10 +8,7 @@ CLASSREG(SceneObject, SpriteInst, "Sprite")
 META_DATA_DESC(SpriteInst)
 BASE_SCENE_OBJ_NAME_PROP(SpriteInst)
 BASE_SCENE_OBJ_STATE_PROP(SpriteInst)
-FLOAT_PROP(SpriteInst, trans.pos.x, 100.0f, "Geometry", "PosX")
-FLOAT_PROP(SpriteInst, trans.pos.y, 100.0f, "Geometry", "PosY")
 FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
-BOOL_PROP(SpriteInst, allow_instances, false, "Geometry", "allow_instances")
 FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
 BOOL_PROP(SpriteInst, frame_state.horz_flipped, false, "Node", "horz_flipped")
 META_DATA_DESC_END()
@@ -31,59 +28,84 @@ void SpriteInst::ApplyProperties()
 {
 	frame_state.cur_time = -1.0f;
 	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
-
-	if (StringUtils::IsEqual(asset->GetName(), "DiamondItem"))
-	{
-		owner->AddToGroup(this, "DiamondItem");
-	}
-
-	if (StringUtils::IsEqual(asset->GetName(), "CherryItem"))
-	{
-		owner->AddToGroup(this, "CherryItem");
-	}
-
-	if (StringUtils::IsEqual(asset->GetName(), "EagleFly"))
-	{
-		owner->AddToGroup(this, "EagleFly");
-	}
 }
 
 void SpriteInst::Load(JSONReader& loader)
 {
 	SceneObject::Load(loader);
 	loader.Read("asset_uid", asset_uid);
+
+	int count = 0;
+	loader.Read("count", count);
+	instances.resize(count);
+
+	for (auto& inst : instances)
+	{
+		if (!loader.EnterBlock("inst")) break;
+
+		loader.Read("pos", inst.pos);
+
+		loader.LeaveBlock();
+	}
 }
 
 void SpriteInst::Save(JSONWriter& saver)
 {
 	SceneObject::Save(saver);
 	saver.Write("asset_uid", asset_uid);
+
+	saver.Write("count", (int)instances.size());
+
+	saver.StartArray("inst");
+
+	for (auto& inst : instances)
+	{
+		saver.StartBlock(nullptr);
+		saver.Write("pos", inst.pos);
+		saver.FinishBlock();
+	}
+
+	saver.FinishArray();
 }
 
 void SpriteInst::Play()
 {
 	float scale = 1.0f / 50.0f;
 
-	if (StringUtils::IsEqual(asset->GetName(), "Ground1_N"))
+	trans.size = asset->trans.size;
+
+	if (StringUtils::IsEqual(asset->GetName(), "Ground1_N") || StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
 	{
-		b2BodyDef bodyDef;
-		bodyDef.position.Set(trans.pos.x * scale, trans.pos.y * scale);
+		for (auto& inst : instances)
+		{
+			b2BodyDef bodyDef;
 
-		body = PScene2D()->CreateBody(&bodyDef);
+			if (StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
+			{
+				bodyDef.type = b2_kinematicBody;
+			}
 
-		b2PolygonShape box;
-		box.SetAsBox(trans.size.x * 0.5f * scale, trans.size.y * 0.5f * scale);
+			bodyDef.position.Set(inst.pos.x * scale, inst.pos.y * scale);
 
-		body->CreateFixture(&box, 0.0f);
+			inst.body = PScene2D()->CreateBody(&bodyDef);
+
+			b2PolygonShape box;
+			box.SetAsBox(trans.size.x * 0.5f * scale, trans.size.y * 0.5f * scale);
+
+			inst.body->CreateFixture(&box, 0.0f);
+		}
 	}
 }
 
 void SpriteInst::Stop()
 {
-	if (body)
+	for (auto& inst : instances)
 	{
-		PScene2D()->DestroyBody(body);
-		body = nullptr;
+		if (inst.body)
+		{
+			PScene2D()->DestroyBody(inst.body);
+			inst.body = nullptr;
+		}
 	}
 }
 
@@ -98,6 +120,36 @@ void SpriteInst::Draw(float dt)
 	{
 		return;
 	}
+
+#ifdef EDITOR
+	if (edited)
+	{
+		if (sel_inst != -1)
+		{
+			instances[sel_inst].pos = trans.pos;
+		}
+
+		if (controls.DebugKeyPressed("KEY_O") && sel_inst !=-1)
+		{
+			instances.erase(sel_inst + instances.begin());
+			sel_inst = -1;
+			SetGizmo();
+		}
+
+		if (controls.DebugKeyPressed("KEY_P"))
+		{
+			Instance inst;
+			float scale = render.GetDevice()->GetHeight() / 1024.0f;
+			inst.pos.x = ((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth()) * 0.5f) / scale;
+			inst.pos.y = Sprite::ed_cam_pos.y / scale + 512.0f;
+			instances.push_back(inst);
+
+			sel_inst = (int)instances.size() - 1;
+
+			SetGizmo();
+		}
+	}
+#endif
 
 	trans.size = asset->trans.size;
 
@@ -121,38 +173,47 @@ void SpriteInst::Draw(float dt)
 		Sprite::cam_pos *= axis_scale;
 	}
 
-	trans.BuildMatrices();
+	for (int i = 0; i<instances.size(); i++)
+	{
+		Instance& inst = instances[i];
 
-	if (!allow_instances || !owner->Playing())
-	{
-		Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &frame_state, true, false);
-	}
-	else
-	if (allow_instances || owner->Playing())
-	{
-		for (int i = 0; i<instances.size(); i++)
+		if (array)
 		{
-			Instance& inst = instances[i];
+			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
-			if (state == Active)
-			{
-				Sprite::UpdateFrame(&asset->sprite, &inst.frame_state, dt);
-			}
-
-			if (inst.frame_state.finished)
-			{
-				instances.erase(instances.begin() + i);
-				i--;
-				continue;
-			}
-
-			trans.pos.x = inst.x;
-			trans.pos.y = inst.y;
-			
-			trans.BuildMatrices();
-
-			Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &inst.frame_state, true, false);
+			inst.pos.x = *((float*)objects[i]->GetAddressOfProperty(0));
+			inst.pos.y = *((float*)objects[i]->GetAddressOfProperty(1));
+			inst.frame_state.horz_flipped = (*((int*)objects[i]->GetAddressOfProperty(2)) > 0);
+			inst.visible = *((int*)objects[i]->GetAddressOfProperty(3));
 		}
+
+		if (inst.visible == 0)
+		{
+			continue;
+		}
+
+		if (StringUtils::IsEqual(asset->GetName(), "MovingBlock") && inst.body)
+		{
+			inst.body->SetTransform({ inst.pos.x / 50.0f, inst.pos.y / 50.0f }, 0.0f);
+		}
+
+		if (state == Active)
+		{
+			Sprite::UpdateFrame(&asset->sprite, &inst.frame_state, dt);
+		}
+
+		if (inst.frame_state.finished)
+		{
+			instances.erase(instances.begin() + i);
+			i--;
+			continue;
+		}
+
+		trans.pos = inst.pos;
+
+		trans.BuildMatrices();
+
+		Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &inst.frame_state, true, false);
 	}
 
 	trans.pos = pos;
@@ -166,21 +227,28 @@ void SpriteInst::Draw(float dt)
 		Sprite::cam_pos = cam_pos;
 	}
 
-	if (body)
+	/*if (inst.body)
 	{
-		b2Vec2 position = body->GetPosition();
-		trans.pos.x = position.x * 50.0f;
-		trans.pos.y = position.y * 50.0f;
+		if (StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
+		{
+			body->SetTransform({ trans.pos.x / 50.0f, trans.pos.y / 50.0f }, 0.0f);
+		}
+		else
+		{
+			b2Vec2 position = body->GetPosition();
+			trans.pos.x = position.x * 50.0f;
+			trans.pos.y = position.y * 50.0f;
 
-		trans.rotation = body->GetAngle();
-	}
+			trans.rotation = body->GetAngle();
+		}
+	}*/
 }
 
 void SpriteInst::AddInstance(float x, float y)
 {
 	Instance inst;
-	inst.x = x;
-	inst.y = y;
+	inst.pos.x = x;
+	inst.pos.y = y;
 	inst.frame_state.looped = false;
 	instances.push_back(inst);
 }
@@ -189,15 +257,29 @@ void SpriteInst::AddInstance(float x, float y)
 bool SpriteInst::CheckSelection(Vector2 ms)
 {
 	float scale = render.GetDevice()->GetHeight() / 1024.0f;
-	Vector2 pos = trans.pos + trans.offset * trans.size * -1.0f;
-	pos *= scale;
-	pos.x -= Sprite::ed_cam_pos.x;
-	pos.y -= Sprite::ed_cam_pos.y;
 
-	if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
-		pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
+	sel_inst = -1;
+	for (int i = 0; i < instances.size(); i++)
 	{
-		return true;
+		Instance& inst = instances[i];
+
+		Vector2 pos = inst.pos + trans.offset * trans.size * -1.0f;
+		pos *= scale;
+		pos.x -= Sprite::ed_cam_pos.x;
+		pos.y -= Sprite::ed_cam_pos.y;
+
+		if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
+			pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
+		{
+			sel_inst = i;
+
+			if (edited)
+			{
+				SetGizmo();
+			}
+
+			return true;
+		}
 	}
 
 	return false;
@@ -211,11 +293,26 @@ void SpriteInst::Copy(SceneObject* src)
 
 void SpriteInst::SetEditMode(bool ed)
 {
-	Gizmo::inst->trans2D = ed ? &trans : nullptr;
+	SceneObject::SetEditMode(ed);
+
+	Gizmo::inst->enabled = ed;
+
 	if (ed)
 	{
-		Gizmo::inst->pos2d = trans.pos;
+		SetGizmo();
 	}
-	Gizmo::inst->enabled = ed;
+}
+
+void SpriteInst::SetGizmo()
+{
+	Gizmo::inst->trans2D = sel_inst != -1 ? &trans : nullptr;
+
+	if (sel_inst != -1)
+	{
+		trans.pos = instances[sel_inst].pos;
+		Gizmo::inst->pos2d = instances[sel_inst].pos;
+	}
+
+	Gizmo::inst->enabled = (sel_inst != -1);
 }
 #endif

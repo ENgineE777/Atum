@@ -50,17 +50,16 @@ void UIWidgetAsset::Load(JSONReader& reader)
 		char type[512];
 		reader.Read("type", type, 512);
 
-		UIWidgetAsset* obj = ClassFactoryUIWidgetAsset::Create(type);
+		auto decl = ClassFactoryUIWidgetAsset::Find(type);
+		UIWidgetAsset* obj = decl->Create(type);
 
 		if (obj)
 		{
 			obj->owner = owner;
 			obj->SetSource(source_child, false);
-			obj->className = type;
-			obj->scriptClassName = ClassFactoryUIWidgetAsset::Find(type)->GetShortName();
-			reader.Read("name", type, 512);
+			obj->className = decl->GetName();
+			obj->scriptClassName = decl->GetShortName();
 
-			obj->SetName(type);
 			obj->Init();
 
 			AddChild(obj);
@@ -100,9 +99,7 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 	{
 		writer.StartBlock(nullptr);
 
-		writer.Write("type", child->GetClassName());
-		writer.Write("name", child->GetName());
-
+		writer.Write("type", child->className);
 		writer.Write("uid", child->uid);
 
 		child->Save(writer);

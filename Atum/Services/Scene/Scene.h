@@ -12,6 +12,7 @@
 
 class SceneObject;
 class SceneAsset;
+class SceneObjectComp;
 
 class Scene
 {

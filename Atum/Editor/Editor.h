@@ -9,6 +9,7 @@
 #include "freecamera.h"
 #include "Gizmo.h"
 #include <map>
+#include "SceneObjCmpWidget.h"
 
 class Editor : public Object, public EUIWidget::Listener
 {
@@ -59,6 +60,7 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIButton* mode2DBtn = nullptr;
 	EUIButton* playBtn = nullptr;
 	EUICategories* objCat = nullptr;
+	SceneObjCmpWidget objCmpWgt;
 	EUIPanel* viewport = nullptr;
 	EUIPanel* asset_treeview_panel = nullptr;
 	EUITreeView* asset_treeview = nullptr;
@@ -112,8 +114,6 @@ public:
 	void SelectObject(SceneObject* obj, bool is_asset);
 	void CopyObject(SceneObject* obj, void* parent, bool is_asset);
 	void CreateSceneObject(const char* name, void* parent, bool is_asset);
-	void DeleteSceneObject(SceneObject* obj);
-	void DeleteSceneAsset(SceneAsset* obj);
 	void ShowVieport();
 	void StartScene();
 	void StopScene();
@@ -143,7 +143,6 @@ public:
 	void OnTreeViewSelChange(EUITreeView* sender, void* item) override;
 	void OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr) override;
 	void OnTreeDeleteItem(class EUITreeView* sender, void* item, void* ptr) override;
-	void OnTreeViewPopupItem(EUITreeView* sender, int id);
 	void OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item, int child_index) override;
 	void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) override;
 };

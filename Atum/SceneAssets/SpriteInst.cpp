@@ -16,7 +16,7 @@ META_DATA_DESC_END()
 void SpriteInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteInst)
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void AddInstance(float x, float y)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "void AddInstance(float x, float y)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
 }
 
 void SpriteInst::Init()
@@ -24,16 +24,12 @@ void SpriteInst::Init()
 	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteInst::Draw);
 }
 
-void SpriteInst::ApplyProperties()
-{
-	frame_state.cur_time = -1.0f;
-	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
-}
-
 void SpriteInst::Load(JSONReader& loader)
 {
-	SceneObject::Load(loader);
-	loader.Read("asset_uid", asset_uid);
+	SceneObjectInst::Load(loader);
+
+	frame_state.cur_time = -1.0f;
+	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
 
 	int count = 0;
 	loader.Read("count", count);
@@ -51,8 +47,7 @@ void SpriteInst::Load(JSONReader& loader)
 
 void SpriteInst::Save(JSONWriter& saver)
 {
-	SceneObject::Save(saver);
-	saver.Write("asset_uid", asset_uid);
+	SceneObjectInst::Save(saver);
 
 	saver.Write("count", (int)instances.size());
 
@@ -226,22 +221,6 @@ void SpriteInst::Draw(float dt)
 	{
 		Sprite::cam_pos = cam_pos;
 	}
-
-	/*if (inst.body)
-	{
-		if (StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
-		{
-			body->SetTransform({ trans.pos.x / 50.0f, trans.pos.y / 50.0f }, 0.0f);
-		}
-		else
-		{
-			b2Vec2 position = body->GetPosition();
-			trans.pos.x = position.x * 50.0f;
-			trans.pos.y = position.y * 50.0f;
-
-			trans.rotation = body->GetAngle();
-		}
-	}*/
 }
 
 void SpriteInst::AddInstance(float x, float y)
@@ -283,12 +262,6 @@ bool SpriteInst::CheckSelection(Vector2 ms)
 	}
 
 	return false;
-}
-
-void SpriteInst::Copy(SceneObject* src)
-{
-	asset_uid = ((SpriteInst*)src)->asset_uid;
-	SceneObject::Copy(src);
 }
 
 void SpriteInst::SetEditMode(bool ed)

@@ -4,13 +4,11 @@
 #include "Services/Scene/SceneObject.h"
 #include "SceneAssets/SpriteGraphAsset.h"
 
-class SpriteGraphInst : public SceneObject
+class SpriteGraphInst : public SceneObjectInst
 {
 public:
 	META_DATA_DECL(SpriteGraphInst)
 
-	uint32_t asset_uid;
-	SpriteGraphAsset* asset = nullptr;
 	SpriteGraphAsset::Instance graph_instance;
 	string asset_name; 
 	Transform2D trans;
@@ -21,9 +19,7 @@ public:
 	void BindClassToScript() override;
 
 	void Init() override;
-	void ApplyProperties() override;
 	void Load(JSONReader& loader) override;
-	void Save(JSONWriter& saver) override;
 	void Draw(float dt);
 	void ActivateLink(string& link);
 	void GotoNode(string& node);

@@ -5,13 +5,11 @@
 #include "SceneAssets/SpriteAsset.h"
 #include "Services/Script/Libs/scriptarray.h"
 
-class SpriteInst : public SceneObject
+class SpriteInst : public SceneObjectInst
 {
 public:
 	META_DATA_DECL(SpriteInst)
 
-	uint32_t asset_uid = 0;
-	SpriteAsset* asset = nullptr;
 	Transform2D trans;
 	Sprite::FrameState frame_state;
 	bool allow_instances = false;
@@ -31,10 +29,11 @@ public:
 
 	virtual ~SpriteInst() = default;
 
+	SpriteAsset* Asset() { return (SpriteAsset*)asset; };
+
 	void BindClassToScript() override;
 
 	void Init() override;
-	void ApplyProperties() override;
 	void Load(JSONReader& loader) override;
 	void Save(JSONWriter& saver) override;
 	void Draw(float dt);
@@ -46,7 +45,6 @@ public:
 #ifdef EDITOR
 	int sel_inst = -1;
 	bool CheckSelection(Vector2 ms) override;
-	void Copy(SceneObject* src) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
 #endif

@@ -595,6 +595,18 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ArrayWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\Phys2DComp.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObjectComp.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\SceneObjCmpWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\ScriptMetaDataComp.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h">
@@ -1145,6 +1157,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h">
       <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\Phys2DComp.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObjectComp.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataComp.h">
+      <Filter>SceneAssets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

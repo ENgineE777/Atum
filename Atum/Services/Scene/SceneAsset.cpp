@@ -2,6 +2,11 @@
 #include "SceneAsset.h"
 
 #ifdef EDITOR
+bool SceneAsset::IsAsset()
+{
+	return true;
+}
+
 SceneObject* SceneAsset::CreateInstance()
 {
 	return nullptr;

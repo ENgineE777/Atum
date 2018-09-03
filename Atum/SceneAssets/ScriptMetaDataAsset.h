@@ -20,14 +20,18 @@ public:
 	{
 		META_DATA_DECL(MetaType)
 
-		int type;
+		Type type;
 		string name;
 	};
 
-	vector<MetaType> metas;
+	vector<MetaType> properties;
 
 	virtual ~ScriptMetaDataAsset() = default;
 
 	void Init() override;
-	void Draw(float dt);
 };
+
+
+#define CLASSREG(baseClass, className, shortName)\
+CLASSREGEX(baseClass, className, className, shortName)\
+CLASSREGEX_END(baseClass, className)

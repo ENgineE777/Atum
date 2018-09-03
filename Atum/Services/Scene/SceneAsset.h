@@ -13,9 +13,13 @@ class SceneAsset : public SceneObject
 
 public:
 
+
 	virtual ~SceneAsset() = default;
 
 #ifdef EDITOR
+	vector<SceneObject*> instances;
+
+	bool IsAsset() override;
 	virtual SceneObject* CreateInstance();
 
 	virtual void PreapreAssetTree();

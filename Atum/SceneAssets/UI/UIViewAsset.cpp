@@ -59,12 +59,13 @@ void UIViewAsset::Release()
 #ifdef EDITOR
 	for (auto inst : instances)
 	{
-		inst->DeleteChilds();
-		if (inst->parent)
+		UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
+		ui_inst->DeleteChilds();
+		if (ui_inst->parent)
 		{
-			inst->parent->DeleteChild(inst);
+			ui_inst->parent->DeleteChild(ui_inst);
 		}
-		delete inst;
+		delete ui_inst;
 	}
 #endif
 
@@ -120,7 +121,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 {
 	if (item_from_assets)
 	{
-		if (StringUtils::IsEqual(item->className.c_str(), "UIViewAsset") && target && !IsInstance((UIViewAsset*)item, this))
+		if (StringUtils::IsEqual(item->className, "UIViewAsset") && target && !IsInstance((UIViewAsset*)item, this))
 		{
 			UIWidgetAsset* parent = (UIWidgetAsset*)target;
 
@@ -159,7 +160,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 
 	UIWidgetAsset* widget = (UIWidgetAsset*)item;
 
-	if (widget->source && !StringUtils::IsEqual(widget->className.c_str(), "UIViewInstanceAsset"))
+	if (widget->source && !StringUtils::IsEqual(widget->className, "UIViewInstanceAsset"))
 	{
 		return false;
 	}
@@ -171,8 +172,8 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 
 	for (int i=0; i<widget->instances.size(); i++)
 	{
-		UIWidgetAsset* widget_inst = widget->instances[i];
-		UIWidgetAsset* parent_widget_inst = parent_widget->instances[i];
+		UIWidgetAsset* widget_inst = (UIWidgetAsset*)widget->instances[i];
+		UIWidgetAsset* parent_widget_inst = (UIWidgetAsset*)parent_widget->instances[i];
 
 		widget_inst->parent->childs.erase(widget_inst->parent->childs.begin() + prev_child_index);
 
@@ -194,7 +195,9 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			className += "Inst";
 		}
 
-		UIWidgetAsset* dest_child = ClassFactoryUIWidgetAsset::Create(className.c_str());
+		auto decl = ClassFactoryUIWidgetAsset::Find(className.c_str());
+
+		UIWidgetAsset* dest_child = decl->Create();
 
 		if (childs_as_inst)
 		{
@@ -209,7 +212,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 		}
 
 		dest_child->owner = owner;
-		dest_child->className = className;
+		dest_child->className = decl->GetName();
 		dest_child->Init();
 
 		if (src_child->source)
@@ -226,7 +229,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 
 		if (create_item)
 		{
-			dest_child->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className.c_str());
+			dest_child->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->className);
 		}
 
 		for (auto dest_inst : dest->instances)
@@ -238,10 +241,11 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 				inst_className += "Inst";
 			}
 
-			UIWidgetAsset* dest_child_inst = ClassFactoryUIWidgetAsset::Create(inst_className.c_str());
+			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
+			UIWidgetAsset* dest_child_inst = decl->Create();
 
 			dest_child_inst->owner = owner;
-			dest_child_inst->className = inst_className;
+			dest_child_inst->className = decl->GetName();
 			dest_child_inst->Init();
 
 			dest_child_inst->SetSource(dest_child, true);
@@ -253,7 +257,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			dest_child_inst->GetMetaData()->SetDefValuesPrepare();
 			dest_child_inst->ApplyProperties();
 
-			dest_inst->AddChild(dest_child_inst);
+			((UIWidgetAsset*)dest_inst)->AddChild(dest_child_inst);
 			dest_child_inst->SetName(dest_child->GetName());
 		}
 
@@ -281,7 +285,7 @@ void UIViewAsset::OnAssetTreeSelChange(SceneAsset* item)
 
 void UIViewAsset::AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = ed_asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className.c_str());
+	widget->item = ed_asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className);
 
 	for (auto child : widget->childs)
 	{
@@ -336,10 +340,11 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		for (auto inst : popup_item->instances)
 		{
-			UIWidgetAsset* child_inst = ClassFactoryUIWidgetAsset::Create(inst_className.c_str());
+			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
+			UIWidgetAsset* child_inst = decl->Create();
 
 			child_inst->owner = owner;
-			child_inst->className = inst_className;
+			child_inst->className = decl->GetName();
 			child_inst->Init();
 
 			child_inst->SetSource(child, true);
@@ -353,11 +358,11 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 			if (child_index == -1)
 			{
-				inst->AddChild(child_inst);
+				((UIWidgetAsset*)inst)->AddChild(child_inst);
 			}
 			else
 			{
-				inst->parent->AddChild(child_inst, child_index);
+				((UIWidgetAsset*)inst)->parent->AddChild(child_inst, child_index);
 			}
 
 			child_inst->SetName(name);
@@ -366,7 +371,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 	if (id == 2400)
 	{
-		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(popup_item->className.c_str());
+		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(popup_item->className);
 
 		child->owner = owner;
 		child->className = popup_item->className;
@@ -379,16 +384,18 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(popup_item->GetName());
 
-		child->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className);
 
 		string inst_className = popup_item->className + string("Inst");
 
 		for (auto inst : popup_item->instances)
 		{
-			UIWidgetAsset* child_inst = ClassFactoryUIWidgetAsset::Create(inst_className.c_str());
+			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
+			UIWidgetAsset* child_inst = decl->Create();
+
 
 			child_inst->owner = owner;
-			child_inst->className = inst_className;
+			child_inst->className = decl->GetName();
 			child_inst->Init();
 
 			child_inst->SetSource(child, true);
@@ -400,7 +407,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValuesPrepare();
 			child_inst->ApplyProperties();
 
-			inst->parent->AddChild(child_inst, popup_child_index + 1);
+			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(popup_item->GetName());
 		}
@@ -415,7 +422,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 	if (id == 2402 && asset_to_copy)
 	{
-		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->className.c_str());
+		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->className);
 
 		child->owner = owner;
 		child->className = asset_to_copy->className;
@@ -428,16 +435,17 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = ed_asset_treeview->AddItem(child->GetName(), 1, child, popup_item->item, -1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(child->GetName(), 1, child, popup_item->item, -1, true, child->className);
 
 		string inst_className = asset_to_copy->className + string("Inst");
 
 		for (auto inst : popup_item->instances)
 		{
-			UIWidgetAsset* child_inst = ClassFactoryUIWidgetAsset::Create(inst_className.c_str());
+			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
+			UIWidgetAsset* child_inst = decl->Create();
 
 			child_inst->owner = owner;
-			child_inst->className = inst_className;
+			child_inst->className = decl->GetName();
 			child_inst->Init();
 
 			child_inst->SetSource(child, true);
@@ -449,7 +457,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValuesPrepare();
 			child_inst->ApplyProperties();
 
-			inst->AddChild(child_inst);
+			((UIWidgetAsset*)inst)->AddChild(child_inst);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}
@@ -459,7 +467,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 	if (id == 2403 && asset_to_copy)
 	{
-		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->className.c_str());
+		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->className);
 
 		child->owner = owner;
 		child->className = asset_to_copy->className;
@@ -472,16 +480,18 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className.c_str());
+		child->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->className);
 
 		string inst_className = asset_to_copy->className + string("Inst");
 
 		for (auto inst : popup_item->instances)
 		{
-			UIWidgetAsset* child_inst = ClassFactoryUIWidgetAsset::Create(inst_className.c_str());
+			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
+
+			UIWidgetAsset* child_inst = decl->Create();
 
 			child_inst->owner = owner;
-			child_inst->className = inst_className;
+			child_inst->className = decl->GetName();
 			child_inst->Init();
 
 			child_inst->SetSource(child, true);
@@ -493,7 +503,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValuesPrepare();
 			child_inst->ApplyProperties();
 
-			inst->parent->AddChild(child_inst, popup_child_index + 1);
+			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}
@@ -505,9 +515,10 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	{
 		for (auto inst : popup_item->instances)
 		{
-			inst->DeleteChilds();
-			inst->parent->DeleteChild(inst);
-			delete inst;
+			UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
+			ui_inst->DeleteChilds();
+			ui_inst->parent->DeleteChild(ui_inst);
+			delete ui_inst;
 		}
 
 		popup_item->SetSource(nullptr, true);
@@ -587,13 +598,15 @@ void UIViewAsset::CheckProperties()
 		{
 			for (auto inst : sel_ui_asset->instances)
 			{
-				inst->StoreProperties();
+				UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
 
-				sel_ui_asset->GetMetaData()->Prepare(inst);
-				inst->Copy(sel_ui_asset);
+				ui_inst->StoreProperties();
 
-				inst->RestoreProperties();
-				inst->ApplyProperties();
+				sel_ui_asset->GetMetaData()->Prepare(ui_inst);
+				ui_inst->Copy(sel_ui_asset);
+
+				ui_inst->RestoreProperties();
+				ui_inst->ApplyProperties();
 			}
 
 			ApplyProperties();

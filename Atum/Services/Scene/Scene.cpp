@@ -23,17 +23,29 @@ void Scene::Init()
 
 SceneObject* Scene::AddObject(const char* name, bool is_asset)
 {
-	SceneObject* obj = is_asset ? ClassFactorySceneAsset::Create(name) : ClassFactorySceneObject::Create(name);
+	ClassFactorySceneObject* decl_objects;
+	ClassFactorySceneAsset* decl_assets;
+
+	if (!is_asset)
+	{
+		decl_objects = ClassFactorySceneObject::Find(name);
+	}
+	else
+	{
+		decl_assets = ClassFactorySceneAsset::Find(name);
+	}
+
+	SceneObject* obj = is_asset ? decl_assets->Create(name) : decl_objects->Create(name);
 
 	if (obj)
 	{
 		if (!is_asset)
 		{
-			obj->scriptClassName = is_asset ? ClassFactorySceneAsset::Find(name)->GetShortName() : ClassFactorySceneObject::Find(name)->GetShortName();
+			obj->scriptClassName = is_asset ? decl_assets->GetShortName() : decl_objects->GetShortName();
 		}
 
 		obj->owner = this;
-		obj->className = name;
+		obj->className = is_asset ? decl_assets->GetName() : decl_objects->GetName();
 		obj->Init();
 
 		obj->GetMetaData()->Prepare(obj);
@@ -197,16 +209,12 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 		if (obj)
 		{
-			char name[512];
-			reader.Read("name", name, 512);
 			reader.Read("uid", obj->uid);
 
 			if (obj->uid == 0)
 			{
 				GenerateUID(obj, is_asset);
 			}
-
-			obj->SetName(name);
 
 			if (obj->Is3DObject())
 			{
@@ -219,19 +227,36 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 			}
 
 			obj->Load(reader);
+
+			int count = 0;
+			reader.Read("components_count", count);
+
+			obj->components.resize(count);
+
+			for (auto& comp : obj->components)
+			{
+				reader.EnterBlock("components");
+
+				reader.Read("type", type, 512);
+
+				auto decl = ClassFactorySceneObjectComp::Find(type);
+				comp = decl->Create();
+
+				comp->class_name = decl->GetName();
+				comp->Init();
+
+				comp->Load(reader);
+
+				reader.LeaveBlock();
+			}
 		}
 
 		reader.LeaveBlock();
 	}
 
-	for (auto asset : assets)
+	for (auto obj : objects)
 	{
-		asset->ApplyProperties();
-	}
-
-	for (auto object : objects)
-	{
-		object->ApplyProperties();
+		obj->ApplyProperties();
 	}
 }
 
@@ -244,6 +269,40 @@ void Scene::Load(const char* name)
 		reader.Read("camera_pos", camera_pos);
 		Load(reader, assets, "SceneAsset", true);
 		Load(reader, objects, "SceneObject", false);
+
+		int index = 0;
+
+		while (reader.EnterBlock("asset_inctances"))
+		{
+			uint32_t asset_uid = 0;
+			uint32_t inst_uid = 0;
+
+			reader.Read("asset_uid", asset_uid);
+			reader.Read("inst_uid", inst_uid);
+
+			SceneAsset* asset = (SceneAsset*)FindByUID(asset_uid, 0, true);
+			SceneObject* asset_inst = FindByUID(inst_uid, 0, false);
+
+			bool added = false;
+
+			for (auto inst : asset->instances)
+			{
+				if (inst == asset_inst)
+				{
+					added = true;
+					break;
+				}
+			}
+
+			if (!added)
+			{
+				asset->instances.push_back(asset_inst);
+			}
+
+			reader.LeaveBlock();
+
+			index++;
+		}
 	}
 }
 
@@ -251,14 +310,11 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 {
 	writer.StartArray(block);
 
-	for (int i = 0; i < objects.size(); i++)
+	for (auto& obj : objects)
 	{
-		writer.StartBlock(NULL);
+		writer.StartBlock(nullptr);
 
-		SceneObject* obj = objects[i];
-
-		writer.Write("type", obj->GetClassName());
-		writer.Write("name", obj->GetName());
+		writer.Write("type", obj->className);
 		writer.Write("uid", obj->GetUID());
 
 		if (obj->Is3DObject())
@@ -272,6 +328,25 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 		}
 
 		obj->Save(writer);
+
+		if (obj->components.size() > 0)
+		{
+			writer.Write("components_count", (int)obj->components.size());
+
+			writer.StartArray("components");
+
+			for (auto& comp : obj->components)
+			{
+				writer.StartBlock(nullptr);
+
+				writer.Write("type", comp->class_name);
+				comp->Save(writer);
+
+				writer.FinishBlock();
+			}
+
+			writer.FinishArray();
+		}
 
 		writer.FinishBlock();
 	}
@@ -288,6 +363,24 @@ void Scene::Save(const char* name)
 		writer.Write("camera_pos", camera_pos);
 		Save(writer, assets, "SceneAsset");
 		Save(writer, objects, "SceneObject");
+
+		writer.StartArray("asset_inctances");
+
+		for (auto obj : assets)
+		{
+			SceneAsset* asset = (SceneAsset*)obj;
+			for (auto inst : asset->instances)
+			{
+				writer.StartBlock(nullptr);
+
+				writer.Write("asset_uid", asset->GetUID());
+				writer.Write("inst_uid", inst->GetUID());
+
+				writer.FinishBlock();
+			}
+		}
+
+		writer.FinishArray();
 	}
 }
 

@@ -9,6 +9,11 @@ char appdir[1024];
 EUITabPanel* Editor::outputPanels = nullptr;
 map<string, EUIListBox*> Editor::output_boxes;
 
+#include "Services/Scene/SceneObjectComp.h"
+
+#include "SceneAssets/SpriteInst.h"
+#include "SceneAssets/SpriteGraphInst.h"
+
 void Editor::Init()
 {
 	GetCurrentDirectory(1024, appdir);
@@ -122,6 +127,8 @@ void Editor::Init()
 	EUILayout* object_lt = new EUILayout(toolsPanel3, true);
 
 	objCat = new EUICategories(object_lt, 0, 0, 100, 100);
+
+	objCmpWgt.Init(objCat);
 
 	SceneObject::ed_asset_treeview = asset_treeview;
 	SceneObject::ed_obj_cat = objCat;
@@ -286,6 +293,8 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		}
 	}
 
+	objCmpWgt.Prepare(selectedObject);
+
 	in_select_object = false;
 }
 
@@ -296,7 +305,7 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 		return;
 	}
 
-	SceneObject* copy = ed_scene.AddObject(obj->GetClassName(), is_asset);
+	SceneObject* copy = ed_scene.AddObject(obj->className, is_asset);
 	ed_scene.GenerateUID(copy, is_asset);
 	copy->Copy(obj);
 
@@ -336,18 +345,6 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	}
 }
 
-void Editor::DeleteSceneObject(SceneObject* obj)
-{
-	if (!obj)
-	{
-		return;
-	}
-
-	scene_treeview->DeleteItem(obj);
-	scene_treeview->SelectItem(nullptr);
-	ed_scene.DeleteObject(obj, false);
-}
-
 void Editor::ShowVieport()
 {
 	EUIPanel* vp = viewport;
@@ -362,22 +359,6 @@ void Editor::ShowVieport()
 
 	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
 	controls.SetWindow(vp->GetNative());
-}
-
-void Editor::DeleteSceneAsset(SceneAsset* obj)
-{
-	if (!obj)
-	{
-		return;
-	}
-
-	if (selectedObject == obj)
-	{
-		SelectObject(nullptr, false);
-	}
-
-	assets_treeview->DeleteItem(obj->item);
-	ed_scene.DeleteObject(obj, true);
 }
 
 void Editor::StartScene()
@@ -1130,7 +1111,14 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 	if (sender == assets_treeview && target == scene_treeview && selectedObject && isSelectedAsset)
 	{
-		SceneObject* inst = ((SceneAsset*)selectedObject)->CreateInstance();
+		SceneAsset* asset = (SceneAsset*)selectedObject;
+		SceneObject* inst = asset->CreateInstance();
+
+		for (auto comp : asset->components)
+		{
+			inst->components.push_back(((SceneAssetComp*)comp)->CreateInstance());
+		}
+
 		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, nullptr, -1, false);
 		inst->AddChildsToTree(scene_treeview);
 		scene_treeview->SelectItem(inst->item);
@@ -1146,12 +1134,30 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 		((SceneAsset*)selectedObject)->OnAssetTreeSelChange((SceneAsset*)asset_treeview->GetItemPtr(item));
 	}
 	else
-	if (sender == scene_treeview || sender == assets_treeview)
+	if (sender == scene_treeview)
 	{
 		SceneObject* asset = (SceneObject*)sender->GetItemPtr(item);
 
 		if (!asset_drag_as_inst && asset)
 		{
+			in_select_object = true;
+			assets_treeview->SelectItem(nullptr);
+			in_select_object = false;
+
+			SelectObject(asset, (sender == assets_treeview));
+		}
+	}
+	else
+	if (sender == assets_treeview)
+	{
+		SceneObject* asset = (SceneObject*)sender->GetItemPtr(item);
+
+		if (!asset_drag_as_inst && asset)
+		{
+			in_select_object = true;
+			scene_treeview->SelectItem(nullptr);
+			in_select_object = false;
+
 			SelectObject(asset, (sender == assets_treeview));
 		}
 	}
@@ -1179,6 +1185,17 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 			//if (item == selectedObject->item)
 			{
 				SelectObject(nullptr, false);
+			}
+
+			if (sender == assets_treeview)
+			{
+				SceneAsset* asset = (SceneAsset*)ptr;
+
+				for (auto inst : asset->instances)
+				{
+					scene_treeview->DeleteItem(inst);
+					ed_scene.DeleteObject((SceneObject*)inst, false);
+				}
 			}
 
 			ed_scene.DeleteObject((SceneObject*)ptr, (sender == assets_treeview));

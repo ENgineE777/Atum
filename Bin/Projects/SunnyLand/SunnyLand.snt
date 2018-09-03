@@ -120,6 +120,26 @@
 	"asset_nodes" : [
 		{
 			"index_in_scene" : -1,
+			"name" : "MetaData",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 24,
+			"name" : "EagleData",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 25,
+			"name" : "ItemData",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
 			"name" : "Sprites",
 			"type" : 0
 		},

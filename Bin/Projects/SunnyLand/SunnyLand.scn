@@ -8,7 +8,6 @@
 	"SceneAsset" : [
 		{
 			"type" : "UIViewAsset",
-			"name" : "TitleMenu",
 			"uid" : 1166329984,
 			"Name" : "TitleMenu",
 			"x" : 300.000000,
@@ -20,7 +19,6 @@
 			"Childs" : [
 				{
 					"type" : "UIImageAsset",
-					"name" : "logo",
 					"uid" : 1713420288,
 					"Name" : "logo",
 					"State" : 2,
@@ -127,7 +125,6 @@
 				},
 				{
 					"type" : "UIImageAsset",
-					"name" : "press_enter",
 					"uid" : 1882504320,
 					"Name" : "press_enter",
 					"State" : 2,
@@ -234,7 +231,6 @@
 				},
 				{
 					"type" : "UIImageAsset",
-					"name" : "credits",
 					"uid" : -741605632,
 					"Name" : "credits",
 					"State" : 2,
@@ -343,7 +339,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "BackSky",
 			"uid" : -1082369280,
 			"Name" : "BackSky",
 			"x" : 938.000000,
@@ -399,7 +394,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "BackTrees",
 			"uid" : -239024896,
 			"Name" : "BackTrees",
 			"x" : 1046.000000,
@@ -455,7 +449,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_W",
 			"uid" : -1549264384,
 			"Name" : "Ground1_W",
 			"x" : 843.000000,
@@ -511,7 +504,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_N",
 			"uid" : 12327698,
 			"Name" : "Ground1_N",
 			"x" : 843.000000,
@@ -567,7 +559,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_WN",
 			"uid" : -1888470784,
 			"Name" : "Ground1_WN",
 			"x" : 843.000000,
@@ -623,7 +614,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_S",
 			"uid" : 821803264,
 			"Name" : "Ground1_S",
 			"x" : 843.000000,
@@ -679,7 +669,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_ES",
 			"uid" : 855023168,
 			"Name" : "Ground1_ES",
 			"x" : 843.000000,
@@ -735,7 +724,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_WS",
 			"uid" : 2084808320,
 			"Name" : "Ground1_WS",
 			"x" : 843.000000,
@@ -791,7 +779,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_E",
 			"uid" : 1015802304,
 			"Name" : "Ground1_E",
 			"x" : 843.000000,
@@ -847,7 +834,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_EN",
 			"uid" : -120030208,
 			"Name" : "Ground1_EN",
 			"x" : 843.000000,
@@ -903,7 +889,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Ground1_C",
 			"uid" : -1000746752,
 			"Name" : "Ground1_C",
 			"x" : 843.000000,
@@ -959,7 +944,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Hero_Idle",
 			"uid" : -1039027712,
 			"Name" : "Hero_Idle",
 			"x" : 864.000000,
@@ -1101,7 +1085,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Hero_Run",
 			"uid" : -246291712,
 			"Name" : "Hero_Run",
 			"x" : 927.000000,
@@ -1299,7 +1282,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Hero_Hit",
 			"uid" : 1511894784,
 			"Name" : "Hero_Hit",
 			"x" : 942.000000,
@@ -1385,7 +1367,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Hero_Jump",
 			"uid" : -442886144,
 			"Name" : "Hero_Jump",
 			"x" : 942.000000,
@@ -1441,7 +1422,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "Hero_Fall",
 			"uid" : 1917411200,
 			"Name" : "Hero_Fall",
 			"x" : 942.000000,
@@ -1497,7 +1477,6 @@
 		},
 		{
 			"type" : "SpriteGraphAsset",
-			"name" : "Hero_Graph",
 			"uid" : -389033728,
 			"ed_camera_2d" :
 			{
@@ -1655,7 +1634,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "EagleFly",
 			"uid" : -1084575232,
 			"Name" : "EagleFly",
 			"x" : 864.000000,
@@ -1793,11 +1771,16 @@
 						"frame_time" : -1.000000
 					}
 				]
-			}
+			},
+			"components_count" : 1,
+			"components" : [
+				{
+					"type" : "ScriptMetaDataComp"
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "CherryItem",
 			"uid" : 1435982208,
 			"Name" : "CherryItem",
 			"x" : 896.000000,
@@ -2023,7 +2006,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "DiamondItem",
 			"uid" : -350622976,
 			"Name" : "DiamondItem",
 			"x" : 1120.000000,
@@ -2193,7 +2175,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "ItemTaken",
 			"uid" : 780797440,
 			"Name" : "ItemTaken",
 			"x" : 960.000000,
@@ -2335,7 +2316,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "EnemyDeath",
 			"uid" : -1558477824,
 			"Name" : "EnemyDeath",
 			"x" : 864.000000,
@@ -2533,7 +2513,6 @@
 		},
 		{
 			"type" : "SpriteAsset",
-			"name" : "MovingBlock",
 			"uid" : 1689413632,
 			"Name" : "MovingBlock",
 			"x" : 768.000000,
@@ -2586,12 +2565,47 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "ScriptMetaDataAsset",
+			"uid" : 1550694528,
+			"Name" : "EagleData",
+			"State" : 2,
+			"properties" :
+			{
+				"count" : 2,
+				"Elem" : [
+					{
+						"type" : 1,
+						"name" : "max_fly_time"
+					},
+					{
+						"type" : 1,
+						"name" : "speed"
+					}
+				]
+			}
+		},
+		{
+			"type" : "ScriptMetaDataAsset",
+			"uid" : 1583784704,
+			"Name" : "ItemData",
+			"State" : 2,
+			"properties" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"type" : 0,
+						"name" : "score"
+					}
+				]
+			}
 		}
 	],
 	"SceneObject" : [
 		{
 			"type" : "UIViewInstance",
-			"name" : "TitleMenu",
 			"uid" : 221639040,
 			"State" : 0,
 			"x" : 0.000000,
@@ -2610,7 +2624,6 @@
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
-					"name" : "logo",
 					"uid" : 1335414144,
 					"State" : 2,
 					"color" :
@@ -2681,7 +2694,6 @@
 				},
 				{
 					"type" : "UIImageAssetInst",
-					"name" : "press_enter",
 					"uid" : 11549106,
 					"State" : 2,
 					"color" :
@@ -2752,7 +2764,6 @@
 				},
 				{
 					"type" : "UIImageAssetInst",
-					"name" : "credits",
 					"uid" : 1649316224,
 					"State" : 2,
 					"color" :
@@ -2825,7 +2836,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "BackSky",
 			"uid" : -1915981312,
 			"Name" : "BackSky",
 			"State" : 2,
@@ -2846,7 +2856,6 @@
 		},
 		{
 			"type" : "SpriteGraphInst",
-			"name" : "Hero_Graph",
 			"uid" : 1485033472,
 			"Name" : "Hero_Graph",
 			"State" : 2,
@@ -2858,7 +2867,6 @@
 		},
 		{
 			"type" : "SceneScript",
-			"name" : "MainScript",
 			"uid" : -1993840384,
 			"ed_camera_2d" :
 			{
@@ -2986,7 +2994,6 @@
 		},
 		{
 			"type" : "CharacterCamera2D",
-			"name" : "Camera2D",
 			"uid" : 1314392192,
 			"Name" : "Camera2D",
 			"State" : 2,
@@ -2999,7 +3006,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "Ground1_N",
 			"uid" : 1645812480,
 			"Name" : "Ground1_N",
 			"State" : 2,
@@ -3370,7 +3376,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "CherryItem",
 			"uid" : -310785024,
 			"Name" : "CherryItem",
 			"State" : 2,
@@ -3419,7 +3424,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "DiamondItem",
 			"uid" : 1988782080,
 			"Name" : "DiamondItem",
 			"State" : 2,
@@ -3485,11 +3489,16 @@
 						"y" : 576.000000
 					}
 				}
+			],
+			"components_count" : 1,
+			"components" : [
+				{
+					"type" : "Phys2DComp"
+				}
 			]
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "ItemTaken",
 			"uid" : 1225762432,
 			"Name" : "ItemTaken",
 			"State" : 2,
@@ -3503,7 +3512,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "EagleFly",
 			"uid" : -1084704768,
 			"Name" : "EagleFly",
 			"State" : 2,
@@ -3527,11 +3535,16 @@
 						"y" : 480.000000
 					}
 				}
+			],
+			"components_count" : 1,
+			"components" : [
+				{
+					"type" : "ScriptMetaDataCompInst"
+				}
 			]
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "EnemyDeath",
 			"uid" : -970252032,
 			"Name" : "EnemyDeath",
 			"State" : 2,
@@ -3545,7 +3558,6 @@
 		},
 		{
 			"type" : "VirtualJoystick",
-			"name" : "VirtualJoystick",
 			"uid" : -182577152,
 			"Name" : "VirtualJoystick",
 			"State" : 0,
@@ -3556,7 +3568,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "MovingBlock",
 			"uid" : 2050420608,
 			"Name" : "MovingBlock",
 			"State" : 2,
@@ -3577,7 +3588,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"name" : "BackTrees",
 			"uid" : 1316598144,
 			"Name" : "BackTrees",
 			"State" : 2,
@@ -3609,6 +3619,52 @@
 					}
 				}
 			]
+		}
+	],
+	"asset_inctances" : [
+		{
+			"asset_uid" : 1166329984,
+			"inst_uid" : 221639040
+		},
+		{
+			"asset_uid" : -1082369280,
+			"inst_uid" : -1915981312
+		},
+		{
+			"asset_uid" : -239024896,
+			"inst_uid" : 1316598144
+		},
+		{
+			"asset_uid" : 12327698,
+			"inst_uid" : 1645812480
+		},
+		{
+			"asset_uid" : -389033728,
+			"inst_uid" : 1485033472
+		},
+		{
+			"asset_uid" : -1084575232,
+			"inst_uid" : -1084704768
+		},
+		{
+			"asset_uid" : 1435982208,
+			"inst_uid" : -310785024
+		},
+		{
+			"asset_uid" : -350622976,
+			"inst_uid" : 1988782080
+		},
+		{
+			"asset_uid" : 780797440,
+			"inst_uid" : 1225762432
+		},
+		{
+			"asset_uid" : -1558477824,
+			"inst_uid" : -970252032
+		},
+		{
+			"asset_uid" : 1689413632,
+			"inst_uid" : 2050420608
 		}
 	]
 }

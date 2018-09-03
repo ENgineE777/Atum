@@ -3,6 +3,8 @@
 #include "Support/Timer.h"
 #include <ctime>
 
+#include "Services/Scene/SceneObjectComp.h"
+
 #ifdef PLATFORM_ANDROID
 #include <android/log.h>
 #endif
@@ -27,6 +29,11 @@ void Core::Init(void* data)
 {
 	srand((unsigned int)time(nullptr));
 	StringUtils::Init();
+
+	for (const auto& decl : ClassFactorySceneObjectComp::Decls())
+	{
+		decl->Init();
+	}
 
 	Timer::CountDeltaTime();
 

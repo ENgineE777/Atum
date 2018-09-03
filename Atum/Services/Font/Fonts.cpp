@@ -3,6 +3,7 @@
 Fonts fonts;
 
 CLASSREGEX(Program, FontProgram, Fonts::FontProgram, "FontProgram")
+CLASSREGEX_END(Program, FontProgram)
 
 Fonts::Fonts()
 {

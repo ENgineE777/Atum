@@ -6028,11 +6028,13 @@
 			"uid" : -1456741888,
 			"Name" : "Background",
 			"State" : 0,
-			"PosX" : 793.000000,
-			"PosY" : 347.000000,
+			"axis_scale" : 1.000000,
 			"Depth" : 0.750000,
-			"Reversed" : false,
-			"asset_uid" : -336218880
+			"horz_flipped" : false,
+			"asset_uid" : -336218880,
+			"count" : 0,
+			"inst" : [
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -6040,11 +6042,13 @@
 			"uid" : 1956081280,
 			"Name" : "Floor",
 			"State" : 0,
-			"PosX" : 793.000000,
-			"PosY" : 859.000000,
+			"axis_scale" : 1.000000,
 			"Depth" : 0.750000,
-			"Reversed" : false,
-			"asset_uid" : 1716145280
+			"horz_flipped" : false,
+			"asset_uid" : 1716145280,
+			"count" : 0,
+			"inst" : [
+			]
 		},
 		{
 			"type" : "SimpleCharacter2D",
@@ -6052,8 +6056,8 @@
 			"uid" : -2065470720,
 			"Name" : "Player",
 			"State" : 0,
-			"PosX" : 674.503052,
-			"PosY" : 709.000000,
+			"x" : 100.000000,
+			"y" : 100.000000,
 			"VJoy" : "VJoy",
 			"Asset" : "SpriteBat_Graph",
 			"Speed" : 300.000000,
@@ -6067,8 +6071,8 @@
 			"uid" : 587187712,
 			"Name" : "Enemy",
 			"State" : 0,
-			"PosX" : 1264.556152,
-			"PosY" : 699.725525,
+			"x" : 100.000000,
+			"y" : 100.000000,
 			"VJoy" : "VJoy",
 			"Asset" : "SpriteEnemy1_Graph",
 			"Speed" : 200.000000,
@@ -6082,10 +6086,10 @@
 			"uid" : -129243392,
 			"Name" : "Camera",
 			"State" : 2,
-			"PosX" : 794.000000,
-			"PosY" : 512.000000,
-			"Target" : "Player",
+			"x" : 100.000000,
+			"y" : 100.000000,
 			"ScreenBorder" : 300.000000,
+			"ScreenVertBorder" : 100.000000,
 			"LeftBorder" : -752.000000,
 			"RightBorder" : 2350.000000
 		},
@@ -6498,6 +6502,7 @@
 			},
 			"Name" : "Script",
 			"State" : 2,
+			"main_class" : "",
 			"Count" : 34,
 			"Node" : [
 				{

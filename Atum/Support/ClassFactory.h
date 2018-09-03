@@ -29,7 +29,8 @@ public:\
 	{\
 		for (auto& decl : Decls())\
 		{\
-			if (StringUtils::IsEqual(decl->GetName(), name))\
+			if (StringUtils::IsEqual(decl->GetName(), name) ||\
+				StringUtils::IsEqual(decl->GetShortName(), name))\
 			{\
 				return decl;\
 			}\
@@ -57,14 +58,17 @@ public:\
 #define CLASSFACTORYDEF_END()\
 };
 
-#define CLASSREGEX(baseClass, shortClassName, fullClassName, shortName) \
-class ClassFactory##shortClassName##baseClass : public ClassFactory##baseClass \
+#define CLASSREGEX(baseClass, shortClassName, fullClassName, shortName)\
+class ClassFactory##shortClassName##baseClass : public ClassFactory##baseClass\
 {\
 	virtual const char* GetName() { return #shortClassName; };\
-	virtual const char* GetShortName() { return shortName; };;\
-	virtual baseClass* Create() { return new fullClassName(); };\
+	virtual const char* GetShortName() { return shortName; };\
+	virtual baseClass* Create() { return new fullClassName(); };
+
+#define CLASSREGEX_END(baseClass, shortClassName)\
 };\
 ClassFactory##shortClassName##baseClass classFactory##shortClassName##baseClass;
 
-#define CLASSREG(baseClass, className, shortName) \
-CLASSREGEX(baseClass, className, className, shortName)
+#define CLASSREG(baseClass, className, shortName)\
+CLASSREGEX(baseClass, className, className, shortName)\
+CLASSREGEX_END(baseClass, className)

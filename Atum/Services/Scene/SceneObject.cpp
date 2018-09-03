@@ -8,17 +8,6 @@ EUIMenu*       SceneObject::ed_popup_menu = nullptr;
 EUIPanel*      SceneObject::ed_vieport;
 #endif
 
-
-SceneObject::SceneObject()
-{
-	owner = nullptr;
-}
-
-SceneObject::~SceneObject()
-{
-
-}
-
 void SceneObject::EnableTasks(bool enable)
 {
 	if (taskPool)
@@ -87,11 +76,6 @@ Vector2& SceneObject::Camera2DPos()
 {
 	static Vector2 vec = 0.0f;
 	return vec;
-}
-
-const char* SceneObject::GetClassName()
-{
-	return className.c_str();
 }
 
 void SceneObject::Load(JSONReader& reader)
@@ -202,6 +186,11 @@ void SceneObject::BindClassToScript()
 }
 
 #ifdef EDITOR
+bool SceneObject::IsAsset()
+{
+	return false;
+}
+
 bool SceneObject::CheckSelection(Vector2 ms)
 {
 	return false;
@@ -275,5 +264,27 @@ void SceneObject::OnRightMouseUp()
 void SceneObject::OnPopupMenuItem(int id)
 {
 
+}
+#endif
+
+void SceneObjectInst::Load(JSONReader& loader)
+{
+	SceneObject::Load(loader);
+	loader.Read("asset_uid", asset_uid);
+
+	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
+}
+
+void SceneObjectInst::Save(JSONWriter& saver)
+{
+	SceneObject::Save(saver);
+	saver.Write("asset_uid", asset_uid);
+}
+
+#ifdef EDITOR
+void SceneObjectInst::Copy(SceneObject* src)
+{
+	asset_uid = ((SceneObjectInst*)src)->asset_uid;
+	SceneObject::Copy(src);
 }
 #endif

@@ -245,6 +245,8 @@ SceneObject* SpriteGraphAsset::CreateInstance()
 	inst->ApplyProperties();
 	inst->SetName(GetName());
 
+	instances.push_back(inst);
+
 	return inst;
 }
 

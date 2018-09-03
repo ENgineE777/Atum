@@ -342,27 +342,42 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 
 void MetaData::UpdateWidgets()
 {
-	/*for (auto& prop : properties)
+	for (auto& prop : properties)
 	{
-		if (prop.type == Callback)
+		for (auto& widget : prop.widgets)
 		{
-			((CallbackWidget*)prop.widget)->Prepare(owner, prop.callback);
+			if (!widget.second->panel->IsVisible())
+			{
+				continue;
+			}
+
+			if (prop.type == Callback)
+			{
+				((CallbackWidget*)widget.second)->Prepare(owner, prop.callback);
+			}
+			else
+			{
+				widget.second->SetData(prop.value);
+			}
 		}
-		else
-		{
-			prop.widget->SetData(prop.value);
-		}
-	}*/
+	}
 }
 
 bool MetaData::IsValueWasChanged()
 {
 	bool res = false;
-	for (int i = 0; i < properties.size(); i++)
+	for (auto& prop : properties)
 	{
-		//Property& prop = properties[i];
-		//res |= prop.widget->changed;
-		//prop.widget->changed = false;
+		for (auto& widget : prop.widgets)
+		{
+			if (!widget.second->panel->IsVisible())
+			{
+				continue;
+			}
+
+			res |= widget.second->changed;
+			widget.second->changed = false;
+		}
 	}
 
 	return res;
@@ -370,14 +385,12 @@ bool MetaData::IsValueWasChanged()
 
 void MetaData::HideWidgets()
 {
-	/*if (!widgets_inited)
+	for (auto& prop : properties)
 	{
-		return;
+		for (auto& widget : prop.widgets)
+		{
+			widget.second->Show(false);
+		}
 	}
-
-	for (int i = 0; i < properties.size(); i++)
-	{
-		properties[i].widget->Show(false);
-	}*/
 }
 #endif

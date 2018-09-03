@@ -66,7 +66,6 @@ public:
 	uint32_t GetParentUID() override;
 	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
-	vector<UIWidgetAsset*> instances;
 	void SetEditMode(bool ed) override;
 	virtual void StoreProperties();
 	virtual void RestoreProperties();
@@ -77,7 +76,7 @@ CLASSFACTORYDEF(UIWidgetAsset)
 CLASSFACTORYDEF_END()
 
 #define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
-scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-classAssetName::meta_data.BindToScript(scripts.engine, scriptClassName.c_str());
+scripts.engine->RegisterObjectType(scriptClassName, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+scripts.engine->RegisterObjectMethod(scriptClassName, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+scripts.engine->RegisterObjectMethod(scriptClassName, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+classAssetName::meta_data.BindToScript(scripts.engine, scriptClassName);

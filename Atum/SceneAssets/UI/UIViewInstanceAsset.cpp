@@ -124,7 +124,7 @@ void UIViewInstance::BindClassToScript()
 #ifdef EDITOR
 void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->GetClassName());
+	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className);
 	treeview->SetABSortChilds(widget->item, false);
 
 	for (auto child : widget->childs)

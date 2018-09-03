@@ -9,6 +9,7 @@
 #include "Services/Render/Render.h"
 #include "Services/Controls/Controls.h"
 #include "Scene.h"
+#include "SceneObjectComp.h"
 
 #ifdef EDITOR
 #include "Editor/Gizmo.h"
@@ -32,10 +33,10 @@ public:
 	TaskExecutor::SingleTaskPool* taskPool = nullptr;
 	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 	
-	Scene* owner;
+	Scene* owner = nullptr;
 	std::string name;
-	std::string className;
-	std::string scriptClassName;
+	const char* className = nullptr;
+	const char* scriptClassName = nullptr;
 	uint32_t uid = 0;
 	State state = Active;
 #ifdef EDITOR
@@ -51,8 +52,10 @@ public:
 	static EUIPanel*      ed_vieport;
 #endif
 
-	SceneObject();
-	virtual ~SceneObject();
+	vector<SceneObjectComp*> components;
+
+	SceneObject() = default;
+	virtual ~SceneObject() = default;
 
 	const char* GetName();
 	virtual void SetName(const char* name);
@@ -63,7 +66,6 @@ public:
 	virtual Matrix& Trans();
 	virtual bool UsingCamera2DPos();
 	virtual Vector2& Camera2DPos();
-	const char* GetClassName();
 
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
@@ -89,6 +91,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual bool IsAsset();
 	virtual bool CheckSelection(Vector2 ms);
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
@@ -106,6 +109,20 @@ public:
 #endif
 };
 
+class SceneObjectInst : public SceneObject
+{
+public:
+	uint32_t asset_uid;
+	class SpriteAsset* asset = nullptr;
+
+	void Load(JSONReader& reader) override;
+	void Save(JSONWriter& writer) override;
+
+#ifdef EDITOR
+	void Copy(SceneObject* src);
+#endif
+};
+
 CLASSFACTORYDEF(SceneObject)
 CLASSFACTORYDEF_END()
 
@@ -120,7 +137,7 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 ENUM_END
 
 #define BIND_TYPE_TO_SCRIPT(className)\
-scripts.engine->RegisterObjectType(scriptClassName.c_str(), sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-GetMetaData()->BindToScript(scripts.engine, scriptClassName.c_str());
+scripts.engine->RegisterObjectType(scriptClassName, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+scripts.engine->RegisterObjectMethod(scriptClassName, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+scripts.engine->RegisterObjectMethod(scriptClassName, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+GetMetaData()->BindToScript(scripts.engine, scriptClassName);

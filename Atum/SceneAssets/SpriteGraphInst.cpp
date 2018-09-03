@@ -18,13 +18,13 @@ META_DATA_DESC_END()
 void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void ActivateLink(string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void GotoNode(string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "float GetLinearVelocityX()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityX), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "float GetLinearVelocityY()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityY), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void SetLinearVelocity(float x, float y)", WRAP_MFN(SpriteGraphInst, SetLinearVelocity), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(SpriteGraphInst, ApplyLinearImpulse), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(scriptClassName.c_str(), "bool CheckColissionNormal(float x, float y)", WRAP_MFN(SpriteGraphInst, CheckColissionNormal), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "void ActivateLink(string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "void GotoNode(string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "float GetLinearVelocityX()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityX), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "float GetLinearVelocityY()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityY), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "void SetLinearVelocity(float x, float y)", WRAP_MFN(SpriteGraphInst, SetLinearVelocity), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(SpriteGraphInst, ApplyLinearImpulse), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(scriptClassName, "bool CheckColissionNormal(float x, float y)", WRAP_MFN(SpriteGraphInst, CheckColissionNormal), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
@@ -32,27 +32,16 @@ void SpriteGraphInst::Init()
 	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteGraphInst::Draw);
 }
 
-void SpriteGraphInst::ApplyProperties()
+void SpriteGraphInst::Load(JSONReader& loader)
 {
-	asset = (SpriteGraphAsset*)owner->FindByUID(asset_uid, 0, true);
+	SceneObjectInst::Load(loader);
+	
 	if (asset)
 	{
-		asset->PrepareInstance(&graph_instance);
+		((SpriteGraphAsset*)asset)->PrepareInstance(&graph_instance);
 		graph_instance.Reset();
 		trans.size = graph_instance.cur_node->asset->trans.size;
 	}
-}
-
-void SpriteGraphInst::Load(JSONReader& loader)
-{
-	SceneObject::Load(loader);
-	loader.Read("asset_uid", asset_uid);
-}
-
-void SpriteGraphInst::Save(JSONWriter& saver)
-{
-	SceneObject::Save(saver);
-	saver.Write("asset_uid", asset_uid);
 }
 
 void SpriteGraphInst::Play()

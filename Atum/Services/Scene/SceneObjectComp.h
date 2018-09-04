@@ -17,11 +17,13 @@
 class SceneObjectComp : public Object
 {
 public:
+	SceneObject* object = nullptr;
 	const char* class_name = nullptr;
 
 	virtual void Init();
 	virtual void Load(JSONReader& reader);
 	virtual void Save(JSONWriter& writer);
+	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
 };
 
@@ -34,8 +36,9 @@ public:
 class SceneAssetComp : public SceneObjectComp
 {
 public:
+#ifdef EDITOR
 	const char* inst_class_name = nullptr;
-	virtual SceneObjectInstComp* CreateInstance() = 0;
+#endif
 };
 
 CLASSFACTORYDEF(SceneObjectComp)

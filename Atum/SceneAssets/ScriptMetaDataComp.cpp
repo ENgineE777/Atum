@@ -8,6 +8,7 @@ COMPEXCL(ScriptMetaDataAsset)
 COMPREG_END(ScriptMetaDataComp)
 
 META_DATA_DESC(ScriptMetaDataComp)
+STRING_PROP(ScriptMetaDataComp, asset_name, "", "MetaData", "AssetName")
 META_DATA_DESC_END()
 
 COMPREG(ScriptMetaDataCompInst, "ScriptMetaDataInst")
@@ -17,16 +18,22 @@ COMPREG_END(ScriptMetaDataCompInst)
 META_DATA_DESC(ScriptMetaDataCompInst)
 META_DATA_DESC_END()
 
-void ScriptMetaDataComp::Init()
+ScriptMetaDataComp::ScriptMetaDataComp()
 {
-	inst_class_name = ClassFactorySceneObjectComp::Find("ScriptMetaDataInst")->GetName();
+	inst_class_name = "ScriptMetaDataInst";
 }
 
-SceneObjectInstComp* ScriptMetaDataComp::CreateInstance()
+void ScriptMetaDataComp::Load(JSONReader& loader)
 {
-	SceneObjectInstComp* inst = (SceneObjectInstComp*)ClassFactorySceneObjectComp::Create(inst_class_name);
-	inst->class_name = inst_class_name;
-	inst->Init();
+	SceneAssetComp::Load(loader);
+}
 
-	return inst;
+void ScriptMetaDataComp::Save(JSONWriter& saver)
+{
+	SceneAssetComp::Save(saver);
+}
+
+void ScriptMetaDataComp::ApplyProperties()
+{
+	asset = (ScriptMetaDataAsset*)object->GetScene()->FindByName(asset_name.c_str(), true);
 }

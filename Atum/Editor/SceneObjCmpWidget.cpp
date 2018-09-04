@@ -133,12 +133,7 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 
 	if (!added)
 	{
-		SceneObjectComp* comp = decl->Create();
-
-		comp->class_name = decl->GetName();
-		comp->Init();
-
-		obj->components.push_back(comp);
+		SceneObjectComp* comp = obj->AddComponent(decl->GetName());
 
 		if (obj->IsAsset())
 		{
@@ -147,7 +142,7 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 
 			for (auto inst : asset->instances)
 			{
-				inst->components.push_back(asset_comp->CreateInstance());
+				inst->AddComponent(asset_comp->inst_class_name);
 			}
 		}
 

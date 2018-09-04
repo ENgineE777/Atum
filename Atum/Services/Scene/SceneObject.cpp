@@ -78,6 +78,22 @@ Vector2& SceneObject::Camera2DPos()
 	return vec;
 }
 
+SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
+{
+	auto decl = ClassFactorySceneObjectComp::Find(comp_name);
+	SceneObjectComp* comp = decl->Create();
+
+	comp->class_name = decl->GetName();
+	comp->object = this;
+
+	comp->Init();
+	comp->ApplyProperties();
+
+	components.push_back(comp);
+
+	return comp;
+}
+
 void SceneObject::Load(JSONReader& reader)
 {
 	GetMetaData()->Prepare(this);
@@ -133,6 +149,11 @@ void SceneObject::Play()
 
 void SceneObject::Stop()
 {
+}
+
+Scene* SceneObject::GetScene()
+{
+	return owner;
 }
 
 ScriptContext* SceneObject::Script()
@@ -220,6 +241,14 @@ void SceneObject::CheckProperties()
 	if (GetMetaData()->IsValueWasChanged())
 	{
 		ApplyProperties();
+	}
+
+	for (auto comp : components)
+	{
+		if (comp->GetMetaData()->IsValueWasChanged())
+		{
+			comp->ApplyProperties();
+		}
 	}
 }
 

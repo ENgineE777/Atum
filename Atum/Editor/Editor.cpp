@@ -233,6 +233,11 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 			Sprite::ed_cam_pos = ed_scene.camera_pos;
 		}
 
+		for (auto comp : selectedObject->components)
+		{
+			comp->GetMetaData()->HideWidgets();
+		}
+
 		selectedObject->GetMetaData()->HideWidgets();
 		selectedObject->EnableTasks(false);
 		selectedObject->SetEditMode(false);
@@ -255,6 +260,12 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
+		for (auto comp : selectedObject->components)
+		{
+			comp->GetMetaData()->Prepare(comp);
+			comp->GetMetaData()->PrepareWidgets(objCat);
+		}
+
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->PrepareWidgets(objCat);
 		obj->EnableTasks(true);
@@ -1116,7 +1127,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 		for (auto comp : asset->components)
 		{
-			inst->components.push_back(((SceneAssetComp*)comp)->CreateInstance());
+			inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
 		}
 
 		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, nullptr, -1, false);

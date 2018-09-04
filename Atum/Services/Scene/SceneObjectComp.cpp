@@ -17,3 +17,8 @@ void SceneObjectComp::Save(JSONWriter& writer)
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(writer);
 }
+
+void SceneObjectComp::ApplyProperties()
+{
+
+}

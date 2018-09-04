@@ -29,14 +29,12 @@ public:
 	};
 
 protected:
-public:
+
 	TaskExecutor::SingleTaskPool* taskPool = nullptr;
 	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 	
 	Scene* owner = nullptr;
 	std::string name;
-	const char* className = nullptr;
-	const char* scriptClassName = nullptr;
 	uint32_t uid = 0;
 	State state = Active;
 #ifdef EDITOR
@@ -44,6 +42,9 @@ public:
 #endif
 
 public:
+
+	const char* className = nullptr;
+	const char* scriptClassName = nullptr;
 
 #ifdef EDITOR
 	static EUITreeView *  ed_asset_treeview;
@@ -67,6 +68,7 @@ public:
 	virtual bool UsingCamera2DPos();
 	virtual Vector2& Camera2DPos();
 
+	virtual SceneObjectComp* AddComponent(const char* name);
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
 	virtual void Init() = 0;
@@ -79,6 +81,7 @@ public:
 	virtual void Play();
 	virtual void Stop();
 	bool Playing();
+	Scene* GetScene();
 	ScriptContext* Script();
 	PhysScene* PScene();
 	b2World* PScene2D();

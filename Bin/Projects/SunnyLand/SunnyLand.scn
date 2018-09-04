@@ -1772,10 +1772,10 @@
 					}
 				]
 			},
-			"components_count" : 1,
 			"components" : [
 				{
-					"type" : "ScriptMetaDataComp"
+					"type" : "ScriptMetaDataComp",
+					"AssetName" : ""
 				}
 			]
 		},
@@ -2576,11 +2576,11 @@
 				"count" : 2,
 				"Elem" : [
 					{
-						"type" : 1,
+						"type" : 2,
 						"name" : "max_fly_time"
 					},
 					{
-						"type" : 1,
+						"type" : 2,
 						"name" : "speed"
 					}
 				]
@@ -2596,7 +2596,7 @@
 				"count" : 1,
 				"Elem" : [
 					{
-						"type" : 0,
+						"type" : 1,
 						"name" : "score"
 					}
 				]
@@ -3490,7 +3490,6 @@
 					}
 				}
 			],
-			"components_count" : 1,
 			"components" : [
 				{
 					"type" : "Phys2DComp"
@@ -3536,7 +3535,6 @@
 					}
 				}
 			],
-			"components_count" : 1,
 			"components" : [
 				{
 					"type" : "ScriptMetaDataCompInst"

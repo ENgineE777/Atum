@@ -228,24 +228,16 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 			obj->Load(reader);
 
-			int count = 0;
-			reader.Read("components_count", count);
-
-			obj->components.resize(count);
-
-			for (auto& comp : obj->components)
+			while (reader.EnterBlock("components"))
 			{
-				reader.EnterBlock("components");
-
 				reader.Read("type", type, 512);
 
-				auto decl = ClassFactorySceneObjectComp::Find(type);
-				comp = decl->Create();
+				SceneObjectComp* comp = obj->AddComponent(type);
 
-				comp->class_name = decl->GetName();
-				comp->Init();
-
-				comp->Load(reader);
+				if (comp)
+				{
+					comp->Load(reader);
+				}
 
 				reader.LeaveBlock();
 			}
@@ -331,8 +323,6 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 
 		if (obj->components.size() > 0)
 		{
-			writer.Write("components_count", (int)obj->components.size());
-
 			writer.StartArray("components");
 
 			for (auto& comp : obj->components)

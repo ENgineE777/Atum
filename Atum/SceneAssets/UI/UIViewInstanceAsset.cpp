@@ -115,7 +115,7 @@ void UIViewInstance::BindClassToScript()
 	for (const auto& decl : ClassFactoryUIWidgetAsset::Decls())
 	{
 		SceneObject* obj = decl->Create();
-		obj->scriptClassName = decl->GetShortName();
+		obj->script_class_name = decl->GetShortName();
 		obj->BindClassToScript();
 		obj->Release();
 	}
@@ -124,7 +124,7 @@ void UIViewInstance::BindClassToScript()
 #ifdef EDITOR
 void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->className);
+	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->class_name);
 	treeview->SetABSortChilds(widget->item, false);
 
 	for (auto child : widget->childs)

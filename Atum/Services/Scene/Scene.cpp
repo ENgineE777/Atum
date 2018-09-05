@@ -41,11 +41,11 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 	{
 		if (!is_asset)
 		{
-			obj->scriptClassName = is_asset ? decl_assets->GetShortName() : decl_objects->GetShortName();
+			obj->script_class_name = is_asset ? decl_assets->GetShortName() : decl_objects->GetShortName();
 		}
 
 		obj->owner = this;
-		obj->className = is_asset ? decl_assets->GetName() : decl_objects->GetName();
+		obj->class_name = is_asset ? decl_assets->GetName() : decl_objects->GetName();
 		obj->Init();
 
 		obj->GetMetaData()->Prepare(obj);
@@ -249,6 +249,11 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 	for (auto obj : objects)
 	{
 		obj->ApplyProperties();
+
+		for (auto comp : obj->components)
+		{
+			comp->ApplyProperties();
+		}
 	}
 }
 
@@ -306,7 +311,7 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 	{
 		writer.StartBlock(nullptr);
 
-		writer.Write("type", obj->className);
+		writer.Write("type", obj->class_name);
 		writer.Write("uid", obj->GetUID());
 
 		if (obj->Is3DObject())

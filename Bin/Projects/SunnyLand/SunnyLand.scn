@@ -1775,7 +1775,18 @@
 			"components" : [
 				{
 					"type" : "ScriptMetaDataComp",
-					"AssetName" : ""
+					"AssetName" : "EagleData",
+					"count" : 2,
+					"value" : [
+						{
+							"type" : 2,
+							"value" : 2.000000
+						},
+						{
+							"type" : 2,
+							"value" : 40.000000
+						}
+					]
 				}
 			]
 		},
@@ -2947,7 +2958,7 @@
 					"object_child_uid" : 0
 				},
 				{
-					"type" : 3,
+					"type" : 1,
 					"name" : "diamonds",
 					"pos" :
 					{
@@ -2958,7 +2969,7 @@
 					"object_child_uid" : 0
 				},
 				{
-					"type" : 3,
+					"type" : 1,
 					"name" : "cherries",
 					"pos" :
 					{
@@ -2969,7 +2980,7 @@
 					"object_child_uid" : 0
 				},
 				{
-					"type" : 3,
+					"type" : 1,
 					"name" : "eagles",
 					"pos" :
 					{
@@ -2980,7 +2991,7 @@
 					"object_child_uid" : 0
 				},
 				{
-					"type" : 3,
+					"type" : 1,
 					"name" : "moving_blocks",
 					"pos" :
 					{

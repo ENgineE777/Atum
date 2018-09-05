@@ -100,7 +100,7 @@ public:
 
 	struct Property
 	{
-		int            offset;
+		int64_t        offset;
 		Type           type;
 		DefValue       defvalue;
 		uint8_t*       value;

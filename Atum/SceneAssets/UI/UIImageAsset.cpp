@@ -203,7 +203,7 @@ META_DATA_DESC_END()
 void UIImageAssetInst::BindClassToScript()
 {
 	BIND_INST_TYPE_TO_SCRIPT(UIImageAssetInst, UIImageAsset)
-	scripts.engine->RegisterObjectMethod(scriptClassName, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset), asCALL_GENERIC);
 }
 
 void UIImageAssetInst::SetSpriteFromAsset(string& asset_name)

@@ -27,9 +27,9 @@ CharacterCamera2D::~CharacterCamera2D()
 void CharacterCamera2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(CharacterCamera2D)
-	scripts.engine->RegisterObjectProperty(scriptClassName, "float target_pos_x", memberOFFSET(CharacterCamera2D, target_pos.x));
-	scripts.engine->RegisterObjectProperty(scriptClassName, "float target_pos_y", memberOFFSET(CharacterCamera2D, target_pos.y));
-	scripts.engine->RegisterObjectMethod(scriptClassName, "void Reset()", WRAP_MFN(CharacterCamera2D, Reset), asCALL_GENERIC);
+	scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_x", memberOFFSET(CharacterCamera2D, target_pos.x));
+	scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_y", memberOFFSET(CharacterCamera2D, target_pos.y));
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(CharacterCamera2D, Reset), asCALL_GENERIC);
 }
 
 void CharacterCamera2D::Init()

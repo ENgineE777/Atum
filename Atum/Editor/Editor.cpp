@@ -233,12 +233,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 			Sprite::ed_cam_pos = ed_scene.camera_pos;
 		}
 
-		for (auto comp : selectedObject->components)
-		{
-			comp->GetMetaData()->HideWidgets();
-		}
-
-		selectedObject->GetMetaData()->HideWidgets();
+		selectedObject->ShowPropWidgets(nullptr);
 		selectedObject->EnableTasks(false);
 		selectedObject->SetEditMode(false);
 
@@ -260,14 +255,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
-		for (auto comp : selectedObject->components)
-		{
-			comp->GetMetaData()->Prepare(comp);
-			comp->GetMetaData()->PrepareWidgets(objCat);
-		}
-
-		obj->GetMetaData()->Prepare(obj);
-		obj->GetMetaData()->PrepareWidgets(objCat);
+		obj->ShowPropWidgets(objCat);
 		obj->EnableTasks(true);
 		obj->SetEditMode(true);
 
@@ -316,7 +304,7 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 		return;
 	}
 
-	SceneObject* copy = ed_scene.AddObject(obj->className, is_asset);
+	SceneObject* copy = ed_scene.AddObject(obj->class_name, is_asset);
 	ed_scene.GenerateUID(copy, is_asset);
 	copy->Copy(obj);
 

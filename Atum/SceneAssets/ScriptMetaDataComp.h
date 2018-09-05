@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Services/Scene/SceneObjectComp.h"
+#include "ScriptMetaDataAsset.h"
 
 class ScriptMetaDataComp : public SceneAssetComp
 {
@@ -18,13 +19,20 @@ public:
 		float flt;
 	};
 
-	vector<Value> values;
+	struct TypedValue
+	{
+		ScriptMetaDataAsset::Type type;
+		Value value;
+	};
+
+	vector<TypedValue> values;
 	string asset_name;
-	class ScriptMetaDataAsset* asset = nullptr;
+	ScriptMetaDataAsset* asset = nullptr;
 
 	void Load(JSONReader& reader) override;
 	void Save(JSONWriter& writer) override;
 	void ApplyProperties() override;
+	void ShowPropWidgets(EUICategories* objCat) override;
 };
 
 class ScriptMetaDataCompInst : public SceneObjectInstComp

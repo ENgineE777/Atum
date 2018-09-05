@@ -32,6 +32,7 @@ public:
 	SpriteAsset* Asset() { return (SpriteAsset*)asset; };
 
 	void BindClassToScript() override;
+	void InjectIntoScript(const char* type, void* property) override;
 
 	void Init() override;
 	void Load(JSONReader& loader) override;

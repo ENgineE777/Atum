@@ -26,10 +26,10 @@ VirtualJoystick::~VirtualJoystick()
 void VirtualJoystick::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(VirtualJoystick)
-	scripts.engine->RegisterObjectProperty(scriptClassName, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x));
-	scripts.engine->RegisterObjectProperty(scriptClassName, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y));
-	scripts.engine->RegisterObjectProperty(scriptClassName, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed));
-	scripts.engine->RegisterObjectProperty(scriptClassName, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed));
+	scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x));
+	scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y));
+	scripts.engine->RegisterObjectProperty(script_class_name, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed));
+	scripts.engine->RegisterObjectProperty(script_class_name, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed));
 }
 
 void VirtualJoystick::Init()

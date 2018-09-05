@@ -43,8 +43,8 @@ protected:
 
 public:
 
-	const char* className = nullptr;
-	const char* scriptClassName = nullptr;
+	const char* class_name = nullptr;
+	const char* script_class_name = nullptr;
 
 #ifdef EDITOR
 	static EUITreeView *  ed_asset_treeview;
@@ -90,7 +90,7 @@ public:
 	virtual SceneObject* GetChild(uint32_t uid);
 
 	virtual void BindClassToScript();
-
+	virtual void InjectIntoScript(const char* type, void* property);
 
 #ifdef EDITOR
 	void* item = nullptr;
@@ -100,6 +100,7 @@ public:
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();
 	virtual void OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms);
+	virtual void ShowPropWidgets(EUICategories* objCat);
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
 	virtual void SetEditMode(bool ed);
@@ -140,7 +141,7 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 ENUM_END
 
 #define BIND_TYPE_TO_SCRIPT(className)\
-scripts.engine->RegisterObjectType(scriptClassName, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-scripts.engine->RegisterObjectMethod(scriptClassName, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(scriptClassName, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-GetMetaData()->BindToScript(scripts.engine, scriptClassName);
+scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+GetMetaData()->BindToScript(scripts.engine, script_class_name);

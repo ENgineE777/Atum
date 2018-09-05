@@ -87,7 +87,6 @@ SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 	comp->object = this;
 
 	comp->Init();
-	comp->ApplyProperties();
 
 	components.push_back(comp);
 
@@ -206,6 +205,16 @@ void SceneObject::BindClassToScript()
 {
 }
 
+void SceneObject::InjectIntoScript(const char* type, void* property)
+{
+	if (!StringUtils::IsEqual(type, script_class_name))
+	{
+		return;
+	}
+
+	*(asPWORD*)(property) = (asPWORD)this;
+}
+
 #ifdef EDITOR
 bool SceneObject::IsAsset()
 {
@@ -234,6 +243,29 @@ bool SceneObject::UseAseetsTree()
 void SceneObject::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
 {
 
+}
+
+void SceneObject::ShowPropWidgets(EUICategories* objCat)
+{
+	if (objCat)
+	{
+		GetMetaData()->Prepare(this);
+		GetMetaData()->PrepareWidgets(objCat);
+
+		for (auto comp : components)
+		{
+			comp->ShowPropWidgets(objCat);
+		}
+	}
+	else
+	{
+		GetMetaData()->HideWidgets();
+
+		for (auto comp : components)
+		{
+			comp->ShowPropWidgets(nullptr);
+		}
+	}
 }
 
 void SceneObject::CheckProperties()

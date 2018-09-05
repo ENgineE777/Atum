@@ -124,7 +124,7 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 
 	for (auto& comp : obj->components)
 	{
-		if (decl->GetName() == obj->className)
+		if (decl->GetName() == obj->class_name)
 		{
 			added = true;
 			break;

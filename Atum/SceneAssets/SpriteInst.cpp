@@ -16,7 +16,32 @@ META_DATA_DESC_END()
 void SpriteInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteInst)
-	scripts.engine->RegisterObjectMethod(scriptClassName, "void AddInstance(float x, float y)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
+}
+
+void SpriteInst::InjectIntoScript(const char* type, void* property)
+{
+	if (StringUtils::IsEqual(type, "array"))
+	{
+		array = (CScriptArray*)property;
+		array->Resize((uint32_t)instances.size());
+		asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
+
+		int index = 0;
+		for (auto& inst : instances)
+		{
+			*((float*)objects[index]->GetAddressOfProperty(0)) = inst.pos.x;
+			*((float*)objects[index]->GetAddressOfProperty(1)) = inst.pos.y;
+			*((int*)objects[index]->GetAddressOfProperty(2)) = inst.frame_state.horz_flipped ? 1 : 0;
+			*((int*)objects[index]->GetAddressOfProperty(3)) = inst.visible;
+
+			index++;
+		}
+	}
+	else
+	{
+		SceneObject::InjectIntoScript(type, property);
+	}
 }
 
 void SpriteInst::Init()

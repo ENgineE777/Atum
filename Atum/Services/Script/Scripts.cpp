@@ -76,7 +76,7 @@ void Scripts::Start()
 	for (const auto& decl : ClassFactorySceneObject::Decls())
 	{
 		SceneObject* obj = decl->Create();
-		obj->scriptClassName = decl->GetShortName();
+		obj->script_class_name = decl->GetShortName();
 		obj->BindClassToScript();
 		obj->Release();
 	}

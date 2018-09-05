@@ -22,3 +22,16 @@ void SceneObjectComp::ApplyProperties()
 {
 
 }
+
+void SceneObjectComp::ShowPropWidgets(EUICategories* objCat)
+{
+	if (objCat)
+	{
+		GetMetaData()->Prepare(this);
+		GetMetaData()->PrepareWidgets(objCat);
+	}
+	else
+	{
+		GetMetaData()->HideWidgets();
+	}
+}

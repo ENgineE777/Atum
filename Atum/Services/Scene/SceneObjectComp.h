@@ -25,6 +25,10 @@ public:
 	virtual void Save(JSONWriter& writer);
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
+
+#ifdef EDITOR
+	virtual void ShowPropWidgets(EUICategories* objCat);
+#endif
 };
 
 class SceneObjectInstComp : public SceneObjectComp

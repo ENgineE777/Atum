@@ -24,7 +24,7 @@ void MetaData::Prepare(void* set_owner)
 	}
 }
 
-void MetaData::SetDefValuesPrepare()
+void MetaData::SetDefValues()
 {
 	for (int i = 0; i < properties.size(); i++)
 	{

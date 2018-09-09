@@ -3,6 +3,11 @@
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
 
+META_DATA_DESC(SpriteInst::Instance)
+FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x")
+FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y")
+META_DATA_DESC_END()
+
 CLASSREG(SceneObject, SpriteInst, "Sprite")
 
 META_DATA_DESC(SpriteInst)
@@ -11,6 +16,7 @@ BASE_SCENE_OBJ_STATE_PROP(SpriteInst)
 FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
 FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
 BOOL_PROP(SpriteInst, frame_state.horz_flipped, false, "Node", "horz_flipped")
+ARRAY_PROP(SpriteInst, instances, Instance, "Prop", "inst")
 META_DATA_DESC_END()
 
 void SpriteInst::BindClassToScript()
@@ -23,19 +29,66 @@ void SpriteInst::InjectIntoScript(const char* type, void* property)
 {
 	if (StringUtils::IsEqual(type, "array"))
 	{
-		array = (CScriptArray*)property;
-		array->Resize((uint32_t)instances.size());
-		asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
-
-		int index = 0;
-		for (auto& inst : instances)
+		if (instances.size() > 0)
 		{
-			*((float*)objects[index]->GetAddressOfProperty(0)) = inst.pos.x;
-			*((float*)objects[index]->GetAddressOfProperty(1)) = inst.pos.y;
-			*((int*)objects[index]->GetAddressOfProperty(2)) = inst.frame_state.horz_flipped ? 1 : 0;
-			*((int*)objects[index]->GetAddressOfProperty(3)) = inst.visible;
+			array = (CScriptArray*)property;
+			array->Resize((uint32_t)instances.size());
+			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
-			index++;
+			mapping.resize(4);
+
+			for (int value_index = 0; value_index < 4; value_index++)
+			{
+				mapping[value_index] = -1;
+
+				const char* names[] = { "x", "y", "horz_flipped", "visible" };
+
+				for (int prop = 0; prop < (int)objects[0]->GetPropertyCount(); prop++)
+				{
+					if (StringUtils::IsEqual(names[value_index], objects[0]->GetPropertyName(prop)))
+					{
+						mapping[value_index] = prop;
+						break;
+					}
+				}
+			}
+
+			int index = 0;
+			for (auto& inst : instances)
+			{
+				for (int value_index = 0; value_index < 4; value_index++)
+				{
+					int prop = mapping[value_index];
+
+					if (prop == -1)
+					{
+						continue;
+					}
+
+					switch (value_index)
+					{
+						case 0:
+							*((float*)objects[index]->GetAddressOfProperty(prop)) = inst.pos.x;
+							break;
+						case 1:
+							*((float*)objects[index]->GetAddressOfProperty(prop)) = inst.pos.y;
+							break;
+						case 2:
+							*((int*)objects[index]->GetAddressOfProperty(prop)) = inst.frame_state.horz_flipped ? 1 : 0;
+							break;
+						case 3:
+							*((int*)objects[index]->GetAddressOfProperty(prop)) = inst.visible;
+							break;
+					}
+				}
+
+				index++;
+			}
+
+			for (auto comp : components)
+			{
+				comp->InjectIntoScript(type, property);
+			}
 		}
 	}
 	else
@@ -49,6 +102,7 @@ void SpriteInst::Init()
 	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteInst::Draw);
 }
 
+/*
 void SpriteInst::Load(JSONReader& loader)
 {
 	SceneObjectInst::Load(loader);
@@ -87,46 +141,11 @@ void SpriteInst::Save(JSONWriter& saver)
 
 	saver.FinishArray();
 }
+*/
 
 void SpriteInst::Play()
 {
-	float scale = 1.0f / 50.0f;
-
-	trans.size = asset->trans.size;
-
-	if (StringUtils::IsEqual(asset->GetName(), "Ground1_N") || StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
-	{
-		for (auto& inst : instances)
-		{
-			b2BodyDef bodyDef;
-
-			if (StringUtils::IsEqual(asset->GetName(), "MovingBlock"))
-			{
-				bodyDef.type = b2_kinematicBody;
-			}
-
-			bodyDef.position.Set(inst.pos.x * scale, inst.pos.y * scale);
-
-			inst.body = PScene2D()->CreateBody(&bodyDef);
-
-			b2PolygonShape box;
-			box.SetAsBox(trans.size.x * 0.5f * scale, trans.size.y * 0.5f * scale);
-
-			inst.body->CreateFixture(&box, 0.0f);
-		}
-	}
-}
-
-void SpriteInst::Stop()
-{
-	for (auto& inst : instances)
-	{
-		if (inst.body)
-		{
-			PScene2D()->DestroyBody(inst.body);
-			inst.body = nullptr;
-		}
-	}
+	trans.size = ((SpriteAsset*)asset)->trans.size;
 }
 
 void SpriteInst::Draw(float dt)
@@ -140,6 +159,8 @@ void SpriteInst::Draw(float dt)
 	{
 		return;
 	}
+
+	SpriteAsset* sprite_asset = (SpriteAsset*)asset;
 
 #ifdef EDITOR
 	if (edited)
@@ -171,11 +192,11 @@ void SpriteInst::Draw(float dt)
 	}
 #endif
 
-	trans.size = asset->trans.size;
+	trans.size = sprite_asset->trans.size;
 
 	if (state == Active)
 	{
-		Sprite::UpdateFrame(&asset->sprite, &frame_state, dt);
+		Sprite::UpdateFrame(&sprite_asset->sprite, &frame_state, dt);
 	}
 
 	Vector2 pos = trans.pos;
@@ -201,10 +222,31 @@ void SpriteInst::Draw(float dt)
 		{
 			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
-			inst.pos.x = *((float*)objects[i]->GetAddressOfProperty(0));
-			inst.pos.y = *((float*)objects[i]->GetAddressOfProperty(1));
-			inst.frame_state.horz_flipped = (*((int*)objects[i]->GetAddressOfProperty(2)) > 0);
-			inst.visible = *((int*)objects[i]->GetAddressOfProperty(3));
+			for (int value_index = 0; value_index < 4; value_index++)
+			{
+				int prop = mapping[value_index];
+
+				if (prop == -1)
+				{
+					continue;
+				}
+
+				switch (value_index)
+				{
+					case 0:
+						inst.pos.x = *((float*)objects[i]->GetAddressOfProperty(prop));
+						break;
+					case 1:
+						inst.pos.y = *((float*)objects[i]->GetAddressOfProperty(prop));
+						break;
+					case 2:
+						inst.frame_state.horz_flipped = (*((int*)objects[i]->GetAddressOfProperty(prop)) > 0);
+						break;
+					case 3:
+						inst.visible = *((int*)objects[i]->GetAddressOfProperty(prop));
+						break;
+				}
+			}
 		}
 
 		if (inst.visible == 0)
@@ -212,14 +254,9 @@ void SpriteInst::Draw(float dt)
 			continue;
 		}
 
-		if (StringUtils::IsEqual(asset->GetName(), "MovingBlock") && inst.body)
-		{
-			inst.body->SetTransform({ inst.pos.x / 50.0f, inst.pos.y / 50.0f }, 0.0f);
-		}
-
 		if (state == Active)
 		{
-			Sprite::UpdateFrame(&asset->sprite, &inst.frame_state, dt);
+			Sprite::UpdateFrame(&sprite_asset->sprite, &inst.frame_state, dt);
 		}
 
 		if (inst.frame_state.finished)
@@ -233,7 +270,7 @@ void SpriteInst::Draw(float dt)
 
 		trans.BuildMatrices();
 
-		Sprite::Draw(&trans, COLOR_WHITE, &asset->sprite, &inst.frame_state, true, false);
+		Sprite::Draw(&trans, COLOR_WHITE, &sprite_asset->sprite, &inst.frame_state, true, false);
 	}
 
 	trans.pos = pos;

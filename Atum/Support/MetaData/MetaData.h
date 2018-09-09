@@ -120,7 +120,7 @@ public:
 	MetaData() = default;
 	virtual void Init() = 0;
 	void Prepare(void* owner);
-	void SetDefValuesPrepare();
+	void SetDefValues();
 	void Load(JSONReader& reader);
 	void Save(JSONWriter& writer);
 	void Copy(void* source);

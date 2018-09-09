@@ -6,7 +6,7 @@
 CLASSREG(SceneAsset, ScriptMetaDataAsset, "ScriptMetaData")
 
 META_DATA_DESC(ScriptMetaDataAsset::MetaType)
-ENUM_PROP(ScriptMetaDataAsset::MetaType, type, 0, "Prop", "type")
+ENUM_PROP(ScriptMetaDataAsset::MetaType, type, 0, "Prop", "data_type")
 	ENUM_ELEM("Bool", 0)
 	ENUM_ELEM("Int", 1)
 	ENUM_ELEM("Float", 2)

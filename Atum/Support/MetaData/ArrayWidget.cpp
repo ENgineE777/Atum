@@ -70,7 +70,7 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		adapter->PushBack();
 		adapter->GetMetaData()->Prepare(adapter->GetItem((int)adapter->GetSize() - 1));
-		adapter->GetMetaData()->SetDefValuesPrepare();
+		adapter->GetMetaData()->SetDefValues();
 
 		SetData(nullptr);
 	}

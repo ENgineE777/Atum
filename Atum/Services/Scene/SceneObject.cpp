@@ -1,5 +1,6 @@
 
 #include "SceneObject.h"
+#include "SceneAsset.h"
 
 #ifdef EDITOR
 EUITreeView *  SceneObject::ed_asset_treeview = nullptr;
@@ -87,6 +88,8 @@ SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 	comp->object = this;
 
 	comp->Init();
+	comp->GetMetaData()->Prepare(comp);
+	comp->GetMetaData()->SetDefValues();
 
 	components.push_back(comp);
 
@@ -172,18 +175,44 @@ b2World* SceneObject::PScene2D()
 
 void SceneObject::Release()
 {
-	if (owner) owner->taskPool->DelAllTasks(this);
+	if (owner)
+	{
+		owner->taskPool->DelAllTasks(this);
+
+		for (auto comp : components)
+		{
+			owner->taskPool->DelAllTasks(comp);
+		}
+	}
 
 	if (taskPool)
 	{
 		taskPool->DelAllTasks(this);
+
+		for (auto comp : components)
+		{
+			taskPool->DelAllTasks(comp);
+		}
 	}
 
-	if (owner) owner->renderTaskPool->DelAllTasks(this);
+	if (owner)
+	{
+		owner->renderTaskPool->DelAllTasks(this);
+
+		for (auto comp : components)
+		{
+			owner->renderTaskPool->DelAllTasks(comp);
+		}
+	}
 
 	if (renderTaskPool)
 	{
 		renderTaskPool->DelAllTasks(this);
+
+		for (auto comp : components)
+		{
+			renderTaskPool->DelAllTasks(comp);
+		}
 	}
 
 	if (owner) owner->DelFromAllGroups(this);
@@ -289,6 +318,19 @@ void SceneObject::Copy(SceneObject* src)
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();
+
+	for (auto comp : components)
+	{
+		comp->Release();
+	}
+
+	components.clear();
+
+	for (auto src_comp : src->components)
+	{
+		SceneObjectComp* comp = AddComponent(src_comp->class_name);
+		comp->Copy(src_comp);
+	}
 }
 
 void SceneObject::SetEditMode(bool ed)
@@ -333,7 +375,7 @@ void SceneObjectInst::Load(JSONReader& loader)
 	SceneObject::Load(loader);
 	loader.Read("asset_uid", asset_uid);
 
-	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
+	asset = (SceneAsset*)owner->FindByUID(asset_uid, 0, true);
 }
 
 void SceneObjectInst::Save(JSONWriter& saver)
@@ -346,6 +388,32 @@ void SceneObjectInst::Save(JSONWriter& saver)
 void SceneObjectInst::Copy(SceneObject* src)
 {
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;
-	SceneObject::Copy(src);
+
+	Trans() = src->Trans();
+	src->GetMetaData()->Copy(src);
+	ApplyProperties();
+
+	asset = ((SceneObjectInst*)src)->asset;
+	asset->instances.push_back(this);
+
+	for (auto comp : components)
+	{
+		comp->Release();
+	}
+
+	components.clear();
+
+	for (auto src_comp : src->components)
+	{
+		SceneObjectComp* comp = AddComponent(src_comp->class_name);
+		comp->Copy(src_comp);
+
+		SceneObjectInstComp* src_comp_inst = dynamic_cast<SceneObjectInstComp*>(src_comp);
+
+		if (src_comp_inst)
+		{
+			((SceneObjectInstComp*)comp)->asset_comp = src_comp_inst->asset_comp;
+		}
+	}
 }
 #endif

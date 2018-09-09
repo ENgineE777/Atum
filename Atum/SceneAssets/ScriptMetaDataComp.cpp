@@ -19,7 +19,7 @@ META_DATA_DESC_END()
 
 ScriptMetaDataComp::ScriptMetaDataComp()
 {
-	inst_class_name = "ScriptMetaDataInst";
+	inst_class_name = "ScriptMetaDataCompInst";
 }
 
 void ScriptMetaDataComp::Load(JSONReader& loader)
@@ -107,6 +107,7 @@ void ScriptMetaDataComp::ApplyProperties()
 	}
 }
 
+#ifdef EDITOR
 void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 {
 	if (objCat)
@@ -157,4 +158,67 @@ void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 	}
 
 	SceneAssetComp::ShowPropWidgets(objCat);
+}
+#endif
+
+void ScriptMetaDataCompInst::InjectIntoScript(const char* type, void* property)
+{
+	if (!StringUtils::IsEqual(type, "array"))
+	{
+		return;
+	}
+
+	CScriptArray* array = (CScriptArray*)property;
+
+	if (array->GetSize() == 0)
+	{
+		return;
+	}
+
+	ScriptMetaDataComp* meta_data = (ScriptMetaDataComp*)asset_comp;
+
+	asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
+
+	vector<int> mapping;
+	mapping.resize(meta_data->values.size());
+
+	for (int value_index = 0; value_index < meta_data->values.size(); value_index++)
+	{
+		mapping[value_index] = -1;
+
+		for (int prop = 0; prop < (int)objects[0]->GetPropertyCount(); prop++)
+		{
+			if (StringUtils::IsEqual(meta_data->asset->properties[value_index].name.c_str(), objects[0]->GetPropertyName(prop)))
+			{
+				mapping[value_index] = prop;
+				break;
+			}
+		}
+	}
+
+	for (int index = 0; index < (int)array->GetSize(); index++)
+	{
+		for (int value_index = 0; value_index < meta_data->values.size(); value_index++)
+		{
+			int prop = mapping[value_index];
+
+			if (prop == -1)
+			{
+				continue;
+			}
+
+			switch (meta_data->values[value_index].type)
+			{
+				case ScriptMetaDataAsset::Bool:
+					*((bool*)objects[index]->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.boolean;
+					break;
+				case ScriptMetaDataAsset::Int:
+					*((int*)objects[index]->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.integer;
+					break;
+				case ScriptMetaDataAsset::Float:
+					*((float*)objects[index]->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.flt;
+					break;
+			}
+		}
+	}
 }

@@ -1152,9 +1152,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2TimeOfImpact.h">
       <Filter>Services\Physic\Box2D\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataAsset.h">
-      <Filter>SceneAssets</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h">
       <Filter>Support\MetaData</Filter>
     </ClInclude>
@@ -1168,6 +1165,9 @@
       <Filter>Editor</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataComp.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataAsset.h">
       <Filter>SceneAssets</Filter>
     </ClInclude>
   </ItemGroup>

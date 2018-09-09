@@ -137,7 +137,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				child->Init();
 
 				child->GetMetaData()->Prepare(child);
-				child->GetMetaData()->SetDefValuesPrepare();
+				child->GetMetaData()->SetDefValues();
 				child->ApplyProperties();
 
 				parent->AddChild(child, child_index);
@@ -255,7 +255,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			dest_child_inst->Copy(dest_child);
 
 			dest_child_inst->GetMetaData()->Prepare(dest_child_inst);
-			dest_child_inst->GetMetaData()->SetDefValuesPrepare();
+			dest_child_inst->GetMetaData()->SetDefValues();
 			dest_child_inst->ApplyProperties();
 
 			((UIWidgetAsset*)dest_inst)->AddChild(dest_child_inst);
@@ -319,7 +319,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		child->Init();
 
 		child->GetMetaData()->Prepare(child);
-		child->GetMetaData()->SetDefValuesPrepare();
+		child->GetMetaData()->SetDefValues();
 		child->ApplyProperties();
 
 		if (child_index == -1)
@@ -351,10 +351,10 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->SetSource(child, true);
 
 			child->GetMetaData()->Prepare(child_inst);
-			child->GetMetaData()->SetDefValuesPrepare();
+			child->GetMetaData()->SetDefValues();
 
 			child_inst->GetMetaData()->Prepare(child_inst);
-			child_inst->GetMetaData()->SetDefValuesPrepare();
+			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
 			if (child_index == -1)
@@ -405,7 +405,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->Copy(child);
 
 			child_inst->GetMetaData()->Prepare(child_inst);
-			child_inst->GetMetaData()->SetDefValuesPrepare();
+			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
 			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);
@@ -455,7 +455,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->Copy(child);
 
 			child_inst->GetMetaData()->Prepare(child_inst);
-			child_inst->GetMetaData()->SetDefValuesPrepare();
+			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
 			((UIWidgetAsset*)inst)->AddChild(child_inst);
@@ -501,7 +501,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->Copy(child);
 
 			child_inst->GetMetaData()->Prepare(child_inst);
-			child_inst->GetMetaData()->SetDefValuesPrepare();
+			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
 			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);

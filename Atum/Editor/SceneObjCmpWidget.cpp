@@ -90,6 +90,7 @@ void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 					{
 						if (inst->components[index]->class_name == asset_comp->inst_class_name)
 						{
+							inst->components[index]->Release();
 							inst->components.erase(inst->components.begin() + index);
 							break;
 						}
@@ -101,6 +102,8 @@ void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 			{
 				if (obj->components[index] == comp)
 				{
+					obj->components[index]->GetMetaData()->HideWidgets();
+					obj->components[index]->Release();
 					obj->components.erase(obj->components.begin() + index);
 					break;
 				}
@@ -142,10 +145,12 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 
 			for (auto inst : asset->instances)
 			{
-				inst->AddComponent(asset_comp->inst_class_name);
+				SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(asset_comp->inst_class_name);
+				comp_inst->asset_comp = asset_comp;
 			}
 		}
 
+		comp->ShowPropWidgets((EUICategories*)panel->GetParent());
 		lbox->AddItem(decl->GetShortName(), comp);
 	}
 

@@ -421,7 +421,7 @@ void AnimatorWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 			player->InitControls(prop_dock);
 
 			player->GetMetaData()->Prepare(player);
-			player->GetMetaData()->SetDefValuesPrepare();
+			player->GetMetaData()->SetDefValues();
 
 			owner->players.push_back(player);
 		}

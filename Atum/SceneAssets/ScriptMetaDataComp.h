@@ -32,7 +32,10 @@ public:
 	void Load(JSONReader& reader) override;
 	void Save(JSONWriter& writer) override;
 	void ApplyProperties() override;
+
+#ifdef EDITOR
 	void ShowPropWidgets(EUICategories* objCat) override;
+#endif
 };
 
 class ScriptMetaDataCompInst : public SceneObjectInstComp
@@ -40,4 +43,5 @@ class ScriptMetaDataCompInst : public SceneObjectInstComp
 public:
 
 	META_DATA_DECL(ScriptMetaDataComp)
+	void InjectIntoScript(const char* type, void* property) override;
 };

@@ -117,7 +117,7 @@ class SceneObjectInst : public SceneObject
 {
 public:
 	uint32_t asset_uid;
-	class SpriteAsset* asset = nullptr;
+	class SceneAsset* asset = nullptr;
 
 	void Load(JSONReader& reader) override;
 	void Save(JSONWriter& writer) override;

@@ -1112,10 +1112,12 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 	{
 		SceneAsset* asset = (SceneAsset*)selectedObject;
 		SceneObject* inst = asset->CreateInstance();
+		ed_scene.GenerateUID(inst, false);
 
 		for (auto comp : asset->components)
 		{
-			inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+			SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+			comp_inst->asset_comp = comp;
 		}
 
 		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, nullptr, -1, false);
@@ -1194,6 +1196,26 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 				{
 					scene_treeview->DeleteItem(inst);
 					ed_scene.DeleteObject((SceneObject*)inst, false);
+				}
+			}
+			else
+			{
+				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>((SceneObject*)ptr);
+
+				if (inst && inst->asset)
+				{
+					int index = 0;
+
+					for (auto asset_inst : inst->asset->instances)
+					{
+						if (inst == asset_inst)
+						{
+							inst->asset->instances.erase(inst->asset->instances.begin() + index);
+							break;
+						}
+
+						index++;
+					}
 				}
 			}
 

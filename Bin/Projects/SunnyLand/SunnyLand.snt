@@ -7,6 +7,11 @@
 			"type" : 0
 		},
 		{
+			"index_in_scene" : 14,
+			"name" : "DynTree",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 9,
 			"name" : "EagleFly",
 			"type" : 1
@@ -347,6 +352,11 @@
 			"index_in_scene" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"index_in_scene" : 26,
+			"name" : "DynTree",
+			"type" : 1
 		},
 		{
 			"index_in_scene" : 23,

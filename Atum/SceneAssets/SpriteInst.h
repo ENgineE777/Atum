@@ -17,30 +17,29 @@ public:
 
 	struct Instance
 	{
-		b2Body* body = nullptr;
+		META_DATA_DECL(Instance)
+
 		Vector2 pos;
 		int     visible = 1;
 		Sprite::FrameState frame_state;
 	};
 
+	vector<int> mapping;
 	CScriptArray* array = nullptr;
 
 	vector<Instance> instances;
 
 	virtual ~SpriteInst() = default;
 
-	SpriteAsset* Asset() { return (SpriteAsset*)asset; };
-
 	void BindClassToScript() override;
 	void InjectIntoScript(const char* type, void* property) override;
 
 	void Init() override;
-	void Load(JSONReader& loader) override;
-	void Save(JSONWriter& saver) override;
+	//void Load(JSONReader& loader) override;
+	//void Save(JSONWriter& saver) override;
 	void Draw(float dt);
 
 	void Play() override;
-	void Stop() override;
 
 	void AddInstance(float x, float y);
 #ifdef EDITOR

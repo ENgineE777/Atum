@@ -92,7 +92,7 @@ void SpriteGraphInst::Draw(float dt)
 		return;
 	}
 
-	trans.size = asset->trans.size;
+	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
 	trans.BuildMatrices();
 
 	if (state == Active)

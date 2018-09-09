@@ -49,7 +49,7 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 		obj->Init();
 
 		obj->GetMetaData()->Prepare(obj);
-		obj->GetMetaData()->SetDefValuesPrepare();
+		obj->GetMetaData()->SetDefValues();
 
 		if (is_asset)
 		{
@@ -397,9 +397,14 @@ void Scene::Play()
 	pscene = physics.CreateScene();
 	pscene2D = physics.CreateScene2D();
 
-	for (int i = 0; i < objects.size(); i++)
+	for (auto object : objects)
 	{
-		objects[i]->Play();
+		object->Play();
+
+		for (auto comp : object->components)
+		{
+			comp->Play();
+		}
 	}
 }
 
@@ -412,9 +417,14 @@ void Scene::Stop()
 
 	playing = false;
 
-	for (int i = 0; i < objects.size(); i++)
+	for (auto object : objects)
 	{
-		objects[i]->Stop();
+		object->Stop();
+
+		for (auto comp : object->components)
+		{
+			comp->Stop();
+		}
 	}
 
 	RELEASE(script)

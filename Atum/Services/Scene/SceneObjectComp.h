@@ -25,8 +25,13 @@ public:
 	virtual void Save(JSONWriter& writer);
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
+	virtual void InjectIntoScript(const char* type, void* property);
+	virtual void Play();
+	virtual void Stop();
+	virtual void Release();
 
 #ifdef EDITOR
+	virtual void Copy(SceneObjectComp* src);
 	virtual void ShowPropWidgets(EUICategories* objCat);
 #endif
 };
@@ -34,7 +39,8 @@ public:
 class SceneObjectInstComp : public SceneObjectComp
 {
 public:
-	SceneObject* asset = nullptr;
+	SceneObjectComp* asset_comp = nullptr;
+	void Load(JSONReader& reader) override;
 };
 
 class SceneAssetComp : public SceneObjectComp

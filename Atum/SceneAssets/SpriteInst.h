@@ -35,8 +35,6 @@ public:
 	void InjectIntoScript(const char* type, void* property) override;
 
 	void Init() override;
-	//void Load(JSONReader& loader) override;
-	//void Save(JSONWriter& saver) override;
 	void Draw(float dt);
 
 	void Play() override;
@@ -47,5 +45,6 @@ public:
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
+	int  GetInstCount();
 #endif
 };

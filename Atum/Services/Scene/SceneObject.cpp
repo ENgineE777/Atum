@@ -333,10 +333,20 @@ void SceneObject::Copy(SceneObject* src)
 	}
 }
 
+int SceneObject::GetInstCount()
+{
+	return 0;
+}
+
 void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
 	Gizmo::inst->enabled = false;
+}
+
+bool SceneObject::IsEditMode()
+{
+	return edited;
 }
 
 void SceneObject::OnMouseMove(Vector2 delta_ms)

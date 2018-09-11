@@ -130,11 +130,6 @@
 		},
 		{
 			"index_in_scene" : 24,
-			"name" : "EagleData",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 25,
 			"name" : "ItemData",
 			"type" : 1
 		},
@@ -354,7 +349,7 @@
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 26,
+			"index_in_scene" : 25,
 			"name" : "DynTree",
 			"type" : 1
 		},

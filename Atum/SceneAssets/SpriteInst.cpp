@@ -15,7 +15,6 @@ BASE_SCENE_OBJ_NAME_PROP(SpriteInst)
 BASE_SCENE_OBJ_STATE_PROP(SpriteInst)
 FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
 FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
-BOOL_PROP(SpriteInst, frame_state.horz_flipped, false, "Node", "horz_flipped")
 ARRAY_PROP(SpriteInst, instances, Instance, "Prop", "inst")
 META_DATA_DESC_END()
 
@@ -102,47 +101,6 @@ void SpriteInst::Init()
 	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteInst::Draw);
 }
 
-/*
-void SpriteInst::Load(JSONReader& loader)
-{
-	SceneObjectInst::Load(loader);
-
-	frame_state.cur_time = -1.0f;
-	asset = (SpriteAsset*)owner->FindByUID(asset_uid, 0, true);
-
-	int count = 0;
-	loader.Read("count", count);
-	instances.resize(count);
-
-	for (auto& inst : instances)
-	{
-		if (!loader.EnterBlock("inst")) break;
-
-		loader.Read("pos", inst.pos);
-
-		loader.LeaveBlock();
-	}
-}
-
-void SpriteInst::Save(JSONWriter& saver)
-{
-	SceneObjectInst::Save(saver);
-
-	saver.Write("count", (int)instances.size());
-
-	saver.StartArray("inst");
-
-	for (auto& inst : instances)
-	{
-		saver.StartBlock(nullptr);
-		saver.Write("pos", inst.pos);
-		saver.FinishBlock();
-	}
-
-	saver.FinishArray();
-}
-*/
-
 void SpriteInst::Play()
 {
 	trans.size = ((SpriteAsset*)asset)->trans.size;
@@ -172,6 +130,11 @@ void SpriteInst::Draw(float dt)
 
 		if (controls.DebugKeyPressed("KEY_O") && sel_inst !=-1)
 		{
+			for (auto comp : components)
+			{
+				comp->InstDeleted(sel_inst);
+			}
+
 			instances.erase(sel_inst + instances.begin());
 			sel_inst = -1;
 			SetGizmo();
@@ -186,6 +149,11 @@ void SpriteInst::Draw(float dt)
 			instances.push_back(inst);
 
 			sel_inst = (int)instances.size() - 1;
+
+			for (auto comp : components)
+			{
+				comp->InstAdded();
+			}
 
 			SetGizmo();
 		}
@@ -304,10 +272,7 @@ bool SpriteInst::CheckSelection(Vector2 ms)
 	{
 		Instance& inst = instances[i];
 
-		Vector2 pos = inst.pos + trans.offset * trans.size * -1.0f;
-		pos *= scale;
-		pos.x -= Sprite::ed_cam_pos.x;
-		pos.y -= Sprite::ed_cam_pos.y;
+		Vector2 pos = (inst.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos;
 
 		if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
@@ -349,5 +314,10 @@ void SpriteInst::SetGizmo()
 	}
 
 	Gizmo::inst->enabled = (sel_inst != -1);
+}
+
+int SpriteInst::GetInstCount()
+{
+	return (int)instances.size();
 }
 #endif

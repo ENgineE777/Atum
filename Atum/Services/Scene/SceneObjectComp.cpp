@@ -63,6 +63,35 @@ void SceneObjectComp::ShowPropWidgets(EUICategories* objCat)
 		GetMetaData()->HideWidgets();
 	}
 }
+
+void SceneObjectComp::SetEditMode(bool ed)
+{
+	edited = ed;
+}
+
+bool SceneObjectComp::IsEditMode()
+{
+	return edited;
+}
+
+void SceneObjectComp::CheckSelection(Vector2 ms)
+{
+
+}
+
+void SceneObjectComp::ResizeInst(int count)
+{
+
+}
+
+void SceneObjectComp::InstAdded()
+{
+
+}
+
+void SceneObjectComp::InstDeleted(int index)
+{
+}
 #endif
 
 void SceneObjectInstComp::Load(JSONReader& reader)

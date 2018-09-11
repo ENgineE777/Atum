@@ -237,6 +237,11 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		selectedObject->EnableTasks(false);
 		selectedObject->SetEditMode(false);
 
+		for (auto comp : selectedObject->components)
+		{
+			comp->SetEditMode(false);
+		}
+
 		if (isSelectedAsset)
 		{
 			//assets_treeview->SelectItem(nullptr);
@@ -805,7 +810,21 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	{
 		if (controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
 		{
-			SelectObject(ed_scene.CheckSelection({(float)mx, (float)my}), false);
+			if (selectedObject && !selectedObject->IsEditMode())
+			{
+				for (auto comp : selectedObject->components)
+				{
+					if (comp->IsEditMode())
+					{
+						comp->CheckSelection({ (float)mx, (float)my });
+						break;
+					}
+				}
+			}
+			else
+			{
+				SelectObject(ed_scene.CheckSelection({ (float)mx, (float)my }), false);
+			}
 		}
 		else
 		{

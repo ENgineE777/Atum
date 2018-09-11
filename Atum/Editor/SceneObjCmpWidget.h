@@ -7,6 +7,7 @@ class SceneObjCmpWidget : public EUIWidget::Listener
 {
 public:
 	EUIPanel* panel;
+	EUIButton* edBtn;
 	EUIButton* delBtn;
 	EUIComboBox* cbox;
 	EUIListBox* lbox;

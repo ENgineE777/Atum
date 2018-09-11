@@ -6,10 +6,11 @@
 void SceneObjCmpWidget::Init(EUICategories* parent)
 {
 	panel = new EUIPanel(parent, 0, 0, 200, 135);
-	cbox = new EUIComboBox(panel, 5, 5, 160, 20);
+	cbox = new EUIComboBox(panel, 5, 5, 135, 20);
 	cbox->SetListener(-1, this, 0);
-	cbox->AddItem("123");
-	cbox->AddItem("abc");
+
+	edBtn = new EUIButton(panel, "Ed", 145, 5, 25, 20);
+	edBtn->SetListener(-1, this, 0);
 
 	delBtn = new EUIButton(panel, "Del", 170, 5, 25, 20);
 	delBtn->SetListener(-1, this, 0);
@@ -73,10 +74,22 @@ void SceneObjCmpWidget::Show(bool show)
 
 void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
+	SceneObjectComp* comp = (SceneObjectComp*)lbox->GetSelectedItemData();
+
+	if (!comp)
+	{
+		return;
+	}
+
+	if (sender == edBtn)
+	{
+		bool ed = obj->IsEditMode();
+		obj->SetEditMode(!ed);
+		comp->SetEditMode(ed);
+	}
+	else
 	if (sender == delBtn)
 	{
-		SceneObjectComp* comp = (SceneObjectComp*)lbox->GetSelectedItemData();
-
 		if (comp && !ClassFactorySceneObjectComp::Find(comp->class_name)->only_for_instances)
 		{
 			if (obj->IsAsset())
@@ -148,6 +161,10 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 				SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(asset_comp->inst_class_name);
 				comp_inst->asset_comp = asset_comp;
 			}
+		}
+		else
+		{
+			comp->ResizeInst(obj->GetInstCount());
 		}
 
 		comp->ShowPropWidgets((EUICategories*)panel->GetParent());

@@ -103,7 +103,9 @@ public:
 	virtual void ShowPropWidgets(EUICategories* objCat);
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
+	virtual int  GetInstCount();
 	virtual void SetEditMode(bool ed);
+	virtual bool IsEditMode();
 	virtual void OnMouseMove(Vector2 delta_ms);
 	virtual void OnLeftMouseDown(Vector2 ms);
 	virtual void OnLeftMouseUp();

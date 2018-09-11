@@ -368,6 +368,12 @@ bool MetaData::IsValueWasChanged()
 	bool res = false;
 	for (auto& prop : properties)
 	{
+		if (prop.type == Array)
+		{
+			res |= prop.adapter->GetMetaData()->IsValueWasChanged();
+			continue;
+		}
+
 		for (auto& widget : prop.widgets)
 		{
 			if (!widget.second->panel->IsVisible())

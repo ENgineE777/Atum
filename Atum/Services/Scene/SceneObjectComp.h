@@ -19,6 +19,7 @@ class SceneObjectComp : public Object
 public:
 	SceneObject* object = nullptr;
 	const char* class_name = nullptr;
+	bool edited = false;
 
 	virtual void Init();
 	virtual void Load(JSONReader& reader);
@@ -33,6 +34,12 @@ public:
 #ifdef EDITOR
 	virtual void Copy(SceneObjectComp* src);
 	virtual void ShowPropWidgets(EUICategories* objCat);
+	virtual void ResizeInst(int count);
+	virtual void InstAdded();
+	virtual void InstDeleted(int index);
+	virtual void SetEditMode(bool ed);
+	virtual bool IsEditMode();
+	virtual void CheckSelection(Vector2 ms);
 #endif
 };
 

@@ -607,6 +607,9 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\ScriptMetaDataComp.cpp">
       <Filter>SceneAssets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Track2DComp.cpp">
+      <Filter>SceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h">
@@ -1169,6 +1172,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneAssets\ScriptMetaDataAsset.h">
       <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Track2DComp.h">
+      <Filter>SceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

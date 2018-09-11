@@ -1777,24 +1777,7 @@
 						"frame_time" : -1.000000
 					}
 				]
-			},
-			"components" : [
-				{
-					"type" : "ScriptMetaDataComp",
-					"AssetName" : "EagleData",
-					"count" : 2,
-					"value" : [
-						{
-							"type" : 2,
-							"value" : 2.000000
-						},
-						{
-							"type" : 2,
-							"value" : 40.000000
-						}
-					]
-				}
-			]
+			}
 		},
 		{
 			"type" : "SpriteAsset",
@@ -2591,26 +2574,6 @@
 		},
 		{
 			"type" : "ScriptMetaDataAsset",
-			"uid" : 1550694528,
-			"Name" : "EagleData",
-			"State" : 2,
-			"properties" :
-			{
-				"count" : 2,
-				"Elem" : [
-					{
-						"data_type" : 2,
-						"name" : "max_fly_time"
-					},
-					{
-						"data_type" : 2,
-						"name" : "speed"
-					}
-				]
-			}
-		},
-		{
-			"type" : "ScriptMetaDataAsset",
 			"uid" : 1583784704,
 			"Name" : "ItemData",
 			"State" : 2,
@@ -2925,7 +2888,6 @@
 			"State" : 2,
 			"axis_scale" : 0.250000,
 			"Depth" : 0.850000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 1,
@@ -2943,7 +2905,7 @@
 			"uid" : 1485033472,
 			"Name" : "Hero_Graph",
 			"State" : 2,
-			"x" : 864.000000,
+			"x" : 928.000000,
 			"y" : 256.000000,
 			"Depth" : 0.500000,
 			"horz_flipped" : false,
@@ -3095,7 +3057,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 51,
@@ -3320,7 +3281,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 5,
@@ -3356,7 +3316,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 9,
@@ -3408,7 +3367,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 0,
@@ -3424,7 +3382,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 2,
@@ -3442,7 +3399,58 @@
 			"asset_uid" : -1084575232,
 			"components" : [
 				{
-					"type" : "ScriptMetaDataCompInst"
+					"type" : "Track2DComp",
+					"flip_mode" : 2,
+					"tracks" :
+					{
+						"count" : 2,
+						"Elem" : [
+							{
+								"data_type" : 1,
+								"speed" : 100.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 1312.000000,
+											"y" : 576.000000
+										},
+										{
+											"x" : 1632.000000,
+											"y" : 576.000000
+										}
+									]
+								}
+							},
+							{
+								"data_type" : 1,
+								"speed" : 100.000000,
+								"track" :
+								{
+									"count" : 4,
+									"Elem" : [
+										{
+											"x" : 384.000000,
+											"y" : 512.000000
+										},
+										{
+											"x" : 640.000000,
+											"y" : 512.000000
+										},
+										{
+											"x" : 768.000000,
+											"y" : 576.000000
+										},
+										{
+											"x" : 1024.000000,
+											"y" : 576.000000
+										}
+									]
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -3453,7 +3461,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 0,
@@ -3479,7 +3486,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 1,
@@ -3494,6 +3500,34 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "Track2DComp",
+					"flip_mode" : 0,
+					"tracks" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"data_type" : 1,
+								"speed" : 60.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 1184.000000,
+											"y" : 1024.000000
+										},
+										{
+											"x" : 1184.000000,
+											"y" : 736.000000
+										}
+									]
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -3504,7 +3538,6 @@
 			"State" : 2,
 			"axis_scale" : 0.500000,
 			"Depth" : 0.500000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 3,
@@ -3532,7 +3565,6 @@
 			"State" : 2,
 			"axis_scale" : 1.000000,
 			"Depth" : 0.490000,
-			"horz_flipped" : false,
 			"inst" :
 			{
 				"count" : 3,

@@ -35,8 +35,6 @@ void Phys2DCompInst::Play()
 		return;
 	}
 
-	object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
-
 	body_type = ((Phys2DComp*)asset_comp)->body_type;
 
 	float scale = 1.0f / 50.0f;
@@ -67,6 +65,11 @@ void Phys2DCompInst::Play()
 
 		bodies[index] = object->PScene2D()->CreateBody(&bodyDef);
 		bodies[index]->CreateFixture(&box, 0.0f);
+	}
+
+	if (body_type != Phys2DComp::BodyType::StaticBody)
+	{
+		object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
 	}
 }
 

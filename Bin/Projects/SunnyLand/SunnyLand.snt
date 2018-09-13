@@ -77,6 +77,11 @@
 			"type" : 1
 		},
 		{
+			"index_in_scene" : 15,
+			"name" : "Ground1Tiles",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 5,
 			"name" : "Ground1_N",
 			"type" : 1
@@ -129,7 +134,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 24,
+			"index_in_scene" : 16,
 			"name" : "ItemData",
 			"type" : 1
 		},
@@ -174,7 +179,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 18,
+			"index_in_scene" : 10,
 			"name" : "EagleFly",
 			"type" : 1
 		},
@@ -189,32 +194,32 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 16,
+			"index_in_scene" : 8,
 			"name" : "Hero_Fall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 17,
+			"index_in_scene" : 9,
 			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 14,
+			"index_in_scene" : 6,
 			"name" : "Hero_Hit",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 12,
+			"index_in_scene" : 4,
 			"name" : "Hero_Idle",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 15,
+			"index_in_scene" : 7,
 			"name" : "Hero_Jump",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 13,
+			"index_in_scene" : 5,
 			"name" : "Hero_Run",
 			"type" : 1
 		},
@@ -234,12 +239,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 22,
+			"index_in_scene" : 14,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 21,
+			"index_in_scene" : 13,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
@@ -259,7 +264,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 19,
+			"index_in_scene" : 11,
 			"name" : "CherryItem",
 			"type" : 1
 		},
@@ -274,7 +279,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 20,
+			"index_in_scene" : 12,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
@@ -294,67 +299,22 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
-			"name" : "Ground1",
-			"type" : 0
-		},
-		{
-			"index_in_scene" : 11,
-			"name" : "Ground1_C",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 9,
-			"name" : "Ground1_E",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 10,
-			"name" : "Ground1_EN",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 7,
-			"name" : "Ground1_ES",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 4,
-			"name" : "Ground1_N",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 6,
-			"name" : "Ground1_S",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 3,
-			"name" : "Ground1_W",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 5,
-			"name" : "Ground1_WN",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 8,
-			"name" : "Ground1_WS",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"index_in_scene" : 25,
+			"index_in_scene" : 17,
 			"name" : "DynTree",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 23,
+			"index_in_scene" : 18,
+			"name" : "Ground1Tiles",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 3,
+			"name" : "Ground1_N",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 15,
 			"name" : "MovingBlock",
 			"type" : 1
 		},

@@ -140,7 +140,6 @@ void SpriteGraphAsset::Load(JSONReader& loader)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(loader);
-	Sprite::Load(loader, &sprite);
 
 	loader.Read("def_node", def_node);
 
@@ -190,7 +189,6 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 {
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Save(saver);
-	Sprite::Save(saver, &sprite);
 
 	saver.Write("def_node", def_node);
 

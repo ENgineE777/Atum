@@ -13,13 +13,7 @@ public:
 	virtual ~UIImageAsset();
 
 	void Init() override;
-	void Load(JSONReader& loader) override;
-	void Save(JSONWriter& saver) override;
 	void Draw(float dt) override;
-
-#ifdef EDITOR
-	void Copy(SceneObject* src) override;
-#endif
 };
 
 class UIImageAssetInst : public UIImageAsset

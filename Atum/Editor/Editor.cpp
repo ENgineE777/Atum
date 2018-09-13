@@ -938,9 +938,8 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 		if (fileName)
 		{
 			sceneName = fileName;
+			Save();
 		}
-
-		Save();
 	}
 
 	if (activated_id == MenuOpenID)

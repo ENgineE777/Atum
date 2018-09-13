@@ -55,9 +55,9 @@ public:
 	void Normalize();
 	float Length();
 
-	bool InSquare(Vector2 min, Vector2 max) const;
+	bool InSquare(Vector2 min, Vector2 max);
 	
-	float Distance(Vector2 v) const;
+	float Distance(Vector2 v);
 	float Dot(Vector2 v);
 	Vector2& Lerp(Vector2 from, Vector2 to, float kBlend);
 };
@@ -291,14 +291,14 @@ inline Vector2 operator - (const Vector2 & v1, const Vector2 & v2)
 	return tv;
 }
 
-inline bool Vector2::InSquare(Vector2 min, Vector2 max) const
+inline bool Vector2::InSquare(Vector2 min, Vector2 max)
 {
 	if (y < min.y || y > max.y) return false;
 	if (x < min.x || x > max.x) return false;
 	return true;
 }
 
-inline float Vector2::Distance(Vector2 v) const
+inline float Vector2::Distance(Vector2 v)
 {
 	float dx = x - v.x;
 	float dy = y - v.y;

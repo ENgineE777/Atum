@@ -2,15 +2,15 @@
 #pragma once
 
 #include "Services/Scene/SceneObject.h"
-#include "SceneAssets/SpriteAsset.h"
-#include "Services/Script/Libs/scriptarray.h"
+#include "SceneAssets/SpriteTileAsset.h"
 
-class SpriteInst : public SceneObjectInst
+class SpriteTileInst : public SceneObjectInst
 {
 public:
-	META_DATA_DECL(SpriteInst)
+	META_DATA_DECL(SpriteTileInst)
 
 	Transform2D trans;
+	bool allow_instances = false;
 	float axis_scale = 1.0f;
 
 	struct Instance
@@ -18,31 +18,25 @@ public:
 		META_DATA_DECL(Instance)
 
 		Vector2 pos;
-		int     visible = 1;
+		int index;
 		Sprite::FrameState frame_state;
 	};
 
-	vector<int> mapping;
-	CScriptArray* array = nullptr;
-
 	vector<Instance> instances;
 
-	virtual ~SpriteInst() = default;
-
-	void BindClassToScript() override;
-	void InjectIntoScript(const char* type, void* property) override;
+	virtual ~SpriteTileInst() = default;
 
 	void Init() override;
 	void Draw(float dt);
 
 	void Play() override;
 
-	void AddInstance(float x, float y);
 #ifdef EDITOR
 	int sel_inst = -1;
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
-	int  GetInstCount();
+	bool IsOccupied(Vector2 pos);
+	void CalcIndices();
 #endif
 };

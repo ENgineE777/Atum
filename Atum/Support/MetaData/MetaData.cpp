@@ -130,6 +130,11 @@ void MetaData::Load(JSONReader& reader)
 
 			reader.LeaveBlock();
 		}
+		else
+		if (prop.type == Sprite)
+		{
+			Sprite::Load(reader, (Sprite::Data*)prop.value, prop.propName.c_str());
+		}
 	}
 }
 
@@ -187,6 +192,11 @@ void MetaData::Save(JSONWriter& writer)
 
 			writer.FinishBlock();
 		}
+		else
+		if (prop.type == Sprite)
+		{
+			Sprite::Save(writer, (Sprite::Data*)prop.value, prop.propName.c_str());
+		}
 	}
 }
 
@@ -223,6 +233,11 @@ void MetaData::Copy(void* source)
 		else
 		if (prop.type == Array)
 		{
+		}
+		else
+		if (prop.type == Sprite)
+		{
+			Sprite::Copy((Sprite::Data*)src, (Sprite::Data*)prop.value);
 		}
 	}
 }
@@ -321,6 +336,11 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 			{
 				widget = new ArrayWidget();
 				((ArrayWidget*)widget)->prop = prop.adapter;
+			}
+			else
+			if (prop.type == Sprite)
+			{
+				widget = new SpriteWidget();
 			}
 
 			widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());

@@ -19,9 +19,9 @@ VertexDecl*     Sprite::vdecl;
 GeometryBuffer* Sprite::buffer;
 Texture*        Sprite::white_tex = nullptr;
 
-void Sprite::Load(JSONReader& loader, Sprite::Data* sprite)
+void Sprite::Load(JSONReader& loader, Sprite::Data* sprite, const char* name)
 {
-	if (loader.EnterBlock("slice"))
+	if (loader.EnterBlock(name))
 	{
 		loader.Read("width", sprite->width);
 		loader.Read("height", sprite->height);
@@ -64,9 +64,9 @@ void Sprite::Load(JSONReader& loader, Sprite::Data* sprite)
 	}
 }
 
-void Sprite::Save(JSONWriter& saver, Sprite::Data* sprite)
+void Sprite::Save(JSONWriter& saver, Sprite::Data* sprite, const char* name)
 {
-	saver.StartBlock("slice");
+	saver.StartBlock(name);
 
 	saver.Write("width", sprite->width);
 	saver.Write("height", sprite->height);

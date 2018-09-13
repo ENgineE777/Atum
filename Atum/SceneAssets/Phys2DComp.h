@@ -25,12 +25,15 @@ class Phys2DCompInst : public SceneObjectInstComp
 {
 public:
 
-	class SpriteInst* sprite_inst = nullptr;
 	Phys2DComp::BodyType body_type;
 	vector<b2Body*> bodies;
 	META_DATA_DECL(Phys2DCompInst)
 
 	void Play() override;
+	template<typename T>
+	void Play(T* sprite_inst);
 	void Stop() override;
 	void UpdateInstances(float dt);
+	template<typename T>
+	void UpdateInstances(T* sprite_inst, float dt);
 };

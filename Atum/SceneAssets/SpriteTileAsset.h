@@ -4,18 +4,18 @@
 #include "Services/Scene/SceneAsset.h"
 #include "Sprite.h"
 
-class SpriteAsset : public SceneAsset
+class SpriteTileAsset : public SceneAsset
 {
 public:
-	META_DATA_DECL(SpriteAsset)
+	META_DATA_DECL(SpriteTileAsset)
 
 	Transform2D trans;
 
-	Sprite::Data sprite;
-	static Sprite::FrameState state;
+	Sprite::Data sprite[9];
+	static Sprite::FrameState state[9];
 
-	SpriteAsset();
-	virtual ~SpriteAsset() = default;
+	SpriteTileAsset();
+	virtual ~SpriteTileAsset() = default;
 
 	void Init() override;
 	void Draw(float dt);

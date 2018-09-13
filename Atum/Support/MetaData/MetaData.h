@@ -15,6 +15,7 @@
 #include "EnumWidget.h"
 #include "CallbackWidget.h"
 #include "ArrayWidget.h"
+#include "SpriteWidget.h"
 #endif
 
 struct MetaDataEnum
@@ -38,7 +39,8 @@ public:
 		Clor,
 		Enum,
 		Callback,
-		Array
+		Array,
+		Sprite
 	};
 
 	union DefValue
@@ -245,5 +247,15 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.adapter = new ArrayAdapterImpl<structType>;\
+	properties.push_back(prop);\
+}
+
+#define SPRITE_PROP(className, classMember, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Sprite;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
 	properties.push_back(prop);\
 }

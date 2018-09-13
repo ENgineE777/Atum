@@ -24,7 +24,7 @@ public:
 	class Texture* anchorn = nullptr;
 	class Texture* center = nullptr;
 
-	Vector2 align = 32.0f;
+	Vector2 align = 64.0f;
 	Vector2 pos2d = 0.0f;
 	Vector2 origin;
 	Vector2 ancorns[8];

@@ -50,6 +50,8 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteInst.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteWindow.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\Sprite.cpp" />
@@ -199,6 +201,7 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\IntWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\MetaData.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ProperyWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\SpriteWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\StringWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\StringUtils.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\ThreadExecutor.cpp" />
@@ -233,6 +236,8 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteInst.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteWindow.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\Sprite.h" />
@@ -380,6 +385,7 @@
     <ClInclude Include="..\..\..\Atum\Support\MetaData\IntWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\MetaData.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ProperyWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\SpriteWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\StringWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\Quaternion.h" />
     <ClInclude Include="..\..\..\Atum\Support\std.h" />

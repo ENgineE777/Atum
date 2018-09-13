@@ -1,9 +1,11 @@
 
 #include "Phys2DComp.h"
 #include "SpriteInst.h"
+#include "SpriteTileInst.h"
 
 COMPREG(Phys2DComp, "Phys2D")
 COMPINCL(SpriteAsset)
+COMPINCL(SpriteTileAsset)
 COMPREG_END(Phys2DComp)
 
 META_DATA_DESC(Phys2DComp)
@@ -28,8 +30,19 @@ Phys2DComp::Phys2DComp()
 
 void Phys2DCompInst::Play()
 {
-	sprite_inst = (SpriteInst*)object;
+	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
+	{
+		Play(dynamic_cast<SpriteInst*>(object));
+	}
+	else
+	{
+		Play(dynamic_cast<SpriteTileInst*>(object));
+	}
+}
 
+template<typename T>
+void Phys2DCompInst::Play(T* sprite_inst)
+{
 	if (sprite_inst->instances.size() == 0)
 	{
 		return;
@@ -87,6 +100,19 @@ void Phys2DCompInst::Stop()
 }
 
 void Phys2DCompInst::UpdateInstances(float dt)
+{
+	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
+	{
+		UpdateInstances(dynamic_cast<SpriteInst*>(object), dt);
+	}
+	else
+	{
+		UpdateInstances(dynamic_cast<SpriteTileInst*>(object), dt);
+	}
+}
+
+template<typename T>
+void Phys2DCompInst::UpdateInstances(T* sprite_inst, float dt)
 {
 	if (body_type == Phys2DComp::BodyType::KineticBody)
 	{

@@ -5,14 +5,6 @@
 #include "SceneObjects/RenderLevels.h"
 #include "SpriteWindow.h"
 
-#ifdef EDITOR
-void StartEditSprite(void* owner)
-{
-	SpriteAsset* sprite = (SpriteAsset*)owner;
-	SpriteWindow::StartEdit(&sprite->sprite);
-}
-#endif
-
 CLASSREG(SceneAsset, SpriteAsset, "Sprite")
 
 META_DATA_DESC(SpriteAsset)
@@ -21,9 +13,7 @@ FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteAsset, trans.size.x, 100.0f, "Prop", "width")
 FLOAT_PROP(SpriteAsset, trans.size.y, 100.0f, "Prop", "height")
-#ifdef EDITOR
-CALLBACK_PROP(SpriteAsset, StartEditSprite, "Prop", "EditSprite")
-#endif
+SPRITE_PROP(SpriteAsset, sprite, "Prop", "sprite")
 META_DATA_DESC_END()
 
 Sprite::FrameState SpriteAsset::state;
@@ -37,20 +27,6 @@ void SpriteAsset::Init()
 	RenderTasks(true)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
 
 	owner->AddToGroup(this, "SpriteAsset");
-}
-
-void SpriteAsset::Load(JSONReader& loader)
-{
-	GetMetaData()->Prepare(this);
-	GetMetaData()->Load(loader);
-	Sprite::Load(loader, &sprite);
-}
-
-void SpriteAsset::Save(JSONWriter& saver)
-{
-	GetMetaData()->Prepare(this);
-	GetMetaData()->Save(saver);
-	Sprite::Save(saver, &sprite);
 }
 
 void SpriteAsset::Draw(float dt)
@@ -84,12 +60,6 @@ SceneObject* SpriteAsset::CreateInstance()
 	instances.push_back(inst);
 
 	return inst;
-}
-
-void SpriteAsset::Copy(SceneObject* src)
-{
-	Sprite::Copy(&((SpriteAsset*)src)->sprite, &sprite);
-	SceneAsset::Copy(src);
 }
 
 void SpriteAsset::SetEditMode(bool ed)

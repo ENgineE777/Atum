@@ -3,10 +3,6 @@ class EnemyEagle
     float x, y;
     int horz_flipped;
     int visible;
-    float time_to_flight = 2.0f;
-    float dir = -1.0f;
-    float max_fly_time = 2.0f;
-    float speed = 200.0f;
     int hp = 1;
 }
 
@@ -23,10 +19,6 @@ class MovingBlock
     float x, y;
     int horz_flipped;
     int visible;
-    float time_to_flight = 2.0f;
-    float dir = -1.0f;
-    float max_fly_time = 2.0f;
-    float speed = 100.0f;
 }
 
 class Game
@@ -167,36 +159,12 @@ class Game
                 continue;
             }
 
-            eagles[i].time_to_flight -= dt;
-
-            if (eagles[i].time_to_flight < 0.0f)
-            {
-                eagles[i].dir = eagles[i].dir > 0.0f ? -1.0f : 1.0f; 
-                eagles[i].time_to_flight = eagles[i].max_fly_time;
-            }
-
-            eagles[i].x += dt * eagles[i].speed * eagles[i].dir;
-            eagles[i].horz_flipped = eagles[i].dir > 0.0f ? 1 : 0;
-
             if (abs(eagles[i].x - hero.x) < 32 && abs(eagles[i].y - hero.y) < 32)
             {
                 eagles[i].hp = 0;
                 eagles[i].visible = 0;
                 enemy_death.AddInstance(eagles[i].x, eagles[i].y);
             }
-        }
-
-        for (int i=0; i<moving_blocks.length();i++)
-        {
-            moving_blocks[i].time_to_flight -= dt;
-
-            if (moving_blocks[i].time_to_flight < 0.0f)
-            {
-                moving_blocks[i].dir = moving_blocks[i].dir > 0.0f ? -1.0f : 1.0f; 
-                moving_blocks[i].time_to_flight = moving_blocks[i].max_fly_time;
-            }
-
-            moving_blocks[i].y += dt * moving_blocks[i].speed * moving_blocks[i].dir;
         }
     }
 }

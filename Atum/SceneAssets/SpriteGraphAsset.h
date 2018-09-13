@@ -12,8 +12,6 @@ public:
 	META_DATA_DECL(SpriteGraphAsset)
 
 	Transform2D trans;
-
-	Sprite::Data sprite;
 	static Sprite::FrameState state;
 
 	enum DragMode

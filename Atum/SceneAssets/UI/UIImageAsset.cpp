@@ -4,14 +4,6 @@
 #include "SceneAssets/SpriteAsset.h"
 #include "Services/Core/Core.h"
 
-#ifdef EDITOR
-void StartEditUIImageAsset(void* owner)
-{
-	UIImageAsset* sprite = (UIImageAsset*)owner;
-	SpriteWindow::StartEdit(&sprite->sprite);
-}
-#endif
-
 CLASSREG(UIWidgetAsset, UIImageAsset, "Image")
 
 META_DATA_DESC(UIImageAsset)
@@ -52,9 +44,7 @@ COLOR_PROP(UIImageAsset, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIImageAsset, color.a, 1.0f, "Prop", "alpha")
 BOOL_PROP(UIImageAsset, scaleChilds, false, "Prop", "scale_childs")
 BOOL_PROP(UIImageAsset, clipChilds, false, "Prop", "clip_childs")
-#ifdef EDITOR
-CALLBACK_PROP(UIImageAsset, StartEditUIImageAsset, "Prop", "EditSprite")
-#endif
+SPRITE_PROP(UIImageAsset, sprite, "Prop", "image")
 META_DATA_DESC_END()
 
 UIImageAsset::~UIImageAsset()
@@ -64,24 +54,6 @@ UIImageAsset::~UIImageAsset()
 
 void UIImageAsset::Init()
 {
-}
-
-void UIImageAsset::Load(JSONReader& loader)
-{
-	GetMetaData()->Prepare(this);
-	GetMetaData()->Load(loader);
-	Sprite::Load(loader, &sprite);
-
-	UIWidgetAsset::Load(loader);
-}
-
-void UIImageAsset::Save(JSONWriter& saver)
-{
-	GetMetaData()->Prepare(this);
-	GetMetaData()->Save(saver);
-	Sprite::Save(saver, &sprite);
-
-	UIWidgetAsset::Save(saver);
 }
 
 void UIImageAsset::Draw(float dt)
@@ -172,14 +144,6 @@ void UIImageAsset::Draw(float dt)
 		child->Draw(dt);
 	}
 }
-
-#ifdef EDITOR
-void UIImageAsset::Copy(SceneObject* src)
-{
-	Sprite::Copy(&((UIImageAsset*)src)->sprite, &sprite);
-	SceneAsset::Copy(src);
-}
-#endif
 
 CLASSREG(UIWidgetAsset, UIImageAssetInst, "UIImage")
 

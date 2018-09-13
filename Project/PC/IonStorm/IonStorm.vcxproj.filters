@@ -610,6 +610,15 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Track2DComp.cpp">
       <Filter>SceneObjects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\SpriteWidget.cpp">
+      <Filter>Support\MetaData</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileInst.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h">
@@ -1175,6 +1184,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Track2DComp.h">
       <Filter>SceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\SpriteWidget.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileInst.h">
+      <Filter>SceneAssets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

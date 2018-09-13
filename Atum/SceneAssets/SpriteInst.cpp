@@ -162,11 +162,6 @@ void SpriteInst::Draw(float dt)
 
 	trans.size = sprite_asset->trans.size;
 
-	if (state == Active)
-	{
-		Sprite::UpdateFrame(&sprite_asset->sprite, &frame_state, dt);
-	}
-
 	Vector2 pos = trans.pos;
 	trans.pos *= axis_scale;
 
@@ -234,9 +229,7 @@ void SpriteInst::Draw(float dt)
 			continue;
 		}
 
-		trans.pos = inst.pos;
-
-		trans.BuildMatrices();
+		trans.mat_global.Pos() = { inst.pos.x, inst.pos.y, trans.depth };
 
 		Sprite::Draw(&trans, COLOR_WHITE, &sprite_asset->sprite, &inst.frame_state, true, false);
 	}

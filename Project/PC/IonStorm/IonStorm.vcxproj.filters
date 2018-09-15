@@ -619,6 +619,12 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileInst.cpp">
       <Filter>SceneAssets</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpritesLayerAsset.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpritesLayerInst.cpp">
+      <Filter>SceneAssets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\SceneObjects\correction.h">
@@ -1192,6 +1198,12 @@
       <Filter>Support\MetaData</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileInst.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpritesLayerAsset.h">
+      <Filter>SceneAssets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpritesLayerInst.h">
       <Filter>SceneAssets</Filter>
     </ClInclude>
   </ItemGroup>

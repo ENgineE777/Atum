@@ -288,8 +288,6 @@ void SpriteInst::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
 
-	Gizmo::inst->enabled = ed;
-
 	if (ed)
 	{
 		SetGizmo();

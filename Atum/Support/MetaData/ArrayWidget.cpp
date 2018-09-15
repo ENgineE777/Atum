@@ -37,7 +37,7 @@ void ArrayWidget::SetData(void* set_data)
 			elem_cats[i].btnDel = new EUIButton(elements, "Delete", 10, 0, 170, 25);
 			elem_cats[i].btnDel->SetListener(i, this, 0);
 
-			elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, 100);
+			elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, 150);
 
 			char str[64];
 			sprintf(str, "Element %i", i + 1);

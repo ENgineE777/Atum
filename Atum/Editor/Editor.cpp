@@ -1138,9 +1138,9 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			comp_inst->asset_comp = comp;
 		}
 
-		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, nullptr, -1, false);
+		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, parent, -1, false);
 		inst->AddChildsToTree(scene_treeview);
-		scene_treeview->SelectItem(inst->item);
+		SelectObject(inst, false);
 	}
 
 	return false;
@@ -1212,7 +1212,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 
 				for (auto inst : asset->instances)
 				{
-					scene_treeview->DeleteItem(inst);
+					scene_treeview->DeleteItem(inst->item);
 					ed_scene.DeleteObject((SceneObject*)inst, false);
 				}
 			}

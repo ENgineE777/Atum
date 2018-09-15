@@ -7,22 +7,22 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 14,
+			"index_in_scene" : 12,
 			"name" : "DynTree",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 9,
+			"index_in_scene" : 8,
 			"name" : "EagleFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 2,
+			"index_in_scene" : 1,
 			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 12,
+			"index_in_scene" : 11,
 			"name" : "MovingBlock",
 			"type" : 1
 		},
@@ -37,12 +37,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 10,
+			"index_in_scene" : 9,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 8,
+			"index_in_scene" : 7,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
@@ -57,33 +57,33 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 1,
-			"name" : "BackSky",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 13,
-			"name" : "BackTrees",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 6,
+			"index_in_scene" : 5,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 7,
+			"index_in_scene" : 6,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 15,
+			"index_in_scene" : 13,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 5,
+			"index_in_scene" : 4,
 			"name" : "Ground1_N",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 14,
+			"name" : "SkyLayer",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 15,
+			"name" : "TreesLayer",
 			"type" : 1
 		},
 		{
@@ -107,17 +107,17 @@
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 4,
+			"index_in_scene" : 3,
 			"name" : "Camera2D",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 3,
+			"index_in_scene" : 2,
 			"name" : "MainScript",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 11,
+			"index_in_scene" : 10,
 			"name" : "VirtualJoystick",
 			"type" : 1
 		},
@@ -134,7 +134,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 16,
+			"index_in_scene" : 14,
 			"name" : "ItemData",
 			"type" : 1
 		},
@@ -154,13 +154,13 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 1,
-			"name" : "BackSky",
+			"index_in_scene" : 17,
+			"name" : "SkyLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 2,
-			"name" : "BackTrees",
+			"index_in_scene" : 18,
+			"name" : "TreesLayer",
 			"type" : 1
 		},
 		{
@@ -179,7 +179,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 10,
+			"index_in_scene" : 8,
 			"name" : "EagleFly",
 			"type" : 1
 		},
@@ -194,32 +194,32 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 8,
+			"index_in_scene" : 6,
 			"name" : "Hero_Fall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 9,
+			"index_in_scene" : 7,
 			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 6,
+			"index_in_scene" : 4,
 			"name" : "Hero_Hit",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 4,
+			"index_in_scene" : 2,
 			"name" : "Hero_Idle",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 7,
+			"index_in_scene" : 5,
 			"name" : "Hero_Jump",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 5,
+			"index_in_scene" : 3,
 			"name" : "Hero_Run",
 			"type" : 1
 		},
@@ -239,12 +239,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 14,
+			"index_in_scene" : 12,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 13,
+			"index_in_scene" : 11,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
@@ -264,7 +264,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 11,
+			"index_in_scene" : 9,
 			"name" : "CherryItem",
 			"type" : 1
 		},
@@ -279,7 +279,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 12,
+			"index_in_scene" : 10,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
@@ -299,22 +299,22 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 17,
+			"index_in_scene" : 15,
 			"name" : "DynTree",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 18,
+			"index_in_scene" : 16,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 3,
+			"index_in_scene" : 1,
 			"name" : "Ground1_N",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 15,
+			"index_in_scene" : 13,
 			"name" : "MovingBlock",
 			"type" : 1
 		},

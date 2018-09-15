@@ -50,6 +50,8 @@
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteInst.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpritesLayerAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneAssets\SpritesLayerInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteTileInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneAssets\SpriteWindow.cpp" />
@@ -236,6 +238,8 @@
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteGraphInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteInst.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpritesLayerAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneAssets\SpritesLayerInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteTileInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneAssets\SpriteWindow.h" />

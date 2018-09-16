@@ -28,6 +28,7 @@ Sprite::FrameState SpriteTileAsset::state[9];
 
 SpriteTileAsset::SpriteTileAsset() : SceneAsset()
 {
+	inst_class_name = "SpriteTileInst";
 }
 
 void SpriteTileAsset::Init()
@@ -64,23 +65,12 @@ void SpriteTileAsset::Draw(float dt)
 }
 
 #ifdef EDITOR
-SceneObject* SpriteTileAsset::CreateInstance()
-{
-	SpriteTileInst* inst = (SpriteTileInst*)owner->AddObject("SpriteTileInst", false);
-	inst->asset_uid = GetUID();
-	inst->ApplyProperties();
-	inst->SetName(GetName());
-
-	instances.push_back(inst);
-
-	return inst;
-}
-
 void SpriteTileAsset::SetEditMode(bool ed)
 {
 	if (ed)
 	{
 		Gizmo::inst->trans2D = &trans;
+		Gizmo::inst->pos2d = trans.pos;
 	}
 	else
 	{

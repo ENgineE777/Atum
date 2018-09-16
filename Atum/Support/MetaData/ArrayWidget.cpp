@@ -37,12 +37,15 @@ void ArrayWidget::SetData(void* set_data)
 			elem_cats[i].btnDel = new EUIButton(elements, "Delete", 10, 0, 170, 25);
 			elem_cats[i].btnDel->SetListener(i, this, 0);
 
-			elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, 150);
+			if (i < 10)
+			{
+				elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, 150);
 
-			char str[64];
-			sprintf(str, "Element %i", i + 1);
-			elements->RegisterChildInCategory(str, elem_cats[i].btnDel);
-			elements->RegisterChildInCategory(str, elem_cats[i].cat);
+				char str[64];
+				sprintf(str, "Element %i", i + 1);
+				elements->RegisterChildInCategory(str, elem_cats[i].btnDel);
+				elements->RegisterChildInCategory(str, elem_cats[i].cat);
+			}
 		}
 	}
 	else
@@ -56,9 +59,12 @@ void ArrayWidget::SetData(void* set_data)
 
 	for (int i = 0; i < cur_size; i++)
 	{
-		elem_cats[i].cat->Show(true);
-		adapter->GetMetaData()->Prepare(adapter->GetItem(i));
-		adapter->GetMetaData()->PrepareWidgets(elem_cats[i].cat);
+		if (i < 10)
+		{
+			elem_cats[i].cat->Show(true);
+			adapter->GetMetaData()->Prepare(adapter->GetItem(i));
+			adapter->GetMetaData()->PrepareWidgets(elem_cats[i].cat);
+		}
 	}
 }
 

@@ -221,18 +221,31 @@ void Track2DComp::EditorDraw(float dt)
 			track.points[sel_point].pos = trans.pos;
 		}
 
-		if (controls.DebugKeyPressed("KEY_O") && sel_point != -1)
+		if (controls.DebugKeyPressed("KEY_I") && sel_point != -1)
 		{
 			track.points.erase(sel_point + track.points.begin());
 			sel_point = -1;
 			SetGizmo();
 		}
 
-		if (controls.DebugKeyPressed("KEY_P"))
+		bool add_center = controls.DebugKeyPressed("KEY_O");
+		bool add_after = controls.DebugKeyPressed("KEY_P");
+
+		if (add_center || add_after)
 		{
 			Point point;
-			point.pos.x = ((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth()) * 0.5f) / scale;
-			point.pos.y = Sprite::ed_cam_pos.y / scale + 512.0f;
+
+			if (sel_point != -1 && add_after)
+			{
+				point.pos = track.points[sel_point].pos + 20.0f;
+			}
+			else
+			{
+				float scale = 1024.0f / render.GetDevice()->GetHeight();
+				point.pos.x = Sprite::ed_cam_pos.x * scale;
+				point.pos.y = Sprite::ed_cam_pos.y * scale;
+			}
+
 			track.points.push_back(point);
 
 			sel_point = (int)track.points.size() - 1;
@@ -295,7 +308,7 @@ void Track2DComp::CheckSelection(Vector2 ms)
 	{
 		Point& point = track.points[i];
 
-		Vector2 pos = point.pos * scale - Sprite::ed_cam_pos;
+		Vector2 pos = point.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x - 15.0f< ms.x && ms.x < pos.x + 15.0f &&
 			pos.y - 15.0f< ms.y && ms.y < pos.y + 15.0f)

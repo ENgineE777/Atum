@@ -66,6 +66,7 @@ void UIViewInstanceAsset::Release()
 CLASSREG(SceneObject, UIViewInstance, "UIView")
 
 META_DATA_DESC(UIViewInstance)
+BASE_SCENE_OBJ_NAME_PROP(UIViewInstance)
 BASE_SCENE_OBJ_STATE_PROP(UIViewInstance)
 FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x")
 FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y")

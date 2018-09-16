@@ -17,6 +17,7 @@ public:
 	float left_border = -300.0f;
 	float right_border =300.0f;
 	
+	bool use_lr_borders = false;
 	Vector2 init_pos;
 
 	CharacterCamera2D();

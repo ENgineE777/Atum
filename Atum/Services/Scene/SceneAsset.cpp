@@ -1,6 +1,11 @@
 
 #include "SceneAsset.h"
 
+bool SceneAsset::UsingCamera2DPos()
+{
+	return true;
+}
+
 #ifdef EDITOR
 bool SceneAsset::IsAsset()
 {
@@ -9,7 +14,15 @@ bool SceneAsset::IsAsset()
 
 SceneObject* SceneAsset::CreateInstance()
 {
-	return nullptr;
+	SceneObjectInst* inst = (SceneObjectInst*)owner->AddObject(inst_class_name, false);
+	inst->asset_uid = GetUID();
+	inst->asset = this;
+	inst->ApplyProperties();
+	inst->SetName(GetName());
+
+	instances.push_back(inst);
+
+	return inst;
 }
 
 void SceneAsset::PreapreAssetTree()

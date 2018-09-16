@@ -7,12 +7,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 12,
-			"name" : "DynTree",
-			"type" : 1
-		},
-		{
-			"index_in_scene" : 8,
+			"index_in_scene" : 5,
 			"name" : "EagleFly",
 			"type" : 1
 		},
@@ -22,7 +17,7 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 11,
+			"index_in_scene" : 8,
 			"name" : "MovingBlock",
 			"type" : 1
 		},
@@ -37,12 +32,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 9,
+			"index_in_scene" : 6,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 7,
+			"index_in_scene" : 4,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
@@ -57,32 +52,82 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 5,
-			"name" : "CherryItem",
+			"index_in_scene" : -1,
+			"name" : "Cave",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 22,
+			"name" : "CaveBrush",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 6,
-			"name" : "DiamondItem",
+			"index_in_scene" : 21,
+			"name" : "CaveInner",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 13,
+			"index_in_scene" : 20,
+			"name" : "LeftCaveEnter",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 19,
+			"name" : "RightCaveEnter",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : 14,
+			"name" : "BushSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 17,
+			"name" : "CatRun",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 9,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 4,
-			"name" : "Ground1_N",
+			"index_in_scene" : 13,
+			"name" : "HouseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 14,
-			"name" : "SkyLayer",
+			"index_in_scene" : 16,
+			"name" : "LeftHangSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 18,
+			"name" : "RightHangSprite",
 			"type" : 1
 		},
 		{
 			"index_in_scene" : 15,
+			"name" : "SignSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 10,
+			"name" : "SkyLayer",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 12,
+			"name" : "TreeSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 11,
 			"name" : "TreesLayer",
 			"type" : 1
 		},
@@ -117,7 +162,7 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 10,
+			"index_in_scene" : 7,
 			"name" : "VirtualJoystick",
 			"type" : 1
 		},
@@ -134,7 +179,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 14,
+			"index_in_scene" : 13,
 			"name" : "ItemData",
 			"type" : 1
 		},
@@ -154,12 +199,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 17,
+			"index_in_scene" : 16,
 			"name" : "SkyLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 18,
+			"index_in_scene" : 17,
 			"name" : "TreesLayer",
 			"type" : 1
 		},
@@ -175,11 +220,26 @@
 		},
 		{
 			"index_in_scene" : -1,
+			"name" : "Cat",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 23,
+			"name" : "CatRun",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
 			"name" : "Eagle",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 8,
+			"index_in_scene" : 7,
 			"name" : "EagleFly",
 			"type" : 1
 		},
@@ -194,32 +254,32 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 6,
+			"index_in_scene" : 5,
 			"name" : "Hero_Fall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 7,
+			"index_in_scene" : 6,
 			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 4,
+			"index_in_scene" : 3,
 			"name" : "Hero_Hit",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 2,
+			"index_in_scene" : 1,
 			"name" : "Hero_Idle",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 5,
+			"index_in_scene" : 4,
 			"name" : "Hero_Jump",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 3,
+			"index_in_scene" : 2,
 			"name" : "Hero_Run",
 			"type" : 1
 		},
@@ -239,12 +299,12 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 12,
+			"index_in_scene" : 11,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 11,
+			"index_in_scene" : 10,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
@@ -264,7 +324,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 9,
+			"index_in_scene" : 8,
 			"name" : "CherryItem",
 			"type" : 1
 		},
@@ -279,7 +339,7 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 10,
+			"index_in_scene" : 9,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
@@ -299,23 +359,78 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 15,
+			"index_in_scene" : -1,
+			"name" : "Cave",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 28,
+			"name" : "CaveBrush",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 27,
+			"name" : "CaveInner",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 25,
+			"name" : "LeftCaveEnter",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 26,
+			"name" : "RightCaveEnter",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : 20,
+			"name" : "BushSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 14,
 			"name" : "DynTree",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 16,
+			"index_in_scene" : 15,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 1,
-			"name" : "Ground1_N",
+			"index_in_scene" : 19,
+			"name" : "HouseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 13,
+			"index_in_scene" : 24,
+			"name" : "LeftHangSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 12,
 			"name" : "MovingBlock",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 22,
+			"name" : "RightHangSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 21,
+			"name" : "SignSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 18,
+			"name" : "TreeSprite",
 			"type" : 1
 		},
 		{

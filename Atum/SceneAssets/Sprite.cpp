@@ -282,8 +282,8 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 	{
 		if (use_ed_cam)
 		{
-			local_trans.Pos().x -= ed_cam_pos.x;
-			local_trans.Pos().y -= ed_cam_pos.y;
+			local_trans.Pos().x -= ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f;
+			local_trans.Pos().y -= ed_cam_pos.y - 512 * scale;
 		}
 		else
 		{

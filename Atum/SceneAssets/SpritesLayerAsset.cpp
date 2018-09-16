@@ -22,6 +22,7 @@ META_DATA_DESC_END()
 
 SpritesLayerAsset::SpritesLayerAsset() : SceneAsset()
 {
+	inst_class_name = "SpritesLayerInst";
 }
 
 void SpritesLayerAsset::Init()
@@ -55,18 +56,6 @@ void SpritesLayerAsset::Draw(float dt)
 }
 
 #ifdef EDITOR
-SceneObject* SpritesLayerAsset::CreateInstance()
-{
-	SpritesLayerInst* inst = (SpritesLayerInst*)owner->AddObject("SpritesLayerInst", false);
-	inst->asset_uid = GetUID();
-	inst->ApplyProperties();
-	inst->SetName(GetName());
-
-	instances.push_back(inst);
-
-	return inst;
-}
-
 void SpritesLayerAsset::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);

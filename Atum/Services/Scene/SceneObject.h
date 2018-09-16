@@ -37,6 +37,7 @@ protected:
 	std::string name;
 	uint32_t uid = 0;
 	State state = Active;
+	Vector2 cam2d_pos = 0.0f;
 #ifdef EDITOR
 	bool edited = false;
 #endif

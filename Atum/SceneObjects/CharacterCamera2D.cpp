@@ -12,6 +12,8 @@ FLOAT_PROP(CharacterCamera2D, trans.pos.x, 100.0f, "Geometry", "x")
 FLOAT_PROP(CharacterCamera2D, trans.pos.y, 100.0f, "Geometry", "y")
 FLOAT_PROP(CharacterCamera2D, screen_border, 200.0f, "Prop", "ScreenBorder")
 FLOAT_PROP(CharacterCamera2D, screen_vert_border, 100.0f, "Prop", "ScreenVertBorder")
+
+BOOL_PROP(CharacterCamera2D, use_lr_borders, false, "Prop", "UseLRBorder")
 FLOAT_PROP(CharacterCamera2D, left_border, -300.0f, "Prop", "LeftBorder")
 FLOAT_PROP(CharacterCamera2D, right_border, 300.0f, "Prop", "RightBorder")
 META_DATA_DESC_END()
@@ -43,28 +45,31 @@ void CharacterCamera2D::Update(float dt)
 
 	if (owner->Playing())
 	{
-		if (target_pos.x < left_border)
+		if (use_lr_borders)
 		{
-			target_pos.x = left_border;
-		}
+			if (target_pos.x < left_border)
+			{
+				target_pos.x = left_border;
+			}
 
-		if (right_border < target_pos.x)
-		{
-			target_pos.x = right_border;
+			if (right_border < target_pos.x)
+			{
+				target_pos.x = right_border;
+			}
 		}
 
 		float half_screen = (float)render.GetDevice()->GetWidth() / scale * 0.5f;
 		float margin = 50.0f;
 		float border = half_screen - screen_border;
 
-		if (target_pos.x < trans.pos.x - border)
+		if (target_pos.x < trans.pos.x - screen_border)
 		{
-			trans.pos.x = target_pos.x + border;
+			trans.pos.x = target_pos.x + screen_border;
 		}
 
-		if (trans.pos.x + border < target_pos.x)
+		if (trans.pos.x + screen_border < target_pos.x)
 		{
-			trans.pos.x = target_pos.x - border;
+			trans.pos.x = target_pos.x - screen_border;
 		}
 
 		float half_vert_screen = (float)render.GetDevice()->GetHeight() / scale * 0.5f;
@@ -80,16 +85,19 @@ void CharacterCamera2D::Update(float dt)
 			trans.pos.y = target_pos.y - border_vert;
 		}
 
-		half_screen -= margin;
-
-		if (trans.pos.x < left_border + half_screen)
+		if (use_lr_borders)
 		{
-			trans.pos.x = left_border + half_screen;
-		}
+			half_screen -= margin;
 
-		if (right_border - half_screen < trans.pos.x)
-		{
-			trans.pos.x = right_border - half_screen;
+			if (trans.pos.x < left_border + half_screen)
+			{
+				trans.pos.x = left_border + half_screen;
+			}
+
+			if (right_border - half_screen < trans.pos.x)
+			{
+				trans.pos.x = right_border - half_screen;
+			}
 		}
 
 		Sprite::cam_pos = trans.pos;
@@ -131,6 +139,7 @@ void CharacterCamera2D::SetEditMode(bool ed)
 	if (ed)
 	{
 		Gizmo::inst->trans2D = &trans;
+		Gizmo::inst->pos2d = trans.pos;
 	}
 	else
 	{

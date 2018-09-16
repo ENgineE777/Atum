@@ -575,8 +575,8 @@ void Gizmo::Render()
 				p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
 				p2 = p2 * trans2D->mat_global;
 
-				p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
-				p2 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+				p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+				p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 
 				if (phase == 1)
 				{
@@ -594,7 +594,7 @@ void Gizmo::Render()
 		{
 			p1 = Vector(0.0f, 0.0f, 0.0f);
 			p1 = p1 * trans2D->mat_global;
-			p1 -= Vector(Sprite::ed_cam_pos.x, Sprite::ed_cam_pos.y, 0) / scale;
+			p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 
 			origin = Vector2(p1.x, p1.y) * scale - Vector2(4.0f);
 			render.DebugSprite(center, origin, Vector2(8.0f));

@@ -184,6 +184,7 @@ bool SpriteGraphInst::CheckColissionNormal(float x, float y)
 void SpriteGraphInst::SetEditMode(bool ed)
 {
 	Gizmo::inst->trans2D = ed ? &trans : nullptr;
+	Gizmo::inst->pos2d = trans.pos;
 	Gizmo::inst->enabled = ed;
 }
 #endif

@@ -31,7 +31,6 @@ public:
 
 #ifdef EDITOR
 	int sel_sprite = -1;
-	SceneObject* CreateInstance() override;
 	void SetEditMode(bool ed) override;
 	void OnLeftMouseDown(Vector2 ms) override;
 	void SetGizmo();

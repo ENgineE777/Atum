@@ -21,7 +21,6 @@ public:
 	void Draw(float dt);
 
 #ifdef EDITOR
-	SceneObject* CreateInstance() override;
 	void SetEditMode(bool ed) override;
 #endif
 };

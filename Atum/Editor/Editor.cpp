@@ -266,6 +266,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (selectedObject->UsingCamera2DPos())
 		{
+			ed_scene.camera_pos = Sprite::ed_cam_pos;
 			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
 		}
 
@@ -313,7 +314,10 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 	ed_scene.GenerateUID(copy, is_asset);
 	copy->Copy(obj);
 
-	copy->SetName(obj->GetName());
+	string name = obj->GetName();
+	name += "_copy";
+
+	copy->SetName(name.c_str());
 
 	if (is_asset)
 	{
@@ -483,6 +487,7 @@ void Editor::LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const c
 void Editor::Load()
 {
 	ed_scene.Load(sceneName.c_str());
+	Sprite::ed_cam_pos = ed_scene.camera_pos;
 
 	string scene_tree = sceneName;
 	scene_tree.resize(scene_tree.size() - 3);
@@ -518,6 +523,15 @@ void Editor::SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const ch
 
 void Editor::Save()
 {
+	if (selectedObject && selectedObject->UsingCamera2DPos())
+	{
+		selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
+	}
+	else
+	{
+		ed_scene.camera_pos = Sprite::ed_cam_pos;
+	}
+
 	GrabTreeviewNodes();
 	ed_scene.Save(sceneName.c_str());
 	string scene_tree = sceneName;

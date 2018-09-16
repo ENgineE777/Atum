@@ -92,6 +92,7 @@ void Transform2DDataTrack::StartEditKey(int key)
 		wigets->StartEditKey(&values[key]);
 		Gizmo::inst->enabled = true;
 		Gizmo::inst->trans2D = &values[key];
+		Gizmo::inst->pos2d = values[key].pos;
 	}
 }
 

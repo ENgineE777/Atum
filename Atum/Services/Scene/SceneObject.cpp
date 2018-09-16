@@ -75,8 +75,7 @@ bool SceneObject::UsingCamera2DPos()
 
 Vector2& SceneObject::Camera2DPos()
 {
-	static Vector2 vec = 0.0f;
-	return vec;
+	return cam2d_pos;
 }
 
 SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
@@ -315,6 +314,7 @@ void SceneObject::CheckProperties()
 
 void SceneObject::Copy(SceneObject* src)
 {
+	cam2d_pos = src->cam2d_pos;
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();

@@ -106,6 +106,7 @@ Sprite::FrameState SpriteGraphAsset::state;
 
 SpriteGraphAsset::SpriteGraphAsset() : SceneAsset()
 {
+	inst_class_name = "SpriteGraphInst";
 }
 
 SpriteGraphAsset::~SpriteGraphAsset()
@@ -236,18 +237,6 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 }
 
 #ifdef EDITOR
-SceneObject* SpriteGraphAsset::CreateInstance()
-{
-	SpriteGraphInst* inst = (SpriteGraphInst*)owner->AddObject("SpriteGraphInst", false);
-	inst->asset_uid = GetUID();
-	inst->ApplyProperties();
-	inst->SetName(GetName());
-
-	instances.push_back(inst);
-
-	return inst;
-}
-
 void SpriteGraphAsset::Draw(float dt)
 {
 	if (drag == AddLink)

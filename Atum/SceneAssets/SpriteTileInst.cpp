@@ -48,11 +48,11 @@ void SpriteTileInst::Draw(float dt)
 	{
 		if (sel_inst != -1 && instances[sel_inst].pos.Distance(trans.pos) > 0.01f)
 		{
-			CalcIndices();
 			instances[sel_inst].pos = trans.pos;
+			CalcIndices();
 		}
 
-		if (controls.DebugKeyPressed("KEY_O") && sel_inst !=-1)
+		if (controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
 		{
 			for (auto comp : components)
 			{
@@ -66,12 +66,24 @@ void SpriteTileInst::Draw(float dt)
 			CalcIndices();
 		}
 
-		if (controls.DebugKeyPressed("KEY_P"))
+		bool add_center = controls.DebugKeyPressed("KEY_O");
+		bool add_after = controls.DebugKeyPressed("KEY_P");
+
+		if (add_center || add_after)
 		{
 			Instance inst;
-			float scale = render.GetDevice()->GetHeight() / 1024.0f;
-			inst.pos.x = ((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth()) * 0.5f) / scale;
-			inst.pos.y = Sprite::ed_cam_pos.y / scale + 512.0f;
+
+			if (sel_inst != -1 && add_after)
+			{
+				inst.pos = instances[sel_inst].pos + 20.0f;
+			}
+			else
+			{
+				float scale = 1024.0f / render.GetDevice()->GetHeight();
+				inst.pos.x = Sprite::ed_cam_pos.x * scale;
+				inst.pos.y = Sprite::ed_cam_pos.y * scale;
+			}
+
 			instances.push_back(inst);
 
 			sel_inst = (int)instances.size() - 1;
@@ -139,7 +151,7 @@ bool SpriteTileInst::CheckSelection(Vector2 ms)
 	{
 		Instance& inst = instances[i];
 
-		Vector2 pos = (inst.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos;
+		Vector2 pos = (inst.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
@@ -196,6 +208,12 @@ bool SpriteTileInst::IsOccupied(Vector2 pos)
 
 void SpriteTileInst::CalcIndices()
 {
+	for (auto& inst : instances)
+	{
+		inst.pos.x = ((int)(inst.pos.x / trans.size.x)) * trans.size.x;
+		inst.pos.y = ((int)(inst.pos.y / trans.size.y)) * trans.size.y;
+	}
+
 	for (auto& inst : instances)
 	{
 		bool up = IsOccupied(inst.pos - Vector2(0.0f, trans.size.y));

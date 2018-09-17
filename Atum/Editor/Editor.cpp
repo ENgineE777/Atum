@@ -419,16 +419,17 @@ void Editor::StopScene()
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(true);
-		ed_scene.EnableTasks(true);
+	}
 
-		if (selectedObject->UsingCamera2DPos())
-		{
-			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
-		}
-		else
-		{
-			Sprite::ed_cam_pos = ed_scene.camera_pos;
-		}
+	ed_scene.EnableTasks(true);
+	
+	if (selectedObject && selectedObject->UsingCamera2DPos())
+	{
+		Sprite::ed_cam_pos = selectedObject->Camera2DPos();
+	}
+	else
+	{
+		Sprite::ed_cam_pos = ed_scene.camera_pos;
 	}
 
 	ShowVieport();

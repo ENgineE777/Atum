@@ -17,6 +17,11 @@ public:
 	};
 
 	BodyType body_type;
+	float density;
+	float friction;
+	bool use_object_size;
+	float width;
+	float height;
 
 	Phys2DComp();
 };
@@ -32,8 +37,11 @@ public:
 	void Play() override;
 	template<typename T>
 	void Play(T* sprite_inst);
+	void PlayGraphInst(class SpriteGraphInst* graph_inst);
+	void CreatBody(int index, Vector2 pos, Vector2 size, Vector2 center);
 	void Stop() override;
 	void UpdateInstances(float dt);
 	template<typename T>
-	void UpdateInstances(T* sprite_inst, float dt);
+	void UpdateInstances(T* sprite_inst);
+	void UpdateGraphInst(class SpriteGraphInst* graph_inst);
 };

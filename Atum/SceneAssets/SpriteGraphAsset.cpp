@@ -530,6 +530,8 @@ void SpriteGraphAsset::Copy(SceneObject* src)
 
 void SpriteGraphAsset::SetEditMode(bool ed)
 {
+	SceneAsset::SetEditMode(ed);
+	
 	Gizmo::inst->enabled = false;
 	Gizmo::inst->trans2D = nullptr;
 

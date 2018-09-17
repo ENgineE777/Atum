@@ -27,6 +27,7 @@ void SpriteTileInst::Init()
 void SpriteTileInst::Play()
 {
 	trans.size = ((SpriteTileAsset*)asset)->trans.size;
+	trans.offset = ((SpriteTileAsset*)asset)->trans.offset;
 }
 
 void SpriteTileInst::Draw(float dt)
@@ -100,6 +101,7 @@ void SpriteTileInst::Draw(float dt)
 	}
 #endif
 
+	trans.offset = sprite_asset->trans.offset;
 	trans.size = sprite_asset->trans.size;
 
 	Vector2 pos = trans.pos;
@@ -128,8 +130,6 @@ void SpriteTileInst::Draw(float dt)
 
 		Sprite::Draw(&trans, COLOR_WHITE, &sprite_asset->sprite[inst.index], &inst.frame_state, true, false);
 	}
-
-	trans.pos = pos;
 
 	if (Sprite::use_ed_cam)
 	{

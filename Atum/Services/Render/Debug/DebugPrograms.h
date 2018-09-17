@@ -40,6 +40,7 @@ public:
 
 		virtual void ApplyStates()
 		{
+			render.GetDevice()->SetAlphaBlend(true);
 			render.GetDevice()->SetDepthTest(false);
 			render.GetDevice()->SetDepthWriting(false);
 		};

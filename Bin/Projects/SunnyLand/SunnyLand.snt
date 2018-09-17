@@ -7,6 +7,21 @@
 			"type" : 0
 		},
 		{
+			"index_in_scene" : 28,
+			"name" : "CatRun",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 29,
+			"name" : "CherryItem",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 30,
+			"name" : "DiamondItem",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 5,
 			"name" : "EagleFly",
 			"type" : 1
@@ -67,6 +82,16 @@
 			"type" : 1
 		},
 		{
+			"index_in_scene" : 27,
+			"name" : "CaveShelf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 26,
+			"name" : "CaveWall",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 20,
 			"name" : "LeftCaveEnter",
 			"type" : 1
@@ -82,6 +107,16 @@
 			"type" : 2
 		},
 		{
+			"index_in_scene" : 23,
+			"name" : "BridgeBaseSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 24,
+			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 14,
 			"name" : "BushSprite",
 			"type" : 1
@@ -94,6 +129,11 @@
 		{
 			"index_in_scene" : 9,
 			"name" : "Ground1Tiles",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 25,
+			"name" : "Ground2Tiles",
 			"type" : 1
 		},
 		{
@@ -319,34 +359,14 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
-			"name" : "Cherry",
-			"type" : 0
-		},
-		{
 			"index_in_scene" : 8,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"index_in_scene" : -1,
-			"name" : "Diamond",
-			"type" : 0
-		},
-		{
 			"index_in_scene" : 9,
 			"name" : "DiamondItem",
 			"type" : 1
-		},
-		{
-			"index_in_scene" : -1,
-			"name" : "",
-			"type" : 2
 		},
 		{
 			"index_in_scene" : -1,
@@ -374,6 +394,16 @@
 			"type" : 1
 		},
 		{
+			"index_in_scene" : 33,
+			"name" : "CaveShelf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 32,
+			"name" : "CaveWall",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 25,
 			"name" : "LeftCaveEnter",
 			"type" : 1
@@ -389,6 +419,16 @@
 			"type" : 2
 		},
 		{
+			"index_in_scene" : 29,
+			"name" : "BridgeBaseSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 30,
+			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 20,
 			"name" : "BushSprite",
 			"type" : 1
@@ -401,6 +441,11 @@
 		{
 			"index_in_scene" : 15,
 			"name" : "Ground1Tiles",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 31,
+			"name" : "Ground2Tiles",
 			"type" : 1
 		},
 		{

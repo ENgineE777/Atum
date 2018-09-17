@@ -136,8 +136,12 @@ void CharacterCamera2D::Reset()
 #ifdef EDITOR
 void CharacterCamera2D::SetEditMode(bool ed)
 {
+	SceneObject::SetEditMode(ed);
+
 	if (ed)
 	{
+		Gizmo::inst->enabled = true;
+		trans.size = 100.0f;
 		Gizmo::inst->trans2D = &trans;
 		Gizmo::inst->pos2d = trans.pos;
 	}

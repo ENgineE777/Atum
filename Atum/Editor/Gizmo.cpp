@@ -10,7 +10,9 @@ void Gizmo::Init()
 {
 	inst = this;
 	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
+	anchorn->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 	center = render.LoadTexture("settings\\editor\\gizmo_center.png");
+	center->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 }
 
 bool Gizmo::IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c)
@@ -394,6 +396,11 @@ void Gizmo::MouseMove(float mx, float my)
 			}
 		}
 		else
+		if (selAxis == 10)
+		{
+			moved_origin += ms;
+		}
+		else
 		if (selAxis > 0)
 		{
 			float dist = ms.Length();
@@ -596,8 +603,9 @@ void Gizmo::Render()
 			p1 = p1 * trans2D->mat_global;
 			p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 
-			origin = Vector2(p1.x, p1.y) * scale - Vector2(4.0f);
-			render.DebugSprite(center, origin, Vector2(8.0f));
+			origin = Vector2(p1.x, p1.y) * scale;
+
+			render.DebugSprite(center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
 		}
 
 		return;
@@ -665,6 +673,13 @@ void Gizmo::OnLeftMouseDown(float mx, float my)
 				}
 			}
 
+			if (origin.x - 7 < mx && mx < origin.x + 7 &&
+				origin.y - 7 < my && my < origin.y + 7)
+			{
+				selAxis = 10;
+				moved_origin = origin;
+			}
+
 			if (selAxis == -1)
 			{
 				if (IsInsideTriangle(Vector2(mx, my), ancorns[0], ancorns[1], ancorns[2]) ||
@@ -690,4 +705,21 @@ void Gizmo::OnLeftMouseDown(float mx, float my)
 void Gizmo::OnLeftMouseUp()
 {
 	mousedPressed = false;
+
+	if (selAxis == 10 && trans2D)
+	{
+		Matrix inv = trans2D->mat_global;
+		inv.InverseComplette();
+
+		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
+		moved_origin /= scale;
+		moved_origin += Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f) / scale;
+
+		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D->size.x, trans2D->size.y, 1.0f);
+		trans2D->offset += Vector2(pos.x, pos.y);
+		trans2D->pos += Vector2(pos.x, pos.y) * trans2D->size;
+		pos2d = trans2D->pos;
+		selAxis = -1;
+	}
 }

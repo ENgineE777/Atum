@@ -12,7 +12,6 @@ public:
 	SpriteGraphAsset::Instance graph_instance;
 	string asset_name; 
 	Transform2D trans;
-	b2Body* body = nullptr;
 
 	virtual ~SpriteGraphInst() = default;
 
@@ -20,6 +19,7 @@ public:
 
 	void Init() override;
 	void Load(JSONReader& loader) override;
+	void Play() override;
 	void Draw(float dt);
 	void ActivateLink(string& link);
 	void GotoNode(string& node);
@@ -28,11 +28,10 @@ public:
 	void ApplyLinearImpulse(float x, float y);
 	void SetLinearVelocity(float x, float y);
 	bool CheckColissionNormal(float x, float y);
-
-	void Play() override;
-	void Stop() override;
+	b2Body* HackGetBody();
 
 #ifdef EDITOR
+	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;
 #endif
 };

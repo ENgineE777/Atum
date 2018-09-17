@@ -145,7 +145,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	if (IsEditMode() || object->IsEditMode())
 	{
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-		render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f, 20.0f, COLOR_BLUE);
+		render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f, 20.0f, COLOR_BLUE);
 	}
 	else
 #endif
@@ -256,18 +256,18 @@ void Track2DComp::EditorDraw(float dt)
 
 	for (int i = 0; i < track.points.size(); i++)
 	{
-		Vector2 p1 = track.points[i].pos * scale - Sprite::ed_cam_pos;
+		Vector2 p1 = track.points[i].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 		render.DebugSprite(nullptr, p1 - 15.0f, 30.0f, COLOR_GREEN);
 
 		if (i != 0)
 		{
-			Vector2 p2 = track.points[i - 1].pos * scale - Sprite::ed_cam_pos;
+			Vector2 p2 = track.points[i - 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 			render.DebugLine2D(p1, COLOR_GREEN, p2, COLOR_GREEN);
 		}
 		else
 		if (track.tp == Looped)
 		{
-			Vector2 p2 = track.points[track.points.size() - 1].pos * scale - Sprite::ed_cam_pos;
+			Vector2 p2 = track.points[track.points.size() - 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 			render.DebugLine2D(p1, COLOR_GREEN, p2, COLOR_CYAN);
 		}
 	}
@@ -353,7 +353,7 @@ void Track2DComp::SetGizmo()
 	if (sel_point != -1)
 	{
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-		trans.size = 30.0f / scale;
+		trans.size = 60.0f / scale;
 		trans.pos = track.points[sel_point].pos;
 		Gizmo::inst->pos2d = track.points[sel_point].pos;
 	}

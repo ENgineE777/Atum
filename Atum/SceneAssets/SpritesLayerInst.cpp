@@ -75,8 +75,8 @@ void SpritesLayerInst::Draw(float dt)
 	{
 		cam_pos = Sprite::cam_pos;
 		Sprite::cam_pos *= axis_scale;
-		from = (int)(((Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f) / scale) / size.x);
-		to = (int)(((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth() * 0.5f) / scale) / size.x);
+		from = (int)((Sprite::ed_cam_pos.x / scale) / size.x);
+		to = (int)(((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth()) / scale) / size.x);
 	}
 
 	float pos_x = (int)((cam_pos.x / scale) / size.x) * size.x;

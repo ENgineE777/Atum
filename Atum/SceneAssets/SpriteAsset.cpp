@@ -13,6 +13,8 @@ FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteAsset, trans.size.x, 100.0f, "Prop", "width")
 FLOAT_PROP(SpriteAsset, trans.size.y, 100.0f, "Prop", "height")
+FLOAT_PROP(SpriteAsset, trans.offset.x, 0.5f, "Prop", "anchorn_x")
+FLOAT_PROP(SpriteAsset, trans.offset.y, 0.5f, "Prop", "anchorn_y")
 SPRITE_PROP(SpriteAsset, sprite, "Prop", "sprite")
 META_DATA_DESC_END()
 
@@ -53,8 +55,11 @@ void SpriteAsset::Draw(float dt)
 #ifdef EDITOR
 void SpriteAsset::SetEditMode(bool ed)
 {
+	SceneAsset::SetEditMode(ed);
+
 	if (ed)
 	{
+		Gizmo::inst->enabled = true;
 		Gizmo::inst->trans2D = &trans;
 		Gizmo::inst->pos2d = trans.pos;
 	}

@@ -27,6 +27,7 @@ public:
 	Vector2 align = 64.0f;
 	Vector2 pos2d = 0.0f;
 	Vector2 origin;
+	Vector2 moved_origin;
 	Vector2 ancorns[8];
 
 	Matrix center_transform;

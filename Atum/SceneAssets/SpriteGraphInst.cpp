@@ -3,6 +3,7 @@
 #include "SpriteAsset.h"
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
+#include "Phys2DComp.h"
 
 CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
@@ -46,38 +47,8 @@ void SpriteGraphInst::Load(JSONReader& loader)
 
 void SpriteGraphInst::Play()
 {
-	float scale = 1.0f / 50.0f;
-
-	{
-		b2BodyDef bodyDef;
-		bodyDef.type = b2_dynamicBody;
-		bodyDef.position.Set(trans.pos.x * scale, trans.pos.y * scale);
-	
-		body = PScene2D()->CreateBody(&bodyDef);
-
-		trans.size = { 64.0f, 64.0f};
-
-		b2PolygonShape dynamicBox;
-		dynamicBox.SetAsBox(trans.size.x * 0.5f * scale, trans.size.y * 0.5f * scale);
-
-		b2FixtureDef fixtureDef;
-		fixtureDef.density = 1.25f;
-		fixtureDef.friction = 0.25f;
-		fixtureDef.shape = &dynamicBox;
-
-		body->CreateFixture(&fixtureDef);
-
-		body->SetFixedRotation(true);
-	}
-}
-
-void SpriteGraphInst::Stop()
-{
-	if (body)
-	{
-		PScene2D()->DestroyBody(body);
-		body = nullptr;
-	}
+	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
+	trans.offset = graph_instance.cur_node->asset->trans.offset;
 }
 
 void SpriteGraphInst::Draw(float dt)
@@ -93,6 +64,7 @@ void SpriteGraphInst::Draw(float dt)
 	}
 
 	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
+	trans.offset = graph_instance.cur_node->asset->trans.offset;
 	trans.BuildMatrices();
 
 	if (state == Active)
@@ -101,15 +73,6 @@ void SpriteGraphInst::Draw(float dt)
 	}
 
 	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true, false);
-
-	if (body)
-	{
-		b2Vec2 position = body->GetPosition();
-		trans.pos.x = position.x * 50.0f;
-		trans.pos.y = position.y * 50.0f - 30;
-
-		trans.rotation = body->GetAngle();
-	}
 }
 
 void SpriteGraphInst::ActivateLink(string& link)
@@ -122,16 +85,35 @@ void SpriteGraphInst::GotoNode(string& node)
 	graph_instance.GotoNode(node.c_str());
 }
 
+b2Body* SpriteGraphInst::HackGetBody()
+{
+	for (auto comp : components)
+	{
+		Phys2DCompInst* phys_comp = dynamic_cast<Phys2DCompInst*>(comp);
+
+		if (phys_comp)
+		{
+			return phys_comp->bodies[0];
+		}
+	}
+
+	return nullptr;
+}
+
 void SpriteGraphInst::ApplyLinearImpulse(float x, float y)
 {
+	b2Body* body = HackGetBody();
+
 	if (body)
 	{
-		return body->ApplyLinearImpulseToCenter({x, y}, true);
+		body->ApplyLinearImpulseToCenter({x, y}, true);
 	}
 }
 
 float SpriteGraphInst::GetLinearVelocityX()
 {
+	b2Body* body = HackGetBody();
+
 	if (body)
 	{
 		return body->GetLinearVelocity().x;
@@ -142,6 +124,8 @@ float SpriteGraphInst::GetLinearVelocityX()
 
 float SpriteGraphInst::GetLinearVelocityY()
 {
+	b2Body* body = HackGetBody();
+
 	if (body)
 	{
 		return body->GetLinearVelocity().y;
@@ -152,6 +136,8 @@ float SpriteGraphInst::GetLinearVelocityY()
 
 void SpriteGraphInst::SetLinearVelocity(float x, float y)
 {
+	b2Body* body = HackGetBody();
+
 	if (body)
 	{
 		body->SetLinearVelocity({ x, y });
@@ -160,6 +146,8 @@ void SpriteGraphInst::SetLinearVelocity(float x, float y)
 
 bool SpriteGraphInst::CheckColissionNormal(float x, float y)
 {
+	b2Body* body = HackGetBody();
+
 	if (body)
 	{
 		b2ContactEdge* contacts = body->GetContactList();
@@ -181,8 +169,25 @@ bool SpriteGraphInst::CheckColissionNormal(float x, float y)
 }
 
 #ifdef EDITOR
+bool SpriteGraphInst::CheckSelection(Vector2 ms)
+{
+	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
+	Vector2 pos = (trans.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+
+	if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
+		pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void SpriteGraphInst::SetEditMode(bool ed)
 {
+	SceneObject::SetEditMode(ed);
+
 	Gizmo::inst->trans2D = ed ? &trans : nullptr;
 	Gizmo::inst->pos2d = trans.pos;
 	Gizmo::inst->enabled = ed;

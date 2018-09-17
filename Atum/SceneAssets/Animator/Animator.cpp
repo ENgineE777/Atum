@@ -77,7 +77,7 @@ void Animator::Save(JSONWriter& stream)
 #ifdef EDITOR
 void Animator::SetEditMode(bool ed)
 {
-	//SceneEntity::SetEditMode(ed);
+	SceneAsset::SetEditMode(ed);
 
 	if (!wnd)
 	{

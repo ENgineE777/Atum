@@ -67,6 +67,11 @@ void SceneObjectComp::ShowPropWidgets(EUICategories* objCat)
 void SceneObjectComp::SetEditMode(bool ed)
 {
 	edited = ed;
+
+	if (!ed)
+	{
+		Gizmo::inst->Disable();
+	}
 }
 
 bool SceneObjectComp::IsEditMode()

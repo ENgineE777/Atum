@@ -140,14 +140,8 @@ void CharacterCamera2D::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		Gizmo::inst->enabled = true;
 		trans.size = 100.0f;
-		Gizmo::inst->trans2D = &trans;
-		Gizmo::inst->pos2d = trans.pos;
-	}
-	else
-	{
-		Gizmo::inst->trans2D = nullptr;
+		Gizmo::inst->SetTrans2D(&trans, Gizmo::trans_2d_move);
 	}
 }
 #endif

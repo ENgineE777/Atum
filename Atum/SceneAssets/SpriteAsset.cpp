@@ -38,7 +38,7 @@ void SpriteAsset::Draw(float dt)
 	Sprite::UpdateFrame(&sprite, &state, dt);
 
 #ifdef EDITOR
-	if (Gizmo::inst->trans2D == &trans && SpriteWindow::instance && !SpriteWindow::instance->show_anim)
+	if (edited && SpriteWindow::instance && !SpriteWindow::instance->show_anim)
 	{
 		state.cur_frame = SpriteWindow::instance->cur_frame;
 	}
@@ -59,13 +59,10 @@ void SpriteAsset::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		Gizmo::inst->enabled = true;
-		Gizmo::inst->trans2D = &trans;
-		Gizmo::inst->pos2d = trans.pos;
+		Gizmo::inst->SetTrans2D(&trans);
 	}
 	else
 	{
-		Gizmo::inst->trans2D = nullptr;
 		SpriteWindow::StopEdit();
 	}
 }

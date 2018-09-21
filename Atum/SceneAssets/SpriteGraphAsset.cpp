@@ -532,8 +532,7 @@ void SpriteGraphAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);
 	
-	Gizmo::inst->enabled = false;
-	Gizmo::inst->trans2D = nullptr;
+	Gizmo::inst->Disable();
 
 	if (!ed)
 	{

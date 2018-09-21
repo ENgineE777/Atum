@@ -264,6 +264,9 @@ void Scene::Load(const char* name)
 	if (reader.Parse(name))
 	{
 		reader.Read("camera_pos", camera_pos);
+		reader.Read("move_mode", move_mode);
+		reader.Read("gizmo2d_align_x", gizmo2d_align_x);
+		reader.Read("gizmo2d_align_y", gizmo2d_align_y);
 		Load(reader, assets, "SceneAsset", true);
 		Load(reader, objects, "SceneObject", false);
 
@@ -356,6 +359,10 @@ void Scene::Save(const char* name)
 	if (writer.Start(name))
 	{
 		writer.Write("camera_pos", camera_pos);
+		writer.Write("move_mode", move_mode);
+		writer.Write("gizmo2d_align_x", gizmo2d_align_x);
+		writer.Write("gizmo2d_align_y", gizmo2d_align_y);
+
 		Save(writer, assets, "SceneAsset");
 		Save(writer, objects, "SceneObject");
 

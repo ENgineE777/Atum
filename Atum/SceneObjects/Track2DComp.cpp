@@ -329,8 +329,6 @@ void Track2DComp::SetEditMode(bool ed)
 {
 	SceneObjectComp::SetEditMode(ed);
 
-	Gizmo::inst->enabled = ed;
-
 	if (ed)
 	{
 		SetGizmo();
@@ -348,16 +346,13 @@ void Track2DComp::SetGizmo()
 
 	Track& track = tracks[sprite_inst->sel_inst];
 
-	Gizmo::inst->trans2D = sel_point != -1 ? &trans : nullptr;
-
 	if (sel_point != -1)
 	{
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
 		trans.pos = track.points[sel_point].pos;
-		Gizmo::inst->pos2d = track.points[sel_point].pos;
 	}
 
-	Gizmo::inst->enabled = (sel_point != -1);
+	Gizmo::inst->SetTrans2D(sel_point != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
 }
 #endif

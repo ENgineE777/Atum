@@ -341,7 +341,16 @@ int SceneObject::GetInstCount()
 void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
-	Gizmo::inst->enabled = false;
+
+	if (!ed)
+	{
+		Gizmo::inst->Disable();
+	}
+	else
+	if (ed && Is3DObject())
+	{
+		Gizmo::inst->SetTrans3D(Trans());
+	}
 }
 
 bool SceneObject::IsEditMode()

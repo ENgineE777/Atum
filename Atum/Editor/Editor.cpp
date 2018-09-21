@@ -47,34 +47,54 @@ void Editor::Init()
 
 	menu->AttachToWidget(mainWnd);
 
-	EUILayout* lt = new EUILayout(mainWnd, false);
+	EUILayout* lt_main = new EUILayout(mainWnd, true);
+
+	EUIPanel* tool_panel = new EUIPanel(lt_main, 10, 10, 100, 30);
+	lt_main->SetChildSize(tool_panel, 30, false);
+
+	playBtn = new EUIButton(tool_panel, "Play", 5, 5, 30, 20);
+	playBtn->SetListener(-1, this, 0);
+
+	moveModeBtn = new EUIButton(tool_panel, "2D", 50, 5, 30, 20);
+	moveModeBtn->SetPushable(true);
+	moveModeBtn->SetListener(-1, this, 0);
+
+	trans3d_gizmo = new EUIPanel(tool_panel, 80, 0, 150, 30);
+
+	moveBtn = new EUIButton(trans3d_gizmo, "Move", 5, 5, 30, 20);
+	moveBtn->SetPushable(true);
+	moveBtn->SetListener(-1, this, 0);
+
+	rotateBtn = new EUIButton(trans3d_gizmo, "Rot", 40, 5, 30, 20);
+	rotateBtn->SetPushable(true);
+	rotateBtn->SetListener(-1, this, 0);
+
+	globalBtn = new EUIButton(trans3d_gizmo, "Glob", 75, 5, 30, 20);
+	globalBtn->SetPushable(true);
+	globalBtn->SetListener(-1, this, 0);
+
+	localBtn = new EUIButton(trans3d_gizmo, "Loc", 110, 5, 30, 20);
+	localBtn->SetPushable(true);
+	localBtn->SetListener(-1, this, 0);
+
+	trans2d_gizmo = new EUIPanel(tool_panel, 80, 0, 150, 30);
+
+	EUILabel* label = new EUILabel(trans2d_gizmo, "AlignX", 5, 7, 35, 20);
+	x_align = new EUIEditBox(trans2d_gizmo, "0", 40, 5, 30, 20, EUIEditBox::InputUInteger);
+	x_align->SetListener(-1, this, 0);
+	label = new EUILabel(trans2d_gizmo, "AlignY", 72, 7, 35, 20);
+	y_align = new EUIEditBox(trans2d_gizmo, "0", 105, 5, 30, 20, EUIEditBox::InputUInteger);
+	y_align->SetListener(-1, this, 0);
+
+
+	EUIPanel* main_panel = new EUIPanel(lt_main, 10, 10, 100, 30);
+
+	EUILayout* lt = new EUILayout(main_panel, false);
 
 	EUIPanel* toolsPanel2 = new EUIPanel(lt, 10, 10, 100, 30);
 	lt->SetChildSize(toolsPanel2, 250, false);
 
 	EUILayout* leftPanelLt = new EUILayout(toolsPanel2, true);
-
-	EUIPanel* toolsPanel = new EUIPanel(leftPanelLt, 10, 10, 100, 30);
-	leftPanelLt->SetChildSize(toolsPanel, 30, false);
-
-	moveBtn = new EUIButton(toolsPanel, "Move", 5, 5, 30, 20);
-	moveBtn->SetPushable(true);
-	moveBtn->SetListener(MoveBtnID, this, 0);
-
-	rotateBtn = new EUIButton(toolsPanel, "Rot", 40, 5, 30, 20);
-	rotateBtn->SetPushable(true);
-	rotateBtn->SetListener(RotateBtnID, this, 0);
-
-	globalBtn = new EUIButton(toolsPanel, "Glob", 75, 5, 30, 20);
-	globalBtn->SetPushable(true);
-	globalBtn->SetListener(GlobalBtnID, this, 0);
-
-	localBtn = new EUIButton(toolsPanel, "Loc", 110, 5, 30, 20);
-	localBtn->SetPushable(true);
-	localBtn->SetListener(LocalBtnID, this, 0);
-
-	playBtn = new EUIButton(toolsPanel, "Play", 215, 5, 30, 20);
-	playBtn->SetListener(PlayBtnID, this, 0);
 
 	EUITabPanel* tabPanel = new EUITabPanel(leftPanelLt, 30, 50, 100, 30);
 	tabPanel->SetListener(-1, this, 0);
@@ -85,13 +105,13 @@ void Editor::Init()
 
 	scene_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
 	scene_lt->SetChildSize(scene_treeview, 0.5, true);
-	scene_treeview->SetListener(SceneListID, this, 0);
+	scene_treeview->SetListener(-1, this, 0);
 
 	scene_treeview->AddImage("settings/editor/folder.bmp");
 	scene_treeview->AddImage("settings/editor/scene_elem.bmp");
 
 	assets_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
-	assets_treeview->SetListener(AssetListID, this, 0);
+	assets_treeview->SetListener(-1, this, 0);
 
 	assets_treeview->AddImage("settings/editor/folder.bmp");
 	assets_treeview->AddImage("settings/editor/scene_elem.bmp");
@@ -116,10 +136,10 @@ void Editor::Init()
 	asset_treeview->AddImage("settings/editor/folder.bmp");
 	asset_treeview->AddImage("settings/editor/scene_elem.bmp");
 
-	asset_treeview->SetListener(AssetListID + 100, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	asset_treeview->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	viewport = new EUIPanel(vp_sheet_lt, 10, 10, 100, 30);
-	viewport->SetListener(ViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	EUIPanel* toolsPanel3 = new EUIPanel(lt, 10, 10, 100, 30);
 	lt->SetChildSize(toolsPanel3, 200, false);
@@ -166,6 +186,8 @@ void Editor::Init()
 
 	checker_texture = render.LoadTexture("settings/editor/checker.png");
 	checker_texture->SetFilters(Texture::Point, Texture::Point);
+
+	ShowGizmoControls(0);
 }
 
 int Editor::Run()
@@ -190,6 +212,12 @@ void Editor::AddOutputBox(const char* name)
 	EUILayout* output_viewport_lt = new EUILayout(output_sheet, true);
 
 	output_boxes[name] = new EUIListBox(output_viewport_lt, 0, 0, 100, 100, false);
+}
+
+void Editor::ShowGizmoControls(int mode)
+{
+	trans3d_gizmo->Show(mode == 1);
+	trans2d_gizmo->Show(mode == 2);
 }
 
 void Editor::ClearScene()
@@ -254,9 +282,6 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	selectedObject = obj;
 	isSelectedAsset = is_asset;
-
-	bool enabled = (selectedObject != nullptr);
-	gizmo.enabled = enabled;
 
 	if (selectedObject)
 	{
@@ -337,7 +362,10 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	ed_scene.GenerateUID(obj, is_asset);
 	obj->ApplyProperties();
 
-	obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+	if (obj->Is3DObject())
+	{
+		obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+	}
 
 	obj->SetName(is_asset ? ClassFactorySceneAsset::Find(name)->GetShortName() : ClassFactorySceneObject::Find(name)->GetShortName());
 
@@ -395,7 +423,7 @@ void Editor::StartScene()
 	EUILayout* lt = new EUILayout(gameWnd, false);
 
 	game_viewport = new EUIPanel(lt, 0, 0, 800, 600);
-	game_viewport->SetListener(GameViewportID, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
+	game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	controls.SetWindow(game_viewport->GetNative());
 	game_viewport->SetFocused();
@@ -489,6 +517,10 @@ void Editor::Load()
 {
 	ed_scene.Load(sceneName.c_str());
 	Sprite::ed_cam_pos = ed_scene.camera_pos;
+	moveModeBtn->SetPushed(ed_scene.move_mode == 1);
+	x_align->SetText(ed_scene.gizmo2d_align_x);
+	y_align->SetText(ed_scene.gizmo2d_align_y);
+	gizmo.align2d = Vector2((float)ed_scene.gizmo2d_align_x, (float)ed_scene.gizmo2d_align_x);
 
 	string scene_tree = sceneName;
 	scene_tree.resize(scene_tree.size() - 3);
@@ -778,15 +810,10 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 
 void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::GameViewportID)
+	if (sender == viewport || sender == game_viewport)
 	{
 		controls.OverrideMousePos(mx, my);
-	}
 
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::GameViewportID)
-	{
 		Vector2 ms((float)mx, (float)my);
 
 		if (controls.DebugKeyPressed("MS_BTN1", Controls::Active) && controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
@@ -794,14 +821,14 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			Sprite::ed_cam_pos -= ms - prev_ms;
 		}
 
-		gizmo.OnMouseMove((float)mx, (float)my);
+		gizmo.OnMouseMove(Vector2((float)mx, (float)my));
 
 		if (selectedObject)
 		{
 			selectedObject->OnMouseMove(ms - prev_ms);
 		}
 
-		if (selectedObject && !isSelectedAsset && !scene)
+		if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !scene)
 		{
 			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 			{
@@ -809,7 +836,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 				//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
 			}
 
-			selectedObject->Trans() = gizmo.transform;
+			selectedObject->Trans() = gizmo.GetTrans3D();
 		}
 	}
 
@@ -820,8 +847,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 {
 	prev_ms = Vector2((float)mx, (float)my);
 
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::GameViewportID)
+	if (sender == viewport || sender == game_viewport)
 	{
 		if (controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
 		{
@@ -844,7 +870,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		else
 		{
 			allowCopy = true;
-			gizmo.OnLeftMouseDown((float)mx, (float)my);
+			gizmo.OnLeftMouseDown();
 			sender->CaptureMouse();
 
 			if (selectedObject)
@@ -852,19 +878,14 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 				selectedObject->OnLeftMouseDown(prev_ms);
 			}
 		}
-	}
 
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::GameViewportID)
-	{
 		sender->SetFocused();
 	}
 }
 
 void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID ||
-		sender->GetID() == Editor::GameViewportID)
+	if (sender == viewport || sender == game_viewport)
 	{
 		gizmo.OnLeftMouseUp();
 		sender->ReleaseMouse();
@@ -875,31 +896,36 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		}
 	}
 
-	if (sender->GetID() == Editor::MoveBtnID)
+	if (sender == moveBtn)
 	{
 		gizmoMove = true;
 		UpdateGizmoToolbar();
 	}
 
-	if (sender->GetID() == Editor::RotateBtnID)
+	if (sender == rotateBtn)
 	{
 		gizmoMove = false;
 		UpdateGizmoToolbar();
 	}
 
-	if (sender->GetID() == Editor::GlobalBtnID)
+	if (sender == globalBtn)
 	{
 		gizmoGlobal = true;
 		UpdateGizmoToolbar();
 	}
 
-	if (sender->GetID() == Editor::LocalBtnID)
+	if (sender == localBtn)
 	{
 		gizmoGlobal = false;
 		UpdateGizmoToolbar();
 	}
 
-	if (sender->GetID() == Editor::PlayBtnID)
+	if (sender == moveModeBtn)
+	{
+		ed_scene.move_mode = moveModeBtn->IsPushed() ? 1 : 0;
+	}
+
+	if (sender == playBtn)
 	{
 		StartScene();
 	}
@@ -909,7 +935,7 @@ void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 {
 	prev_ms = Vector2((float)mx, (float)my);
 
-	if (sender->GetID() == Editor::ViewportID)
+	if (sender == viewport)
 	{
 		sender->CaptureMouse();
 
@@ -922,7 +948,7 @@ void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 
 void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 {
-	if (sender->GetID() == Editor::ViewportID)
+	if (sender == viewport)
 	{
 		sender->ReleaseMouse();
 
@@ -930,6 +956,21 @@ void Editor::OnRightMouseUp(EUIWidget* sender, int mx, int my)
 		{
 			selectedObject->OnRightMouseUp();
 		}
+	}
+}
+
+void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
+{
+	if (sender == x_align)
+	{
+		ed_scene.gizmo2d_align_x = x_align->GetAsInt();
+		gizmo.align2d.x = (float)ed_scene.gizmo2d_align_x;
+	}
+
+	if (sender == y_align)
+	{
+		ed_scene.gizmo2d_align_y = y_align->GetAsInt();
+		gizmo.align2d.y = (float)ed_scene.gizmo2d_align_y;
 	}
 }
 
@@ -1004,7 +1045,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 	{
 		asset_drag_as_inst = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
 
-		freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : false;
+		freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : (ed_scene.move_mode == 1);
 
 		if (!freecamera.mode_2d && (!selectedObject || !selectedObject->HasOwnTasks()))
 		{
@@ -1018,6 +1059,11 @@ void Editor::OnUpdate(EUIWidget* sender)
 		}
 
 		freecamera.Update(dt);
+
+		if (gizmo.IsEnabled() == !(trans3d_gizmo->IsVisible() || trans2d_gizmo->IsVisible()))
+		{
+			ShowGizmoControls(gizmo.IsEnabled() ? (gizmo.IsTrans2D() ? 2 : 1) : 0);
+		}
 
 		gizmo.Render();
 
@@ -1097,8 +1143,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 void Editor::OnResize(EUIWidget* sender)
 {
-	if ((sender->GetID() == Editor::ViewportID && !scene) ||
-		(sender->GetID() == Editor::GameViewportID && scene))
+	if (sender == viewport || sender == game_viewport)
 	{
 		ShowVieport();
 	}

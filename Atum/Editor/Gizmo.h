@@ -6,50 +6,74 @@
 class Gizmo
 {
 public:
+
+	enum Trans2D
+	{
+		trans_2d_move    = 1,
+		trans_2d_scale   = 2,
+		trans_2d_rotate  = 4,
+		trans_2d_anchorn = 8
+	};
+
 	static Gizmo* inst;
 
-	Transform2D* trans2D = nullptr;
+	int     mode = 1;
+	bool    useLocalSpace = false;
+	float   scale = 1.0f;
+	Vector2 align2d = 0.0f;
+
+private:
 
 	Matrix  transform;
-	int     mode = 1;
-	int     selAxis = -1;
-	bool    useLocalSpace = false;
-	Vector2 ms_dir = 0.0f;
-	Vector2 prev_ms = 0.0f;
-	bool    enabled = false;
-	bool    allow_transform = true;
-	float   scale = 1.0f;
 	bool    mousedPressed = false;
 
-	class Texture* anchorn = nullptr;
-	class Texture* center = nullptr;
-
-	Vector2 align = 64.0f;
+	Transform2D* trans2D = nullptr;
+	int     trans2D_actions = 0;
 	Vector2 pos2d = 0.0f;
 	Vector2 origin;
 	Vector2 moved_origin;
 	Vector2 ancorns[8];
 
-	Matrix center_transform;
-	Matrix rot_matrix;
+	bool    enabled = false;
 
-	void Init();
+	int     selAxis = -1;
+	Vector2 ms_dir = 0.0f;
+	Vector2 prev_ms = 0.0f;
+
+	class Texture* anchorn = nullptr;
+	class Texture* center = nullptr;
+
 	Color CheckColor(int axis);
 	void DrawAxis(int axis);
 	void DrawCircle(int axis);
-	bool CheckInersection(Vector pos, Vector pos2,
-	                      float mx, float my,
+	bool CheckInersection(Vector pos, Vector pos2, Vector2 ms,
 	                      Vector trans, bool check_trans,
 	                      Matrix view, Matrix view_proj);
 
 	bool IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c);
 
-	bool MouseProcess(int axis, float mx, float my);
-	void MouseProcess(float mx, float my);
-	void MouseMove(float mx, float my);
+	void CheckSelectionTrans2D(Vector2 ms);
+	bool CheckSelectionTrans3D(int axis, Vector2 ms);
+	void CheckSelectionTrans3D(Vector2 ms);
 
-	void OnMouseMove(float mx, float my);
-	void OnLeftMouseDown(float mx, float my);
+	void MoveTrans2D(Vector2 ms);
+	void MoveTrans3D(Vector2 ms);
+
+	void RenderTrans2D();
+	void RenderTrans3D();
+
+public:
+
+	void Init();
+	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff);
+	void SetTrans3D(Matrix transform);
+	Matrix& GetTrans3D();
+	bool IsTrans2D();
+	bool IsEnabled();
+	void Disable();
+
+	void OnMouseMove(Vector2 ms);
+	void OnLeftMouseDown();
 	void OnLeftMouseUp();
 
 	void Render();

@@ -15,6 +15,41 @@ void Gizmo::Init()
 	center->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 }
 
+void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions)
+{
+	trans2D = set_trans2D;
+	pos2d = trans2D->pos;
+	trans2D_actions = actions;
+	enabled = (trans2D != nullptr);
+}
+
+bool Gizmo::IsTrans2D()
+{
+	return (trans2D != nullptr);
+}
+
+void Gizmo::SetTrans3D(Matrix set_transform)
+{
+	transform = set_transform;
+	trans2D = nullptr;
+	enabled = true;
+}
+
+Matrix& Gizmo::GetTrans3D()
+{
+	return transform;
+}
+
+bool Gizmo::IsEnabled()
+{
+	return enabled;
+}
+
+void Gizmo::Disable()
+{
+	enabled = false;
+}
+
 bool Gizmo::IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c)
 {
 	float as_x = s.x - a.x;
@@ -197,8 +232,7 @@ void Gizmo::DrawCircle(int axis)
 	}
 }
 
-bool Gizmo::CheckInersection(Vector pos, Vector pos2,
-                             float mx, float my,
+bool Gizmo::CheckInersection(Vector pos, Vector pos2, Vector2 ms,
                              Vector trans, bool check_trans,
                              Matrix view, Matrix view_proj)
 {
@@ -242,8 +276,8 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2,
 		y1 += -sz;
 		y2 +=  sz;
 
-		if (x1 < mx && mx < x2 &&
-			y1 < my && my < y2)
+		if (x1 < ms.x && ms.x < x2 &&
+			y1 < ms.y && ms.y < y2)
 		{
 			ms_dir = Vector2(pos2_post.x - pos_post.x, pos2_post.y - pos_post.y);
 			ms_dir.Normalize();
@@ -255,7 +289,56 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2,
 	return false;
 }
 
-bool Gizmo::MouseProcess(int axis, float mx, float my)
+void Gizmo::CheckSelectionTrans2D(Vector2 ms)
+{
+	if (trans2D_actions & trans_2d_scale)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			if (ancorns[i].x - 7 < ms.x && ms.x < ancorns[i].x + 7 &&
+				ancorns[i].y - 7 < ms.y && ms.y < ancorns[i].y + 7)
+			{
+				selAxis = i + 1;
+				break;
+			}
+		}
+	}
+
+	if (trans2D_actions & trans_2d_anchorn)
+	{
+		if (origin.x - 7 < ms.x && ms.x < origin.x + 7 &&
+			origin.y - 7 < ms.y && ms.y < origin.y + 7)
+		{
+			selAxis = 10;
+			moved_origin = origin;
+		}
+	}
+
+	if (selAxis == -1)
+	{
+		if (IsInsideTriangle(ms, ancorns[0], ancorns[1], ancorns[2]) ||
+			IsInsideTriangle(ms, ancorns[0], ancorns[2], ancorns[3]))
+		{
+			//SetCursor(cr_move);
+
+			if (trans2D_actions & trans_2d_move)
+			{
+				selAxis = 0;
+			}
+		}
+		else
+		{
+			//SetCursor(cr_rotate);
+
+			if (trans2D_actions & trans_2d_rotate)
+			{
+				selAxis = 9;
+			}
+		}
+	}
+}
+
+bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 {
 	Matrix view;
 	render.GetTransform(Render::View, view);
@@ -283,13 +366,15 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 			dir.z = scale;
 		}
 
-		for (int i=0; i<7; i++)
+		int count = 7;
+
+		for (int i=0; i<count; i++)
 		{
-			Vector pos = dir * (float)i * (1.0f / 7.0f);
-			Vector pos2 = dir * (float)(i+1) * (1.0f / 7.0f);
+			Vector pos = dir * (float)i * (1.0f / (float)count);
+			Vector pos2 = dir * (float)(i+1) * (1.0f / (float)count);
 			Vector tr(0.0f);
 
-			if (CheckInersection(pos, pos2, mx, my, tr, false, view, view_proj))
+			if (CheckInersection(pos, pos2, ms, tr, false, view, view_proj))
 			{
 				return true;
 			}
@@ -332,9 +417,7 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 					pos2 = Vector(dx, dz, 0.0f);
 				}
 
-				if (CheckInersection(pos, pos2,
-				                     mx, my, trans, true,
-				                     view, view_proj))
+				if (CheckInersection(pos, pos2, ms, trans, true, view, view_proj))
 				{
 					return true;
 				}
@@ -348,113 +431,114 @@ bool Gizmo::MouseProcess(int axis, float mx, float my)
 	return false;
 }
 
-void Gizmo::MouseProcess(float mx, float my)
+void Gizmo::CheckSelectionTrans3D(Vector2 ms)
 {
-	selAxis = -1;
+	ms.x /= (float)render.GetDevice()->GetWidth();
+	ms.y /= (float)render.GetDevice()->GetHeight();
 
-	if (MouseProcess(0, mx, my)) selAxis = 0;
-	if (MouseProcess(1, mx, my)) selAxis = 1;
-	if (MouseProcess(2, mx, my)) selAxis = 2;
+	for (int i = 0; i < 3; i++)
+	{
+		if (CheckSelectionTrans3D(i, ms))
+		{
+			selAxis = i;
+		}
+	}
 }
 
-void Gizmo::MouseMove(float mx, float my)
+void Gizmo::MoveTrans2D(Vector2 ms)
 {
-	if (trans2D)
+	if (selAxis == 0)
 	{
-		Vector2 ms = Vector2(mx, my);
+		pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
+		pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
+	}
+	else
+	if (selAxis == 9 && controls.DebugKeyPressed("KEY_LALT", Controls::Active))
+	{
+		Vector2 p1 = prev_ms + ms - origin;
+		p1.Normalize();
 
-		if (selAxis == 0)
+		Vector2 p2 = prev_ms - origin;
+		p2.Normalize();
+
+		float k = p1.x * p2.x + p1.y * p2.y;
+
+		if (fabs(k) < 1.0f)
 		{
-			pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
-			pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
-		}
-		else
-		if (selAxis == 9 && controls.DebugKeyPressed("KEY_LALT", Controls::Active))
-		{
-			Vector2 p1 = prev_ms + ms - origin;
-			p1.Normalize();
+			k = acosf(k);
 
-			Vector2 p2 = prev_ms - origin;
-			p2.Normalize();
+			Vector2 p3(-p2.y, p2.x);
 
-			float k = p1.x * p2.x + p1.y * p2.y;
+			float k2 = p1.x * p3.x + p1.y * p3.y;
 
-			if (fabs(k) < 1.0f)
+			if (k2 < 0)
 			{
-				k = acosf(k);
-
-				Vector2 p3(-p2.y, p2.x);
-
-				float k2 = p1.x * p3.x + p1.y * p3.y;
-
-				if (k2 < 0)
-				{
-					k *= -1.0f;
-				}
-
-				trans2D->rotation += k;
+				k *= -1.0f;
 			}
-		}
-		else
-		if (selAxis == 10)
-		{
-			moved_origin += ms;
-		}
-		else
-		if (selAxis > 0)
-		{
-			float dist = ms.Length();
 
-			if (dist > 0.01f)
+			trans2D->rotation += k;
+		}
+	}
+	else
+	if (selAxis == 10)
+	{
+		moved_origin += ms;
+	}
+	else
+	if (selAxis > 0)
+	{
+		float dist = ms.Length();
+
+		if (dist > 0.01f)
+		{
+			ms.Normalize();
+
+			float k1 = 1.0f;
+			float k2 = 1.0f;
+
+			if (selAxis == 5 || selAxis == 7)
 			{
-				ms.Normalize();
-
-				float k1 = 1.0f;
-				float k2 = 1.0f;
-
-				if (selAxis == 5 || selAxis == 7)
-				{
-					k1 = 0.0f;
-				}
-
-				if (selAxis == 1 || selAxis == 2 || selAxis == 5)
-				{
-					k2 = -1.0f;
-				}
-
-				if (selAxis == 0 || selAxis== 1 || selAxis == 4 || selAxis == 8)
-				{
-					k1 = -1.0f;
-				}
-
-				if (selAxis == 6 || selAxis == 8)
-				{
-					k2 = 0.0f;
-				}
-
-				float dot1 = 0.0f;
-				float dot2 = 0.0f;
-
-				dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
-				dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
-
-				trans2D->size.x += dist * k1 * dot1;
-				trans2D->size.y += dist * k2 * dot2;
+				k1 = 0.0f;
 			}
+
+			if (selAxis == 1 || selAxis == 2 || selAxis == 5)
+			{
+				k2 = -1.0f;
+			}
+
+			if (selAxis == 0 || selAxis== 1 || selAxis == 4 || selAxis == 8)
+			{
+				k1 = -1.0f;
+			}
+
+			if (selAxis == 6 || selAxis == 8)
+			{
+				k2 = 0.0f;
+			}
+
+			float dot1 = 0.0f;
+			float dot2 = 0.0f;
+
+			dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
+			dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
+
+			trans2D->size.x += dist * k1 * dot1;
+			trans2D->size.y += dist * k2 * dot2;
 		}
-
-		trans2D->pos.x = align.x * ((int)(pos2d.x / align.x));
-		trans2D->pos.y = align.y * ((int)(pos2d.y / align.y));
-
-		return;
 	}
 
+	trans2D->pos.x = (align2d.x > 0.01f) ? (align2d.x * ((int)(pos2d.x / align2d.x))) : pos2d.x;
+	trans2D->pos.y = (align2d.y > 0.01f) ? (align2d.y * ((int)(pos2d.y / align2d.y))) : pos2d.y;
+}
+
+void Gizmo::MoveTrans3D(Vector2 ms)
+{
 	if (selAxis == -1)
 	{
 		return;
 	}
 
-	Vector2 cur_dir(mx, my);
+	Vector2 cur_dir(ms.x / (float)render.GetDevice()->GetWidth(), ms.y / (float)render.GetDevice()->GetHeight());
 	float da = cur_dir.Length();
 	cur_dir.Normalize();
 
@@ -512,114 +596,102 @@ void Gizmo::MouseMove(float mx, float my)
 	}
 }
 
-void Gizmo::Render()
+void Gizmo::RenderTrans2D()
 {
-	if (!enabled) return;
+	float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
-	if (trans2D)
+	trans2D->BuildMatrices();
+
+	Vector p1, p2;
+
+	for (int phase = 1; phase <= 2; phase++)
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-
-		trans2D->BuildMatrices();
-
-		Vector p1, p2;
-
-		for (int phase = 1; phase <= 2; phase++)
+		for (int i = 0; i < 4 * phase; i++)
 		{
-			if (!allow_transform && phase != 1)
+			if (i == 0)
 			{
-				continue;
+				p1 = Vector(0, 0, 0);
+				p2 = Vector(trans2D->size.x, 0, 0);
+			}
+			else
+			if (i == 1)
+			{
+				p1 = Vector(trans2D->size.x, 0, 0);
+				p2 = Vector(trans2D->size.x, trans2D->size.y, 0);
+			}
+			else
+			if (i == 2)
+			{
+				p1 = Vector(trans2D->size.x, trans2D->size.y, 0);
+				p2 = Vector(0, trans2D->size.y, 0);
+			}
+			else
+			if (i == 3)
+			{
+				p1 = Vector(0, trans2D->size.y, 0);
+				p2 = Vector(0, 0, 0);
+			}
+			else
+			if (i == 4)
+			{
+				p1 = Vector(trans2D->size.x * 0.5f, 0, 0);
+			}
+			else
+			if (i == 5)
+			{
+				p1 = Vector(trans2D->size.x, trans2D->size.y * 0.5f, 0);
+			}
+			else
+			if (i == 6)
+			{
+				p1 = Vector(trans2D->size.x * 0.5f, trans2D->size.y, 0);
+			}
+			else
+			if (i == 7)
+			{
+				p1 = Vector(0, trans2D->size.y * 0.5f, 0);
 			}
 
-			for (int i = 0; i < 4 * phase; i++)
-			{
-				if (i == 0)
-				{
-					p1 = Vector(0, 0, 0);
-					p2 = Vector(trans2D->size.x, 0, 0);
-				}
-				else
-				if (i == 1)
-				{
-					p1 = Vector(trans2D->size.x, 0, 0);
-					p2 = Vector(trans2D->size.x, trans2D->size.y, 0);
-				}
-				else
-				if (i == 2)
-				{
-					p1 = Vector(trans2D->size.x, trans2D->size.y, 0);
-					p2 = Vector(0, trans2D->size.y, 0);
-				}
-				else
-				if (i == 3)
-				{
-					p1 = Vector(0, trans2D->size.y, 0);
-					p2 = Vector(0, 0, 0);
-				}
-				else
-				if (i == 4)
-				{
-					p1 = Vector(trans2D->size.x * 0.5f, 0, 0);
-				}
-				else
-				if (i == 5)
-				{
-					p1 = Vector(trans2D->size.x, trans2D->size.y * 0.5f, 0);
-				}
-				else
-				if (i == 6)
-				{
-					p1 = Vector(trans2D->size.x * 0.5f, trans2D->size.y, 0);
-				}
-				else
-				if (i == 7)
-				{
-					p1 = Vector(0, trans2D->size.y * 0.5f, 0);
-				}
-
-				p1 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-				p1 = p1 * trans2D->mat_global;
-				p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-				p2 = p2 * trans2D->mat_global;
-
-				p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
-				p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
-
-				if (phase == 1)
-				{
-					render.DebugLine2D(Vector2(p1.x, p1.y) * scale, COLOR_WHITE, Vector2(p2.x, p2.y) * scale, COLOR_WHITE);
-				}
-				else
-				{
-					ancorns[i] = Vector2(p1.x, p1.y) * scale;
-					render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
-				}
-			}
-		}
-
-		if (allow_transform)
-		{
-			p1 = Vector(0.0f, 0.0f, 0.0f);
+			p1 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
 			p1 = p1 * trans2D->mat_global;
+			p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
+			p2 = p2 * trans2D->mat_global;
+
 			p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+			p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 
-			origin = Vector2(p1.x, p1.y) * scale;
-
-			render.DebugSprite(center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
+			if (phase == 1)
+			{
+				render.DebugLine2D(Vector2(p1.x, p1.y) * scale, COLOR_WHITE, Vector2(p2.x, p2.y) * scale, COLOR_WHITE);
+			}
+			else
+			{
+				ancorns[i] = Vector2(p1.x, p1.y) * scale;
+				render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
+			}
 		}
-
-		return;
 	}
 
+	p1 = Vector(0.0f, 0.0f, 0.0f);
+	p1 = p1 * trans2D->mat_global;
+	p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+
+	origin = Vector2(p1.x, p1.y) * scale;
+
+	render.DebugSprite(center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
+}
+
+void Gizmo::RenderTrans3D()
+{
 	Matrix view;
-	render.GetTransform(Render::View, view );
+	render.GetTransform(Render::View, view);
 
 	Matrix view_proj;
-	render.GetTransform(Render::Projection, view_proj );
+	render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
-	
+
 	Vector pos = transform.Pos();
-	float z=pos.x*view_proj._13+pos.y*view_proj._23+pos.z*view_proj._33+view_proj._43;    
+	float z = pos.x*view_proj._13 + pos.y*view_proj._23 + pos.z*view_proj._33 + view_proj._43;
 
 	scale = 0.1f * (1.0f + z);
 	scale = fabs(scale);
@@ -635,69 +707,59 @@ void Gizmo::Render()
 		DrawCircle(0);
 		DrawCircle(1);
 		DrawCircle(2);
-	} 
+	}
 }
 
-void Gizmo::OnMouseMove(float mx, float my)
+void Gizmo::Render()
 {
-	if (!enabled || !allow_transform) return;
+	if (!enabled) return;
 
-	if (mousedPressed)
+	if (IsTrans2D())
 	{
-		MouseMove(mx - prev_ms.x, my - prev_ms.y);
-		prev_ms.x = mx;
-		prev_ms.y = my;
+		RenderTrans2D();
 	}
 	else
 	{
-		MouseProcess(mx, my);
-	}
+		RenderTrans3D();
+	} 
 }
 
-void Gizmo::OnLeftMouseDown(float mx, float my)
+void Gizmo::OnMouseMove(Vector2 ms)
 {
-	if (selAxis != -1 || trans2D)
+	if (!enabled) return;
+
+	if (mousedPressed)
 	{
-		if (trans2D)
+		if (IsTrans2D())
 		{
-			selAxis = -1;
-
-			for (int i = 0; i<8; i++)
-			{
-				if (ancorns[i].x - 7 < mx && mx < ancorns[i].x + 7 &&
-				    ancorns[i].y - 7 < my && my < ancorns[i].y + 7)
-				{
-					//SetCursor(cr_resize);
-					selAxis = i + 1;
-					break;
-				}
-			}
-
-			if (origin.x - 7 < mx && mx < origin.x + 7 &&
-				origin.y - 7 < my && my < origin.y + 7)
-			{
-				selAxis = 10;
-				moved_origin = origin;
-			}
-
-			if (selAxis == -1)
-			{
-				if (IsInsideTriangle(Vector2(mx, my), ancorns[0], ancorns[1], ancorns[2]) ||
-				    IsInsideTriangle(Vector2(mx, my), ancorns[0], ancorns[2], ancorns[3]))
-				{
-					//SetCursor(cr_move);
-					selAxis = 0;
-				}
-				else
-				{
-					//SetCursor(cr_rotate);
-					selAxis = 9;
-				}
-			}
+			MoveTrans2D(ms - prev_ms);
 		}
+		else
+		{
+			MoveTrans3D(ms - prev_ms);
+		}
+	}
+	else
+	{
+		selAxis = -1;
 
-		prev_ms.x = mx;
-		prev_ms.y = my;
+		if (IsTrans2D())
+		{
+			CheckSelectionTrans2D(ms);
+		}
+		else
+		{
+			CheckSelectionTrans3D(ms);
+		}
+	}
+
+	prev_ms = ms;
+}
+
+void Gizmo::OnLeftMouseDown()
+{
+	if (selAxis != -1)
+	{
 		mousedPressed = true;
 	}
 }

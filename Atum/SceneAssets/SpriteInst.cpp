@@ -308,15 +308,12 @@ void SpriteInst::SetEditMode(bool ed)
 
 void SpriteInst::SetGizmo()
 {
-	Gizmo::inst->trans2D = sel_inst != -1 ? &trans : nullptr;
-
 	if (sel_inst != -1)
 	{
 		trans.pos = instances[sel_inst].pos;
-		Gizmo::inst->pos2d = instances[sel_inst].pos;
 	}
 
-	Gizmo::inst->enabled = (sel_inst != -1);
+	Gizmo::inst->SetTrans2D(sel_inst != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
 }
 
 int SpriteInst::GetInstCount()

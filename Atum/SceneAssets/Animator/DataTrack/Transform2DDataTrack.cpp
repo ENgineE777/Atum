@@ -90,22 +90,18 @@ void Transform2DDataTrack::StartEditKey(int key)
 	{
 		wigets->blend = &keys[key].blend;
 		wigets->StartEditKey(&values[key]);
-		Gizmo::inst->enabled = true;
-		Gizmo::inst->trans2D = &values[key];
-		Gizmo::inst->pos2d = values[key].pos;
+		Gizmo::inst->SetTrans2D(&values[key]);
 	}
 }
 
 void Transform2DDataTrack::StopEditKey()
 {
 	edited_key = -1;
-	Gizmo::inst->enabled = false;
+	Gizmo::inst->Disable();
 
 	if (wigets)
 	{
 		wigets->StopEditKey();
-		Gizmo::inst->enabled = false;
-		Gizmo::inst->trans2D = nullptr;
 	}
 }
 

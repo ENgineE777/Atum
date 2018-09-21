@@ -20,17 +20,6 @@ class Editor : public Object, public EUIWidget::Listener
 		MenuSaveID = 1002,
 		MenuSaveAsID = 1003,
 		MenuExitID = 1004,
-
-		ViewportID = 1500,
-		MoveBtnID = 1501,
-		RotateBtnID = 1502,
-		GlobalBtnID = 1503,
-		LocalBtnID = 1504,
-		PlayBtnID = 1505,
-		GameViewportID = 1506,
-		SceneListID = 1508,
-		AssetListID = 1509,
-
 		MenuSceneObjectID = 10000,
 		MenuSceneAssetID = 15000,
 		MenuLastSceneID = 19999
@@ -53,11 +42,20 @@ class Editor : public Object, public EUIWidget::Listener
 
 	EUIWidget* popup_parent = nullptr;
 	EUIMenu* popup_menu = nullptr;
+	EUIButton* moveModeBtn = nullptr;
+
+	EUIPanel* trans3d_gizmo = nullptr;
+
 	EUIButton* moveBtn = nullptr;
 	EUIButton* rotateBtn = nullptr;
 	EUIButton* globalBtn = nullptr;
 	EUIButton* localBtn = nullptr;
-	EUIButton* mode2DBtn = nullptr;
+
+	EUIPanel* trans2d_gizmo = nullptr;
+
+	EUIEditBox* x_align = nullptr;
+	EUIEditBox* y_align = nullptr;
+
 	EUIButton* playBtn = nullptr;
 	EUICategories* objCat = nullptr;
 	SceneObjCmpWidget objCmpWgt;
@@ -109,6 +107,7 @@ public:
 
 	static void LogToOutputBox(const char* name, const char* text);
 	static void AddOutputBox(const char* name);
+	void ShowGizmoControls(int mode);
 	void ClearScene();
 	void UpdateGizmoToolbar();
 	void SelectObject(SceneObject* obj, bool is_asset);
@@ -135,6 +134,7 @@ public:
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnRightMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnEditBoxStopEditing(class EUIEditBox* sender) override;
 	void OnMenuItem(EUIMenu* sender, int id) override;
 	void OnUpdate(EUIWidget* sender) override;
 	void OnResize(EUIWidget* sender) override;

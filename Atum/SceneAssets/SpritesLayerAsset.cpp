@@ -96,15 +96,12 @@ void SpritesLayerAsset::OnLeftMouseDown(Vector2 ms)
 
 void SpritesLayerAsset::SetGizmo()
 {
-	Gizmo::inst->trans2D = sel_sprite != -1 ? &trans : nullptr;
-
 	if (sel_sprite != -1)
 	{
 		trans.size = sprites[sel_sprite].size;
 		trans.pos = sprites[sel_sprite].pos;
-		Gizmo::inst->pos2d = sprites[sel_sprite].pos;
 	}
 
-	Gizmo::inst->enabled = (sel_sprite != -1);
+	Gizmo::inst->SetTrans2D(sel_sprite != -1 ? &trans : nullptr);
 }
 #endif

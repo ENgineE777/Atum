@@ -73,13 +73,10 @@ void SpriteTileAsset::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		Gizmo::inst->enabled = true;
-		Gizmo::inst->trans2D = &trans;
-		Gizmo::inst->pos2d = trans.pos;
+		Gizmo::inst->SetTrans2D(&trans);
 	}
 	else
 	{
-		Gizmo::inst->trans2D = nullptr;
 		SpriteWindow::StopEdit();
 	}
 }

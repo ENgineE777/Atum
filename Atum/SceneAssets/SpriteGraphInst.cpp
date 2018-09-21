@@ -188,8 +188,6 @@ void SpriteGraphInst::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
 
-	Gizmo::inst->trans2D = ed ? &trans : nullptr;
-	Gizmo::inst->pos2d = trans.pos;
-	Gizmo::inst->enabled = ed;
+	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move);
 }
 #endif

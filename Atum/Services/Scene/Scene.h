@@ -26,6 +26,9 @@ public:
 	};
 
 	Vector2 camera_pos = 0.0f;
+	int move_mode = 0;
+	int gizmo2d_align_x = 0;
+	int gizmo2d_align_y = 0;
 
 private:
 	std::vector<SceneObject*> objects;

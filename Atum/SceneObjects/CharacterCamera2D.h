@@ -28,7 +28,7 @@ public:
 	void Init() override;
 	void Update(float dt);
 
-	void Play() override;
+	bool Play() override;
 	void Stop() override;
 
 	void Reset();

@@ -48,7 +48,7 @@ public:
 	void Update(float dt);
 	void Draw(float dt);
 
-	void Play() override;
+	bool Play() override;
 	void Stop() override;
 
 	SimpleCharacter2D* FindTarget();

@@ -83,6 +83,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\tankclient.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Track2DComp.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Triger2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\VirtualJoystick.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Controls\Controls.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Core\Core.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\tankclient.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Track2DComp.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Triger2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\VirtualJoystick.h" />
     <ClInclude Include="..\..\..\Atum\Services\Controls\Controls.h" />
     <ClInclude Include="..\..\..\Atum\Services\Core\Core.h" />

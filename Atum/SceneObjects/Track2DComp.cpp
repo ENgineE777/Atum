@@ -52,7 +52,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	if (!IsEditMode() && !object->IsEditMode())
 #endif
 	{
-		if (!sprite_inst->instances[index].visible)
+		if (!sprite_inst->instances[index].IsVisible())
 		{
 			return;
 		}
@@ -171,7 +171,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		}
 		else
 		{
-			sprite_inst->instances[index].pos = pos;
+			sprite_inst->instances[index].SetPos(pos);
 		}
 	}
 }

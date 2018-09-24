@@ -294,6 +294,12 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	Vector2 size = trans->size * scale;
 
+	if (local_trans.Pos().x + pos.x + size.x < 0 || local_trans.Pos().x + pos.x > render.GetDevice()->GetWidth() ||
+		local_trans.Pos().y + pos.y + size.y < 0 || local_trans.Pos().y + pos.y > render.GetDevice()->GetHeight())
+	{
+		return;
+	}
+
 	clr *= sprite->color;
 
 	if (!sprite->texture)

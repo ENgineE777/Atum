@@ -42,6 +42,14 @@ private:
 
 	ScriptContext* script = nullptr;
 	PhysScene* pscene = nullptr;
+
+	class ContactListener : public b2ContactListener
+	{
+		void BeginContact(b2Contact* contact) override;
+		void EndContact(b2Contact* contact) override;
+	};
+
+	ContactListener contact_listiner;
 	b2World* pscene2D = nullptr;
 
 	void DelFromGroup(Group& group, SceneObject* obj);
@@ -73,7 +81,7 @@ public:
 	void Load(const char* name);
 	void Save(const char* name);
 	void Execute(float dt);
-	void Play();
+	bool Play();
 	void Stop();
 	bool Playing();
 

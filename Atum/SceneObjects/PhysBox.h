@@ -25,6 +25,6 @@ public:
 	void Init() override;
 	void Draw(float dt);
 
-	void Play();
+	bool Play();
 	void Stop();
 };

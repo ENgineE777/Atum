@@ -2,10 +2,6 @@
 #include "SceneObjects/RenderLevels.h"
 #include "Services/Core/Core.h"
 
-#include "SceneAssets/UI/UIViewInstanceAsset.h"
-#include "SceneAssets/UI/UIButtonAsset.h"
-#include "SceneAssets/UI/UILabelAsset.h"
-
 #include "Services/Script/Libs/scriptarray.h"
 
 CLASSREG(SceneObject, SceneScript, "Script")
@@ -53,10 +49,6 @@ STRING_PROP(SceneScript, main_class, "", "Prop", "main_class")
 CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
 #endif
 META_DATA_DESC_END()
-
-asIScriptModule* mod = nullptr;
-asITypeInfo* class_type = nullptr;
-asIScriptObject* class_inst = nullptr;
 
 void SceneScript::Node::Load(JSONReader& loader)
 {
@@ -153,8 +145,6 @@ void SceneScript::Init()
 
 void SceneScript::Load(JSONReader& loader)
 {
-	UIViewInstance* uiinst = (UIViewInstance*)owner->FindByName("Menu", false);
-
 	GetMetaData()->Prepare(this);
 	GetMetaData()->Load(loader);
 
@@ -229,7 +219,7 @@ void SceneScript::SetName(const char* set_name)
 	}
 }
 
-void SceneScript::Play()
+bool SceneScript::Play()
 {
 	string filename;
 	GetScriptFileName(GetUID(), filename);
@@ -238,7 +228,7 @@ void SceneScript::Play()
 
 	if (!file.Load(filename.c_str()))
 	{
-		return;
+		return false;
 	}
 
 	mod = scripts.engine->GetModule(0, asGM_ALWAYS_CREATE);
@@ -250,12 +240,12 @@ void SceneScript::Play()
 
 	if (count == 0)
 	{
-		return;
+		return false;
 	}
 
 	if (mod->GetObjectTypeCount() == 0)
 	{
-		return;
+		return false;
 	}
 
 	if (main_class.c_str())
@@ -273,7 +263,7 @@ void SceneScript::Play()
 
 		if (!class_type)
 		{
-			return;
+			return false;
 		}
 	}
 	else
@@ -311,11 +301,40 @@ void SceneScript::Play()
 		{
 			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
-			const char* decls[] = { "", "int", "string&in", "float"};
-			char prototype[256];
-			StringUtils::Printf(prototype, 256, "void %s(%s)", node_method->name.c_str(), decls[node_method->param_type]);
+			if (node_method->param_type == 3)
+			{
+				char prototype[256];
+				StringUtils::Printf(prototype, 256, "void %s(float)", node_method->name.c_str());
 
-			node_method->method = class_type->GetMethodByDecl(prototype);
+				node_method->method = class_type->GetMethodByDecl(prototype);
+			}
+			else
+			{
+				for (auto link : node_method->links)
+				{
+					NodeSceneObject* scene_prop = (NodeSceneObject*)nodes[link->node];
+
+					if (!scene_prop->object)
+					{
+						scene_prop->object = owner->FindByUID(scene_prop->object_uid, scene_prop->object_child_uid, false);
+					}
+
+					if (scene_prop->object && scene_prop->object->script_callbacks.size() > 0)
+					{
+						if (node_method->param_type == 1)
+						{
+							scene_prop->object->script_callbacks[0].SetIntParam(atoi(link->param.c_str()));
+						}
+						else
+						if (node_method->param_type == 2)
+						{
+							scene_prop->object->script_callbacks[0].SetStringParam(link->param);
+						}
+
+						scene_prop->object->script_callbacks[0].Prepare(class_type, class_inst, node_method->name.c_str());
+					}
+				}
+			}
 		}
 		else
 		{
@@ -327,6 +346,8 @@ void SceneScript::Play()
 			}
 		}
 	}
+
+	return true;
 }
 
 void SceneScript::Work(float dt)
@@ -350,42 +371,6 @@ void SceneScript::Work(float dt)
 				if (Script()->ctx->Execute() < 0)
 				{
 					core.Log("ScriptErr", "Error occured in call of '%s'", node_method->name.c_str());
-				}
-			}
-			else
-			{
-				for (auto link : node_method->links)
-				{
-					NodeSceneObject* scene_prop = (NodeSceneObject*)nodes[link->node];
-					UIButtonAssetInst* btn = (UIButtonAssetInst*)scene_prop->object;
-
-					if (btn->fired)
-					{
-						if (node_method->method)
-						{
-							LinkToMethod* node_link = (LinkToMethod*)link;
-							Script()->ctx->Prepare(node_method->method);
-
-							if (node_method->param_type == 1)
-							{
-								int32_t value = atoi(node_link->param.c_str());
-								Script()->ctx->SetArgDWord(0, value);
-							}
-							else
-							if (node_method->param_type == 2)
-							{
-								Script()->ctx->SetArgObject(0, &node_link->param);
-							}
-						
-							Script()->ctx->SetObject(class_inst);
-							if (Script()->ctx->Execute() < 0)
-							{
-								core.Log("ScriptErr", "Error occured in call of '%s'", node_method->name.c_str());
-							}
-						}
-
-						btn->fired = 0;
-					}
 				}
 			}
 		}
@@ -550,7 +535,7 @@ void SceneScript::OnLeftMouseDown(Vector2 ms)
 	if (sel_node != -1 && sel_link == -1)
 	{
 		in_drag = true;
-		link_drag = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active);
+		link_drag = controls.DebugKeyPressed("KEY_LALT", Controls::Active);
 		ms_pos = ms;
 	}
 

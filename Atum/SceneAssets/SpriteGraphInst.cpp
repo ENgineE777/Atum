@@ -4,6 +4,7 @@
 #include "Services/Render/Render.h"
 #include "SceneObjects/RenderLevels.h"
 #include "Phys2DComp.h"
+#include "SpriteGraphInst.h"
 
 CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
@@ -26,17 +27,23 @@ void SpriteGraphInst::BindClassToScript()
 	scripts.engine->RegisterObjectMethod(script_class_name, "void SetLinearVelocity(float x, float y)", WRAP_MFN(SpriteGraphInst, SetLinearVelocity), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(SpriteGraphInst, ApplyLinearImpulse), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColissionNormal(float x, float y)", WRAP_MFN(SpriteGraphInst, CheckColissionNormal), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float x, float y)", WRAP_MFN(SpriteGraphInst, Move), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
 {
 	RenderTasks(false)->AddTask(RenderLevels::Sprites, this, (Object::Delegate)&SpriteGraphInst::Draw);
+
+	script_callbacks.push_back(ScriptCallback("OnContact", "int ", "%i%s%i"));
 }
 
 void SpriteGraphInst::Load(JSONReader& loader)
 {
 	SceneObjectInst::Load(loader);
-	
+}
+
+void SpriteGraphInst::ApplyProperties()
+{
 	if (asset)
 	{
 		((SpriteGraphAsset*)asset)->PrepareInstance(&graph_instance);
@@ -45,10 +52,12 @@ void SpriteGraphInst::Load(JSONReader& loader)
 	}
 }
 
-void SpriteGraphInst::Play()
+bool SpriteGraphInst::Play()
 {
 	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
 	trans.offset = graph_instance.cur_node->asset->trans.offset;
+
+	return true;
 }
 
 void SpriteGraphInst::Draw(float dt)
@@ -93,7 +102,7 @@ b2Body* SpriteGraphInst::HackGetBody()
 
 		if (phys_comp)
 		{
-			return phys_comp->bodies[0];
+			return phys_comp->bodies[0].body;
 		}
 	}
 
@@ -166,6 +175,22 @@ bool SpriteGraphInst::CheckColissionNormal(float x, float y)
 	}
 
 	return false;
+}
+
+void SpriteGraphInst::Move(float x, float y)
+{
+	b2Body* body = HackGetBody();
+
+	if (body)
+	{
+		b2Vec2 pos(0.0f, 0.0f);
+		body->SetLinearVelocity(pos);
+
+		trans.pos = { x, y };
+		pos.x = x / 50.0f;
+		pos.y = y / 50.0f;
+		body->SetTransform(pos, 0.0f);
+	}
 }
 
 #ifdef EDITOR

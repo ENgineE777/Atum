@@ -44,6 +44,6 @@ public:
 	void ShRender(float dt);
 	void Render(Program* prg);
 
-	void Play();
+	bool Play();
 	void Stop();
 };

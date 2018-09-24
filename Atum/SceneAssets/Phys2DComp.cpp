@@ -19,6 +19,7 @@ ENUM_PROP(Phys2DComp, body_type, 0, "Phys2D", "body_type")
 ENUM_END
 FLOAT_PROP(Phys2DComp, density, 1.25f, "Phys2D", "density")
 FLOAT_PROP(Phys2DComp, friction, 0.25f, "Phys2D", "friction")
+BOOL_PROP(Phys2DComp, allow_rotate, true, "Phys2D", "allow_rotate")
 BOOL_PROP(Phys2DComp, use_object_size, true, "Phys2D", "use_object_size")
 FLOAT_PROP(Phys2DComp, width, 64, "Phys2D", "width")
 FLOAT_PROP(Phys2DComp, height, 64, "Phys2D", "height")
@@ -54,7 +55,7 @@ void Phys2DCompInst::Play()
 	}
 }
 
-void Phys2DCompInst::CreatBody(int index, Vector2 pos, Vector2 size, Vector2 center)
+void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)
 {
 	b2BodyDef bodyDef;
 
@@ -81,8 +82,21 @@ void Phys2DCompInst::CreatBody(int index, Vector2 pos, Vector2 size, Vector2 cen
 	fixtureDef.friction = ((Phys2DComp*)asset_comp)->friction;
 	fixtureDef.shape = &box;
 
-	bodies[index] = object->PScene2D()->CreateBody(&bodyDef);
-	bodies[index]->CreateFixture(&fixtureDef);
+	bodies[index].index = index;
+	bodies[index].object = object;
+	bodies[index].body = object->PScene2D()->CreateBody(&bodyDef);
+	bodies[index].body->CreateFixture(&fixtureDef);
+	bodies[index].body->SetUserData(&bodies[index]);
+
+	if (!allow_rotate)
+	{
+		bodies[index].body->SetFixedRotation(true);
+	}
+
+	if (!visible)
+	{
+		bodies[index].body->SetActive(false);
+	}
 }
 
 template<typename T>
@@ -107,13 +121,10 @@ void Phys2DCompInst::Play(T* sprite_inst)
 
 	for (int index = 0; index < bodies.size(); index++)
 	{
-		CreatBody(index, sprite_inst->instances[index].pos * scale, size, center);
+		CreatBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
 	}
 
-	if (body_type != Phys2DComp::BodyType::StaticBody)
-	{
-		object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
-	}
+	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
 }
 
 void Phys2DCompInst::PlayGraphInst(SpriteGraphInst* graph_inst)
@@ -131,22 +142,19 @@ void Phys2DCompInst::PlayGraphInst(SpriteGraphInst* graph_inst)
 	                   size.y * (0.5f - graph_inst->trans.offset.y) * scale };
 	size *= 0.5f * scale;
 
-	CreatBody(0, graph_inst->trans.pos * scale, size, center);
+	CreatBody(0, 1, graph_inst->trans.pos * scale, size, center, comp->allow_rotate);
 
-	if (body_type != Phys2DComp::BodyType::StaticBody)
-	{
-		object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
-		bodies[0]->SetFixedRotation(true);
-	}
+	object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
+	bodies[0].body->SetFixedRotation(true);
 }
 
 void Phys2DCompInst::Stop()
 {
-	for (auto body : bodies)
+	for (auto& body : bodies)
 	{
-		if (body)
+		if (body.body)
 		{
-			object->PScene2D()->DestroyBody(body);
+			object->PScene2D()->DestroyBody(body.body);
 		}
 	}
 
@@ -174,27 +182,31 @@ void Phys2DCompInst::UpdateInstances(float dt)
 template<typename T>
 void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 {
-	if (body_type == Phys2DComp::BodyType::KineticBody)
+	for (int index = 0; index < bodies.size(); index++)
 	{
-		for (int index = 0; index < bodies.size(); index++)
+		if (bodies[index].body)
 		{
-			if (bodies[index])
+			if (bodies[index].body->IsActive() != (sprite_inst->instances[index].IsVisible()))
 			{
-				bodies[index]->SetTransform({ sprite_inst->instances[index].pos.x / 50.0f, sprite_inst->instances[index].pos.y / 50.0f }, 0.0f);
-			}
-		}
-	}
-	else
-	if (body_type == Phys2DComp::BodyType::DynamicBody)
-	{
-		for (int index = 0; index < bodies.size(); index++)
-		{
-			if (bodies[index])
-			{
-				b2Transform trasn = bodies[index]->GetTransform();
+				bodies[index].body->SetActive(sprite_inst->instances[index].IsVisible());
 
-				sprite_inst->instances[index].pos.x = trasn.p.x * 50.0f;
-				sprite_inst->instances[index].pos.y = trasn.p.y * 50.0f;
+				if (sprite_inst->instances[index].IsVisible())
+				{
+					Vector2 pos = sprite_inst->instances[index].GetPos();
+					bodies[index].body->SetTransform({ pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
+				}
+			}
+
+			if (body_type == Phys2DComp::BodyType::KineticBody)
+			{
+				Vector2 pos = sprite_inst->instances[index].GetPos();
+				bodies[index].body->SetTransform( { pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
+			}
+			else
+			if (body_type == Phys2DComp::BodyType::DynamicBody)
+			{
+				b2Transform trasn = bodies[index].body->GetTransform();
+				sprite_inst->instances[index].SetPos({ trasn.p.x * 50.0f, trasn.p.y * 50.0f });
 			}
 		}
 	}
@@ -202,9 +214,9 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 
 void Phys2DCompInst::UpdateGraphInst(SpriteGraphInst* graph_inst)
 {
-	if (bodies[0])
+	if (bodies[0].body)
 	{
-		b2Transform trasn = bodies[0]->GetTransform();
+		b2Transform trasn = bodies[0].body->GetTransform();
 
 		graph_inst->trans.pos.x = trasn.p.x * 50.0f;
 		graph_inst->trans.pos.y = trasn.p.y * 50.0f;

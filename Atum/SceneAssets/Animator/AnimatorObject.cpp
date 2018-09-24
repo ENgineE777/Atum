@@ -55,7 +55,7 @@ void AnimatorObject::Work(float dt)
 	}
 }
 
-void AnimatorObject::Play()
+bool AnimatorObject::Play()
 {
 	curTime = 0.0f;
 	SceneObject::Play();
@@ -65,6 +65,8 @@ void AnimatorObject::Play()
 	{
 		animator->Reset();
 	}
+
+	return true;
 }
 
 void AnimatorObject::Stop()

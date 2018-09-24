@@ -56,7 +56,7 @@ public:
 
 	void AddIsntance(int id, bool  is_contralable);
 
-	void Play();
+	bool Play();
 	void Stop();
 	void Update(float dt);
 

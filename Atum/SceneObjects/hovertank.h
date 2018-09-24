@@ -75,7 +75,7 @@ public:
 	bool Is3DObject() override;
 	void Init() override;
 
-	void Play() override;
+	bool Play() override;
 	void Stop() override;
 	void Update(float dt);
 	void AddHover(Matrix& mat, Vector offset);

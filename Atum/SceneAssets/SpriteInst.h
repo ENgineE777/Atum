@@ -17,9 +17,25 @@ public:
 	{
 		META_DATA_DECL(Instance)
 
+		int index = 0;
+		Sprite::FrameState frame_state;
+
+		void SetObject(asIScriptObject* object, vector<int>* mapping);
+		void SetPos(Vector2 pos);
+		Vector2 GetPos();
+		void SetFlipped(int horz_flipped);
+		int  GetFlipped();
+		void SetVisible(int visible);
+		bool IsVisible();
+
+		Color color;
+		float alpha = 1.0f;
+
+	private:
+		vector<int>* mapping = nullptr;
+		asIScriptObject* object = nullptr;
 		Vector2 pos;
 		int     visible = 1;
-		Sprite::FrameState frame_state;
 	};
 
 	vector<int> mapping;
@@ -33,11 +49,14 @@ public:
 	void InjectIntoScript(const char* type, void* property) override;
 
 	void Init() override;
-	void Draw(float dt);
+	virtual void Draw(float dt);
 
-	void Play() override;
+	bool Play() override;
 
+	b2Body* HackGetBody(int index);
 	void AddInstance(float x, float y);
+	void ApplyLinearImpulse(int index, float x, float y);
+
 #ifdef EDITOR
 	int sel_inst = -1;
 	bool CheckSelection(Vector2 ms) override;

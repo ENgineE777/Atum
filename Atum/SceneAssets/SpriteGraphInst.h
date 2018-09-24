@@ -19,7 +19,8 @@ public:
 
 	void Init() override;
 	void Load(JSONReader& loader) override;
-	void Play() override;
+	void ApplyProperties() override;
+	bool Play() override;
 	void Draw(float dt);
 	void ActivateLink(string& link);
 	void GotoNode(string& node);
@@ -28,6 +29,7 @@ public:
 	void ApplyLinearImpulse(float x, float y);
 	void SetLinearVelocity(float x, float y);
 	bool CheckColissionNormal(float x, float y);
+	void Move(float x, float y);
 	b2Body* HackGetBody();
 
 #ifdef EDITOR

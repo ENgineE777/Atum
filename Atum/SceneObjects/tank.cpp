@@ -53,7 +53,7 @@ bool Tank::Is3DObject()
 	return true;
 }
 
-void Tank::Play()
+bool Tank::Play()
 {
 	time = 0.0f;
 
@@ -83,6 +83,8 @@ void Tank::Play()
 	}
 
 	showDebug = false;
+
+	return true;
 }
 
 void Tank::Stop()

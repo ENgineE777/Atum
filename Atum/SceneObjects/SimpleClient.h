@@ -23,6 +23,6 @@ public:
 	bool Is3DObject() override;
 
 	void Init() override;
-	void Play() override;
+	bool Play() override;
 	void Work(float dt);
 };

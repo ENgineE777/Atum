@@ -28,10 +28,29 @@ public:
 		Active
 	};
 
-protected:
+	class ScriptCallback
+	{
+		asIScriptObject* class_inst = nullptr;
+		asIScriptFunction* method = nullptr;
+		const char* name = nullptr;
+		const char* ret = nullptr;
+		const char* decl = nullptr;
+		int param_type = 0;
+		int int_param = 0;
+		string* str_param = nullptr;
 
-	TaskExecutor::SingleTaskPool* taskPool = nullptr;
-	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
+	public:
+		ScriptCallback(const char* name, const char* ret, const char* decl);
+		inline const char* GetName() { return name; };
+		void SetIntParam(int param);
+		void SetStringParam(string& param);
+		void Prepare(asITypeInfo* class_type, asIScriptObject* class_inst, const char* method_name);
+		bool Call(ScriptContext* context, ...);
+	};
+
+	vector<ScriptCallback> script_callbacks;
+
+protected:
 	
 	Scene* owner = nullptr;
 	std::string name;
@@ -40,6 +59,8 @@ protected:
 	Vector2 cam2d_pos = 0.0f;
 #ifdef EDITOR
 	bool edited = false;
+	TaskExecutor::SingleTaskPool* taskPool = nullptr;
+	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 #endif
 
 public:
@@ -79,7 +100,7 @@ public:
 	virtual void Save(JSONWriter& writer);
 	virtual TaskExecutor::SingleTaskPool* Tasks(bool edtitor);
 	virtual TaskExecutor::SingleTaskPool* RenderTasks(bool editor);
-	virtual void Play();
+	virtual bool Play();
 	virtual void Stop();
 	bool Playing();
 	Scene* GetScene();
@@ -93,8 +114,11 @@ public:
 	virtual void BindClassToScript();
 	virtual void InjectIntoScript(const char* type, void* property);
 
+	virtual bool OnContact(int index, SceneObject* contact_object, int contact_index);
+
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual bool IsEditorTasks();
 	virtual bool IsAsset();
 	virtual bool CheckSelection(Vector2 ms);
 	virtual bool AddedToTreeByParent();

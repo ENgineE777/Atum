@@ -21,6 +21,6 @@ public:
 	virtual void Init();
 	void Work(float dt);
 
-	void Play();
+	bool Play();
 	void Stop();
 };

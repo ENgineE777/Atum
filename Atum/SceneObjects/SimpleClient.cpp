@@ -24,10 +24,12 @@ void SimpleClient::Init()
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleClient::Work);
 }
 
-void SimpleClient::Play()
+bool SimpleClient::Play()
 {
 	//client.listiner = &listiner;
 	client.Connect("127.0.0.1", 6881);
+
+	return true;
 }
 
 void SimpleClient::Work(float dt)

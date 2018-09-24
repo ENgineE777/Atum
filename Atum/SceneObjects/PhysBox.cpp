@@ -40,10 +40,12 @@ void PhysBox::Draw(float dt)
 	render.DebugBox(transform, color, Vector(sizeX, sizeY, sizeZ));
 }
 
-void PhysBox::Play()
+bool PhysBox::Play()
 {
 	SceneObject::Play();
 	obj = PScene()->CreateBox(Vector(sizeX * 0.5f, sizeY * 0.5f, sizeZ * 0.5f), Trans(), isStatic);
+
+	return true;
 }
 
 void PhysBox::Stop()

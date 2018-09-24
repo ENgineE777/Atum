@@ -17,9 +17,11 @@ void SimpleServer::Init()
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&SimpleServer::Blink, 1.0f);
 }
 
-void SimpleServer::Play()
+bool SimpleServer::Play()
 {
 	server.Start(NULL, 6881);
+
+	return true;
 }
 
 void SimpleServer::Blink(float dt)

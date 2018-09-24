@@ -421,8 +421,11 @@ void SpriteGraphAsset::Delete()
 
 	if (sel_link != -1)
 	{
-		nodes[sel_node].links.erase(nodes[sel_node].links.begin() + sel_link);
+		int prev_sel_node = sel_node;
+		int prev_sel_link = sel_link;
+
 		ShowProperties(false);
+		nodes[prev_sel_node].links.erase(nodes[prev_sel_node].links.begin() + prev_sel_link);
 		return;
 	}
 
@@ -448,9 +451,9 @@ void SpriteGraphAsset::Delete()
 		}
 	}
 
-	nodes.erase(nodes.begin() + sel_node);
-
+	int prev_sel_node = sel_node;
 	ShowProperties(false);
+	nodes.erase(nodes.begin() + prev_sel_node);
 }
 
 void SpriteGraphAsset::MakeNodeAsDefault()

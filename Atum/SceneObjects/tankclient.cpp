@@ -34,8 +34,9 @@ void TankClient::ApplyProperties()
 	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
 }
 
-void TankClient::Play()
+bool TankClient::Play()
 {
+	return true;
 }
 
 void TankClient::Stop()

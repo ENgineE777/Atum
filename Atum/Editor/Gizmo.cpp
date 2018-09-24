@@ -18,7 +18,10 @@ void Gizmo::Init()
 void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions)
 {
 	trans2D = set_trans2D;
-	pos2d = trans2D->pos;
+	if (trans2D)
+	{
+		pos2d = trans2D->pos;
+	}
 	trans2D_actions = actions;
 	enabled = (trans2D != nullptr);
 }

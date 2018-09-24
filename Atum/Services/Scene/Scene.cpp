@@ -3,6 +3,75 @@
 #include "SceneObject.h"
 #include "SceneAsset.h"
 
+#include "SceneAssets/Phys2DComp.h"
+#include "SceneAssets/SpriteGraphInst.h"
+#include "SceneAssets/SpriteInst.h"
+#include "Services/Script/Libs/scriptarray.h"
+
+int index_hack_show_message = 0;
+
+void Scene::ContactListener::BeginContact(b2Contact* contact)
+{
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
+		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
+
+		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
+		{
+			contact->SetEnabled(false);
+		}
+
+		if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
+		{
+			contact->SetEnabled(false);
+		}
+	}
+}
+
+void Scene::ContactListener::EndContact(b2Contact* contact)
+{
+	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
+
+	if (bodyUserDataA && bodyUserDataB)
+	{
+		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
+		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
+
+		if (StringUtils::IsEqual(udataA->object->GetName(), "Hero_Graph") ||
+			StringUtils::IsEqual(udataB->object->GetName(), "Hero_Graph"))
+		{
+			SpriteGraphInst* graph = dynamic_cast<SpriteGraphInst*>(udataA->object);
+			SceneObject* object = nullptr;
+			int index = udataB->index;
+
+			if (!graph)
+			{
+				object = static_cast<SceneObject*>(udataA->object);
+				index = udataA->index;
+
+				graph = dynamic_cast<SpriteGraphInst*>(udataB->object);
+			}
+			else
+			{
+				object = static_cast<SceneObject*>(udataB->object);
+			}
+
+			if (graph && object)
+			{
+				if (StringUtils::IsEqual(object->GetName(), "TestTrigger"))
+				{
+					index_hack_show_message--;
+				}
+			}
+		}
+	}
+}
+
 Scene::Scene()
 {
 	taskPool = NULL;
@@ -391,28 +460,36 @@ void Scene::Execute(float dt)
 	taskPool->Execute(dt);
 }
 
-void Scene::Play()
+bool Scene::Play()
 {
 	if (playing)
 	{
-		return;
+		return false;
 	}
 
 	playing = true;
 
 	script = scripts.CreateContext();
 	pscene = physics.CreateScene();
+
 	pscene2D = physics.CreateScene2D();
+	pscene2D->SetContactListener(&contact_listiner);
+	//pscene2D->SetContactFilter(&contact_filter);
 
 	for (auto object : objects)
 	{
-		object->Play();
+		if (!object->Play())
+		{
+			return false;
+		}
 
 		for (auto comp : object->components)
 		{
 			comp->Play();
 		}
 	}
+
+	return true;
 }
 
 void Scene::Stop()

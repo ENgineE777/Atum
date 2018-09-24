@@ -1,6 +1,7 @@
 
 #include "SceneObject.h"
 #include "SceneAsset.h"
+#include "Services/Core/Core.h"
 
 #ifdef EDITOR
 EUITreeView *  SceneObject::ed_asset_treeview = nullptr;
@@ -8,6 +9,187 @@ EUICategories* SceneObject::ed_obj_cat = nullptr;
 EUIMenu*       SceneObject::ed_popup_menu = nullptr;
 EUIPanel*      SceneObject::ed_vieport;
 #endif
+
+SceneObject::ScriptCallback::ScriptCallback(const char* set_name, const char* set_ret, const char* set_decl)
+{
+	name = set_name;
+	ret = set_ret;
+	decl = set_decl;
+}
+
+void SceneObject::ScriptCallback::SetIntParam(int param)
+{
+	param_type = 1;
+	int_param = param;
+}
+
+void SceneObject::ScriptCallback::SetStringParam(string& param)
+{
+	param_type = 2;
+	str_param = &param;
+}
+
+void SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObject* set_class_inst, const char* method_name)
+{
+	class_inst = set_class_inst;
+
+	char prototype[256];
+
+	StringUtils::Copy(prototype, 256, ret);
+	StringUtils::Cat(prototype, 256, " ");
+	StringUtils::Cat(prototype, 256, method_name);
+	StringUtils::Cat(prototype, 256, "(");
+
+	int index = 0;
+
+	bool fail = false;
+	int len = (int)strlen(decl);
+
+	while (decl[index] != 0)
+	{
+		if (decl[index] != '%' || index + 1 >= len)
+		{
+			fail = true;
+			break;
+		}
+
+		if (index > 0)
+		{
+			StringUtils::Cat(prototype, 256, ", ");
+		}
+
+		switch (decl[index + 1])
+		{
+			case 'i':
+			{
+				StringUtils::Cat(prototype, 256, "int");
+				break;
+			}
+			case 'f':
+			{
+				StringUtils::Cat(prototype, 256, "float");
+				break;
+			}
+			case 's':
+			{
+				StringUtils::Cat(prototype, 256, "string&in");
+				break;
+			}
+			default:
+			fail = true;
+		}
+
+		if (fail)
+		{
+			break;
+		}
+
+		index += 2;
+	}
+
+	if (param_type != 0)
+	{
+		if (len > 0)
+		{
+			StringUtils::Cat(prototype, 256, ", ");
+		}
+
+		if (param_type == 1)
+		{
+			StringUtils::Cat(prototype, 256, "int");
+		}
+		else
+		if (param_type == 2)
+		{
+			StringUtils::Cat(prototype, 256, "string&in");
+		}
+	}
+
+	StringUtils::Cat(prototype, 256, ")");
+
+	method = class_type->GetMethodByDecl(prototype);
+}
+
+bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
+{
+	if (!method || !class_inst)
+	{
+		return false;
+	}
+
+	context->ctx->Prepare(method);
+	context->ctx->SetObject(class_inst);
+
+	bool fail = false;
+	int len = (int)strlen(decl);
+
+	int count = (int)(len * 0.5f);
+	va_list args;
+	va_start(args, context);
+
+	string param;
+	int cur_arg = 0;
+
+	for (int index = 0; cur_arg < count; cur_arg++, index +=2)
+	{
+		if (decl[index] != '%' || index + 1 >= len)
+		{
+			fail = true;
+			break;
+		}
+
+		switch (decl[index + 1])
+		{
+			case 'i':
+			{
+				context->ctx->SetArgDWord(cur_arg, va_arg(args, int));
+				break;
+			}
+			case 'f':
+			{
+				context->ctx->SetArgFloat(cur_arg, va_arg(args, float));
+				break;
+			}
+			case 's':
+			{
+				param = va_arg(args, const char*);
+				context->ctx->SetArgObject(cur_arg, &param);
+				break;
+			}
+		default:
+			fail = true;
+		}
+
+		if (fail)
+		{
+			break;
+		}
+	}
+
+	va_end(args);
+
+	if (!fail)
+	{
+		if (param_type == 1)
+		{
+			context->ctx->SetArgDWord(cur_arg, int_param);
+		}
+		else
+		if (param_type == 2)
+		{
+			context->ctx->SetArgObject(cur_arg, str_param);
+		}
+
+		if (context->ctx->Execute() == 0)
+		{
+			return true;
+		}
+
+		core.Log("ScriptErr", "Error occured in call of '%s'", name);
+	}
+
+	return false;
+}
 
 void SceneObject::EnableTasks(bool enable)
 {
@@ -109,6 +291,7 @@ void SceneObject::Save(JSONWriter& writer)
 
 TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 {
+#ifdef EDITOR
 	if (editor)
 	{
 		if (!taskPool)
@@ -119,12 +302,14 @@ TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 
 		return taskPool;
 	}
+#endif
 
 	return owner->taskPool;
 }
 
 TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 {
+#ifdef EDITOR
 	if (editor)
 	{
 		if (!renderTaskPool)
@@ -135,6 +320,7 @@ TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 
 		return renderTaskPool;
 	}
+#endif
 
 	return owner->renderTaskPool;
 }
@@ -144,8 +330,9 @@ bool SceneObject::Playing()
 	return owner->playing;
 }
 
-void SceneObject::Play()
+bool SceneObject::Play()
 {
+	return true;
 }
 
 void SceneObject::Stop()
@@ -243,7 +430,28 @@ void SceneObject::InjectIntoScript(const char* type, void* property)
 	*(asPWORD*)(property) = (asPWORD)this;
 }
 
+bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index)
+{
+	for (auto& script_callabck : script_callbacks)
+	{
+		if (StringUtils::IsEqual(script_callabck.GetName(), "OnContact"))
+		{
+			if (script_callabck.Call(Script(), index, contact_object->GetName(), contact_index))
+			{
+				return (Script()->ctx->GetReturnDWord() > 0);
+			}
+		}
+	}
+
+	return false;
+}
+
 #ifdef EDITOR
+bool SceneObject::IsEditorTasks()
+{
+	return (taskPool != nullptr || renderTaskPool != nullptr);
+}
+
 bool SceneObject::IsAsset()
 {
 	return false;

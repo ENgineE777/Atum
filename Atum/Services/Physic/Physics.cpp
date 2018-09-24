@@ -14,7 +14,7 @@ extern "C"
 }
 #endif
 
-class FooDraw : public b2Draw
+class DebugDraw : public b2Draw
 {
 public:
 	void DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -49,7 +49,7 @@ public:
 	void DrawPoint(const b2Vec2& p, float32 size, const b2Color& color) {};
 };
 
-FooDraw foo_draw;
+DebugDraw debug_draw;
 
 void Physics::Init()
 {
@@ -126,9 +126,9 @@ b2World* Physics::CreateScene2D()
 {
 	b2Vec2 gravity(0.0f, 20.0f);
 	b2World* world2D = new b2World(gravity);
-	world2D->SetDebugDraw(&foo_draw);
+	world2D->SetDebugDraw(&debug_draw);
 
-	foo_draw.SetFlags(b2Draw::e_shapeBit);
+	debug_draw.SetFlags(b2Draw::e_shapeBit);
 
 	scenes2D.push_back(world2D);
 
@@ -158,7 +158,6 @@ void Physics::DestroyScene2D(b2World* scene)
 		}
 	}
 }
-
 
 void Physics::Update(float dt)
 {

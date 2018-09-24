@@ -82,7 +82,7 @@ void HoverTank::Init()
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&HoverTank::Update);
 }
 
-void HoverTank::Play()
+bool HoverTank::Play()
 {
 	Scene::Group& group = owner->GetGroup("Terrain");
 
@@ -196,6 +196,8 @@ void HoverTank::Play()
 
 	accum_dt = 0.0f;
 	showDebug = false;
+
+	return true;
 }
 
 void HoverTank::Stop()

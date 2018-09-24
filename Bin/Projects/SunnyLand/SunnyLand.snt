@@ -7,18 +7,53 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 28,
-			"name" : "CatRun",
+			"index_in_scene" : -1,
+			"name" : "Boss",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 38,
+			"name" : "ActivateBossTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 29,
+			"index_in_scene" : 35,
+			"name" : "CatBoss",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 36,
+			"name" : "DynCard",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 37,
+			"name" : "FakeCard",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : 28,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 30,
+			"index_in_scene" : 29,
 			"name" : "DiamondItem",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 30,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 33,
+			"name" : "DynBoxFly",
 			"type" : 1
 		},
 		{
@@ -27,13 +62,23 @@
 			"type" : 1
 		},
 		{
+			"index_in_scene" : 31,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 1,
-			"name" : "Hero_Graph",
+			"name" : "Hero",
 			"type" : 1
 		},
 		{
 			"index_in_scene" : 8,
 			"name" : "MovingBlock",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 49,
+			"name" : "OpposumRun",
 			"type" : 1
 		},
 		{
@@ -107,6 +152,66 @@
 			"type" : 2
 		},
 		{
+			"index_in_scene" : -1,
+			"name" : "Triggers",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 32,
+			"name" : "BridgeTrigger",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 45,
+			"name" : "RespawnActTrigger2",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 47,
+			"name" : "RespawnActTrigger3",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 48,
+			"name" : "RespawnActTrigger4",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 39,
+			"name" : "RespawnTrigger",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 40,
+			"name" : "RespawnTrigger2",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 41,
+			"name" : "RespawnTrigger3",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 42,
+			"name" : "RespawnTrigger4",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 43,
+			"name" : "RespawnTrigger5",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 44,
+			"name" : "RespawnTrigger6",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
 			"index_in_scene" : 23,
 			"name" : "BridgeBaseSprite",
 			"type" : 1
@@ -114,6 +219,11 @@
 		{
 			"index_in_scene" : 24,
 			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 34,
+			"name" : "BridgeRowSpriteDyn",
 			"type" : 1
 		},
 		{
@@ -144,6 +254,11 @@
 		{
 			"index_in_scene" : 16,
 			"name" : "LeftHangSprite",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 46,
+			"name" : "RespawnPoints",
 			"type" : 1
 		},
 		{
@@ -264,6 +379,21 @@
 			"type" : 0
 		},
 		{
+			"index_in_scene" : 38,
+			"name" : "CatAttack",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 39,
+			"name" : "CatGraph",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 37,
+			"name" : "CatIdle",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : 23,
 			"name" : "CatRun",
 			"type" : 1
@@ -330,6 +460,21 @@
 		},
 		{
 			"index_in_scene" : -1,
+			"name" : "Opposum",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 42,
+			"name" : "OpposumRun",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
 			"name" : "",
 			"type" : 2
 		},
@@ -369,13 +514,38 @@
 			"type" : 1
 		},
 		{
+			"index_in_scene" : 14,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 35,
+			"name" : "DynBoxFly",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 40,
+			"name" : "DynCard",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 34,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 41,
+			"name" : "FakeCard",
+			"type" : 1
+		},
+		{
 			"index_in_scene" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
 			"index_in_scene" : -1,
-			"name" : "Tileset",
+			"name" : "Level",
 			"type" : 0
 		},
 		{
@@ -429,13 +599,13 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 20,
-			"name" : "BushSprite",
+			"index_in_scene" : 36,
+			"name" : "BridgeRowSpriteDyn",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 14,
-			"name" : "DynTree",
+			"index_in_scene" : 20,
+			"name" : "BushSprite",
 			"type" : 1
 		},
 		{

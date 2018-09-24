@@ -87,7 +87,7 @@ public:
 	Matrix& Trans() override;
 	bool Is3DObject() override;
 
-	void Play() override;
+	bool Play() override;
 	void Stop() override;
 	void Update(float dt);
 	void AddSplash(Vector& pos, float radius, float force);

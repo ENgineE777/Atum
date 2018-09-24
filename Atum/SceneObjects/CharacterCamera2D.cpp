@@ -112,13 +112,13 @@ void CharacterCamera2D::Update(float dt)
 	}
 }
 
-void CharacterCamera2D::Play()
+bool CharacterCamera2D::Play()
 {
-	SceneObject::Play();
-
 	init_pos = trans.pos;
 	target_pos = init_pos;
 	Sprite::use_ed_cam = false;
+
+	return true;
 }
 
 void CharacterCamera2D::Stop()

@@ -52,8 +52,11 @@ void ArrayWidget::SetData(void* set_data)
 	{
 		for (int i = cur_size; i<cat_size;i++)
 		{
-			elem_cats[i].btnDel->Show(false);
-			elem_cats[i].cat->Show(false);
+			if (i < 10)
+			{
+				elem_cats[i].btnDel->Show(false);
+				elem_cats[i].cat->Show(false);
+			}
 		}
 	}
 

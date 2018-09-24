@@ -462,13 +462,13 @@ void SimpleCharacter2D::SetAnimGraph(string& graph)
 	}
 }
 
-void SimpleCharacter2D::Play()
+bool SimpleCharacter2D::Play()
 {
-	SceneObject::Play();
-
 	init_pos = trans.pos;
 
 	Reset();
+
+	return true;
 }
 
 void SimpleCharacter2D::Stop()

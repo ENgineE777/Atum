@@ -413,23 +413,28 @@ void Editor::StartScene()
 	scene = new Scene();
 	scene->Init();
 	scene->Load(sceneName.c_str());
-	scene->Play();
+	if (scene->Play())
+	{
+		Sprite::ed_cam_pos = 0.0f;
 
-	Sprite::ed_cam_pos = 0.0f;
+		gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
+		gameWnd->SetListener(-1, this, 0);
 
-	gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
-	gameWnd->SetListener(-1, this, 0);
-	
-	EUILayout* lt = new EUILayout(gameWnd, false);
+		EUILayout* lt = new EUILayout(gameWnd, false);
 
-	game_viewport = new EUIPanel(lt, 0, 0, 800, 600);
-	game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
+		game_viewport = new EUIPanel(lt, 0, 0, 800, 600);
+		game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
-	controls.SetWindow(game_viewport->GetNative());
-	game_viewport->SetFocused();
+		controls.SetWindow(game_viewport->GetNative());
+		game_viewport->SetFocused();
 
-	gameWnd->Show(true);
-	gameWnd->SetAtScreenCenter();
+		gameWnd->Show(true);
+		gameWnd->SetAtScreenCenter();
+	}
+	else
+	{
+		StopScene();
+	}
 }
 
 void Editor::StopScene()
@@ -674,11 +679,6 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 
 	popup_menu->AddItem(3500, "Create Folder");
 
-	if (!popup_scene_item && popup_item)
-	{
-		popup_menu->AddItem(3501, "Create Folder as child");
-	}
-
 	popup_menu->StartSubMenu("Create");
 
 	if (is_asset)
@@ -706,41 +706,9 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 
 	popup_menu->EndSubMenu();
 
-	if (!popup_scene_item && popup_item)
-	{
-		popup_menu->StartSubMenu("Create as child");
-
-		if (is_asset)
-		{
-			int id = MenuSceneAssetID;
-			for (const auto& decl : ClassFactorySceneAsset::Decls())
-			{
-				popup_menu->AddItem(id, decl->GetShortName());
-				id++;
-			}
-		}
-		else
-		{
-			int id = MenuSceneObjectID;
-			for (const auto& decl : ClassFactorySceneObject::Decls())
-			{
-				if (StringUtils::IsEqual(decl->GetName(), "UIViewInstance"))
-				{
-					continue;
-				}
-
-				popup_menu->AddItem(id, decl->GetShortName());
-				id++;
-			}
-		}
-
-		popup_menu->EndSubMenu();
-	}
-
 	if (!popup_scene_item && object_to_copy)
 	{
 		popup_menu->AddItem(3505, "Paste");
-		popup_menu->AddItem(3504, "Paste as child");
 	}
 	else
 	if (popup_scene_item)
@@ -765,19 +733,21 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 
 void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 {
-	if (id == 3500)
+	void* parent_item = popup_item;
+
+	if (popup_scene_item)
 	{
-		treeview->AddItem("Folder", 0, nullptr, popup_item ? treeview->GetItemParent(popup_item) : nullptr, -1, true);
+		parent_item = popup_item ? treeview->GetItemParent(popup_item) : nullptr;
 	}
 
-	if (id == 3501)
+	if (id == 3500)
 	{
-		treeview->AddItem("Folder", 0, nullptr, popup_item, -1, true);
+		treeview->AddItem("Folder", 0, nullptr, parent_item, -1, true);
 	}
 
 	if (id == 3502 && popup_scene_item)
 	{
-		CopyObject(popup_scene_item, treeview->GetItemParent(popup_scene_item->item), is_asset);
+		CopyObject(popup_scene_item, popup_scene_item ? treeview->GetItemParent(popup_scene_item->item) : nullptr, is_asset);
 	}
 
 	if (id == 3503 && popup_scene_item)
@@ -785,14 +755,9 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 		object_to_copy = popup_scene_item;
 	}
 
-	if (id == 3504 && object_to_copy)
-	{
-		CopyObject(object_to_copy, popup_item, is_asset);
-	}
-
 	if (id == 3505 && object_to_copy)
 	{
-		CopyObject(object_to_copy, treeview->GetItemParent(popup_item), is_asset);
+		CopyObject(object_to_copy, parent_item, is_asset);
 	}
 
 	if (id == 3506)
@@ -804,7 +769,7 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 
 	if (MenuSceneObjectID <= id && id <= MenuLastSceneID)
 	{
-		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - MenuSceneAssetID]->GetName() : ClassFactorySceneObject::Decls()[id - MenuSceneObjectID]->GetName(), popup_item, is_asset);
+		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - MenuSceneAssetID]->GetName() : ClassFactorySceneObject::Decls()[id - MenuSceneObjectID]->GetName(), parent_item, is_asset);
 	}
 }
 
@@ -863,6 +828,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 				}
 			}
 			else
+			if (!selectedObject || !selectedObject->IsEditorTasks())
 			{
 				SelectObject(ed_scene.CheckSelection({ (float)mx, (float)my }), false);
 			}
@@ -1086,6 +1052,8 @@ void Editor::OnUpdate(EUIWidget* sender)
 		}
 	}
 
+	core.Update();
+
 	if (scene)
 	{
 		scene->Execute(dt);
@@ -1137,8 +1105,6 @@ void Editor::OnUpdate(EUIWidget* sender)
 	}
 
 	render.DebugPrintText(5.0f, COLOR_WHITE, "%i",core.GetFPS());
-
-	core.Update();
 }
 
 void Editor::OnResize(EUIWidget* sender)

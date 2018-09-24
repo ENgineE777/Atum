@@ -53,7 +53,7 @@ public:
 		string param;
 	};
 
-	struct NodeScriptMethod : NodeScriptProperty
+	struct NodeScriptMethod : Node
 	{
 		META_DATA_DECL(NodeScriptMethod)
 
@@ -68,6 +68,10 @@ public:
 	vector<Node*> nodes;
 	string main_class;
 
+	asIScriptModule* mod = nullptr;
+	asITypeInfo* class_type = nullptr;
+	asIScriptObject* class_inst = nullptr;
+
 	META_DATA_DECL(Script)
 
 	void Init() override;
@@ -76,7 +80,7 @@ public:
 	void SetName(const char* name) override;
 	void Work(float dt);
 
-	void Play() override;
+	bool Play() override;
 	void Stop() override;
 
 	void Release() override;

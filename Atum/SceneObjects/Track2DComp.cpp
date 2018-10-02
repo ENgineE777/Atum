@@ -48,6 +48,11 @@ void Track2DComp::UpdateTrack(int index, float dt)
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
+	if (sprite_inst->GetState() != SceneObject::State::Active)
+	{
+		return;
+	}
+
 #ifdef EDITOR
 	if (!IsEditMode() && !object->IsEditMode())
 #endif
@@ -60,7 +65,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 
 	Track& track = tracks[index];
 
-	if (track.points.size() < 2)
+	if (track.points.size() < 2 || dt < 0.001f)
 	{
 		return;
 	}

@@ -29,6 +29,7 @@ private:
 
 	Transform2D* trans2D = nullptr;
 	int     trans2D_actions = 0;
+	bool    ignore_2d_camera = true;
 	Vector2 pos2d = 0.0f;
 	Vector2 origin;
 	Vector2 moved_origin;
@@ -65,7 +66,7 @@ private:
 public:
 
 	void Init();
-	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff);
+	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);
 	void SetTrans3D(Matrix transform);
 	Matrix& GetTrans3D();
 	bool IsTrans2D();

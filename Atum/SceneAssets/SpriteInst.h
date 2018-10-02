@@ -46,7 +46,7 @@ public:
 	virtual ~SpriteInst() = default;
 
 	void BindClassToScript() override;
-	void InjectIntoScript(const char* type, void* property) override;
+	bool InjectIntoScript(const char* type, void* property) override;
 
 	void Init() override;
 	virtual void Draw(float dt);
@@ -55,7 +55,9 @@ public:
 
 	b2Body* HackGetBody(int index);
 	void AddInstance(float x, float y);
+	void ClearInstances();
 	void ApplyLinearImpulse(int index, float x, float y);
+	void Move(int index, float x, float y);
 
 #ifdef EDITOR
 	int sel_inst = -1;

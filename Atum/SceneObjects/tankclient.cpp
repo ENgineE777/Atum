@@ -4,8 +4,7 @@
 CLASSREG(SceneObject, TankClient, "TankClient")
 
 META_DATA_DESC(TankClient)
-BASE_SCENE_OBJ_NAME_PROP(TankClient)
-BASE_SCENE_OBJ_STATE_PROP(TankClient)
+BASE_SCENE_OBJ_PROP(TankClient)
 STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
 META_DATA_DESC_END()
 

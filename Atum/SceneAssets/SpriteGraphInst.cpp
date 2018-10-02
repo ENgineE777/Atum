@@ -9,8 +9,7 @@
 CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphInst)
-BASE_SCENE_OBJ_NAME_PROP(SpriteGraphInst)
-BASE_SCENE_OBJ_STATE_PROP(SpriteGraphInst)
+BASE_SCENE_OBJ_PROP(SpriteGraphInst)
 FLOAT_PROP(SpriteGraphInst, trans.pos.x, 100.0f, "Geometry", "x")
 FLOAT_PROP(SpriteGraphInst, trans.pos.y, 100.0f, "Geometry", "y")
 FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")

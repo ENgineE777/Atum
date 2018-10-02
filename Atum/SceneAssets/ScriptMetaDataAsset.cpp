@@ -15,8 +15,7 @@ STRING_PROP(ScriptMetaDataAsset::MetaType, name, "", "Prop", "name")
 META_DATA_DESC_END()
 
 META_DATA_DESC(ScriptMetaDataAsset)
-BASE_SCENE_OBJ_NAME_PROP(ScriptMetaDataAsset)
-BASE_SCENE_OBJ_STATE_PROP(ScriptMetaDataAsset)
+BASE_SCENE_ASSET_PROP(ScriptMetaDataAsset)
 ARRAY_PROP(ScriptMetaDataAsset, properties, MetaType, "Prop", "properties")
 META_DATA_DESC_END()
 

@@ -182,13 +182,15 @@ void Phys2DCompInst::UpdateInstances(float dt)
 template<typename T>
 void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 {
+	bool is_active = (sprite_inst->GetState() == SceneObject::State::Active);
+
 	for (int index = 0; index < bodies.size(); index++)
 	{
 		if (bodies[index].body)
 		{
-			if (bodies[index].body->IsActive() != (sprite_inst->instances[index].IsVisible()))
+			if (bodies[index].body->IsActive() != (sprite_inst->instances[index].IsVisible() && is_active))
 			{
-				bodies[index].body->SetActive(sprite_inst->instances[index].IsVisible());
+				bodies[index].body->SetActive(sprite_inst->instances[index].IsVisible() && is_active);
 
 				if (sprite_inst->instances[index].IsVisible())
 				{
@@ -197,16 +199,19 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 				}
 			}
 
-			if (body_type == Phys2DComp::BodyType::KineticBody)
+			if (is_active)
 			{
-				Vector2 pos = sprite_inst->instances[index].GetPos();
-				bodies[index].body->SetTransform( { pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
-			}
-			else
-			if (body_type == Phys2DComp::BodyType::DynamicBody)
-			{
-				b2Transform trasn = bodies[index].body->GetTransform();
-				sprite_inst->instances[index].SetPos({ trasn.p.x * 50.0f, trasn.p.y * 50.0f });
+				if (body_type == Phys2DComp::BodyType::KineticBody)
+				{
+					Vector2 pos = sprite_inst->instances[index].GetPos();
+					bodies[index].body->SetTransform( { pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
+				}
+				else
+				if (body_type == Phys2DComp::BodyType::DynamicBody)
+				{
+					b2Transform trasn = bodies[index].body->GetTransform();
+					sprite_inst->instances[index].SetPos({ trasn.p.x * 50.0f, trasn.p.y * 50.0f });
+				}
 			}
 		}
 	}
@@ -216,9 +221,19 @@ void Phys2DCompInst::UpdateGraphInst(SpriteGraphInst* graph_inst)
 {
 	if (bodies[0].body)
 	{
-		b2Transform trasn = bodies[0].body->GetTransform();
+		bool is_active = (graph_inst->GetState() == SceneObject::State::Active);
 
-		graph_inst->trans.pos.x = trasn.p.x * 50.0f;
-		graph_inst->trans.pos.y = trasn.p.y * 50.0f;
+		if (bodies[0].body->IsActive() != (is_active))
+		{
+			bodies[0].body->SetActive(is_active);
+		}
+
+		if (bodies[0].body->IsActive())
+		{
+			b2Transform trasn = bodies[0].body->GetTransform();
+
+			graph_inst->trans.pos.x = trasn.p.x * 50.0f;
+			graph_inst->trans.pos.y = trasn.p.y * 50.0f;
+		}
 	}
 }

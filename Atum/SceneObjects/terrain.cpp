@@ -7,8 +7,7 @@
 CLASSREG(SceneObject, Terrain, "Terrain")
 
 META_DATA_DESC(Terrain)
-BASE_SCENE_OBJ_NAME_PROP(Terrain)
-BASE_SCENE_OBJ_STATE_PROP(Terrain)
+BASE_SCENE_OBJ_PROP(Terrain)
 FLOAT_PROP(Terrain, scaleh, 0.5f, "Geometry", "ScaleH")
 FLOAT_PROP(Terrain, scalev, 0.1f, "Geometry", "ScaleV")
 FILENAME_PROP(Terrain, tex_name, "", "Geometry", "Texture")

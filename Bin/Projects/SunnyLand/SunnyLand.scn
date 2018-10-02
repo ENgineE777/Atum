@@ -2,8 +2,8 @@
 
 	"camera_pos" :
 	{
-		"x" : 8891.000000,
-		"y" : 104.000000
+		"x" : 10212.000000,
+		"y" : 583.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -107,7 +107,7 @@
 				{
 					"type" : "UIImageAsset",
 					"uid" : 1882504320,
-					"Name" : "press_enter",
+					"Name" : "start_label",
 					"State" : 2,
 					"x" : 0.000000,
 					"y" : 600.000000,
@@ -259,6 +259,39 @@
 							}
 						]
 					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIButtonAsset",
+					"uid" : -470785792,
+					"Name" : "start_btn",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 500.000000,
+					"height" : 1024.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
 					"Childs" : [
 					]
 				}
@@ -1136,9 +1169,9 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
-					"use_object_size" : true,
-					"width" : 64.000000,
-					"height" : 64.000000
+					"use_object_size" : false,
+					"width" : 100.000000,
+					"height" : 100.000000
 				}
 			]
 		},
@@ -1380,9 +1413,20 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
-					"use_object_size" : true,
-					"width" : 64.000000,
-					"height" : 64.000000
+					"use_object_size" : false,
+					"width" : 50.000000,
+					"height" : 50.000000
+				},
+				{
+					"type" : "ScriptMetaDataComp",
+					"AssetName" : "ItemData",
+					"count" : 1,
+					"value" : [
+						{
+							"type" : 1,
+							"value" : 50
+						}
+					]
 				}
 			]
 		},
@@ -1568,9 +1612,20 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
-					"use_object_size" : true,
-					"width" : 64.000000,
-					"height" : 64.000000
+					"use_object_size" : false,
+					"width" : 50.000000,
+					"height" : 50.000000
+				},
+				{
+					"type" : "ScriptMetaDataComp",
+					"AssetName" : "ItemData",
+					"count" : 1,
+					"value" : [
+						{
+							"type" : 1,
+							"value" : 100
+						}
+					]
 				}
 			]
 		},
@@ -2009,7 +2064,6 @@
 				"y" : -367.000000
 			},
 			"Name" : "ItemData",
-			"State" : 2,
 			"properties" :
 			{
 				"count" : 1,
@@ -4999,9 +5053,908 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
-					"use_object_size" : true,
+					"use_object_size" : false,
+					"width" : 100.000000,
+					"height" : 100.000000
+				}
+			]
+		},
+		{
+			"type" : "UIViewAsset",
+			"uid" : 206845808,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "IngameMenu",
+			"x" : 256.000000,
+			"y" : 128.000000,
+			"width" : 1018.000000,
+			"height" : 687.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIContainerAsset",
+					"uid" : 617552768,
+					"Name" : "Info",
+					"State" : 2,
+					"x" : 16.000000,
+					"y" : 16.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 100.000000,
+					"height" : 100.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+						{
+							"type" : "UILabelAsset",
+							"uid" : 747577536,
+							"Name" : "Score",
+							"State" : 2,
+							"x" : 8.000000,
+							"y" : 80.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 212.000000,
+							"height" : 21.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"font_name" : "Projects/SunnyLand/prstart.ttf",
+							"font_height" : 15,
+							"text" : "Score: 1000",
+							"text_horz_align" : 0,
+							"text_vert_align" : 3,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : 516206112,
+							"Name" : "Heart1",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : 986215808,
+							"Name" : "HeartFull1",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart_filled.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : 768339968,
+							"Name" : "HeartFull2",
+							"State" : 2,
+							"x" : 64.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart_filled.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : -1878089728,
+							"Name" : "HeartFull3",
+							"State" : 2,
+							"x" : 128.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart_filled.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : -861898240,
+							"Name" : "Heart2",
+							"State" : 2,
+							"x" : 64.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAsset",
+							"uid" : -2134635520,
+							"Name" : "Heart3",
+							"State" : 2,
+							"x" : 128.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 64.000000,
+							"height" : 64.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"image" :
+							{
+								"width" : 32,
+								"height" : 32,
+								"type" : 0,
+								"color" :
+								{
+									"r" : 1.000000,
+									"g" : 1.000000,
+									"b" : 1.000000,
+									"a" : 1.000000
+								},
+								"texName" : "Projects/SunnyLand/Sprites/heart.png",
+								"texMode" : 0,
+								"texFilter" : 0,
+								"count" : 1,
+								"Rect" : [
+									{
+										"pos" :
+										{
+											"x" : 0.000000,
+											"y" : 32.000000
+										},
+										"size" :
+										{
+											"x" : 32.000000,
+											"y" : 32.000000
+										},
+										"uv" :
+										{
+											"x" : 0.000000,
+											"y" : 1.000000
+										},
+										"duv" :
+										{
+											"x" : 1.000000,
+											"y" : 1.000000
+										},
+										"offset" :
+										{
+											"x" : 0.000000,
+											"y" : 0.000000
+										}
+									}
+								]
+							},
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"uid" : -2113353984,
+					"Name" : "PauseBtn",
+					"State" : 2,
+					"x" : 16.000000,
+					"y" : 16.000000,
+					"horz_align" : 2,
+					"vert_align" : 3,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 32,
+						"height" : 32,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Projects/SunnyLand/Sprites/pause.png",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 32.000000
+								},
+								"size" :
+								{
+									"x" : 32.000000,
+									"y" : 32.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Childs" : [
+						{
+							"type" : "UIButtonAsset",
+							"uid" : -2118025728,
+							"Name" : "Button",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 100.000000,
+							"height" : 100.000000,
+							"horz_size" : 0,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"clip_childs" : false,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"uid" : 181282032,
+					"Name" : "Fade",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 1018.000000,
+					"height" : 687.000000,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.000000
+					},
+					"alpha" : 0.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 0,
+						"Rect" : [
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAsset",
+					"uid" : -1499694080,
+					"Name" : "PauseMenu",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 1,
+					"vert_align" : 1,
+					"width" : 300.000000,
+					"height" : 180.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.500000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+						{
+							"type" : "UILabelAsset",
+							"uid" : 2033161856,
+							"Name" : "Resume",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 0.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 300.000000,
+							"height" : 70.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"font_name" : "Projects/SunnyLand/prstart.ttf",
+							"font_height" : 15,
+							"text" : "Resume",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"uid" : -449114880,
+									"Name" : "ResumeBtn",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 300.000000,
+									"height" : 70.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAsset",
+							"uid" : 389295,
+							"Name" : "Quit",
+							"State" : 2,
+							"x" : 0.000000,
+							"y" : 110.000000,
+							"horz_align" : 0,
+							"vert_align" : 3,
+							"width" : 300.000000,
+							"height" : 70.000000,
+							"horz_size" : 1,
+							"vert_size" : 0,
+							"anchorn_x" : 0.000000,
+							"anchorn_y" : 0.000000,
+							"left_padding" : 0.000000,
+							"top_padding" : 0.000000,
+							"right_padding" : 0.000000,
+							"bottom_padding" : 0.000000,
+							"rotate" : 0.000000,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"scale_childs" : false,
+							"font_name" : "Projects/SunnyLand/prstart.ttf",
+							"font_height" : 15,
+							"text" : "Quit",
+							"text_horz_align" : 1,
+							"text_vert_align" : 1,
+							"Childs" : [
+								{
+									"type" : "UIButtonAsset",
+									"uid" : -179073280,
+									"Name" : "QuitBtn",
+									"State" : 2,
+									"x" : 0.000000,
+									"y" : 0.000000,
+									"horz_align" : 0,
+									"vert_align" : 3,
+									"width" : 300.000000,
+									"height" : 70.000000,
+									"horz_size" : 1,
+									"vert_size" : 1,
+									"anchorn_x" : 0.000000,
+									"anchorn_y" : 0.000000,
+									"left_padding" : 0.000000,
+									"top_padding" : 0.000000,
+									"right_padding" : 0.000000,
+									"bottom_padding" : 0.000000,
+									"rotate" : 0.000000,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"scale_childs" : false,
+									"clip_childs" : false,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
 				}
 			]
 		}
@@ -5017,11 +5970,12 @@
 			},
 			"Name" : "TitleMenu",
 			"State" : 0,
+			"Group" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 1,
 			"vert_align" : 3,
-			"width" : 2013.729614,
+			"width" : 2097.986084,
 			"height" : 1024.000000,
 			"horz_size" : 1,
 			"vert_size" : 1,
@@ -5075,6 +6029,21 @@
 					"alpha" : 1.000000,
 					"Childs" : [
 					]
+				},
+				{
+					"type" : "UIButtonAssetInst",
+					"uid" : 1403800320,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
 				}
 			]
 		},
@@ -5083,6 +6052,7 @@
 			"uid" : 1485033472,
 			"Name" : "Hero",
 			"State" : 2,
+			"Group" : "Level",
 			"x" : 1344.000000,
 			"y" : 256.000000,
 			"Depth" : 0.400000,
@@ -5099,13 +6069,14 @@
 			"uid" : -1993840384,
 			"ed_camera_2d" :
 			{
-				"x" : 899.000000,
-				"y" : -288.000000
+				"x" : -266.000000,
+				"y" : 32.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
+			"Group" : "",
 			"main_class" : "Game",
-			"Count" : 38,
+			"Count" : 58,
 			"Node" : [
 				{
 					"type" : 1,
@@ -5136,8 +6107,8 @@
 					"name" : "camera",
 					"pos" :
 					{
-						"x" : 316.000000,
-						"y" : 212.000000
+						"x" : 309.000000,
+						"y" : 187.000000
 					},
 					"object_uid" : 1314392192,
 					"object_child_uid" : 0
@@ -5213,8 +6184,8 @@
 					"name" : "boxes",
 					"pos" :
 					{
-						"x" : 281.000000,
-						"y" : 341.000000
+						"x" : 131.000000,
+						"y" : 301.000000
 					},
 					"object_uid" : -980373760,
 					"object_child_uid" : 0
@@ -5235,8 +6206,8 @@
 					"name" : "fly_boxes",
 					"pos" :
 					{
-						"x" : 99.000000,
-						"y" : 406.000000
+						"x" : 71.000000,
+						"y" : 449.000000
 					},
 					"object_uid" : -2071699456,
 					"object_child_uid" : 0
@@ -5302,7 +6273,7 @@
 					"name" : "boxes_object",
 					"pos" :
 					{
-						"x" : 310.000000,
+						"x" : 297.000000,
 						"y" : 442.000000
 					},
 					"object_uid" : -2071699456,
@@ -5313,8 +6284,8 @@
 					"name" : "bridge",
 					"pos" :
 					{
-						"x" : 658.000000,
-						"y" : 481.000000
+						"x" : 634.000000,
+						"y" : 478.000000
 					},
 					"object_uid" : -1543425280,
 					"object_child_uid" : 0
@@ -5324,8 +6295,8 @@
 					"name" : "bridge_dyn",
 					"pos" :
 					{
-						"x" : 656.000000,
-						"y" : 592.000000
+						"x" : 541.000000,
+						"y" : 594.000000
 					},
 					"object_uid" : -769245696,
 					"object_child_uid" : 0
@@ -5357,8 +6328,8 @@
 					"name" : "cards_object",
 					"pos" :
 					{
-						"x" : 53.000000,
-						"y" : 270.000000
+						"x" : -88.000000,
+						"y" : 267.000000
 					},
 					"object_uid" : 1269363584,
 					"object_child_uid" : 0
@@ -5396,8 +6367,8 @@
 					"name" : "fake_card",
 					"pos" :
 					{
-						"x" : 186.000000,
-						"y" : 593.000000
+						"x" : 167.000000,
+						"y" : 590.000000
 					},
 					"object_uid" : -1182418176,
 					"object_child_uid" : 0
@@ -5546,8 +6517,8 @@
 					"name" : "respawn_points",
 					"pos" :
 					{
-						"x" : 411.000000,
-						"y" : 604.000000
+						"x" : 316.000000,
+						"y" : 590.000000
 					},
 					"object_uid" : -413818880,
 					"object_child_uid" : 0
@@ -5584,6 +6555,250 @@
 					},
 					"object_uid" : -968305408,
 					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "heart1",
+					"pos" :
+					{
+						"x" : 201.000000,
+						"y" : 733.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 2003964672
+				},
+				{
+					"type" : 1,
+					"name" : "heart2",
+					"pos" :
+					{
+						"x" : 429.000000,
+						"y" : 734.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 1876924416
+				},
+				{
+					"type" : 1,
+					"name" : "heart3",
+					"pos" :
+					{
+						"x" : 632.000000,
+						"y" : 721.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : -138846208
+				},
+				{
+					"type" : 1,
+					"name" : "fade",
+					"pos" :
+					{
+						"x" : 818.000000,
+						"y" : 713.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : -393704960
+				},
+				{
+					"type" : 1,
+					"name" : "score_label",
+					"pos" :
+					{
+						"x" : 1005.000000,
+						"y" : 716.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 392410080
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 307.000000,
+						"y" : 846.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : -1507998976
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 679.000000,
+						"y" : 846.000000
+					},
+					"param_type" : 1,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 43,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 687.000000,
+						"y" : 938.000000
+					},
+					"param_type" : 1,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 47,
+							"param" : "0"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "OnReturnToTitle",
+					"pos" :
+					{
+						"x" : 688.000000,
+						"y" : 1040.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 48,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 302.000000,
+						"y" : 933.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 455995040
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 301.000000,
+						"y" : 1044.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 42433232
+				},
+				{
+					"type" : 1,
+					"name" : "pause_menu",
+					"pos" :
+					{
+						"x" : 960.000000,
+						"y" : 831.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : -1467901952
+				},
+				{
+					"type" : 0,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 297.000000,
+						"y" : 1153.000000
+					},
+					"object_uid" : 221639040,
+					"object_child_uid" : 1403800320
+				},
+				{
+					"type" : 2,
+					"name" : "OnStartGame",
+					"pos" :
+					{
+						"x" : 689.000000,
+						"y" : 1154.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 50,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 977.000000,
+						"y" : 950.000000
+					},
+					"object_uid" : 221639040,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "level_ui",
+					"pos" :
+					{
+						"x" : 958.000000,
+						"y" : 1063.000000
+					},
+					"object_uid" : 820505600,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "start_label",
+					"pos" :
+					{
+						"x" : 962.000000,
+						"y" : 1163.000000
+					},
+					"object_uid" : 221639040,
+					"object_child_uid" : 11549106
+				},
+				{
+					"type" : 1,
+					"name" : "bridge_object",
+					"pos" :
+					{
+						"x" : 742.000000,
+						"y" : 592.000000
+					},
+					"object_uid" : -769245696,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "boxes_level_object",
+					"pos" :
+					{
+						"x" : 477.000000,
+						"y" : 328.000000
+					},
+					"object_uid" : -980373760,
+					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "boss_markers",
+					"pos" :
+					{
+						"x" : -119.000000,
+						"y" : 390.000000
+					},
+					"object_uid" : 1773631360,
+					"object_child_uid" : 0
 				}
 			]
 		},
@@ -5592,6 +6807,7 @@
 			"uid" : 1314392192,
 			"Name" : "Camera2D",
 			"State" : 2,
+			"Group" : "",
 			"x" : 1472.000000,
 			"y" : -64.000000,
 			"ScreenBorder" : 200.000000,
@@ -5605,6 +6821,7 @@
 			"uid" : 1225762432,
 			"Name" : "ItemTaken",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"inst" :
@@ -5620,6 +6837,7 @@
 			"uid" : -1084704768,
 			"Name" : "EagleFly",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"inst" :
@@ -5706,7 +6924,7 @@
 									"Elem" : [
 										{
 											"x" : 8007.765625,
-											"y" : -825.484131
+											"y" : -825.485229
 										},
 										{
 											"x" : 7168.000000,
@@ -5746,6 +6964,7 @@
 			"uid" : -970252032,
 			"Name" : "EnemyDeath",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"inst" :
@@ -5760,17 +6979,19 @@
 			"type" : "VirtualJoystick",
 			"uid" : -182577152,
 			"Name" : "VirtualJoystick",
-			"State" : 0,
+			"State" : 2,
+			"Group" : "",
 			"StickPad" : "Media/stick_pad.png",
 			"Stick" : "Media/stick.png",
 			"ButtonA" : "Media/button.png",
-			"ButtonB" : ""
+			"ButtonB" : "Media/button.png"
 		},
 		{
 			"type" : "SpriteInst",
 			"uid" : 2050420608,
 			"Name" : "MovingBlock",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -5929,6 +7150,7 @@
 			"uid" : 385792064,
 			"Name" : "Ground1Tiles",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"inst" :
@@ -16659,6 +17881,7 @@
 			"uid" : -91092480,
 			"Name" : "SkyLayer",
 			"State" : 2,
+			"Group" : "",
 			"axis_scale" : 0.100000,
 			"Depth" : 0.750000,
 			"y" : 0.000000,
@@ -16669,6 +17892,7 @@
 			"uid" : 263163904,
 			"Name" : "TreesLayer",
 			"State" : 2,
+			"Group" : "",
 			"axis_scale" : 0.300000,
 			"Depth" : 0.700000,
 			"y" : 3000.000000,
@@ -16679,6 +17903,7 @@
 			"uid" : -1800360448,
 			"Name" : "TreeSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -16764,6 +17989,7 @@
 			"uid" : -1777521664,
 			"Name" : "HouseSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -16793,6 +18019,7 @@
 			"uid" : 348808960,
 			"Name" : "BushSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -16892,6 +18119,7 @@
 			"uid" : 329993024,
 			"Name" : "SignSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -16935,6 +18163,7 @@
 			"uid" : 1057456960,
 			"Name" : "LeftHangSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"inst" :
@@ -16966,24 +18195,10 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"uid" : 292231328,
-			"Name" : "CatRun",
-			"State" : 2,
-			"axis_scale" : 1.000000,
-			"Depth" : 0.500000,
-			"inst" :
-			{
-				"count" : 0,
-				"Elem" : [
-				]
-			},
-			"asset_uid" : 550593920
-		},
-		{
-			"type" : "SpriteInst",
 			"uid" : 1345146496,
 			"Name" : "RightHangSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"inst" :
@@ -17046,6 +18261,7 @@
 			"uid" : -52422400,
 			"Name" : "RightCaveEnter",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.490000,
 			"inst" :
@@ -17075,6 +18291,7 @@
 			"uid" : -1016188928,
 			"Name" : "LeftCaveEnter",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -17132,6 +18349,7 @@
 			"uid" : 229165424,
 			"Name" : "CaveInner",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.510000,
 			"inst" :
@@ -18001,6 +19219,7 @@
 			"uid" : 240584768,
 			"Name" : "CaveBrush",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.470000,
 			"inst" :
@@ -18044,6 +19263,7 @@
 			"uid" : -998151680,
 			"Name" : "BridgeBaseSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -18087,6 +19307,7 @@
 			"uid" : -1543425280,
 			"Name" : "BridgeRowSprite",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -18471,6 +19692,7 @@
 			"uid" : 1478545152,
 			"Name" : "Ground2Tiles",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -20031,6 +21253,7 @@
 			"uid" : -2022648064,
 			"Name" : "CaveWall",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -20130,6 +21353,7 @@
 			"uid" : -1415736064,
 			"Name" : "CaveShelf",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -20159,6 +21383,7 @@
 			"uid" : 596790336,
 			"Name" : "CherryItem",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -20297,6 +21522,9 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "ScriptMetaDataCompInst"
 				}
 			]
 		},
@@ -20305,6 +21533,7 @@
 			"uid" : -1321915904,
 			"Name" : "DiamondItem",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -20443,6 +21672,9 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "ScriptMetaDataCompInst"
 				}
 			]
 		},
@@ -20451,6 +21683,7 @@
 			"uid" : -980373760,
 			"Name" : "DynBox",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"inst" :
@@ -20555,8 +21788,9 @@
 			"uid" : -335829760,
 			"Name" : "FakeBox",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
-			"Depth" : 0.470000,
+			"Depth" : 0.425000,
 			"inst" :
 			{
 				"count" : 1,
@@ -20584,6 +21818,7 @@
 			"uid" : 688664128,
 			"Name" : "BridgeTrigger",
 			"State" : 2,
+			"Group" : "",
 			"x" : 9408.000000,
 			"y" : -832.000000,
 			"width" : 452.000000,
@@ -20595,6 +21830,7 @@
 			"uid" : -2071699456,
 			"Name" : "DynBoxFly",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.470000,
 			"inst" :
@@ -20629,6 +21865,7 @@
 			"uid" : -769245696,
 			"Name" : "BridgeRowSpriteDyn",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"inst" :
@@ -21013,6 +22250,7 @@
 			"uid" : 361006912,
 			"Name" : "CatBoss",
 			"State" : 2,
+			"Group" : "Level",
 			"x" : 15296.000000,
 			"y" : 960.000000,
 			"Depth" : 0.450000,
@@ -21029,8 +22267,9 @@
 			"uid" : 1269363584,
 			"Name" : "DynCard",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
-			"Depth" : 0.450000,
+			"Depth" : 0.425000,
 			"inst" :
 			{
 				"count" : 4,
@@ -21105,8 +22344,9 @@
 			"uid" : -1182418176,
 			"Name" : "FakeCard",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
-			"Depth" : 0.450000,
+			"Depth" : 0.425000,
 			"inst" :
 			{
 				"count" : 1,
@@ -21134,6 +22374,7 @@
 			"uid" : -641686528,
 			"Name" : "ActivateBossTrigger",
 			"State" : 2,
+			"Group" : "",
 			"x" : 14272.000000,
 			"y" : 768.000000,
 			"width" : 250.000000,
@@ -21145,6 +22386,7 @@
 			"uid" : 140016704,
 			"Name" : "RespawnTrigger",
 			"State" : 2,
+			"Group" : "",
 			"x" : 0.000000,
 			"y" : 576.000000,
 			"width" : 1542.000000,
@@ -21156,6 +22398,7 @@
 			"uid" : -2003313152,
 			"Name" : "RespawnTrigger2",
 			"State" : 2,
+			"Group" : "",
 			"x" : 3456.000000,
 			"y" : 640.000000,
 			"width" : 2432.000000,
@@ -21167,6 +22410,7 @@
 			"uid" : -1168143872,
 			"Name" : "RespawnTrigger3",
 			"State" : 2,
+			"Group" : "",
 			"x" : 6912.000000,
 			"y" : 384.000000,
 			"width" : 1294.000000,
@@ -21178,6 +22422,7 @@
 			"uid" : -282107136,
 			"Name" : "RespawnTrigger4",
 			"State" : 2,
+			"Group" : "",
 			"x" : 9024.000000,
 			"y" : -192.000000,
 			"width" : 3349.000000,
@@ -21189,6 +22434,7 @@
 			"uid" : 466895360,
 			"Name" : "RespawnTrigger5",
 			"State" : 2,
+			"Group" : "",
 			"x" : 11648.000000,
 			"y" : 768.000000,
 			"width" : 1111.000000,
@@ -21200,6 +22446,7 @@
 			"uid" : -145593856,
 			"Name" : "RespawnTrigger6",
 			"State" : 2,
+			"Group" : "",
 			"x" : 12928.000000,
 			"y" : 1280.000000,
 			"width" : 1111.000000,
@@ -21211,6 +22458,7 @@
 			"uid" : -498944768,
 			"Name" : "RespawnActTrigger2",
 			"State" : 2,
+			"Group" : "",
 			"x" : 4736.000000,
 			"y" : -448.000000,
 			"width" : 624.000000,
@@ -21222,6 +22470,7 @@
 			"uid" : -413818880,
 			"Name" : "RespawnPoints",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"inst" :
@@ -21293,6 +22542,7 @@
 			"uid" : 22708918,
 			"Name" : "RespawnActTrigger3",
 			"State" : 2,
+			"Group" : "",
 			"x" : 8576.000000,
 			"y" : -960.000000,
 			"width" : 624.000000,
@@ -21304,6 +22554,7 @@
 			"uid" : 52814452,
 			"Name" : "RespawnActTrigger4",
 			"State" : 2,
+			"Group" : "",
 			"x" : 13568.000000,
 			"y" : 704.000000,
 			"width" : 651.000000,
@@ -21315,6 +22566,7 @@
 			"uid" : -968305408,
 			"Name" : "OpposumRun",
 			"State" : 2,
+			"Group" : "Level",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"inst" :
@@ -21435,6 +22687,353 @@
 					}
 				}
 			]
+		},
+		{
+			"type" : "UIViewInstance",
+			"uid" : 820505600,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "IngameMenu",
+			"State" : 2,
+			"Group" : "",
+			"x" : 0.000000,
+			"y" : 0.000000,
+			"horz_align" : 0,
+			"vert_align" : 3,
+			"width" : 2097.986084,
+			"height" : 1024.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.000000,
+			"anchorn_y" : 0.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source" : "IngameMenu",
+			"Childs" : [
+				{
+					"type" : "UIContainerAssetInst",
+					"uid" : 807658880,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"uid" : 392410080,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 0.000000,
+								"g" : 0.000000,
+								"b" : 0.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Score: 0",
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : -1361883648,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : 2003964672,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : 1876924416,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : -138846208,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : 1529413120,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						},
+						{
+							"type" : "UIImageAssetInst",
+							"uid" : -1091712256,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : 2111150720,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 0.000000,
+						"g" : 0.000000,
+						"b" : 0.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UIButtonAssetInst",
+							"uid" : -1507998976,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"Childs" : [
+							]
+						}
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : -393704960,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 0.000000
+					},
+					"alpha" : 0.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIContainerAssetInst",
+					"uid" : -1467901952,
+					"State" : 0,
+					"color" :
+					{
+						"r" : 0.000000,
+						"g" : 0.000000,
+						"b" : 0.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+						{
+							"type" : "UILabelAssetInst",
+							"uid" : 758996928,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 0.866667,
+								"g" : 0.454902,
+								"b" : 0.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Resume",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"uid" : 455995040,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						},
+						{
+							"type" : "UILabelAssetInst",
+							"uid" : -1897554432,
+							"State" : 2,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"alpha" : 1.000000,
+							"text" : "Quit",
+							"Childs" : [
+								{
+									"type" : "UIButtonAssetInst",
+									"uid" : 42433232,
+									"State" : 2,
+									"color" :
+									{
+										"r" : 1.000000,
+										"g" : 1.000000,
+										"b" : 1.000000,
+										"a" : 1.000000
+									},
+									"alpha" : 1.000000,
+									"Childs" : [
+									]
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 1773631360,
+			"Name" : "BossMarkers",
+			"State" : 2,
+			"Group" : "Level",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.425000,
+			"inst" :
+			{
+				"count" : 4,
+				"Elem" : [
+					{
+						"x" : 15296.000000,
+						"y" : 960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 14848.000000,
+						"y" : 1152.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 14464.000000,
+						"y" : 1152.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 14016.000000,
+						"y" : 960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 1157116672,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
 		}
 	],
 	"asset_inctances" : [
@@ -21511,10 +23110,6 @@
 			"inst_uid" : 1345146496
 		},
 		{
-			"asset_uid" : 550593920,
-			"inst_uid" : 292231328
-		},
-		{
 			"asset_uid" : 982452608,
 			"inst_uid" : 1057456960
 		},
@@ -21575,12 +23170,20 @@
 			"inst_uid" : 1269363584
 		},
 		{
+			"asset_uid" : 1157116672,
+			"inst_uid" : 1773631360
+		},
+		{
 			"asset_uid" : -1232377856,
 			"inst_uid" : -1182418176
 		},
 		{
 			"asset_uid" : 826604608,
 			"inst_uid" : -968305408
+		},
+		{
+			"asset_uid" : 206845808,
+			"inst_uid" : 820505600
 		}
 	]
 }

@@ -299,7 +299,7 @@ void UIWidgetAsset::DeleteChilds()
 void UIWidgetAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);
-	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, !AddedToTreeByParent() ? 0xffff : 0);
+	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, !AddedToTreeByParent() ? 0xffff : 0, true);
 }
 
 void UIWidgetAsset::StoreProperties()

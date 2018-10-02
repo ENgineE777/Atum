@@ -6,8 +6,7 @@
 CLASSREG(SceneObject, SpriteTileInst, "SpriteNT")
 
 META_DATA_DESC(SpriteTileInst)
-BASE_SCENE_OBJ_NAME_PROP(SpriteTileInst)
-BASE_SCENE_OBJ_STATE_PROP(SpriteTileInst)
+BASE_SCENE_OBJ_PROP(SpriteTileInst)
 FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale")
 FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth")
 ARRAY_PROP(SpriteTileInst, instances, Instance, "Prop", "inst")

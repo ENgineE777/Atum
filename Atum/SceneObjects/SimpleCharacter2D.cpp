@@ -7,8 +7,7 @@
 CLASSREG(SceneObject, SimpleCharacter2D, "SimpleCharacter2D")
 
 META_DATA_DESC(SimpleCharacter2D)
-BASE_SCENE_OBJ_NAME_PROP(SimpleCharacter2D)
-BASE_SCENE_OBJ_STATE_PROP(SimpleCharacter2D)
+BASE_SCENE_OBJ_PROP(SimpleCharacter2D)
 FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "x")
 FLOAT_PROP(SimpleCharacter2D, trans.pos.y, 100.0f, "Geometry", "y")
 STRING_PROP(SimpleCharacter2D, vjoy_name, "", "Prop", "VJoy")

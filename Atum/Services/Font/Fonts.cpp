@@ -34,7 +34,7 @@ Font* Fonts::LoadFont(const char* file_name, bool is_bold, bool is_italic, int h
 	}
 
 	char nm[512];
-    char font_path[128];
+	char font_path[128];
 	font_path[0] = 0;
 
 	FontRes* res = nullptr;

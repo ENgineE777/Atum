@@ -5,8 +5,7 @@
 CLASSREG(SceneObject, PhysBox, "PhysBox")
 
 META_DATA_DESC(PhysBox)
-BASE_SCENE_OBJ_NAME_PROP(PhysBox)
-BASE_SCENE_OBJ_STATE_PROP(PhysBox)
+BASE_SCENE_OBJ_PROP(PhysBox)
 COLOR_PROP(PhysBox, color, COLOR_YELLOW, "Geometry", "color")
 FLOAT_PROP(PhysBox, sizeX, 1.0f, "Geometry", "SizeX")
 FLOAT_PROP(PhysBox, sizeY, 1.0f, "Geometry", "SizeY")

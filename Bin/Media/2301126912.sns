@@ -8,7 +8,6 @@ class Enemy
 class Bonus
 {
     float x, y;
-    int horz_flipped;
     int visible;
     int score;
 }
@@ -17,6 +16,7 @@ class PhysBox
 {
     float x, y;
     int visible;
+    float init_x, init_y;
 }
 
 class ThrowableBox
@@ -36,19 +36,32 @@ class Game
     array<PhysBox> respawn_points;
     Sprite@ boxes_object;
     array<PhysBox> boxes;
+    Sprite@ boxes_level_object;
     array<PhysBox> fake_box;
     array<ThrowableBox> fly_boxes;
     array<ThrowableBox> boss_cards;
+    array<Enemy> boss_markers;
     array<PhysBox> fake_card;
     Sprite@ cards_object;
     array<PhysBox> bridge;
     array<PhysBox> bridge_dyn;
+    Sprite@ bridge_object;
     SpriteGraph@ hero;
     SpriteGraph@ boss;
     CharacterCamera2D@ camera;
     Sprite@ item_taken;
     Sprite@ enemy_death;
     VirtualJoystick@ vjoy;
+
+    UIImage@ heart1;
+    UIImage@ heart2;
+    UIImage@ heart3;
+    UILabel@ score_label;
+    UIImage@ fade;
+    UIImage@ start_label;
+    UIContainer@ pause_menu;
+    UIView@ main_menu;
+    UIView@ level_ui;
 
     float move_speed = 10.0f;
     float accel_speed = 40.0f;
@@ -58,8 +71,11 @@ class Game
     int box_grabbed = -1;
     int card_grabbed = -1;
 
-    int cur_respawn_point = 2;
+    int cur_respawn_point = 0;
     float in_hit = -1.0f;
+
+    int hero_hp = 3;
+    int hero_score = 0;
 
     bool falling_bridge = false;
     uint falling_bridge_index = 0;
@@ -76,7 +92,65 @@ class Game
     uint  boss_card_index = 0;
     float boss_next_throw = 0.45f;
 
-    bool need_respawn = false;
+    float fade_out = -1.0f;
+
+    bool is_paused = false;
+
+    bool init = false;
+
+    float return_to_title = -1.0f;
+
+    float title_menu_pos_x = 0.0f;
+    float label_fade = 2.0f;
+
+    void ShowPauseMenu(int show)
+    {
+        is_paused = (show == 1);
+        fade.alpha = (show == 1) ? 0.5f : 0.0f;
+        pause_menu.SetState((show == 1) ? 2 : 0);
+        vjoy.SetState((show == 1) ? 1 : 2);
+        Scene_Group_SetState("Level", (show == 1) ? 1 : 2);
+    }
+
+    void OnReturnToTitle()
+    {
+        main_menu.SetState(2);
+        is_paused = true;
+
+        title_menu_pos_x = 0.0f;
+
+        level_ui.SetState(0);
+        vjoy.SetState(0);
+        fade.alpha = 0.0f;
+        pause_menu.SetState(0);
+        Scene_Group_SetState("Level", 0);
+    }
+
+    void OnStartGame()
+    {
+        is_paused = false;
+
+        for (int i = 0; i<diamonds.length();i++)
+        {
+            diamonds[i].visible = 1;
+        }
+
+        for (int i = 0; i<cherries.length();i++)
+        {
+            cherries[i].visible = 1;
+        }
+
+        main_menu.SetState(0);
+        level_ui.SetState(2);
+        vjoy.SetState(2);
+
+        Scene_Group_SetState("Level", 2);
+
+        fade_out = -1.0f;
+        cur_respawn_point = 3;
+        AddScore(-1);
+        RespawnHero();
+    }
 
     int FindBox(float pos_x, float pos_y)
     {
@@ -118,6 +192,14 @@ class Game
     {
         if (in_hit < -0.01f)
         {
+            hero_hp--;
+            UpdateHearts();
+
+            if (hero_hp == 0)
+            {
+                fade_out = 2.0f;
+            }
+
             hero.GotoNode("Hit");
             in_hit = 1.0f;
 
@@ -125,17 +207,99 @@ class Game
         }
     }
 
+    void UpdateHearts()
+    {
+        heart1.SetState((hero_hp >= 1) ? 2 : 0);
+        heart2.SetState((hero_hp >= 2) ? 2 : 0);
+        heart3.SetState((hero_hp >= 3) ? 2 : 0);
+    }
+
     void RespawnHero()
     {
         hero.Move(respawn_points[cur_respawn_point].x, respawn_points[cur_respawn_point].y);
+        hero_hp = 3;
+        in_hit = -1.0f;
+        fake_box[0].visible = 0;
+        fake_card[0].visible = 0;
+        UpdateHearts();
+        hero.GotoNode("Idle");
 
-        need_respawn = false;
+        return_to_title = -1.0f;
+        boss_active = false;
+        boss.GotoNode("idle");
+        boss_hp = 3;
+        box_grabbed = -1;
+        card_grabbed = -1;
+
+        item_taken.ClearInstances();
+        enemy_death.ClearInstances();
+
+        for (int i = 0; i<eagles.length();i++)
+        {
+            eagles[i].visible = 1;
+        }
+
+        for (int i = 0; i<opposums.length();i++)
+        {
+            opposums[i].visible = 1;
+        }
+
+        for (int i = 0; i<fly_boxes.length();i++)
+        {
+            fly_boxes[i].visible = 0;
+            fly_boxes[i].in_fly = -1.0f;
+        }
+
+        for (int i = 0; i<boss_cards.length();i++)
+        {
+            boss_cards[i].visible = 0;
+            boss_cards[i].in_fly = -1.0f;
+        }
+
+        for (int i = 0; i<boxes.length();i++)
+        {
+            boxes[i].visible = 1;
+            boxes_level_object.Move(i, boxes[i].init_x, boxes[i].init_y);
+        }
+
+        falling_bridge = false;
+        falling_bridge_index = 0;
+
+        for (int i = 0; i<bridge.length();i++)
+        {
+            bridge_dyn[i].visible = 0;
+            bridge_object.Move(i, bridge_dyn[i].init_x, bridge_dyn[i].init_y + 1);
+        }
+
+        for (int i = 0; i<bridge.length();i++)
+        {
+            bridge[i].visible = 1;
+        }
+
+        boss_hp = 3;
+        boss_stage = 0;
+        boss.Move(boss_markers[0].x, boss_markers[0].y);
+    }
+
+    void AddScore(int score)
+    {
+        if (score == -1)
+        {
+            hero_score = 0;
+        }
+        else
+        {
+            hero_score += score;
+        }
+
+        score_label.SetText("Score: " + hero_score);
     }
 
     int OnHeroContact(int self_index, string&in name, int index)
     {
         if (name == "CherryItem")
         {
+            AddScore(cherries[index].score);
             cherries[index].visible = 0;
             item_taken.AddInstance(cherries[index].x, cherries[index].y);
             return 1;
@@ -143,6 +307,7 @@ class Game
         else
         if (name == "DiamondItem")
         {
+            AddScore(diamonds[index].score);
             diamonds[index].visible = 0;
             item_taken.AddInstance(diamonds[index].x, diamonds[index].y);
             return 1;
@@ -174,6 +339,11 @@ class Game
         if (name == "ActivateBossTrigger")
         {
             boss_active = true;
+
+            if (boss_hp > 0)
+            {
+                boss.SetState(2);
+            }
         }
 
         return 0;
@@ -214,6 +384,19 @@ class Game
                 HitHero(boss_cards[self_index].x);
             }
 
+            if (name == "CatBoss")
+            {
+                boss_hp--;
+
+                if (boss_hp == 0)
+                {
+                    return_to_title = 2.0f;
+                    boss_active = false;
+                    boss.SetState(0);
+                    enemy_death.AddInstance(boss.x, boss.y);
+                }
+            }
+
             boss_cards[self_index].visible = 0;
             boss_cards[self_index].in_fly = -1.0f;
             enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y);
@@ -237,11 +420,9 @@ class Game
 
     int OnRespawnTrigger(int self_index, string&in name, int index)
     {
-        Render_Print(10,30, "hero.visible = 0");
-
         if (name == "Hero")
         {
-            need_respawn = true;
+            fade_out = 2.0f;
         }
 
         return 1;
@@ -267,13 +448,13 @@ class Game
 
             boss.SetLinearVelocity(velocity_x, velocity_y);
 
-            if (boss_stage == 0 && boss.x < 14528)
+            if (boss_stage == 0 && boss.x < boss_markers[2].x)
             {
                 boss.ApplyLinearImpulse(0.0f, boss_jump_impulse);
                 boss_stage++;
             }
             else
-            if (boss_stage == 1 && boss.x < 14016)
+            if (boss_stage == 1 && boss.x < boss_markers[3].x)
             {
                 boss.ActivateLink("idle");
                 boss.horz_flipped = true;
@@ -380,13 +561,13 @@ class Game
 
             boss.SetLinearVelocity(velocity_x, velocity_y);
 
-            if (boss_stage == 4 && boss.x > 14784)
+            if (boss_stage == 4 && boss.x > boss_markers[1].x)
             {
                 boss.ApplyLinearImpulse(0.0f, boss_jump_impulse);
                 boss_stage++;
             }
             else
-            if (boss_stage == 5 && boss.x > 15296)
+            if (boss_stage == 5 && boss.x > boss_markers[0].x)
             {
                 boss.ActivateLink("idle");
                 boss.horz_flipped = false;
@@ -395,13 +576,11 @@ class Game
                 boss_stage++;
             }
         }
-
-        Render_Print(5, 30, "Stage " + boss_stage);
     }
 
     void ControlPlayer(float dt)
     {
-        bool allow_jump = hero.CheckColissionNormal(0, 1.0f);
+        bool allow_jump = hero.CheckColissionNormal(0, 1.0f) || hero.CheckColissionNormal(0, -1.0f);
 
         float velocity_x = hero.GetLinearVelocityX();
         float velocity_y = hero.GetLinearVelocityY();
@@ -428,7 +607,7 @@ class Game
             }
         }
         else
-        if (Control_GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_y > 0.5f)
+        if (Control_GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
         {
             hero.horz_flipped = false;
 
@@ -514,9 +693,10 @@ class Game
                 fly_boxes[0].x = fake_box[0].x;
                 fly_boxes[0].y = fake_box[0].y;
                 fly_boxes[0].in_fly = 2.0f;
+
                 fake_box[0].visible = 0;
 
-                boxes_object.ApplyLinearImpulse(0, (hero.horz_flipped ? -1 : 1) * 75, 0);
+                boxes_object.ApplyLinearImpulse(0, (hero.horz_flipped ? -1 : 1) * 65, 0);
                 box_grabbed = -1;
             }
             else
@@ -532,6 +712,18 @@ class Game
                 cards_object.ApplyLinearImpulse(3, (hero.horz_flipped ? -1 : 1) * 75, 0);
                 card_grabbed = -1;
             }
+        }
+
+        if (box_grabbed != -1)
+        {
+            fake_box[0].x = hero.x;
+            fake_box[0].y = hero.y - 114;
+        }
+
+        if (card_grabbed != -1)
+        {
+            fake_card[0].x = hero.x;
+            fake_card[0].y = hero.y - 96;
         }
     }
 
@@ -560,9 +752,48 @@ class Game
 
     void Update(float dt)
     {
-        if (need_respawn)
+        if (!init)
         {
-            RespawnHero();
+            for (int i = 0; i<boxes.length();i++)
+            {
+                boxes[i].init_x = boxes[i].x;
+                boxes[i].init_y = boxes[i].y;
+            }
+
+            for (int i = 0; i<bridge_dyn.length();i++)
+            {
+                bridge_dyn[i].init_x = bridge_dyn[i].x;
+                bridge_dyn[i].init_y = bridge_dyn[i].y;
+            }
+
+            OnReturnToTitle();
+
+            init = true;
+
+            return;
+        }
+
+        if (is_paused)
+        {
+            if (pause_menu.GetState() != 2)
+            {
+                title_menu_pos_x += dt * 1000;
+                label_fade -= dt;
+
+                start_label.alpha = (label_fade > 1.0f) ? 1.0f : 0.0f;
+
+                while (label_fade < 0.0f)
+                {
+                    label_fade += 2.0f;
+                }
+
+                camera.target_pos_x = title_menu_pos_x;
+                camera.x = camera.target_pos_x;
+                camera.target_pos_y = -800;
+                camera.y = camera.target_pos_y;
+            }
+
+            return;
         }
 
         if (boss_active && boss_hp != 0)
@@ -570,7 +801,7 @@ class Game
             ControlBoss(dt);
         }
 
-        if (in_hit < -0.01f)
+        if (in_hit < -0.01f && hero_hp > 0)
         {
             ControlPlayer(dt);
         }
@@ -583,18 +814,6 @@ class Game
                 in_hit = -1.0f;
                 hero.ActivateLink("idle");
             }
-        }
-
-        if (box_grabbed != -1)
-        {
-            fake_box[0].x = hero.x;
-            fake_box[0].y = hero.y - 114;
-        }
-
-        if (card_grabbed != -1)
-        {
-            fake_card[0].x = hero.x;
-            fake_card[0].y = hero.y - 96;
         }
 
         CheckFlyBoxes(fly_boxes, dt);
@@ -619,7 +838,47 @@ class Game
             }
         }
 
-        camera.target_pos_x = hero.x;
-        camera.target_pos_y = hero.y;
+        if (fade_out > 0.0f)
+        {
+            float prev_fade_out = fade_out;
+            fade_out -= dt * 2.0f;
+
+            if (fade_out > 1.0f)
+            {
+                fade.alpha = 2.0f - fade_out;
+            }
+            else
+            {
+                if (prev_fade_out > 1.0f)
+                {
+                    RespawnHero();
+                }
+
+                fade.alpha = fade_out;
+            }
+
+            if (fade_out < 0.01f)
+            {
+                fade_out = -1.0f;
+                fade.alpha = 0.0f;
+            }
+        }
+
+        if (return_to_title > 0.0f)
+        {
+            return_to_title -= dt;
+
+            if (return_to_title < 0.01f)
+            {
+                return_to_title = -1.0f;
+                OnReturnToTitle();
+            }
+        }
+
+        if (fade_out < 1.0f)
+        {
+            camera.target_pos_x = hero.x;
+            camera.target_pos_y = hero.y;
+        }
     }
 }

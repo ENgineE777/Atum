@@ -9,6 +9,8 @@ char appdir[1024];
 EUITabPanel* Editor::outputPanels = nullptr;
 map<string, EUIListBox*> Editor::output_boxes;
 
+extern Scene* hack_scene;
+
 #include "Services/Scene/SceneObjectComp.h"
 
 #include "SceneAssets/SpriteInst.h"
@@ -415,6 +417,8 @@ void Editor::StartScene()
 	scene->Load(sceneName.c_str());
 	if (scene->Play())
 	{
+		hack_scene = scene;
+
 		Sprite::ed_cam_pos = 0.0f;
 
 		gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
@@ -771,6 +775,9 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 	{
 		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - MenuSceneAssetID]->GetName() : ClassFactorySceneObject::Decls()[id - MenuSceneObjectID]->GetName(), parent_item, is_asset);
 	}
+
+	popup_item = nullptr;
+	popup_scene_item = nullptr;
 }
 
 void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)

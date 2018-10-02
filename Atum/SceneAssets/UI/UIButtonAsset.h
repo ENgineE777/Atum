@@ -21,7 +21,6 @@ public:
 	int alias_rotate_x;
 	int alias_rotate_y;
 	int alias_fire;
-	int fired = 0;
 
 	META_DATA_DECL(UIButtonAssetInst)
 

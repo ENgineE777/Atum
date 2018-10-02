@@ -474,13 +474,17 @@ bool Scene::Play()
 
 	pscene2D = physics.CreateScene2D();
 	pscene2D->SetContactListener(&contact_listiner);
-	//pscene2D->SetContactFilter(&contact_filter);
 
 	for (auto object : objects)
 	{
 		if (!object->Play())
 		{
 			return false;
+		}
+
+		if (object->group_name.c_str())
+		{
+			AddToGroup(object, object->group_name.c_str());
 		}
 
 		for (auto comp : object->components)

@@ -95,7 +95,7 @@ void SpriteGraphAsset::Instance::Update(float dt)
 CLASSREG(SceneAsset, SpriteGraphAsset, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphAsset)
-BASE_SCENE_OBJ_NAME_PROP(SpriteGraphAsset)
+BASE_SCENE_ASSET_PROP(SpriteGraphAsset)
 FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteGraphAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteGraphAsset, trans.size.x, 100.0f, "Prop", "width")

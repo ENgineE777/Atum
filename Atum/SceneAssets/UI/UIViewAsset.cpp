@@ -5,7 +5,7 @@
 CLASSREG(SceneAsset, UIViewAsset, "UIView")
 
 META_DATA_DESC(UIViewAsset)
-BASE_SCENE_OBJ_NAME_PROP(UIViewAsset)
+STRING_PROP(UIViewAsset, name, "", "Common", "Name")\
 FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x")
 FLOAT_PROP(UIViewAsset, trans.pos.y, 300.0f, "Prop", "y")
 FLOAT_PROP(UIViewAsset, trans.size.x, 500.0f, "Prop", "width")

@@ -7,8 +7,7 @@
 CLASSREG(SceneObject, SimpleServer, "SimpleServer")
 
 META_DATA_DESC(SimpleServer)
-BASE_SCENE_OBJ_NAME_PROP(SimpleServer)
-BASE_SCENE_OBJ_STATE_PROP(SimpleServer)
+BASE_SCENE_OBJ_PROP(SimpleServer)
 META_DATA_DESC_END()
 
 void SimpleServer::Init()

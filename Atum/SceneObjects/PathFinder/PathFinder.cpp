@@ -5,8 +5,7 @@
 CLASSREG(SceneObject, PathFinder, "PathFinder")
 
 META_DATA_DESC(PathFinder)
-BASE_SCENE_OBJ_NAME_PROP(PathFinder)
-BASE_SCENE_OBJ_STATE_PROP(PathFinder)
+BASE_SCENE_OBJ_PROP(PathFinder)
 FILENAME_PROP(PathFinder, world, "", "Common", "World")
 META_DATA_DESC_END()
 

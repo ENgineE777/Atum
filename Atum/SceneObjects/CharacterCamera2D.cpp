@@ -6,8 +6,7 @@
 CLASSREG(SceneObject, CharacterCamera2D, "CharacterCamera2D")
 
 META_DATA_DESC(CharacterCamera2D)
-BASE_SCENE_OBJ_NAME_PROP(CharacterCamera2D)
-BASE_SCENE_OBJ_STATE_PROP(CharacterCamera2D)
+BASE_SCENE_OBJ_PROP(CharacterCamera2D)
 FLOAT_PROP(CharacterCamera2D, trans.pos.x, 100.0f, "Geometry", "x")
 FLOAT_PROP(CharacterCamera2D, trans.pos.y, 100.0f, "Geometry", "y")
 FLOAT_PROP(CharacterCamera2D, screen_border, 200.0f, "Prop", "ScreenBorder")

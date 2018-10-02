@@ -8,7 +8,7 @@
 CLASSREG(SceneAsset, SpriteTileAsset, "SpriteNineTile")
 
 META_DATA_DESC(SpriteTileAsset)
-BASE_SCENE_OBJ_NAME_PROP(SpriteTileAsset)
+BASE_SCENE_ASSET_PROP(SpriteTileAsset)
 FLOAT_PROP(SpriteTileAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteTileAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteTileAsset, trans.size.x, 100.0f, "Prop", "width")

@@ -49,11 +49,13 @@ public:
 	};
 
 	vector<ScriptCallback> script_callbacks;
+	SceneObject::ScriptCallback* FindScriptCallback(const char* name);
 
 protected:
 	
 	Scene* owner = nullptr;
 	std::string name;
+	std::string group_name;
 	uint32_t uid = 0;
 	State state = Active;
 	Vector2 cam2d_pos = 0.0f;
@@ -112,7 +114,7 @@ public:
 	virtual SceneObject* GetChild(uint32_t uid);
 
 	virtual void BindClassToScript();
-	virtual void InjectIntoScript(const char* type, void* property);
+	virtual bool InjectIntoScript(const char* type, void* property);
 
 	virtual bool OnContact(int index, SceneObject* contact_object, int contact_index);
 
@@ -157,15 +159,20 @@ public:
 CLASSFACTORYDEF(SceneObject)
 CLASSFACTORYDEF_END()
 
-#define BASE_SCENE_OBJ_NAME_PROP(className)\
-STRING_PROP(className, name, "", "Common", "Name")
-
 #define BASE_SCENE_OBJ_STATE_PROP(className)\
 ENUM_PROP(className, state, 2, "Common", "State")\
 	ENUM_ELEM("Invisible", 0)\
 	ENUM_ELEM("Inactive", 1)\
 	ENUM_ELEM("Active", 2)\
 ENUM_END
+
+#define BASE_SCENE_OBJ_PROP(className)\
+STRING_PROP(className, name, "", "Common", "Name")\
+BASE_SCENE_OBJ_STATE_PROP(className)\
+STRING_PROP(className, group_name, "", "Common", "Group")
+
+#define BASE_SCENE_ASSET_PROP(className)\
+STRING_PROP(className, name, "", "Common", "Name")
 
 #define BIND_TYPE_TO_SCRIPT(className)\
 scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\

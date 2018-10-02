@@ -5,8 +5,7 @@
 CLASSREG(SceneObject, Triger2D, "Triger2D")
 
 META_DATA_DESC(Triger2D)
-BASE_SCENE_OBJ_NAME_PROP(Triger2D)
-BASE_SCENE_OBJ_STATE_PROP(Triger2D)
+BASE_SCENE_OBJ_PROP(Triger2D)
 FLOAT_PROP(Triger2D, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(Triger2D, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(Triger2D, trans.size.x, 100.0f, "Prop", "width")

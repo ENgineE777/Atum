@@ -42,8 +42,7 @@ void StartScriptEdit(void* owner)
 #endif
 
 META_DATA_DESC(SceneScript)
-BASE_SCENE_OBJ_NAME_PROP(SceneScript)
-BASE_SCENE_OBJ_STATE_PROP(SceneScript)
+BASE_SCENE_OBJ_PROP(SceneScript)
 STRING_PROP(SceneScript, main_class, "", "Prop", "main_class")
 #ifdef EDITOR
 CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
@@ -291,7 +290,12 @@ bool SceneScript::Play()
 					if (node_prop->object)
 					{
 						auto type = scripts.engine->GetTypeInfoById(class_inst->GetPropertyTypeId(i));
-						node_prop->object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i));
+						
+						if (!node_prop->object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i)))
+						{
+							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", node_prop->object->GetName(), node_prop->object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
+							return false;
+						}
 					}
 				}
 			}

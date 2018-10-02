@@ -4,8 +4,7 @@
 CLASSREG(UIWidgetAsset, UIContainerAsset, "Container")
 
 META_DATA_DESC(UIContainerAsset)
-BASE_SCENE_OBJ_NAME_PROP(UIContainerAsset)
-BASE_SCENE_OBJ_STATE_PROP(UIContainerAsset)
+BASE_WIDGET_ASSET_PROP(UIContainerAsset)
 FLOAT_PROP(UIContainerAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(UIContainerAsset, trans.pos.y, 0.0f, "Prop", "y")
 ENUM_PROP(UIContainerAsset, horzAlign, 0, "Prop", "horz_align")
@@ -72,7 +71,7 @@ void UIContainerAsset::Draw(float dt)
 CLASSREG(UIWidgetAsset, UIContainerAssetInst, "UIContainer")
 
 META_DATA_DESC(UIContainerAssetInst)
-BASE_SCENE_OBJ_STATE_PROP(UIContainerAssetInst)
+BASE_WIDGET_INST_PROP(UIContainerAssetInst)
 COLOR_PROP(UIContainerAssetInst, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIContainerAssetInst, color.a, 1.0f, "Prop", "alpha")
 META_DATA_DESC_END()

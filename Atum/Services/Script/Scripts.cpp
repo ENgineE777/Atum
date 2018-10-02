@@ -6,9 +6,11 @@
 #include "Libs/scripthandle.h"
 #include "Libs/scriptmath.h"
 #include "Libs/scriptstdstring.h"
+#include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneObject.h"
 
 Scripts scripts;
+Scene* hack_scene = nullptr;
 
 void MessageCallback(const asSMessageInfo *msg, void *param)
 {
@@ -50,6 +52,20 @@ void Control_GetDebugState(asIScriptGeneric *gen)
 	gen->SetReturnDWord(controls.DebugKeyPressed(arg->c_str(), (Controls::AliasAction)gen->GetArgDWord(1)));
 }
 
+void Scene_Group_SetState(asIScriptGeneric *gen)
+{
+	string* arg = (string*)(gen->GetArgAddress(0));
+	int state = gen->GetArgDWord(1);
+
+	Scene::Group& group = hack_scene->GetGroup(arg->c_str());
+
+	for (auto obj : group.objects)
+	{
+		obj->SetState(state);
+	}
+}
+
+
 void Scripts::Init()
 {
 }
@@ -72,6 +88,7 @@ void Scripts::Start()
 	engine->RegisterGlobalFunction("int Controsl_GetAlias(string&in alias)", asFUNCTION(Control_GetAliasIndex), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Controsl_GetState(int alias, int action)", asFUNCTION(Control_GetState), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Control_GetDebugState(string&in alias, int action)", asFUNCTION(Control_GetDebugState), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Scene_Group_SetState(string&in alias, int state)", asFUNCTION(Scene_Group_SetState), asCALL_GENERIC);
 
 	for (const auto& decl : ClassFactorySceneObject::Decls())
 	{

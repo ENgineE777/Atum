@@ -8,7 +8,7 @@
 CLASSREG(SceneAsset, SpriteAsset, "Sprite")
 
 META_DATA_DESC(SpriteAsset)
-BASE_SCENE_OBJ_NAME_PROP(SpriteAsset)
+BASE_SCENE_ASSET_PROP(SpriteAsset)
 FLOAT_PROP(SpriteAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(SpriteAsset, trans.pos.y, 0.0f, "Prop", "y")
 FLOAT_PROP(SpriteAsset, trans.size.x, 100.0f, "Prop", "width")

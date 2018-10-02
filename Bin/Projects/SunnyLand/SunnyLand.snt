@@ -12,22 +12,27 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 38,
+			"index_in_scene" : 37,
 			"name" : "ActivateBossTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 35,
+			"index_in_scene" : 50,
+			"name" : "BossMarkers",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 34,
 			"name" : "CatBoss",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 36,
+			"index_in_scene" : 35,
 			"name" : "DynCard",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 37,
+			"index_in_scene" : 36,
 			"name" : "FakeCard",
 			"type" : 1
 		},
@@ -37,22 +42,22 @@
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 28,
+			"index_in_scene" : 27,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 29,
+			"index_in_scene" : 28,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 30,
+			"index_in_scene" : 29,
 			"name" : "DynBox",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 33,
+			"index_in_scene" : 32,
 			"name" : "DynBoxFly",
 			"type" : 1
 		},
@@ -62,7 +67,7 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 31,
+			"index_in_scene" : 30,
 			"name" : "FakeBox",
 			"type" : 1
 		},
@@ -77,7 +82,7 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 49,
+			"index_in_scene" : 48,
 			"name" : "OpposumRun",
 			"type" : 1
 		},
@@ -117,32 +122,32 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 22,
+			"index_in_scene" : 21,
 			"name" : "CaveBrush",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 21,
+			"index_in_scene" : 20,
 			"name" : "CaveInner",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 27,
+			"index_in_scene" : 26,
 			"name" : "CaveShelf",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 26,
+			"index_in_scene" : 25,
 			"name" : "CaveWall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 20,
+			"index_in_scene" : 19,
 			"name" : "LeftCaveEnter",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 19,
+			"index_in_scene" : 18,
 			"name" : "RightCaveEnter",
 			"type" : 1
 		},
@@ -157,52 +162,52 @@
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 32,
+			"index_in_scene" : 31,
 			"name" : "BridgeTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 45,
+			"index_in_scene" : 44,
 			"name" : "RespawnActTrigger2",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 47,
+			"index_in_scene" : 46,
 			"name" : "RespawnActTrigger3",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 48,
+			"index_in_scene" : 47,
 			"name" : "RespawnActTrigger4",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 39,
+			"index_in_scene" : 38,
 			"name" : "RespawnTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 40,
+			"index_in_scene" : 39,
 			"name" : "RespawnTrigger2",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 41,
+			"index_in_scene" : 40,
 			"name" : "RespawnTrigger3",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 42,
+			"index_in_scene" : 41,
 			"name" : "RespawnTrigger4",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 43,
+			"index_in_scene" : 42,
 			"name" : "RespawnTrigger5",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 44,
+			"index_in_scene" : 43,
 			"name" : "RespawnTrigger6",
 			"type" : 1
 		},
@@ -212,17 +217,17 @@
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 23,
+			"index_in_scene" : 22,
 			"name" : "BridgeBaseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 24,
+			"index_in_scene" : 23,
 			"name" : "BridgeRowSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 34,
+			"index_in_scene" : 33,
 			"name" : "BridgeRowSpriteDyn",
 			"type" : 1
 		},
@@ -232,17 +237,12 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 17,
-			"name" : "CatRun",
-			"type" : 1
-		},
-		{
 			"index_in_scene" : 9,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 25,
+			"index_in_scene" : 24,
 			"name" : "Ground2Tiles",
 			"type" : 1
 		},
@@ -257,12 +257,12 @@
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 46,
+			"index_in_scene" : 45,
 			"name" : "RespawnPoints",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 18,
+			"index_in_scene" : 17,
 			"name" : "RightHangSprite",
 			"type" : 1
 		},
@@ -295,6 +295,11 @@
 			"index_in_scene" : -1,
 			"name" : "UI",
 			"type" : 0
+		},
+		{
+			"index_in_scene" : 49,
+			"name" : "IngameMenu",
+			"type" : 1
 		},
 		{
 			"index_in_scene" : 0,
@@ -662,6 +667,11 @@
 			"index_in_scene" : -1,
 			"name" : "UI",
 			"type" : 0
+		},
+		{
+			"index_in_scene" : 43,
+			"name" : "IngameMenu",
+			"type" : 1
 		},
 		{
 			"index_in_scene" : 0,

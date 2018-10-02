@@ -7,8 +7,7 @@
 CLASSREG(UIWidgetAsset, UIImageAsset, "Image")
 
 META_DATA_DESC(UIImageAsset)
-BASE_SCENE_OBJ_NAME_PROP(UIImageAsset)
-BASE_SCENE_OBJ_STATE_PROP(UIImageAsset)
+BASE_WIDGET_ASSET_PROP(UIImageAsset)
 FLOAT_PROP(UIImageAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(UIImageAsset, trans.pos.y, 0.0f, "Prop", "y")
 ENUM_PROP(UIImageAsset, horzAlign, 0, "Prop", "horz_align")
@@ -156,7 +155,7 @@ void StartEditUIImageAssetInst(void* owner)
 #endif
 
 META_DATA_DESC(UIImageAssetInst)
-BASE_SCENE_OBJ_STATE_PROP(UIImageAssetInst)
+BASE_WIDGET_INST_PROP(UIImageAssetInst)
 COLOR_PROP(UIImageAssetInst, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIImageAssetInst, color.a, 1.0f, "Prop", "alpha")
 #ifdef EDITOR

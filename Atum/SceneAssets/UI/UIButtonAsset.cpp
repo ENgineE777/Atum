@@ -4,8 +4,7 @@
 CLASSREG(UIWidgetAsset, UIButtonAsset, "Button")
 
 META_DATA_DESC(UIButtonAsset)
-BASE_SCENE_OBJ_NAME_PROP(UIButtonAsset)
-BASE_SCENE_OBJ_STATE_PROP(UIButtonAsset)
+BASE_WIDGET_ASSET_PROP(UIButtonAsset)
 FLOAT_PROP(UIButtonAsset, trans.pos.x, 0.0f, "Prop", "x")
 FLOAT_PROP(UIButtonAsset, trans.pos.y, 0.0f, "Prop", "y")
 ENUM_PROP(UIButtonAsset, horzAlign, 0, "Prop", "horz_align")
@@ -72,7 +71,7 @@ void UIButtonAsset::Draw(float dt)
 CLASSREG(UIWidgetAsset, UIButtonAssetInst, "UIButton")
 
 META_DATA_DESC(UIButtonAssetInst)
-BASE_SCENE_OBJ_STATE_PROP(UIButtonAssetInst)
+BASE_WIDGET_INST_PROP(UIButtonAssetInst)
 COLOR_PROP(UIButtonAssetInst, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIButtonAssetInst, color.a, 1.0f, "Prop", "alpha")
 META_DATA_DESC_END()
@@ -87,6 +86,8 @@ void UIButtonAssetInst::Init()
 	alias_rotate_x = controls.GetAlias("Tank.ROTATE_X");
 	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
 	alias_fire = controls.GetAlias("Tank.FIRE");
+
+	script_callbacks.push_back(ScriptCallback("OnDown", "void", ""));
 }
 
 void UIButtonAssetInst::Draw(float dt)
@@ -117,7 +118,12 @@ void UIButtonAssetInst::Draw(float dt)
 			if (pos.x < mx && mx < pos.x + size.x &&
 				pos.y < my && my < pos.y + size.y)
 			{
-				fired = 1;
+				SceneObject::ScriptCallback* callabck = FindScriptCallback("OnDown");
+
+				if (callabck)
+				{
+					callabck->Call(Script());
+				}
 			}
 		}
 	}

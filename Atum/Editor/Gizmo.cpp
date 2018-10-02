@@ -15,7 +15,7 @@ void Gizmo::Init()
 	center->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 }
 
-void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions)
+void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions, bool set_ignore_2d_camera)
 {
 	trans2D = set_trans2D;
 	if (trans2D)
@@ -23,6 +23,7 @@ void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions)
 		pos2d = trans2D->pos;
 	}
 	trans2D_actions = actions;
+	ignore_2d_camera = set_ignore_2d_camera;
 	enabled = (trans2D != nullptr);
 }
 
@@ -660,8 +661,11 @@ void Gizmo::RenderTrans2D()
 			p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
 			p2 = p2 * trans2D->mat_global;
 
-			p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
-			p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+			if (!ignore_2d_camera)
+			{
+				p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+				p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+			}
 
 			if (phase == 1)
 			{
@@ -677,7 +681,11 @@ void Gizmo::RenderTrans2D()
 
 	p1 = Vector(0.0f, 0.0f, 0.0f);
 	p1 = p1 * trans2D->mat_global;
-	p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+
+	if (!ignore_2d_camera)
+	{
+		p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+	}
 
 	origin = Vector2(p1.x, p1.y) * scale;
 
@@ -779,7 +787,11 @@ void Gizmo::OnLeftMouseUp()
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
 		moved_origin /= scale;
-		moved_origin += Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f) / scale;
+
+		if (!ignore_2d_camera)
+		{
+			moved_origin += Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f) / scale;
+		}
 
 		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D->size.x, trans2D->size.y, 1.0f);
 		trans2D->offset += Vector2(pos.x, pos.y);

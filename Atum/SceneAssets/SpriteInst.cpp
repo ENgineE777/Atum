@@ -16,8 +16,7 @@ META_DATA_DESC_END()
 CLASSREG(SceneObject, SpriteInst, "Sprite")
 
 META_DATA_DESC(SpriteInst)
-BASE_SCENE_OBJ_NAME_PROP(SpriteInst)
-BASE_SCENE_OBJ_STATE_PROP(SpriteInst)
+BASE_SCENE_OBJ_PROP(SpriteInst)
 FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
 FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
 ARRAY_PROP(SpriteInst, instances, Instance, "Prop", "inst")
@@ -136,10 +135,12 @@ void SpriteInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteInst)
 	scripts.engine->RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(int index, float x, float y)", WRAP_MFN(SpriteInst, ApplyLinearImpulse), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(int index, float x, float y)", WRAP_MFN(SpriteInst, Move), asCALL_GENERIC);
 }
 
-void SpriteInst::InjectIntoScript(const char* type, void* property)
+bool SpriteInst::InjectIntoScript(const char* type, void* property)
 {
 	if (StringUtils::IsEqual(type, "array"))
 	{
@@ -180,11 +181,11 @@ void SpriteInst::InjectIntoScript(const char* type, void* property)
 				comp->InjectIntoScript(type, property);
 			}
 		}
+
+		return true;
 	}
-	else
-	{
-		SceneObject::InjectIntoScript(type, property);
-	}
+	
+	return SceneObject::InjectIntoScript(type, property);
 }
 
 void SpriteInst::Init()
@@ -353,6 +354,11 @@ void SpriteInst::AddInstance(float x, float y)
 	instances.push_back(inst);
 }
 
+void SpriteInst::ClearInstances()
+{
+	instances.clear();
+}
+
 void SpriteInst::ApplyLinearImpulse(int index, float x, float y)
 {
 	b2Body* body = HackGetBody(index);
@@ -360,6 +366,22 @@ void SpriteInst::ApplyLinearImpulse(int index, float x, float y)
 	if (body)
 	{
 		body->SetLinearVelocity({ x, y });
+	}
+}
+
+void SpriteInst::Move(int index, float x, float y)
+{
+	b2Body* body = HackGetBody(index);
+
+	if (body)
+	{
+		b2Vec2 pos(0.0f, 0.0f);
+		body->SetLinearVelocity(pos);
+
+		instances[index].SetPos({ x, y });
+		pos.x = x / 50.0f;
+		pos.y = y / 50.0f;
+		body->SetTransform(pos, 0.0f);
 	}
 }
 

@@ -6,8 +6,7 @@
 CLASSREG(SceneObject, SpritesLayerInst, "SpritesLayer")
 
 META_DATA_DESC(SpritesLayerInst)
-BASE_SCENE_OBJ_NAME_PROP(SpritesLayerInst)
-BASE_SCENE_OBJ_STATE_PROP(SpritesLayerInst)
+BASE_SCENE_OBJ_PROP(SpritesLayerInst)
 FLOAT_PROP(SpritesLayerInst, axis_scale, 1.0f, "Geometry", "axis_scale")
 FLOAT_PROP(SpritesLayerInst, trans.depth, 0.5f, "Geometry", "Depth")
 FLOAT_PROP(SpritesLayerInst, trans.pos.y, 0.0f, "Geometry", "y")
@@ -56,7 +55,6 @@ void SpritesLayerInst::Draw(float dt)
 	}
 
 	Vector2 size = max_pos - min_pos;
-	Vector2 pos = min_pos + size * 0.5f;
 
 	Vector2 cam_pos = 0.0f;
 	int from = 0;
@@ -75,11 +73,9 @@ void SpritesLayerInst::Draw(float dt)
 	{
 		cam_pos = Sprite::cam_pos;
 		Sprite::cam_pos *= axis_scale;
-		from = (int)((Sprite::ed_cam_pos.x / scale) / size.x);
-		to = (int)(((Sprite::ed_cam_pos.x + render.GetDevice()->GetWidth()) / scale) / size.x);
+		from = (int)((Sprite::cam_pos.x) / size.x);
+		to = (int)(((Sprite::cam_pos.x + render.GetDevice()->GetWidth())) / size.x);
 	}
-
-	float pos_x = (int)((cam_pos.x / scale) / size.x) * size.x;
 
 	for (int x = from - 1; x < to + 1; x++)
 	{

@@ -75,6 +75,15 @@ public:
 CLASSFACTORYDEF(UIWidgetAsset)
 CLASSFACTORYDEF_END()
 
+
+#define BASE_WIDGET_ASSET_PROP(className)\
+STRING_PROP(className, name, "", "Common", "Name")\
+BASE_SCENE_OBJ_STATE_PROP(className)
+
+#define BASE_WIDGET_INST_PROP(className)\
+BASE_SCENE_OBJ_STATE_PROP(className)
+
+
 #define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
 scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
 scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\

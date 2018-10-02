@@ -191,6 +191,19 @@ bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 	return false;
 }
 
+SceneObject::ScriptCallback* SceneObject::FindScriptCallback(const char* name)
+{
+	for (auto& script_callabck : script_callbacks)
+	{
+		if (StringUtils::IsEqual(script_callabck.GetName(), name))
+		{
+			return &script_callabck;
+		}
+	}
+
+	return nullptr;
+}
+
 void SceneObject::EnableTasks(bool enable)
 {
 	if (taskPool)
@@ -420,26 +433,27 @@ void SceneObject::BindClassToScript()
 {
 }
 
-void SceneObject::InjectIntoScript(const char* type, void* property)
+bool SceneObject::InjectIntoScript(const char* type, void* property)
 {
 	if (!StringUtils::IsEqual(type, script_class_name))
 	{
-		return;
+		return false;
 	}
 
 	*(asPWORD*)(property) = (asPWORD)this;
+
+	return true;
 }
 
 bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index)
 {
-	for (auto& script_callabck : script_callbacks)
+	SceneObject::ScriptCallback* callabck = FindScriptCallback("OnContact");
+
+	if (callabck)
 	{
-		if (StringUtils::IsEqual(script_callabck.GetName(), "OnContact"))
+		if (callabck->Call(Script(), index, contact_object->GetName(), contact_index))
 		{
-			if (script_callabck.Call(Script(), index, contact_object->GetName(), contact_index))
-			{
-				return (Script()->ctx->GetReturnDWord() > 0);
-			}
+			return (Script()->ctx->GetReturnDWord() > 0);
 		}
 	}
 

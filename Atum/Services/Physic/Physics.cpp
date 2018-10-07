@@ -1,6 +1,6 @@
 #include "Physics.h"
 #include "Services/Render/Render.h"
-#include "SceneAssets/Sprite.h"
+#include "SceneObjects/2D/Sprite.h"
 
 Physics physics;
 

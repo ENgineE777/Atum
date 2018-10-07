@@ -2,7 +2,7 @@
 #include "Gizmo.h"
 #include "Services/Controls/Controls.h"
 #include "Services/Render/Render.h"
-#include "SceneAssets/Sprite.h"
+#include "SceneObjects/2D/Sprite.h"
 
 Gizmo* Gizmo::inst = nullptr;
 

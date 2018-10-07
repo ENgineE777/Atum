@@ -10,6 +10,7 @@
 #include "Services/Controls/Controls.h"
 #include "Scene.h"
 #include "SceneObjectComp.h"
+#include "ExecuteLevels.h"
 
 #ifdef EDITOR
 #include "Editor/Gizmo.h"

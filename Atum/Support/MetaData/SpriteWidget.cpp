@@ -1,6 +1,6 @@
 
 #include "SpriteWidget.h"
-#include "SceneAssets/SpriteWindow.h"
+#include "SceneObjects/2D/SpriteWindow.h"
 
 void SpriteWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {

@@ -6803,7 +6803,7 @@
 			]
 		},
 		{
-			"type" : "CharacterCamera2D",
+			"type" : "Camera2D",
 			"uid" : 1314392192,
 			"Name" : "Camera2D",
 			"State" : 2,

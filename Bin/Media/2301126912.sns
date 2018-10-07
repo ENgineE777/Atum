@@ -147,7 +147,7 @@ class Game
         Scene_Group_SetState("Level", 2);
 
         fade_out = -1.0f;
-        cur_respawn_point = 3;
+        cur_respawn_point = 0;
         AddScore(-1);
         RespawnHero();
     }

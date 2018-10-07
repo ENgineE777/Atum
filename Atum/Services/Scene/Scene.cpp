@@ -3,9 +3,9 @@
 #include "SceneObject.h"
 #include "SceneAsset.h"
 
-#include "SceneAssets/Phys2DComp.h"
-#include "SceneAssets/SpriteGraphInst.h"
-#include "SceneAssets/SpriteInst.h"
+#include "SceneObjects/2D/Phys2DComp.h"
+#include "SceneObjects/2D/SpriteGraphInst.h"
+#include "SceneObjects/2D/SpriteInst.h"
 #include "Services/Script/Libs/scriptarray.h"
 
 int index_hack_show_message = 0;

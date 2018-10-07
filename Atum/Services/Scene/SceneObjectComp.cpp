@@ -1,5 +1,5 @@
 
-#include "SceneAssets/SpriteAsset.h"
+#include "SceneAsset.h"
 #include "SceneObjectComp.h"
 
 void SceneObjectComp::Init()

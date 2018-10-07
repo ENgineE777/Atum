@@ -2,7 +2,7 @@
 #pragma once
 
 #include "ProperyWidget.h"
-#include "SceneAssets/Sprite.h"
+#include "SceneObjects/2D/Sprite.h"
 
 class SpriteWidget : public ProperyWidget, public EUIWidget::Listener
 {

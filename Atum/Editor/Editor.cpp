@@ -1,8 +1,5 @@
 
 #include "Editor.h"
-#include "SceneAssets/Sprite.h"
-#include "SceneObjects/RenderLevels.h"
-#include "SceneAssets/Sprite.h"
 
 char appdir[1024];
 
@@ -10,11 +7,6 @@ EUITabPanel* Editor::outputPanels = nullptr;
 map<string, EUIListBox*> Editor::output_boxes;
 
 extern Scene* hack_scene;
-
-#include "Services/Scene/SceneObjectComp.h"
-
-#include "SceneAssets/SpriteInst.h"
-#include "SceneAssets/SpriteGraphInst.h"
 
 void Editor::Init()
 {
@@ -495,14 +487,14 @@ void Editor::Draw(float dt)
 		render.GetDevice()->Clear(false , COLOR_GRAY, true, 1.0f);
 	}
 
-	render.ExecutePool(RenderLevels::Camera, dt);
-	render.ExecutePool(RenderLevels::Prepare, dt);
-	render.ExecutePool(RenderLevels::Geometry, dt);
-	render.ExecutePool(RenderLevels::DebugGeometry, dt);
-	render.ExecutePool(RenderLevels::Sprites, dt);
-	render.ExecutePool(RenderLevels::PostProcess, dt);
-	render.ExecutePool(RenderLevels::GUI, dt);
-	render.ExecutePool(RenderLevels::Debug, dt);
+	render.ExecutePool(ExecuteLevels::Camera, dt);
+	render.ExecutePool(ExecuteLevels::Prepare, dt);
+	render.ExecutePool(ExecuteLevels::Geometry, dt);
+	render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
+	render.ExecutePool(ExecuteLevels::Sprites, dt);
+	render.ExecutePool(ExecuteLevels::PostProcess, dt);
+	render.ExecutePool(ExecuteLevels::GUI, dt);
+	render.ExecutePool(ExecuteLevels::Debug, dt);
 
 	render.GetDevice()->Present();
 }

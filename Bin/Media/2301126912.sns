@@ -200,6 +200,18 @@ class Game
                 fade_out = 2.0f;
             }
 
+            if (box_grabbed != -1)
+            {
+                fake_box[0].visible = 0;
+                enemy_death.AddInstance(fake_box[0].x, fake_box[0].y);
+            }
+
+            if (card_grabbed != -1)
+            {
+                fake_card[0].visible = 1;
+                enemy_death.AddInstance(fake_card[0].x, fake_card[0].y);
+            }
+
             hero.GotoNode("Hit");
             in_hit = 1.0f;
 

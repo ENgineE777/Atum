@@ -204,24 +204,6 @@ SceneObject::ScriptCallback* SceneObject::FindScriptCallback(const char* name)
 	return nullptr;
 }
 
-void SceneObject::EnableTasks(bool enable)
-{
-	if (taskPool)
-	{
-		taskPool->SetActive(enable);;
-	}
-
-	if (renderTaskPool)
-	{
-		renderTaskPool->SetActive(enable);
-	}
-}
-
-bool SceneObject::HasOwnTasks()
-{
-	return taskPool || renderTaskPool;
-}
-
 void SceneObject::ApplyProperties()
 {
 
@@ -304,9 +286,9 @@ void SceneObject::Save(JSONWriter& writer)
 
 TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 {
-#ifdef EDITOR
 	if (editor)
 	{
+#ifdef EDITOR
 		if (!taskPool)
 		{
 			taskPool = taskExecutor.CreateSingleTaskPool();
@@ -314,17 +296,19 @@ TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 		}
 
 		return taskPool;
-	}
+#else
+	return nullptr;
 #endif
+	}
 
 	return owner->taskPool;
 }
 
 TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 {
-#ifdef EDITOR
 	if (editor)
 	{
+#ifdef EDITOR
 		if (!renderTaskPool)
 		{
 			renderTaskPool = renderTaskPool = render.AddTaskPool();
@@ -332,8 +316,10 @@ TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 		}
 
 		return renderTaskPool;
-	}
+#else
+		return nullptr;
 #endif
+	}
 
 	return owner->renderTaskPool;
 }
@@ -384,6 +370,7 @@ void SceneObject::Release()
 		}
 	}
 
+#ifdef EDITOR
 	if (taskPool)
 	{
 		taskPool->DelAllTasks(this);
@@ -393,6 +380,7 @@ void SceneObject::Release()
 			taskPool->DelAllTasks(comp);
 		}
 	}
+#endif
 
 	if (owner)
 	{
@@ -404,6 +392,7 @@ void SceneObject::Release()
 		}
 	}
 
+#ifdef EDITOR
 	if (renderTaskPool)
 	{
 		renderTaskPool->DelAllTasks(this);
@@ -413,6 +402,7 @@ void SceneObject::Release()
 			renderTaskPool->DelAllTasks(comp);
 		}
 	}
+#endif
 
 	if (owner) owner->DelFromAllGroups(this);
 
@@ -461,9 +451,22 @@ bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_
 }
 
 #ifdef EDITOR
-bool SceneObject::IsEditorTasks()
+void SceneObject::EnableTasks(bool enable)
 {
-	return (taskPool != nullptr || renderTaskPool != nullptr);
+	if (taskPool)
+	{
+		taskPool->SetActive(enable);;
+	}
+
+	if (renderTaskPool)
+	{
+		renderTaskPool->SetActive(enable);
+	}
+}
+
+bool SceneObject::HasOwnTasks()
+{
+	return taskPool || renderTaskPool;
 }
 
 bool SceneObject::IsAsset()

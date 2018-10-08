@@ -9,5 +9,5 @@ uniform vec4 color;
 void main()
 {
    vec4 tex = texture(diffuseMap, vTexCoord);
-   outColor = vec4(tex.x, tex.y, tex.z, 1.0f) * color;
+   outColor = vec4(tex.x, tex.x, tex.x, tex.x) * color;
 }

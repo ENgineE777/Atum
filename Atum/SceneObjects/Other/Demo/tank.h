@@ -4,8 +4,8 @@
 #define WIN32_LEAN_AND_MEAN
 
 #include "model.h"
-#include "terrain.h"
-#include "PhysBox.h"
+#include "SceneObjects/3D/terrain.h"
+#include "SceneObjects/3D/PhysBox.h"
 
 #include "Services/Physic/Physics.h"
 

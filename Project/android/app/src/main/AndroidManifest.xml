@@ -7,8 +7,8 @@
 
   <application
       android:icon="@mipmap/ic_launcher"
-      android:label="@string/gles3jni_activity">
-    <activity android:name="GLES3JNIActivity"
+      android:label="@string/atum_activity">
+    <activity android:name="AtumActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
               android:launchMode="singleTask"
               android:configChanges="orientation|screenSize|keyboardHidden"

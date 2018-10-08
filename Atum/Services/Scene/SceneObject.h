@@ -94,8 +94,6 @@ public:
 	virtual Vector2& Camera2DPos();
 
 	virtual SceneObjectComp* AddComponent(const char* name);
-	virtual void EnableTasks(bool enable);
-	virtual bool HasOwnTasks();
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
@@ -121,7 +119,8 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
-	virtual bool IsEditorTasks();
+	virtual void EnableTasks(bool enable);
+	virtual bool HasOwnTasks();
 	virtual bool IsAsset();
 	virtual bool CheckSelection(Vector2 ms);
 	virtual bool AddedToTreeByParent();

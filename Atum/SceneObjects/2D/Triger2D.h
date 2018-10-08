@@ -15,12 +15,12 @@ public:
 	virtual ~Triger2D() = default;
 
 	void Init() override;
-	void EditorDraw(float dt);
 
 	bool Play() override;
 	void Stop() override;
 
 #ifdef EDITOR
+	void EditorDraw(float dt);
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;
 #endif

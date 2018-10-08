@@ -22,7 +22,9 @@ UIWidgetAsset* UIViewAsset::popup_item = nullptr;
 
 void UIViewAsset::Init()
 {
+#ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::GUI, this, (Object::Delegate)&UIViewAsset::Draw);
+#endif
 }
 
 void UIViewAsset::ApplyProperties()

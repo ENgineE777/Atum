@@ -53,9 +53,7 @@ public:
 class SceneAssetComp : public SceneObjectComp
 {
 public:
-#ifdef EDITOR
 	const char* inst_class_name = nullptr;
-#endif
 };
 
 CLASSFACTORYDEF(SceneObjectComp)
@@ -68,7 +66,11 @@ CLASSFACTORYDEF(SceneObjectComp)
 	{
 		bool IsSameClass(Object* ptr) override
 		{
+#ifdef EDITOR
 			return dynamic_cast<StructType*>(ptr);
+#else
+			return false;
+#endif
 		}
 	};
 	virtual void Init() = 0;

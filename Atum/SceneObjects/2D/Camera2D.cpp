@@ -1,5 +1,6 @@
 
 #include "Camera2D.h"
+#include "Sprite.h"
 #include "Services/Render/Render.h"
 
 CLASSREG(SceneObject, Camera2D, "CharacterCamera2D")

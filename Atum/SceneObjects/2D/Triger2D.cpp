@@ -14,24 +14,11 @@ META_DATA_DESC_END()
 
 void Triger2D::Init()
 {
+#ifdef EDITOR
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&Triger2D::EditorDraw);
+#endif
 
 	script_callbacks.push_back(ScriptCallback("OnContact", "int", "%i%s%i"));
-}
-
-void Triger2D::EditorDraw(float dt)
-{
-	if (owner->Playing())
-	{
-		return;
-	}
-
-	trans.BuildMatrices();
-	Sprite::Data sprite;
-	Sprite::FrameState state;
-	Color color = COLOR_WHITE;
-	color.a = 0.5f;
-	Sprite::Draw(&trans, color, &sprite, &state, true, false);
 }
 
 bool Triger2D::Play()
@@ -67,6 +54,21 @@ void Triger2D::Stop()
 }
 
 #ifdef EDITOR
+void Triger2D::EditorDraw(float dt)
+{
+	if (owner->Playing())
+	{
+		return;
+	}
+
+	trans.BuildMatrices();
+	Sprite::Data sprite;
+	Sprite::FrameState state;
+	Color color = COLOR_WHITE;
+	color.a = 0.5f;
+	Sprite::Draw(&trans, color, &sprite, &state, true, false);
+}
+
 bool Triger2D::CheckSelection(Vector2 ms)
 {
 	float scale = render.GetDevice()->GetHeight() / 1024.0f;

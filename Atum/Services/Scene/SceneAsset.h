@@ -18,9 +18,10 @@ public:
 
 	bool UsingCamera2DPos() override;
 
+	const char* inst_class_name = nullptr;
+
 #ifdef EDITOR
 	vector<SceneObject*> instances;
-	const char* inst_class_name = nullptr;
 
 	bool IsAsset() override;
 	virtual SceneObject* CreateInstance();

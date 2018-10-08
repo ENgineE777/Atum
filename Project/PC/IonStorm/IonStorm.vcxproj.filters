@@ -631,6 +631,12 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\DataTrack\TransformDataTrackWidgets.cpp">
       <Filter>SceneObjects\Common\Animator\DataTrack</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\tank.cpp">
+      <Filter>SceneObjects\Other\Demo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.cpp">
+      <Filter>SceneObjects\Other\Demo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Buffer.h">
@@ -1202,6 +1208,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\DataTrack\TransformDataTrackWidgets.h">
       <Filter>SceneObjects\Common\Animator\DataTrack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\ExecuteLevels.h">
+      <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\tank.h">
+      <Filter>SceneObjects\Other\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.h">
+      <Filter>SceneObjects\Other\Demo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

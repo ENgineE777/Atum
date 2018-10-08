@@ -333,7 +333,7 @@ b2Body* SpriteInst::HackGetBody(int index)
 {
 	for (auto comp : components)
 	{
-		Phys2DCompInst* phys_comp = dynamic_cast<Phys2DCompInst*>(comp);
+		Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
 
 		if (phys_comp)
 		{

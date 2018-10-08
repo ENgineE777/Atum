@@ -19,6 +19,6 @@
 
 <resources>
     <!-- Simple strings. -->
-    <string name="gles3jni_activity">Atum</string>
+    <string name="atum_activity">Atum</string>
 
 </resources>

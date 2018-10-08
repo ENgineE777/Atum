@@ -65,9 +65,9 @@ void VirtualJoystick::ApplyProperties()
 	stick_pad_size = 250.0f;
 	stick_size = 120.0f;
 
-	button_size = 100.0f;
-	button_a_pos = 100.0f;
-	button_b_pos = Vector2(100.0f, 250.0f);
+	button_size = 175.0f;
+	button_a_pos = 125.0f;
+	button_b_pos = Vector2(125.0f, 350.0f);
 }
 
 void VirtualJoystick::Draw(float dt)

@@ -3,13 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "SceneAssets/Sprite.h"
-
 #include "Services/Core/Core.h"
-
 #include "Services/Scene/Scene.h"
-
-#include "SceneObjects/RenderLevels.h"
+#include "Services/Scene/ExecuteLevels.h"
+#include "SceneObjects/2D/Sprite.h"
 
 TaskExecutor::SingleTaskPool* renderTaskPool;
 
@@ -24,13 +21,13 @@ std::vector<jvalue> cur_args;
 
 extern "C"
 {
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_Init(JNIEnv* env, jobject obj);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_Resize(JNIEnv* env, jobject obj, jint width, jint height);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_Update(JNIEnv* env, jobject obj);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y);
-	JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchEnd(JNIEnv* env, jobject obj, int index);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_Init(JNIEnv* env, jobject obj);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_Resize(JNIEnv* env, jobject obj, jint width, jint height);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchEnd(JNIEnv* env, jobject obj, int index);
 };
 
 void UpdateJavaEnv(JNIEnv* env, jobject obj)
@@ -126,6 +123,8 @@ void CallJavaMethod(const char* function, const char* format, ...)
 	}
 }
 
+extern Scene* hack_scene;
+
 class Renderer : public Object
 {
 public:
@@ -140,6 +139,8 @@ public:
 			return;
 		}
 
+		hack_scene = &scene;
+
 		scene.Init();
 		scene.Load("Projects/SunnyLand/SunnyLand.scn");
 		//scene.Load("Media/beatemup.scn");
@@ -151,25 +152,25 @@ public:
 
 	void Draw(float dt)
 	{
-		render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
+		render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
 
 		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
-		render.ExecutePool(RenderLevels::Camera, dt);
-		render.ExecutePool(RenderLevels::Prepare, dt);
-		render.ExecutePool(RenderLevels::Geometry, dt);
-		render.ExecutePool(RenderLevels::DebugGeometry, dt);
-		render.ExecutePool(RenderLevels::Sprites, dt);
-		render.ExecutePool(RenderLevels::PostProcess, dt);
-		render.ExecutePool(RenderLevels::GUI, dt);
-		render.ExecutePool(RenderLevels::Debug, dt);
+		render.ExecutePool(ExecuteLevels::Camera, dt);
+		render.ExecutePool(ExecuteLevels::Prepare, dt);
+		render.ExecutePool(ExecuteLevels::Geometry, dt);
+		render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
+		render.ExecutePool(ExecuteLevels::Sprites, dt);
+		render.ExecutePool(ExecuteLevels::PostProcess, dt);
+		render.ExecutePool(ExecuteLevels::GUI, dt);
+		render.ExecutePool(ExecuteLevels::Debug, dt);
 	}
 };
 
 Renderer renderer;
 
 JNIEXPORT void JNICALL
-Java_com_atum_engine_GLES3JNILib_Init(JNIEnv* env, jobject obj)
+Java_com_atum_engine_AtumLib_Init(JNIEnv* env, jobject obj)
 {
 	UpdateJavaEnv(env, obj);
 
@@ -186,7 +187,7 @@ Java_com_atum_engine_GLES3JNILib_Init(JNIEnv* env, jobject obj)
 }
 
 JNIEXPORT void JNICALL
-Java_com_atum_engine_GLES3JNILib_Resize(JNIEnv* env, jobject obj, jint width, jint height)
+Java_com_atum_engine_AtumLib_Resize(JNIEnv* env, jobject obj, jint width, jint height)
 {
 	UpdateJavaEnv(env, obj);
 
@@ -196,7 +197,7 @@ Java_com_atum_engine_GLES3JNILib_Resize(JNIEnv* env, jobject obj, jint width, ji
 }
 
 JNIEXPORT void JNICALL
-Java_com_atum_engine_GLES3JNILib_Update(JNIEnv* env, jobject obj)
+Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj)
 {
 	UpdateJavaEnv(env, obj);
 
@@ -207,25 +208,25 @@ Java_com_atum_engine_GLES3JNILib_Update(JNIEnv* env, jobject obj)
 	core.Update();
 }
 
-JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager)
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager)
 {
 	AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
 	android_fopen_set_asset_manager(mgr);
 }
 
-JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y)
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y)
 {
 	core.Log("Touch", "Touch %i at (%i, %i) started", index, x, y);
 	controls.TouchStart(index, x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y)
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y)
 {
 	core.Log("Touch", "Touch %i updated to (%i, %i)", index, x, y);
 	controls.TouchUpdate(index, x, y);
 }
 
-JNIEXPORT void JNICALL Java_com_atum_engine_GLES3JNILib_TouchEnd(JNIEnv* env, jobject obj, int index)
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchEnd(JNIEnv* env, jobject obj, int index)
 {
 	core.Log("Touch", "Touch %i ended", index);
 	controls.TouchEnd(index);

@@ -26,7 +26,9 @@ SpriteAsset::SpriteAsset() : SceneAsset()
 
 void SpriteAsset::Init()
 {
+#ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
+#endif
 
 	owner->AddToGroup(this, "SpriteAsset");
 }

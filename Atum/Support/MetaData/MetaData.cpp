@@ -1,6 +1,7 @@
 
 #include <angelscript.h>
 #include "MetaData.h"
+#include "SceneObjects/2D/Sprite.h"
 
 void MetaData::Prepare(void* set_owner)
 {

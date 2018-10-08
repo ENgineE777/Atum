@@ -26,7 +26,9 @@ SpritesLayerAsset::SpritesLayerAsset() : SceneAsset()
 
 void SpritesLayerAsset::Init()
 {
+#ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpritesLayerAsset::Draw);
+#endif
 }
 
 void SpritesLayerAsset::Draw(float dt)

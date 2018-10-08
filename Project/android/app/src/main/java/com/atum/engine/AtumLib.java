@@ -4,9 +4,9 @@ package com.atum.engine;
 import android.content.res.AssetManager;
 import android.util.Log;
 
-public class GLES3JNILib
+public class AtumLib
 {
-     public static GLES3JNILib inst;
+     public static AtumLib inst;
 
      public native void Init();
      public native void Resize(int width, int height);

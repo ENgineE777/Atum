@@ -827,7 +827,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 				}
 			}
 			else
-			if (!selectedObject || !selectedObject->IsEditorTasks())
+			if (!selectedObject || !selectedObject->HasOwnTasks())
 			{
 				SelectObject(ed_scene.CheckSelection({ (float)mx, (float)my }), false);
 			}

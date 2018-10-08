@@ -34,26 +34,32 @@
     <content url="file://$MODULE_DIR$/../../../Atum/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Platform/Android" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/2D">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/2D" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/3D">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/3D" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/DataTrack">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/DataTrack" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/TrackPlayers">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/Animator/TrackPlayers" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneAssets/UI">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneAssets/UI" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator/DataTrack">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator/DataTrack" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator/TrackPlayers">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Common/Animator/TrackPlayers" isTestSource="false" />
     </content>
-    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/PathFinder">
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/PathFinder" isTestSource="false" />
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Other/Demo">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Other/Demo" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Other/PathFinder">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/Other/PathFinder" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/UI">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/UI" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Controls">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Controls" isTestSource="false" />
@@ -69,6 +75,27 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Collision">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Collision" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Collision/Shapes">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Collision/Shapes" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Common">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Common" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics/Contacts">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics/Contacts" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics/Joints">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Dynamics/Joints" isTestSource="false" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Rope">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Physic/Box2D/Rope" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Render">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Render" isTestSource="false" />
@@ -167,6 +194,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/jni" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/.externalNativeBuild" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/assets" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/check-manifest" />
@@ -186,7 +214,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 18 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

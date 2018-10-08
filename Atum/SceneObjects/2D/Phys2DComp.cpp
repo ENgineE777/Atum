@@ -41,17 +41,17 @@ void Phys2DCompInst::Play()
 {
 	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
 	{
-		Play(dynamic_cast<SpriteInst*>(object));
+		Play((SpriteInst*)object);
 	}
 	else
 	if (StringUtils::IsEqual(object->class_name, "SpriteTileInst"))
 	{
-		Play(dynamic_cast<SpriteTileInst*>(object));
+		Play((SpriteTileInst*)object);
 	}
 	else
 	if (StringUtils::IsEqual(object->class_name, "SpriteGraphInst"))
 	{
-		PlayGraphInst(dynamic_cast<SpriteGraphInst*>(object));
+		PlayGraphInst((SpriteGraphInst*)object);
 	}
 }
 
@@ -165,17 +165,17 @@ void Phys2DCompInst::UpdateInstances(float dt)
 {
 	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
 	{
-		UpdateInstances(dynamic_cast<SpriteInst*>(object));
+		UpdateInstances((SpriteInst*)object);
 	}
 	else
 	if (StringUtils::IsEqual(object->class_name, "SpriteTileInst"))
 	{
-		UpdateInstances(dynamic_cast<SpriteTileInst*>(object));
+		UpdateInstances((SpriteTileInst*)object);
 	}
 	else
 	if (StringUtils::IsEqual(object->class_name, "SpriteGraphInst"))
 	{
-		UpdateGraphInst(dynamic_cast<SpriteGraphInst*>(object));
+		UpdateGraphInst((SpriteGraphInst*)object);
 	}
 }
 

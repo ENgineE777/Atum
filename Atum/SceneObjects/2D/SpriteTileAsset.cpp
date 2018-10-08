@@ -34,7 +34,9 @@ SpriteTileAsset::SpriteTileAsset() : SceneAsset()
 
 void SpriteTileAsset::Init()
 {
+#ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteTileAsset::Draw);
+#endif
 }
 
 void SpriteTileAsset::Draw(float dt)

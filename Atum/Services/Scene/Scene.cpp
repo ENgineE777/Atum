@@ -34,42 +34,14 @@ void Scene::ContactListener::BeginContact(b2Contact* contact)
 
 void Scene::ContactListener::EndContact(b2Contact* contact)
 {
-	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	/*void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
 	if (bodyUserDataA && bodyUserDataB)
 	{
 		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
 		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
-
-		if (StringUtils::IsEqual(udataA->object->GetName(), "Hero_Graph") ||
-			StringUtils::IsEqual(udataB->object->GetName(), "Hero_Graph"))
-		{
-			SpriteGraphInst* graph = dynamic_cast<SpriteGraphInst*>(udataA->object);
-			SceneObject* object = nullptr;
-			int index = udataB->index;
-
-			if (!graph)
-			{
-				object = static_cast<SceneObject*>(udataA->object);
-				index = udataA->index;
-
-				graph = dynamic_cast<SpriteGraphInst*>(udataB->object);
-			}
-			else
-			{
-				object = static_cast<SceneObject*>(udataB->object);
-			}
-
-			if (graph && object)
-			{
-				if (StringUtils::IsEqual(object->GetName(), "TestTrigger"))
-				{
-					index_hack_show_message--;
-				}
-			}
-		}
-	}
+	}*/
 }
 
 Scene::Scene()
@@ -341,6 +313,7 @@ void Scene::Load(const char* name)
 
 		int index = 0;
 
+#ifdef EDITOR
 		while (reader.EnterBlock("asset_inctances"))
 		{
 			uint32_t asset_uid = 0;
@@ -372,6 +345,7 @@ void Scene::Load(const char* name)
 
 			index++;
 		}
+#endif
 	}
 }
 
@@ -435,6 +409,7 @@ void Scene::Save(const char* name)
 		Save(writer, assets, "SceneAsset");
 		Save(writer, objects, "SceneObject");
 
+#ifdef EDITOR
 		writer.StartArray("asset_inctances");
 
 		for (auto obj : assets)
@@ -452,6 +427,7 @@ void Scene::Save(const char* name)
 		}
 
 		writer.FinishArray();
+#endif
 	}
 }
 

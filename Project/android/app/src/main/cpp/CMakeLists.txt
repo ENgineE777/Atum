@@ -9,7 +9,7 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${box2d_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include")
 set(OPENGL_LIB GLESv3)
 
-add_library(gles3jni SHARED
+add_library(atumlib SHARED
             ${as_DIR}/source/as_atomic.cpp
             ${as_DIR}/source/as_builder.cpp
             ${as_DIR}/source/as_bytecode.cpp
@@ -87,49 +87,57 @@ add_library(gles3jni SHARED
             ${box2d_DIR}/Box2D/Dynamics/b2World.cpp
             ${box2d_DIR}/Box2D/Dynamics/b2WorldCallbacks.cpp
             ${box2d_DIR}/Box2D/Rope/b2Rope.cpp
-            ${atum_DIR}/Platform/Android/gles3jni.cpp
+            ${atum_DIR}/Platform/Android/AtumLib.cpp
             ${atum_DIR}/Platform/Android/android_fopen.cpp
-            ${atum_DIR}/SceneAssets/Animator/DataTrack/ColorDataTrack.cpp
-            ${atum_DIR}/SceneAssets/Animator/DataTrack/FloatDataTrack.cpp
-            ${atum_DIR}/SceneAssets/Animator/DataTrack/Transform2DDataTrack.cpp
-            ${atum_DIR}/SceneAssets/Animator/DataTrack/TransformDataTrack.cpp
-            ${atum_DIR}/SceneAssets/Animator/TrackPlayers/BoxPlayer.cpp
-            ${atum_DIR}/SceneAssets/Animator/TrackPlayers/CameraPlayer.cpp
-            ${atum_DIR}/SceneAssets/Animator/TrackPlayers/SpritePlayer.cpp
-            ${atum_DIR}/SceneAssets/Animator/TrackPlayers/TrackPlayer.cpp
-            ${atum_DIR}/SceneAssets/Animator/Animator.cpp
-            ${atum_DIR}/SceneAssets/Animator/AnimatorObject.cpp
-            ${atum_DIR}/SceneAssets/UI/UIButtonAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UIContainerAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UIImageAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UILabelAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UIService.cpp
-            ${atum_DIR}/SceneAssets/UI/UIViewAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UIViewInstanceAsset.cpp
-            ${atum_DIR}/SceneAssets/UI/UIWidgetAsset.cpp
-            ${atum_DIR}/SceneAssets/Sprite.cpp
-            ${atum_DIR}/SceneAssets/SpriteAsset.cpp
-            ${atum_DIR}/SceneAssets/SpriteGraphAsset.cpp
-            ${atum_DIR}/SceneAssets/SpriteGraphInst.cpp
-            ${atum_DIR}/SceneAssets/SpriteInst.cpp
-            ${atum_DIR}/SceneObjects/PathFinder/AStar.cpp
-            ${atum_DIR}/SceneObjects/PathFinder/PathFinder.cpp
-            ${atum_DIR}/SceneObjects/CharacterCamera2D.cpp
-            ${atum_DIR}/SceneObjects/correction.cpp
-            ${atum_DIR}/SceneObjects/hovertank.cpp
-            ${atum_DIR}/SceneObjects/model.cpp
-            ${atum_DIR}/SceneObjects/PhysBox.cpp
-            ${atum_DIR}/SceneObjects/plane.cpp
-            ${atum_DIR}/SceneObjects/programs.cpp
-            ${atum_DIR}/SceneObjects/scene2.cpp
-            ${atum_DIR}/SceneObjects/SceneScript.cpp
-            ${atum_DIR}/SceneObjects/SimpleCharacter2D.cpp
-            ${atum_DIR}/SceneObjects/SimpleClient.cpp
-            ${atum_DIR}/SceneObjects/SimpleServer.cpp
-            ${atum_DIR}/SceneObjects/tank.cpp
-            ${atum_DIR}/SceneObjects/tankclient.cpp
-            ${atum_DIR}/SceneObjects/terrain.cpp
-            ${atum_DIR}/SceneObjects/VirtualJoystick.cpp
+            ${atum_DIR}/SceneObjects/2D/Camera2D.cpp
+            ${atum_DIR}/SceneObjects/2D/Phys2DComp.cpp
+            ${atum_DIR}/SceneObjects/2D/Sprite.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteAsset.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteGraphAsset.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteGraphInst.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteInst.cpp
+            ${atum_DIR}/SceneObjects/2D/SpritesLayerAsset.cpp
+            ${atum_DIR}/SceneObjects/2D/SpritesLayerInst.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteTileAsset.cpp
+            ${atum_DIR}/SceneObjects/2D/SpriteTileInst.cpp
+            ${atum_DIR}/SceneObjects/2D/Track2DComp.cpp
+            ${atum_DIR}/SceneObjects/2D/Triger2D.cpp
+            ${atum_DIR}/SceneObjects/3D/PhysBox.cpp
+            ${atum_DIR}/SceneObjects/3D/terrain.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/DataTrack/ColorDataTrack.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/DataTrack/FloatDataTrack.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/DataTrack/Transform2DDataTrack.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/DataTrack/TransformDataTrack.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/TrackPlayers/BoxPlayer.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/TrackPlayers/CameraPlayer.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/TrackPlayers/SpritePlayer.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/TrackPlayers/TrackPlayer.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/Animator.cpp
+            ${atum_DIR}/SceneObjects/Common/Animator/AnimatorObject.cpp
+            ${atum_DIR}/SceneObjects/Common/SceneScript.cpp
+            ${atum_DIR}/SceneObjects/Common/ScriptMetaDataAsset.cpp
+            ${atum_DIR}/SceneObjects/Common/ScriptMetaDataComp.cpp
+            ${atum_DIR}/SceneObjects/Common/VirtualJoystick.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/correction.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/hovertank.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/model.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/plane.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/programs.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/SimpleCharacter2D.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/SimpleClient.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/SimpleServer.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/tank.cpp
+            ${atum_DIR}/SceneObjects/Other/Demo/tankclient.cpp
+            ${atum_DIR}/SceneObjects/Other/PathFinder/AStar.cpp
+            ${atum_DIR}SceneObjects//Other/PathFinder/PathFinder.cpp
+            ${atum_DIR}/SceneObjects/UI/UIButtonAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UIContainerAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UIImageAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UILabelAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UIService.cpp
+            ${atum_DIR}/SceneObjects/UI/UIViewAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UIViewInstanceAsset.cpp
+            ${atum_DIR}/SceneObjects/UI/UIWidgetAsset.cpp
             ${atum_DIR}/Support/json/block_allocator.cpp
             ${atum_DIR}/Support/json/json.cpp
             ${atum_DIR}/Support/json/JSONReader.cpp
@@ -167,6 +175,7 @@ add_library(gles3jni SHARED
             ${atum_DIR}/Services/Scene/Scene.cpp
             ${atum_DIR}/Services/Scene/SceneAsset.cpp
             ${atum_DIR}/Services/Scene/SceneObject.cpp
+            ${atum_DIR}/Services/Scene/SceneObjectComp.cpp
             ${atum_DIR}/Services/Script/Libs/scriptarray.cpp
             ${atum_DIR}/Services/Script/Libs/scriptdictionary.cpp
             ${atum_DIR}/Services/Script/Libs/scripthandle.cpp
@@ -177,8 +186,8 @@ add_library(gles3jni SHARED
             ${atum_DIR}/Services/Script/Scripts.cpp
             ${atum_DIR}/Services/TaskExecutor/TaskExecutor.cpp)
 
-# Include libraries needed for gles3jni lib
-target_link_libraries(gles3jni
+# Include libraries needed for atumlib lib
+target_link_libraries(atumlib
             ${OPENGL_LIB}
             F:/android16/libPhysX3.a
             F:/android16/libPhysX3CharacterKinematic.a

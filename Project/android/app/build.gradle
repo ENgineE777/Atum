@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 18
+    compileSdkVersion 19
 
     defaultConfig {
         applicationId 'com.android.gles3jni'
-        minSdkVersion 18
-        targetSdkVersion 18
+        minSdkVersion 19
+        targetSdkVersion 19
         externalNativeBuild {
             cmake {
                 arguments '-DANDROID_STL=c++_shared'

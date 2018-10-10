@@ -55,7 +55,7 @@ void Core::Init(void* data)
 	controls.SetWindow(data);
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	controls.Init("settings/controls/hardware_mobile", true);
 	controls.LoadAliases("settings/controls/user_pc");
 #endif

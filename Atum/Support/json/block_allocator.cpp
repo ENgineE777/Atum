@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <algorithm>
 #include "block_allocator.h"
+#include <stdlib.h>
 
 block_allocator::block_allocator(int blocksize): m_head(0), m_blocksize(blocksize)
 {

@@ -6,7 +6,7 @@
 #include "TextureGLES.h"
 #include "Services/Core/Core.h"
 
-DeviceGLES* DeviceGLES::instance = NULL;
+DeviceGLES* DeviceGLES::instance = nullptr;
 
 DeviceGLES::DeviceGLES()
 {

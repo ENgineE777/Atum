@@ -27,7 +27,7 @@ public:
 		Pixel
 	};
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	int program = -1;
 #endif
 

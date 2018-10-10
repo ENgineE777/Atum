@@ -1,12 +1,12 @@
 #include "Timer.h"
-#include "Services\Controls\Controls.h"
+#include "Services/Controls/Controls.h"
 
 #ifdef PLATFORM_PC
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 struct timespec lastTimeSpec;
 #endif
 
@@ -23,7 +23,7 @@ char  Timer::stampStr[32] = "00:00 - ";
 
 float Timer::CountDeltaTime()
 {
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	struct timespec currTime;
 	clock_gettime(CLOCK_MONOTONIC, &currTime);
 #endif
@@ -43,13 +43,13 @@ float Timer::CountDeltaTime()
 		deltaTime = (float)delta;
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 		long iNanoSeconds = (currTime.tv_sec > lastTimeSpec.tv_sec) ? (1000000000 - lastTimeSpec.tv_nsec) + currTime.tv_nsec : currTime.tv_nsec - lastTimeSpec.tv_nsec;
 		deltaTime = (float)iNanoSeconds / 1000000000.0f;
 #endif
 	}
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	lastTimeSpec = currTime;
 #endif
 
@@ -93,7 +93,7 @@ float Timer::CountDeltaTime()
 	lastTime = cur;
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	lastTime = 0;
 #endif;
 

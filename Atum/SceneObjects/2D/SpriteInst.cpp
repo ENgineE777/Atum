@@ -203,7 +203,7 @@ bool SpriteInst::Play()
 }
 
 void SpriteInst::Draw(float dt)
-{
+{ 
 	if (state == Invisible)
 	{
 		return;

@@ -1,7 +1,7 @@
 
 #include "StringUtils.h"
-#include "Support\json\JSONReader.h"
-#include "Support\json\JSONWriter.h"
+#include "Support/json/JSONReader.h"
+#include "Support/json/JSONWriter.h"
 #include <stdarg.h>
 
 map<wchar_t, int> StringUtils::upper2lower;

@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <math.h>
+
 struct Vec2
 {
 	int x;
@@ -31,7 +33,7 @@ inline bool Vec2::operator == (const Vec2& vec)
 
 inline Vec2 Vec2::GetDelta(Vec2& vec)
 {
-	return Vec2(abs(x - vec.x), abs(y - vec.y));
+	return Vec2(fabs(x - vec.x), fabs(y - vec.y));
 }
 
 inline Vec2 operator + (const Vec2& l, const Vec2& r)

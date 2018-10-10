@@ -2,13 +2,15 @@
 #pragma once
 
 #include "stdio.h"
-#include <memory>
+#include <stdlib.h>
 
 #include <sys/stat.h>
 
 #ifdef PLATFORM_ANDROID
 #include "Platform/Android/android_fopen.h"
 #endif
+
+const char* IOSGetPath(const char* name);
 
 class Buffer
 {
@@ -32,7 +34,7 @@ public:
 	{
 		Release();
 
-		FILE* file = fopen(name, "rb");
+		FILE* file = fopen(IOSGetPath(name), "rb");
 
 		if (file)
 		{

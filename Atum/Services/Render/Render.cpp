@@ -8,7 +8,7 @@
 #include "DX11/DeviceDX11.h"
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 #include "Services/Render/GLES3/DeviceGLES.h"
 #endif
 
@@ -35,7 +35,7 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 	device = new DeviceDX11();
 #endif
 
-#ifdef PLATFORM_ANDROID
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	device = new DeviceGLES();
 #endif
 

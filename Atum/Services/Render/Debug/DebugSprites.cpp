@@ -8,7 +8,7 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugSprites::Draw);
 
-	whiteTex = render.LoadTexture("settings\\editor\\white.png");
+	whiteTex = render.LoadTexture("settings/editor/white.png");
 
 	vbuffer = render.GetDevice()->CreateBuffer(sizeof(SpriteVertex) * 4, sizeof(SpriteVertex));
 

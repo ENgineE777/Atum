@@ -1,11 +1,11 @@
 
 #pragma once
 
-#include "Services\Controls\Controls.h"
-#include "Services\Font\Fonts.h"
-#include "Services\Physic\Physics.h"
-#include "Services\Render\Render.h"
-#include "Services\TaskExecutor\TaskExecutor.h"
+#include "Services/Controls/Controls.h"
+#include "Services/Font/Fonts.h"
+#include "Services/Physic/Physics.h"
+#include "Services/Render/Render.h"
+#include "Services/TaskExecutor/TaskExecutor.h"
 
 #ifdef PLATFORM_ANDROID
 extern void CallJavaMethod(const char* function, const char* format, ...);

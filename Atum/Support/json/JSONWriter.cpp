@@ -4,6 +4,8 @@
 #include <stdarg.h>
 #include "Support/StringUtils.h"
 
+const char* IOSGetPath(const char* name);
+
 JSONWriter::JSONWriter()
 {
 	file = NULL;
@@ -20,7 +22,7 @@ JSONWriter::~JSONWriter()
 
 bool JSONWriter::Start(const char* name)
 {
-	file = fopen(name, "w");
+    FILE* file = fopen(IOSGetPath(name), "rb");
 
 	if (file)
 	{

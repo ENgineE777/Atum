@@ -28,8 +28,6 @@ public:
         
         scene.Init();
         scene.Load("Projects/SunnyLand/SunnyLand.scn");
-        //scene.Load("Media/beatemup.scn");
-        //scene.Load("Media/Scene.scn");
         scene.Play();
         
         inited = true;

@@ -114,7 +114,6 @@
 		3431F2F2216C091F005FFC6E /* SpriteTileInst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2E0216C091F005FFC6E /* SpriteTileInst.cpp */; };
 		3431F2F3216C091F005FFC6E /* SpriteWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2E2216C091F005FFC6E /* SpriteWindow.cpp */; };
 		3431F2F4216C091F005FFC6E /* Track2DComp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2E4216C091F005FFC6E /* Track2DComp.cpp */; };
-		3431F2F5216C091F005FFC6E /* Triger2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2E6216C091F005FFC6E /* Triger2D.cpp */; };
 		3431F2F8216C0A17005FFC6E /* as_atomic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2F7216C0A17005FFC6E /* as_atomic.cpp */; };
 		3431F2FA216C0A1E005FFC6E /* as_builder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2F9216C0A1E005FFC6E /* as_builder.cpp */; };
 		3431F2FC216C0A24005FFC6E /* as_bytecode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F2FB216C0A24005FFC6E /* as_bytecode.cpp */; };
@@ -165,6 +164,7 @@
 		3431F369216DAA92005FFC6E /* libPxPvdSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F362216DAA92005FFC6E /* libPxPvdSDK.a */; };
 		3431F36F216DCD08005FFC6E /* FileInMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36B216DCD08005FFC6E /* FileInMemory.cpp */; };
 		3431F370216DCD08005FFC6E /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36D216DCD08005FFC6E /* Files.cpp */; };
+		3431F373216E944E005FFC6E /* Trigger2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F371216E944E005FFC6E /* Trigger2D.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -401,8 +401,6 @@
 		3431F2E3216C091F005FFC6E /* SpriteWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SpriteWindow.h; path = ../../Atum/SceneObjects/2D/SpriteWindow.h; sourceTree = "<group>"; };
 		3431F2E4216C091F005FFC6E /* Track2DComp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Track2DComp.cpp; path = ../../Atum/SceneObjects/2D/Track2DComp.cpp; sourceTree = "<group>"; };
 		3431F2E5216C091F005FFC6E /* Track2DComp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Track2DComp.h; path = ../../Atum/SceneObjects/2D/Track2DComp.h; sourceTree = "<group>"; };
-		3431F2E6216C091F005FFC6E /* Triger2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Triger2D.cpp; path = ../../Atum/SceneObjects/2D/Triger2D.cpp; sourceTree = "<group>"; };
-		3431F2E7216C091F005FFC6E /* Triger2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Triger2D.h; path = ../../Atum/SceneObjects/2D/Triger2D.h; sourceTree = "<group>"; };
 		3431F2F7216C0A17005FFC6E /* as_atomic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = as_atomic.cpp; path = ../../Libraries/Angelscript/source/as_atomic.cpp; sourceTree = "<group>"; };
 		3431F2F9216C0A1E005FFC6E /* as_builder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = as_builder.cpp; path = ../../Libraries/Angelscript/source/as_builder.cpp; sourceTree = "<group>"; };
 		3431F2FB216C0A24005FFC6E /* as_bytecode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = as_bytecode.cpp; path = ../../Libraries/Angelscript/source/as_bytecode.cpp; sourceTree = "<group>"; };
@@ -460,6 +458,8 @@
 		3431F36C216DCD08005FFC6E /* FileInMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileInMemory.h; path = ../../Atum/Services/File/FileInMemory.h; sourceTree = "<group>"; };
 		3431F36D216DCD08005FFC6E /* Files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Files.cpp; path = ../../Atum/Services/File/Files.cpp; sourceTree = "<group>"; };
 		3431F36E216DCD08005FFC6E /* Files.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Files.h; path = ../../Atum/Services/File/Files.h; sourceTree = "<group>"; };
+		3431F371216E944E005FFC6E /* Trigger2D.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Trigger2D.cpp; path = ../../Atum/SceneObjects/2D/Trigger2D.cpp; sourceTree = "<group>"; };
+		3431F372216E944E005FFC6E /* Trigger2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Trigger2D.h; path = ../../Atum/SceneObjects/2D/Trigger2D.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1018,8 +1018,8 @@
 				3431F2E3216C091F005FFC6E /* SpriteWindow.h */,
 				3431F2E4216C091F005FFC6E /* Track2DComp.cpp */,
 				3431F2E5216C091F005FFC6E /* Track2DComp.h */,
-				3431F2E6216C091F005FFC6E /* Triger2D.cpp */,
-				3431F2E7216C091F005FFC6E /* Triger2D.h */,
+				3431F371216E944E005FFC6E /* Trigger2D.cpp */,
+				3431F372216E944E005FFC6E /* Trigger2D.h */,
 			);
 			name = 2D;
 			sourceTree = "<group>";
@@ -1216,7 +1216,6 @@
 				3431F282216C089E005FFC6E /* tankclient.cpp in Sources */,
 				3431F299216C08CA005FFC6E /* AnimatorWindow.cpp in Sources */,
 				3431F106216BFA7C005FFC6E /* MetaData.cpp in Sources */,
-				3431F2F5216C091F005FFC6E /* Triger2D.cpp in Sources */,
 				3431F280216C089E005FFC6E /* SimpleServer.cpp in Sources */,
 				3431F333216C13EC005FFC6E /* as_globalproperty.cpp in Sources */,
 				3431F2BE216C08F6005FFC6E /* FloatDataTrack.cpp in Sources */,
@@ -1279,6 +1278,7 @@
 				3431F129216C044A005FFC6E /* PhysObject.cpp in Sources */,
 				3431F2C2216C08F6005FFC6E /* TransformDataTrack.cpp in Sources */,
 				3431F22F216C06A6005FFC6E /* DebugSprites.cpp in Sources */,
+				3431F373216E944E005FFC6E /* Trigger2D.cpp in Sources */,
 				3431F2CA216C0910005FFC6E /* terrain.cpp in Sources */,
 				3431F329216C0B0C005FFC6E /* as_string_util.cpp in Sources */,
 				3431F127216C044A005FFC6E /* PhysHeightmap.cpp in Sources */,

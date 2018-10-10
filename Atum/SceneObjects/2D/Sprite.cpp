@@ -294,8 +294,8 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	Vector2 size = trans->size * scale;
 
-	Vector min_pos(FLT_MAX);
-	Vector max_pos(-FLT_MAX);
+	Vector min_pos(10000000.0f);
+	Vector max_pos(-10000000.0f);
 
 	Vector tmp[] = { Vector(pos.x, pos.y, 0), Vector(pos.x + size.x, pos.y, 0), Vector(pos.x + size.x, pos.y + size.y, 0), Vector(pos.x, pos.y + size.y, 0) };
 	

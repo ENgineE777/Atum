@@ -2,6 +2,7 @@
 #pragma once
 
 #include <math.h>
+#include <cstdlib>
 
 struct Vec2
 {

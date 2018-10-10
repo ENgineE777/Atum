@@ -12,10 +12,6 @@ class Files
 {
 public:
 
-#ifdef PLATFORM_IOS
-	char res_path[1024];
-#endif
-
 #ifdef PLATFORM_ANDROID
 	AAssetManager * android_asset_manager;
 #endif

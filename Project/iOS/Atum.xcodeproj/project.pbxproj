@@ -209,6 +209,8 @@
 		3431F367216DAA92005FFC6E /* libLowLevelParticles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F360216DAA91005FFC6E /* libLowLevelParticles.a */; };
 		3431F368216DAA92005FFC6E /* libPsFastXml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F361216DAA92005FFC6E /* libPsFastXml.a */; };
 		3431F369216DAA92005FFC6E /* libPxPvdSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F362216DAA92005FFC6E /* libPxPvdSDK.a */; };
+		3431F36F216DCD08005FFC6E /* FileInMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36B216DCD08005FFC6E /* FileInMemory.cpp */; };
+		3431F370216DCD08005FFC6E /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36D216DCD08005FFC6E /* Files.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -223,7 +225,6 @@
 		3431F0C3216BEA40005FFC6E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Atum/Platform/iOS/Info.plist; sourceTree = "<group>"; };
 		3431F0C4216BEA40005FFC6E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = ../../Atum/Platform/iOS/main.m; sourceTree = "<group>"; };
 		3431F0D9216BF37E005FFC6E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
-		3431F0DD216BFA24005FFC6E /* Buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buffer.h; path = ../../Atum/Support/Buffer.h; sourceTree = "<group>"; };
 		3431F0DE216BFA24005FFC6E /* ClassFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClassFactory.h; path = ../../Atum/Support/ClassFactory.h; sourceTree = "<group>"; };
 		3431F0DF216BFA24005FFC6E /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Color.h; path = ../../Atum/Support/Color.h; sourceTree = "<group>"; };
 		3431F0E0216BFA24005FFC6E /* Defines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Defines.h; path = ../../Atum/Support/Defines.h; sourceTree = "<group>"; };
@@ -594,6 +595,10 @@
 		3431F360216DAA91005FFC6E /* libLowLevelParticles.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevelParticles.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevelParticles.a; sourceTree = "<group>"; };
 		3431F361216DAA92005FFC6E /* libPsFastXml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPsFastXml.a; path = ../../Libraries/PhysX/Lib/ios64/libPsFastXml.a; sourceTree = "<group>"; };
 		3431F362216DAA92005FFC6E /* libPxPvdSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPxPvdSDK.a; path = ../../Libraries/PhysX/Lib/ios64/libPxPvdSDK.a; sourceTree = "<group>"; };
+		3431F36B216DCD08005FFC6E /* FileInMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileInMemory.cpp; path = ../../Atum/Services/File/FileInMemory.cpp; sourceTree = "<group>"; };
+		3431F36C216DCD08005FFC6E /* FileInMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileInMemory.h; path = ../../Atum/Services/File/FileInMemory.h; sourceTree = "<group>"; };
+		3431F36D216DCD08005FFC6E /* Files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Files.cpp; path = ../../Atum/Services/File/Files.cpp; sourceTree = "<group>"; };
+		3431F36E216DCD08005FFC6E /* Files.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Files.h; path = ../../Atum/Services/File/Files.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -715,7 +720,6 @@
 				3431F103216BFA5F005FFC6E /* MetaData */,
 				3431F0F3216BFA2D005FFC6E /* json */,
 				3431F100216BFA4A005FFC6E /* stb */,
-				3431F0DD216BFA24005FFC6E /* Buffer.h */,
 				3431F0DE216BFA24005FFC6E /* ClassFactory.h */,
 				3431F0DF216BFA24005FFC6E /* Color.h */,
 				3431F0E0216BFA24005FFC6E /* Defines.h */,
@@ -774,6 +778,7 @@
 		3431F107216C0203005FFC6E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3431F36A216DCCF6005FFC6E /* File */,
 				3431F108216C0213005FFC6E /* Controls */,
 				3431F10C216C0233005FFC6E /* Core */,
 				3431F110216C0258005FFC6E /* Font */,
@@ -1359,6 +1364,17 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
+		3431F36A216DCCF6005FFC6E /* File */ = {
+			isa = PBXGroup;
+			children = (
+				3431F36B216DCD08005FFC6E /* FileInMemory.cpp */,
+				3431F36C216DCD08005FFC6E /* FileInMemory.h */,
+				3431F36D216DCD08005FFC6E /* Files.cpp */,
+				3431F36E216DCD08005FFC6E /* Files.h */,
+			);
+			name = File;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1447,6 +1463,7 @@
 				3431F1B6216C050C005FFC6E /* b2PolygonContact.cpp in Sources */,
 				3431F119216C0269005FFC6E /* Fonts.cpp in Sources */,
 				3431F1B0216C050C005FFC6E /* b2CircleContact.cpp in Sources */,
+				3431F370216DCD08005FFC6E /* Files.cpp in Sources */,
 				3431F22E216C06A6005FFC6E /* DebugSpheres.cpp in Sources */,
 				3431F22D216C06A6005FFC6E /* DebugPrograms.cpp in Sources */,
 				3431F128216C044A005FFC6E /* Physics.cpp in Sources */,
@@ -1560,6 +1577,7 @@
 				3431F32D216C0B0C005FFC6E /* as_typeinfo.cpp in Sources */,
 				3431F0CE216BEA40005FFC6E /* main.m in Sources */,
 				3431F2F0216C091F005FFC6E /* SpritesLayerInst.cpp in Sources */,
+				3431F36F216DCD08005FFC6E /* FileInMemory.cpp in Sources */,
 				3431F1D9216C0527005FFC6E /* b2RopeJoint.cpp in Sources */,
 				3431F19A216C04F7005FFC6E /* b2WorldCallbacks.cpp in Sources */,
 				3431F258216C0868005FFC6E /* UIViewAsset.cpp in Sources */,
@@ -1722,9 +1740,12 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					PLATFORM_IOS,
 					AS_MAX_PORTABILITY,
+					_DEBUG,
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = (
+					PLATFORM_IOS,
 					NDEBUG,
 				);
-				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = PLATFORM_IOS;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/../../Atum",
 					"$(SRCROOT)/../../Libraries/Angelscript/include",

@@ -29,39 +29,23 @@ static int android_close(void* cookie)
 
 #ifdef PLATFORM_IOS
 #import <Foundation/NSBundle.h>
+#include "Support/StringUtils.h"
 
-const char* IOSGetPath(const char* name)
-{
-	static char filename[2048];
-
-	if (!name[0])
-	{
-		filename[0] = 0;
-	}
-	else
-	{
-		NSString* ns_name = [[NSString alloc] initWithFormat:@"Bin/%s", name];
-		NSString* ns_path = [[NSBundle mainBundle] pathForResource:ns_name ofType : @""];
-		StringUtils::Copy(filename, 2048, [ns_path UTF8String]);
-	}
-
-	return filename;
-}
 #endif
 
 Files files;
 
 void Files::Init()
 {
-#ifdef PLATFORM_IOS
-	char res_path[1024];
-	NSString* ns_path = [[NSBundle mainBundle] pathForResource:@"Bin/" ofType : @""];
-	StringUtils::Copy(res_path, 2048, [ns_path UTF8String]);
-#endif
 }
 
 FILE* Files::FileOpen(const char* name, const char* mode)
 {
+    if (!name[0])
+    {
+        return nullptr;
+    }
+    
 #ifdef PLATFORM_ANDROID
 	if (mode[0] == 'w') return nullptr;
 
@@ -72,10 +56,14 @@ FILE* Files::FileOpen(const char* name, const char* mode)
 #endif
 
 #ifdef PLATFORM_IOS
-	char file_path[2048];
-	StringUtils::Printf(file_path, 2048, "%s/%s", res_path, name);
-	
-	return fopen(name, mode);
+    char file_path[2048];
+    
+    NSString* ns_name = [[NSString alloc] initWithFormat:@"Bin/%s", name];
+    NSString* ns_path = [[NSBundle mainBundle] pathForResource:ns_name ofType : @""];
+    StringUtils::Copy(file_path, 2048, [ns_path UTF8String]);
+
+    
+	return fopen(file_path, mode);
 #endif
 
 	return fopen(name, mode);

@@ -27,6 +27,8 @@ Core::~Core()
 
 void Core::Init(void* data)
 {
+    files.Init();
+    
 	srand((unsigned int)time(nullptr));
 	StringUtils::Init();
 
@@ -59,8 +61,6 @@ void Core::Init(void* data)
 	controls.Init("settings/controls/hardware_mobile", true);
 	controls.LoadAliases("settings/controls/user_pc");
 #endif
-
-	files.Init();
 
 	fonts.Init();
 

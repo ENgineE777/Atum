@@ -1,6 +1,7 @@
 #include "AStar.h"
 #include <algorithm>
 #include "Services/File/FileInMemory.h"
+#include <stdlib.h>
 
 AStar::Node::Node(Vec2 set_pos, Node* set_parent)
 {

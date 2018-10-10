@@ -5,7 +5,7 @@
 #include "TextureGLES.h"
 #include "GeometryBufferGLES.h"
 #include "Services/Core/Core.h"
-#include "Support/Buffer.h"
+#include "Services/File/FileInMemory.h"
 
 ShaderGLES::ShaderGLES(Type tp, const char* name) : Shader(tp)
 {
@@ -17,7 +17,7 @@ ShaderGLES::ShaderGLES(Type tp, const char* name) : Shader(tp)
 	
 	shader = glCreateShader(gl_type);
 
-	Buffer buffer;
+	FileInMemory buffer;
 	char path[1024];
 	StringUtils::Printf(path, 1024, "Shaders/GLES/%s", name);
 

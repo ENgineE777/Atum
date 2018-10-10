@@ -4,6 +4,7 @@
 #include "Support/stb/stb_image.h"
 #include "SpriteWindow.h"
 #include "Services/Controls/Controls.h"
+#include "Services/File/FileInMemory.h"
 
 Sprite::Data* SpriteWindow::sprite = nullptr;
 SpriteWindow* SpriteWindow::instance = nullptr;
@@ -195,7 +196,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	image = CreateDIBSection(hdcScreen, &bminfo, DIB_RGB_COLORS, (void**)&imageBits, NULL, 0);
 	ReleaseDC(NULL, hdcScreen);
 
-	Buffer buffer;
+	FileInMemory buffer;
 
 	if (!buffer.Load(img))
 	{

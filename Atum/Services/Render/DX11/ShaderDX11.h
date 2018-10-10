@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Services/Render/Shader.h"
+#include "Services/File/FileInMemory.h"
 #include <vector>
 #include <map>
 #include <stdint.h>
@@ -33,7 +34,7 @@ class ShaderDX11 : public Shader
 	std::map<std::string, ShaderParamInfo> constantsInfo;
 	std::map<std::string, ShaderParamInfo> samplersInfo;
 
-	Buffer buffer;
+	FileInMemory buffer;
 	class TextureDX11* textures[16];
 
 public:

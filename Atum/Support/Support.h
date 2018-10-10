@@ -9,7 +9,6 @@
 #include "Vector.h"
 #include "Vector4.h"
 #include "Matrix.h"
-#include "Buffer.h"
 #include "Delegate.h"
 #include "Quaternion.h"
 #include "StringUtils.h"

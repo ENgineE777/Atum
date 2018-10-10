@@ -11,13 +11,13 @@
 class JSONReader
 {
 	block_allocator allocator;
-	json_value* root;
+	json_value* root = nullptr;
 
-	uint8_t*  buffer;
+	uint8_t* buffer = nullptr;
 
-	int curDepth;
+	int curDepth = 0;
 	json_value* nodes[50];
-	json_value* curNode;
+	json_value* curNode = nullptr;
 
 public:
 

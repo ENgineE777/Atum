@@ -2,12 +2,16 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set( atum_DIR ../../../../../../../Atum/ )
 set( physx_DIR ../../../../../../../Libraries/PhysX )
+set( physx_lib_DIR ../../../../../../../Atum/Libraries/PhysX/Lib/android16 )
 set( as_DIR ../../../../../../../Libraries/Angelscript )
 set( box2d_DIR ../../../../../../../Atum/Services/Physic )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${box2d_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include")
 set(OPENGL_LIB GLESv3)
+
+link_directories( ${physx_lib_DIR} )
+set(PHYSX_LINK_LIBS libPhysX3.a libPhysX3CharacterKinematic.a libPhysX3Common.a libPhysX3Extensions.a libPxFoundation.a libPxTask.a libSceneQuery.a libSimulationController.a)
 
 add_library(atumlib SHARED
             ${as_DIR}/source/as_atomic.cpp
@@ -88,7 +92,6 @@ add_library(atumlib SHARED
             ${box2d_DIR}/Box2D/Dynamics/b2WorldCallbacks.cpp
             ${box2d_DIR}/Box2D/Rope/b2Rope.cpp
             ${atum_DIR}/Platform/Android/AtumLib.cpp
-            ${atum_DIR}/Platform/Android/android_fopen.cpp
             ${atum_DIR}/SceneObjects/2D/Camera2D.cpp
             ${atum_DIR}/SceneObjects/2D/Phys2DComp.cpp
             ${atum_DIR}/SceneObjects/2D/Sprite.cpp
@@ -119,7 +122,6 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/Common/ScriptMetaDataComp.cpp
             ${atum_DIR}/SceneObjects/Common/VirtualJoystick.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/correction.cpp
-            ${atum_DIR}/SceneObjects/Other/Demo/hovertank.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/model.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/plane.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/programs.cpp
@@ -151,6 +153,8 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/Font/Font.cpp
             ${atum_DIR}/Services/Font/FontRes.cpp
             ${atum_DIR}/Services/Font/Fonts.cpp
+            ${atum_DIR}/Services/File/Files.cpp
+            ${atum_DIR}/Services/File/FileInMemory.cpp
             ${atum_DIR}/Services/Network/Network.cpp
             ${atum_DIR}/Services/Physic/PhysController.cpp
             ${atum_DIR}/Services/Physic/PhysHeightmap.cpp
@@ -187,16 +191,10 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/TaskExecutor/TaskExecutor.cpp)
 
 # Include libraries needed for atumlib lib
+
 target_link_libraries(atumlib
             ${OPENGL_LIB}
-            F:/android16/libPhysX3.a
-            F:/android16/libPhysX3CharacterKinematic.a
-            F:/android16/libPhysX3Common.a
-            F:/android16/libPhysX3Extensions.a
-            F:/android16/libPxFoundation.a
-            F:/android16/libPxTask.a
-            F:/android16/libSceneQuery.a
-            F:/android16/libSimulationController.a
+            ${PHYSX_LINK_LIBS}
             android
             EGL
             log

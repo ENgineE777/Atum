@@ -2,6 +2,7 @@
 #include "terrain.h"
 #include "SceneObjects/Other/Demo/programs.h"
 #include "Services/Render/Render.h"
+#include "Services/File/Files.h"
 
 CLASSREG(SceneObject, Terrain, "Terrain")
 
@@ -183,7 +184,7 @@ Vector Terrain::GetVecHeight(int i, int j)
 
 void Terrain::LoadHMap(const char* hgt_name)
 {
-	Buffer hbuffer;
+	FileInMemory hbuffer;
 
 	FREE_PTR(hmap)
 
@@ -234,7 +235,7 @@ void Terrain::LoadHMap(const char* hgt_name)
 #ifdef PLATFORM_PC
 	string cooked_name = hgt_name + string("hm");
 
-	if (!Buffer::IsFileExist(cooked_name.c_str()))
+	if (!files.IsFileExist(cooked_name.c_str()))
 	{
 		PhysHeightmap::Desc hdesc;
 		hdesc.width = hwidth;

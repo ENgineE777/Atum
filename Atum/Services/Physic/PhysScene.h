@@ -4,7 +4,6 @@
 #include "PhysObject.h"
 #include "PhysController.h"
 #include "PhysHeightmap.h"
-#include "Support/Buffer.h"
 
 using namespace physx;
 

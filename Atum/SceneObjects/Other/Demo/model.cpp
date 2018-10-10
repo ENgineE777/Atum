@@ -1,7 +1,7 @@
 
 #include "model.h"
 #include "programs.h"
-#include "Support/Buffer.h"
+#include "Services/File/FileInMemory.h"
 #include "Services/Scene/ExecuteLevels.h"
 
 void Model::Drawer::Init(Model* model, TaskExecutor::SingleTaskPool* taskPool)
@@ -133,7 +133,7 @@ void Model::LoadModelMS3D(const char* filename)
 		char  alphamap[128];
 	};
 
-	Buffer file;
+	FileInMemory file;
 	
 	if (!file.Load(filename))
 	{

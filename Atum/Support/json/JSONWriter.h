@@ -10,9 +10,9 @@
 
 class JSONWriter
 {
-	FILE* file;
-	int offset;
-	int depth;
+	FILE* file = nullptr;
+	int offset = 0;
+	int depth = 0;
 	bool block_started[64];
 
 public:

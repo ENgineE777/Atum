@@ -4,7 +4,7 @@
 #include "PhysScene.h"
 #include <vector>
 #include "Services/Physic/Box2D/Box2D.h"
-
+#include "Services/File/FileInMemory.h"
 using namespace physx;
 
 class Physics
@@ -58,7 +58,7 @@ class Physics
 	class StraemReader : public PxInputStream
 	{
 	public:
-		Buffer buffer;
+		FileInMemory buffer;
 		virtual uint32_t read(void* dest, uint32_t count)
 		{
 			buffer.Read(dest, count);

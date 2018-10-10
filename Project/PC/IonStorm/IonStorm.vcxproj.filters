@@ -169,12 +169,6 @@
     <ClCompile Include="..\..\..\Atum\Support\json\json.cpp">
       <Filter>Support\json</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp">
-      <Filter>Support\json</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp">
-      <Filter>Support\json</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
@@ -637,11 +631,20 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.cpp">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\File\Files.cpp">
+      <Filter>Services\Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp">
+      <Filter>Support\json</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
+      <Filter>Services\Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\Atum\Support\Buffer.h">
-      <Filter>Support</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
       <Filter>Support</Filter>
     </ClInclude>
@@ -727,12 +730,6 @@
       <Filter>Support\json</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\json\json.h">
-      <Filter>Support\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h">
-      <Filter>Support\json</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\json\JSONWriter.h">
       <Filter>Support\json</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h">
@@ -1217,6 +1214,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.h">
       <Filter>SceneObjects\Other\Demo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\File\Files.h">
+      <Filter>Services\Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\json\JSONWriter.h">
+      <Filter>Support\json</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\File\FileInMemory.h">
+      <Filter>Services\Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

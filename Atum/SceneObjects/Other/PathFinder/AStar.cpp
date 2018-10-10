@@ -1,6 +1,6 @@
 #include "AStar.h"
 #include <algorithm>
-#include "Support/Buffer.h"
+#include "Services/File/FileInMemory.h"
 
 AStar::Node::Node(Vec2 set_pos, Node* set_parent)
 {
@@ -47,7 +47,7 @@ void AStar::LoadWorld(const char* name, Vec2 set_worldSize)
 
 	worldSize = set_worldSize;
 
-	Buffer file;
+	FileInMemory file;
 
 	if (file.Load(name))
 	{

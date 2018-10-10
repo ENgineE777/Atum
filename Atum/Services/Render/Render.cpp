@@ -1,5 +1,6 @@
 
 #include "Render.h"
+#include "Services/File/FileInMemory.h"
 
 #include "Debug/Debug.h"
 #include <memory>
@@ -131,7 +132,7 @@ Texture* Render::LoadTexture(const char* name)
 		return ref.texture;
 	}
 
-	Buffer buffer;
+	FileInMemory buffer;
 
 	if (!buffer.Load(name))
 	{

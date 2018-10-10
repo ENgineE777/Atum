@@ -4,40 +4,10 @@
 #include "stdio.h"
 #include <string.h>
 #include <stdlib.h>
-
-#ifdef PLATFORM_ANDROID
-#include "Platform/Android/android_fopen.h"
-#endif
-
-#ifdef PLATFORM_IOS
-#import <Foundation/NSBundle.h>
-#endif
-
-const char* IOSGetPath(const char* name)
-{
-    static char filename[2048];
-    
-    if (!name[0])
-    {
-        filename[0] = 0;
-    }
-    else
-    {
-        NSString* ns_name = [[NSString alloc] initWithFormat:@"Bin/%s", name];
-        NSString* ns_path = [[NSBundle mainBundle] pathForResource:ns_name ofType:@""];
-        StringUtils::Copy(filename, 2048, [ns_path UTF8String]);
-    }
-    
-    return filename;
-}
+#include "Services/File/Files.h"
 
 JSONReader::JSONReader() : allocator(1 << 10)
 {
-	root = NULL;
-	curNode = NULL;
-	curDepth = 0;
-
-	buffer = NULL;
 }
 
 JSONReader::~JSONReader()
@@ -48,8 +18,8 @@ JSONReader::~JSONReader()
 
 bool JSONReader::Parse(const char* name)
 {
-	FILE* file = fopen(IOSGetPath(name), "rb");
-     
+	FILE* file = files.FileOpen(name, "rb");
+
 	if (file)
 	{
 		fseek(file, 0, SEEK_END);

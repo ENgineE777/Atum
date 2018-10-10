@@ -4,6 +4,7 @@ class  Texture;
 
 #include "Support/Support.h"
 #include "Services/Render/Render.h"
+#include "Services/File/FileInMemory.h"
 
 class Font;
 
@@ -51,7 +52,7 @@ protected:
 
 	struct stbtt_pack_context* context;
 	bool need_update_tex;
-	Buffer font_fb;
+	FileInMemory font_fb;
 
 	std::map<int, Glyph> glyphs;
 

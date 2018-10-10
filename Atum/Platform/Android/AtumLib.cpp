@@ -12,7 +12,6 @@ TaskExecutor::SingleTaskPool* renderTaskPool;
 
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
-#include "android_fopen.h"
 
 JNIEnv* cur_env = nullptr;
 jobject cur_obj;
@@ -211,7 +210,7 @@ Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj)
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager)
 {
 	AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
-	android_fopen_set_asset_manager(mgr);
+	files.android_asset_manager = mgr;
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y)

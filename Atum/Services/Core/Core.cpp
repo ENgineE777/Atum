@@ -60,6 +60,8 @@ void Core::Init(void* data)
 	controls.LoadAliases("settings/controls/user_pc");
 #endif
 
+	files.Init();
+
 	fonts.Init();
 
 	render.Init("DX11", 100, 100, data);

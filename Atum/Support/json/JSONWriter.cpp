@@ -3,15 +3,10 @@
 #include <string>
 #include <stdarg.h>
 #include "Support/StringUtils.h"
-
-const char* IOSGetPath(const char* name);
+#include "Services/File/Files.h"
 
 JSONWriter::JSONWriter()
 {
-	file = NULL;
-	offset = 0;
-
-	depth = 0;
 	block_started[0] = true;
 }
 
@@ -22,7 +17,7 @@ JSONWriter::~JSONWriter()
 
 bool JSONWriter::Start(const char* name)
 {
-    FILE* file = fopen(IOSGetPath(name), "rb");
+	FILE* file = files.FileOpen(name, "rb");
 
 	if (file)
 	{

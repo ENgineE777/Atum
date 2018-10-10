@@ -222,7 +222,7 @@ bool SceneScript::Play()
 	string filename;
 	GetScriptFileName(GetUID(), filename);
 
-	Buffer file;
+	FileInMemory file;
 
 	if (!file.Load(filename.c_str()))
 	{

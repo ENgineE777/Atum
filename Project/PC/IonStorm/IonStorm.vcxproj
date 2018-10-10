@@ -86,6 +86,8 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIWidgetAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Controls\Controls.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Core\Core.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\File\Files.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\Font.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp" />
@@ -275,6 +277,8 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIWidgetAsset.h" />
     <ClInclude Include="..\..\..\Atum\Services\Controls\Controls.h" />
     <ClInclude Include="..\..\..\Atum\Services\Core\Core.h" />
+    <ClInclude Include="..\..\..\Atum\Services\File\FileInMemory.h" />
+    <ClInclude Include="..\..\..\Atum\Services\File\Files.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\Font.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\FontRes.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h" />
@@ -371,7 +375,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h" />
     <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Buffer.h" />
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\..\Atum\Support\Color.h" />
     <ClInclude Include="..\..\..\Atum\Support\Defines.h" />

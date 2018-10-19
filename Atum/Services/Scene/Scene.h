@@ -34,23 +34,14 @@ private:
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;
 	std::vector<SceneObject*> pool_childs;
-	TaskExecutor::SingleTaskPool* taskPool;
-	TaskExecutor::SingleTaskPool* renderTaskPool;
+	TaskExecutor::SingleTaskPool* taskPool = nullptr;
+	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 	bool playing = false;
 	Group emptyGroup;
 	std::map<std::string, Group> groups;
 
 	ScriptContext* script = nullptr;
 	PhysScene* pscene = nullptr;
-
-	class ContactListener : public b2ContactListener
-	{
-		void BeginContact(b2Contact* contact) override;
-		void EndContact(b2Contact* contact) override;
-	};
-
-	ContactListener contact_listiner;
-	b2World* pscene2D = nullptr;
 
 	void DelFromGroup(Group& group, SceneObject* obj);
 
@@ -63,8 +54,8 @@ private:
 
 public:
 
-	Scene();
-	virtual ~Scene();
+	Scene() = default;
+	virtual ~Scene() = default;
 
 	void Init();
 

@@ -102,7 +102,7 @@ public:
 	Vector2 ms_pos = 0.0f;
 	bool in_drag = false;
 	bool link_drag = false;
-	void OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms) override;
+	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
 	void ShowProperties(bool show);
 	void OnMouseMove(Vector2 delta_ms) override;
 	void OnLeftMouseDown(Vector2 ms) override;

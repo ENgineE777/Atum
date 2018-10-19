@@ -13,7 +13,10 @@ public:
 	{
 		StaticBody = 0,
 		DynamicBody,
-		KineticBody
+		DynamicCCDBody,
+		KineticBody,
+		TrigerBody,
+		Controller
 	};
 
 	BodyType body_type;
@@ -37,7 +40,8 @@ public:
 	{
 		SceneObject* object = nullptr;
 		int index = -1;
-		b2Body* body = nullptr;
+		PhysObject* body = nullptr;
+		PhysController* controller = nullptr;
 	};
 
 	vector<BodyUserData> bodies;

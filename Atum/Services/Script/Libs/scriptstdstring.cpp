@@ -545,7 +545,7 @@ static string formatFloat(double value, const string &options, asUINT width, asU
 	if( spaceOnSign ) fmt += " ";
 	if( padWithZero ) fmt += "0";
 
-	fmt += "*.*";
+	fmt += "5.4";
 
 	if( expSmall ) fmt += "e";
 	else if( expLarge ) fmt += "E";

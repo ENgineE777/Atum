@@ -29,12 +29,31 @@ using namespace physx;
 class PhysObject
 {
 	friend class PhysScene;
-	bool isStatic = false;
-	PxRigidActor* actor = nullptr;
+
 public:
 
-	bool IsSatic();
+	enum BodyType
+	{
+		Static = 0,
+		Dynamic,
+		DynamicCCD,
+		Kinetic,
+		Triger
+	};
+
+	void SetActive(bool set);
+	bool IsActive();
+	void SetUserData(void* data);
+	void* GetUserData();
+	void SetFixedRotation(bool set);
+	BodyType GetType();
+	void SetTransform(Matrix& mat);
 	void GetTransform(Matrix& mat);
 	void AddForceAt(Vector pos, Vector force);
 	void Release();
+
+protected:
+	BodyType body_type;
+	PxRigidActor* actor = nullptr;
+	bool is_active = true;
 };

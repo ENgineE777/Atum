@@ -15,6 +15,7 @@ public:
 	static void Init();
 	static int  GetLen(const char* str);
 	static bool IsEmpty(const char* str);
+	static const char* StrStr(const char* str, const char* sub_str);
 	static bool IsEqual(const char* str1, const char* str2);
 	static void Copy(char * str1, int len, const char* str2);
 	static void Cat(char* str1, int len, const char* str2);

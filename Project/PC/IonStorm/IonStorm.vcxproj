@@ -92,52 +92,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2BroadPhase.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2CollideCircle.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2CollideEdge.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2CollidePolygon.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2Collision.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2Distance.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2DynamicTree.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2TimeOfImpact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2ChainShape.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2CircleShape.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2EdgeShape.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2PolygonShape.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2BlockAllocator.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Draw.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Math.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Settings.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2StackAllocator.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Timer.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Body.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2ContactManager.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Fixture.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Island.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2World.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2WorldCallbacks.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2CircleContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2Contact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ContactSolver.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2PolygonContact.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2DistanceJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2FrictionJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2GearJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2Joint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2MotorJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2MouseJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2PrismaticJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2PulleyJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2RevoluteJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2RopeJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2WeldJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2WheelJoint.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\Box2D\Rope\b2Rope.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp" />
@@ -284,53 +238,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\stb_truetype.h" />
     <ClInclude Include="..\..\..\Atum\Services\Network\Network.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Box2D.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2BroadPhase.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2Collision.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2Distance.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2DynamicTree.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\b2TimeOfImpact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2ChainShape.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2CircleShape.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2EdgeShape.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2PolygonShape.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Collision\Shapes\b2Shape.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2BlockAllocator.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Draw.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2GrowableStack.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Math.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Settings.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2StackAllocator.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Common\b2Timer.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Body.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2ContactManager.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Fixture.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2Island.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2TimeStep.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2World.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\b2WorldCallbacks.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ChainAndCircleContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ChainAndPolygonContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2CircleContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2Contact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2ContactSolver.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2EdgeAndCircleContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2EdgeAndPolygonContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2PolygonAndCircleContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Contacts\b2PolygonContact.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2DistanceJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2FrictionJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2GearJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2Joint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2MotorJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2MouseJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2PrismaticJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2PulleyJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2RevoluteJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2RopeJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2WeldJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Dynamics\Joints\b2WheelJoint.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\Box2D\Rope\b2Rope.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h" />
@@ -450,7 +357,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Physic\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -469,7 +376,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Physic\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>

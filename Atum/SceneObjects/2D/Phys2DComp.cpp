@@ -15,7 +15,10 @@ META_DATA_DESC(Phys2DComp)
 ENUM_PROP(Phys2DComp, body_type, 0, "Phys2D", "body_type")
 	ENUM_ELEM("StaticBody", 0)
 	ENUM_ELEM("DynamicBody", 1)
-	ENUM_ELEM("KineticBody", 2)
+	ENUM_ELEM("DynamicCCDBody", 2)
+	ENUM_ELEM("KineticBody", 3)
+	ENUM_ELEM("Trigger", 4)
+	ENUM_ELEM("Controller", 5)
 ENUM_END
 FLOAT_PROP(Phys2DComp, density, 1.25f, "Phys2D", "density")
 FLOAT_PROP(Phys2DComp, friction, 0.25f, "Phys2D", "friction")
@@ -57,45 +60,48 @@ void Phys2DCompInst::Play()
 
 void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)
 {
-	b2BodyDef bodyDef;
+	Matrix body_trans;
+	body_trans.Pos() = { pos.x, -pos.y, 0.0f };
 
-	switch (body_type)
+	if (body_type == Phys2DComp::BodyType::StaticBody)
 	{
-		case Phys2DComp::BodyType::StaticBody:
-			bodyDef.type = b2_staticBody;
-		break;
-		case Phys2DComp::BodyType::KineticBody:
-			bodyDef.type = b2_kinematicBody;
-		break;
-		case Phys2DComp::BodyType::DynamicBody:
-			bodyDef.type = b2_dynamicBody;
-		break;
+		body_trans.Pos() += { center.x, -center.y, 0.0f };
 	}
-
-	bodyDef.position.Set(pos.x, pos.y);
-
-	b2PolygonShape box;
-	box.SetAsBox(size.x, size.y, b2Vec2(center.x, center.y), 0);
-
-	b2FixtureDef fixtureDef;
-	fixtureDef.density = ((Phys2DComp*)asset_comp)->density;
-	fixtureDef.friction = ((Phys2DComp*)asset_comp)->friction;
-	fixtureDef.shape = &box;
 
 	bodies[index].index = index;
 	bodies[index].object = object;
-	bodies[index].body = object->PScene2D()->CreateBody(&bodyDef);
-	bodies[index].body->CreateFixture(&fixtureDef);
-	bodies[index].body->SetUserData(&bodies[index]);
 
-	if (!allow_rotate)
+	if (body_type == Phys2DComp::BodyType::Controller)
 	{
-		bodies[index].body->SetFixedRotation(true);
+		PhysControllerDesc desc;
+		desc.radius = size.x * 0.5f;
+		desc.height = size.y - size.x;
+		desc.pos = { pos.x, -pos.y, 0.0f };
+		bodies[index].controller = object->PScene()->CreateController(desc);
+		bodies[index].controller->SetUserData(&bodies[index]);
+
+		if (!visible)
+		{
+			bodies[index].controller->SetActive(false);
+		}
 	}
-
-	if (!visible)
+	else
 	{
-		bodies[index].body->SetActive(false);
+		Matrix offset;
+		offset.Pos() = { center.x, -center.y, 0.0f };
+
+		bodies[index].body = object->PScene()->CreateBox({ size.x, size.y, 1.0f }, body_trans, offset, (PhysObject::BodyType)body_type);
+		bodies[index].body->SetUserData(&bodies[index]);
+
+		if (!allow_rotate && body_type == Phys2DComp::BodyType::DynamicBody)
+		{
+			bodies[index].body->SetFixedRotation(true);
+		}
+
+		if (!visible)
+		{
+			bodies[index].body->SetActive(false);
+		}
 	}
 }
 
@@ -117,7 +123,7 @@ void Phys2DCompInst::Play(T* sprite_inst)
 	Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
 	Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
 	                   size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
-	size *= 0.5f * scale;
+	size *= scale;
 
 	for (int index = 0; index < bodies.size(); index++)
 	{
@@ -140,12 +146,11 @@ void Phys2DCompInst::PlayGraphInst(SpriteGraphInst* graph_inst)
 	Vector2 size = (comp->use_object_size ? graph_inst->trans.size : Vector2(comp->width, comp->height));
 	Vector2 center = { size.x * (0.5f - graph_inst->trans.offset.x) * scale,
 	                   size.y * (0.5f - graph_inst->trans.offset.y) * scale };
-	size *= 0.5f * scale;
+	size *= scale;
 
 	CreatBody(0, 1, graph_inst->trans.pos * scale, size, center, comp->allow_rotate);
 
 	object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
-	bodies[0].body->SetFixedRotation(true);
 }
 
 void Phys2DCompInst::Stop()
@@ -154,7 +159,7 @@ void Phys2DCompInst::Stop()
 	{
 		if (body.body)
 		{
-			object->PScene2D()->DestroyBody(body.body);
+			RELEASE(body.body);
 		}
 	}
 
@@ -184,6 +189,8 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 {
 	bool is_active = (sprite_inst->GetState() == SceneObject::State::Active);
 
+	Matrix mat;
+
 	for (int index = 0; index < bodies.size(); index++)
 	{
 		if (bodies[index].body)
@@ -192,10 +199,10 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 			{
 				bodies[index].body->SetActive(sprite_inst->instances[index].IsVisible() && is_active);
 
-				if (sprite_inst->instances[index].IsVisible())
+				if (body_type != Phys2DComp::BodyType::StaticBody && sprite_inst->instances[index].IsVisible())
 				{
-					Vector2 pos = sprite_inst->instances[index].GetPos();
-					bodies[index].body->SetTransform({ pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
+					mat.Pos() = { sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f };
+					bodies[index].body->SetTransform(mat);
 				}
 			}
 
@@ -203,14 +210,14 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 			{
 				if (body_type == Phys2DComp::BodyType::KineticBody)
 				{
-					Vector2 pos = sprite_inst->instances[index].GetPos();
-					bodies[index].body->SetTransform( { pos.x / 50.0f, pos.y / 50.0f }, 0.0f);
+					mat.Pos() = { sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f };
+					bodies[index].body->SetTransform(mat);
 				}
 				else
 				if (body_type == Phys2DComp::BodyType::DynamicBody)
 				{
-					b2Transform trasn = bodies[index].body->GetTransform();
-					sprite_inst->instances[index].SetPos({ trasn.p.x * 50.0f, trasn.p.y * 50.0f });
+					bodies[index].body->GetTransform(mat);
+					sprite_inst->instances[index].SetPos({ mat.Pos().x * 50.0f, -mat.Pos().y * 50.0f });
 				}
 			}
 		}
@@ -219,21 +226,13 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 
 void Phys2DCompInst::UpdateGraphInst(SpriteGraphInst* graph_inst)
 {
-	if (bodies[0].body)
+	if (bodies[0].controller)
 	{
 		bool is_active = (graph_inst->GetState() == SceneObject::State::Active);
 
-		if (bodies[0].body->IsActive() != (is_active))
+		if (bodies[0].controller->IsActive() != (is_active))
 		{
-			bodies[0].body->SetActive(is_active);
-		}
-
-		if (bodies[0].body->IsActive())
-		{
-			b2Transform trasn = bodies[0].body->GetTransform();
-
-			graph_inst->trans.pos.x = trasn.p.x * 50.0f;
-			graph_inst->trans.pos.y = trasn.p.y * 50.0f;
+			bodies[0].controller->SetActive(is_active);
 		}
 	}
 }

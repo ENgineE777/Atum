@@ -3,7 +3,7 @@
 #include "Sprite.h"
 #include "Services/Render/Render.h"
 
-CLASSREG(SceneObject, Camera2D, "CharacterCamera2D")
+CLASSREG(SceneObject, Camera2D, "Camera2D")
 
 META_DATA_DESC(Camera2D)
 BASE_SCENE_OBJ_PROP(Camera2D)

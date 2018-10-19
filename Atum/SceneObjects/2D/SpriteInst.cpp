@@ -329,7 +329,7 @@ void SpriteInst::Draw(float dt)
 	}
 }
 
-b2Body* SpriteInst::HackGetBody(int index)
+PhysObject* SpriteInst::HackGetBody(int index)
 {
 	for (auto comp : components)
 	{
@@ -360,27 +360,23 @@ void SpriteInst::ClearInstances()
 
 void SpriteInst::ApplyLinearImpulse(int index, float x, float y)
 {
-	b2Body* body = HackGetBody(index);
+	PhysObject* body = HackGetBody(index);
 
 	if (body)
 	{
-		body->SetLinearVelocity({ x, y });
+		body->AddForceAt({instances[index].GetPos().x / 50.0f, -instances[index].GetPos().x / 50.0f, 0.0f}, {x, y, 0.0f});
 	}
 }
 
 void SpriteInst::Move(int index, float x, float y)
 {
-	b2Body* body = HackGetBody(index);
+	PhysObject* body = HackGetBody(index);
 
 	if (body)
 	{
-		b2Vec2 pos(0.0f, 0.0f);
-		body->SetLinearVelocity(pos);
-
-		instances[index].SetPos({ x, y });
-		pos.x = x / 50.0f;
-		pos.y = y / 50.0f;
-		body->SetTransform(pos, 0.0f);
+		Matrix mat;
+		mat.Pos() = { x / 50.0f, -y / 50.0f, 0.0f };
+		body->SetTransform(mat);
 	}
 }
 

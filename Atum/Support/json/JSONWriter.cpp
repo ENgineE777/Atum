@@ -17,7 +17,7 @@ JSONWriter::~JSONWriter()
 
 bool JSONWriter::Start(const char* name)
 {
-	FILE* file = files.FileOpen(name, "rb");
+	file = files.FileOpen(name, "wb");
 
 	if (file)
 	{

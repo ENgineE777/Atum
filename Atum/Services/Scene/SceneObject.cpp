@@ -353,11 +353,6 @@ PhysScene* SceneObject::PScene()
 	return owner->pscene;
 }
 
-b2World* SceneObject::PScene2D()
-{
-	return owner->pscene2D;
-}
-
 void SceneObject::Release()
 {
 	if (owner)
@@ -493,7 +488,7 @@ bool SceneObject::UseAseetsTree()
 	return false;
 }
 
-void SceneObject::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
+void SceneObject::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
 {
 
 }

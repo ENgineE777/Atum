@@ -10,7 +10,7 @@
 
 int index_hack_show_message = 0;
 
-void Scene::ContactListener::BeginContact(b2Contact* contact)
+/*void Scene::ContactListener::BeginContact(b2Contact* contact)
 {
 	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
@@ -42,19 +42,7 @@ void Scene::ContactListener::EndContact(b2Contact* contact)
 		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
 		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
 	}*/
-}
-
-Scene::Scene()
-{
-	taskPool = NULL;
-	renderTaskPool = NULL;
-	playing = false;
-}
-
-Scene::~Scene()
-{
-
-}
+//}
 
 void Scene::Init()
 {
@@ -448,9 +436,6 @@ bool Scene::Play()
 	script = scripts.CreateContext();
 	pscene = physics.CreateScene();
 
-	pscene2D = physics.CreateScene2D();
-	pscene2D->SetContactListener(&contact_listiner);
-
 	for (auto object : objects)
 	{
 		if (!object->Play())
@@ -493,7 +478,6 @@ void Scene::Stop()
 
 	RELEASE(script)
 	physics.DestroyScene(pscene);
-	physics.DestroyScene2D(pscene2D);
 	pscene = nullptr;
 }
 

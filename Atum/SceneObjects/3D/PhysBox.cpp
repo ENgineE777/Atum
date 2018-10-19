@@ -42,7 +42,7 @@ void PhysBox::Draw(float dt)
 bool PhysBox::Play()
 {
 	SceneObject::Play();
-	obj = PScene()->CreateBox(Vector(sizeX * 0.5f, sizeY * 0.5f, sizeZ * 0.5f), Trans(), isStatic);
+	obj = PScene()->CreateBox(Vector(sizeX * 0.5f, sizeY * 0.5f, sizeZ * 0.5f), Trans(), Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic);
 
 	return true;
 }

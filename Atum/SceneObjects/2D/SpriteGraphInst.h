@@ -12,6 +12,7 @@ public:
 	SpriteGraphAsset::Instance graph_instance;
 	string asset_name; 
 	Transform2D trans;
+	Vector2 dir = 0.0f;
 
 	virtual ~SpriteGraphInst() = default;
 
@@ -24,13 +25,10 @@ public:
 	void Draw(float dt);
 	void ActivateLink(string& link);
 	void GotoNode(string& node);
-	float GetLinearVelocityX();
-	float GetLinearVelocityY();
-	void ApplyLinearImpulse(float x, float y);
-	void SetLinearVelocity(float x, float y);
-	bool CheckColissionNormal(float x, float y);
-	void Move(float x, float y);
-	b2Body* HackGetBody();
+	bool CheckColission(bool under);
+	void Move(float dx, float dy);
+	void MoveTo(float x, float y);
+	PhysController* HackGetBody();
 
 #ifdef EDITOR
 	bool CheckSelection(Vector2 ms) override;

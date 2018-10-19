@@ -107,7 +107,6 @@ public:
 	Scene* GetScene();
 	ScriptContext* Script();
 	PhysScene* PScene();
-	b2World* PScene2D();
 	virtual void Release();
 	virtual bool Is3DObject();
 	virtual SceneObject* GetChild(uint32_t uid);
@@ -126,7 +125,7 @@ public:
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();
-	virtual void OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms);
+	virtual void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms);
 	virtual void ShowPropWidgets(EUICategories* objCat);
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);

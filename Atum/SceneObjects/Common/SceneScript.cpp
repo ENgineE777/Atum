@@ -708,8 +708,13 @@ void SceneScript::OnPopupMenuItem(int id)
 	}
 }
 
-void SceneScript::OnDragObjectFromSceneTreeView(SceneObject* object, Vector2 ms)
+void SceneScript::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
 {
+	if (!is_scene_tree)
+	{
+		return;
+	}
+
 	for (auto& node : nodes)
 	{
 		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&

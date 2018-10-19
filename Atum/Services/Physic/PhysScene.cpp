@@ -1,12 +1,14 @@
 
 #include "Physics.h"
 #include "Services/Render/Render.h"
+#include "Services/Scene/SceneObject.h"
+#include "SceneObjects/2D/Phys2DComp.h"
 
-PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, bool isStatic)
+PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type)
 {
 	PhysObject* obj = new PhysObject();
 
-	obj->isStatic = isStatic;
+	obj->body_type = type;
 
 	PxReal density = 1.0f;
 
@@ -14,19 +16,40 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, bool isStatic)
 
 	PxTransform transform(PxVec3(trans.Pos().x, trans.Pos().y, trans.Pos().z), PxQuat(q.x, q.y, q.z, q.w));
 
-	PxVec3 dimensions(size.x, size.y, size.z);
+	PxVec3 dimensions(size.x * 0.5f, size.y * 0.5f, size.z * 0.5f);
 
 	PxBoxGeometry geometry(dimensions);
 
-	if (isStatic)
+	if (type == PhysObject::Static || type == PhysObject::Triger)
 	{
 		obj->actor = physics.physics->createRigidStatic(transform);
-		obj->actor->createShape(geometry, *physics.defMaterial);
+		PxShape* shape = obj->actor->createShape(geometry, *physics.defMaterial);
+
+		if (type == PhysObject::Triger)
+		{
+			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
+			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+		}
 	}
 	else
 	{
-		obj->actor = PxCreateDynamic(*physics.physics, transform, geometry, *physics.defMaterial, density);
-		//obj->actor->setLinearVelocity(PxVec3(0, 0, 0));
+		Quaternion q_offset(trans);
+		PxTransform trans_offset(PxVec3(offset.Pos().x, offset.Pos().y, offset.Pos().z), PxQuat(q_offset.x, q_offset.y, q_offset.z, q_offset.w));
+
+		PxRigidDynamic* actor = PxCreateDynamic(*physics.physics, transform, geometry, *physics.defMaterial, density, trans_offset);
+		actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y);
+
+		if (type == PhysObject::Kinetic)
+		{
+			actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
+		}
+		else
+		if (type == PhysObject::DynamicCCD)
+		{
+			actor->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_CCD, true);
+		}
+
+		obj->actor = actor;
 	}
 
 	scene->addActor(*obj->actor);
@@ -49,7 +72,11 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
 	pxdesc.material = physics.defMaterial;
 
 	PhysController* controller = new PhysController();
+	pxdesc.reportCallback = controller;
+	pxdesc.behaviorCallback = controller;
+
 	controller->controller = manager->createController(pxdesc);
+	controller->height = desc.height + desc.radius * 2.0f + controller->controller->getContactOffset();
 
 	return controller;
 }
@@ -82,7 +109,7 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char*
 void PhysScene::SetVisualization(bool set)
 {
 	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, set ? 1.0f : -1.0f);
-	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_STATIC, 1.0f);
+	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, set ? 1.0f : -1.0f);
 }
 
 void PhysScene::DrawVisualization()
@@ -92,7 +119,7 @@ void PhysScene::DrawVisualization()
 	{
 		const PxDebugLine& line = rb.getLines()[i];
 		render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
-			Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
+		                 Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
 	}
 }
 
@@ -126,6 +153,39 @@ void PhysScene::FetchResults()
 	while (!scene->fetchResults())
 	{
 
+	}
+}
+
+void PhysScene::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
+{
+	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(pairHeader.actors[0]->userData);
+	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(pairHeader.actors[1]->userData);
+
+	if (udataA && udataB)
+	{
+		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
+		{
+			//contact->SetEnabled(false);
+		}
+
+		if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
+		{
+			//contact->SetEnabled(false);
+		}
+	}
+}
+
+void PhysScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
+{
+	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(pairs->triggerActor->userData);
+	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(pairs->otherActor->userData);
+
+	if (udataA && udataB)
+	{
+		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
+		{
+			//contact->SetEnabled(false);
+		}
 	}
 }
 

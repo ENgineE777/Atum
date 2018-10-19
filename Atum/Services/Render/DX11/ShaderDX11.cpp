@@ -173,7 +173,6 @@ void ShaderDX11::UpdateConstants()
 
 		if (buffer->dirty)
 		{
-			float k = *((float*)buffer->rawdata);
 			DeviceDX11::instance->immediateContext->UpdateSubresource(buffer->buffer, 0, NULL, buffer->rawdata, 0, 0);
 
 			buffer->dirty = false;

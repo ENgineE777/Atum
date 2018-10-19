@@ -691,7 +691,7 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 		int id = MenuSceneObjectID;
 		for (const auto& decl : ClassFactorySceneObject::Decls())
 		{
-			if (!StringUtils::IsEqual(decl->GetName(), "UIViewInstance"))
+			if (!StringUtils::StrStr(decl->GetName(), "Inst"))
 			{
 				popup_menu->AddItem(id, decl->GetShortName());
 			}
@@ -898,6 +898,8 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
 {
+	popup_parent = nullptr;
+
 	prev_ms = Vector2((float)mx, (float)my);
 
 	if (sender == viewport)
@@ -1127,14 +1129,15 @@ void Editor::OnWinClose(EUIWidget* sender)
 
 bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void* item, int prev_child_index, void* parent, int child_index)
 {
-	if (sender == scene_treeview && target == viewport)
+	if ((sender == assets_treeview || sender == scene_treeview) && target == viewport)
 	{
 		if (selectedObject)
 		{
 			int x, y;
 			viewport->GetMousePos(x, y);
 			Vector2 ms((float)x, (float)y);
-			selectedObject->OnDragObjectFromSceneTreeView((SceneObject*)sender->GetItemPtr(item), ms);
+
+			selectedObject->OnDragObjectFromTreeView(sender == scene_treeview, (SceneObject*)sender->GetItemPtr(item), ms);
 		}
 
 		return false;

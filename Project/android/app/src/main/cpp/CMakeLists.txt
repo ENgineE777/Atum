@@ -4,10 +4,9 @@ set( atum_DIR ../../../../../../../Atum/ )
 set( physx_DIR ../../../../../../../Libraries/PhysX )
 set( physx_lib_DIR ../../../../../../../Atum/Libraries/PhysX/Lib/android16 )
 set( as_DIR ../../../../../../../Libraries/Angelscript )
-set( box2d_DIR ../../../../../../../Atum/Services/Physic )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${box2d_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include")
 set(OPENGL_LIB GLESv3)
 
 link_directories( ${physx_lib_DIR} )
@@ -44,53 +43,6 @@ add_library(atumlib SHARED
             ${as_DIR}/source/as_tokenizer.cpp
             ${as_DIR}/source/as_typeinfo.cpp
             ${as_DIR}/source/as_variablescope.cpp
-            ${box2d_DIR}/Box2D/Collision/Shapes/b2ChainShape.cpp
-            ${box2d_DIR}/Box2D/Collision/Shapes/b2CircleShape.cpp
-            ${box2d_DIR}/Box2D/Collision/Shapes/b2EdgeShape.cpp
-            ${box2d_DIR}/Box2D/Collision/Shapes/b2PolygonShape.cpp
-            ${box2d_DIR}/Box2D/Collision/b2BroadPhase.cpp
-            ${box2d_DIR}/Box2D/Collision/b2CollideCircle.cpp
-            ${box2d_DIR}/Box2D/Collision/b2CollideEdge.cpp
-            ${box2d_DIR}/Box2D/Collision/b2CollidePolygon.cpp
-            ${box2d_DIR}/Box2D/Collision/b2Collision.cpp
-            ${box2d_DIR}/Box2D/Collision/b2Distance.cpp
-            ${box2d_DIR}/Box2D/Collision/b2DynamicTree.cpp
-            ${box2d_DIR}/Box2D/Collision/b2TimeOfImpact.cpp
-            ${box2d_DIR}/Box2D/Common/b2BlockAllocator.cpp
-            ${box2d_DIR}/Box2D/Common/b2Draw.cpp
-            ${box2d_DIR}/Box2D/Common/b2Math.cpp
-            ${box2d_DIR}/Box2D/Common/b2Settings.cpp
-            ${box2d_DIR}/Box2D/Common/b2StackAllocator.cpp
-            ${box2d_DIR}/Box2D/Common/b2Timer.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2ChainAndCircleContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2ChainAndPolygonContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2CircleContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2Contact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2ContactSolver.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2EdgeAndCircleContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2EdgeAndPolygonContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2PolygonAndCircleContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Contacts/b2PolygonContact.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2DistanceJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2FrictionJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2GearJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2Joint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2MotorJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2MouseJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2PrismaticJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2PulleyJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2RevoluteJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2RopeJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2WeldJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/Joints/b2WheelJoint.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2Body.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2ContactManager.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2Fixture.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2Island.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2Fixture.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2World.cpp
-            ${box2d_DIR}/Box2D/Dynamics/b2WorldCallbacks.cpp
-            ${box2d_DIR}/Box2D/Rope/b2Rope.cpp
             ${atum_DIR}/Platform/Android/AtumLib.cpp
             ${atum_DIR}/SceneObjects/2D/Camera2D.cpp
             ${atum_DIR}/SceneObjects/2D/Phys2DComp.cpp

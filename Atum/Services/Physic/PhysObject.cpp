@@ -1,8 +1,62 @@
 #include "PhysObject.h"
 
-bool PhysObject::IsSatic()
+PhysObject::BodyType PhysObject::GetType()
 {
-	return isStatic;
+	return body_type;
+}
+
+void PhysObject::SetActive(bool set)
+{
+	if (set == is_active)
+	{
+		return;
+	}
+
+	is_active = set;
+
+	actor->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !set);
+}
+
+bool PhysObject::IsActive()
+{
+	return is_active;
+}
+
+void PhysObject::SetUserData(void* data)
+{
+	actor->userData = data;
+}
+
+void* PhysObject::GetUserData()
+{
+	return actor->userData;
+}
+
+void PhysObject::SetFixedRotation(bool set)
+{
+	((PxRigidDynamic*)actor)->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z);
+}
+
+void PhysObject::SetTransform(Matrix& mat)
+{
+	PxMat33 m;
+	m.column0 = PxVec3(mat.Vx().x, mat.Vx().y, mat.Vx().z);
+	m.column1 = PxVec3(mat.Vy().x, mat.Vy().y, mat.Vy().z);
+	m.column2 = PxVec3(mat.Vz().x, mat.Vz().y, mat.Vz().z);
+
+	PxTransform pT;
+	pT.q = PxQuat(m);
+	pT.p = PxVec3(mat.Pos().x, mat.Pos().y, mat.Pos().z);
+
+	if (body_type == Kinetic)
+	{
+		PxSceneWriteLock scopedLock(*actor->getScene());
+		((PxRigidDynamic*)actor)->setKinematicTarget(pT);
+	}
+	else
+	{
+		actor->setGlobalPose(pT, true);
+	}
 }
 
 void PhysObject::GetTransform(Matrix& mat)
@@ -19,7 +73,7 @@ void PhysObject::GetTransform(Matrix& mat)
 
 void PhysObject::AddForceAt(Vector pos, Vector force)
 {
-	if (isStatic)
+	if (body_type != Dynamic && body_type != DynamicCCD)
 	{
 		return;
 	}

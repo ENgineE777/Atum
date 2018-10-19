@@ -14,43 +14,6 @@ extern "C"
 }
 #endif
 
-class DebugDraw : public b2Draw
-{
-public:
-	void DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
-	{
-		for (int i = 0; i < vertexCount - 1; i++)
-		{
-			render.DebugLine2D({ vertices[i].x * 50.0f, vertices[i].y  * 50.0f }, COLOR_BLUE, { vertices[i + 1].x * 50.0f, vertices[i + 1].y  * 50.0f }, COLOR_BLUE);
-		}
-	}
-
-	void DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
-	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-
-		Vector2 cam_pos;
-		cam_pos.x = Sprite::cam_pos.x * scale - render.GetDevice()->GetWidth() * 0.5f;
-		cam_pos.y = Sprite::cam_pos.y * scale - 512 * scale;
-
-		scale *= 50.0f;
-
-		for (int i = 0; i < vertexCount; i++)
-		{
-			int index = (i == vertexCount - 1) ? 0 : i + 1;
-			render.DebugLine2D({ vertices[i].x * scale - cam_pos.x, vertices[i].y * scale - cam_pos.y }, COLOR_BLUE, { vertices[index].x * scale - cam_pos.x, vertices[index].y * scale - cam_pos.y }, COLOR_BLUE);
-		}
-	}
-
-	void DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color) {}
-	void DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color) {}
-	void DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color) {}
-	void DrawTransform(const b2Transform& xf) {}
-	void DrawPoint(const b2Vec2& p, float32 size, const b2Color& color) {};
-};
-
-DebugDraw debug_draw;
-
 void Physics::Init()
 {
 	PxTolerancesScale tolerancesScale;
@@ -62,7 +25,7 @@ void Physics::Init()
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(tolerancesScale));
 #endif
 
-	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.95f);
+	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.05f);
 }
 
 #ifdef PLATFORM_PC
@@ -95,44 +58,39 @@ void Physics::CookHeightmap(PhysHeightmap::Desc& desc, const char* name)
 }
 #endif
 
+physx::PxFilterFlags CollisionFilterShader(physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
+                                           physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
+                                           physx::PxPairFlags& retPairFlags, const void* constantBlock, PxU32 constantBlockSize)
+{
+	retPairFlags = PxPairFlag::eSOLVE_CONTACT | PxPairFlag::eDETECT_DISCRETE_CONTACT | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	return PxFilterFlag::eDEFAULT;
+}
+
 PhysScene* Physics::CreateScene()
 {
 	PhysScene* scene = new PhysScene();
 
 	PxSceneDesc sceneDesc(physics->getTolerancesScale());
 	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
+	sceneDesc.simulationEventCallback = scene;
+	sceneDesc.filterShader = CollisionFilterShader;
 
 	if (!sceneDesc.cpuDispatcher)
 	{
 		sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
 	}
 
-	if (!sceneDesc.filterShader)
-	{
-		sceneDesc.filterShader = PxDefaultSimulationFilterShader;
-	}
-
 	sceneDesc.isValid();
 
 	scene->scene = physics->createScene(sceneDesc);
 	scene->manager = PxCreateControllerManager(*scene->scene);
+	scene->scene->setFlag(physx::PxSceneFlag::eENABLE_CCD, true);
+
+	//scene->SetVisualization(true);
 
 	scenes.push_back(scene);
 
 	return scene;
-}
-
-b2World* Physics::CreateScene2D()
-{
-	b2Vec2 gravity(0.0f, 20.0f);
-	b2World* world2D = new b2World(gravity);
-	world2D->SetDebugDraw(&debug_draw);
-
-	debug_draw.SetFlags(b2Draw::e_shapeBit);
-
-	scenes2D.push_back(world2D);
-
-	return world2D;
 }
 
 void Physics::DestroyScene(PhysScene* scene)
@@ -143,18 +101,6 @@ void Physics::DestroyScene(PhysScene* scene)
 		{
 			scenes.erase(scenes.begin() + i);
 			scene->Release();
-		}
-	}
-}
-
-void Physics::DestroyScene2D(b2World* scene)
-{
-	for (int i = 0; i<scenes2D.size(); i++)
-	{
-		if (scenes2D[i] == scene)
-		{
-			scenes2D.erase(scenes2D.begin() + i);
-			delete scene;
 		}
 	}
 }
@@ -180,20 +126,27 @@ void Physics::Update(float dt)
 			scene->needFetch = true;
 		}
 
-		for (auto scene : scenes2D)
-		{
-			int32 velocityIterations = 8;
-			int32 positionIterations = 3;
-
-			scene->Step(physStep, velocityIterations, positionIterations);
-		}
-
 		accum_dt -= physStep;
 	}
 
-	for (auto scene : scenes2D)
+	for (auto scene : scenes)
 	{
-		//scene->DrawDebugData();
+		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
+		Vector2 cam_pos;
+		cam_pos.x = Sprite::cam_pos.x / 50.0f;//* scale - render.GetDevice()->GetWidth() * 0.5f;
+		cam_pos.y = Sprite::cam_pos.y / 50.0f;//* scale - 512 * scale;
+
+		Matrix view;
+		view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector(0, 1, 0));
+
+		render.SetTransform(Render::View, view);
+
+		Matrix proj;
+		proj.BuildProjection(45.0f * RADIAN, (float)render.GetDevice()->GetHeight() / (float)render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+		render.SetTransform(Render::Projection, proj);
+
+		scene->DrawVisualization();
 	}
 }
 

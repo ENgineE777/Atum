@@ -2,8 +2,8 @@
 
 	"camera_pos" :
 	{
-		"x" : 10212.000000,
-		"y" : 583.000000
+		"x" : 10412.000000,
+		"y" : 606.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -891,7 +891,7 @@
 						"y" : 418.000000
 					},
 					"name" : "Idle",
-					"asset" : "Hero_Idle",
+					"object_uid" : -1039027712,
 					"def_link" : -1,
 					"Count" : 3,
 					"Link" : [
@@ -919,7 +919,7 @@
 						"y" : 391.000000
 					},
 					"name" : "Run",
-					"asset" : "Hero_Run",
+					"object_uid" : -246291712,
 					"def_link" : -1,
 					"Count" : 3,
 					"Link" : [
@@ -947,7 +947,7 @@
 						"y" : 136.000000
 					},
 					"name" : "Jump",
-					"asset" : "Hero_Jump",
+					"object_uid" : -442886144,
 					"def_link" : -1,
 					"Count" : 1,
 					"Link" : [
@@ -967,7 +967,7 @@
 						"y" : 190.000000
 					},
 					"name" : "Fall",
-					"asset" : "Hero_Fall",
+					"object_uid" : 1917411200,
 					"def_link" : -1,
 					"Count" : 2,
 					"Link" : [
@@ -991,7 +991,7 @@
 						"y" : 257.000000
 					},
 					"name" : "Hit",
-					"asset" : "Hero_Hit",
+					"object_uid" : 1511894784,
 					"def_link" : -1,
 					"Count" : 1,
 					"Link" : [
@@ -1005,7 +1005,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 1,
+					"body_type" : 5,
 					"density" : 1.000000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
@@ -1165,7 +1165,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 2,
+					"body_type" : 3,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
@@ -1409,7 +1409,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 0,
+					"body_type" : 4,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
@@ -1608,7 +1608,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 0,
+					"body_type" : 4,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
@@ -2045,7 +2045,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 2,
+					"body_type" : 3,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
@@ -4639,7 +4639,7 @@
 						"y" : 422.000000
 					},
 					"name" : "Attack",
-					"asset" : "CatAttack",
+					"object_uid" : 2017200640,
 					"def_link" : 0,
 					"Count" : 1,
 					"Link" : [
@@ -4659,7 +4659,7 @@
 						"y" : 227.000000
 					},
 					"name" : "Idle",
-					"asset" : "CatIdle",
+					"object_uid" : -1096384000,
 					"def_link" : -1,
 					"Count" : 2,
 					"Link" : [
@@ -4679,11 +4679,11 @@
 					"reverse" : false,
 					"pos" :
 					{
-						"x" : 841.000000,
+						"x" : 840.000000,
 						"y" : 314.000000
 					},
 					"name" : "Run",
-					"asset" : "CatRun",
+					"object_uid" : 550593920,
 					"def_link" : -1,
 					"Count" : 1,
 					"Link" : [
@@ -4697,7 +4697,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 1,
+					"body_type" : 5,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : false,
@@ -5049,7 +5049,7 @@
 			"components" : [
 				{
 					"type" : "Phys2DComp",
-					"body_type" : 2,
+					"body_type" : 3,
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,

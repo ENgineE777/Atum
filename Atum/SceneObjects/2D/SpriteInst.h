@@ -53,7 +53,7 @@ public:
 
 	bool Play() override;
 
-	b2Body* HackGetBody(int index);
+	PhysObject* HackGetBody(int index);
 	void AddInstance(float x, float y);
 	void ClearInstances();
 	void ApplyLinearImpulse(int index, float x, float y);

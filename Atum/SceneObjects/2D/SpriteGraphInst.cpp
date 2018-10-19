@@ -20,12 +20,9 @@ void SpriteGraphInst::BindClassToScript()
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
 	scripts.engine->RegisterObjectMethod(script_class_name, "void ActivateLink(string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void GotoNode(string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "float GetLinearVelocityX()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityX), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "float GetLinearVelocityY()", WRAP_MFN(SpriteGraphInst, GetLinearVelocityY), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetLinearVelocity(float x, float y)", WRAP_MFN(SpriteGraphInst, SetLinearVelocity), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(SpriteGraphInst, ApplyLinearImpulse), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColissionNormal(float x, float y)", WRAP_MFN(SpriteGraphInst, CheckColissionNormal), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float x, float y)", WRAP_MFN(SpriteGraphInst, Move), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(SpriteGraphInst, CheckColission), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(SpriteGraphInst, Move), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(SpriteGraphInst, MoveTo), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
@@ -80,6 +77,24 @@ void SpriteGraphInst::Draw(float dt)
 	}
 
 	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true, false);
+
+	if (owner->Playing())
+	{
+		PhysController* body = HackGetBody();
+
+		if (body && dir.Length() > 0.001f)
+		{
+			body->Move({ dir.x / 50.0f, -dir.y / 50.0f, 0.0f });
+
+			Vector pos;
+			body->GetPosition(pos);
+
+			trans.pos.x = pos.x * 50.0f;
+			trans.pos.y = -pos.y * 50.0f;
+
+			dir = 0.0f;
+		}
+	}
 }
 
 void SpriteGraphInst::ActivateLink(string& link)
@@ -92,7 +107,7 @@ void SpriteGraphInst::GotoNode(string& node)
 	graph_instance.GotoNode(node.c_str());
 }
 
-b2Body* SpriteGraphInst::HackGetBody()
+PhysController* SpriteGraphInst::HackGetBody()
 {
 	for (auto comp : components)
 	{
@@ -100,94 +115,40 @@ b2Body* SpriteGraphInst::HackGetBody()
 
 		if (phys_comp)
 		{
-			return phys_comp->bodies[0].body;
+			return phys_comp->bodies[0].controller;
 		}
 	}
 
 	return nullptr;
 }
 
-void SpriteGraphInst::ApplyLinearImpulse(float x, float y)
+bool SpriteGraphInst::CheckColission(bool under)
 {
-	b2Body* body = HackGetBody();
+	PhysController* body = HackGetBody();
 
 	if (body)
 	{
-		body->ApplyLinearImpulseToCenter({x, y}, true);
-	}
-}
-
-float SpriteGraphInst::GetLinearVelocityX()
-{
-	b2Body* body = HackGetBody();
-
-	if (body)
-	{
-		return body->GetLinearVelocity().x;
-	}
-
-	return 0.0f;
-}
-
-float SpriteGraphInst::GetLinearVelocityY()
-{
-	b2Body* body = HackGetBody();
-
-	if (body)
-	{
-		return body->GetLinearVelocity().y;
-	}
-
-	return 0.0f;
-}
-
-void SpriteGraphInst::SetLinearVelocity(float x, float y)
-{
-	b2Body* body = HackGetBody();
-
-	if (body)
-	{
-		body->SetLinearVelocity({ x, y });
-	}
-}
-
-bool SpriteGraphInst::CheckColissionNormal(float x, float y)
-{
-	b2Body* body = HackGetBody();
-
-	if (body)
-	{
-		b2ContactEdge* contacts = body->GetContactList();
-
-		if (contacts)
-		{
-			for (b2ContactEdge* contact = contacts; contact; contact = contact->next)
-			{
-				if (fabs(contact->contact->GetManifold()->localNormal.x - x) < 0.01f &&
-					fabs(contact->contact->GetManifold()->localNormal.y - y) < 0.01f)
-				{
-					return true;
-				}
-			}
-		}
+		return body->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
 	}
 
 	return false;
 }
 
-void SpriteGraphInst::Move(float x, float y)
+void SpriteGraphInst::Move(float dx, float dy)
 {
-	b2Body* body = HackGetBody();
+	dir.x += dx;
+	dir.y += dy;
+}
+
+void SpriteGraphInst::MoveTo(float x, float y)
+{
+	PhysController* body = HackGetBody();
 
 	if (body)
 	{
-		b2Vec2 pos(0.0f, 0.0f);
-		body->SetLinearVelocity(pos);
-
 		trans.pos = { x, y };
-		pos.x = x / 50.0f;
-		pos.y = y / 50.0f;
-		body->SetTransform(pos, 0.0f);
+		Vector pos = { x / 50.0f, -y / 50.0f, 0.0f };
+		body->SetPosition(pos);
 	}
 }
 

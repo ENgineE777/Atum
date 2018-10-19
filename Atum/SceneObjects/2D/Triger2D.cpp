@@ -23,23 +23,15 @@ void Triger2D::Init()
 
 bool Triger2D::Play()
 {
-	b2BodyDef bodyDef;
-
 	float scale = 1.0f / 50.0f;
 
-	bodyDef.type = b2_staticBody;
-	bodyDef.position.Set(trans.pos.x * scale, trans.pos.y * scale);
+	Matrix body_trans;
+	body_trans.Pos() = { trans.pos.x * scale, -trans.pos.y * scale, 0.0f };
 
-	b2PolygonShape box;
-	box.SetAsBox(trans.size.x * scale * 0.5f, trans.size.y * scale * 0.5f);
-
-	b2FixtureDef fixtureDef;
-	fixtureDef.isSensor = true;
-	fixtureDef.shape = &box;
+	Matrix offset;
 
 	body.object = this;
-	body.body = PScene2D()->CreateBody(&bodyDef);
-	body.body->CreateFixture(&fixtureDef);
+	body.body = PScene()->CreateBox({ trans.size.x * scale, trans.size.y * scale, 1.0f }, body_trans, offset, PhysObject::Triger);
 	body.body->SetUserData(&body);
 
 	return true;
@@ -49,7 +41,7 @@ void Triger2D::Stop()
 {
 	if (body.body)
 	{
-		PScene2D()->DestroyBody(body.body);
+		RELEASE(body.body);
 	}
 }
 

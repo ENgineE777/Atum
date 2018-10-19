@@ -46,12 +46,12 @@ public:
 		META_DATA_DECL(Node)
 
 		NodeType type = AnimNode;
-		SpriteAsset* asset;
+		SpriteAsset* asset = nullptr;
 		bool looped = true;
 		bool reversed = false;
 		Vector2 pos = 0.0f;
 		string name;
-		string asset_name;
+		uint32_t object_uid = 0;
 		int def_link = -1;
 		vector<Link> links;
 	};
@@ -111,5 +111,6 @@ public:
 	void OnLeftMouseUp() override;
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
+	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
 #endif
 };

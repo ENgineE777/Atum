@@ -40,6 +40,11 @@ bool StringUtils::IsEmpty(const char* str)
 	return !str || !str[0];
 }
 
+const char* StringUtils::StrStr(const char* str, const char* sub_str)
+{
+	return strstr(str, sub_str);
+}
+
 bool StringUtils::IsEqual(const char* str1, const char* str2)
 { 
 #ifdef PLATFORM_PC

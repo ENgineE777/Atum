@@ -11,7 +11,6 @@ META_DATA_DESC_END()
 
 META_DATA_DESC(SpriteGraphAsset::Node)
 STRING_PROP(SpriteGraphAsset::Node, name, "", "Node", "Name")
-STRING_PROP(SpriteGraphAsset::Node, asset_name, "", "Node", "Asset")
 BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped")
 BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed")
 META_DATA_DESC_END()
@@ -127,7 +126,7 @@ void SpriteGraphAsset::ApplyProperties()
 
 	for (auto& node : nodes)
 	{
-		node.asset = (SpriteAsset*)owner->FindByName(node.asset_name.c_str(), true);
+		node.asset = (SpriteAsset*)owner->FindByUID(node.object_uid, 0, true);
 
 		if (!node.asset)
 		{
@@ -157,7 +156,7 @@ void SpriteGraphAsset::Load(JSONReader& loader)
 		loader.Read("reverse", node.reversed);
 		loader.Read("pos", node.pos);
 		loader.Read("name", node.name);
-		loader.Read("asset", node.asset_name);
+		loader.Read("object_uid", node.object_uid);
 		loader.Read("def_link", node.def_link);
 
 		int link_count = 0;
@@ -207,7 +206,7 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 		saver.Write("reverse", node.reversed);
 		saver.Write("pos", node.pos);
 		saver.Write("name", node.name.c_str());
-		saver.Write("asset", node.asset_name.c_str());
+		saver.Write("object_uid", node.object_uid);
 		saver.Write("def_link", node.def_link);
 
 		int link_count = (int)node.links.size();
@@ -246,13 +245,6 @@ void SpriteGraphAsset::Draw(float dt)
 	if (sel_node != -1)
 	{
 		Node& node = nodes[sel_node];
-		SpriteAsset* asset = (SpriteAsset*)owner->FindByName(node.asset_name.c_str(), true);
-
-		if (node.asset != asset)
-		{
-			state.cur_time = -1.0f;
-			node.asset = asset;
-		}
 
 		if (node.asset)
 		{
@@ -349,6 +341,8 @@ void SpriteGraphAsset::Draw(float dt)
 
 		render.DebugSprite(nullptr, node.pos - Sprite::ed_cam_pos, nodeSize, color);
 		render.DebugPrintText(node.pos + Vector2(10.0f) - Sprite::ed_cam_pos, COLOR_WHITE,node.name.c_str());
+
+		render.DebugPrintText(node.pos + Vector2(10.0f, 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node.asset ? node.asset->GetName() : "null");
 
 		index++;
 	}
@@ -515,7 +509,7 @@ void SpriteGraphAsset::Copy(SceneObject* src)
 		node.reversed = src_graph->nodes[i].reversed;
 		node.pos = src_graph->nodes[i].pos;
 		node.name = src_graph->nodes[i].name;
-		node.asset_name = src_graph->nodes[i].asset_name;
+		node.object_uid = src_graph->nodes[i].object_uid;
 		node.def_link = src_graph->nodes[i].def_link;
 
 		int link_count = (int)src_graph->nodes[i].links.size();
@@ -693,4 +687,34 @@ void SpriteGraphAsset::OnPopupMenuItem(int id)
 		Delete();
 	}
 }
+
+void SpriteGraphAsset::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
+{
+	if (is_scene_tree)
+	{
+		return;
+	}
+
+	SpriteAsset* asset = dynamic_cast<SpriteAsset*>(object);
+	
+	if (!asset)
+	{
+		return;
+	}
+
+	for (auto& node : nodes)
+	{
+		if (node.pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
+			node.pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+		{
+			node.asset = asset;
+			node.object_uid = asset->GetUID();
+
+			state.cur_time = -1.0f;
+
+			break;
+		}
+	}
+}
+
 #endif

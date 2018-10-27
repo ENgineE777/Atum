@@ -82,9 +82,9 @@ void SpriteWindow::Init()
 	prop_label = new EUILabel(panel, "Tile Mode", 5, 250, 90, 20);
 	texture_mode = new EUIComboBox(panel, 95, 250, 100, 250);
 	texture_mode->SetListener(-1, this, 0);
-	texture_mode->AddItem("clamp");
 	texture_mode->AddItem("wrap");
 	texture_mode->AddItem("mirror");
+	texture_mode->AddItem("clamp");
 	texture_mode->SetCurString(0);
 
 	prop_label = new EUILabel(panel, "Filter", 5, 280, 90, 20);

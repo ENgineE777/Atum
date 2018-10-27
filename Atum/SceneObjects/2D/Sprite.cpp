@@ -294,8 +294,20 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	Vector2 size = trans->size * scale;
 
-	if (local_trans.Pos().x + pos.x + size.x < 0 || local_trans.Pos().x + pos.x > render.GetDevice()->GetWidth() ||
-		local_trans.Pos().y + pos.y + size.y < 0 || local_trans.Pos().y + pos.y > render.GetDevice()->GetHeight())
+	Vector min_pos(FLT_MAX);
+	Vector max_pos(-FLT_MAX);
+
+	Vector tmp[] = { Vector(pos.x, pos.y, 0), Vector(pos.x + size.x, pos.y, 0), Vector(pos.x + size.x, pos.y + size.y, 0), Vector(pos.x, pos.y + size.y, 0) };
+	
+	for (int i = 0; i < 4; i++)
+	{
+		Vector temp = tmp[i] * local_trans;
+		min_pos.Min(temp);
+		max_pos.Max(temp);
+	}
+
+	if (max_pos.x < 0 || min_pos.x > render.GetDevice()->GetWidth() ||
+		max_pos.y < 0 || min_pos.y > render.GetDevice()->GetHeight())
 	{
 		return;
 	}

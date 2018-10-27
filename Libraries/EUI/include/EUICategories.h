@@ -29,6 +29,7 @@ class EUICategories : public EUIWidget
 	bool allowCallOnChildShow;
 	std::vector<Category> categories;
 
+	bool auto_size = false;
 	NativeCategories* Native();
 
 public:

@@ -272,6 +272,56 @@ SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 	return comp;
 }
 
+void SceneObject::DelComponent(SceneObjectComp* comp)
+{
+	if (owner)
+	{
+		for (auto comp : components)
+		{
+			owner->taskPool->DelAllTasks(comp);
+		}
+	}
+
+#ifdef EDITOR
+	if (taskPool)
+	{
+		for (auto comp : components)
+		{
+			taskPool->DelAllTasks(comp);
+		}
+	}
+#endif
+
+	if (owner)
+	{
+		for (auto comp : components)
+		{
+			owner->renderTaskPool->DelAllTasks(comp);
+		}
+	}
+
+#ifdef EDITOR
+	if (renderTaskPool)
+	{
+		for (auto comp : components)
+		{
+			renderTaskPool->DelAllTasks(comp);
+		}
+	}
+#endif
+
+	for (int index = 0; index < components.size(); index++)
+	{
+		if (components[index] == comp)
+		{
+			components[index]->GetMetaData()->HideWidgets();
+			components[index]->Release();
+			components.erase(components.begin() + index);
+			break;
+		}
+	}
+}
+
 void SceneObject::Load(JSONReader& reader)
 {
 	GetMetaData()->Prepare(this);

@@ -94,6 +94,7 @@ public:
 	virtual Vector2& Camera2DPos();
 
 	virtual SceneObjectComp* AddComponent(const char* name);
+	virtual void DelComponent(SceneObjectComp* comp);
 	virtual void Init() = 0;
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;

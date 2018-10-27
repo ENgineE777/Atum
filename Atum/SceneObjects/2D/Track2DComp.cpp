@@ -65,7 +65,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 
 	Track& track = tracks[index];
 
-	if (track.points.size() < 2 || dt < 0.001f)
+	if (!track.active || track.points.size() < 2 || dt < 0.001f)
 	{
 		return;
 	}

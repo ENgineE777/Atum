@@ -15,6 +15,7 @@ public:
 	void BindClassToScript() override;
 
 	void Init() override;
+	bool Play() override;
 	void Draw(float dt) override;
 
 #ifdef EDITOR

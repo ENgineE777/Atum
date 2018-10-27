@@ -111,16 +111,7 @@ void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 				}
 			}
 
-			for (int index = 0; index < obj->components.size(); index++)
-			{
-				if (obj->components[index] == comp)
-				{
-					obj->components[index]->GetMetaData()->HideWidgets();
-					obj->components[index]->Release();
-					obj->components.erase(obj->components.begin() + index);
-					break;
-				}
-			}
+			obj->DelComponent(comp);
 
 			lbox->DeleteItemByData(comp);
 		}

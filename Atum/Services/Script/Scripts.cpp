@@ -46,6 +46,11 @@ void Control_GetState(asIScriptGeneric *gen)
 	gen->SetReturnDWord(controls.GetAliasState(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
 }
 
+void Control_GetValue(asIScriptGeneric *gen)
+{
+	gen->SetReturnFloat(controls.GetAliasValue(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
+}
+
 void Control_GetDebugState(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(0));
@@ -85,8 +90,9 @@ void Scripts::Start()
 
 	engine->RegisterGlobalFunction("void Log(string&in text)", asFUNCTION(PrintString_Generic), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("void Render_Print(float x, float y, string&in text)", asFUNCTION(RenderPrint_Generic), asCALL_GENERIC);
-	engine->RegisterGlobalFunction("int Controsl_GetAlias(string&in alias)", asFUNCTION(Control_GetAliasIndex), asCALL_GENERIC);
-	engine->RegisterGlobalFunction("int Controsl_GetState(int alias, int action)", asFUNCTION(Control_GetState), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Control_GetAlias(string&in alias)", asFUNCTION(Control_GetAliasIndex), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Control_GetState(int alias, int action)", asFUNCTION(Control_GetState), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("float Control_GetValue(int alias, int delta)", asFUNCTION(Control_GetValue), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Control_GetDebugState(string&in alias, int action)", asFUNCTION(Control_GetDebugState), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Scene_Group_SetState(string&in alias, int state)", asFUNCTION(Scene_Group_SetState), asCALL_GENERIC);
 

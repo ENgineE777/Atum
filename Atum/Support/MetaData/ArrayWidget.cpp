@@ -11,7 +11,7 @@ void ArrayWidget::Init(EUICategories* parent, const char* catName, const char* l
 	addBtn = new EUIButton(panel, "Add", 90, 5, 95, 20);
 	addBtn->SetListener(-1, this, 0);
 
-	elements = new EUICategories(parent, 10, 30, 190, 500);
+	elements = new EUICategories(parent, 10, 30, 190, -1);
 	parent->RegisterChildInCategory(catName, elements);
 }
 
@@ -39,7 +39,7 @@ void ArrayWidget::SetData(void* set_data)
 
 			if (i < 10)
 			{
-				elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, 150);
+				elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, -1);
 
 				char str[64];
 				sprintf(str, "Element %i", i + 1);

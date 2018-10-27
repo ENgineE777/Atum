@@ -9,20 +9,19 @@ CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphInst)
 BASE_SCENE_OBJ_PROP(SpriteGraphInst)
-FLOAT_PROP(SpriteGraphInst, trans.pos.x, 100.0f, "Geometry", "x")
-FLOAT_PROP(SpriteGraphInst, trans.pos.y, 100.0f, "Geometry", "y")
 FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
-BOOL_PROP(SpriteGraphInst, graph_instance.state.horz_flipped, false, "Node", "horz_flipped")
+ARRAY_PROP(SpriteGraphInst, instances, Instance, "Prop", "inst")
 META_DATA_DESC_END()
 
 void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ActivateLink(string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void GotoNode(string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(SpriteGraphInst, CheckColission), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(SpriteGraphInst, Move), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(SpriteGraphInst, MoveTo), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void ActivateLink(int index, string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void GotoNode(int index, string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(int index, bool under)", WRAP_MFN(SpriteGraphInst, CheckColission), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(int index, float dx, float dy)", WRAP_MFN(SpriteGraphInst, MoveController), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(int index, float x, float y)", WRAP_MFN(SpriteGraphInst, MoveControllerTo), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void SetActiveTrack(int index, bool set)", WRAP_MFN(SpriteGraphInst, SetActiveTrack), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
@@ -32,25 +31,22 @@ void SpriteGraphInst::Init()
 	script_callbacks.push_back(ScriptCallback("OnContact", "int ", "%i%s%i"));
 }
 
-void SpriteGraphInst::Load(JSONReader& loader)
-{
-	SceneObjectInst::Load(loader);
-}
-
 void SpriteGraphInst::ApplyProperties()
 {
 	if (asset)
 	{
-		((SpriteGraphAsset*)asset)->PrepareInstance(&graph_instance);
-		graph_instance.Reset();
-		trans.size = graph_instance.cur_node->asset->trans.size;
+		for (auto& inst : instances)
+		{
+			((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
+			inst.graph_instance.Reset();
+		}
 	}
 }
 
 bool SpriteGraphInst::Play()
 {
 	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
-	trans.offset = graph_instance.cur_node->asset->trans.offset;
+	trans.offset = ((SpriteGraphAsset*)asset)->trans.offset;
 
 	return true;
 }
@@ -68,110 +64,153 @@ void SpriteGraphInst::Draw(float dt)
 	}
 
 	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
-	trans.offset = graph_instance.cur_node->asset->trans.offset;
-	trans.BuildMatrices();
+	trans.offset = ((SpriteGraphAsset*)asset)->trans.offset;
 
-	if (state == Active)
+#ifdef EDITOR
+	if (edited)
 	{
-		graph_instance.Update(dt);
-	}
-
-	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true, false);
-
-	if (owner->Playing())
-	{
-		PhysController* body = HackGetBody();
-
-		if (body && dir.Length() > 0.001f)
+		if (sel_inst != -1)
 		{
-			body->Move({ dir.x / 50.0f, -dir.y / 50.0f, 0.0f });
+			instances[sel_inst].SetPos(trans.pos);
+		}
 
-			Vector pos;
-			body->GetPosition(pos);
+		if (controls.DebugKeyPressed("KEY_I") && sel_inst != -1)
+		{
+			for (auto comp : components)
+			{
+				comp->InstDeleted(sel_inst);
+			}
 
-			trans.pos.x = pos.x * 50.0f;
-			trans.pos.y = -pos.y * 50.0f;
+			instances.erase(sel_inst + instances.begin());
+			sel_inst = -1;
+			SetGizmo();
+		}
 
-			dir = 0.0f;
+		bool add_center = controls.DebugKeyPressed("KEY_O");
+		bool add_after = controls.DebugKeyPressed("KEY_P");
+
+		if (add_center || add_after)
+		{
+			Instance inst;
+
+			if (sel_inst != -1 && add_after)
+			{
+				inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
+			}
+			else
+			{
+				float scale = 1024.0f / render.GetDevice()->GetHeight();
+				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
+			}
+
+			((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
+			inst.graph_instance.Reset();
+
+			instances.push_back(inst);
+
+			sel_inst = (int)instances.size() - 1;
+
+			for (auto comp : components)
+			{
+				comp->InstAdded();
+			}
+
+			SetGizmo();
 		}
 	}
+#endif
+
+	int index = 0;
+
+	for (auto& inst : instances)
+	{
+		if (!inst.IsVisible())
+		{
+			continue;
+		}
+
+		if (state == Active)
+		{
+			inst.graph_instance.Update(dt);
+		}
+
+		if (inst.GetAlpha() < 0.01f)
+		{
+			continue;
+		}
+
+		trans.pos = inst.GetPos();
+		trans.offset = inst.graph_instance.cur_node->asset->trans.offset;
+		trans.BuildMatrices();
+
+		inst.graph_instance.state.horz_flipped = inst.GetFlipped();
+		inst.color.a = inst.GetAlpha();
+
+		Sprite::Draw(&trans, inst.color, &inst.graph_instance.cur_node->asset->sprite, &inst.graph_instance.state, true, false);
+	}
+
+#ifdef EDITOR
+	if (edited)
+	{
+		if (sel_inst != -1)
+		{
+			trans.pos = instances[sel_inst].GetPos();
+			trans.rotation = instances[sel_inst].GetAngle();
+			trans.BuildMatrices();
+		}
+	}
+#endif
 }
 
-void SpriteGraphInst::ActivateLink(string& link)
+void SpriteGraphInst::ActivateLink(int index, string& link)
 {
-	graph_instance.ActivateLink(link.c_str());
+	instances[index].graph_instance.ActivateLink(link.c_str());
 }
 
-void SpriteGraphInst::GotoNode(string& node)
+void SpriteGraphInst::GotoNode(int index, string& node)
 {
-	graph_instance.GotoNode(node.c_str());
+	instances[index].graph_instance.GotoNode(node.c_str());
 }
 
-PhysController* SpriteGraphInst::HackGetBody()
+PhysController* SpriteGraphInst::HackGetController(int index)
 {
 	for (auto comp : components)
 	{
-		Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
+		Phys2DCompInst* phys_comp = dynamic_cast<Phys2DCompInst*>(comp);
 
 		if (phys_comp)
 		{
-			return phys_comp->bodies[0].controller;
+			return phys_comp->bodies[index].controller;
 		}
 	}
 
 	return nullptr;
 }
 
-bool SpriteGraphInst::CheckColission(bool under)
+bool SpriteGraphInst::CheckColission(int index, bool under)
 {
-	PhysController* body = HackGetBody();
+	PhysController* controller = HackGetController(index);
 
-	if (body)
+	if (controller)
 	{
-		return body->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
+		return controller->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
 	}
 
 	return false;
 }
 
-void SpriteGraphInst::Move(float dx, float dy)
+void SpriteGraphInst::MoveController(int index, float dx, float dy)
 {
-	dir.x += dx;
-	dir.y += dy;
+	instances[index].dir.x += dx;
+	instances[index].dir.y += dy;
 }
 
-void SpriteGraphInst::MoveTo(float x, float y)
+void SpriteGraphInst::MoveControllerTo(int index, float x, float y)
 {
-	PhysController* body = HackGetBody();
+	PhysController* controller = HackGetController(index);
 
-	if (body)
+	if (controller)
 	{
-		trans.pos = { x, y };
-		Vector pos = { x / 50.0f, -y / 50.0f, 0.0f };
-		body->SetPosition(pos);
+		controller->SetPosition({ x / 50.0f, -y / 50.0f, 0.0f });
 	}
 }
-
-#ifdef EDITOR
-bool SpriteGraphInst::CheckSelection(Vector2 ms)
-{
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
-
-	Vector2 pos = (trans.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-
-	if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
-		pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-void SpriteGraphInst::SetEditMode(bool ed)
-{
-	SceneObject::SetEditMode(ed);
-
-	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move);
-}
-#endif

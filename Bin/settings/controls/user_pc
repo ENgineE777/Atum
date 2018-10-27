@@ -165,6 +165,45 @@
 			"AliasesRef" : [
 				{ "names" : ["TOUCH_DELTA_Y3"] }
 			]
+		},
+		{
+			"name" : "Frog.MOVE_VERT",
+			"AliasesRef" : [
+				{ "names" : ["KEY_W"], "modifier" : 1.0 },
+				{ "names" : ["KEY_S"], "modifier" : -1.0 },
+				{ "names" : ["JOY_LEFT_STICK_V"] }
+			]
+		},
+		{
+			"name" : "Frog.MOVE_HORZ",
+			"AliasesRef" : [
+				{ "names" : ["KEY_A"], "modifier" : -1.0 },
+				{ "names" : ["KEY_D"], "modifier" : 1.0 },
+				{ "names" : ["JOY_LEFT_STICK_H"] }
+			]
+		},
+		{
+			"name" : "Frog.AIM_VERT",
+			"AliasesRef" : [
+				{ "names" : ["KEY_W"], "modifier" : 1.0 },
+				{ "names" : ["KEY_S"], "modifier" : -1.0 },
+				{ "names" : ["JOY_RIGHT_STICK_V"] }
+			]
+		},
+		{
+			"name" : "Frog.AIM_HORZ",
+			"AliasesRef" : [
+				{ "names" : ["KEY_A"], "modifier" : -1.0 },
+				{ "names" : ["KEY_D"], "modifier" : 1.0 },
+				{ "names" : ["JOY_RIGHT_STICK_H"] }
+			]
+		},
+		{
+			"name" : "Frog.Fire",
+			"AliasesRef" : [
+				{ "names" : ["KEY_P"]},
+				{ "names" : ["JOY_RIGHT_TRIGER"] }
+			]
 		}
 	]
 } 

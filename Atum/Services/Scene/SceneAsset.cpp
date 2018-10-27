@@ -25,6 +25,22 @@ SceneObject* SceneAsset::CreateInstance()
 	return inst;
 }
 
+void SceneAsset::DeleteAsset(SceneObject* obj)
+{
+	int index = 0;
+
+	for (auto inst : instances)
+	{
+		if (inst == obj)
+		{
+			instances.erase(instances.begin() + index);
+			break;
+		}
+
+		index++;
+	}
+}
+
 void SceneAsset::PreapreAssetTree()
 {
 

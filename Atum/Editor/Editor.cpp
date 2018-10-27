@@ -1157,18 +1157,62 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 	if (sender == assets_treeview && target == scene_treeview && selectedObject && isSelectedAsset)
 	{
 		SceneAsset* asset = (SceneAsset*)selectedObject;
-		SceneObject* inst = asset->CreateInstance();
-		ed_scene.GenerateUID(inst, false);
 
-		for (auto comp : asset->components)
+		if (controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active, true))
 		{
-			SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
-			comp_inst->asset_comp = comp;
-		}
+			SceneObject* obj = (SceneObject*)scene_treeview->GetItemPtr(scene_treeview->GetItemChild(parent, child_index - 1));
 
-		inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, parent, -1, false);
-		inst->AddChildsToTree(scene_treeview);
-		SelectObject(inst, false);
+			if (obj && StringUtils::IsEqual(asset->inst_class_name, obj->class_name))
+			{
+				SceneObjectInst* inst = (SceneObjectInst*)obj;
+				inst->asset_uid = asset->GetUID();
+
+				if (inst->asset)
+				{
+					inst->asset->DeleteAsset(inst);
+
+					int index = 0;
+					for (auto comp : inst->components)
+					{
+						for (auto asset_comp : inst->asset->components)
+						{
+							if (StringUtils::IsEqual(comp->class_name, ((SceneAssetComp*)asset_comp)->inst_class_name))
+							{
+								inst->components.erase(inst->components.begin() + index);
+								break;
+							}
+						}
+
+						index = 0;
+					}
+				}
+
+				inst->asset = asset;
+
+				for (auto comp : asset->components)
+				{
+					SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+					comp_inst->asset_comp = comp;
+				}
+
+				inst->ApplyProperties();
+			}
+		}
+		else
+		{
+			SceneObject* inst = asset->CreateInstance();
+			ed_scene.GenerateUID(inst, false);
+
+			for (auto comp : asset->components)
+			{
+				SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+				comp_inst->asset_comp = comp;
+			}
+
+			inst->item = scene_treeview->AddItem(inst->GetName(), 1, inst, parent, -1, false);
+			inst->AddChildsToTree(scene_treeview);
+			SelectObject(inst, false);
+		}
 	}
 
 	return false;
@@ -1250,18 +1294,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 
 				if (inst && inst->asset)
 				{
-					int index = 0;
-
-					for (auto asset_inst : inst->asset->instances)
-					{
-						if (inst == asset_inst)
-						{
-							inst->asset->instances.erase(inst->asset->instances.begin() + index);
-							break;
-						}
-
-						index++;
-					}
+					inst->asset->DeleteAsset(inst);
 				}
 			}
 

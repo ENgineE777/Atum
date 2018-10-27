@@ -201,7 +201,7 @@ void PhysController::Move(Vector dir)
 	const PxU32 flags = controller->move(PxVec3(dir.x, dir.y, dir.z), 0.0001f, 1.0f/60.0f, filters, NULL);
 }
 
-void PhysController::SetPosition(Vector& pos)
+void PhysController::SetPosition(Vector pos)
 {
 	controller->setFootPosition(PxExtendedVec3(pos.x, pos.y, pos.z));
 }

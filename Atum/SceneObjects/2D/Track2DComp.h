@@ -38,6 +38,7 @@ public:
 		float point_dist = 0.0f;
 		float speed = 40.0f;
 		META_DATA_DECL(Track)
+		bool active = true;
 		vector<Point> points;
 	};
 

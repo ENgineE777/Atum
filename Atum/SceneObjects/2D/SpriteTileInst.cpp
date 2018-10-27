@@ -22,6 +22,14 @@ void SpriteTileInst::Init()
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteTileInst::Draw);
 }
 
+bool SpriteTileInst::Play()
+{
+	trans.size = ((SpriteTileAsset*)asset)->trans.size;
+	trans.offset = ((SpriteTileAsset*)asset)->trans.offset;
+
+	return true;
+}
+
 void SpriteTileInst::Draw(float dt)
 {
 	if (state == Invisible)
@@ -125,7 +133,7 @@ void SpriteTileInst::Draw(float dt)
 		Vector2 pos = inst.GetPos();
 		trans.mat_global.Pos() = { pos.x, pos.y, trans.depth };
 		inst.frame_state.horz_flipped = inst.GetFlipped();
-		inst.color.a = inst.alpha;
+		inst.color.a = inst.GetAlpha();
 
 		Sprite::Draw(&trans, inst.color, &sprite_asset->sprite[inst.index], &inst.frame_state, true, false);
 	}

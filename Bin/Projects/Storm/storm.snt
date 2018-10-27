@@ -1,0 +1,212 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"index_in_scene" : 8,
+			"name" : "BloodHit",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 6,
+			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 2,
+			"name" : "Camera",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 0,
+			"name" : "Cell",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 4,
+			"name" : "Cell_copy",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 7,
+			"name" : "Crosshair",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 1,
+			"name" : "Hero_Graph",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 3,
+			"name" : "Script",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 5,
+			"name" : "Soldier_Graph",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"index_in_scene" : -1,
+			"name" : "Graphics",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "Chars",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "Hero",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 5,
+			"name" : "Hero_Graph",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 4,
+			"name" : "Hero_Idle_Down_Rf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 3,
+			"name" : "Hero_Idle_LeftDown_Rf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 1,
+			"name" : "Hero_Idle_LeftUp_Rf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 0,
+			"name" : "Hero_Idle_Left_Rf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 2,
+			"name" : "Hero_Idle_Up_Rf",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "Soldier",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 14,
+			"name" : "Soldier_Die",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 8,
+			"name" : "Soldier_Graph",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 9,
+			"name" : "Soldier_Idle_Down",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 11,
+			"name" : "Soldier_Idle_Left",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 13,
+			"name" : "Soldier_Idle_LeftDown",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 10,
+			"name" : "Soldier_Idle_LeftUp",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 12,
+			"name" : "Soldier_Idle_Up",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "FX",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 17,
+			"name" : "BloodHit",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 15,
+			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 16,
+			"name" : "Crosshair",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"index_in_scene" : 6,
+			"name" : "Cell",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : 7,
+			"name" : "Cell_copy",
+			"type" : 1
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"index_in_scene" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

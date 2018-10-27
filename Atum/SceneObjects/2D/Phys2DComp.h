@@ -51,11 +51,9 @@ public:
 	void Play() override;
 	template<typename T>
 	void Play(T* sprite_inst);
-	void PlayGraphInst(class SpriteGraphInst* graph_inst);
 	void CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate);
 	void Stop() override;
 	void UpdateInstances(float dt);
 	template<typename T>
 	void UpdateInstances(T* sprite_inst);
-	void UpdateGraphInst(class SpriteGraphInst* graph_inst);
 };

@@ -70,7 +70,7 @@ public:
 
 	bool IsColliding(CollideType type);
 	void Move(Vector dir);
-	void SetPosition(Vector& pos);
+	void SetPosition(Vector pos);
 	void GetPosition(Vector& pos);
 	void Release();
 };

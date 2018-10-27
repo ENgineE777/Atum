@@ -25,6 +25,7 @@ public:
 
 	bool IsAsset() override;
 	virtual SceneObject* CreateInstance();
+	virtual void DeleteAsset(SceneObject* obj);
 
 	virtual void PreapreAssetTree();
 	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index);

@@ -1,4 +1,31 @@
 {
+	"joystick" :
+	[
+		{ "name" : "JOY_DPAD_UP", "index" : 1 },
+		{ "name" : "JOY_DPAD_DOWN", "index" : 2 },
+		{ "name" : "JOY_DPAD_LEFT", "index" : 4 },
+		{ "name" : "JOY_DPAD_RIGHT", "index" : 8 },
+		{ "name" : "JOY_START", "index" : 16 },
+		{ "name" : "JOY_BACK", "index" : 32 },
+		{ "name" : "JOY_LEFT_THUMB", "index" : 64 },
+		{ "name" : "JOY_RIGHT_THUMB", "index" : 128 },
+		{ "name" : "JOY_LEFT_SHOULDER", "index" : 256 },
+		{ "name" : "JOY_RIGHT_SHOULDER", "index" : 512 },
+		{ "name" : "JOY_A", "index" : 4096 },
+		{ "name" : "JOY_B", "index" : 8192 },
+		{ "name" : "JOY_X", "index" : 16384 },
+		{ "name" : "JOY_Y", "index" : 32768 },
+		{ "name" : "JOY_LEFT_STICK_H", "index" : 100 },
+		{ "name" : "JOY_LEFT_STICK_NEGH", "index" : 101 },
+		{ "name" : "JOY_LEFT_STICK_V", "index" : 102 },
+		{ "name" : "JOY_LEFT_STICK_NEGV", "index" : 103 },
+		{ "name" : "JOY_LEFT_TRIGER", "index" : 104 },
+		{ "name" : "JOY_RIGHT_STICK_H", "index" : 105 },
+		{ "name" : "JOY_RIGHT_STICK_NEGH", "index" : 106 },
+		{ "name" : "JOY_RIGHT_STICK_V", "index" : 107 },
+		{ "name" : "JOY_RIGHT_STICK_NEGV", "index" : 108 },
+		{ "name" : "JOY_RIGHT_TRIGER", "index" : 109 }
+	],
 	"mouse" :
 	[
 		{ "name" : "MS_BTN0", "index" : 0 },

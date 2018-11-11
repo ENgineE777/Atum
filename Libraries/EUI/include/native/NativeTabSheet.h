@@ -1,20 +1,15 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
 class EUITabSheet;
 
-class NativeTabSheet : public WinWidget
+class NativeTabSheet : public WidgetImpl
 {
 public:
 
-	NativeTabSheet(EUIWidget* owner) : WinWidget(owner) {};
+	NativeTabSheet(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void SetText(const char* text) = 0;
 	virtual void MakeAsCurrent() = 0;

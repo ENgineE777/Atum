@@ -7,6 +7,7 @@
 class EUIWindow : public EUIWidget
 {
 	friend class WinWindow;
+	friend class WinDX11Window;
 
 	bool active;
 
@@ -24,7 +25,7 @@ public:
 		PopupWithCloseBtn
 	};
 
-	EUIWindow(const char* text, Style style, bool adjust, int x, int y, int w, int h);
+	EUIWindow(const char* text, const char* icon, Style style, bool adjust, int x, int y, int w, int h);
 	virtual ~EUIWindow();
 
 	virtual bool IsActive();

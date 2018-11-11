@@ -122,6 +122,11 @@ void UIViewInstance::BindClassToScript()
 }
 
 #ifdef EDITOR
+bool UIViewInstance::UsingCamera2DPos()
+{
+	return false;
+}
+
 void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item)
 {
 	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->class_name);

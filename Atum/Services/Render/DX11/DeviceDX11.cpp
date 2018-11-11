@@ -79,116 +79,189 @@ DeviceDX11::DeviceDX11()
 	vp_was_setted = false;
 }
 
-bool DeviceDX11::Init(int width, int height, void* data)
+bool DeviceDX11::Init(void* external_device)
 {
-	UINT createDeviceFlags = 0;
+	if (external_device)
+	{
+		pd3dDevice = (ID3D11Device*)external_device;
+		pd3dDevice->GetImmediateContext(&immediateContext);
+	}
+	else
+	{
+		UINT createDeviceFlags = 0;
 #ifdef _DEBUG
-	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+		createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-	D3D_DRIVER_TYPE driverTypes[] =
-	{
-		D3D_DRIVER_TYPE_HARDWARE,
-		D3D_DRIVER_TYPE_WARP,
-		D3D_DRIVER_TYPE_REFERENCE,
-	};
-	UINT numDriverTypes = ARRAYSIZE(driverTypes);
-
-	D3D_FEATURE_LEVEL featureLevels[] =
-	{
-		D3D_FEATURE_LEVEL_11_0,
-		D3D_FEATURE_LEVEL_10_1,
-		D3D_FEATURE_LEVEL_10_0,
-	};
-	UINT numFeatureLevels = ARRAYSIZE(featureLevels);
-
-	D3D_DRIVER_TYPE   driverType;
-	D3D_FEATURE_LEVEL featureLevel;
-	HRESULT hr;
-
-	for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
-	{
-		driverType = driverTypes[driverTypeIndex];
-		hr = D3D11CreateDevice(NULL, driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
-			D3D11_SDK_VERSION, &pd3dDevice, &featureLevel, &immediateContext);
-
-		if (SUCCEEDED(hr))
+		D3D_DRIVER_TYPE driverTypes[] =
 		{
-			break;
+			D3D_DRIVER_TYPE_HARDWARE,
+			D3D_DRIVER_TYPE_WARP,
+			D3D_DRIVER_TYPE_REFERENCE,
+		};
+		UINT numDriverTypes = ARRAYSIZE(driverTypes);
+
+		D3D_FEATURE_LEVEL featureLevels[] =
+		{
+			D3D_FEATURE_LEVEL_11_0,
+			D3D_FEATURE_LEVEL_10_1,
+			D3D_FEATURE_LEVEL_10_0,
+		};
+		UINT numFeatureLevels = ARRAYSIZE(featureLevels);
+
+		D3D_DRIVER_TYPE   driverType;
+		D3D_FEATURE_LEVEL featureLevel;
+		HRESULT hr;
+
+		for (UINT driverTypeIndex = 0; driverTypeIndex < numDriverTypes; driverTypeIndex++)
+		{
+			driverType = driverTypes[driverTypeIndex];
+			hr = D3D11CreateDevice(nullptr, driverType, NULL, createDeviceFlags, featureLevels, numFeatureLevels,
+				D3D11_SDK_VERSION, &pd3dDevice, &featureLevel, &immediateContext);
+
+			if (SUCCEEDED(hr))
+			{
+				break;
+			}
 		}
+
+		CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&factory));
 	}
-
-	CreateDXGIFactory1(__uuidof(IDXGIFactory1), (void**)(&factory));
-
-	SetVideoMode(width, height, data);
 
 	return true;
 }
 
 void DeviceDX11::SetVideoMode(int wgt, int hgt, void* data)
 {
-	core.Log("Render", "Set videomode : %i x %i", wgt, hgt);
-	HWND hwnd = *((HWND*)data);
+	HWND handle = *((HWND*)data);
+	HRESULT hr;
 
-	scr_w = wgt;
-	scr_h = hgt;
-	cur_aspect = (float)hgt / (float)wgt;
+	WindowBackBufferHolder* backbuffer_holder = nullptr;
 
-	RELEASE(depthStencilView)
-	RELEASE(depthStencil)
-	RELEASE(renderTargetView)
-	RELEASE(swapChain)
-
-	DXGI_SWAP_CHAIN_DESC sd;
-	ZeroMemory(&sd, sizeof(sd));
-	sd.BufferCount = 1;
-	sd.BufferDesc.Width = wgt;
-	sd.BufferDesc.Height = hgt;
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.RefreshRate.Numerator = 60;
-	sd.BufferDesc.RefreshRate.Denominator = 1;
-	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-	sd.OutputWindow = hwnd;
-	sd.SampleDesc.Count = 1;
-	sd.SampleDesc.Quality = 0;
-	sd.Windowed = TRUE;
-
-	factory->CreateSwapChain(pd3dDevice, &sd, &swapChain);
-
-	ID3D11Texture2D* pBackBuffer = NULL;
-	HRESULT hr = swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
-
-	hr = pd3dDevice->CreateRenderTargetView(pBackBuffer, NULL, &renderTargetView);
-	pBackBuffer->Release();
-
-	if (FAILED(hr))
+	for (auto& holder : backbuffer_holders)
 	{
-		return;
+		if (holder.handle == handle)
+		{
+			backbuffer_holder = &holder;
+		}
 	}
 
-	D3D11_TEXTURE2D_DESC descDepth;
-	ZeroMemory(&descDepth, sizeof(descDepth));
-	descDepth.Width = wgt;
-	descDepth.Height = hgt;
-	descDepth.MipLevels = 1;
-	descDepth.ArraySize = 1;
-	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	descDepth.SampleDesc.Count = 1;
-	descDepth.SampleDesc.Quality = 0;
-	descDepth.Usage = D3D11_USAGE_DEFAULT;
-	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	descDepth.CPUAccessFlags = 0;
-	descDepth.MiscFlags = 0;
-	hr = pd3dDevice->CreateTexture2D(&descDepth, NULL, &depthStencil);
+	if (!backbuffer_holder)
+	{
+		backbuffer_holders.emplace_back();
+		backbuffer_holder = &backbuffer_holders.back();
+		backbuffer_holder->handle = handle;
+	}
 
-	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
-	ZeroMemory(&descDSV, sizeof(descDSV));
-	descDSV.Format = descDepth.Format;
-	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	descDSV.Texture2D.MipSlice = 0;
-	hr = pd3dDevice->CreateDepthStencilView(depthStencil, &descDSV, &depthStencilView);
+	if (backbuffer_holder->scr_w != wgt ||
+		backbuffer_holder->scr_h != hgt)
+	{
+		core.Log("Render", "Set videomode : %i x %i", wgt, hgt);
+
+		backbuffer_holder->scr_w = wgt;
+		backbuffer_holder->scr_h = hgt;
+		backbuffer_holder->cur_aspect = (float)hgt / (float)wgt;
+
+		RELEASE(backbuffer_holder->depthStencilView)
+		RELEASE(backbuffer_holder->depthStencil)
+		RELEASE(backbuffer_holder->renderTargetShaderView)
+		RELEASE(backbuffer_holder->renderTargetView)
+		RELEASE(backbuffer_holder->renderTarget)
+
+		if (factory)
+		{
+			RELEASE(backbuffer_holder->swapChain)
+
+			DXGI_SWAP_CHAIN_DESC sd;
+			ZeroMemory(&sd, sizeof(sd));
+			sd.BufferCount = 1;
+			sd.BufferDesc.Width = wgt;
+			sd.BufferDesc.Height = hgt;
+			sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			sd.BufferDesc.RefreshRate.Numerator = 60;
+			sd.BufferDesc.RefreshRate.Denominator = 1;
+			sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+			sd.OutputWindow = backbuffer_holder->handle;
+			sd.SampleDesc.Count = 1;
+			sd.SampleDesc.Quality = 0;
+			sd.Windowed = TRUE;
+
+			factory->CreateSwapChain(pd3dDevice, &sd, &backbuffer_holder->swapChain);
+
+			ID3D11Texture2D* pBackBuffer = nullptr;
+			hr = backbuffer_holder->swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+			hr = pd3dDevice->CreateRenderTargetView(pBackBuffer, nullptr, &backbuffer_holder->renderTargetView);
+			pBackBuffer->Release();
+
+			swapChain = backbuffer_holder->swapChain;
+		}
+		else
+		{
+			D3D11_TEXTURE2D_DESC descRT;
+			ZeroMemory(&descRT, sizeof(descRT));
+			descRT.Width = wgt;
+			descRT.Height = hgt;
+			descRT.MipLevels = 1;
+			descRT.ArraySize = 1;
+			descRT.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+			descRT.SampleDesc.Count = 1;
+			descRT.SampleDesc.Quality = 0;
+			descRT.Usage = D3D11_USAGE_DEFAULT;
+			descRT.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
+			descRT.CPUAccessFlags = 0;
+			descRT.MiscFlags = 0;
+
+			hr = pd3dDevice->CreateTexture2D(&descRT, NULL, &backbuffer_holder->renderTarget);
+			hr = pd3dDevice->CreateRenderTargetView(backbuffer_holder->renderTarget, nullptr, &backbuffer_holder->renderTargetView);
+
+			D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
+
+			srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+
+			srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+			srvDesc.Texture2D.MostDetailedMip = 0;
+			srvDesc.Texture2D.MipLevels = 1;
+
+			DeviceDX11::instance->pd3dDevice->CreateShaderResourceView(backbuffer_holder->renderTarget, &srvDesc, &backbuffer_holder->renderTargetShaderView);
+		}
+
+		D3D11_TEXTURE2D_DESC descDepth;
+		ZeroMemory(&descDepth, sizeof(descDepth));
+		descDepth.Width = wgt;
+		descDepth.Height = hgt;
+		descDepth.MipLevels = 1;
+		descDepth.ArraySize = 1;
+		descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+		descDepth.SampleDesc.Count = 1;
+		descDepth.SampleDesc.Quality = 0;
+		descDepth.Usage = D3D11_USAGE_DEFAULT;
+		descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		descDepth.CPUAccessFlags = 0;
+		descDepth.MiscFlags = 0;
+		hr = pd3dDevice->CreateTexture2D(&descDepth, NULL, &backbuffer_holder->depthStencil);
+
+		D3D11_DEPTH_STENCIL_VIEW_DESC descDSV;
+		ZeroMemory(&descDSV, sizeof(descDSV));
+		descDSV.Format = descDepth.Format;
+		descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+		descDSV.Texture2D.MipSlice = 0;
+		hr = pd3dDevice->CreateDepthStencilView(backbuffer_holder->depthStencil, &descDSV, &backbuffer_holder->depthStencilView);
+	}
+
+	scr_w = backbuffer_holder->scr_w;
+	scr_h = backbuffer_holder->scr_h;
+	cur_aspect = backbuffer_holder->cur_aspect;
+
+	renderTargetView = backbuffer_holder->renderTargetView;
+	depthStencilView = backbuffer_holder->depthStencilView;
+	renderTargetShaderView = backbuffer_holder->renderTargetShaderView;
 
 	RestoreRenderTarget();
+}
+
+void* DeviceDX11::GetBackBuffer()
+{
+	return renderTargetShaderView;
 }
 
 int DeviceDX11::GetWidth()
@@ -227,7 +300,19 @@ void DeviceDX11::Clear(bool renderTarget, Color color, bool zbuffer, float zValu
 
 void DeviceDX11::Present()
 {
-	swapChain->Present(0, 0);
+	if (swapChain)
+	{
+		swapChain->Present(0, 0);
+	}
+	else
+	{
+		need_set_rt = true;
+		need_apply_vdecl = true;
+		need_apply_prog = true;
+		blend_changed = true;
+		ds_changed = true;
+		raster_changed = true;
+	}
 }
 
 void DeviceDX11::PrepareProgram(Program* program)
@@ -266,7 +351,7 @@ GeometryBuffer* DeviceDX11::CreateBuffer(int count, int stride)
 
 void DeviceDX11::SetVertexBuffer(int slot, GeometryBuffer* buffer)
 {
-	ID3D11Buffer* vb = NULL;
+	ID3D11Buffer* vb = nullptr;
 	unsigned int stride = 0;
 
 	if (buffer)
@@ -281,7 +366,7 @@ void DeviceDX11::SetVertexBuffer(int slot, GeometryBuffer* buffer)
 
 void DeviceDX11::SetIndexBuffer(GeometryBuffer* buffer)
 {
-	ID3D11Buffer* ib = NULL;
+	ID3D11Buffer* ib = nullptr;
 	DXGI_FORMAT fmt = DXGI_FORMAT_R16_UINT;
 
 	if (buffer)

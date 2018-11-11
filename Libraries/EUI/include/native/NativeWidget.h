@@ -21,7 +21,6 @@ public:
 	virtual void SetFocused() = 0;
 	virtual bool IsFocused() = 0;
 
-	virtual bool IsHoveredByMouse() = 0;
 	virtual void GetMousePos(int& x, int& y) = 0;
 
 	virtual void* GetNative() = 0;

@@ -674,7 +674,7 @@ void Gizmo::RenderTrans2D()
 			else
 			{
 				ancorns[i] = Vector2(p1.x, p1.y) * scale;
-				render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f));
+				render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f), selAxis == (i + 1) ? Color(1.0, 0.9f, 0.0f, 1.0f) : COLOR_WHITE);
 			}
 		}
 	}

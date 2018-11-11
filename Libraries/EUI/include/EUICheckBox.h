@@ -7,6 +7,7 @@
 class EUICheckBox : public EUIWidget
 {
 	friend class WinCheckBox;
+	friend class WinDX11CheckBox;
 	bool checked;
 
 	NativeCheckBox* Native();

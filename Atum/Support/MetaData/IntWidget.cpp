@@ -18,13 +18,11 @@ void IntWidget::Init(EUICategories* parent, const char* catName, const char* lab
 void IntWidget::SetData(void* set_data)
 {
 	data = (int*)set_data;
-	char text[128];
-	sprintf(text, "%i", *data);
-	ebox->SetText(text);
+	ebox->SetText(*data);
 }
 
 void IntWidget::SetEditedData()
 {
-	*data = atoi(ebox->GetText());
+	*data = ebox->GetAsInt();
 	changed = true;
 }

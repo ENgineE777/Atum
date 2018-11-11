@@ -296,6 +296,11 @@ void UIWidgetAsset::DeleteChilds()
 }
 
 #ifdef EDITOR
+bool UIWidgetAsset::UsingCamera2DPos()
+{
+	return !AddedToTreeByParent();
+}
+
 void UIWidgetAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);

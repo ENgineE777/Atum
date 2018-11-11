@@ -13,14 +13,14 @@ void AnimatorWindow::Init()
 {
 	timeOffset = 0.0f;
 	owner = nullptr;
-	wnd = new EUIWindow("Animator", EUIWindow::Popup, true, 40, 40, 1024, 600);
+	wnd = new EUIWindow("Animator", "", EUIWindow::PopupWithCloseBtn, true, 40, 40, 1024, 600);
 
 	EUILayout* wnd_lt = new EUILayout(wnd, true);
 
 	EUIPanel* toolsPanel = new EUIPanel(wnd_lt, 10, 10, 100, 30);
 	wnd_lt->SetChildSize(toolsPanel, 40, false);
 
-	cb_addObject = new EUIComboBox(toolsPanel, 10, 10, 110, 95);
+	cb_addObject = new EUIComboBox(toolsPanel, 10, 10, 110, 20, 100);
 	cb_addObject->SetListener(AddPlayerID, this, 0);
 
 	ClassFactoryTrackPlayer::Sort();
@@ -64,18 +64,18 @@ void AnimatorWindow::Init()
 	EUILayout* timeline_lt = new EUILayout(timelinePanel, false);
 
 	timeline_panel = new EUIPanel(timeline_lt, 10, 100, 400, 200);
-	timeline_panel->SetListener(TimeLineID, this, EUIWidget::OnDraw | EUIWidget::OnUpdate | EUIWidget::OnResize);
+	timeline_panel->SetListener(TimeLineID, this, EUIWidget::OnUpdate | EUIWidget::OnResize);
 	DataTrack::timeline = timeline_panel;
 
 	vert_scroll = new EUIScrollBar(timeline_lt, false, 710, 65, 15, 240);
 	vert_scroll->SetListener(-1, this, 0);
-	timeline_lt->SetChildSize(vert_scroll, 20, false);
+	timeline_lt->SetChildSize(vert_scroll, 15, false);
 
 	prop_dock = new EUICategories(timeline_lt, 730, 35, 200, 500);
 	timeline_lt->SetChildSize(prop_dock, 200, false);
 
 	EUIPanel* scrollPanel = new EUIPanel(wnd_lt, 10, 10, 100, 30);
-	wnd_lt->SetChildSize(scrollPanel, 20, false);
+	wnd_lt->SetChildSize(scrollPanel, 15, false);
 
 	EUILayout* sroll_lt = new EUILayout(scrollPanel, false);
 
@@ -208,7 +208,6 @@ void AnimatorWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 			if (selPlayer != -1 && selTrack == -1)
 			{
 				owner->players[selPlayer]->SetActive(!owner->players[selPlayer]->IsActive());
-				timeline_panel->Redraw();
 			}
 		}
 	}
@@ -243,7 +242,7 @@ void AnimatorWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		}
 	}
 
-	timeline_panel->CaptureMouse();
+	//timeline_panel->CaptureMouse();
 }
 
 void AnimatorWindow::OnMouseMove(EUIWidget* sender, int mx, int my)
@@ -321,7 +320,6 @@ void AnimatorWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 				SetSelection(-1, -1, -1);
 				owner->players.erase(owner->players.begin() + delPlayer);
 				UpdateVertBar();
-				timeline_panel->Redraw();
 			}
 
 			break;
@@ -329,7 +327,6 @@ void AnimatorWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		case PlayID:
 		{
 			play = !play;
-			timeline_panel->Redraw();
 			break;
 		}
 		case TimeLineID:
@@ -408,233 +405,33 @@ void AnimatorWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	if (sender->GetID() == AddPlayerID)
 	{
-		TrackPlayer* player = ClassFactoryTrackPlayer::Decls()[cb_addObject->GetCurStringIndex()]->Create();
+		int index = cb_addObject->GetCurStringIndex();
 
-		if (player)
+		if (index != -1)
 		{
-			player->owner = owner;
+			TrackPlayer* player = ClassFactoryTrackPlayer::Decls()[cb_addObject->GetCurStringIndex()]->Create();
 
-			player->SetName(cb_addObject->GetText());
-			player->SetType(cb_addObject->GetText());
+			if (player)
+			{
+				player->owner = owner;
 
-			player->Init();
-			player->InitControls(prop_dock);
+				player->SetName(cb_addObject->GetText());
+				player->SetType(cb_addObject->GetText());
 
-			player->GetMetaData()->Prepare(player);
-			player->GetMetaData()->SetDefValues();
+				player->Init();
+				player->InitControls(prop_dock);
 
-			owner->players.push_back(player);
+				player->GetMetaData()->Prepare(player);
+				player->GetMetaData()->SetDefValues();
+
+				owner->players.push_back(player);
+			}
+
+			cb_addObject->SetCurString(-1);
 		}
-
-		cb_addObject->SetCurString(-1);
 
 		UpdateVertBar();
-		timeline_panel->Redraw();
 	}
-}
-
-void AnimatorWindow::OnSrollerPosChange(EUIScrollBar* sender, int pos)
-{
-	timeline_panel->Redraw();
-}
-
-void AnimatorWindow::OnDraw(EUIWidget* sender)
-{
-	HWND hwnd = *((HWND*)sender->GetNative());
-
-	RECT rc;
-	HDC hdcMem;
-	HBITMAP hbmMem, hbmOld;
-
-	GetClientRect(hwnd, &rc);
-
-	HDC wnd_hdc = GetDC(hwnd);
-	hdcMem = CreateCompatibleDC(wnd_hdc);
-	hbmMem = CreateCompatibleBitmap(wnd_hdc, rc.right - rc.left, rc.bottom - rc.top);
-	hbmOld = (HBITMAP)SelectObject(hdcMem, hbmMem);
-
-	HDC hdc = hdcMem;
-
-	SelectObject(hdc, font);
-	SelectObject(hdc, GetStockObject(DC_BRUSH));
-
-	SetDCBrushColor(hdc, RGB(252, 252, 252));
-	SetBkColor(hdc, RGB(252, 252, 252));
-
-	Rectangle(hdc, 0, 0, LeftRowWidth + 1, CaptionHeight + 1);
-	Rectangle(hdc, LeftRowWidth, 0, (int)timeline_panel->GetWidth(), CaptionHeight + 1);
-
-	float offset = horz_scroll->GetPosition() * 0.1f;
-	float tm = offset;
-
-	float tm_width = (timeline_panel->GetWidth() - LeftRowWidth - 4.0f) / scale;
-
-	while (tm < owner->timeLenght + 0.001f && tm < offset + tm_width)
-	{
-		int pos = (int)((tm - offset) * scale) + LeftRowWidth + 4;
-		int y = 24;
-
-		if (fabs(tm -(int)(tm + 0.25f)) < 0.01f)
-		{
-			char str[16];
-			sprintf(str, "%i", (int)(tm + 0.25f));
-
-			TextOut(hdc, pos - 2, 3, str, (int)strlen(str));
-			y = 20;
-		}
-
-		MoveToEx(hdc, pos, y, 0);
-		LineTo(hdc, pos, CaptionHeight);
-
-		tm += 0.1f;
-	}
-
-	int last_y = CaptionHeight;
-	int active = 1;
-	int index = 0;
-
-	int max_lines = (int)((timeline_panel->GetHeight() - CaptionHeight) / RowHeight) + 1;
-
-	for (int i=0; i<(int)owner->players.size(); i++)
-	{
-		TrackPlayer* player = owner->players[i];
-
-		int draw_index = index - vert_scroll->GetPosition();
-
-		active = player->IsActive();
-
-		if (0 <= draw_index && draw_index <= max_lines)
-		{
-			if (selPlayer == i && selTrack == -1)
-			{
-				SetDCBrushColor(hdc, RGB(205 + 50 * active, 205 + 50 * active, 205 + 50 * active));
-				SetBkColor(hdc, RGB(205 + 50 * active, 205 + 50 * active, 205 + 50 * active));
-			}
-			else
-			{
-				SetDCBrushColor(hdc, RGB(198 + 50 * active, 198 + 50 * active, 198 + 50 * active));
-				SetBkColor(hdc, RGB(198 + 50 * active, 198 + 50 * active, 198 + 50 * active));
-			}
-
-			Rectangle(hdc, 0, CalcLinePos(draw_index), LeftRowWidth + 1, CalcLinePos(draw_index + 1) + 1);
-			Rectangle(hdc, LeftRowWidth, CalcLinePos(draw_index), (int)timeline_panel->GetWidth() + 1, CalcLinePos(draw_index + 1) + 1);
-
-			const char* act_text = active ? "(Active)" : "(Inactive)";
-			TextOut(hdc, 90, CalcLinePos(draw_index) + 3, act_text, (int)strlen(act_text));
-
-			TextOut(hdc, 10, CalcLinePos(draw_index) + 3, player->GetName(), (int)strlen(player->GetName()));
-		}
-
-		index++;
-		draw_index++;
-
-		for (int j = 0; j<(int)player->tracks.size(); j++)
-		{
-			if (0 <= draw_index && draw_index <= max_lines)
-			{
-				DataTrack* track = player->tracks[j];
-
-				if (selPlayer == i && selTrack == j)
-				{
-					SetDCBrushColor(hdc, RGB(205 + 50 * active, 205 + 50 * active, 205 + 50 * active));
-					SetBkColor(hdc, RGB(205 + 50 * active, 205 + 50 * active, 205 + 50 * active));
-				}
-				else
-				{
-					SetDCBrushColor(hdc, RGB(185 + 50 * active, 185 + 50 * active, 185 + 50 * active));
-					SetBkColor(hdc, RGB(185 + 50 * active, 185 + 50 * active, 185 + 50 * active));
-				}
-
-				Rectangle(hdc, 0, CalcLinePos(draw_index), LeftRowWidth + 1, CalcLinePos(draw_index + 1) + 1);
-				Rectangle(hdc, LeftRowWidth, CalcLinePos(draw_index), (int)timeline_panel->GetWidth() + 1, CalcLinePos(draw_index + 1) + 1);
-
-				TextOut(hdc, 10, CalcLinePos(draw_index) + 3, track->GetName(), (int)strlen(track->GetName()));
-
-				for (int p = 0; p < track->GetKeysCount(); p++)
-				{
-					DataTrack::Key key = track->GetKey(p);
-					float tm = key.time - offset;
-
-					if (key.blend != DataTrack::BlendNone && p != track->GetKeysCount() - 1)
-					{
-						float next_tm = track->GetKey(p + 1).time - offset;
-
-						if (next_tm > 0.0f && tm < tm_width)
-						{
-							MoveToEx(hdc, CalcKeyPos(fmax(0.0f, tm)), CalcLinePos(draw_index) + 10, 0);
-							LineTo(hdc, CalcKeyPos(fmin(next_tm, tm_width)), CalcLinePos(draw_index) + 10);
-						}
-					}
-
-					if (owner->timeLenght < key.time) break;
-
-					SetDCBrushColor(hdc, RGB(255,255,255));
-
-					if (selPlayer == i && selTrack == j && selKey == p)
-					{
-						SetDCBrushColor(hdc, RGB(238, 80, 80));
-					}
-
-					if (key.time - offset < 0.0f) continue;
-					if (key.time - offset > tm_width) continue;
-
-					Rectangle(hdc, CalcKeyPos(key.time - offset), CalcLinePos(index - vert_scroll->GetPosition()) + 2,
-					          CalcKeyPos(key.time - offset) + 5, CalcLinePos(index - vert_scroll->GetPosition()) + 18);
-				}
-			}
-
-			index++;
-			draw_index++;
-		}
-
-		last_y += 20 * (int)(owner->players[i]->tracks.size() + 1);
-	}
-
-	SetDCBrushColor(hdc, RGB(225, 225, 225));
-	Rectangle(hdc, 0, last_y, (int)timeline_panel->GetWidth() + 1, (int)timeline_panel->GetHeight() + 1);
-
-	if ((owner->edCurTime - offset >= 0.0f) && (owner->edCurTime - offset <= tm_width))
-	{
-		MoveToEx(hdc, CalcKeyPos(owner->edCurTime - offset) + 2, 12, 0);
-		LineTo(hdc, CalcKeyPos(owner->edCurTime - offset) + 2, CalcLinePos(max_lines));
-	}
-
-	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
-	{
-		MoveToEx(hdc, CalcKeyPos(owner->fromTime - offset) + 2, 12, 0);
-		LineTo(hdc,  CalcKeyPos(owner->fromTime - offset) + 2, CalcLinePos(max_lines));
-	}
-
-	if ((owner->toTime - offset >= 0.0f) && (owner->toTime - offset <= tm_width))
-	{
-		MoveToEx(hdc, CalcKeyPos(owner->toTime - offset) + 2, 12, 0);
-		LineTo(hdc, CalcKeyPos(owner->toTime - offset) + 2, CalcLinePos(max_lines));
-	}
-
-	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
-	{
-		Rectangle(hdc, CalcKeyPos(owner->fromTime - offset), 2, CalcKeyPos(owner->fromTime - offset) + 5, 16);
-	}
-
-	if ((owner->toTime - offset >= 0.0f) && (owner->toTime - offset <= tm_width))
-	{
-		Rectangle(hdc, CalcKeyPos(owner->toTime - offset), 2, CalcKeyPos(owner->toTime - offset) + 5, 16);
-	}
-
-	SetDCBrushColor(hdc, RGB(255,255,255));
-
-	if ((owner->edCurTime - offset >= 0.0f) && (owner->edCurTime - offset <= scale))
-	{
-		Rectangle(hdc, CalcKeyPos(owner->edCurTime - offset), 2, CalcKeyPos(owner->edCurTime - offset) + 5, 16);
-	}
-
-	BitBlt(wnd_hdc, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hdcMem, 0, 0, SRCCOPY);
-
-	SelectObject(hdcMem, hbmOld);
-	DeleteObject(hbmMem);
-	DeleteDC(hdcMem);
-
-	ReleaseDC(hwnd, wnd_hdc);
 }
 
 void AnimatorWindow::OnResize(EUIWidget* sender)
@@ -658,6 +455,176 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 		sprintf(str, "%4.2f", owner->edCurTime);
 		tb_curTime->SetText(str);
 	}
+
+	render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
+	((EUIPanel*)sender)->SetTexture(render.GetDevice()->GetBackBuffer());
+
+	Transform2D trans;
+	Sprite::FrameState state;
+
+	Sprite::Draw(nullptr, Color(0.301f, 0.301f, 0.301f, 1.0f), Matrix(), Vector2(0.0f, 1.5f), Vector2(LeftRowWidth, CaptionHeight - 0.5f), 0.0f, 1.0f, false);
+	Sprite::Draw(nullptr, Color(0.301f, 0.301f, 0.301f, 1.0f), Matrix(), Vector2(LeftRowWidth, 1.5f), Vector2((float)timeline_panel->GetWidth(), CaptionHeight - 0.5f), 0.0f, 1.0f, false);
+
+	render.DebugLine2D(Vector2(0.0f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), 0.5f), COLOR_BLACK);
+	render.DebugLine2D(Vector2(0.0f, CaptionHeight - 0.5f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), CaptionHeight - 0.5f), COLOR_BLACK);
+
+	render.DebugLine2D(Vector2(LeftRowWidth - 0.5f, 0.5f), COLOR_BLACK, Vector2(LeftRowWidth - 0.5f, (float)timeline_panel->GetHeight() - 0.5f), COLOR_BLACK);
+
+	float offset = horz_scroll->GetPosition() * 0.1f;
+	float tm = offset;
+
+	float tm_width = ((float)timeline_panel->GetWidth() - LeftRowWidth - 4.0f) / scale;
+
+	while (tm < owner->timeLenght + 0.001f && tm < offset + tm_width)
+	{
+		int pos = (int)((tm - offset) * scale) + LeftRowWidth + 4;
+		int y = 24;
+
+		if (fabs(tm - (int)(tm + 0.25f)) < 0.01f)
+		{
+			char str[16];
+			sprintf(str, "%i", (int)(tm + 0.25f));
+
+			render.DebugPrintText(Vector2((float)pos - 2.0f, 3.0f), COLOR_LIGHT_GRAY, str);
+			y = 20;
+		}
+
+		render.DebugLine2D(Vector2((float)pos, (float)y), COLOR_LIGHT_GRAY, Vector2((float)pos, (float)CaptionHeight), COLOR_LIGHT_GRAY);
+
+		tm += 0.1f;
+	}
+
+	int last_y = CaptionHeight;
+	int active = 1;
+	int index = 0;
+
+	Color color = COLOR_WHITE;
+
+	int max_lines = (int)((timeline_panel->GetHeight() - CaptionHeight) / RowHeight) + 1;
+
+	for (int i = 0; i<(int)owner->players.size(); i++)
+	{
+		TrackPlayer* player = owner->players[i];
+
+		int draw_index = index - vert_scroll->GetPosition();
+
+		active = player->IsActive();
+
+		if (0 <= draw_index && draw_index <= max_lines)
+		{
+			if (selPlayer == i && selTrack == -1)
+			{
+				color = COLOR_RED;
+			}
+			else
+			{
+				color = Color(0.262f, 0.262f, 0.262f, 1.0f);
+			}
+
+			Sprite::Draw(nullptr, color, Matrix(), Vector2(0.0f, (float)CalcLinePos(draw_index)), Vector2((float)LeftRowWidth + 1.0f, (float)RowHeight), 0.0f, 1.0f, false);
+			Sprite::Draw(nullptr, color, Matrix(), Vector2((float)LeftRowWidth, (float)CalcLinePos(draw_index)), Vector2((float)timeline_panel->GetWidth() + 1.0f - (float)LeftRowWidth, (float)RowHeight), 0.0f, 1.0f, false);
+
+			char str[256];
+			StringUtils::Printf(str, 256, "%s %s", player->GetName(), (active ? "(Active)" : "(Inactive)"));
+			render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_WHITE, str);
+		}
+
+		index++;
+		draw_index++;
+
+		for (int j = 0; j<(int)player->tracks.size(); j++)
+		{
+			if (0 <= draw_index && draw_index <= max_lines)
+			{
+				DataTrack* track = player->tracks[j];
+
+				if (selPlayer == i && selTrack == j)
+				{
+					color = COLOR_RED;
+				}
+				else
+				{
+					color = Color(0.207f, 0.207f, 0.207f, 1.0f);
+				}
+
+				Sprite::Draw(nullptr, color, Matrix(), Vector2(0.0f, (float)CalcLinePos(draw_index)), Vector2((float)LeftRowWidth + 1.0f, (float)RowHeight), 0.0f, 1.0f, false);
+				Sprite::Draw(nullptr, color, Matrix(), Vector2((float)LeftRowWidth, (float)CalcLinePos(draw_index)), Vector2((float)timeline_panel->GetWidth() + 1.0f - (float)LeftRowWidth, (float)RowHeight), 0.0f, 1.0f, false);
+
+				render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_LIGHT_GRAY, track->GetName());
+
+				for (int p = 0; p < track->GetKeysCount(); p++)
+				{
+					DataTrack::Key key = track->GetKey(p);
+					float tm = key.time - offset;
+
+					if (key.blend != DataTrack::BlendNone && p != track->GetKeysCount() - 1)
+					{
+						float next_tm = track->GetKey(p + 1).time - offset;
+
+						if (next_tm > 0.0f && tm < tm_width)
+						{
+							render.DebugLine2D(Vector2((float)CalcKeyPos(fmax(0.0f, tm)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(fmin(next_tm, tm_width)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY);
+						}
+					}
+
+					if (owner->timeLenght < key.time) break;
+
+					if (selPlayer == i && selTrack == j && selKey == p)
+					{
+						//SetDCBrushColor(hdc, RGB(238, 80, 80));
+					}
+
+					if (key.time - offset < 0.0f) continue;
+					if (key.time - offset > tm_width) continue;
+
+					Sprite::Draw(nullptr, COLOR_WHITE, Matrix(), Vector2((float)CalcKeyPos(key.time - offset), (float)CalcLinePos(index - vert_scroll->GetPosition()) + 2.0f), Vector2(5, 16), 0.0f, 1.0f, false);
+				}
+			}
+
+			index++;
+			draw_index++;
+		}
+
+		render.DebugLine2D(Vector2(0.5f, (float)CalcLinePos(draw_index)), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), (float)CalcLinePos(draw_index)), COLOR_BLACK);
+
+		last_y += 20 * (int)(owner->players[i]->tracks.size() + 1);
+	}
+
+	Sprite::Draw(nullptr, Color(0.258f, 0.258f, 0.258f, 1.0f), Matrix(), Vector2(0.0f, (float)last_y), Vector2((float)timeline_panel->GetWidth() + 1.0f, (float)timeline_panel->GetHeight() + 1.0f - (float)last_y), 0.0f, 1.0f, false);
+
+	if ((owner->edCurTime - offset >= 0.0f) && (owner->edCurTime - offset <= tm_width))
+	{
+		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+	}
+
+	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
+	{
+		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+	}
+
+	if ((owner->toTime - offset >= 0.0f) && (owner->toTime - offset <= tm_width))
+	{
+		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->toTime - offset) + 2, 12), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->toTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+	}
+
+	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
+	{
+		Sprite::Draw(nullptr, COLOR_WHITE, Matrix(), Vector2((float)CalcKeyPos(owner->fromTime - offset), 2.0f), Vector2(5, 14), 0.0f, 1.0f, false);
+	}
+
+	if ((owner->toTime - offset >= 0.0f) && (owner->toTime - offset <= tm_width))
+	{
+		Sprite::Draw(nullptr, COLOR_WHITE, Matrix(), Vector2((float)CalcKeyPos(owner->toTime - offset), 2.0f), Vector2(5, 14), 0.0f, 1.0f, false);
+	}
+
+	if ((owner->edCurTime - offset >= 0.0f) && (owner->edCurTime - offset <= scale))
+	{
+		Sprite::Draw(nullptr, COLOR_WHITE, Matrix(), Vector2((float)CalcKeyPos(owner->edCurTime - offset), 2.0f), Vector2(5, 14), 0.0f, 1.0f, false);
+	}
+
+	render.ExecutePool(ExecuteLevels::Debug, 0.0f);
+
+	render.GetDevice()->Present();
 }
 
 void AnimatorWindow::SetSelection(int player, int track, int key)
@@ -696,8 +663,6 @@ void AnimatorWindow::SetSelection(int player, int track, int key)
 		selTrack = -1;
 		selKey = -1;
 	}
-
-	timeline_panel->Redraw();
 }
 
 void AnimatorWindow::SetCurTime(float time)
@@ -721,8 +686,6 @@ void AnimatorWindow::SetCurTime(float time)
 	char str[32];
 	sprintf(str, "%4.2f", owner->edCurTime);
 	tb_curTime->SetText(str);
-
-	timeline_panel->Redraw();
 }
 
 void AnimatorWindow::SetTimeLenght(float time)
@@ -764,8 +727,6 @@ void AnimatorWindow::SetFromTime(float time)
 	char str[32];
 	sprintf(str, "%4.2f", owner->fromTime);
 	tb_fromTime->SetText(str);
-
-	timeline_panel->Redraw();
 }
 
 void AnimatorWindow::SetToTime(float time)
@@ -785,8 +746,6 @@ void AnimatorWindow::SetToTime(float time)
 	char str[32];
 	sprintf(str, "%4.2f", owner->toTime);
 	tb_toTime->SetText(str);
-
-	timeline_panel->Redraw();
 }
 
 void AnimatorWindow::AddKey()
@@ -819,15 +778,24 @@ void AnimatorWindow::UpdateVertBar()
 		count += 1 + (int)owner->players[i]->tracks.size();
 	}
 
-	count = (int)fmax(0.0f, count - (int)((timeline_panel->GetHeight() - CaptionHeight) / RowHeight));
+	count = (int)(count - (int)((timeline_panel->GetHeight() - CaptionHeight) / RowHeight));
+	vert_scroll->Show(count > 0);
 
-	vert_scroll->SetLimit(1, count);
+	if (count > 0)
+	{
+		vert_scroll->SetLimit(1, count);
+	}
 }
 
 void AnimatorWindow::UpdateHorzBar()
 {
-	float tm_width = fmax(0.0f, owner->timeLenght - (timeline_panel->GetWidth() - LeftRowWidth - 4.0f) / scale);
-	horz_scroll->SetLimit(1, (int)(tm_width * 10.0f + 3));
+	int tm_width = (int)(owner->timeLenght - (timeline_panel->GetWidth() - LeftRowWidth - 4.0f) / scale);
+	horz_scroll->Show(tm_width > 0);
+
+	if (tm_width > 0)
+	{
+		horz_scroll->SetLimit(1, (int)(tm_width * 10.0f + 10));
+	}
 }
 
 int AnimatorWindow::CalcKeyPos(float ps_x)

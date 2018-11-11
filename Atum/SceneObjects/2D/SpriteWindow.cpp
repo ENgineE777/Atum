@@ -1,10 +1,11 @@
 
 #ifdef EDITOR
 
-#include "Support/stb/stb_image.h"
 #include "SpriteWindow.h"
 #include "Services/Controls/Controls.h"
 #include "Services/File/FileInMemory.h"
+#include "Services/Scene/ExecuteLevels.h"
+#include "Editor/Gizmo.h"
 
 Sprite::Data* SpriteWindow::sprite = nullptr;
 SpriteWindow* SpriteWindow::instance = nullptr;
@@ -31,7 +32,10 @@ void SpriteWindow::StopEdit()
 
 void SpriteWindow::Init()
 {
-	wnd = new EUIWindow("Sprite Editor", EUIWindow::PopupWithCloseBtn, false, 10, 35, 940, 640);
+	checker_texture = render.LoadTexture("settings/editor/checker.png");
+	checker_texture->SetFilters(Texture::Point, Texture::Point);
+
+	wnd = new EUIWindow("Sprite Editor", "", EUIWindow::PopupWithCloseBtn, false, 10, 35, 1200, 800);
 	wnd->SetListener(-1, this, 0);
 
 	EUILayout* wnd_lt = new EUILayout(wnd, false);
@@ -80,7 +84,7 @@ void SpriteWindow::Init()
 	prop_h_ebox->SetListener(-1, this, 0);
 
 	prop_label = new EUILabel(panel, "Tile Mode", 5, 250, 90, 20);
-	texture_mode = new EUIComboBox(panel, 95, 250, 100, 250);
+	texture_mode = new EUIComboBox(panel, 95, 250, 100, 20, 100);
 	texture_mode->SetListener(-1, this, 0);
 	texture_mode->AddItem("wrap");
 	texture_mode->AddItem("mirror");
@@ -88,14 +92,14 @@ void SpriteWindow::Init()
 	texture_mode->SetCurString(0);
 
 	prop_label = new EUILabel(panel, "Filter", 5, 280, 90, 20);
-	texture_filter = new EUIComboBox(panel, 95, 280, 100, 250);
+	texture_filter = new EUIComboBox(panel, 95, 280, 100, 20, 100);
 	texture_filter->SetListener(-1, this, 0);
 	texture_filter->AddItem("point");
 	texture_filter->AddItem("linear");
 	texture_filter->SetCurString(0);
 
 	prop_label = new EUILabel(panel, "Type", 5, 310, 90, 20);
-	cb_type = new EUIComboBox(panel, 95, 310, 100, 250);
+	cb_type = new EUIComboBox(panel, 95, 310, 100, 20, 100);
 	cb_type->SetListener(-1, this, 0);
 	cb_type->AddItem("Image");
 	cb_type->AddItem("3 Horz slice");
@@ -135,7 +139,7 @@ void SpriteWindow::Init()
 	pivot_y_ebox->SetListener(-1, this, 0);
 
 	img_wgt = new EUIPanel(wnd_lt, 270, 5, 700, 550);
-	img_wgt->SetListener(-1, this, EUIWidget::OnDraw);
+	img_wgt->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 }
 
 void SpriteWindow::Show(bool sh)
@@ -163,17 +167,9 @@ void SpriteWindow::FillPoints(int index, int stride, float val, bool vert)
 
 void SpriteWindow::SetImage(const char* img, bool need_refill)
 {
-	if (image)
-	{
-		DeleteObject(image);
-		image = 0;
-
-		free(tex_data);
-		tex_data = nullptr;
-	}
-
 	sprite->tex_name = img;
 	sprite->LoadTexture();
+	sprite->filter = Texture::Point;
 
 	load_image->SetText(img);
 
@@ -182,33 +178,6 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 		sprite->width = 32;
 		sprite->height = 32;
 	}
-
-	BITMAPINFO bminfo;
-	ZeroMemory(&bminfo, sizeof(bminfo));
-	bminfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
-	bminfo.bmiHeader.biWidth = sprite->width;
-	bminfo.bmiHeader.biHeight = sprite->height;
-	bminfo.bmiHeader.biPlanes = 1;
-	bminfo.bmiHeader.biBitCount = 32;
-	bminfo.bmiHeader.biCompression = BI_RGB;
-
-	HDC hdcScreen = GetDC(NULL);
-	image = CreateDIBSection(hdcScreen, &bminfo, DIB_RGB_COLORS, (void**)&imageBits, NULL, 0);
-	ReleaseDC(NULL, hdcScreen);
-
-	FileInMemory buffer;
-
-	if (!buffer.Load(img))
-	{
-		buffer.Load("settings\\editor\\white.png");
-	}
-
-	uint8_t* ptr = buffer.GetData();
-
-	int bytes;
-	int width;
-	int height;
-	tex_data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
 
 	if (need_refill || !sprite->texture)
 	{
@@ -232,38 +201,6 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	char str[128];
 	StringUtils::Printf(str, 128, "Image Size: %i x %i", sprite->width, sprite->height);
 	image_size_label->SetText(str);
-}
-
-void SpriteWindow::UpdateImageBackground()
-{
-	Color back_colors[2];
-	back_colors[0] = COLOR_GRAY;
-	back_colors[1] = COLOR_LIGHT_GRAY;
-
-	float grid_size = floor(20.0f / pixel_density + 0.5f);
-
-	for (int j = 0; j < sprite->height; j++)
-	{
-		byte* rows = &imageBits[(sprite->height - 1 - j) * sprite->width * 4];
-
-		for (int i = 0; i < sprite->width; i++)
-		{
-			int sel_back_colors = (int)(i / grid_size) % 2 + (int)(j / grid_size) % 2;
-
-			if (sel_back_colors == 2)
-			{
-				sel_back_colors = 0;
-			}
-
-			uint8_t* color = &tex_data[(i + j * sprite->width) * 4];
-			float k = color[3] / 255.0f;
-
-			rows[i * 4 + 0] = (int)(k * color[2] * sprite->color.b + back_colors[sel_back_colors].b * 255 * (1 - k));
-			rows[i * 4 + 1] = (int)(k * color[1] * sprite->color.g + back_colors[sel_back_colors].g * 255 * (1 - k));
-			rows[i * 4 + 2] = (int)(k * color[0] * sprite->color.r + back_colors[sel_back_colors].r * 255 * (1 - k));
-			rows[i * 4 + 3] = 255;
-		}
-	}
 }
 
 void SpriteWindow::ResizeSpriteRect()
@@ -452,7 +389,6 @@ void SpriteWindow::SetCurFrame(int frame)
 	pivot_x_ebox->SetText((int)sprite->rects[cur_frame].offset.x);
 	pivot_y_ebox->SetText((int)sprite->rects[cur_frame].offset.y);
 	UpdateSavedPos();
-	img_wgt->Redraw();
 }
 
 void SpriteWindow::SelectRect()
@@ -519,44 +455,25 @@ void SpriteWindow::FillRects()
 
 void SpriteWindow::ActualPixels()
 {
-	if (!image) return;
-
 	pixel_density = 1.0f;
 
 	origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
 	origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
-
-	UpdateImageBackground();
-
-	img_wgt->Redraw();
 
 	delta_mouse = 0.0f;
 }
 
 void SpriteWindow::FitImage()
 {
-	if (!image)
-	{
-		pixel_density = 1.0f;
-		origin.x = img_wgt->GetWidth() * 0.5f;
-		origin.y = img_wgt->GetHeight() * 0.5f;
-	}
-	else
-	{
-		pixel_density = (float)(img_wgt->GetWidth() - 20) / (float)sprite->width;
+	pixel_density = (float)(img_wgt->GetWidth() - 20) / (float)sprite->width;
 
-		if ((float)sprite->height * pixel_density > img_wgt->GetHeight() - 20)
-		{
-			pixel_density = (float)(img_wgt->GetHeight() - 20) / (float)sprite->height;
-		}
-
-		origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
-		origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
+	if ((float)sprite->height * pixel_density > img_wgt->GetHeight() - 20)
+	{
+		pixel_density = (float)(img_wgt->GetHeight() - 20) / (float)sprite->height;
 	}
 
-	UpdateImageBackground();
-
-	img_wgt->Redraw();
+	origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
+	origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
 
 	delta_mouse = 0.0f;
 }
@@ -572,196 +489,132 @@ void SpriteWindow::MakeZoom(bool zoom_in)
 	origin_px.x += img_wgt->GetWidth() * 0.5f / pixel_density;
 	origin_px.y -= img_wgt->GetHeight() * 0.5f / pixel_density;
 	origin = origin_px / pixel_density;
-
-	UpdateImageBackground();
-
-	img_wgt->Redraw();
 }
 
 void SpriteWindow::CheckStateOfBorder()
 {
 	if (!img_wgt->IsFocused() && border_drawed)
 	{
-		img_wgt->Redraw();
 		border_drawed = false;
 	}
 }
 
-void SpriteWindow::OnDraw(EUIWidget* sender)
+void SpriteWindow::OnUpdate(EUIWidget* sender)
 {
-	HWND handle = *((HWND*)sender->GetNative());
+	render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
+	((EUIPanel*)sender)->SetTexture(render.GetDevice()->GetBackBuffer());
 
-	RECT rc;
-	HDC hdcMem;
-	HBITMAP hbmMem, hbmOld;
-
-	GetClientRect(handle, &rc);
-
-	HDC wnd_hdc = GetDC(handle);
-	hdcMem = CreateCompatibleDC(wnd_hdc);
-	hbmMem = CreateCompatibleBitmap(wnd_hdc, rc.right - rc.left, rc.bottom - rc.top);
-	hbmOld = (HBITMAP)SelectObject(hdcMem, hbmMem);
-
-	HDC hdc = hdcMem;
-
-	Color color = Color(0.8f, 0.8f, 0.8f);
-
-	HBRUSH hbrBkgnd = CreateSolidBrush(RGB(color.r * 255, color.g * 255, color.b * 255));
-	HBRUSH white = CreateSolidBrush(RGB(255, 255, 255));
-	HBRUSH green = CreateSolidBrush(RGB(0, 255, 0));
-	HPEN pen_white = CreatePen(PS_SOLID, 1, RGB(255, 255, 255));
-	HPEN pen_green = CreatePen(PS_SOLID, 1, RGB(0, 255, 0));
-	HPEN pen_red = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-	HPEN pen_black = CreatePen(PS_SOLID, 1, RGB(0, 0, 0));
-	HPEN pen_axis = CreatePen(PS_SOLID, 2, RGB(55, 55, 55));
-	HPEN pen_bcgr = CreatePen(PS_SOLID, 1, RGB(color.r * 255, color.g * 255, color.b * 255));
-
-	HPEN pre_pen;
-
-	SelectObject(hdc, hbrBkgnd);
-	SelectObject(hdc, pen_bcgr);
-	Rectangle(hdc, 0, 0, sender->GetWidth(), sender->GetHeight());
-	SelectObject(hdc, pen_black);
+	Transform2D trans;
+	Sprite::FrameState state;
+	
+	Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
+	             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
+	             Vector2((1.0f - (int)(origin.x * pixel_density) % 42) / 42.0f, ((int)(origin.y * pixel_density) % 42) / 42.0f),
+	             Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
 
 	float wd = sprite->texture ? sprite->width * 1.1f : 512.0f;
 	float ht = sprite->texture ? sprite->height * 1.1f : 512.0f;
 
-	MoveToEx(hdc, (int)(origin.x * pixel_density), (int)((origin.y - ht) * pixel_density), 0);
-	LineTo(hdc, (int)(origin.x * pixel_density), (int)((origin.y + ht) * pixel_density));
+	Color color = COLOR_WHITE;
+	render.DebugLine2D(Vector2(origin.x * pixel_density, (origin.y - ht) * pixel_density), color, Vector2(origin.x * pixel_density, (origin.y + ht) * pixel_density), color);
+	render.DebugLine2D(Vector2((origin.x - wd) * pixel_density, origin.y * pixel_density), color, Vector2((origin.x + wd) * pixel_density, origin.y * pixel_density), color);
 
-	MoveToEx(hdc, (int)((origin.x - wd) * pixel_density), (int)(origin.y * pixel_density), 0);
-	LineTo(hdc, (int)((origin.x + wd) * pixel_density), (int)(origin.y * pixel_density));
+	int cur_wdth = (int)(sprite->width * pixel_density);
+	int cur_hgt = (int)(sprite->height * pixel_density);
 
-	//if (sprite->texture)
+	Vector2 pos = origin;
+	pos.y -= sprite->height;
+
+	Sprite::Draw(sprite->texture, COLOR_WHITE, Matrix(), Vector2(pos.x * pixel_density, pos.y * pixel_density), Vector2((float)cur_wdth, (float)cur_hgt), 0.0f, 1.0f, false);
+
+	if (sprite->type == Sprite::Frames)
 	{
-		pre_pen = (HPEN)SelectObject(hdc, hbrBkgnd);
+		color = COLOR_WHITE;
 
-		SelectObject(hdc, pre_pen);
-
-		HDC MemDCExercising = CreateCompatibleDC(hdc);
-		SelectObject(MemDCExercising, image);
-
-		int cur_wdth = (int)(sprite->width * pixel_density);
-		int cur_hgt = (int)(sprite->height * pixel_density);
-
-		Vector2 pos = origin;
-		pos.y -= sprite->height;
-
-		StretchBlt(hdc, (int)(pos.x * pixel_density), (int)(pos.y * pixel_density), cur_wdth, cur_hgt, MemDCExercising, 0, 0, sprite->width, sprite->height, SRCCOPY);
-
-		if (sprite->type == Sprite::Frames)
+		for (int i = 0; i<num_frames; i++)
 		{
-			SelectObject(hdc, white);
-			SelectObject(hdc, pen_white);
+			render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density), color,
+			                   Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density), color);
 
-			for (int i=0; i<num_frames; i++)
-			{
-				MoveToEx(hdc, (int)((origin.x + frames[i * 4 + 0].x) * pixel_density), (int)((origin.y - frames[i * 4 + 0].y) * pixel_density), 0);
-				LineTo(hdc, (int)((origin.x + frames[i * 4 + 1].x) * pixel_density), (int)((origin.y - frames[i * 4 + 1].y) * pixel_density));
-				LineTo(hdc, (int)((origin.x + frames[i * 4 + 3].x) * pixel_density), (int)((origin.y - frames[i * 4 + 3].y) * pixel_density));
+			render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density), color,
+			                   Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density), color);
 
-				LineTo(hdc, (int)((origin.x + frames[i * 4 + 2].x) * pixel_density), (int)((origin.y - frames[i * 4 + 2].y) * pixel_density));
-				LineTo(hdc, (int)((origin.x + frames[i * 4 + 0].x) * pixel_density), (int)((origin.y - frames[i * 4 + 0].y) * pixel_density));
-			}
+			render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density), color,
+			                   Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density), color);
+
+			render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density), color,
+			                   Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density), color);
 		}
+	}
 
-		for (int i = 0; i<rect_height; i++)
-			for (int j = 0; j<rect_width; j++)
+	for (int i = 0; i<rect_height; i++)
+		for (int j = 0; j<rect_width; j++)
+		{
+			int index = rect_width * i + j;
+
+			color = COLOR_WHITE;
+
+			if (j < rect_width - 1 && i < rect_height - 1)
 			{
-				int index = rect_width * i + j;
+				render.DebugLine2D(Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density), color,
+				                   Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density), color);
 
-				SelectObject(hdc, white);
-				SelectObject(hdc, pen_white);
+				render.DebugLine2D(Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density), color,
+				                   Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density), color);
 
-				if (j < rect_width - 1 && i < rect_height - 1)
+				if (i == rect_height - 2 || j == rect_width - 2)
 				{
-					MoveToEx(hdc, (int)((origin.x + points[index + rect_width].x) * pixel_density), (int)((origin.y - points[index + rect_width].y) * pixel_density), 0);
-					LineTo(hdc, (int)((origin.x + points[index].x) * pixel_density), (int)((origin.y - points[index].y) * pixel_density));
-					LineTo(hdc, (int)((origin.x + points[index + 1].x) * pixel_density), (int)((origin.y - points[index + 1].y) * pixel_density));
+					render.DebugLine2D(Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density), color,
+					                  Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density), color);
 
-					if (i == rect_height - 2 || j == rect_width - 2)
-					{
-						LineTo(hdc, (int)((origin.x + points[index + rect_width + 1].x) * pixel_density), (int)((origin.y - points[index + rect_width + 1].y) * pixel_density));
-						LineTo(hdc, (int)((origin.x + points[index + rect_width].x) * pixel_density), (int)((origin.y - points[index + rect_width].y) * pixel_density));
-					}
+					render.DebugLine2D(Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density), color,
+					                   Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density), color);
 				}
-
-				if (sel_row == i && sel_col == j)
-				{
-					SelectObject(hdc, green);
-					SelectObject(hdc, pen_white);
-				}
-				else
-				{
-					SelectObject(hdc, white);
-					SelectObject(hdc, pen_white);
-				}
-
-				Rectangle(hdc, (int)((origin.x + points[index].x) * pixel_density - 4), (int)((origin.y - points[index].y) * pixel_density - 4),
-				          (int)((origin.x + points[index].x) * pixel_density + 4), (int)((origin.y - points[index].y) * pixel_density + 4));
 			}
 
-		SelectObject(hdc, pen_green);
+			if (sel_row == i && sel_col == j)
+			{
+				color.Set(1.0, 0.9f, 0.0f, 1.0f);
+			}
 
-		if (sprite->type == Sprite::Frames)
-		{
-			SelectObject(hdc, pen_green);
-
-			float pivot_x = (frames[cur_frame * 4 + 0].x + frames[cur_frame * 4 + 1].x) * 0.5f;
-			float pivot_y = frames[cur_frame * 4 + 2].y;
-			MoveToEx(hdc, (int)((origin.x + pivot_x) * pixel_density), (int)((origin.y - pivot_y) * pixel_density), 0);
-			LineTo(hdc, (int)((origin.x + pivot_x) * pixel_density), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density));
-			LineTo(hdc, (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density));
-
-			SelectObject(hdc, green);
-			SelectObject(hdc, pen_white);
-
-			Ellipse(hdc, (int)((origin.x + pivot_x) * pixel_density - 4), (int)((origin.y - pivot_y) * pixel_density - 4),
-			        (int)((origin.x + pivot_x) * pixel_density + 4), (int)((origin.y - pivot_y) * pixel_density + 4));
-			Ellipse(hdc, (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4),
-			        (int)((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density + 4), (int)((origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density + 4));
+			render.DebugSprite(Gizmo::inst->anchorn, Vector2((origin.x + points[index].x) * pixel_density - 4, (origin.y - points[index].y) * pixel_density - 4), Vector2(8.0f), color);
 		}
 
-		DeleteDC(MemDCExercising);
+	if (sprite->type == Sprite::Frames)
+	{
+		color.Set(1.0, 0.9f, 0.0f, 1.0f);
+
+		float pivot_x = (frames[cur_frame * 4 + 0].x + frames[cur_frame * 4 + 1].x) * 0.5f;
+		float pivot_y = frames[cur_frame * 4 + 2].y;
+
+		render.DebugLine2D(Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y) * pixel_density), color,
+		                   Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color);
+
+		render.DebugLine2D(Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color,
+		                   Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color);
+
+		render.DebugSprite(Gizmo::inst->center, Vector2((origin.x + pivot_x) * pixel_density - 4, (origin.y - pivot_y) * pixel_density - 4), Vector2(8.0f), color);
+		render.DebugSprite(Gizmo::inst->center, Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4), Vector2(8.0f), color);
 	}
 
 	if (sender->IsFocused())
 	{
-		SelectObject(hdc, pen_red);
+		Color color(1.0, 0.65f, 0.0f, 1.0f);
 
-		for (int i = 0; i < 3; i++)
+		for (float i = 0; i < 3.0f; i += 1.0f)
 		{
-			MoveToEx(hdc, 1, 1 + i, 0);
-			LineTo(hdc, sender->GetWidth(), 1 + i);
-
-			MoveToEx(hdc, 1, sender->GetHeight() - 1 - i, 0);
-			LineTo(hdc, sender->GetWidth(), sender->GetHeight() - 1 - i);
-
-			MoveToEx(hdc, 1 + i, 1, 0);
-			LineTo(hdc, 1 + i, sender->GetHeight());
-
-			MoveToEx(hdc, sender->GetWidth() - 1 - i, 1, 0);
-			LineTo(hdc, sender->GetWidth() - 1 - i, sender->GetHeight() - 1);
+			render.DebugLine2D(Vector2(0.5f, 0.5f + i), color, Vector2((float)render.GetDevice()->GetWidth(), 0.5f + i), color);
+			render.DebugLine2D(Vector2(0.5f, (float)render.GetDevice()->GetHeight() - 0.5f - i), color, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight() - 0.5f - i), color);
+			render.DebugLine2D(Vector2(0.5f + i, 0.5f), color, Vector2(0.5f + i, (float)render.GetDevice()->GetHeight()), color);
+			render.DebugLine2D(Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, 0.5f), color, Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, (float)render.GetDevice()->GetHeight()), color);
 		}
 
 		border_drawed = true;
 	}
 
-	ReleaseDC(handle, hdc);
-	DeleteObject(hbrBkgnd);
-	DeleteObject(white);
-	DeleteObject(green);
-	DeleteObject(pen_white);
-	DeleteObject(pen_green);
-	DeleteObject(pen_axis);
+	render.ExecutePool(ExecuteLevels::Debug, 0.0f);
 
-	BitBlt(wnd_hdc, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, hdcMem, 0, 0, SRCCOPY);
-
-	SelectObject(hdcMem, hbmOld);
-	DeleteObject(hbmMem);
-	DeleteDC(hdcMem);
-
-	ReleaseDC(handle, wnd_hdc);
+	render.GetDevice()->Present();
 }
 
 void SpriteWindow::MoveRects(Vector2 delta)
@@ -918,7 +771,6 @@ void SpriteWindow::OnComboBoxSelChange(EUIComboBox* sender, int index)
 		FillRects();
 		UpdateAnimRect();
 		UpdateSpriteRect();
-		img_wgt->Redraw();
 	}
 }
 
@@ -948,7 +800,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 		UpdateSavedPos();
 		UpdateAnimRect();
 		UpdateSpriteRect();
-		img_wgt->Redraw();
 	}
 
 	if (sender == prop_w_ebox || sender == prop_h_ebox)
@@ -966,8 +817,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 		FillRects();
 		UpdateAnimRect();
 		UpdateSpriteRect();
-
-		img_wgt->Redraw();
 	}
 
 	if (sender == cur_frame_ebox)
@@ -1015,7 +864,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 		}
 
 		UpdateSpriteRect();
-		img_wgt->Redraw();
 	}
 
 	if (sender == frame_time_ebox)
@@ -1026,13 +874,11 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 	if (sender == pivot_x_ebox)
 	{
 		sprite->rects[cur_frame].offset.x = pivot_x_ebox->GetAsFloat();
-		img_wgt->Redraw();
 	}
 
 	if (sender == pivot_y_ebox)
 	{
 		sprite->rects[cur_frame].offset.y = pivot_y_ebox->GetAsFloat();
-		img_wgt->Redraw();
 	}
 }
 
@@ -1080,30 +926,6 @@ void SpriteWindow::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 
 	drag = DragRects;
 	prev_ms = Vector2((float)mx, (float)my);
-
-	sel_col = -1;
-	sel_row = -1;
-
-	for (int i = 0; i<rect_height; i++)
-		for (int j = 0; j<rect_width; j++)
-		{
-			Vector2 point = points[rect_width * i + j];
-			point *= pixel_density;
-
-			if (point.x - 7 < ps.x && ps.x < point.x + 7 &&
-				point.y - 7 < ps.y && ps.y < point.y + 7)
-			{
-				sel_row = i;
-				sel_col = j;
-			}
-		}
-
-	//img_wgt->CaptureMouse();
-
-	if (sel_row != -1)
-	{
-		img_wgt->Redraw();
-	}
 }
 
 void SpriteWindow::OnMouseMove(EUIWidget* sender, int mx, int my)
@@ -1136,13 +958,29 @@ void SpriteWindow::OnMouseMove(EUIWidget* sender, int mx, int my)
 	{
 		MoveRects(delta);
 	}
+	else
+	{
+		Vector2 ps(mx - origin.x * pixel_density, origin.y * pixel_density - my);
+
+		sel_col = -1;
+		sel_row = -1;
+
+		for (int i = 0; i<rect_height; i++)
+			for (int j = 0; j<rect_width; j++)
+			{
+				Vector2 point = points[rect_width * i + j];
+				point *= pixel_density;
+
+				if (point.x - 7 < ps.x && ps.x < point.x + 7 &&
+					point.y - 7 < ps.y && ps.y < point.y + 7)
+				{
+					sel_row = i;
+					sel_col = j;
+				}
+			}
+	}
 
 	prev_ms = Vector2((float)mx, (float)my);
-
-	if (drag != DragNone)
-	{
-		img_wgt->Redraw();
-	}
 }
 
 void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
@@ -1161,14 +999,12 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 			StringUtils::RemoveFirstChar(cropped_path);
 
 			SetImage(cropped_path, true);
-			img_wgt->Redraw();
 		}
 	}
 
 	if (sender == del_image)
 	{
 		SetImage("", false);
-		img_wgt->Redraw();
 	}
 
 	if (sender == btn_zoom_in)
@@ -1212,7 +1048,6 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		num_frame_ebox->SetText(num_frames);
 
 		UpdateSpriteRect();
-		img_wgt->Redraw();
 	}
 
 	if (sender == show_anim_box)
@@ -1225,8 +1060,6 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		sel_col = -1;
 		sel_row = -1;
 		drag = DragNone;
-		//img_wgt->ReleaseMouse();
-		img_wgt->Redraw();
 	}
 }
 
@@ -1235,19 +1068,17 @@ void SpriteWindow::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 	if (sender == prop_color_edlabel && EUI::OpenColorDialog(wnd->GetNative(), &sprite->color.r))
 	{
 		SetColorToLabel();
-		UpdateImageBackground();
-		img_wgt->Redraw();
 	}
 }
 
-void SpriteWindow::OnRightMouseDown(EUIWidget* sender, int mx, int my)
+void SpriteWindow::OnMiddleMouseDown(EUIWidget* sender, int mx, int my)
 {
 	drag = DragField;
 	prev_ms = Vector2((float)mx, (float)my);
 	img_wgt->CaptureMouse();
 }
 
-void SpriteWindow::OnRightMouseUp(EUIWidget* sender, int mx, int my)
+void SpriteWindow::OnMiddleMouseUp(EUIWidget* sender, int mx, int my)
 {
 	drag = DragNone;
 	img_wgt->ReleaseMouse();
@@ -1273,7 +1104,6 @@ void SpriteWindow::OnKey(EUIWidget* sender, int key)
 	if (fabs(delta.x) > 0.0f || fabs(delta.y) > 0.0f)
 	{
 		MoveRects(delta);
-		img_wgt->Redraw();
 	}
 }
 

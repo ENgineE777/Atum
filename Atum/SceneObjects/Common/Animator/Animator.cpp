@@ -75,6 +75,11 @@ void Animator::Save(JSONWriter& stream)
 }
 
 #ifdef EDITOR
+bool Animator::Is3DObject()
+{
+	return true;
+}
+
 void Animator::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);

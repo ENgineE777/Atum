@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeMenu : public WinWidget
+class NativeMenu : public WidgetImpl
 {
 public:
 
-	NativeMenu(EUIWidget* owner) : WinWidget(owner) {};
+	NativeMenu(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void AttachToWidget(EUIWidget* widget) = 0;
 	virtual void ShowAsPopup(EUIWidget* parent, int x, int y) = 0;

@@ -313,6 +313,13 @@
     <ClInclude Include="..\..\..\Atum\Support\Vector.h" />
     <ClInclude Include="..\..\..\Atum\Support\Vector2.h" />
     <ClInclude Include="..\..\..\Atum\Support\Vector4.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IonStorm.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Bin\settings\editor\icon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -359,11 +366,12 @@
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -384,7 +392,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\Angelscript\lib\angelscript64.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

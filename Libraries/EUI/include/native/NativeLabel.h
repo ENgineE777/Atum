@@ -1,16 +1,11 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeLabel : public WinWidget
+class NativeLabel : public WidgetImpl
 {
 public:
 
-	NativeLabel(EUIWidget* owner) : WinWidget(owner) {};
+	NativeLabel(EUIWidget* owner) : WidgetImpl(owner) {};
 };

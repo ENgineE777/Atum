@@ -61,9 +61,6 @@ class SpriteWindow : public EUIWidget::Listener
 	Vector2 sprite_offset_x;
 	Vector2 sprite_offset_y;
 
-	HBITMAP image = 0;
-	uint8_t* tex_data = nullptr;
-	byte* imageBits = nullptr;
 	float pixel_density = 1.0f;
 	Vector2 points[16];
 	Vector2 origin = 0.0f;
@@ -86,6 +83,7 @@ public:
 	int     cur_frame = 0;
 	bool show_anim = true;
 
+	Texture* checker_texture = nullptr;
 	static Sprite::Data* sprite;
 	static SpriteWindow* instance;
 
@@ -98,7 +96,6 @@ public:
 	void ResizeSpriteRect();
 	void UpdateSpriteRect();
 	void SetImage(const char* img, bool need_refill);
-	void UpdateImageBackground();
 	void Prepare();
 	void ShowFrameWidgets();
 	void SetCurFrame(int frame);
@@ -114,15 +111,15 @@ public:
 	void CheckStateOfBorder();
 	void SetColorToLabel();
 
-	void OnDraw(EUIWidget* sender) override;
+	void OnUpdate(EUIWidget* sender) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
-	void OnRightMouseDown(EUIWidget* sender, int mx, int my) override;
-	void OnRightMouseUp(EUIWidget* sender, int mx, int my) override;
+	void OnMiddleMouseDown(EUIWidget* sender, int mx, int my) override;
+	void OnMiddleMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnKey(EUIWidget* sender, int key) override;
 	void OnWinClose(EUIWidget* sender) override;
 };

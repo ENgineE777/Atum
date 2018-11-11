@@ -48,7 +48,7 @@ public:
 
 	Render();
 
-	bool Init(const char* device, int width, int height, void* data);
+	bool Init(const char* device, void* external_device);
 
 	Device* GetDevice();
 

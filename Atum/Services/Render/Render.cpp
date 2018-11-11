@@ -18,7 +18,6 @@
 #define STBI_NO_PIC
 #define STBI_NO_PNM
 
-
 #define STB_IMAGE_IMPLEMENTATION
 #include "Support/stb/stb_image.h"
 
@@ -26,11 +25,11 @@ Render render;
 
 Render::Render()
 {
-	device = NULL;
+	device = nullptr;
 	need_calc_trans = false;
 }
 
-bool Render::Init(const char* device_name, int width, int height, void* data)
+bool Render::Init(const char* device_name, void* external_device)
 {
 #ifdef PLATFORM_PC
 	device = new DeviceDX11();
@@ -45,7 +44,7 @@ bool Render::Init(const char* device_name, int width, int height, void* data)
 
 	taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
 
-	if (!device->Init(width, height, data))
+	if (!device->Init(external_device))
 	{
 		return false;
 	}

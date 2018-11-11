@@ -274,7 +274,7 @@ void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_cl
 
 		if (decl[0])
 		{
-			engine->RegisterObjectProperty(script_class_name, decl, prop.offset);
+			engine->RegisterObjectProperty(script_class_name, decl, (int)prop.offset);
 		}
 		
 	}

@@ -7,13 +7,14 @@
 class EUIComboBox : public EUIWidget
 {
 	friend class WinComboBox;
-	bool checked;
+	friend class WinDX11ComboBox;
+	int list_height = 0;
 
 	NativeComboBox* Native();
 
 public:
 
-	EUIComboBox(EUIWidget* parent, int x, int y, int w, int h);
+	EUIComboBox(EUIWidget* parent, int x, int y, int w, int h, int list_height);
 	virtual ~EUIComboBox();
 
 	virtual void ClearList();

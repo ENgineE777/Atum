@@ -29,6 +29,26 @@ class EUIWidget
 	friend class WinScrollBar;
 	friend class WinTreeView;
 
+	friend class EUI;
+
+	friend class WinDX11Widget;
+	friend class WinDX11Button;
+	friend class WinDX11Label;
+	friend class WinDX11Window;
+	friend class WinDX11EditBox;
+	friend class WinDX11Menu;
+	friend class WinDX11Layout;
+	friend class WinDX11Panel;
+	friend class WinDX11CheckBox;
+	friend class WinDX11ListBox;
+	friend class WinDX11ComboBox;
+	friend class WinDX11Categories;
+	friend class EUIDX11Categories;
+	friend class WinDX11TabPanel;
+	friend class WinDX11TabSheet;
+	friend class WinDX11ScrollBar;
+	friend class WinDX11TreeView;
+
 public:
 
 	enum
@@ -50,6 +70,9 @@ public:
 
 		virtual void OnRightMouseDown(EUIWidget* sender, int mx, int my) {};
 		virtual void OnRightMouseUp(EUIWidget* sender, int mx, int my) {};
+
+		virtual void OnMiddleMouseDown(EUIWidget* sender, int mx, int my) {};
+		virtual void OnMiddleMouseUp(EUIWidget* sender, int mx, int my) {};
 
 		virtual void OnKey(EUIWidget* sender, int key) {};
 
@@ -134,6 +157,7 @@ public:
 
 	virtual void AddChild(EUIWidget* child);
 	virtual void DelChild(EUIWidget* child);
+	virtual void DeleteChilds();
 	virtual int  GetIndexAsChild();
 
 	virtual void GetMousePos(int& x, int& y);
@@ -155,6 +179,4 @@ public:
 
 	virtual void SetFocused();
 	virtual bool IsFocused();
-
-	bool IsHoveredByMouse();
 };

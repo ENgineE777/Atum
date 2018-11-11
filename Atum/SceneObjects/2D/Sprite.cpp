@@ -255,7 +255,7 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 	quad_prg->SetVector(Program::Vertex, "desc", &params[0], 3);
 	quad_prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
 	quad_prg->SetVector(Program::Pixel, "color", (Vector4*)&clr.r, 1);
-	quad_prg->SetTexture(Program::Pixel, "diffuseMap", texture);
+	quad_prg->SetTexture(Program::Pixel, "diffuseMap", texture ? texture : white_tex);
 
 	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }
@@ -316,7 +316,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	if (!sprite->texture)
 	{
-		Draw(white_tex, clr, local_trans, pos, size, 0.0f, 1.0f, false);
+		Draw(sprite->texture, clr, local_trans, pos, size, 0.0f, 1.0f, false);
 	}
 	else
 	if (sprite->type == Image)

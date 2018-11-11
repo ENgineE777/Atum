@@ -1,0 +1,470 @@
+{
+	"cursors":
+	[
+		{
+			"name" : "DRAG_CURSOR",
+			"filename" : "drag_cursor.cur"
+		}
+	],
+	"CATEGORY_HEIGHT" : 20,
+	"SKIN_TEXTURE" : "black_orange.png",
+	"FONT_FILENAME" : "DroidSans.ttf",
+	"FONT_HEIGHT" : 9,
+	"Elems":
+	[
+		{
+			"name" : "Dummy",
+			"u" : 268,
+			"v" : 2,
+			"du" : 66,
+			"dv" : 29,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "Panel",
+			"u" : 344,
+			"v" : 5,
+			"du" : 15,
+			"dv" : 14,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ButtonNormal",
+			"u" : 136,
+			"v" : 29,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ButtonHowered",
+			"u" : 136,
+			"v" : 56,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ButtonPressed",
+			"u" : 136,
+			"v" : 83,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ButtonDisabled",
+			"u" : 136,
+			"v" : 110,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "EditBoxNormal",
+			"u" : 169,
+			"v" : 29,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "EditBoxHowered",
+			"u" : 169,
+			"v" : 56,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "EditBoxFocused",
+			"u" : 169,
+			"v" : 137,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "EditBoxFocusedHowered",
+			"u" : 169,
+			"v" : 164,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "EditBoxDisabled",
+			"u" : 169,
+			"v" : 2,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "TabPanelLine",
+			"u" : 411,
+			"v" : 220,
+			"du" : 44,
+			"dv" : 6,
+			"offset_u" : 4
+ 		},
+ 		{
+			"name" : "TabPanelCaption",
+			"u" : 431,
+			"v" : 152,
+			"du" : 48,
+			"dv" : 27,
+			"offset_u" : 7
+ 		},
+ 		{
+			"name" : "TabPanelCaptionActive",
+			"u" : 379,
+			"v" : 152,
+			"du" : 48,
+			"dv" : 27,
+			"offset_u" : 7
+ 		},
+ 		{
+			"name" : "TabPanelCaptionSelected",
+			"u" : 431,
+			"v" : 183,
+			"du" : 48,
+			"dv" : 27,
+			"offset_u" : 7
+ 		},
+ 		{
+			"name" : "TabPanelCaptionActiveSelected",
+			"u" : 379,
+			"v" : 183,
+			"du" : 48,
+			"dv" : 27,
+			"offset_u" : 7
+ 		},
+ 		{
+			"name" : "TabPanelSheet",
+			"u" : 341,
+			"v" : 2,
+			"du" : 21,
+			"dv" : 20,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		,
+ 		{
+			"name" : "CategoriesView",
+			"u" : 341,
+			"v" : 2,
+			"du" : 21,
+			"dv" : 20,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "CategoriesCategory",
+			"u" : 2,
+			"v" : 24,
+			"du" : 19,
+			"dv" : 19,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "CategoriesCategoryHowered",
+			"u" : 2,
+			"v" : 46,
+			"du" : 19,
+			"dv" : 19,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "CategoriesCategoryPlus",
+			"u" : 94,
+			"v" : 211,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "CategoriesCategoryMinus",
+			"u" : 94,
+			"v" : 26,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "TreeView",
+			"u" : 341,
+			"v" : 2,
+			"du" : 21,
+			"dv" : 20,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "TreeViewPlus",
+			"u" : 94,
+			"v" : 211,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "TreeViewMinus",
+			"u" : 94,
+			"v" : 26,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ListView",
+			"u" : 341,
+			"v" : 2,
+			"du" : 21,
+			"dv" : 20,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "CheckBoxMarkNormal",
+			"u" : 2,
+			"v" : 24,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "CheckBoxMarkHowered",
+			"u" : 2,
+			"v" : 47,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "CheckBoxMarkPressed",
+			"u" : 2,
+			"v" : 68,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "CheckBoxMarkOff",
+			"u" : 2,
+			"v" : 135,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "CheckBoxMarkOn",
+			"u" : 2,
+			"v" : 156,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "CheckBoxMarkDisabled",
+			"u" : 2,
+			"v" : 90,
+			"du" : 19,
+			"dv" : 19
+ 		},
+ 		{
+			"name" : "ComboBoxNormal",
+			"u" : 169,
+			"v" : 29,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ComboBoxHowered",
+			"u" : 169,
+			"v" : 56,
+			"du" : 27,
+			"dv" : 24,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ComboBoxList",
+			"u" : 341,
+			"v" : 2,
+			"du" : 21,
+			"dv" : 20,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ComboBoxDownArrow",
+			"u" : 94,
+			"v" : 26,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerVert",
+			"u" : 341,
+			"v" : 73,
+			"du" : 15,
+			"dv" : 19,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerUpArrow",
+			"u" : 94,
+			"v" : 66,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerUpArrowHowered",
+			"u" : 94,
+			"v" : 80,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerUpArrowActive",
+			"u" : 94,
+			"v" : 94,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerDownArrow",
+			"u" : 94,
+			"v" : 12,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerDownArrowHowered",
+			"u" : 94,
+			"v" : 25,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerDownArrowActive",
+			"u" : 94,
+			"v" : 38,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerThumbVert",
+			"u" : 113,
+			"v" : 57,
+			"du" : 12,
+			"dv" : 17,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerThumbVertHowered",
+			"u" : 113,
+			"v" : 77,
+			"du" : 12,
+			"dv" : 17,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerThumbVertActive",
+			"u" : 113,
+			"v" : 97,
+			"du" : 12,
+			"dv" : 17,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerHorz",
+			"u" : 341,
+			"v" : 54,
+			"du" : 19,
+			"dv" : 15,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerLeftArrow",
+			"u" : 93,
+			"v" : 129,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerLeftArrowHowered",
+			"u" : 93,
+			"v" : 145,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerLeftArrowActive",
+			"u" : 93,
+			"v" : 162,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerRightArrow",
+			"u" : 93,
+			"v" : 195,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerRightArrowHowered",
+			"u" : 93,
+			"v" : 211,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerRightArrowActive",
+			"u" : 93,
+			"v" : 227,
+			"du" : 15,
+			"dv" : 15
+ 		},
+ 		{
+			"name" : "ScrollerThumbHorz",
+			"u" : 113,
+			"v" : 198,
+			"du" : 17,
+			"dv" : 12,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerThumbHorzHowered",
+			"u" : 113,
+			"v" : 213,
+			"du" : 17,
+			"dv" : 12,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		},
+ 		{
+			"name" : "ScrollerThumbHorzActive",
+			"u" : 113,
+			"v" : 228,
+			"du" : 17,
+			"dv" : 12,
+			"offset_u" : 4,
+			"offset_v" : 4
+ 		}
+	]
+}

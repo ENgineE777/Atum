@@ -95,8 +95,6 @@ public:
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
-	void OnSrollerPosChange(EUIScrollBar* sender, int pos) override;
-	void OnDraw(EUIWidget* sender) override;
 	void OnResize(EUIWidget* sender) override;
 	void OnUpdate(EUIWidget* sender) override;
 

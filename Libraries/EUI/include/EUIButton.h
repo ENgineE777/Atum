@@ -7,6 +7,7 @@
 class EUIButton : public EUIWidget
 {
 	friend class WinButton;
+	friend class WinDX11Button;
 
 	bool is_pushed;
 	bool is_pushable;

@@ -16,7 +16,7 @@ void EnumWidget::Init(EUICategories* parent, const char* catName, const char* la
 {
 	ProperyWidget::Init(parent, catName, labelName);
 
-	cbox = new EUIComboBox(panel, 90, 5, 95, 100);
+	cbox = new EUIComboBox(panel, 90, 5, 95, 20, 100);
 
 	for (int i = 0; i < enumRef->names.size(); i++)
 	{

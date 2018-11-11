@@ -49,12 +49,6 @@
     <Filter Include="Services\Core">
       <UniqueIdentifier>{8720f28a-7dc7-4472-a9eb-ce5460f21905}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Platform">
-      <UniqueIdentifier>{b820970c-90da-4f6c-94d2-7499dec07175}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Platform\Android">
-      <UniqueIdentifier>{9e9ed0c8-d27e-458d-a5ff-d12a5e256b34}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Services\Render\GLES3">
       <UniqueIdentifier>{767fda66-ebac-4a0e-9a5d-86e3ec331183}</UniqueIdentifier>
     </Filter>
@@ -96,6 +90,15 @@
     </Filter>
     <Filter Include="SceneObjects\Common\Animator\DataTrack">
       <UniqueIdentifier>{a5551999-26de-4c26-90f0-1b74dc99dca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{ef1b4c08-4654-453c-8ecf-dedcc1d21b5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Android">
+      <UniqueIdentifier>{9e9ed0c8-d27e-458d-a5ff-d12a5e256b34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{9cfe8b1c-5627-49c9-ac53-edb96de823dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -603,9 +606,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h">
       <Filter>Services\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Editor\Editor.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Editor\freecamera.h">
       <Filter>Editor</Filter>
     </ClInclude>
@@ -924,5 +924,21 @@
     <ClInclude Include="..\..\..\Atum\Services\File\FileInMemory.h">
       <Filter>Services\Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\Editor.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="IonStorm.rc">
+      <Filter>resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Bin\settings\editor\icon.ico">
+      <Filter>resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

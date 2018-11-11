@@ -22,8 +22,9 @@ class EUI
 
 public:
 	static std::vector<EUIWindow*> wnds;
-	static void Init(const char* theme);
-	static void ReloadTheme(const char* theme);
+	static const char* GetName();
+	static void Init(const char* theme_path, const char* theme_name);
+	static void* GetRenderDevice();
 	static int  Run();
 	static const char* OpenOpenDialog(void* parent, char* extName, const char* ext);
 	static const char* OpenSaveDialog(void* parent, char* extName, const char* ext);

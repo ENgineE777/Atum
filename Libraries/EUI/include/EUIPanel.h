@@ -14,4 +14,6 @@ public:
 
 	EUIPanel(EUIWidget* parent, int x, int y, int w, int h);
 	virtual ~EUIPanel();
+
+	void SetTexture(void* texture);
 };

@@ -1,18 +1,14 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeCategories : public WinWidget
+class NativeCategories : public WidgetImpl
 {
 public:
 
-	NativeCategories(EUIWidget* owner) : WinWidget(owner) {};
+	NativeCategories(EUIWidget* owner) : WidgetImpl(owner) {};
 
+	virtual void CalcThumb() = 0;
 	virtual void UpdateChildPos() = 0;
 };

@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeWindow : public WinWidget
+class NativeWindow : public WidgetImpl
 {
 public:
 
-	NativeWindow(EUIWidget* owner) : WinWidget(owner) {};
+	NativeWindow(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void Maximaze() = 0;
 	virtual void SetAtScreenCenter() = 0;

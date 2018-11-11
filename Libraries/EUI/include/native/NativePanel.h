@@ -1,16 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativePanel : public WinWidget
+class NativePanel : public WidgetImpl
 {
 public:
 
-	NativePanel(EUIWidget* owner) : WinWidget(owner) {};
+	NativePanel(EUIWidget* owner) : WidgetImpl(owner) {};
+
+	virtual void SetTexture(void* texture) {};
 };

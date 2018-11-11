@@ -6,7 +6,7 @@
 void SceneObjCmpWidget::Init(EUICategories* parent)
 {
 	panel = new EUIPanel(parent, 0, 0, 200, 135);
-	cbox = new EUIComboBox(panel, 5, 5, 135, 20);
+	cbox = new EUIComboBox(panel, 5, 5, 135, 20, 100);
 	cbox->SetListener(-1, this, 0);
 
 	edBtn = new EUIButton(panel, "Ed", 145, 5, 25, 20);

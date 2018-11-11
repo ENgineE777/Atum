@@ -54,7 +54,6 @@ void Core::Init(void* data)
 
 	controls.Init("settings/controls/hardware_pc", true);
 	controls.LoadAliases("settings/controls/user_pc");
-	controls.SetWindow(data);
 #endif
 
 #if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
@@ -64,7 +63,7 @@ void Core::Init(void* data)
 
 	fonts.Init();
 
-	render.Init("DX11", 100, 100, data);
+	render.Init("DX11", data);
 
 	physics.Init();
 }

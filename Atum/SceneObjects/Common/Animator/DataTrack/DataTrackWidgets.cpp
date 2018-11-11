@@ -8,7 +8,7 @@ void DataTrackWidgets::InitBlendControls(EUIWidget* parent, DataTrack::AllowedBl
 	blend_label = new EUILabel(parent, "Blend", 10, 10, 90, 22);
 	blend_label->Show(false);
 
-	blend_cb = new EUIComboBox(parent, 95, 10, 100, 95);
+	blend_cb = new EUIComboBox(parent, 95, 10, 100, 20, 100);
 	blend_cb->Show(false);
 	blend_cb->SetListener(-1, this, 0);
 

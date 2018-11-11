@@ -336,12 +336,10 @@ void Controls::CheckDeadEnds(Alias& alias)
 	alias.visited = false;
 }
 
-#ifdef PLATFORM_PC
-void Controls::SetWindow(void* wnd)
+void Controls::SetFocused(bool set_focused)
 {
-	hwnd = *((HWND*)wnd);
+	focused = set_focused;
 }
-#endif
 
 int Controls::GetAlias(const char* name)
 {
@@ -355,12 +353,10 @@ int Controls::GetAlias(const char* name)
 
 bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_index, bool ignore_focus)
 {
-#ifdef PLATFORM_PC
-	if (!ignore_focus && GetFocus() != hwnd)
+	if (!ignore_focus && !focused)
 	{
 		return false;
 	}
-#endif
 
 	HardwareAlias& halias = haliases[index];
 
@@ -540,12 +536,10 @@ bool Controls::GetAliasState(int index, AliasAction action)
 
 float Controls::GetHardwareAliasValue(int index, bool delta, int device_index, bool ignore_focus)
 {
-#ifdef PLATFORM_PC
-	if (!ignore_focus && GetFocus() != hwnd)
+	if (!ignore_focus && !focused)
 	{
 		return 0.0f;
 	}
-#endif
 
 	HardwareAlias& halias = haliases[index];
 

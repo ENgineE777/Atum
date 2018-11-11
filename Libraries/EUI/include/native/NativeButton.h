@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeButton : public WinWidget
+class NativeButton : public WidgetImpl
 {
 public:
 
-	NativeButton(EUIWidget* owner) : WinWidget(owner) {};
+	NativeButton(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void SetImage(int img, const char* image_name) = 0;
 };

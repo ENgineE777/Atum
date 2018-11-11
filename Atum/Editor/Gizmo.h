@@ -41,9 +41,6 @@ private:
 	Vector2 ms_dir = 0.0f;
 	Vector2 prev_ms = 0.0f;
 
-	class Texture* anchorn = nullptr;
-	class Texture* center = nullptr;
-
 	Color CheckColor(int axis);
 	void DrawAxis(int axis);
 	void DrawCircle(int axis);
@@ -64,6 +61,9 @@ private:
 	void RenderTrans3D();
 
 public:
+
+	class Texture* anchorn = nullptr;
+	class Texture* center = nullptr;
 
 	void Init();
 	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);

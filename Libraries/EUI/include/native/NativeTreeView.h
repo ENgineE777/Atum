@@ -1,17 +1,12 @@
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeTreeView : public WinWidget
+class NativeTreeView : public WidgetImpl
 {
 public:
 
-	NativeTreeView(EUIWidget* owner) : WinWidget(owner) {};
+	NativeTreeView(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void  AddImage(const char* name) = 0;
 	virtual void  DeleteItem(void* item) = 0;

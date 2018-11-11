@@ -12,9 +12,16 @@ void Editor::Init()
 {
 	GetCurrentDirectory(1024, appdir);
 
-	EUI::Init("settings/EUI/theme.dat");
+	if (StringUtils::IsEqual(EUI::GetName(), "EUI_DX11"))
+	{
+		EUI::Init("settings/EUI/", "theme_dx11.dat");
+	}
+	else
+	{
+		EUI::Init("settings/EUI/", "theme.dat");
+	}
 
-	mainWnd = new EUIWindow("Editor", EUIWindow::Normal, true, 30, 30, 800, 600);
+	mainWnd = new EUIWindow("Atum", "settings//editor//icon.ico", EUIWindow::Normal, true, 30, 30, 800, 600);
 	mainWnd->SetListener(-1, this, 0);
 
 	popup_menu = new EUIMenu();
@@ -73,11 +80,11 @@ void Editor::Init()
 
 	trans2d_gizmo = new EUIPanel(tool_panel, 80, 0, 150, 30);
 
-	EUILabel* label = new EUILabel(trans2d_gizmo, "AlignX", 5, 7, 35, 20);
-	x_align = new EUIEditBox(trans2d_gizmo, "0", 40, 5, 30, 20, EUIEditBox::InputUInteger);
+	EUILabel* label = new EUILabel(trans2d_gizmo, "AlignX", 5, 7, 40, 20);
+	x_align = new EUIEditBox(trans2d_gizmo, "0", 45, 5, 30, 20, EUIEditBox::InputUInteger);
 	x_align->SetListener(-1, this, 0);
-	label = new EUILabel(trans2d_gizmo, "AlignY", 72, 7, 35, 20);
-	y_align = new EUIEditBox(trans2d_gizmo, "0", 105, 5, 30, 20, EUIEditBox::InputUInteger);
+	label = new EUILabel(trans2d_gizmo, "AlignY", 82, 7, 40, 20);
+	y_align = new EUIEditBox(trans2d_gizmo, "0", 120, 5, 30, 20, EUIEditBox::InputUInteger);
 	y_align->SetListener(-1, this, 0);
 
 
@@ -136,7 +143,7 @@ void Editor::Init()
 	viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 	EUIPanel* toolsPanel3 = new EUIPanel(lt, 10, 10, 100, 30);
-	lt->SetChildSize(toolsPanel3, 200, false);
+	lt->SetChildSize(toolsPanel3, 230, false);
 
 	EUILayout* object_lt = new EUILayout(toolsPanel3, true);
 
@@ -153,7 +160,7 @@ void Editor::Init()
 	//FIXME
 	AddOutputBox("Script");
 
-	core.Init(viewport->GetNative());
+	core.Init(EUI::GetRenderDevice());
 
 	render.AddExecutedLevelPool(1);
 
@@ -171,8 +178,6 @@ void Editor::Init()
 
 	mainWnd->Show(true);
 	mainWnd->Maximaze();
-
-	ShowVieport();
 
 	vp_sheet_lt->SetChildSize(asset_treeview_panel, (float)asset_panel_width, false);
 	vp_sheet_lt->Resize();
@@ -378,7 +383,6 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 void Editor::ShowVieport()
 {
 	EUIPanel* vp = viewport;
-	viewport->Show(true);
 
 	SceneObject::ed_vieport = vp;
 
@@ -388,7 +392,7 @@ void Editor::ShowVieport()
 	}
 
 	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
-	controls.SetWindow(vp->GetNative());
+	vp->SetTexture(render.GetDevice()->GetBackBuffer());
 }
 
 void Editor::StartScene()
@@ -413,7 +417,7 @@ void Editor::StartScene()
 
 		Sprite::ed_cam_pos = 0.0f;
 
-		gameWnd = new EUIWindow("Game", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
+		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
 		gameWnd->SetListener(-1, this, 0);
 
 		EUILayout* lt = new EUILayout(gameWnd, false);
@@ -421,7 +425,6 @@ void Editor::StartScene()
 		game_viewport = new EUIPanel(lt, 0, 0, 800, 600);
 		game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
-		controls.SetWindow(game_viewport->GetNative());
 		game_viewport->SetFocused();
 
 		gameWnd->Show(true);
@@ -479,7 +482,8 @@ void Editor::Draw(float dt)
 			Sprite::FrameState state;
 			Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
 			             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
-			             0.0f, Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
+			             Vector2(((int)(Sprite::ed_cam_pos.x) % 42) / 42.0f, ((int)(1.0f - Sprite::ed_cam_pos.y) % 42) / 42.0f),
+			             Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
 		}
 	}
 	else
@@ -1005,6 +1009,13 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 void Editor::OnUpdate(EUIWidget* sender)
 {
+	if (scene && sender != game_viewport)
+	{
+		return;
+	}
+
+	ShowVieport();
+
 	core.CountDeltaTime();
 	float dt = core.GetDeltaTime();
 
@@ -1042,16 +1053,20 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 	if (viewport->IsFocused())
 	{
-		Color color = COLOR_RED;
+		Color color(1.0, 0.65f, 0.0f, 1.0f);
 
 		for (float i = 0; i < 3.0f; i+=1.0f)
 		{
-			render.DebugLine2D(Vector2(1.0f, 1.0f + i), color, Vector2((float)render.GetDevice()->GetWidth(), 1.0f + i), color);
-			render.DebugLine2D(Vector2(1.0f, (float)render.GetDevice()->GetHeight() - 1.0f - i), color, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight() - 1.0f - i), color);
-			render.DebugLine2D(Vector2(1.0f + i, 1.0f), color, Vector2(1.0f + i, (float)render.GetDevice()->GetHeight()), color);
-			render.DebugLine2D(Vector2((float)render.GetDevice()->GetWidth() - 1.0f - i, 1.0f), color, Vector2((float)render.GetDevice()->GetWidth() - 1.0f - i, (float)render.GetDevice()->GetHeight()), color);
+			render.DebugLine2D(Vector2(0.5f, 0.5f + i), color, Vector2((float)render.GetDevice()->GetWidth(), 0.5f + i), color);
+			render.DebugLine2D(Vector2(0.5f, (float)render.GetDevice()->GetHeight() - 0.5f - i), color, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight() - 0.5f - i), color);
+			render.DebugLine2D(Vector2(0.5f + i, 0.5f), color, Vector2(0.5f + i, (float)render.GetDevice()->GetHeight()), color);
+			render.DebugLine2D(Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, 0.5f), color, Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, (float)render.GetDevice()->GetHeight()), color);
 		}
 	}
+
+	controls.SetFocused(scene ? game_viewport->IsFocused() : viewport->IsFocused());
+
+	render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
 
 	core.Update();
 
@@ -1104,8 +1119,6 @@ void Editor::OnUpdate(EUIWidget* sender)
 			ed_scene.Execute(dt);
 		}
 	}
-
-	render.DebugPrintText(5.0f, COLOR_WHITE, "%i",core.GetFPS());
 }
 
 void Editor::OnResize(EUIWidget* sender)

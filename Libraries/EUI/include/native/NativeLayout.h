@@ -1,16 +1,11 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeLayout : public WinWidget
+class NativeLayout : public WidgetImpl
 {
 public:
 
-	NativeLayout(EUIWidget* owner) : WinWidget(owner) {};
+	NativeLayout(EUIWidget* owner) : WidgetImpl(owner) {};
 };

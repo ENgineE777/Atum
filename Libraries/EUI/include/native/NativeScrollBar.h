@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeScrollBar : public WinWidget
+class NativeScrollBar : public WidgetImpl
 {
 public:
 
-	NativeScrollBar(EUIWidget* owner) : WinWidget(owner) {};
+	NativeScrollBar(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void SetPosition(int pos) = 0;
 	virtual void SetLimit() = 0;

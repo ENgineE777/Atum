@@ -21,12 +21,13 @@ public:
 
 	std::vector<TrackPlayer*> players;
 
-	virtual void Init();
-	virtual void Load(JSONReader& loader);
-	virtual void Save(JSONWriter& saver);
+	void Init() override;
+	void Load(JSONReader& loader) override;
+	void Save(JSONWriter& saver) override;
 
 #ifdef EDITOR
-	virtual void SetEditMode(bool ed);
+	bool Is3DObject() override;
+	void SetEditMode(bool ed) override;
 	void Work(float dt);
 #endif
 	void Reset();

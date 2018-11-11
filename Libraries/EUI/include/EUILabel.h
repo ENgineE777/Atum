@@ -7,6 +7,7 @@
 class EUILabel : public EUIWidget
 {
 	friend class WinLabel;
+	friend class WinDX11Label;
 
 	NativeLabel* Native();
 

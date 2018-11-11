@@ -34,11 +34,11 @@ void ArrayWidget::SetData(void* set_data)
 
 		for (int i = cat_size; i<cur_size; i++)
 		{
-			elem_cats[i].btnDel = new EUIButton(elements, "Delete", 10, 0, 170, 25);
-			elem_cats[i].btnDel->SetListener(i, this, 0);
-
 			if (i < 10)
 			{
+				elem_cats[i].btnDel = new EUIButton(elements, "Delete", 10, 0, 170, 25);
+				elem_cats[i].btnDel->SetListener(i, this, 0);
+
 				elem_cats[i].cat = new EUICategories(elements, 10, 30, 190, -1);
 
 				char str[64];

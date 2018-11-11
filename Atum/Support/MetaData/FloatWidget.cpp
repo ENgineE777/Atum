@@ -18,13 +18,11 @@ void FloatWidget::Init(EUICategories* parent, const char* catName, const char* l
 void FloatWidget::SetData(void* set_data)
 {
 	data = (float*)set_data;
-	char text[128];
-	sprintf(text, "%4.5f", *data);
-	ebox->SetText(text);
+	ebox->SetText(*data);
 }
 
 void FloatWidget::SetEditedData()
 {
-	*data = (float)atof(ebox->GetText());
+	*data = ebox->GetAsFloat();
 	changed = true;
 }

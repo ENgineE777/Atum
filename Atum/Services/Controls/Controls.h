@@ -40,6 +40,8 @@ private:
 		TouchCount = 10
 	};
 
+	bool focused = true;
+
 #ifdef PLATFORM_PC
 	uint8_t                 btns[256];
 
@@ -54,7 +56,6 @@ private:
 	byte                    ms_bts[10];
 	int                     ms_x, ms_y;
 	int                     prev_ms_x, prev_ms_y;
-	HWND                    hwnd;
 	XINPUT_STATE            joy_prev_states[XUSER_MAX_COUNT];
 	XINPUT_STATE            joy_states[XUSER_MAX_COUNT];
 	bool                    joy_active[XUSER_MAX_COUNT];
@@ -148,9 +149,7 @@ public:
 	bool  Init(const char* haliases, bool allowDebugKeys);
 	bool  LoadAliases(const char* aliases);
 
-#ifdef PLATFORM_PC
-	void  SetWindow(void* wnd);
-#endif
+	void  SetFocused(bool set_focused);
 
 	int   GetAlias(const char* name);
 

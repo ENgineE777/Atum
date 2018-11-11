@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeEditBox : public WinWidget
+class NativeEditBox : public WidgetImpl
 {
 public:
 
-	NativeEditBox(EUIWidget* owner) : WinWidget(owner) {};
+	NativeEditBox(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual const char* GetText() = 0;
 };

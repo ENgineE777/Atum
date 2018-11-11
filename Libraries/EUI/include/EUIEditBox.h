@@ -7,6 +7,7 @@
 class EUIEditBox : public EUIWidget
 {
 	friend class WinEditBox;
+	friend class WinDX11EditBox;
 	NativeEditBox* Native();
 
 public:

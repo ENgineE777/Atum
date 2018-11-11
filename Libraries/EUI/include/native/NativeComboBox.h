@@ -1,18 +1,13 @@
 
 #pragma once
 
-#ifdef PLATFORM_WIN
-#include "native/win/WinWidget.h"
-#else
-#include "NativeWidget.h"
-#define WinWidget NativeWidget
-#endif
+#include "NativeInclude.h"
 
-class NativeComboBox : public WinWidget
+class NativeComboBox : public WidgetImpl
 {
 public:
 
-	NativeComboBox(EUIWidget* owner) : WinWidget(owner) {};
+	NativeComboBox(EUIWidget* owner) : WidgetImpl(owner) {};
 
 	virtual void ClearList() = 0;
 	virtual void AddItem(const char* str) = 0;

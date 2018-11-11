@@ -21,7 +21,7 @@ class Device
 	int  cur_rt_h = 0;
 	float cur_aspect = 0.0f;
 
-	virtual bool Init(int width, int height, void* data) = 0;
+	virtual bool Init(void* external_device) = 0;
 	virtual void PrepareProgram(Program* program) = 0;
 	virtual void Release() = 0;
 
@@ -93,6 +93,7 @@ public:
 	};
 
 	virtual void  SetVideoMode(int wgt, int hgt, void* data) = 0;
+	virtual void* GetBackBuffer() { return nullptr; };
 	virtual int   GetWidth() = 0;
 	virtual int   GetHeight() = 0;
 	virtual float GetAspect() = 0;

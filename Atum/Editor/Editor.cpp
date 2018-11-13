@@ -413,6 +413,7 @@ void Editor::StartScene()
 	scene->Load(sceneName.c_str());
 	if (scene->Play())
 	{
+		mainWnd->Enable(false);
 		hack_scene = scene;
 
 		Sprite::ed_cam_pos = 0.0f;
@@ -465,6 +466,8 @@ void Editor::StopScene()
 	}
 
 	ShowVieport();
+
+	mainWnd->Enable(true);
 
 	gameWnd = nullptr;
 	game_viewport = nullptr;

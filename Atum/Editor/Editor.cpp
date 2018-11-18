@@ -108,14 +108,14 @@ void Editor::Init()
 	scene_lt->SetChildSize(scene_treeview, 0.5, true);
 	scene_treeview->SetListener(-1, this, 0);
 
-	scene_treeview->AddImage("settings/editor/folder.bmp");
-	scene_treeview->AddImage("settings/editor/scene_elem.bmp");
+	scene_treeview->AddImage("settings/editor/folder.png");
+	scene_treeview->AddImage("settings/editor/scene_elem.png");
 
 	assets_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
 	assets_treeview->SetListener(-1, this, 0);
 
-	assets_treeview->AddImage("settings/editor/folder.bmp");
-	assets_treeview->AddImage("settings/editor/scene_elem.bmp");
+	assets_treeview->AddImage("settings/editor/folder.png");
+	assets_treeview->AddImage("settings/editor/scene_elem.png");
 
 	EUIPanel* voPanels = new EUIPanel(lt, 30, 50, 100, 30);
 
@@ -134,8 +134,8 @@ void Editor::Init()
 	EUILayout* panelBLt = new EUILayout(asset_treeview_panel, false);
 	asset_treeview = new EUITreeView(panelBLt, 0, 0, 100, 100, false, true);
 
-	asset_treeview->AddImage("settings/editor/folder.bmp");
-	asset_treeview->AddImage("settings/editor/scene_elem.bmp");
+	asset_treeview->AddImage("settings/editor/folder.png");
+	asset_treeview->AddImage("settings/editor/scene_elem.png");
 
 	asset_treeview->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 

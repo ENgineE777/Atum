@@ -3,16 +3,13 @@
 #include "Services/Controls/Controls.h"
 #include "Services/Render/Render.h"
 #include "SceneObjects/2D/Sprite.h"
+#include "EditorDrawer.h"
 
 Gizmo* Gizmo::inst = nullptr;
 
 void Gizmo::Init()
 {
 	inst = this;
-	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
-	anchorn->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
-	center = render.LoadTexture("settings\\editor\\gizmo_center.png");
-	center->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 }
 
 void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions, bool set_ignore_2d_camera)
@@ -451,6 +448,8 @@ void Gizmo::CheckSelectionTrans3D(Vector2 ms)
 
 void Gizmo::MoveTrans2D(Vector2 ms)
 {
+	ms *= (1024.0f / render.GetDevice()->GetHeight());
+
 	if (selAxis == 0)
 	{
 		pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
@@ -674,7 +673,7 @@ void Gizmo::RenderTrans2D()
 			else
 			{
 				ancorns[i] = Vector2(p1.x, p1.y) * scale;
-				render.DebugSprite(anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f), selAxis == (i + 1) ? Color(1.0, 0.9f, 0.0f, 1.0f) : COLOR_WHITE);
+				render.DebugSprite(editor_drawer.anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f), selAxis == (i + 1) ? Color(1.0, 0.9f, 0.0f, 1.0f) : COLOR_WHITE);
 			}
 		}
 	}
@@ -689,7 +688,7 @@ void Gizmo::RenderTrans2D()
 
 	origin = Vector2(p1.x, p1.y) * scale;
 
-	render.DebugSprite(center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
+	render.DebugSprite(editor_drawer.center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
 }
 
 void Gizmo::RenderTrans3D()

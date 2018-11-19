@@ -173,6 +173,7 @@ void Editor::Init()
 	Sprite::Init();
 
 	gizmo.Init();
+	editor_drawer.Init();
 
 	UpdateGizmoToolbar();
 
@@ -223,6 +224,8 @@ void Editor::ClearScene()
 {
 	SelectObject(nullptr, false);
 	sceneName.clear();
+	scene_nodes.clear();
+	assets_nodes.clear();
 	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
 	ed_scene.Clear();
@@ -257,7 +260,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		if (selectedObject->UsingCamera2DPos())
 		{
 			selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
-			Sprite::ed_cam_pos = ed_scene.camera_pos;
+			Sprite::ed_cam_pos = ed_scene.camera2d_pos;
 		}
 
 		selectedObject->ShowPropWidgets(nullptr);
@@ -290,7 +293,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (selectedObject->UsingCamera2DPos())
 		{
-			ed_scene.camera_pos = Sprite::ed_cam_pos;
+			ed_scene.camera2d_pos = Sprite::ed_cam_pos;
 			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
 		}
 
@@ -418,7 +421,7 @@ void Editor::StartScene()
 
 		Sprite::ed_cam_pos = 0.0f;
 
-		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 800, 600);
+		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1024, 768);
 		gameWnd->SetListener(-1, this, 0);
 
 		EUILayout* lt = new EUILayout(gameWnd, false);
@@ -462,7 +465,7 @@ void Editor::StopScene()
 	}
 	else
 	{
-		Sprite::ed_cam_pos = ed_scene.camera_pos;
+		Sprite::ed_cam_pos = ed_scene.camera2d_pos;
 	}
 
 	ShowVieport();
@@ -513,7 +516,7 @@ void Editor::LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const c
 		nodes.push_back(SceneTreeNode());
 		SceneTreeNode& node = nodes.back();
 
-		reader->Read("index_in_scene", node.index_in_scene);
+		reader->Read("uid", node.uid);
 		reader->Read("name", node.name);
 		reader->Read("type", node.type);
 
@@ -524,7 +527,9 @@ void Editor::LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const c
 void Editor::Load()
 {
 	ed_scene.Load(sceneName.c_str());
-	Sprite::ed_cam_pos = ed_scene.camera_pos;
+	Sprite::ed_cam_pos = ed_scene.camera2d_pos;
+	freecamera.angles = ed_scene.camera3d_angles;
+	freecamera.pos = ed_scene.camera3d_pos;
 	moveModeBtn->SetPushed(ed_scene.move_mode == 1);
 	x_align->SetText(ed_scene.gizmo2d_align_x);
 	y_align->SetText(ed_scene.gizmo2d_align_y);
@@ -540,6 +545,39 @@ void Editor::Load()
 		LoadNodes(&reader, scene_nodes, "scene_nodes");
 		LoadNodes(&reader, assets_nodes, "asset_nodes");
 	}
+	else
+	{
+		for (int i = 0; i < ed_scene.GetObjectsCount(false); i++)
+		{
+			SceneTreeNode node;
+
+			node.type = 1;
+			node.uid = ed_scene.GetObj(i, false)->GetUID();
+			node.name = ed_scene.GetObj(i, false)->GetName();
+
+			scene_nodes.push_back(node);
+		}
+
+		SceneTreeNode node;
+
+		node.type = 2;
+		node.uid = -1;
+
+		scene_nodes.push_back(node);
+
+		for (int i = 0; i < ed_scene.GetObjectsCount(true); i++)
+		{
+			SceneTreeNode node;
+
+			node.type = 1;
+			node.uid = ed_scene.GetObj(i, false)->GetUID();
+			node.name = ed_scene.GetObj(i, true)->GetName();
+
+			assets_nodes.push_back(node);
+		}
+
+		assets_nodes.push_back(node);
+	}
 	
 	RestoreTreeviewNodes();
 }
@@ -552,7 +590,7 @@ void Editor::SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const ch
 	{
 		writer->StartBlock(nullptr);
 
-		writer->Write("index_in_scene", node.index_in_scene);
+		writer->Write("uid", node.uid);
 		writer->Write("name", node.name.c_str());
 		writer->Write("type", node.type);
 
@@ -570,8 +608,11 @@ void Editor::Save()
 	}
 	else
 	{
-		ed_scene.camera_pos = Sprite::ed_cam_pos;
+		ed_scene.camera2d_pos = Sprite::ed_cam_pos;
 	}
+
+	ed_scene.camera3d_angles = freecamera.angles;
+	ed_scene.camera3d_pos = freecamera.pos;
 
 	GrabTreeviewNodes();
 	ed_scene.Save(sceneName.c_str());
@@ -618,14 +659,14 @@ void Editor::RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& 
 	
 	while (node.type != 2)
 	{
-		SceneObject* asset = (node.index_in_scene != -1) ? ed_scene.GetObj(node.index_in_scene, is_asset) : nullptr;
+		SceneObject* obj = (node.uid != -1) ? ed_scene.FindByUID(node.uid, 0, is_asset) : nullptr;
 
-		void* child = treeview->AddItem(node.name.c_str(), node.type, asset, item , -1, (node.type == 0));
+		void* child = treeview->AddItem(node.name.c_str(), node.type, obj, item , -1, (node.type == 0));
 
-		if (asset)
+		if (obj)
 		{
-			asset->item = child;
-			asset->AddChildsToTree(treeview);
+			obj->item = child;
+			obj->AddChildsToTree(treeview);
 		}
 		else
 		{
@@ -658,12 +699,12 @@ void Editor::GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nod
 		SceneTreeNode& node = nodes.back();
 
 		treeview->GetItemText(child, node.name);
-		SceneAsset* asset = (SceneAsset*)treeview->GetItemPtr(child);
+		SceneObject* obj = (SceneObject*)treeview->GetItemPtr(child);
 
-		if (asset)
+		if (obj)
 		{
 			node.type = 1;
-			node.index_in_scene = ed_scene.GetObjectIndex(asset, is_asset);
+			node.uid = obj->GetUID();
 		}
 		else
 		{

@@ -1,6 +1,12 @@
 #include "SceneScript.h"
 #include "Services/Core/Core.h"
 
+#ifdef EDITOR
+
+#include "Editor/EditorDrawer.h"
+
+#endif
+
 #include "Services/Script/Libs/scriptarray.h"
 
 CLASSREG(SceneObject, SceneScript, "Script")
@@ -34,7 +40,7 @@ void StartScriptEdit(void* owner)
 	char dir[1024];
 	GetCurrentDirectory(1024, dir);
 	string filename;
-	SceneScript::GetScriptFileName(script->GetUID(), filename);
+	script->GetScriptFileName(script->GetUID(), filename);
 	filename = string(dir) + string("\\") +filename;
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
@@ -128,7 +134,7 @@ void SceneScript::GetScriptFileName(uint32_t id,string& filename)
 {
 	char str[1024];
 
-	StringUtils::Printf(str, 1024, "Media/%u.sns", id);
+	StringUtils::Printf(str, 1024, "%s/%u.sns", owner->GetScenePath(), id);
 	filename = str;
 }
 
@@ -137,7 +143,7 @@ void SceneScript::Init()
 	Tasks(false)->AddTask(-100, this, (Object::Delegate)&SceneScript::Work);
 
 #ifdef EDITOR
-	Tasks(true)->AddTask(-100, this, (Object::Delegate)&SceneScript::EditorWork);
+	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScript::EditorWork);
 #endif
 }
 
@@ -234,19 +240,7 @@ bool SceneScript::Play()
 
 	mod->Build();
 
-	int count = mod->GetObjectTypeCount();
-
-	if (count == 0)
-	{
-		return false;
-	}
-
-	if (mod->GetObjectTypeCount() == 0)
-	{
-		return false;
-	}
-
-	if (main_class.c_str())
+	if (main_class.c_str()[0])
 	{
 		for (uint32_t i = 0; i < mod->GetObjectTypeCount(); i++)
 		{
@@ -261,6 +255,7 @@ bool SceneScript::Play()
 
 		if (!class_type)
 		{
+			core.Log("ScriptErr", "Class %s not found", main_class.c_str());
 			return false;
 		}
 	}
@@ -414,40 +409,41 @@ Vector2& SceneScript::Camera2DPos()
 }
 
 #ifdef EDITOR
+
 void SceneScript::EditorWork(float dt)
 {
 	int index = 0;
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptMethod)
-		{
-			int link_index = 0;
-			for (auto link : ((NodeScriptMethod*)node)->links)
-			{
-				Vector2 p1 = nodes[link->node]->pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
-				Vector2 p2 = node->pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
-
-				render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
-
-				link->arrow_pos = p1 + (p2 - p1) * 0.75f - linkSize * 0.5f;
-				Color color = (sel_node == index && link_index == sel_link) ? COLOR_CYAN : COLOR_WHITE;
-				render.DebugSprite(nullptr, link->arrow_pos, linkSize, color);
-
-				link_index++;
-			}
-		}
-
-		Color color = COLOR_BLUE;
+		Color color = COLOR_CYAN;
 		if ((sel_node == index || target_link == index) && sel_link == -1)
 		{
-			color = COLOR_CYAN;
+			color = COLOR_GREEN;
 		}
 
-		render.DebugSprite(nullptr, node->pos - Sprite::ed_cam_pos, nodeSize, color);
-		render.DebugPrintText(node->pos + Vector2(10.0f, 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
+		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos - Sprite::ed_cam_pos, nodeSize, color);
+		editor_drawer.PrintText(node->pos + Vector2(5.0f + (node->type == ScriptMethod ? 15.0f : 0.0f), 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
 
-		const char* names[] = {"Callback:", "Property:", "Method:"};
-		render.DebugPrintText(node->pos + Vector2(10.0f, 10.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
+		if (node->type == ScnCallback)
+		{
+			Color color = (sel_link != -1 && ((NodeScriptMethod*)nodes[sel_node])->links[sel_link]->node == index) ? COLOR_GREEN : COLOR_WHITE;
+
+			if (link_drag && sel_node == index)
+			{
+				color = COLOR_GREEN;
+			}
+
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, color);
+		}
+		else
+		if (node->type == ScriptMethod)
+		{
+			Color color = (link_drag && target_link == index) ? COLOR_GREEN : COLOR_WHITE;
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, color);
+		}
+
+		const char* names[] = {"Callback", "Property", "Method"};
+		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
 
 		if (node->type == ScnCallback || node->type == ScriptProperty)
 		{
@@ -458,41 +454,69 @@ void SceneScript::EditorWork(float dt)
 				scene_node->object = owner->FindByUID(scene_node->object_uid, scene_node->object_child_uid, false);
 			}
 
-			render.DebugPrintText(node->pos + Vector2(10.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node->object ? scene_node->object->GetName() : "NULL");
+			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node->object ? scene_node->object->GetName() : "NULL");
 		}
 
 		index++;
 	}
 
-	if (in_drag)
+	index = 0;
+	for (auto node : nodes)
 	{
-		if (sel_node != -1 && link_drag)
+		if (node->type == ScriptMethod)
 		{
-			render.DebugLine2D(nodes[sel_node]->pos + nodeSize * 0.5f - Sprite::ed_cam_pos, COLOR_WHITE, ms_pos, COLOR_WHITE);
+			int link_index = 0;
+			for (auto link : ((NodeScriptMethod*)node)->links)
+			{
+				Vector2 p1 = nodes[link->node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
+				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f) - Sprite::ed_cam_pos;
+
+				editor_drawer.DrawCurve(p1, p2, (index == sel_node && link_index == sel_link) ? COLOR_GREEN : COLOR_WHITE);
+
+				link->arrow_pos = nodes[link->node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
+				link_index++;
+			}
 		}
+
+		index++;
+	}
+
+	if (sel_node != -1 && link_drag)
+	{
+		editor_drawer.DrawCurve(nodes[sel_node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos, ms_pos, COLOR_WHITE);
 	}
 }
 
 void SceneScript::OnMouseMove(Vector2 delta_ms)
 {
+	ms_pos += delta_ms;
+
 	if (in_drag)
 	{
-		if (sel_node != -1 && !link_drag)
+		if (sel_node != -1)
 		{
 			nodes[sel_node]->pos += delta_ms;
 		}
+	}
 
-		ms_pos += delta_ms;
-
+	if (link_drag)
+	{
 		target_link = -1;
 		int index = 0;
 		for (auto& node : nodes)
 		{
-			if (node->pos.x - Sprite::ed_cam_pos.x < ms_pos.x && ms_pos.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-				node->pos.y - Sprite::ed_cam_pos.y < ms_pos.y && ms_pos.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+			if (node->type != ScriptMethod)
+			{
+				index++;
+				continue;
+			}
+
+			if (node->pos.x - Sprite::ed_cam_pos.x < ms_pos.x && ms_pos.x < node->pos.x + 15.0f - Sprite::ed_cam_pos.x &&
+				node->pos.y + 30.0f - Sprite::ed_cam_pos.y < ms_pos.y && ms_pos.y < node->pos.y + 45.0f - Sprite::ed_cam_pos.y)
 			{
 				target_link = index;
 			}
+
 			index++;
 		}
 	}
@@ -504,6 +528,7 @@ void SceneScript::OnLeftMouseDown(Vector2 ms)
 
 	sel_node = -1;
 	sel_link = -1;
+	link_drag = false;
 	in_drag = false;
 
 	int index = 0;
@@ -513,8 +538,15 @@ void SceneScript::OnLeftMouseDown(Vector2 ms)
 			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
 		{
 			sel_node = index;
+			sel_link = -1;
 		}
 
+		index++;
+	}
+
+	index = 0;
+	for (auto& node : nodes)
+	{
 		if (node->type == ScriptMethod)
 		{
 			int link_index = 0;
@@ -538,7 +570,19 @@ void SceneScript::OnLeftMouseDown(Vector2 ms)
 	if (sel_node != -1 && sel_link == -1)
 	{
 		in_drag = true;
-		link_drag = controls.DebugKeyPressed("KEY_LALT", Controls::Active);
+
+		Node* node = nodes[sel_node];
+
+		if (node->type == ScnCallback)
+		{
+			if (node->pos.x + nodeSize.x - 15.0f - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
+				node->pos.y + 30.0f - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + 45.0f - Sprite::ed_cam_pos.y)
+			{
+				link_drag = true;
+				in_drag = false;
+			}
+		}
+
 		ms_pos = ms;
 	}
 
@@ -547,7 +591,7 @@ void SceneScript::OnLeftMouseDown(Vector2 ms)
 
 void SceneScript::OnLeftMouseUp()
 {
-	if (in_drag && link_drag && target_link != -1)
+	if (link_drag && target_link != -1)
 	{
 		if ((nodes[sel_node]->type == ScnCallback && nodes[target_link]->type == ScriptMethod))
 		{

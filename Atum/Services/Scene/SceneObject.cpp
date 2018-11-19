@@ -482,6 +482,13 @@ bool SceneObject::InjectIntoScript(const char* type, void* property)
 
 bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index)
 {
+	if ((StringUtils::IsEqual("CatBoss", GetName()) || StringUtils::IsEqual("CatBoss", contact_object->GetName())) &&
+		(StringUtils::IsEqual("DynCard", GetName()) || StringUtils::IsEqual("DynCard", contact_object->GetName())))
+	{
+		int k = 0;
+		k++;
+	}
+
 	SceneObject::ScriptCallback* callabck = FindScriptCallback("OnContact");
 
 	if (callabck)

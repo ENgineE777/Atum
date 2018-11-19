@@ -307,9 +307,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.cpp">
       <Filter>SceneObjects\2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Triger2D.cpp">
-      <Filter>SceneObjects\2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp">
       <Filter>SceneObjects\3D</Filter>
     </ClCompile>
@@ -483,6 +480,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
       <Filter>Services\Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\EditorDrawer.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp">
+      <Filter>SceneObjects\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -738,9 +741,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.h">
       <Filter>SceneObjects\2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Triger2D.h">
-      <Filter>SceneObjects\2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h">
       <Filter>SceneObjects\3D</Filter>
     </ClInclude>
@@ -929,6 +929,12 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\EditorDrawer.h">
+      <Filter>Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h">
+      <Filter>SceneObjects\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

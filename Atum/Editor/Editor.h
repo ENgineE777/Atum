@@ -8,6 +8,7 @@
 #include <EUI.h>
 #include "freecamera.h"
 #include "Gizmo.h"
+#include "EditorDrawer.h"
 #include <map>
 #include "SceneObjCmpWidget.h"
 
@@ -89,7 +90,7 @@ class Editor : public Object, public EUIWidget::Listener
 	{
 		int type = 0;
 		string name;
-		int index_in_scene = -1;
+		uint32_t uid = -1;
 	};
 
 	bool in_select_object = false;

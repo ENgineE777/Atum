@@ -14,6 +14,7 @@ STRING_PROP(SimpleCharacter2D, asset_name, "", "Prop", "Asset")
 FLOAT_PROP(SimpleCharacter2D, speed, 120.0f, "Prop", "Speed")
 BOOL_PROP(SimpleCharacter2D, is_enemy, true, "Prop", "IsEnemy")
 INT_PROP(SimpleCharacter2D, max_hp, 100, "Prop", "HP")
+FLOAT_PROP(SimpleCharacter2D, floor_width, 500.0f, "Prop", "FloorWidth")
 FLOAT_PROP(SimpleCharacter2D, floor_height, 200.0f, "Prop", "FloorHeight")
 META_DATA_DESC_END()
 
@@ -27,6 +28,8 @@ void SimpleCharacter2D::BindClassToScript()
 
 void SimpleCharacter2D::Init()
 {
+	trans.offset.y = 1.0f;
+
 	Tasks(false)->AddTask(10, this, (Object::Delegate)&SimpleCharacter2D::Update);
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SimpleCharacter2D::Draw);
 
@@ -119,6 +122,10 @@ void SimpleCharacter2D::Update(float dt)
 		else
 		{
 			trans.pos.x += dt * speed * dir_horz;
+
+			trans.pos.x = fmax(-floor_width, trans.pos.x);
+			trans.pos.x = fmin( floor_width, trans.pos.x);
+
 			trans.pos.y += dt * speed * 0.75f * dir_vert;
 
 			trans.pos.y = fmax(floor_margin.x, trans.pos.y);
@@ -185,8 +192,6 @@ void SimpleCharacter2D::Draw(float dt)
 	trans.depth = 0.74f - ((trans.pos.y - floor_margin.x) / floor_height) * 0.5f;
 	graph_instance.state.horz_flipped = flipped;
 	trans.BuildMatrices();
-
-	trans.mat_global.Pos().y -= graph_instance.cur_node->asset->trans.size.y * 0.5f;
 
 	if (arraive > 0.0f)
 	{

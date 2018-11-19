@@ -140,8 +140,14 @@ PxQueryHitType::Enum PhysController::preFilter(const PxFilterData& filterData, c
 		}
 		else
 		{
-			udataA->object->OnContact(udataA->index, udataB->object, udataB->index);
-			udataB->object->OnContact(udataB->index, udataA->object, udataA->index);
+			if (StringUtils::IsEqual(udataA->object->class_name, "Triger2D") ||
+			    udataA->body && udataA->body->GetType() == PhysObject::Trigger ||
+			    StringUtils::IsEqual(udataB->object->class_name, "Triger2D") ||
+			    udataB->body && udataB->body->GetType() == PhysObject::Trigger)
+			{
+				udataA->object->OnContact(udataA->index, udataB->object, udataB->index);
+				udataB->object->OnContact(udataB->index, udataA->object, udataA->index);
+			}
 		}
 	}
 

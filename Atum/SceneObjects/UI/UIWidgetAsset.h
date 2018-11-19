@@ -51,6 +51,8 @@ public:
 	virtual ~UIWidgetAsset();
 
 	virtual void Init();
+	
+	void Release() override;
 
 	void ApplyProperties() override;
 	void Load(JSONReader& reader) override;

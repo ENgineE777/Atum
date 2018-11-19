@@ -25,6 +25,11 @@ Terrain::~Terrain()
 
 }
 
+bool Terrain::Is3DObject()
+{
+	return true;
+}
+
 void Terrain::Init()
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };

@@ -38,7 +38,7 @@ public:
 		Dynamic,
 		DynamicCCD,
 		Kinetic,
-		Triger
+		Trigger
 	};
 
 	void SetActive(bool set);

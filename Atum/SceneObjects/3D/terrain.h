@@ -35,6 +35,7 @@ public:
 	Terrain();
 	virtual ~Terrain();
 
+	bool Is3DObject() override;
 	virtual void Init();
 	virtual void ApplyProperties();
 	float GetHeight(int i, int j);

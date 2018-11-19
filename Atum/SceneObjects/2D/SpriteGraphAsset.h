@@ -89,7 +89,7 @@ public:
 	Vector2& Camera2DPos() override;
 
 #ifdef EDITOR
-	Vector2 nodeSize = Vector2(100.0f, 50.0f);
+	Vector2 nodeSize = Vector2(150.0f, 80.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);
 	int sel_node = -1;
 	int target_node = -1;

@@ -234,6 +234,22 @@ void MetaData::Copy(void* source)
 		else
 		if (prop.type == Array)
 		{
+			prop.adapter->value = src;
+			int count = prop.adapter->GetSize();
+			
+			prop.adapter->value = prop.value;
+			prop.adapter->Resize(count);
+
+			for (int i = 0; i < count; i++)
+			{
+				prop.adapter->value = src;
+				uint8_t* src_item = prop.adapter->GetItem(i);
+
+				prop.adapter->value = prop.value;
+
+				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+				prop.adapter->GetMetaData()->Copy(src_item);
+			}
 		}
 		else
 		if (prop.type == Sprite)

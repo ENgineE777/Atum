@@ -89,9 +89,10 @@ public:
 	bool UsingCamera2DPos() override;
 	Vector2& Camera2DPos() override;
 
-	static void GetScriptFileName(uint32_t id, string& filename);
+	void GetScriptFileName(uint32_t id, string& filename);
 
 #ifdef EDITOR
+
 	void EditorWork(float dt);
 
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);

@@ -20,6 +20,7 @@ public:
 	Transform2D trans;
 	bool allow_move = false;
 	float speed = 120.0f;
+	float floor_width = 200.0f;
 	float floor_height = 100.0f;
 	bool is_enemy = true;
 	bool flipped = false;

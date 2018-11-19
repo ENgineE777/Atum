@@ -9,6 +9,13 @@ void UIWidgetAsset::Init()
 {
 }
 
+void UIWidgetAsset::Release()
+{
+	SetSource(nullptr, true);
+
+	SceneAsset::Release();
+}
+
 void UIWidgetAsset::ApplyProperties()
 {
 	for (auto child : childs)

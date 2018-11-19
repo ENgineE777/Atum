@@ -20,12 +20,12 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 
 	PxBoxGeometry geometry(dimensions);
 
-	if (type == PhysObject::Static || type == PhysObject::Triger)
+	if (type == PhysObject::Static || type == PhysObject::Trigger)
 	{
 		obj->actor = physics.physics->createRigidStatic(transform);
 		PxShape* shape = obj->actor->createShape(geometry, *physics.defMaterial);
 
-		if (type == PhysObject::Triger)
+		if (type == PhysObject::Trigger)
 		{
 			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);
 			shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);

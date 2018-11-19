@@ -46,6 +46,8 @@ void Scene::ContactListener::EndContact(b2Contact* contact)
 
 void Scene::Init()
 {
+	scene_path[0] = 0;
+
 	taskPool = taskExecutor.CreateSingleTaskPool();
 	renderTaskPool = render.AddTaskPool();
 }
@@ -219,6 +221,11 @@ int Scene::GetObjectIndex(SceneObject* object, bool is_asset)
 	return -1;
 }
 
+const char* Scene::GetScenePath()
+{
+	return scene_path;
+}
+
 void Scene::Clear()
 {
 	DeleteObjects(objects);
@@ -292,7 +299,11 @@ void Scene::Load(const char* name)
 	
 	if (reader.Parse(name))
 	{
-		reader.Read("camera_pos", camera_pos);
+		StringUtils::ExtractPath(name, scene_path);
+
+		reader.Read("camera3d_angles", camera3d_angles);
+		reader.Read("camera3d_pos", camera3d_pos);
+		reader.Read("camera_pos", camera2d_pos);
 		reader.Read("move_mode", move_mode);
 		reader.Read("gizmo2d_align_x", gizmo2d_align_x);
 		reader.Read("gizmo2d_align_y", gizmo2d_align_y);
@@ -313,20 +324,23 @@ void Scene::Load(const char* name)
 			SceneAsset* asset = (SceneAsset*)FindByUID(asset_uid, 0, true);
 			SceneObject* asset_inst = FindByUID(inst_uid, 0, false);
 
-			bool added = false;
-
-			for (auto inst : asset->instances)
+			if (asset_inst)
 			{
-				if (inst == asset_inst)
+				bool added = false;
+
+				for (auto inst : asset->instances)
 				{
-					added = true;
-					break;
+					if (inst == asset_inst)
+					{
+						added = true;
+						break;
+					}
 				}
-			}
 
-			if (!added)
-			{
-				asset->instances.push_back(asset_inst);
+				if (!added)
+				{
+					asset->instances.push_back(asset_inst);
+				}
 			}
 
 			reader.LeaveBlock();
@@ -389,7 +403,9 @@ void Scene::Save(const char* name)
 
 	if (writer.Start(name))
 	{
-		writer.Write("camera_pos", camera_pos);
+		writer.Write("camera3d_angles", camera3d_angles);
+		writer.Write("camera3d_pos", camera3d_pos);
+		writer.Write("camera_pos", camera2d_pos);
 		writer.Write("move_mode", move_mode);
 		writer.Write("gizmo2d_align_x", gizmo2d_align_x);
 		writer.Write("gizmo2d_align_y", gizmo2d_align_y);
@@ -405,6 +421,11 @@ void Scene::Save(const char* name)
 			SceneAsset* asset = (SceneAsset*)obj;
 			for (auto inst : asset->instances)
 			{
+				if (!inst)
+				{
+					continue;
+				}
+
 				writer.StartBlock(nullptr);
 
 				writer.Write("asset_uid", asset->GetUID());
@@ -498,7 +519,7 @@ void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 
 	while (!uid)
 	{
-		float koef = rnd() * 0.99f;
+		float koef = rnd() * 0.98f;
 		uid = (uint32_t)(koef * uint32_t(-1));
 		uid = FindByUID(uid, 0, is_asset) ? 0 : uid;
 	}

@@ -51,6 +51,8 @@ public:
 
 	std::vector<Instance> instances;
 
+	bool Is3DObject() override;
+
 	virtual void Init();
 	virtual void ApplyProperties();
 

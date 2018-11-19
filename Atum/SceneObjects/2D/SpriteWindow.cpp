@@ -5,7 +5,12 @@
 #include "Services/Controls/Controls.h"
 #include "Services/File/FileInMemory.h"
 #include "Services/Scene/ExecuteLevels.h"
-#include "Editor/Gizmo.h"
+
+#ifdef EDITOR
+
+#include "Editor/EditorDrawer.h"
+
+#endif
 
 Sprite::Data* SpriteWindow::sprite = nullptr;
 SpriteWindow* SpriteWindow::instance = nullptr;
@@ -577,7 +582,7 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 				color.Set(1.0, 0.9f, 0.0f, 1.0f);
 			}
 
-			render.DebugSprite(Gizmo::inst->anchorn, Vector2((origin.x + points[index].x) * pixel_density - 4, (origin.y - points[index].y) * pixel_density - 4), Vector2(8.0f), color);
+			render.DebugSprite(editor_drawer.anchorn, Vector2((origin.x + points[index].x) * pixel_density - 4, (origin.y - points[index].y) * pixel_density - 4), Vector2(8.0f), color);
 		}
 
 	if (sprite->type == Sprite::Frames)
@@ -593,8 +598,8 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 		render.DebugLine2D(Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color,
 		                   Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color);
 
-		render.DebugSprite(Gizmo::inst->center, Vector2((origin.x + pivot_x) * pixel_density - 4, (origin.y - pivot_y) * pixel_density - 4), Vector2(8.0f), color);
-		render.DebugSprite(Gizmo::inst->center, Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4), Vector2(8.0f), color);
+		render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x) * pixel_density - 4, (origin.y - pivot_y) * pixel_density - 4), Vector2(8.0f), color);
+		render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4), Vector2(8.0f), color);
 	}
 
 	if (sender->IsFocused())

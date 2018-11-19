@@ -21,11 +21,16 @@ void TankClient::Init()
 	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
 	alias_fire = controls.GetAlias("Tank.FIRE");
 
-	hover_model.LoadModelMS3D("Media/tank_base.ms3d");
-	tower_model.LoadModelMS3D("Media/tank_tower.ms3d");
-	gun_model.LoadModelMS3D("Media/tank_gun.ms3d");
+	hover_model.LoadModelMS3D("Projects/Tanks/tank_base.ms3d");
+	tower_model.LoadModelMS3D("Projects/Tanks/tank_tower.ms3d");
+	gun_model.LoadModelMS3D("Projects/Tanks/tank_gun.ms3d");
 
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&TankClient::Update);
+}
+
+bool TankClient::Is3DObject()
+{
+	return true;
 }
 
 void TankClient::ApplyProperties()

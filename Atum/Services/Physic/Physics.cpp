@@ -25,7 +25,7 @@ void Physics::Init()
 	cooking = PxCreateCooking(PX_PHYSICS_VERSION, *foundation, PxCookingParams(tolerancesScale));
 #endif
 
-	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.05f);
+	defMaterial = physics->createMaterial(0.5f, 0.5f, 0.0005f);
 }
 
 #ifdef PLATFORM_PC
@@ -129,7 +129,7 @@ void Physics::Update(float dt)
 		accum_dt -= physStep;
 	}
 
-	for (auto scene : scenes)
+	/*for (auto scene : scenes)
 	{
 		float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
@@ -147,7 +147,7 @@ void Physics::Update(float dt)
 		render.SetTransform(Render::Projection, proj);
 
 		scene->DrawVisualization();
-	}
+	}*/
 }
 
 void Physics::Fetch()

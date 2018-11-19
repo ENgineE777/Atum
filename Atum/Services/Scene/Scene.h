@@ -25,7 +25,9 @@ public:
 		std::vector<SceneObject*> objects;
 	};
 
-	Vector2 camera_pos = 0.0f;
+	Vector2 camera3d_angles = 0.0f;
+	Vector  camera3d_pos = 0.0f;
+	Vector2 camera2d_pos = 0.0f;
 	int move_mode = 0;
 	int gizmo2d_align_x = 0;
 	int gizmo2d_align_y = 0;
@@ -52,6 +54,8 @@ private:
 	SceneObject* FindByName(const char* name, std::vector<SceneObject*>& objects);
 	SceneObject* FindByUID(uint32_t uid, uint32_t parent_uid, std::vector<SceneObject*>& objects);
 
+	char scene_path[512];
+
 public:
 
 	Scene() = default;
@@ -67,6 +71,7 @@ public:
 	int          GetObjectsCount(bool is_asset);
 	void         DeleteObject(SceneObject* obj, bool is_asset);
 
+	const char* GetScenePath();
 	void Clear();
 
 	void Load(const char* name);

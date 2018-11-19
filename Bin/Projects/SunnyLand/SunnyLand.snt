@@ -2,689 +2,689 @@
 
 	"scene_nodes" : [
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Dynamic",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Boss",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 37,
+			"uid" : -641686528,
 			"name" : "ActivateBossTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 50,
+			"uid" : 1773631360,
 			"name" : "BossMarkers",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 34,
+			"uid" : 361006912,
 			"name" : "CatBoss",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 35,
+			"uid" : 1269363584,
 			"name" : "DynCard",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 36,
+			"uid" : -1182418176,
 			"name" : "FakeCard",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 27,
+			"uid" : 596790336,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 28,
+			"uid" : -1321915904,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 29,
+			"uid" : -980373760,
 			"name" : "DynBox",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 32,
+			"uid" : -2071699456,
 			"name" : "DynBoxFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 5,
+			"uid" : -1084704768,
 			"name" : "EagleFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 30,
+			"uid" : -335829760,
 			"name" : "FakeBox",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 1,
+			"uid" : 1485033472,
 			"name" : "Hero",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 8,
+			"uid" : 2050420608,
 			"name" : "MovingBlock",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 48,
+			"uid" : -968305408,
 			"name" : "OpposumRun",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "FX",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 6,
+			"uid" : -970252032,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 4,
+			"uid" : 1225762432,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Cave",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 21,
+			"uid" : 240584768,
 			"name" : "CaveBrush",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 20,
+			"uid" : 229165424,
 			"name" : "CaveInner",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 26,
+			"uid" : -1415736064,
 			"name" : "CaveShelf",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 25,
+			"uid" : -2022648064,
 			"name" : "CaveWall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 19,
+			"uid" : -1016188928,
 			"name" : "LeftCaveEnter",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 18,
+			"uid" : -52422400,
 			"name" : "RightCaveEnter",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Triggers",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 31,
+			"uid" : 688664128,
 			"name" : "BridgeTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 44,
+			"uid" : -498944768,
 			"name" : "RespawnActTrigger2",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 46,
+			"uid" : 22708918,
 			"name" : "RespawnActTrigger3",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 47,
+			"uid" : 52814452,
 			"name" : "RespawnActTrigger4",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 38,
+			"uid" : 140016704,
 			"name" : "RespawnTrigger",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 39,
+			"uid" : -2003313152,
 			"name" : "RespawnTrigger2",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 40,
+			"uid" : -1168143872,
 			"name" : "RespawnTrigger3",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 41,
+			"uid" : -282107136,
 			"name" : "RespawnTrigger4",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 42,
+			"uid" : 466895360,
 			"name" : "RespawnTrigger5",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 43,
+			"uid" : -145593856,
 			"name" : "RespawnTrigger6",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 22,
+			"uid" : -998151680,
 			"name" : "BridgeBaseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 23,
+			"uid" : -1543425280,
 			"name" : "BridgeRowSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 33,
+			"uid" : -769245696,
 			"name" : "BridgeRowSpriteDyn",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 14,
+			"uid" : 348808960,
 			"name" : "BushSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 9,
+			"uid" : 385792064,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 24,
+			"uid" : 1478545152,
 			"name" : "Ground2Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 13,
+			"uid" : -1777521664,
 			"name" : "HouseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 16,
+			"uid" : 1057456960,
 			"name" : "LeftHangSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 45,
+			"uid" : -413818880,
 			"name" : "RespawnPoints",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 17,
+			"uid" : 1345146496,
 			"name" : "RightHangSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 15,
+			"uid" : 329993024,
 			"name" : "SignSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 10,
+			"uid" : -91092480,
 			"name" : "SkyLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 12,
+			"uid" : -1800360448,
 			"name" : "TreeSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 11,
+			"uid" : 263163904,
 			"name" : "TreesLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "UI",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 49,
+			"uid" : 820505600,
 			"name" : "IngameMenu",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 0,
+			"uid" : 221639040,
 			"name" : "TitleMenu",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 3,
+			"uid" : 1314392192,
 			"name" : "Camera2D",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 2,
+			"uid" : -1993840384,
 			"name" : "MainScript",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 7,
+			"uid" : -182577152,
 			"name" : "VirtualJoystick",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		}
 	],
 	"asset_nodes" : [
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "MetaData",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 13,
+			"uid" : 1583784704,
 			"name" : "ItemData",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Sprites",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Background",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 16,
+			"uid" : -1067835392,
 			"name" : "SkyLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 17,
+			"uid" : -786504704,
 			"name" : "TreesLayer",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Characters",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Cat",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 38,
+			"uid" : 2017200640,
 			"name" : "CatAttack",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 39,
+			"uid" : -682692352,
 			"name" : "CatGraph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 37,
+			"uid" : -1096384000,
 			"name" : "CatIdle",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 23,
+			"uid" : 550593920,
 			"name" : "CatRun",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Eagle",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 7,
+			"uid" : -1084575232,
 			"name" : "EagleFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Hero",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 5,
+			"uid" : 1917411200,
 			"name" : "Hero_Fall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 6,
+			"uid" : -389033728,
 			"name" : "Hero_Graph",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 3,
+			"uid" : 1511894784,
 			"name" : "Hero_Hit",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 1,
+			"uid" : -1039027712,
 			"name" : "Hero_Idle",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 4,
+			"uid" : -442886144,
 			"name" : "Hero_Jump",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 2,
+			"uid" : -246291712,
 			"name" : "Hero_Run",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Opposum",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 42,
+			"uid" : 826604608,
 			"name" : "OpposumRun",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Effects",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 11,
+			"uid" : -1558477824,
 			"name" : "EnemyDeath",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 10,
+			"uid" : 780797440,
 			"name" : "ItemTaken",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Items",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 8,
+			"uid" : 1435982208,
 			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 9,
+			"uid" : -350622976,
 			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 14,
+			"uid" : 532556576,
 			"name" : "DynBox",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 35,
+			"uid" : 1373046016,
 			"name" : "DynBoxFly",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 40,
+			"uid" : 1157116672,
 			"name" : "DynCard",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 34,
+			"uid" : 477276576,
 			"name" : "FakeBox",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 41,
+			"uid" : -1232377856,
 			"name" : "FakeCard",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "Cave",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 28,
+			"uid" : -536187136,
 			"name" : "CaveBrush",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 27,
+			"uid" : 1682146816,
 			"name" : "CaveInner",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 33,
+			"uid" : -1981123072,
 			"name" : "CaveShelf",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 32,
+			"uid" : 1979438976,
 			"name" : "CaveWall",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 25,
+			"uid" : 1683574144,
 			"name" : "LeftCaveEnter",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 26,
+			"uid" : 2073259264,
 			"name" : "RightCaveEnter",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : 29,
+			"uid" : 450155648,
 			"name" : "BridgeBaseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 30,
+			"uid" : 606003712,
 			"name" : "BridgeRowSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 36,
+			"uid" : -794679808,
 			"name" : "BridgeRowSpriteDyn",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 20,
+			"uid" : 86683184,
 			"name" : "BushSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 15,
+			"uid" : -735117312,
 			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 31,
+			"uid" : 1186573440,
 			"name" : "Ground2Tiles",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 19,
+			"uid" : -1650481664,
 			"name" : "HouseSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 24,
+			"uid" : 982452608,
 			"name" : "LeftHangSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 12,
+			"uid" : 1689413632,
 			"name" : "MovingBlock",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 22,
+			"uid" : 217616304,
 			"name" : "RightHangSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 21,
+			"uid" : -794419968,
 			"name" : "SignSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 18,
+			"uid" : -2112705280,
 			"name" : "TreeSprite",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "UI",
 			"type" : 0
 		},
 		{
-			"index_in_scene" : 43,
+			"uid" : 206845808,
 			"name" : "IngameMenu",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : 0,
+			"uid" : 1166329984,
 			"name" : "TitleMenu",
 			"type" : 1
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},
 		{
-			"index_in_scene" : -1,
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		}

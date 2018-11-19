@@ -16,6 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Editor\Editor.cpp" />
+    <ClCompile Include="..\..\..\Atum\Editor\EditorDrawer.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\freecamera.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\SceneObjCmpWidget.cpp" />
@@ -41,7 +42,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteTileInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Triger2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Editor\Editor.h" />
+    <ClInclude Include="..\..\..\Atum\Editor\EditorDrawer.h" />
     <ClInclude Include="..\..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h" />
     <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h" />
@@ -184,7 +186,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteTileInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Triger2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />

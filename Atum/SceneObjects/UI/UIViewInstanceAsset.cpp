@@ -34,6 +34,11 @@ void UIViewInstanceAsset::ApplyProperties()
 	UIWidgetAsset::ApplyProperties();
 }
 
+void UIViewInstanceAsset::BindClassToScript()
+{
+	BIND_TYPE_TO_SCRIPT(UIViewInstanceAsset)
+}
+
 void UIViewInstanceAsset::Draw(float dt)
 {
 	if (state == Invisible)
@@ -58,7 +63,7 @@ void UIViewInstanceAsset::Draw(float dt)
 
 void UIViewInstanceAsset::Release()
 {
-
+	UIWidgetAsset::Release();
 }
 
 CLASSREG(SceneObject, UIViewInstance, "UIView")
@@ -140,6 +145,8 @@ void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* w
 
 void UIViewInstance::AddChildsToTree(EUITreeView* treeview)
 {
+	treeview->SetABSortChilds(item, false);
+
 	for (auto child : childs)
 	{
 		AddWidgetToTreeView(treeview, child, item);

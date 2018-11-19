@@ -122,7 +122,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 {
 	if (item_from_assets)
 	{
-		if (StringUtils::IsEqual(item->script_class_name, "UIViewAsset") && target && !IsInstance((UIViewAsset*)item, this))
+		if (StringUtils::IsEqual(item->class_name, "UIViewAsset") && target && !IsInstance((UIViewAsset*)item, this))
 		{
 			UIWidgetAsset* parent = (UIWidgetAsset*)target;
 
@@ -134,7 +134,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				child->SetSource((UIViewAsset*)item, true);
 
 				child->owner = owner;
-				child->script_class_name = decl->GetName();
+				child->class_name = decl->GetName();
 				child->Init();
 
 				child->GetMetaData()->Prepare(child);

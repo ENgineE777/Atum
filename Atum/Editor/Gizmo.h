@@ -62,9 +62,6 @@ private:
 
 public:
 
-	class Texture* anchorn = nullptr;
-	class Texture* center = nullptr;
-
 	void Init();
 	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);
 	void SetTrans3D(Matrix transform);

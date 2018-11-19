@@ -141,6 +141,7 @@ void SpriteGraphInst::Draw(float dt)
 
 		trans.pos = inst.GetPos();
 		trans.offset = inst.graph_instance.cur_node->asset->trans.offset;
+		trans.rotation = inst.GetAngle();
 		trans.BuildMatrices();
 
 		inst.graph_instance.state.horz_flipped = inst.GetFlipped();
@@ -207,6 +208,8 @@ void SpriteGraphInst::MoveController(int index, float dx, float dy)
 
 void SpriteGraphInst::MoveControllerTo(int index, float x, float y)
 {
+	instances[index].SetPos(Vector2(x, y));
+
 	PhysController* controller = HackGetController(index);
 
 	if (controller)

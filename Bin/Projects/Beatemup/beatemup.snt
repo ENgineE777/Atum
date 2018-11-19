@@ -1,0 +1,267 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : -129243392,
+			"name" : "Camera",
+			"type" : 1
+		},
+		{
+			"uid" : 587187712,
+			"name" : "Enemy",
+			"type" : 1
+		},
+		{
+			"uid" : -2065470720,
+			"name" : "Player",
+			"type" : 1
+		},
+		{
+			"uid" : 1664628480,
+			"name" : "SpriteBackground",
+			"type" : 1
+		},
+		{
+			"uid" : 585760320,
+			"name" : "SpriteFloor",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 902647040,
+			"name" : "AboutMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1179303936,
+			"name" : "HPBSelectCharacter",
+			"type" : 1
+		},
+		{
+			"uid" : -1031631104,
+			"name" : "HUD",
+			"type" : 1
+		},
+		{
+			"uid" : 1084967168,
+			"name" : "MainMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -809602560,
+			"name" : "PauseMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 1806721408,
+			"name" : "Script",
+			"type" : 1
+		},
+		{
+			"uid" : -1756629248,
+			"name" : "VJoy",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Sprites",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Enemy",
+			"type" : 0
+		},
+		{
+			"uid" : -1032279808,
+			"name" : "SpriteEnemy1_Death",
+			"type" : 1
+		},
+		{
+			"uid" : -1474000640,
+			"name" : "SpriteEnemy1_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : -1035524096,
+			"name" : "SpriteEnemy1_Hit",
+			"type" : 1
+		},
+		{
+			"uid" : 502451008,
+			"name" : "SpriteEnemy1_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : -485838336,
+			"name" : "SpriteEnemy1_Kick1",
+			"type" : 1
+		},
+		{
+			"uid" : -1743912448,
+			"name" : "SpriteEnemy1_Kick2",
+			"type" : 1
+		},
+		{
+			"uid" : 428225312,
+			"name" : "SpriteEnemy1_Resp",
+			"type" : 1
+		},
+		{
+			"uid" : 857748224,
+			"name" : "SpriteEnemy1_Walk",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Hero",
+			"type" : 0
+		},
+		{
+			"uid" : 1213953792,
+			"name" : "SpriteBat_Death",
+			"type" : 1
+		},
+		{
+			"uid" : -420047360,
+			"name" : "SpriteBat_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 64882620,
+			"name" : "SpriteBat_Hit",
+			"type" : 1
+		},
+		{
+			"uid" : -264459008,
+			"name" : "SpriteBat_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : -1122985728,
+			"name" : "SpriteBat_LegKick1",
+			"type" : 1
+		},
+		{
+			"uid" : 1463492352,
+			"name" : "SpriteBat_LegKick2",
+			"type" : 1
+		},
+		{
+			"uid" : -182577152,
+			"name" : "SpriteBat_Resp",
+			"type" : 1
+		},
+		{
+			"uid" : 1992026240,
+			"name" : "SpriteBat_Walk",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : -336218880,
+			"name" : "SpriteBackground",
+			"type" : 1
+		},
+		{
+			"uid" : 1716145280,
+			"name" : "SpriteFloor",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 514389440,
+			"name" : "AboutMenu",
+			"type" : 1
+		},
+		{
+			"uid" : 29326944,
+			"name" : "HPBSelectCharacter",
+			"type" : 1
+		},
+		{
+			"uid" : 1894183168,
+			"name" : "HPBar",
+			"type" : 1
+		},
+		{
+			"uid" : 1859665664,
+			"name" : "HUD",
+			"type" : 1
+		},
+		{
+			"uid" : 572264768,
+			"name" : "MainMenu",
+			"type" : 1
+		},
+		{
+			"uid" : 868518720,
+			"name" : "PauseMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

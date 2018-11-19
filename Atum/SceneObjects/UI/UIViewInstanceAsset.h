@@ -8,6 +8,9 @@ public:
 
 	void Init() override;
 	void ApplyProperties() override;
+
+	void BindClassToScript() override;
+
 	void Draw(float dt) override;
 	void Release() override;
 };

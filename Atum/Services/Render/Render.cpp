@@ -220,6 +220,14 @@ void Render::DebugLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr)
 	lines->AddLine2D(from, from_clr, to, to_clr);
 }
 
+void Render::DebugRect2D(Vector2 from, Vector2 to, Color color)
+{
+	lines->AddLine2D(Vector2(from.x, from.y), color, Vector2(to.x  , from.y), color);
+	lines->AddLine2D(Vector2(to.x  , from.y), color, Vector2(to.x  , to.y  ), color);
+	lines->AddLine2D(Vector2(to.x  , to.y  ), color, Vector2(from.x, to.y  ), color);
+	lines->AddLine2D(Vector2(from.x, to.y  ), color, Vector2(from.x, from.y), color);
+}
+
 void Render::DebugSphere(Vector pos, Color color, float radius)
 {
 	spheres->AddSphere(pos, color, radius);

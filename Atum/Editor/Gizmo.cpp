@@ -530,8 +530,9 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 		}
 	}
 
-	trans2D->pos.x = (align2d.x > 0.01f) ? (align2d.x * ((int)(pos2d.x / align2d.x))) : pos2d.x;
-	trans2D->pos.y = (align2d.y > 0.01f) ? (align2d.y * ((int)(pos2d.y / align2d.y))) : pos2d.y;
+	Vector2 prev_pos = trans2D->pos;
+	trans2D->pos = MakeAligned(pos2d);
+	delta_move += trans2D->pos - prev_pos;
 }
 
 void Gizmo::MoveTrans3D(Vector2 ms)
@@ -718,6 +719,22 @@ void Gizmo::RenderTrans3D()
 		DrawCircle(1);
 		DrawCircle(2);
 	}
+}
+
+Vector2 Gizmo::MakeAligned(Vector2 pos)
+{
+	if (align2d.x > 0.01f && pos.x < 0.0f)
+	{
+		pos.x -= align2d.x;
+	}
+
+	if (align2d.y > 0.01f && pos.y < 0.0f)
+	{
+		pos.y -= align2d.y;
+	}
+
+	return Vector2((align2d.x > 0.01f) ? (align2d.x * ((int)(pos.x / align2d.x))) : pos.x,
+	               (align2d.y > 0.01f) ? (align2d.y * ((int)(pos.y / align2d.y))) : pos.y);
 }
 
 void Gizmo::Render()

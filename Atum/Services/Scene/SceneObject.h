@@ -136,6 +136,7 @@ public:
 	virtual void OnMouseMove(Vector2 delta_ms);
 	virtual void OnLeftMouseDown(Vector2 ms);
 	virtual void OnLeftMouseUp();
+	virtual void OnRectSelect(Vector2 p1, Vector2 p2);
 	virtual void OnRightMouseDown(Vector2 ms);
 	virtual void OnRightMouseUp();
 	virtual void OnPopupMenuItem(int id);

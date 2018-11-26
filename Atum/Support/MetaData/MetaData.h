@@ -59,6 +59,8 @@ public:
 	struct ArrayAdapter
 	{
 		uint8_t* value = nullptr;
+		int64_t sel_item_offset = -1;
+		int32_t* sel_item = nullptr;
 		virtual void Resize(int length) {};
 		virtual int GetSize() { return 0; };
 		virtual void PushBack() {};
@@ -117,11 +119,12 @@ public:
 
 	bool inited = false;
 	void* owner = nullptr;
+	void* root = nullptr;
 	std::vector<Property> properties;
 
 	MetaData() = default;
 	virtual void Init() = 0;
-	void Prepare(void* owner);
+	void Prepare(void* owner, void* root = nullptr);
 	void SetDefValues();
 	void Load(JSONReader& reader);
 	void Save(JSONWriter& writer);
@@ -239,6 +242,18 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 }
 #endif
 
+#define ARRAY_PROP_INST(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Array;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	prop.adapter = new ArrayAdapterImpl<structType>;\
+	prop.adapter->sel_item_offset = memberOFFSET(selItemClassName, selItemClassMember);\
+	properties.push_back(prop);\
+}
+
 #define ARRAY_PROP(className, classMember, structType, strCatName, strPropName)\
 {\
 	Property prop;\
@@ -249,6 +264,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.adapter = new ArrayAdapterImpl<structType>;\
 	properties.push_back(prop);\
 }
+
 
 #define SPRITE_PROP(className, classMember, strCatName, strPropName)\
 {\

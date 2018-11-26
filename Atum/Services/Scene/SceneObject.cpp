@@ -650,6 +650,11 @@ void SceneObject::OnLeftMouseUp()
 
 }
 
+void SceneObject::OnRectSelect(Vector2 p1, Vector2 p2)
+{
+
+}
+
 void SceneObject::OnRightMouseDown(Vector2 ms)
 {
 

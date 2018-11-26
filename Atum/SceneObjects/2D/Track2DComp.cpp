@@ -18,7 +18,7 @@ ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type")
 	ENUM_ELEM("Looped", 2)
 ENUM_END
 FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed")
-ARRAY_PROP(Track2DComp::Track, points, Point, "Prop", "track")
+ARRAY_PROP_INST(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point)
 META_DATA_DESC_END()
 
 
@@ -28,7 +28,7 @@ ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode")
 	ENUM_ELEM("Normal", 1)
 	ENUM_ELEM("Reversed", 2)
 ENUM_END
-ARRAY_PROP(Track2DComp, tracks, Track, "Tracks", "tracks")
+ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track)
 META_DATA_DESC_END()
 
 void Track2DComp::Play()
@@ -65,70 +65,73 @@ void Track2DComp::UpdateTrack(int index, float dt)
 
 	Track& track = tracks[index];
 
-	if (!track.active || track.points.size() < 2 || dt < 0.001f)
+	if (!track.active || track.points.size() < 2)
 	{
 		return;
 	}
 
-	track.cur_dist += track.speed * dt;
-
-	while (track.cur_dist > track.point_dist)
+	if (dt > 0.001f)
 	{
-		track.cur_dist -= track.point_dist;
+		track.cur_dist += track.speed * dt;
 
-		if (track.dir > 0.0f)
+		while (track.cur_dist > track.point_dist)
 		{
-			track.cur_point++;
+			track.cur_dist -= track.point_dist;
 
-			if (track.cur_point >= track.points.size())
+			if (track.dir > 0.0f)
 			{
-				if (track.tp == OneWay)
+				track.cur_point++;
+
+				if (track.cur_point >= track.points.size())
 				{
-					track.cur_point = 0;
-					track.point_dist = 0.0f;
-				}
-				else
-				if (track.tp == ForwardBack)
-				{
-					track.cur_point = (int)track.points.size() - 1;
-					track.point_dist = 0.0f;
-					track.dir = -1.0f;
-				}
-				else
-				{
-					if (track.cur_point == track.points.size())
-					{
-						track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
-					}
-					else
+					if (track.tp == OneWay)
 					{
 						track.cur_point = 0;
 						track.point_dist = 0.0f;
 					}
+					else
+						if (track.tp == ForwardBack)
+						{
+							track.cur_point = (int)track.points.size() - 1;
+							track.point_dist = 0.0f;
+							track.dir = -1.0f;
+						}
+						else
+						{
+							if (track.cur_point == track.points.size())
+							{
+								track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
+							}
+							else
+							{
+								track.cur_point = 0;
+								track.point_dist = 0.0f;
+							}
+						}
+				}
+				else
+				{
+					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
 				}
 			}
 			else
 			{
-				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
-			}
-		}
-		else
-		{
-			track.cur_point--;
+				track.cur_point--;
 
-			if (track.cur_point < 0)
-			{
-				track.cur_point = 0;
-				track.point_dist = 0.0f;
-				track.dir = 1.0f;
-			}
-			else
-			{
-				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point + 1].pos).Length();
+				if (track.cur_point < 0)
+				{
+					track.cur_point = 0;
+					track.point_dist = 0.0f;
+					track.dir = 1.0f;
+				}
+				else
+				{
+					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point + 1].pos).Length();
+				}
 			}
 		}
 	}
-
+	
 	int p1 = 0;
 	int p2 = 0;
 
@@ -336,7 +339,13 @@ void Track2DComp::SetEditMode(bool ed)
 
 	if (ed)
 	{
+		sel_track = ((SpriteInst*)object)->sel_inst;
 		SetGizmo();
+	}
+	else
+	{
+		sel_track = -1;
+		sel_point = -1;
 	}
 }
 

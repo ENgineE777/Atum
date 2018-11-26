@@ -502,6 +502,7 @@ void Editor::Draw(float dt)
 	render.ExecutePool(ExecuteLevels::Geometry, dt);
 	render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
 	render.ExecutePool(ExecuteLevels::Sprites, dt);
+	render.ExecutePool(ExecuteLevels::Sprites + 1, dt);
 	render.ExecutePool(ExecuteLevels::PostProcess, dt);
 	render.ExecutePool(ExecuteLevels::GUI, dt);
 	render.ExecutePool(ExecuteLevels::Debug, dt);
@@ -833,22 +834,25 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 			Sprite::ed_cam_pos -= ms - prev_ms;
 		}
 
-		gizmo.OnMouseMove(Vector2((float)mx, (float)my));
-
-		if (selectedObject)
+		if (!rect_select)
 		{
-			selectedObject->OnMouseMove(ms - prev_ms);
-		}
+			gizmo.OnMouseMove(Vector2((float)mx, (float)my));
 
-		if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !scene)
-		{
-			if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+			if (selectedObject)
 			{
-				allowCopy = false;
-				//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
+				selectedObject->OnMouseMove(ms - prev_ms);
 			}
 
-			selectedObject->Trans() = gizmo.GetTrans3D();
+			if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !scene)
+			{
+				if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+				{
+					allowCopy = false;
+					//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
+				}
+
+				selectedObject->Trans() = gizmo.GetTrans3D();
+			}
 		}
 	}
 
@@ -882,13 +886,22 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		}
 		else
 		{
-			allowCopy = true;
-			gizmo.OnLeftMouseDown();
 			sender->CaptureMouse();
 
-			if (selectedObject)
+			if (controls.DebugKeyPressed("KEY_LALT", Controls::Active))
 			{
-				selectedObject->OnLeftMouseDown(prev_ms);
+				rect_select = true;
+				ms_rect = prev_ms;
+			}
+			else
+			{
+				allowCopy = true;
+				gizmo.OnLeftMouseDown();
+
+				if (selectedObject)
+				{
+					selectedObject->OnLeftMouseDown(prev_ms);
+				}
 			}
 		}
 
@@ -900,12 +913,26 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
 	if (sender == viewport || sender == game_viewport)
 	{
-		gizmo.OnLeftMouseUp();
 		sender->ReleaseMouse();
 
-		if (selectedObject)
+		if (rect_select)
 		{
-			selectedObject->OnLeftMouseUp();
+			rect_select = false;
+
+			if (selectedObject)
+			{
+				selectedObject->OnRectSelect(Vector2(fmin(prev_ms.x, ms_rect.x), fmin(prev_ms.y, ms_rect.y)),
+				                             Vector2(fmax(prev_ms.x, ms_rect.x), fmax(prev_ms.y, ms_rect.y)));
+			}
+		}
+		else
+		{
+			gizmo.OnLeftMouseUp();
+
+			if (selectedObject)
+			{
+				selectedObject->OnLeftMouseUp();
+			}
 		}
 	}
 
@@ -1080,6 +1107,11 @@ void Editor::OnUpdate(EUIWidget* sender)
 			}
 		}
 
+		if (rect_select)
+		{
+			render.DebugRect2D(prev_ms, ms_rect, COLOR_YELLOW);
+		}
+
 		freecamera.Update(dt);
 
 		if (gizmo.IsEnabled() == !(trans3d_gizmo->IsVisible() || trans2d_gizmo->IsVisible()))
@@ -1211,9 +1243,9 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		return obj ? !obj->AddedToTreeByParent() : true;
 	}
 
-	if (sender == assets_treeview && target == scene_treeview && selectedObject && isSelectedAsset)
+	if (sender == assets_treeview && target == scene_treeview && assets_treeview->GetItemPtr(item))
 	{
-		SceneAsset* asset = (SceneAsset*)selectedObject;
+		SceneAsset* asset = (SceneAsset*)assets_treeview->GetItemPtr(item);
 
 		if (controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active, true))
 		{

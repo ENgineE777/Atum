@@ -224,6 +224,7 @@ GENERICff(fabsf)
 GENERICff(floorf)
 GENERICff(fractionf)
 
+
 void powf_generic(asIScriptGeneric *gen)
 {
 	float f1 = *(float*)gen->GetAddressOfArg(0);
@@ -235,6 +236,11 @@ void atan2f_generic(asIScriptGeneric *gen)
 	float f1 = *(float*)gen->GetAddressOfArg(0);
 	float f2 = *(float*)gen->GetAddressOfArg(1);
 	*(float*)gen->GetAddressOfReturnLocation() = atan2f(f1, f2);
+}
+
+void rand_impl_generic(asIScriptGeneric *gen)
+{
+	*(float*)gen->GetAddressOfReturnLocation() = ((float)rand() / RAND_MAX);
 }
 
 #else
@@ -340,6 +346,8 @@ void RegisterScriptMath(asIScriptEngine *engine)
 		RegisterScriptMath_Generic(engine);
 	else
 		RegisterScriptMath_Native(engine);
+
+	engine->RegisterGlobalFunction("float rand()", asFUNCTION(rand_impl_generic), asCALL_GENERIC);
 }
 
 END_AS_NAMESPACE

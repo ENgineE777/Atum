@@ -75,7 +75,9 @@ class Editor : public Object, public EUIWidget::Listener
 	Gizmo gizmo;
 
 	Vector2 prev_ms;
+	Vector2 ms_rect;
 	bool allowCopy = false;
+	bool rect_select = false;
 
 	int asset_panel_width = 1;
 	void*        popup_item = nullptr;

@@ -51,6 +51,7 @@ public:
 
 #ifdef EDITOR
 	int sel_point = -1;
+	int sel_track = -1;
 	Transform2D trans;
 	void Init() override;
 	void ApplyProperties() override;

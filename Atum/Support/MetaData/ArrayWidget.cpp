@@ -5,6 +5,10 @@
 void ArrayWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {
 	ProperyWidget::Init(parent, catName, labelName);
+	panel->SetListener(-1, this, EUIWidget::OnUpdate);
+
+	label = new EUILabel(panel, labelName, 5, 5, 85, 20);
+	label->Show(false);
 
 	label = new EUILabel(panel, labelName, 5, 5, 85, 20);
 
@@ -25,16 +29,37 @@ void ArrayWidget::SetData(void* set_data)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
 
-	int cur_size = adapter->GetSize();
-	int cat_size = (int)elem_cats.size();
+	//int cur_size = adapter->GetSize();
 
-	if (cat_size < cur_size)
+	//pre_sel_item = -1;
+	//cat->Show(false);
+
+	if (adapter->sel_item)
 	{
-		elem_cats.resize(cur_size);
+		sel_item = adapter->sel_item;
+		addBtn->Enable(false);
 
-		for (int i = cat_size; i<cur_size; i++)
+		pre_sel_item = -1;
+
+		if (elem_cats.size() == 0)
 		{
-			if (i < 10)
+			ElemCat elem;
+
+			elem.cat = new EUICategories(elements, 10, 0, 190, -1);
+			elements->RegisterChildInCategory("Selected Element", elem.cat);
+			elem_cats.push_back(elem);
+		}
+	}
+	else
+	{
+		int cur_size = adapter->GetSize();
+		int cat_size = (int)elem_cats.size();
+
+		if (cat_size < cur_size)
+		{
+			elem_cats.resize(cur_size);
+
+			for (int i = cat_size; i < cur_size; i++)
 			{
 				elem_cats[i].btnDel = new EUIButton(elements, "Delete", 10, 0, 170, 25);
 				elem_cats[i].btnDel->SetListener(i, this, 0);
@@ -47,26 +72,43 @@ void ArrayWidget::SetData(void* set_data)
 				elements->RegisterChildInCategory(str, elem_cats[i].cat);
 			}
 		}
-	}
-	else
-	{
-		for (int i = cur_size; i<cat_size;i++)
+		else
 		{
-			if (i < 10)
+			for (int i = cur_size; i < cat_size; i++)
 			{
 				elem_cats[i].btnDel->Show(false);
 				elem_cats[i].cat->Show(false);
 			}
 		}
-	}
 
-	for (int i = 0; i < cur_size; i++)
-	{
-		if (i < 10)
+		for (int i = 0; i < cur_size; i++)
 		{
 			elem_cats[i].cat->Show(true);
 			adapter->GetMetaData()->Prepare(adapter->GetItem(i));
 			adapter->GetMetaData()->PrepareWidgets(elem_cats[i].cat);
+		}
+	}
+}
+
+void ArrayWidget::OnUpdate(EUIWidget* sender)
+{
+	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
+
+	if (sel_item && *(sel_item) != pre_sel_item)
+	{
+		pre_sel_item = *(sel_item);
+
+		EUICategories* cat = elem_cats[0].cat;
+
+		if (pre_sel_item != -1)
+		{
+			cat->Show(true);
+			adapter->GetMetaData()->Prepare(adapter->GetItem(pre_sel_item), root);
+			adapter->GetMetaData()->PrepareWidgets(cat);
+		}
+		else
+		{
+			cat->Show(false);
 		}
 	}
 }
@@ -85,8 +127,11 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	}
 	else
 	{
-		adapter->Delete(sender->GetID());
+		if (sender->GetID() != -1)
+		{
+			adapter->Delete(sender->GetID());
 
-		SetData(nullptr);
+			SetData(nullptr);
+		}
 	}
 }

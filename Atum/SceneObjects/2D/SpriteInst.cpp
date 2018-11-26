@@ -5,21 +5,22 @@
 #include "Track2DComp.h"
 
 META_DATA_DESC(SpriteInst::Instance)
-FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y")
-INT_PROP(SpriteInst::Instance, index, -1, "Prop", "index")
-INT_PROP(SpriteInst::Instance, visible, 1, "Prop", "visible")
-COLOR_PROP(SpriteInst::Instance, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(SpriteInst::Instance, alpha, 0.0f, "Prop", "alpha")
+	FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x")
+	FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y")
+	INT_PROP(SpriteInst::Instance, index, -1, "Prop", "index")
+	INT_PROP(SpriteInst::Instance, visible, 1, "Prop", "visible")
+	COLOR_PROP(SpriteInst::Instance, color, COLOR_WHITE, "Prop", "color")
+	FLOAT_PROP(SpriteInst::Instance, alpha, 0.0f, "Prop", "alpha")
 META_DATA_DESC_END()
 
 CLASSREG(SceneObject, SpriteInst, "Sprite")
 
 META_DATA_DESC(SpriteInst)
-BASE_SCENE_OBJ_PROP(SpriteInst)
-FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
-FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
-ARRAY_PROP(SpriteInst, instances, Instance, "Prop", "inst")
+	BASE_SCENE_OBJ_PROP(SpriteInst)
+	FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
+	FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
+	INT_PROP(SpriteInst, draw_level, 0, "Geometry", "draw_level")
+	ARRAY_PROP_INST(SpriteInst, instances, Instance, "Prop", "inst", SpriteInst, sel_inst)
 META_DATA_DESC_END()
 
 void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* set_mapping)
@@ -294,9 +295,18 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property)
 
 void SpriteInst::Init()
 {
-	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteInst::Draw);
+	int k = memberOFFSET(SpriteInst, sel_inst);
 
 	script_callbacks.push_back(ScriptCallback("OnContact", "int", "%i%s%i"));
+}
+
+void SpriteInst::ApplyProperties()
+{
+#ifdef EDITOR
+	RenderTasks(false)->DelAllTasks(this);
+#endif
+
+	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + draw_level, this, (Object::Delegate)&SpriteInst::Draw);
 }
 
 bool SpriteInst::Play()
@@ -324,50 +334,81 @@ void SpriteInst::Draw(float dt)
 #ifdef EDITOR
 	if (edited)
 	{
-		if (sel_inst != -1)
+		if (rect_select)
 		{
-			instances[sel_inst].SetPos(trans.pos);
-		}
-
-		if (controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
-		{
-			for (auto comp : components)
+			if (controls.DebugKeyPressed("KEY_I"))
 			{
-				comp->InstDeleted(sel_inst);
+				ClearRect();
 			}
-
-			instances.erase(sel_inst + instances.begin());
-			sel_inst = -1;
-			SetGizmo();
-		}
-
-		bool add_center = controls.DebugKeyPressed("KEY_O");
-		bool add_after = controls.DebugKeyPressed("KEY_P");
-
-		if (add_center || add_after)
-		{
-			Instance inst;
-
-			if (sel_inst != -1 && add_after)
+			else
+			if (controls.DebugKeyPressed("KEY_O") || controls.DebugKeyPressed("KEY_P"))
 			{
-				inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
+				FillRect();
 			}
 			else
 			{
-				float scale = 1024.0f / render.GetDevice()->GetHeight();
-				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
+				if (Gizmo::inst->delta_move.Length() > 0.01f)
+				{
+					for (auto& index : sel_instances)
+					{
+						auto& inst = instances[index];
+						inst.SetPos(inst.GetPos() + Gizmo::inst->delta_move);
+					}
+				}
+
+				rect_p1 += Gizmo::inst->delta_move;
+				rect_p2 += Gizmo::inst->delta_move;
+
+				Gizmo::inst->delta_move = 0.0f;
 			}
-
-			instances.push_back(inst);
-
-			sel_inst = (int)instances.size() - 1;
-
-			for (auto comp : components)
+		}
+		else
+		{
+			if (sel_inst != -1)
 			{
-				comp->InstAdded();
+				instances[sel_inst].SetPos(trans.pos);
 			}
 
-			SetGizmo();
+			if (controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
+			{
+				for (auto comp : components)
+				{
+					comp->InstDeleted(sel_inst);
+				}
+
+				instances.erase(sel_inst + instances.begin());
+				sel_inst = -1;
+				SetGizmo();
+			}
+
+			bool add_center = controls.DebugKeyPressed("KEY_O");
+			bool add_after = controls.DebugKeyPressed("KEY_P");
+
+			if (add_center || add_after)
+			{
+				Instance inst;
+
+				if (sel_inst != -1 && add_after)
+				{
+					inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
+				}
+				else
+				{
+					float scale = 1024.0f / render.GetDevice()->GetHeight();
+					inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
+				}
+
+				instances.push_back(inst);
+
+				sel_inst = (int)instances.size() - 1;
+
+				for (auto comp : components)
+				{
+					comp->InstAdded();
+				}
+
+				SetGizmo();
+			}
 		}
 	}
 #endif
@@ -429,6 +470,20 @@ void SpriteInst::Draw(float dt)
 	}
 
 #ifdef EDITOR
+	if (rect_select)
+	{
+		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
+		Vector2 delta = Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+
+		for (auto& index : sel_instances)
+		{
+			auto& inst = instances[index];
+			Vector2 pos = (inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size) * scale - delta;
+			render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
+		}
+	}
+
 	if (edited)
 	{
 		if (sel_inst != -1)
@@ -547,10 +602,103 @@ void SpriteInst::SetActiveTrack(int index, bool set)
 }
 
 #ifdef EDITOR
+void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
+{
+	sel_inst = -1;
+	rect_select = true;
+
+	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+
+	Vector2 delta = Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+
+	rect_p1 = (p1 + delta) / scale;
+	rect_p1 = Gizmo::inst->MakeAligned((p1 + delta) / scale);
+	rect_p2 = (p2 + delta) / scale;
+	rect_p2 = Gizmo::inst->MakeAligned((p2 + delta) / scale);
+
+	sel_instances.clear();
+
+	int index = 0;
+	for (auto& inst : instances)
+	{
+		Vector2 pos = inst.GetPos();
+
+		if (rect_p1.x - 0.01f < pos.x && pos.x < rect_p2.x + 0.01f &&
+			rect_p1.y - 0.01f < pos.y && pos.y < rect_p2.y + 0.01f)
+		{
+			sel_instances.push_back(index);
+		}
+
+		index++;
+	}
+
+	multi_trans.offset = 0.0f;
+	multi_trans.pos = rect_p1 - Vector2(trans.offset.x, trans.offset.y) * trans.size;
+	multi_trans.size = rect_p2 + Vector2(1.0f - trans.offset.x, 1.0f - trans.offset.y) * trans.size - rect_p1;
+
+	Gizmo::inst->SetTrans2D(&multi_trans, Gizmo::trans_2d_move);
+}
+
+void SpriteInst::ClearRect()
+{
+	sel_instances.clear();
+
+	for (int index = (int)instances.size() - 1; index >= 0; index--)
+	{
+		auto& inst = instances[index];
+
+		Vector2 pos = inst.GetPos();
+
+		if (rect_p1.x - 0.01f < pos.x && pos.x < rect_p2.x + 0.01f &&
+			rect_p1.y - 0.01f < pos.y && pos.y < rect_p2.y + 0.01f)
+		{
+			for (auto comp : components)
+			{
+				comp->InstDeleted(index);
+			}
+
+			instances.erase(index + instances.begin());
+		}
+	}
+}
+
+void SpriteInst::FillRect()
+{
+	ClearRect();
+
+	float y = rect_p1.y;
+
+	while (y < rect_p2.y + 0.01f)
+	{
+		float x = rect_p1.x;
+
+		while (x < rect_p2.x + 0.01f)
+		{
+			Instance inst;
+
+			inst.SetPos(Vector2(x, y));
+
+			instances.push_back(inst);
+
+			for (auto comp : components)
+			{
+				comp->InstAdded();
+			}
+
+			sel_instances.push_back((int)instances.size() - 1);
+
+			x += Gizmo::inst->align2d.x;
+		}
+
+		y += Gizmo::inst->align2d.y;
+	}
+}
+
 bool SpriteInst::CheckSelection(Vector2 ms)
 {
 	float scale = render.GetDevice()->GetHeight() / 1024.0f;
 
+	rect_select = false;
 	sel_inst = -1;
 	for (int i = 0; i < instances.size(); i++)
 	{

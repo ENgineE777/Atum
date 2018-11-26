@@ -5,10 +5,11 @@
 CLASSREG(SceneObject, SpriteTileInst, "SpriteNT")
 
 META_DATA_DESC(SpriteTileInst)
-BASE_SCENE_OBJ_PROP(SpriteTileInst)
-FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale")
-FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth")
-ARRAY_PROP(SpriteTileInst, instances, Instance, "Prop", "inst")
+	BASE_SCENE_OBJ_PROP(SpriteTileInst)
+	FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale")
+	FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth")
+	INT_PROP(SpriteTileInst, draw_level, 0, "Geometry", "draw_level")
+	ARRAY_PROP_INST(SpriteTileInst, instances, Instance, "Prop", "inst", SpriteTileInst, sel_inst)
 META_DATA_DESC_END()
 
 void SpriteTileInst::BindClassToScript()
@@ -19,7 +20,15 @@ void SpriteTileInst::BindClassToScript()
 
 void SpriteTileInst::Init()
 {
-	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteTileInst::Draw);
+}
+
+void SpriteTileInst::ApplyProperties()
+{
+#ifdef EDITOR
+	RenderTasks(false)->DelAllTasks(this);
+#endif
+
+	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + draw_level, this, (Object::Delegate)&SpriteTileInst::Draw);
 }
 
 bool SpriteTileInst::Play()

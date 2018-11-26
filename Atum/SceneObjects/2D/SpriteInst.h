@@ -12,7 +12,9 @@ public:
 	META_DATA_DECL(SpriteInst)
 
 	Transform2D trans;
+	Transform2D multi_trans;
 	float axis_scale = 1.0f;
+	int draw_level = 0;
 
 	struct Instance
 	{
@@ -55,10 +57,22 @@ public:
 		float   angle = 0.0f;
 	};
 
+	struct InstanceHolder
+	{
+		int index = -1;
+		Instance* inst = nullptr;
+	};
+
 	vector<int> mapping;
 	CScriptArray* array = nullptr;
 
 	vector<Instance> instances;
+
+	bool rect_select = false;
+	Vector2 rect_p1;
+	Vector2 rect_p2;
+
+	vector<int> sel_instances;
 
 	virtual ~SpriteInst() = default;
 
@@ -67,6 +81,7 @@ public:
 	void MakeMapping(asIScriptObject* object);
 
 	void Init() override;
+	void ApplyProperties() override;
 	virtual void Draw(float dt);
 
 	bool Play() override;
@@ -81,6 +96,9 @@ public:
 
 #ifdef EDITOR
 	int sel_inst = -1;
+	void ClearRect();
+	void FillRect();
+	void OnRectSelect(Vector2 p1, Vector2 p2) override;
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();

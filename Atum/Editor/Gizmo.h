@@ -62,6 +62,8 @@ private:
 
 public:
 
+	Vector2 delta_move = 0.0;
+
 	void Init();
 	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);
 	void SetTrans3D(Matrix transform);
@@ -74,5 +76,6 @@ public:
 	void OnLeftMouseDown();
 	void OnLeftMouseUp();
 
+	Vector2 MakeAligned(Vector2 pos);
 	void Render();
 };

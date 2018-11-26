@@ -8,15 +8,16 @@
 CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphInst)
-BASE_SCENE_OBJ_PROP(SpriteGraphInst)
-FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
-ARRAY_PROP(SpriteGraphInst, instances, Instance, "Prop", "inst")
+	BASE_SCENE_OBJ_PROP(SpriteGraphInst)
+	FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
+	INT_PROP(SpriteGraphInst, draw_level, 0, "Geometry", "draw_level")
+	ARRAY_PROP_INST(SpriteGraphInst, instances, Instance, "Prop", "inst", SpriteGraphInst, sel_inst)
 META_DATA_DESC_END()
 
 void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ActivateLink(int index, string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "bool ActivateLink(int index, string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void GotoNode(int index, string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(int index, bool under)", WRAP_MFN(SpriteGraphInst, CheckColission), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(int index, float dx, float dy)", WRAP_MFN(SpriteGraphInst, MoveController), asCALL_GENERIC);
@@ -26,13 +27,17 @@ void SpriteGraphInst::BindClassToScript()
 
 void SpriteGraphInst::Init()
 {
-	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteGraphInst::Draw);
-
 	script_callbacks.push_back(ScriptCallback("OnContact", "int ", "%i%s%i"));
 }
 
 void SpriteGraphInst::ApplyProperties()
 {
+#ifdef EDITOR
+	RenderTasks(false)->DelAllTasks(this);
+#endif
+
+	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + draw_level, this, (Object::Delegate)&SpriteGraphInst::Draw);
+
 	if (asset)
 	{
 		for (auto& inst : instances)
@@ -163,9 +168,9 @@ void SpriteGraphInst::Draw(float dt)
 #endif
 }
 
-void SpriteGraphInst::ActivateLink(int index, string& link)
+bool SpriteGraphInst::ActivateLink(int index, string& link)
 {
-	instances[index].graph_instance.ActivateLink(link.c_str());
+	return instances[index].graph_instance.ActivateLink(link.c_str());
 }
 
 void SpriteGraphInst::GotoNode(int index, string& node)

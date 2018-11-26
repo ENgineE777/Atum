@@ -11,14 +11,14 @@
 #endif
 
 META_DATA_DESC(SpriteGraphAsset::Link)
-STRING_PROP(SpriteGraphAsset::Link, name, "", "Link", "Name")
-BOOL_PROP(SpriteGraphAsset::Link, def_link, "", "Link", "DefaultLink")
+	STRING_PROP(SpriteGraphAsset::Link, name, "", "Link", "Name")
+	BOOL_PROP(SpriteGraphAsset::Link, def_link, "", "Link", "DefaultLink")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SpriteGraphAsset::Node)
-STRING_PROP(SpriteGraphAsset::Node, name, "", "Node", "Name")
-BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped")
-BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed")
+	STRING_PROP(SpriteGraphAsset::Node, name, "", "Node", "Name")
+	BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped")
+	BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed")
 META_DATA_DESC_END()
 
 void SpriteGraphAsset::Instance::GotoNode(int index)
@@ -99,11 +99,11 @@ void SpriteGraphAsset::Instance::Update(float dt)
 CLASSREG(SceneAsset, SpriteGraphAsset, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphAsset)
-BASE_SCENE_ASSET_PROP(SpriteGraphAsset)
-FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(SpriteGraphAsset, trans.pos.y, 0.0f, "Prop", "y")
-FLOAT_PROP(SpriteGraphAsset, trans.size.x, 100.0f, "Prop", "width")
-FLOAT_PROP(SpriteGraphAsset, trans.size.y, 100.0f, "Prop", "height")
+	BASE_SCENE_ASSET_PROP(SpriteGraphAsset)
+	FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
+	FLOAT_PROP(SpriteGraphAsset, trans.pos.y, 0.0f, "Prop", "y")
+	FLOAT_PROP(SpriteGraphAsset, trans.size.x, 100.0f, "Prop", "width")
+	FLOAT_PROP(SpriteGraphAsset, trans.size.y, 100.0f, "Prop", "height")
 META_DATA_DESC_END()
 
 Sprite::FrameState SpriteGraphAsset::state;
@@ -685,7 +685,7 @@ void SpriteGraphAsset::OnLeftMouseUp()
 
 			nodes[sel_node].links.push_back(link);
 
-			sel_link = nodes[sel_node].links.size() - 1;
+			sel_link = (int)nodes[sel_node].links.size() - 1;
 
 			ShowProperties(true);
 		}

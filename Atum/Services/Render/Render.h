@@ -69,6 +69,7 @@ public:
 
 	void DebugLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth = true);
 	void DebugLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr);
+	void DebugRect2D(Vector2 from, Vector2 to, Color color);
 	void DebugSphere(Vector pos, Color color, float radius);
 	void DebugBox(Matrix pos, Color color, Vector scale);
 	void DebugTriangle(Vector p1, Vector p2, Vector p3, Color color);

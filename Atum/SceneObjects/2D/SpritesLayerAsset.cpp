@@ -16,7 +16,7 @@ META_DATA_DESC_END()
 
 META_DATA_DESC(SpritesLayerAsset)
 BASE_SCENE_ASSET_PROP(SpritesLayerAsset)
-ARRAY_PROP(SpritesLayerAsset, sprites, LayerSprite, "Prop", "sprites")
+ARRAY_PROP_INST(SpritesLayerAsset, sprites, LayerSprite, "Prop", "sprites", SpritesLayerAsset, sel_sprite)
 META_DATA_DESC_END()
 
 SpritesLayerAsset::SpritesLayerAsset() : SceneAsset()

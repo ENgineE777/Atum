@@ -3,7 +3,7 @@
 #include "MetaData.h"
 #include "SceneObjects/2D/Sprite.h"
 
-void MetaData::Prepare(void* set_owner)
+void MetaData::Prepare(void* set_owner, void* set_root)
 {
 	if (!inited)
 	{
@@ -12,6 +12,7 @@ void MetaData::Prepare(void* set_owner)
 	}
 
 	owner = set_owner;
+	root = set_root ? set_root : owner;
 
 	for (int i = 0; i < properties.size(); i++)
 	{
@@ -21,6 +22,11 @@ void MetaData::Prepare(void* set_owner)
 		if (prop.adapter)
 		{
 			prop.adapter->value = prop.value;
+
+			if (prop.adapter->sel_item_offset != -1)
+			{
+				prop.adapter->sel_item = (int32_t*)((uint8_t*)root + prop.adapter->sel_item_offset);
+			}
 		}
 	}
 }
@@ -122,7 +128,7 @@ void MetaData::Load(JSONReader& reader)
 				{
 					reader.EnterBlock("Elem");
 
-					prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+					prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
 					prop.adapter->GetMetaData()->Load(reader);
 
 					reader.LeaveBlock();
@@ -183,7 +189,7 @@ void MetaData::Save(JSONWriter& writer)
 			{
 				writer.StartBlock(nullptr);
 
-				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
 				prop.adapter->GetMetaData()->Save(writer);
 
 				writer.FinishBlock();
@@ -247,7 +253,7 @@ void MetaData::Copy(void* source)
 
 				prop.adapter->value = prop.value;
 
-				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i));
+				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
 				prop.adapter->GetMetaData()->Copy(src_item);
 			}
 		}
@@ -353,6 +359,7 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 			{
 				widget = new ArrayWidget();
 				((ArrayWidget*)widget)->prop = prop.adapter;
+				((ArrayWidget*)widget)->root = root;
 			}
 			else
 			if (prop.type == Sprite)

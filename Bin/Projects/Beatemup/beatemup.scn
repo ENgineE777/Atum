@@ -6049,6 +6049,7 @@
 			"Group" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.800000,
+			"draw_level" : 0,
 			"inst" :
 			{
 				"count" : 1,
@@ -6079,6 +6080,7 @@
 			"Group" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.800000,
+			"draw_level" : 0,
 			"inst" :
 			{
 				"count" : 1,

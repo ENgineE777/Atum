@@ -1,0 +1,307 @@
+Ôªø{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Characters",
+			"type" : 0
+		},
+		{
+			"uid" : 913568320,
+			"name" : "√ê√EnemyGraph_Body",
+			"type" : 1
+		},
+		{
+			"uid" : 961224896,
+			"name" : "√ê√HeroGraph_Body",
+			"type" : 1
+		},
+		{
+			"uid" : -112360960,
+			"name" : "EnemyGraph_Legs",
+			"type" : 1
+		},
+		{
+			"uid" : -224630016,
+			"name" : "HeroGraph_Legs",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "FX",
+			"type" : 0
+		},
+		{
+			"uid" : 1071438912,
+			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"uid" : 1105479296,
+			"name" : "Crosshair",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : 835467968,
+			"name" : "Back",
+			"type" : 1
+		},
+		{
+			"uid" : 676955072,
+			"name" : "BloodSplash",
+			"type" : 1
+		},
+		{
+			"uid" : 1618269568,
+			"name" : "FloorBlue",
+			"type" : 1
+		},
+		{
+			"uid" : -859323648,
+			"name" : "FloorCarpet",
+			"type" : 1
+		},
+		{
+			"uid" : -584944896,
+			"name" : "FloorGreen",
+			"type" : 1
+		},
+		{
+			"uid" : 937589248,
+			"name" : "FloorWood",
+			"type" : 1
+		},
+		{
+			"uid" : 410668992,
+			"name" : "LevelCamera",
+			"type" : 1
+		},
+		{
+			"uid" : 1483906176,
+			"name" : "WallCorner",
+			"type" : 1
+		},
+		{
+			"uid" : -1658567424,
+			"name" : "WallHorz",
+			"type" : 1
+		},
+		{
+			"uid" : 642529344,
+			"name" : "WallVert",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 200902816,
+			"name" : "Script",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Sprites",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Enemy",
+			"type" : 0
+		},
+		{
+			"uid" : 365581472,
+			"name" : "√ê√EnemyGraph_Body",
+			"type" : 1
+		},
+		{
+			"uid" : -1039160064,
+			"name" : "EnemyBody_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : 548886016,
+			"name" : "EnemyBody_Walk",
+			"type" : 1
+		},
+		{
+			"uid" : 1360461440,
+			"name" : "EnemyDead",
+			"type" : 1
+		},
+		{
+			"uid" : -1780856064,
+			"name" : "EnemyGraph_Legs",
+			"type" : 1
+		},
+		{
+			"uid" : 185616720,
+			"name" : "EnemyIdle",
+			"type" : 1
+		},
+		{
+			"uid" : 593845056,
+			"name" : "EnemyShoot",
+			"type" : 1
+		},
+		{
+			"uid" : 281700672,
+			"name" : "EnemyWalk",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Hero",
+			"type" : 0
+		},
+		{
+			"uid" : 1078503808,
+			"name" : "√ê√HeroGraph_Body",
+			"type" : 1
+		},
+		{
+			"uid" : -1350148352,
+			"name" : "HeroDeath",
+			"type" : 1
+		},
+		{
+			"uid" : 59089060,
+			"name" : "HeroGraph_Legs",
+			"type" : 1
+		},
+		{
+			"uid" : 1062832448,
+			"name" : "HeroIdle",
+			"type" : 1
+		},
+		{
+			"uid" : 828659840,
+			"name" : "HeroLegs_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : -161430528,
+			"name" : "HeroLegs_Walk",
+			"type" : 1
+		},
+		{
+			"uid" : -1464472832,
+			"name" : "HeroShoot",
+			"type" : 1
+		},
+		{
+			"uid" : 1972033280,
+			"name" : "HeroWalk",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : -1551564800,
+			"name" : "Back",
+			"type" : 1
+		},
+		{
+			"uid" : 1553014656,
+			"name" : "BloodSplash",
+			"type" : 1
+		},
+		{
+			"uid" : 1550317184,
+			"name" : "FloorBlue",
+			"type" : 1
+		},
+		{
+			"uid" : -1624141568,
+			"name" : "FloorCarpet",
+			"type" : 1
+		},
+		{
+			"uid" : -691562240,
+			"name" : "FloorGreen",
+			"type" : 1
+		},
+		{
+			"uid" : 429937152,
+			"name" : "FloorWood",
+			"type" : 1
+		},
+		{
+			"uid" : 2145061376,
+			"name" : "WallCorner",
+			"type" : 1
+		},
+		{
+			"uid" : -719308288,
+			"name" : "WallHorz",
+			"type" : 1
+		},
+		{
+			"uid" : 2002990720,
+			"name" : "WallVert",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1790361600,
+			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"uid" : 988714176,
+			"name" : "Crosshair",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

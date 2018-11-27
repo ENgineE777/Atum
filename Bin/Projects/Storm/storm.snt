@@ -22,6 +22,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : -1131261696,
+			"name" : "CellPurple",
+			"type" : 1
+		},
+		{
 			"uid" : -801427456,
 			"name" : "Cell_copy",
 			"type" : 1
@@ -195,7 +200,12 @@
 		},
 		{
 			"uid" : -1767270144,
-			"name" : "Cell",
+			"name" : "CellOrange",
+			"type" : 1
+		},
+		{
+			"uid" : 1027764288,
+			"name" : "CellPurple",
 			"type" : 1
 		},
 		{

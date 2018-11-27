@@ -1,0 +1,233 @@
+
+class Character
+{
+	float x,y;
+	float angle;
+	float prev_x = 0; 
+	float prev_y = 0;	
+	int hp = 1;
+}
+
+class Crosshair 
+{
+	float x,y;	
+}
+
+class Bullet
+{
+	float x,y;
+	float alpha;
+	float angle;
+	float size_x;
+	float dir_x;
+	float dir_y;
+	float dist;
+	float fade_time = -1.0f;
+}
+
+class Main
+{
+	Camera2D@ camera;
+	array<Crosshair> crosshair;
+	SpriteGraph@ hero_legs_obj;
+	array<Character> hero_legs;
+	SpriteGraph@ hero_body_obj;
+	array<Character> hero_body;
+	SpriteGraph@ enemy_legs_obj;
+	array<Character> enemy_legs;
+	SpriteGraph@ enemy_body_obj;
+	array<Character> enemy_body;
+	Sprite@ bullet_obj;
+	Sprite@ blood_splash_obj;
+	array<Bullet> bullets;
+
+	int alias_move_vert = -1;
+	int alias_move_horz = -1;
+	int alias_aim_vert = -1;
+	int alias_aim_horz = -1;
+	int alias_fire = -1;
+
+	bool inited = false;
+
+	float speed = 500.0f;
+
+	float crosshair_dist = 90.0f;
+	float crosshair_fire_dist = 20.0f;
+	float crosshair_dir_x = 0.0f;
+	float crosshair_dir_y = -1.0f;
+
+	void Update(float dt)
+	{
+		if (!inited)
+		{
+			alias_move_vert = Control_GetAlias("Frog.MOVE_VERT");
+			alias_move_horz = Control_GetAlias("Frog.MOVE_HORZ");
+			alias_aim_vert = Control_GetAlias("Frog.AIM_VERT");
+			alias_aim_horz = Control_GetAlias("Frog.AIM_HORZ");
+			alias_fire = Control_GetAlias("Frog.Fire");
+
+			inited = true;
+		}
+
+		float dir_x = Control_GetValue(alias_move_horz, 0);
+		float dir_y = -Control_GetValue(alias_move_vert, 0);
+
+		if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+		{
+			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+			dir_x /= len;
+			dir_y /= len;
+
+			hero_body[0].x += dir_x * dt * speed;
+			hero_body[0].y += dir_y * dt * speed;
+
+			hero_legs[0].angle = atan2(dir_y, dir_x);
+
+			hero_body_obj.ActivateLink(0, "Walk");
+			hero_legs_obj.ActivateLink(0, "Walk");
+		}
+		else
+		{
+			hero_body_obj.ActivateLink(0, "Idle");
+			hero_legs_obj.ActivateLink(0, "Idle");
+		}
+
+		dir_x = Control_GetValue(alias_aim_horz, 0);
+		dir_y = -Control_GetValue(alias_aim_vert, 0);
+		
+		if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+		{
+			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+			crosshair_dir_x = dir_x / len;
+			crosshair_dir_y = dir_y / len;
+		}
+
+		for (int j = 0; j<enemy_body.length();j++)
+		{
+			Character@ enemy = enemy_body[j];
+				
+			if (enemy.hp == 0)
+			{
+				continue;
+			}
+
+			float dir_x = enemy.x - enemy.prev_x;
+			float dir_y = enemy.y - enemy.prev_y;
+
+			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+
+			if (len > 0.01f)
+			{
+				enemy.angle = atan2(dir_y / len, dir_x / len);
+
+				enemy.prev_x = enemy.x; 
+				enemy.prev_y = enemy.y;
+			}
+		}
+
+		for (int index = 0; index<bullets.length(); index++)
+		{
+			Bullet@ bullet = bullets[index];
+
+			if (bullet.fade_time > 0.0f)
+			{
+				bullet.fade_time -= dt * 2.0f;
+				bullet.alpha = bullet.fade_time;
+
+				if (bullet.fade_time < 0.001f)
+				{
+					bullet_obj.RemoveInstance(index);
+					index--;
+				}
+			}
+			else
+			{
+				float len = dt * 2500.0f;
+				bullet.dist += len;
+				bullet.size_x += len;
+
+				if (bullet.size_x > 550.0f)
+				{
+					bullet.size_x = 550.0f;
+				}
+
+
+				if (bullet.dist > 1500.0f)
+				{
+					bullet.fade_time = 0.5f;
+				}
+
+				if (bullet.dist < 15.0f)
+				{
+					bullet.alpha = bullet.dist / 15.0f;
+				}
+				else
+				{
+					bullet.alpha = 1.0f;
+				}
+
+				bullet.x += bullet.dir_x * len;
+				bullet.y += bullet.dir_y * len;
+
+				for (int j = 0; j<enemy_body.length();j++)
+				{
+					Character@ enemy = enemy_body[j];
+				
+					if (enemy.hp == 0)
+					{
+						continue;
+					}
+
+					if (enemy.x - 35 < bullet.x && bullet.x < enemy.x + 35 &&
+						enemy.y - 35 < bullet.y && bullet.y < enemy.y + 35)
+					{
+						bullet.fade_time = 0.5f;
+
+
+						int count = 3 + (rand() * 5);
+						
+						for (int i = 0; i < count; i++)
+						{
+							blood_splash_obj.AddInstance(bullet.x - 30.0f + 60.0f * rand(), bullet.y - 30.0f + 60.0f * rand(), true);
+						}
+						
+						enemy.hp--;
+
+						if (enemy.hp == 0)
+						{
+							enemy.angle = bullet.angle;
+							enemy_body_obj.SetActiveTrack(j, false);
+							enemy_body_obj.GotoNode(j, "Death");
+						}
+					}
+				}
+			}
+		}
+
+		if (Control_GetState(alias_fire, 1) > 0)
+		{
+			if (hero_body_obj.ActivateLink(0, "Shoot"))
+			{
+				int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist, false);
+				
+				bullets[index].dir_x = crosshair_dir_x;
+				bullets[index].dir_y = crosshair_dir_y;
+				bullets[index].dist = 0;
+				bullets[index].angle = atan2(crosshair_dir_y, crosshair_dir_x);
+				bullets[index].alpha = 0.0f;
+				bullets[index].size_x = 0.0f;
+			}
+		}
+
+		crosshair[0].x = hero_body[0].x + crosshair_dir_x * crosshair_dist;
+		crosshair[0].y = hero_body[0].y + crosshair_dir_y * crosshair_dist;
+
+		hero_body[0].angle = atan2(crosshair_dir_y, crosshair_dir_x);
+
+		hero_legs[0].x = hero_body[0].x;
+		hero_legs[0].y = hero_body[0].y;
+
+		camera.target_pos_x = hero_body[0].x;
+		camera.target_pos_y = hero_body[0].y;
+	}
+}

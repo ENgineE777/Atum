@@ -18,7 +18,7 @@ DeviceGLES::DeviceGLES()
 	}
 }
 
-bool DeviceGLES::Init(int width, int height, void* data)
+bool DeviceGLES::Init(void* data)
 {
 	core.Log("Render", "Version %i", GL_VERSION);
 	core.Log("Render", "Vendor %i", GL_VENDOR);
@@ -26,8 +26,6 @@ bool DeviceGLES::Init(int width, int height, void* data)
 	core.Log("Render", "Extensions %i", GL_EXTENSIONS);
 
 	glGenFramebuffers(1, &frame_buffer);
-
-	SetVideoMode(width, height, data);
 
 	return true;
 }

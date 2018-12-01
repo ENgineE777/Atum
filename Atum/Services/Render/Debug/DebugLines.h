@@ -34,8 +34,8 @@ class DebugLines : public Object
 public:
 
 	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth);
-	void AddLine2D(Vector2& from, Color& from_clr, Vector2& to, Color& to_clr);
+	void AddLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth);
+	void AddLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr);
 	void DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d);
 	void Draw(float dt);
 	void Release();

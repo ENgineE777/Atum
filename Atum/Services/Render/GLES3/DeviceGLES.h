@@ -38,7 +38,7 @@ class DeviceGLES : public Device
 	class TextureGLES* cur_depth = nullptr;
 
 	DeviceGLES();
-	virtual bool Init(int width, int height, void* data);
+	virtual bool Init(void* data);
 	virtual void PrepareProgram(Program* program);
 	virtual void Release();
 

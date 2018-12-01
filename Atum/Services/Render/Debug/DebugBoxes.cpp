@@ -83,7 +83,7 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugBoxes::Draw);
 }
 
-void DebugBoxes::AddBox(Matrix& trans, Color& color, Vector& scale)
+void DebugBoxes::AddBox(Matrix trans, Color color, Vector scale)
 {
 	boxes.push_back(Box());
 	Box* box = &boxes[boxes.size()-1];

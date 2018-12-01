@@ -26,7 +26,7 @@ class DebugTriangles : public Object
 public:
 	
 	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color);
+	void AddTriangle(Vector p1, Vector p2, Vector p3, Color color);
 	void Draw(float dt);
 	void Release();
 };

@@ -226,12 +226,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp">
       <Filter>Services\Font</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Platform\Android\android_fopen.cpp">
-      <Filter>Platform\Android</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Platform\Android\gles3jni.cpp">
-      <Filter>Platform\Android</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.cpp">
       <Filter>Services\Render\DX11</Filter>
     </ClCompile>
@@ -487,6 +481,9 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp">
       <Filter>SceneObjects\2D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Android\AtumLib.cpp">
+      <Filter>Platform\Android</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -662,9 +659,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h">
       <Filter>Services\Font</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Platform\Android\android_fopen.h">
-      <Filter>Platform\Android</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\VertexDecl.h">
       <Filter>Services\Render</Filter>

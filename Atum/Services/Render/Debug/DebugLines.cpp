@@ -16,7 +16,7 @@ void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugLines::Draw);
 }
 
-void DebugLines::AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_clr, bool use_depth)
+void DebugLines::AddLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth)
 {
 	std::vector<Vertex>* ln;
 
@@ -33,7 +33,7 @@ void DebugLines::AddLine(Vector& from, Color& from_clr, Vector& to, Color& to_cl
 	ln->push_back(Vertex(to, to_clr.Get()));
 }
 
-void DebugLines::AddLine2D(Vector2& from, Color& from_clr, Vector2& to, Color& to_clr)
+void DebugLines::AddLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr)
 {
 	lines_2d.push_back(Vertex(Vector(from.x, from.y, 1.0f), from_clr.Get()));
 	lines_2d.push_back(Vertex(Vector(to.x, to.y, 1.0f), to_clr.Get()));

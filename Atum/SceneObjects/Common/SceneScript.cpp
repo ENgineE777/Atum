@@ -134,7 +134,7 @@ void SceneScript::GetScriptFileName(uint32_t id,string& filename)
 {
 	char str[1024];
 
-	StringUtils::Printf(str, 1024, "%s/%u.sns", owner->GetScenePath(), id);
+	StringUtils::Printf(str, 1024, "%s%u.sns", owner->GetScenePath(), id);
 	filename = str;
 }
 

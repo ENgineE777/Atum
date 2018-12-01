@@ -56,7 +56,7 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/2D/SpriteTileAsset.cpp
             ${atum_DIR}/SceneObjects/2D/SpriteTileInst.cpp
             ${atum_DIR}/SceneObjects/2D/Track2DComp.cpp
-            ${atum_DIR}/SceneObjects/2D/Triger2D.cpp
+            ${atum_DIR}/SceneObjects/2D/Trigger2D.cpp
             ${atum_DIR}/SceneObjects/3D/PhysBox.cpp
             ${atum_DIR}/SceneObjects/3D/terrain.cpp
             ${atum_DIR}/SceneObjects/Common/Animator/DataTrack/ColorDataTrack.cpp

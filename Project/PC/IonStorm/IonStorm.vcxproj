@@ -21,13 +21,9 @@
     <ClCompile Include="..\..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\SceneObjCmpWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\main.cpp" />
-    <ClCompile Include="..\..\..\Atum\Platform\Android\android_fopen.cpp">
+    <ClCompile Include="..\..\..\Atum\Platform\Android\AtumLib.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Platform\Android\gles3jni.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Camera2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.cpp" />
@@ -172,7 +168,6 @@
     <ClInclude Include="..\..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h" />
     <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h" />
-    <ClInclude Include="..\..\..\Atum\Platform\Android\android_fopen.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Camera2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Sprite.h" />

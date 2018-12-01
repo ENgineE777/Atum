@@ -69,7 +69,7 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugSpheres::Draw);
 }
 
-void DebugSpheres::AddSphere(Vector& pos, Color& color, float radius)
+void DebugSpheres::AddSphere(Vector pos, Color color, float radius)
 {
 	spheres.push_back(Sphere());
 	Sphere* sphere = &spheres[spheres.size()-1];

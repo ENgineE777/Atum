@@ -42,6 +42,9 @@ public:
 		vector<Point> points;
 	};
 
+	int sel_point = -1;
+	int sel_track = -1;
+
 	FlipMode flip_mode;
 	vector<Track> tracks;
 
@@ -50,8 +53,6 @@ public:
 	void UpdateTrack(int index, float dt);
 
 #ifdef EDITOR
-	int sel_point = -1;
-	int sel_track = -1;
 	Transform2D trans;
 	void Init() override;
 	void ApplyProperties() override;

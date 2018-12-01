@@ -44,7 +44,7 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	prg = render.GetProgram("DbgSprite");
 }
 
-void DebugSprites::AddSprite(Texture* texture, Vector2& pos, Vector2& size, Color& color)
+void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Color color)
 {
 	if (sprites.size()>1000) return;
 

@@ -66,6 +66,7 @@ public:
 	vector<int> mapping;
 	CScriptArray* array = nullptr;
 
+	int sel_inst = -1;
 	vector<Instance> instances;
 
 	bool rect_select = false;
@@ -95,7 +96,6 @@ public:
 	void SetActiveTrack(int index, bool set);
 
 #ifdef EDITOR
-	int sel_inst = -1;
 	void ClearRect();
 	void FillRect();
 	void OnRectSelect(Vector2 p1, Vector2 p2) override;

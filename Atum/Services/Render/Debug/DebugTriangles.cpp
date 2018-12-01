@@ -13,7 +13,7 @@ void DebugTriangles::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugTriangles::Draw);
 }
 
-void DebugTriangles::AddTriangle(Vector& p1, Vector& p2, Vector& p3, Color& color)
+void DebugTriangles::AddTriangle(Vector p1, Vector p2, Vector p3, Color color)
 {
 	triangles.push_back(Triangle());
 	Triangle* triangle = &triangles[triangles.size()-1];

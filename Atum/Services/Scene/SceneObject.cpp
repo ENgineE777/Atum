@@ -314,7 +314,9 @@ void SceneObject::DelComponent(SceneObjectComp* comp)
 	{
 		if (components[index] == comp)
 		{
+#ifdef EDITOR
 			components[index]->GetMetaData()->HideWidgets();
+#endif
 			components[index]->Release();
 			components.erase(components.begin() + index);
 			break;

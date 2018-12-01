@@ -21,6 +21,7 @@ public:
 		Sprite::FrameState state;
 	};
 
+	int sel_sprite = -1;
 	vector<LayerSprite> sprites;
 
 	SpritesLayerAsset();
@@ -30,7 +31,6 @@ public:
 	void Draw(float dt);
 
 #ifdef EDITOR
-	int sel_sprite = -1;
 	void SetEditMode(bool ed) override;
 	void OnLeftMouseDown(Vector2 ms) override;
 	void SetGizmo();

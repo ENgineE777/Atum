@@ -208,14 +208,18 @@ class Main
 		{
 			if (hero_body_obj.ActivateLink(0, "Shoot"))
 			{
-				int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist, false);
+				for (int i = 0; i < 3; i++)
+				{
+					int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist, false);
 				
-				bullets[index].dir_x = crosshair_dir_x;
-				bullets[index].dir_y = crosshair_dir_y;
-				bullets[index].dist = 0;
-				bullets[index].angle = atan2(crosshair_dir_y, crosshair_dir_x);
-				bullets[index].alpha = 0.0f;
-				bullets[index].size_x = 0.0f;
+					float angle = atan2(crosshair_dir_y, crosshair_dir_x) + (-3.0f + 6.0f * rand()) * 0.01745329f;
+					bullets[index].dir_x = cos(angle);
+					bullets[index].dir_y = sin(angle);
+					bullets[index].dist = 0;
+					bullets[index].angle = angle;
+					bullets[index].alpha = 0.0f;
+					bullets[index].size_x = 0.0f;
+				}
 			}
 		}
 

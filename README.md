@@ -23,4 +23,4 @@ Currently the engine have follow features:
 - Network code which allows to create server/clinet; there is some code in repo which allows
   to create a simple network game
 
-https://youtu.be/oDgh4sa2F2o
+[![Watch promo video](https://img.youtube.com/vi/oDgh4sa2F2o/0.jpg)](https://www.youtube.com/watch?v=oDgh4sa2F2o)

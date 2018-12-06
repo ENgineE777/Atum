@@ -31,6 +31,7 @@ public:
 	int move_mode = 0;
 	int gizmo2d_align_x = 0;
 	int gizmo2d_align_y = 0;
+	PhysScene* pscene = nullptr;
 
 private:
 	std::vector<SceneObject*> objects;
@@ -43,7 +44,6 @@ private:
 	std::map<std::string, Group> groups;
 
 	ScriptContext* script = nullptr;
-	PhysScene* pscene = nullptr;
 
 	void DelFromGroup(Group& group, SceneObject* obj);
 

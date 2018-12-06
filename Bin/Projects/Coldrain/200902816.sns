@@ -3,6 +3,7 @@ class Character
 {
 	float x,y;
 	float angle;
+	int visible;
 	float prev_x = 0; 
 	float prev_y = 0;	
 	int hp = 1;
@@ -39,6 +40,7 @@ class Main
 	array<Character> enemy_body;
 	Sprite@ bullet_obj;
 	Sprite@ blood_splash_obj;
+	Sprite@ bullet_wall_hit;
 	array<Bullet> bullets;
 
 	int alias_move_vert = -1;
@@ -52,7 +54,7 @@ class Main
 	float speed = 500.0f;
 
 	float crosshair_dist = 90.0f;
-	float crosshair_fire_dist = 20.0f;
+	float crosshair_fire_dist = 50.0f;
 	float crosshair_dir_x = 0.0f;
 	float crosshair_dir_y = -1.0f;
 
@@ -78,8 +80,7 @@ class Main
 			dir_x /= len;
 			dir_y /= len;
 
-			hero_body[0].x += dir_x * dt * speed;
-			hero_body[0].y += dir_y * dt * speed;
+			hero_body_obj.Move(0, dir_x * dt * speed, dir_y * dt * speed);
 
 			hero_legs[0].angle = atan2(dir_y, dir_x);
 
@@ -111,14 +112,21 @@ class Main
 				continue;
 			}
 
+			enemy_body_obj.ActivateLink(j, "Walk");
+			enemy_legs_obj.ActivateLink(j, "Walk");
+
 			float dir_x = enemy.x - enemy.prev_x;
 			float dir_y = enemy.y - enemy.prev_y;
 
 			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
 
+			enemy_legs[j].x = enemy.x;
+			enemy_legs[j].y = enemy.y;
+
 			if (len > 0.01f)
 			{
 				enemy.angle = atan2(dir_y / len, dir_x / len);
+				enemy_legs[j].angle = enemy.angle;
 
 				enemy.prev_x = enemy.x; 
 				enemy.prev_y = enemy.y;
@@ -166,6 +174,20 @@ class Main
 					bullet.alpha = 1.0f;
 				}
 
+
+				float pos_x, pos_y, normal_x, normal_y;
+
+				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, pos_x, pos_y, normal_x, normal_y) > 0)
+				{
+					bullet.x = pos_x;
+					bullet.y = pos_y;
+					bullet.fade_time = 0.5f;
+
+					bullet_wall_hit.AddInstance(pos_x, pos_y, true);
+
+					continue;		
+				}
+
 				bullet.x += bullet.dir_x * len;
 				bullet.y += bullet.dir_y * len;
 
@@ -195,6 +217,7 @@ class Main
 
 						if (enemy.hp == 0)
 						{
+							enemy_legs[j].visible = 0;
 							enemy.angle = bullet.angle;
 							enemy_body_obj.SetActiveTrack(j, false);
 							enemy_body_obj.GotoNode(j, "Death");
@@ -210,7 +233,7 @@ class Main
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist, false);
+					int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist - 32, false);
 				
 					float angle = atan2(crosshair_dir_y, crosshair_dir_x) + (-3.0f + 6.0f * rand()) * 0.01745329f;
 					bullets[index].dir_x = cos(angle);
@@ -224,7 +247,7 @@ class Main
 		}
 
 		crosshair[0].x = hero_body[0].x + crosshair_dir_x * crosshair_dist;
-		crosshair[0].y = hero_body[0].y + crosshair_dir_y * crosshair_dist;
+		crosshair[0].y = hero_body[0].y + crosshair_dir_y * crosshair_dist - 32;
 
 		hero_body[0].angle = atan2(crosshair_dir_y, crosshair_dir_x);
 

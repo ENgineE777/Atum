@@ -8,17 +8,17 @@
 		},
 		{
 			"uid" : 913568320,
-			"name" : "√ê√EnemyGraph_Body",
-			"type" : 1
-		},
-		{
-			"uid" : 961224896,
-			"name" : "√ê√HeroGraph_Body",
+			"name" : "EnemyGraph_Body",
 			"type" : 1
 		},
 		{
 			"uid" : -112360960,
 			"name" : "EnemyGraph_Legs",
+			"type" : 1
+		},
+		{
+			"uid" : 413751904,
+			"name" : "HeroGraph_Body",
 			"type" : 1
 		},
 		{
@@ -37,8 +37,18 @@
 			"type" : 0
 		},
 		{
+			"uid" : 676955072,
+			"name" : "BloodSplash",
+			"type" : 1
+		},
+		{
 			"uid" : 1071438912,
 			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"uid" : -2003724544,
+			"name" : "BulletWallHit",
 			"type" : 1
 		},
 		{
@@ -59,11 +69,6 @@
 		{
 			"uid" : 835467968,
 			"name" : "Back",
-			"type" : 1
-		},
-		{
-			"uid" : 676955072,
-			"name" : "BloodSplash",
 			"type" : 1
 		},
 		{
@@ -134,11 +139,6 @@
 			"type" : 0
 		},
 		{
-			"uid" : 365581472,
-			"name" : "√ê√EnemyGraph_Body",
-			"type" : 1
-		},
-		{
 			"uid" : -1039160064,
 			"name" : "EnemyBody_Idle",
 			"type" : 1
@@ -151,6 +151,11 @@
 		{
 			"uid" : 1360461440,
 			"name" : "EnemyDead",
+			"type" : 1
+		},
+		{
+			"uid" : 365581472,
+			"name" : "EnemyGraph_Body",
 			"type" : 1
 		},
 		{
@@ -184,13 +189,13 @@
 			"type" : 0
 		},
 		{
-			"uid" : 1078503808,
-			"name" : "√ê√HeroGraph_Body",
+			"uid" : -1350148352,
+			"name" : "HeroDeath",
 			"type" : 1
 		},
 		{
-			"uid" : -1350148352,
-			"name" : "HeroDeath",
+			"uid" : 1078503808,
+			"name" : "HeroGraph_Body",
 			"type" : 1
 		},
 		{
@@ -239,11 +244,6 @@
 			"type" : 1
 		},
 		{
-			"uid" : 1553014656,
-			"name" : "BloodSplash",
-			"type" : 1
-		},
-		{
 			"uid" : 1550317184,
 			"name" : "FloorBlue",
 			"type" : 1
@@ -284,8 +284,18 @@
 			"type" : 2
 		},
 		{
+			"uid" : 1553014656,
+			"name" : "BloodSplash",
+			"type" : 1
+		},
+		{
 			"uid" : -1790361600,
 			"name" : "Bullet",
+			"type" : 1
+		},
+		{
+			"uid" : -807685120,
+			"name" : "BulletWallHit",
 			"type" : 1
 		},
 		{

@@ -1358,7 +1358,7 @@
 				"x" : 57.000000,
 				"y" : -227.000000
 			},
-			"Name" : "Ð?eroGraph_Body",
+			"Name" : "HeroGraph_Body",
 			"x" : 56.000000,
 			"y" : 48.000000,
 			"width" : 168.000000,
@@ -1450,6 +1450,18 @@
 					"Link" : [
 					]
 				}
+			],
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 5,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : false,
+					"use_object_size" : false,
+					"width" : 64.000000,
+					"height" : 66.000000
+				}
 			]
 		},
 		{
@@ -1461,10 +1473,10 @@
 				"y" : 0.000000
 			},
 			"Name" : "HeroGraph_Legs",
-			"x" : 32.000000,
-			"y" : 32.000000,
-			"width" : 64.000000,
-			"height" : 64.000000,
+			"x" : 48.000000,
+			"y" : 48.000000,
+			"width" : 96.000000,
+			"height" : 96.000000,
 			"def_node" : 0,
 			"Count" : 2,
 			"Node" : [
@@ -2664,7 +2676,7 @@
 				"x" : 57.000000,
 				"y" : -227.000000
 			},
-			"Name" : "Ð?nemyGraph_Body",
+			"Name" : "EnemyGraph_Body",
 			"x" : 45.000000,
 			"y" : 32.000000,
 			"width" : 135.000000,
@@ -2767,8 +2779,8 @@
 				"y" : 0.000000
 			},
 			"Name" : "EnemyGraph_Legs",
-			"x" : 32.000000,
-			"y" : 32.000000,
+			"x" : 48.000000,
+			"y" : 48.000000,
 			"width" : 96.000000,
 			"height" : 96.000000,
 			"def_node" : 0,
@@ -3000,7 +3012,19 @@
 						}
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 0,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",
@@ -3062,7 +3086,19 @@
 						}
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 0,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",
@@ -3321,12 +3357,12 @@
 				"y" : 0.000000
 			},
 			"Name" : "BloodSplash",
-			"x" : -44.272972,
-			"y" : 2.856099,
-			"width" : 48.000000,
+			"x" : -48.000000,
+			"y" : 0.000000,
+			"width" : 50.666668,
 			"height" : 48.000000,
-			"anchorn_x" : 0.000000,
-			"anchorn_y" : 0.000000,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3373,39 +3409,71 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "SpriteAsset",
+			"uid" : -807685120,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BulletWallHit",
+			"x" : -48.000000,
+			"y" : 0.000000,
+			"width" : 50.666668,
+			"height" : 48.000000,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"sprite" :
+			{
+				"width" : 558,
+				"height" : 722,
+				"type" : 0,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
+				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texMode" : 0,
+				"texFilter" : 0,
+				"count" : 1,
+				"Rect" : [
+					{
+						"pos" :
+						{
+							"x" : 498.000000,
+							"y" : 595.000000
+						},
+						"size" :
+						{
+							"x" : 16.000000,
+							"y" : 16.000000
+						},
+						"uv" :
+						{
+							"x" : 0.892473,
+							"y" : 0.824100
+						},
+						"duv" :
+						{
+							"x" : 0.028674,
+							"y" : 0.022161
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						}
+					}
+				]
+			}
 		}
 	],
 	"SceneObject" : [
-		{
-			"type" : "SpriteGraphInst",
-			"uid" : 961224896,
-			"Name" : "Ð?eroGraph_Body",
-			"State" : 2,
-			"Group" : "",
-			"Depth" : 0.480000,
-			"draw_level" : 0,
-			"inst" :
-			{
-				"count" : 1,
-				"Elem" : [
-					{
-						"x" : -432.000000,
-						"y" : 168.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					}
-				]
-			},
-			"asset_uid" : 1078503808
-		},
 		{
 			"type" : "SpriteGraphInst",
 			"uid" : -224630016,
@@ -3413,6 +3481,7 @@
 			"State" : 2,
 			"Group" : "",
 			"Depth" : 0.480000,
+			"hack_height" : -32.000000,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -3448,7 +3517,7 @@
 			"State" : 2,
 			"Group" : "",
 			"main_class" : "Main",
-			"Count" : 14,
+			"Count" : 15,
 			"Node" : [
 				{
 					"type" : 1,
@@ -3491,7 +3560,7 @@
 						"x" : 372.000000,
 						"y" : 257.000000
 					},
-					"object_uid" : 961224896,
+					"object_uid" : 413751904,
 					"object_child_uid" : 0
 				},
 				{
@@ -3515,7 +3584,7 @@
 						"x" : 388.000000,
 						"y" : 359.000000
 					},
-					"object_uid" : 961224896,
+					"object_uid" : 413751904,
 					"object_child_uid" : 0
 				},
 				{
@@ -3605,6 +3674,17 @@
 					},
 					"object_uid" : 676955072,
 					"object_child_uid" : 0
+				},
+				{
+					"type" : 1,
+					"name" : "bullet_wall_hit",
+					"pos" :
+					{
+						"x" : 1207.000000,
+						"y" : 360.000000
+					},
+					"object_uid" : -2003724544,
+					"object_child_uid" : 0
 				}
 			]
 		},
@@ -3687,10 +3767,11 @@
 		{
 			"type" : "SpriteGraphInst",
 			"uid" : 913568320,
-			"Name" : "Ð?nemyGraph_Body",
+			"Name" : "EnemyGraph_Body",
 			"State" : 2,
 			"Group" : "",
 			"Depth" : 0.480000,
+			"hack_height" : 0.000000,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -3995,6 +4076,7 @@
 			"State" : 2,
 			"Group" : "",
 			"Depth" : 0.480000,
+			"hack_height" : 0.000000,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -7301,7 +7383,12 @@
 					}
 				]
 			},
-			"asset_uid" : -719308288
+			"asset_uid" : -719308288,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -8032,7 +8119,12 @@
 					}
 				]
 			},
-			"asset_uid" : 2002990720
+			"asset_uid" : 2002990720,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
 		},
 		{
 			"type" : "SpriteInst",
@@ -20130,9 +20222,66 @@
 				]
 			},
 			"asset_uid" : 1553014656
+		},
+		{
+			"type" : "SpriteGraphInst",
+			"uid" : 413751904,
+			"Name" : "HeroGraph_Body",
+			"State" : 2,
+			"Group" : "",
+			"Depth" : 0.475000,
+			"hack_height" : -32.000000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : -432.000000,
+						"y" : 144.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 1078503808,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : -2003724544,
+			"Name" : "BulletWallHit",
+			"State" : 2,
+			"Group" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.490000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : -807685120
 		}
 	],
 	"asset_inctances" : [
+		{
+			"asset_uid" : 1078503808,
+			"inst_uid" : 413751904
+		},
 		{
 			"asset_uid" : 59089060,
 			"inst_uid" : -224630016
@@ -20188,6 +20337,10 @@
 		{
 			"asset_uid" : 1553014656,
 			"inst_uid" : 676955072
+		},
+		{
+			"asset_uid" : -807685120,
+			"inst_uid" : -2003724544
 		}
 	]
 }

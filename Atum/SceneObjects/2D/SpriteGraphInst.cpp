@@ -10,6 +10,7 @@ CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 META_DATA_DESC(SpriteGraphInst)
 	BASE_SCENE_OBJ_PROP(SpriteGraphInst)
 	FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
+	FLOAT_PROP(SpriteGraphInst, hack_height, 0.0f, "Geometry", "hack_height")
 	INT_PROP(SpriteGraphInst, draw_level, 0, "Geometry", "draw_level")
 	ARRAY_PROP_INST(SpriteGraphInst, instances, Instance, "Prop", "inst", SpriteGraphInst, sel_inst)
 META_DATA_DESC_END()
@@ -145,6 +146,7 @@ void SpriteGraphInst::Draw(float dt)
 		}
 
 		trans.pos = inst.GetPos();
+		trans.pos.y += hack_height;
 		trans.offset = inst.graph_instance.cur_node->asset->trans.offset;
 		trans.rotation = inst.GetAngle();
 		trans.BuildMatrices();

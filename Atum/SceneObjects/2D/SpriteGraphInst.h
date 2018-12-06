@@ -9,6 +9,8 @@ class SpriteGraphInst : public SpriteInst
 public:
 	META_DATA_DECL(SpriteGraphInst)
 
+	float hack_height = 0.0f;
+
 	virtual ~SpriteGraphInst() = default;
 
 	void BindClassToScript() override;

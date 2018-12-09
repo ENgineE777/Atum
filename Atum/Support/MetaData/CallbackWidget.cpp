@@ -10,7 +10,7 @@ void CallbackWidget::Init(EUICategories* parent, const char* catName, const char
 {
 	ProperyWidget::Init(parent, catName, labelName);
 
-	openBtn = new EUIButton(panel, "", 90, 5, 95, 20);
+	openBtn = new EUIButton(panel, "Edit", 90, 5, 95, 20);
 	openBtn->SetListener(-1, &listiner, 0);
 
 	listiner.owner = this;

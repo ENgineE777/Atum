@@ -39,6 +39,8 @@ class PhysController : public PxUserControllerHitReport, PxControllerBehaviorCal
 	friend class PhysScene;
 	PxController* controller = nullptr;
 	float height = 1.0f;
+	bool active = true;
+	Vector deactive_pos;
 
 public:
 

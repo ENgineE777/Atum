@@ -7,12 +7,12 @@
 			"type" : 0
 		},
 		{
-			"uid" : 913568320,
+			"uid" : -112360960,
 			"name" : "EnemyGraph_Body",
 			"type" : 1
 		},
 		{
-			"uid" : -112360960,
+			"uid" : 913568320,
 			"name" : "EnemyGraph_Legs",
 			"type" : 1
 		},

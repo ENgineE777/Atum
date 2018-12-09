@@ -1272,11 +1272,12 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 							}
 						}
 
-						index = 0;
+						index++;
 					}
 				}
 
 				inst->asset = asset;
+				asset->instances.push_back(inst);
 
 				for (auto comp : asset->components)
 				{

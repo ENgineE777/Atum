@@ -16,6 +16,14 @@ class PhysScene : public PxSimulationEventCallback
 
 public:
 
+	struct BodyUserData
+	{
+		class SceneObject* object = nullptr;
+		int index = -1;
+		PhysObject* body = nullptr;
+		class PhysController* controller = nullptr;
+	};
+
 	struct RaycastDesc
 	{
 		Vector origin;
@@ -23,6 +31,7 @@ public:
 		float  length;
 		Vector hitPos;
 		Vector hitNormal;
+		BodyUserData* userdata = nullptr;
 	};
 
 	PhysObject*     CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type);

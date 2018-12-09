@@ -1,7 +1,6 @@
 #include "PhysController.h"
 #include "PhysObject.h"
 #include "Services/Scene/SceneObject.h"
-#include "SceneObjects/2D/Phys2DComp.h"
 
 
 PX_INLINE void addForceAtPosInternal(PxRigidBody& body, const PxVec3& force, const PxVec3& pos, PxForceMode::Enum mode, bool wakeup)
@@ -33,8 +32,8 @@ void PhysController::onShapeHit(const PxControllerShapeHit& hit)
 {
 	if (hit.shape->getFlags() & PxShapeFlag::eTRIGGER_SHAPE)
 	{
-		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(hit.shape->getActor()->userData);
-		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(controller->getUserData());
+		PhysScene::BodyUserData* udataA = static_cast<PhysScene::BodyUserData*>(hit.shape->getActor()->userData);
+		PhysScene::BodyUserData* udataB = static_cast<PhysScene::BodyUserData*>(controller->getUserData());
 
 		if (udataA && udataB)
 		{
@@ -97,8 +96,8 @@ void PhysController::onShapeHit(const PxControllerShapeHit& hit)
 
 PxControllerBehaviorFlags PhysController::getBehaviorFlags(const PxShape& shape, const PxActor& actor)
 {
-	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(controller->getUserData());
-	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(actor.userData);
+	PhysScene::BodyUserData* udataA = static_cast<PhysScene::BodyUserData*>(controller->getUserData());
+	PhysScene::BodyUserData* udataB = static_cast<PhysScene::BodyUserData*>(actor.userData);
 
 	if (udataA && udataB)
 	{
@@ -129,12 +128,13 @@ PxControllerBehaviorFlags PhysController::getBehaviorFlags(const PxObstacle& obs
 
 PxQueryHitType::Enum PhysController::preFilter(const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags)
 {
-	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(GetUserData());
-	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(actor->userData);
+	PhysScene::BodyUserData* udataA = static_cast<PhysScene::BodyUserData*>(GetUserData());
+	PhysScene::BodyUserData* udataB = static_cast<PhysScene::BodyUserData*>(actor->userData);
 
 	if (udataA && udataB)
 	{
-		if (!udataB->body->IsActive())
+		if ((udataA->body && !udataA->body->IsActive()) ||
+			(udataB->body && !udataB->body->IsActive()))
 		{
 			return PxQueryHitType::eNONE;
 		}
@@ -161,16 +161,30 @@ PxQueryHitType::Enum PhysController::postFilter(const PxFilterData& filterData, 
 
 void PhysController::SetActive(bool set)
 {
-	controller->getActor()->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !set);
+	if (active == set)
+	{
+		return;
+	}
+
+	active = set;
+
+	if (!active)
+	{
+		PxExtendedVec3 cpos = controller->getFootPosition();
+		deactive_pos = Vector((float)cpos.x, (float)cpos.y, (float)cpos.z);
+	}
+
+	controller->setFootPosition(active ? PxExtendedVec3(deactive_pos.x, deactive_pos.y, deactive_pos.z) : PxExtendedVec3(-100000.0f, -100000.0f, -100000.0f));
 }
 
 bool PhysController::IsActive()
 {
-	return (((uint32_t)controller->getActor()->getActorFlags() & PxActorFlag::eDISABLE_SIMULATION) == 0);
+	return active;
 }
 
 void PhysController::SetUserData(void* data)
 {
+	controller->getActor()->userData = data;
 	controller->setUserData(data);
 }
 
@@ -186,6 +200,11 @@ float PhysController::GetHeight()
 
 bool PhysController::IsColliding(CollideType type)
 {
+	if (!active)
+	{
+		return false;
+	}
+
 	PxControllerState cctState;
 	controller->getState(cctState);
 
@@ -201,6 +220,12 @@ bool PhysController::IsColliding(CollideType type)
 
 void PhysController::Move(Vector dir)
 {
+	if (!active)
+	{
+		deactive_pos += dir;
+		return;
+	}
+
 	PxControllerFilters filters = PxControllerFilters();
 	filters.mFilterCallback = this;
 
@@ -209,11 +234,23 @@ void PhysController::Move(Vector dir)
 
 void PhysController::SetPosition(Vector pos)
 {
+	if (!active)
+	{
+		deactive_pos = pos;
+		return;
+	}
+
 	controller->setFootPosition(PxExtendedVec3(pos.x, pos.y, pos.z));
 }
 
 void PhysController::GetPosition(Vector& pos)
 {
+	if (!active)
+	{
+		pos = deactive_pos;
+		return;
+	}
+
 	PxExtendedVec3 cpos = controller->getFootPosition();
 	pos = Vector((float)cpos.x, (float)cpos.y, (float)cpos.z);
 }

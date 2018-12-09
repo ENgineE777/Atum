@@ -87,6 +87,8 @@ void Scene_Raycast2D(asIScriptGeneric *gen)
 
 		*((float*)(gen->GetArgAddress(7))) = rcdesc.hitNormal.x;
 		*((float*)(gen->GetArgAddress(8))) = -rcdesc.hitNormal.y;
+		*((string*)(gen->GetArgAddress(9))) = rcdesc.userdata->object->GetName();
+		*((int*)(gen->GetArgAddress(10))) = rcdesc.userdata->index;
 
 		gen->SetReturnDWord(1);
 
@@ -120,7 +122,7 @@ void Scripts::Start()
 	engine->RegisterGlobalFunction("float Control_GetValue(int alias, int delta)", asFUNCTION(Control_GetValue), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Control_GetDebugState(string&in alias, int action)", asFUNCTION(Control_GetDebugState), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("void Scene_Group_SetState(string&in alias, int state)", asFUNCTION(Scene_Group_SetState), asCALL_GENERIC);
-	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
 
 	for (const auto& decl : ClassFactorySceneObject::Decls())
 	{

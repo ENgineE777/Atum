@@ -158,6 +158,8 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	else
 #endif
 	{
+		sprite_inst->instances[index].hack_marker = true;
+
 		if (sprite_inst->array)
 		{
 			asIScriptObject** objects = (asIScriptObject**)sprite_inst->array->GetBuffer();

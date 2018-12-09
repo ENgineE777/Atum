@@ -216,16 +216,25 @@ void Phys2DCompInst::UpdateInstances(T* sprite_inst)
 
 			if (is_active)
 			{
-				if (bodies[index].controller && sprite_inst->instances[index].dir.Length() > 0.001f)
+				if (bodies[index].controller)
 				{
-					bodies[index].controller->Move({ sprite_inst->instances[index].dir.x / 50.0f, -sprite_inst->instances[index].dir.y / 50.0f, 0.0f });
+					if (sprite_inst->instances[index].dir.Length() > 0.001f)
+					{
+						bodies[index].controller->Move({ sprite_inst->instances[index].dir.x / 50.0f, -sprite_inst->instances[index].dir.y / 50.0f, 0.0f });
 
-					Vector pos;
-					bodies[index].controller->GetPosition(pos);
+						Vector pos;
+						bodies[index].controller->GetPosition(pos);
 
-					sprite_inst->instances[index].SetPos({ pos.x * 50.0f, -pos.y * 50.0f });
+						sprite_inst->instances[index].SetPos({ pos.x * 50.0f, -pos.y * 50.0f });
 
-					sprite_inst->instances[index].dir = 0.0f;
+						sprite_inst->instances[index].dir = 0.0f;
+					}
+					else
+					if (sprite_inst->instances[index].hack_marker)
+					{
+						bodies[index].controller->SetPosition({ sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f });
+						sprite_inst->instances[index].hack_marker = false;
+					}
 				}
 			}
 		}

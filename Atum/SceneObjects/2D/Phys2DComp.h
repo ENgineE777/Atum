@@ -36,15 +36,7 @@ public:
 
 	Phys2DComp::BodyType body_type;
 
-	struct BodyUserData
-	{
-		SceneObject* object = nullptr;
-		int index = -1;
-		PhysObject* body = nullptr;
-		PhysController* controller = nullptr;
-	};
-
-	vector<BodyUserData> bodies;
+	vector<PhysScene::BodyUserData> bodies;
 
 	META_DATA_DECL(Phys2DCompInst)
 

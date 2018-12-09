@@ -37,11 +37,10 @@ META_DATA_DESC_END()
 void StartScriptEdit(void* owner)
 {
 	SceneScript* script = (SceneScript*)owner;
-	char dir[1024];
-	GetCurrentDirectory(1024, dir);
+
 	string filename;
 	script->GetScriptFileName(script->GetUID(), filename);
-	filename = string(dir) + string("\\") +filename;
+
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
 #endif

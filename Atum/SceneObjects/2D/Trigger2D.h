@@ -9,7 +9,7 @@ class Trigger2D : public SceneObject
 public:
 	META_DATA_DECL(Trigger2D)
 
-	Phys2DCompInst::BodyUserData body;
+	PhysScene::BodyUserData body;
 	Transform2D trans;
 
 	virtual ~Trigger2D() = default;

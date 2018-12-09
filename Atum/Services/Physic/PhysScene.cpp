@@ -2,7 +2,6 @@
 #include "Physics.h"
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneObject.h"
-#include "SceneObjects/2D/Phys2DComp.h"
 
 PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type)
 {
@@ -134,6 +133,7 @@ bool PhysScene::RayCast(RaycastDesc& desc)
 
 	if (scene->raycast(PxVec3(desc.origin.x, desc.origin.y, desc.origin.z), PxVec3(desc.dir.x, desc.dir.y, desc.dir.z), desc.length, hit))
 	{
+		desc.userdata = (BodyUserData*)(hit.block.actor->userData);
 		desc.hitPos = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 		desc.hitNormal = Vector(hit.block.normal.x, hit.block.normal.y, hit.block.normal.z);
 
@@ -158,8 +158,8 @@ void PhysScene::FetchResults()
 
 void PhysScene::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
-	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(pairHeader.actors[0]->userData);
-	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(pairHeader.actors[1]->userData);
+	BodyUserData* udataA = static_cast<BodyUserData*>(pairHeader.actors[0]->userData);
+	BodyUserData* udataB = static_cast<BodyUserData*>(pairHeader.actors[1]->userData);
 
 	if (udataA && udataB)
 	{
@@ -177,8 +177,8 @@ void PhysScene::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 void PhysScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
 {
-	Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(pairs->triggerActor->userData);
-	Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(pairs->otherActor->userData);
+	BodyUserData* udataA = static_cast<BodyUserData*>(pairs->triggerActor->userData);
+	BodyUserData* udataB = static_cast<BodyUserData*>(pairs->otherActor->userData);
 
 	if (udataA && udataB)
 	{

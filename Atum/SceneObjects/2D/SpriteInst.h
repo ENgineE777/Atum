@@ -43,6 +43,7 @@ public:
 		Color color;
 
 		bool auto_delete = false;
+		bool hack_marker = false;
 
 		SpriteGraphAsset::Instance graph_instance;
 		Vector2 dir = 0.0f;

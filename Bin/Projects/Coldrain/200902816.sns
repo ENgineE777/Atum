@@ -7,6 +7,9 @@ class Character
 	float prev_x = 0; 
 	float prev_y = 0;	
 	int hp = 1;
+	float fly_time = -1.0f;
+	float fly_dir_x;
+	float fly_dir_y;
 }
 
 class Crosshair 
@@ -105,10 +108,25 @@ class Main
 
 		for (int j = 0; j<enemy_body.length();j++)
 		{
-			Character@ enemy = enemy_body[j];
-				
-			if (enemy.hp == 0)
+			Character@ enemy = enemy_legs[j];
+
+			if (enemy.hp <= 0)
 			{
+				if (enemy.fly_time > 0)
+				{
+					enemy.fly_time -= dt;
+
+					if (enemy.fly_time < 0.0f)
+					{
+						enemy.fly_time = -1.0f;
+					}
+					else
+					{
+						enemy_body[j].x += enemy.fly_dir_x * 380 * dt * enemy.fly_time;
+						enemy_body[j].y += enemy.fly_dir_y * 380 * dt * enemy.fly_time;
+					}
+				}
+
 				continue;
 			}
 
@@ -120,13 +138,13 @@ class Main
 
 			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
 
-			enemy_legs[j].x = enemy.x;
-			enemy_legs[j].y = enemy.y;
+			enemy_body[j].x = enemy.x;
+			enemy_body[j].y = enemy.y;
 
 			if (len > 0.01f)
 			{
 				enemy.angle = atan2(dir_y / len, dir_x / len);
-				enemy_legs[j].angle = enemy.angle;
+				enemy_body[j].angle = enemy.angle;
 
 				enemy.prev_x = enemy.x; 
 				enemy.prev_y = enemy.y;
@@ -176,54 +194,51 @@ class Main
 
 
 				float pos_x, pos_y, normal_x, normal_y;
+				string str_object;
+				int obj_index;
 
-				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, pos_x, pos_y, normal_x, normal_y) > 0)
+				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
 				{
+					if (str_object == "EnemyGraph_Legs")
+					{
+						Character@ body = enemy_body[obj_index];
+						Character@ legs = enemy_legs[obj_index];
+
+						legs.hp--;
+
+						if (legs.hp == 0)
+						{
+							legs.visible = 0;
+							body.angle = bullet.angle;
+							enemy_body_obj.SetActiveTrack(obj_index, false);
+							enemy_body_obj.GotoNode(obj_index, "Death");
+
+							legs.fly_time = 0.65f;
+							legs.fly_dir_x = bullet.dir_x;
+							legs.fly_dir_y = bullet.dir_y;
+
+							int count = 3 + (rand() * 5);
+						
+							for (int i = 0; i < count; i++)
+							{
+								blood_splash_obj.AddInstance(pos_x - 30.0f + 60.0f * rand(), pos_y - 30.0f + 60.0f * rand(), true);
+							}
+						}
+					}
+					else
+					{
+						bullet_wall_hit.AddInstance(pos_x, pos_y, true);
+					}
+
 					bullet.x = pos_x;
 					bullet.y = pos_y;
 					bullet.fade_time = 0.5f;
-
-					bullet_wall_hit.AddInstance(pos_x, pos_y, true);
 
 					continue;		
 				}
 
 				bullet.x += bullet.dir_x * len;
 				bullet.y += bullet.dir_y * len;
-
-				for (int j = 0; j<enemy_body.length();j++)
-				{
-					Character@ enemy = enemy_body[j];
-				
-					if (enemy.hp == 0)
-					{
-						continue;
-					}
-
-					if (enemy.x - 35 < bullet.x && bullet.x < enemy.x + 35 &&
-						enemy.y - 35 < bullet.y && bullet.y < enemy.y + 35)
-					{
-						bullet.fade_time = 0.5f;
-
-
-						int count = 3 + (rand() * 5);
-						
-						for (int i = 0; i < count; i++)
-						{
-							blood_splash_obj.AddInstance(bullet.x - 30.0f + 60.0f * rand(), bullet.y - 30.0f + 60.0f * rand(), true);
-						}
-						
-						enemy.hp--;
-
-						if (enemy.hp == 0)
-						{
-							enemy_legs[j].visible = 0;
-							enemy.angle = bullet.angle;
-							enemy_body_obj.SetActiveTrack(j, false);
-							enemy_body_obj.GotoNode(j, "Death");
-						}
-					}
-				}
 			}
 		}
 

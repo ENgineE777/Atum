@@ -8,6 +8,7 @@ class Character
 	float prev_y = 0;	
 	int hp = 1;
 	float fly_time = -1.0f;
+	float spill_blood = -1.0f;
 	float fly_dir_x;
 	float fly_dir_y;
 }
@@ -124,6 +125,20 @@ class Main
 					{
 						enemy_body[j].x += enemy.fly_dir_x * 380 * dt * enemy.fly_time;
 						enemy_body[j].y += enemy.fly_dir_y * 380 * dt * enemy.fly_time;
+
+						enemy.spill_blood -= dt;
+
+						if (enemy.spill_blood < 0.0f)
+						{
+							enemy.spill_blood += 0.15f;
+
+							int count = 2 + (rand() * 3);
+						
+							for (int i = 0; i < count; i++)
+							{
+								blood_splash_obj.AddInstance(enemy_body[j].x - 15.0f + 30.0f * rand(), enemy_body[j].y - 15.0f + 30.0f * rand(), true);
+							}
+						}
 					}
 				}
 
@@ -214,6 +229,7 @@ class Main
 							enemy_body_obj.GotoNode(obj_index, "Death");
 
 							legs.fly_time = 0.65f;
+							legs.spill_blood = 0.15f;
 							legs.fly_dir_x = bullet.dir_x;
 							legs.fly_dir_y = bullet.dir_y;
 

@@ -30,6 +30,8 @@ public:
 
 public:
 
+	bool operator == (const Vector2& v);
+
 	Vector2& operator = (float f);
 	Vector2& operator = (double d);
 	Vector2& operator = (const Vector2& v);
@@ -54,15 +56,27 @@ public:
 
 	void Normalize();
 	float Length();
+	float Length(Vector2 v);
+	float Length2(Vector2 v);
 
 	bool InSquare(Vector2 min, Vector2 max);
 	
-	float Distance(Vector2 v);
 	float Dot(Vector2 v);
+	float Cross(Vector2 v);
 	Vector2& Lerp(Vector2 from, Vector2 to, float kBlend);
 };
 
 inline Vector2::Vector2(){}
+
+inline bool Vector2::operator == (const Vector2& v)
+{
+	if (fabs(x - v.x) < 0.01f && fabs(y - v.y) < 0.01f)
+	{
+		return true;
+	}
+
+	return false;
+}
 
 inline Vector2::Vector2(float f)
 {
@@ -122,6 +136,21 @@ inline float Vector2::Length()
 {
 	return sqrtf(x*x + y*y);
 }
+
+inline float Vector2::Length(Vector2 v)
+{
+	float dx = x - v.x;
+	float dy = y - v.y;
+	return ::sqrtf(dx * dx + dy * dy);
+}
+
+inline float Vector2::Length2(Vector2 v)
+{
+	float dx = x - v.x;
+	float dy = y - v.y;
+	return dx * dx + dy * dy;
+}
+
 
 inline Vector2 & Vector2::operator *= (float f)
 {
@@ -298,16 +327,14 @@ inline bool Vector2::InSquare(Vector2 min, Vector2 max)
 	return true;
 }
 
-inline float Vector2::Distance(Vector2 v)
-{
-	float dx = x - v.x;
-	float dy = y - v.y;
-	return ::sqrtf(dx * dx + dy * dy);
-}
-
 inline float Vector2::Dot(Vector2 v)
 {
 	return x * v.x + y * v.y;
+}
+
+inline float Vector2::Cross(Vector2 v)
+{
+	return x * v.y - y * v.x;
 }
 
 inline Vector2 & Vector2::Lerp(Vector2 from, Vector2 to, float kBlend)

@@ -295,8 +295,6 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property)
 
 void SpriteInst::Init()
 {
-	int k = memberOFFSET(SpriteInst, sel_inst);
-
 	script_callbacks.push_back(ScriptCallback("OnContact", "int", "%i%s%i"));
 }
 
@@ -561,6 +559,11 @@ void SpriteInst::RemoveInstance(int index)
 void SpriteInst::ClearInstances()
 {
 	instances.clear();
+
+	if (array)
+	{
+		array->RemoveRange(0, array->GetSize());
+	}
 }
 
 void SpriteInst::ApplyLinearImpulse(int index, float x, float y)

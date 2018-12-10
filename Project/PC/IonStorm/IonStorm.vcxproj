@@ -26,6 +26,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Camera2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Sprite.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteAsset.cpp" />
@@ -71,8 +72,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleServer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\tank.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\PathFinder\AStar.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\PathFinder\PathFinder.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIButtonAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIContainerAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIImageAsset.cpp" />
@@ -169,6 +168,7 @@
     <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h" />
     <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Camera2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Sprite.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteAsset.h" />
@@ -215,9 +215,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleServer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\tank.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\tankclient.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\PathFinder\AStar.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\PathFinder\PathFinder.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\PathFinder\Vec2.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIButtonAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIContainerAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIImageAsset.h" />

@@ -853,6 +853,21 @@ bool Controls::DebugHotKeyPressed(const char* name, const char* name2, const cha
 	return false;
 }
 
+bool Controls::IsGamepadConnected()
+{
+#ifdef PLATFORM_PC
+	for (int i = 0; i < XUSER_MAX_COUNT; i++)
+	{
+		if (joy_active[i])
+		{
+			return true;
+		}
+	}
+#endif
+
+	return false;
+}
+
 #ifdef PLATFORM_PC
 void Controls::OverrideMousePos(int mx, int my)
 {

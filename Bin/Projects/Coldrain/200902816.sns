@@ -8,13 +8,20 @@ class Character
 	float prev_y = 0;	
 	int hp = 1;
 	float fly_time = -1.0f;
+	float spill_blood = -1.0f;
 	float fly_dir_x;
 	float fly_dir_y;
+	bool agressive_mode = false;
+	int cur_path = -1;
+	float time_to_shoot = 0.75f;
 }
 
-class Crosshair 
+class Pointer 
 {
 	float x,y;	
+	float angle = 0.0f;
+	float visible = 1;
+	float anim = 0.0f;
 }
 
 class Bullet
@@ -32,7 +39,8 @@ class Bullet
 class Main
 {
 	Camera2D@ camera;
-	array<Crosshair> crosshair;
+	array<Pointer> crosshair;
+	array<Pointer> arrow;
 	SpriteGraph@ hero_legs_obj;
 	array<Character> hero_legs;
 	SpriteGraph@ hero_body_obj;
@@ -45,11 +53,16 @@ class Main
 	Sprite@ blood_splash_obj;
 	Sprite@ bullet_wall_hit;
 	array<Bullet> bullets;
+	NavMesh2D@ nav_mesh;
+	UIView@ ui_restart_message;
 
 	int alias_move_vert = -1;
 	int alias_move_horz = -1;
 	int alias_aim_vert = -1;
 	int alias_aim_horz = -1;
+	int alias_cursor_x = -1;
+	int alias_cursor_y = -1;
+
 	int alias_fire = -1;
 
 	bool inited = false;
@@ -61,6 +74,169 @@ class Main
 	float crosshair_dir_x = 0.0f;
 	float crosshair_dir_y = -1.0f;
 
+	float enemy_view_dist = 750.0f;
+	float enemy_view_angle = 45.0f;
+
+	bool IsPlayerVisibleByRadius(Character@ enemy, float dist)
+	{
+		float dir_x = hero_body[0].x - enemy.x;
+		float dir_y = hero_body[0].y - enemy.y;
+
+		return dir_x * dir_x + dir_y * dir_y < dist * dist;
+	}
+
+	bool IsPlayerVisible(Character@ enemy, float dist)
+	{
+		float pos_x, pos_y, normal_x, normal_y;
+		string str_object;
+		int obj_index;
+
+		float dir_x = hero_body[0].x - enemy.x;
+		float dir_y = hero_body[0].y - enemy.y;
+
+		float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+
+		float dist_offset = 35.0f;
+
+		if (len < dist)
+		{
+			dir_x /= len;
+			dir_y /= len;
+
+			if (Scene_Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+			{
+				//Render_DrawLine2D(enemy.x+ dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, pos_x, pos_y);
+
+				if (str_object == "HeroGraph_Legs")
+				{
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	void MakeCharacterDead(int obj_index, bool is_player, Character@ body, Character@ legs, float pos_x, float pos_y, float angle, float dir_x, float dir_y)
+	{
+		legs.hp = 0;
+
+		legs.visible = 0;
+		body.angle = angle;
+
+		if (is_player)
+		{	
+			ui_restart_message.SetState(2);
+			hero_body_obj.GotoNode(obj_index, "Death");
+		}
+		else
+		{
+			enemy_legs_obj.SetActiveTrack(obj_index, false);
+			enemy_body_obj.GotoNode(obj_index, "Death");
+		}
+
+		legs.fly_time = 0.65f;
+		legs.spill_blood = 0.15f;
+		legs.fly_dir_x = dir_x;
+		legs.fly_dir_y = dir_y;
+
+		int count = 3 + (rand() * 5);
+						
+		for (int i = 0; i < count; i++)
+		{
+			blood_splash_obj.AddInstance(pos_x - 30.0f + 60.0f * rand(), pos_y - 30.0f + 60.0f * rand(), true);
+		}
+	}
+
+	void DeadBodyFly(Character@ body, Character@ legs, float dt)
+	{
+		if (legs.fly_time > 0)
+		{
+			legs.fly_time -= dt;
+
+			if (legs.fly_time < 0.0f)
+			{
+				legs.fly_time = -1.0f;
+			}
+			else
+			{
+				body.x += legs.fly_dir_x * 380 * dt * legs.fly_time;
+				body.y += legs.fly_dir_y * 380 * dt * legs.fly_time;
+
+				legs.spill_blood -= dt;
+
+				if (legs.spill_blood < 0.0f)
+				{
+					legs.spill_blood += 0.15f;
+
+					int count = 2 + (rand() * 3);
+						
+					for (int i = 0; i < count; i++)
+					{
+						blood_splash_obj.AddInstance(body.x - 15.0f + 30.0f * rand(), body.y - 15.0f + 30.0f * rand(), true);
+					}
+				}
+			}
+		}
+	}
+
+	int OnRestartTrigger(int self_index, string&in name, int index)
+	{
+		Render_Print(10, 30, "OnRestartTrigger");
+		if (name == "HeroGraph_Legs")
+		{
+			for (int j = 0; j<enemy_legs.length();j++)
+			{
+				if (enemy_legs[j].hp > 0)
+				{
+					return 0;
+				}
+			}
+
+			RestartLevel();
+		}
+
+		return 0;
+	}
+
+	void RestartLevel()
+	{
+		ui_restart_message.SetState(0);
+
+		arrow[0].visible = 0;
+
+		hero_legs_obj.MoveTo(0, -432.0f, 144.0f);
+		hero_legs[0].visible = 1;
+		hero_legs[0].hp = 1;
+		hero_legs[0].fly_time = -1.0f;
+		hero_legs[0].spill_blood = -1.0f;
+
+		hero_body_obj.GotoNode(0, "Idle");
+		hero_legs_obj.ActivateLink(0, "Idle");
+
+		bullet_obj.ClearInstances();
+		blood_splash_obj.ClearInstances();
+		bullet_wall_hit.ClearInstances();
+
+		for (int j = 0; j<enemy_legs.length();j++)
+		{
+			Character@ enemy = enemy_legs[j];
+
+			enemy.visible = 1;
+			enemy.hp = 1;
+			enemy.agressive_mode = false;
+
+			enemy.fly_time = -1.0f;
+			enemy.spill_blood = -1.0f;
+			enemy.time_to_shoot = 0.75f;
+
+			enemy_legs_obj.SetActiveTrack(j, true);
+
+			enemy_body_obj.GotoNode(j, "Idle");
+			enemy_legs_obj.ActivateLink(j, "Idle");
+		}
+	}
+
 	void Update(float dt)
 	{
 		if (!inited)
@@ -69,61 +245,253 @@ class Main
 			alias_move_horz = Control_GetAlias("Frog.MOVE_HORZ");
 			alias_aim_vert = Control_GetAlias("Frog.AIM_VERT");
 			alias_aim_horz = Control_GetAlias("Frog.AIM_HORZ");
+			alias_cursor_x = Control_GetAlias("Frog.CURSOR_X");
+			alias_cursor_y = Control_GetAlias("Frog.CURSOR_Y");
 			alias_fire = Control_GetAlias("Frog.Fire");
+
+			RestartLevel();
 
 			inited = true;
 		}
 
-		float dir_x = Control_GetValue(alias_move_horz, 0);
-		float dir_y = -Control_GetValue(alias_move_vert, 0);
-
-		if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+		if (hero_legs[0].hp > 0)
 		{
-			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
-			dir_x /= len;
-			dir_y /= len;
+			float dir_x = Control_GetValue(alias_move_horz, 0);
+			float dir_y = -Control_GetValue(alias_move_vert, 0);
 
-			hero_body_obj.Move(0, dir_x * dt * speed, dir_y * dt * speed);
+			if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+			{
+				float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+				dir_x /= len;
+				dir_y /= len;
 
-			hero_legs[0].angle = atan2(dir_y, dir_x);
+				hero_legs_obj.Move(0, dir_x * dt * speed, dir_y * dt * speed);
 
-			hero_body_obj.ActivateLink(0, "Walk");
-			hero_legs_obj.ActivateLink(0, "Walk");
+				hero_legs[0].angle = atan2(dir_y, dir_x);
+
+				hero_body_obj.ActivateLink(0, "Walk");
+				hero_legs_obj.ActivateLink(0, "Walk");
+			}
+			else
+			{
+				hero_body_obj.ActivateLink(0, "Idle");
+				hero_legs_obj.ActivateLink(0, "Idle");
+			}
+
+			if (Control_IsGamepadConnected() > 0)
+			{
+				dir_x = Control_GetValue(alias_aim_horz, 0);
+				dir_y = -Control_GetValue(alias_aim_vert, 0);
+		
+				if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+				{
+					float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+					crosshair_dir_x = dir_x / len;
+					crosshair_dir_y = dir_y / len;
+				}
+
+				crosshair[0].x = hero_body[0].x + crosshair_dir_x * crosshair_dist;
+				crosshair[0].y = hero_body[0].y + crosshair_dir_y * crosshair_dist - 32;
+			}
+			else
+			{
+				float dir_x = crosshair[0].x - hero_body[0].x;
+				float dir_y = crosshair[0].y - hero_body[0].y;
+		
+				float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+				crosshair_dir_x = dir_x / len;
+				crosshair_dir_y = dir_y / len;
+
+				float scale = 1024.0f / Render_GetHeight();
+
+				crosshair[0].x = (Control_GetValue(alias_cursor_x, 0) - Render_GetWidth()  * 0.5f) * scale + camera.x;
+				crosshair[0].y = (Control_GetValue(alias_cursor_y, 0) - Render_GetHeight() * 0.5f)* scale + camera.y;
+			}
+
+			hero_body[0].angle = atan2(crosshair_dir_y, crosshair_dir_x);
+
+			hero_body[0].x = hero_legs[0].x;
+			hero_body[0].y = hero_legs[0].y;
+
+			bool enemis_died = true;
+
+			for (int j = 0; j<enemy_legs.length();j++)
+			{
+				if (enemy_legs[j].hp > 0)
+				{
+					enemis_died = false;
+					break;
+				}
+			}
+
+			if (enemis_died)
+			{
+				float dir_x = -432 - hero_body[0].x;
+				float dir_y = 312 - hero_body[0].y;
+
+				float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+				dir_x /= len;
+				dir_y /= len;
+
+				arrow[0].anim += dt * 6;
+
+				arrow[0].x = hero_body[0].x + dir_x * crosshair_dist * (0.8f + cos(arrow[0].anim) * 0.1f);
+				arrow[0].y = hero_body[0].y + dir_y * crosshair_dist * (0.8f + cos(arrow[0].anim) * 0.1f) - 32;
+				arrow[0].angle = atan2(dir_y, dir_x);
+				arrow[0].visible = 1;
+			}
+
+			camera.target_pos_x = hero_body[0].x;
+			camera.target_pos_y = hero_body[0].y;
+
+			if (Control_GetState(alias_fire, 1) > 0)
+			{
+				if (hero_body_obj.ActivateLink(0, "Shoot"))
+				{
+					for (int i = 0; i < 3; i++)
+					{
+						int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist - 32, false);
+				
+						float angle = atan2(crosshair_dir_y, crosshair_dir_x) + (-3.0f + 6.0f * rand()) * 0.01745329f;
+						bullets[index].dir_x = cos(angle);
+						bullets[index].dir_y = sin(angle);
+						bullets[index].dist = 0;
+						bullets[index].angle = angle;
+						bullets[index].alpha = 0.0f;
+						bullets[index].size_x = 0.0f;
+					}
+
+					for (int j = 0; j<enemy_body.length();j++)
+					{
+						Character@ enemy = enemy_legs[j];
+
+						if (enemy.hp == 0 || enemy.agressive_mode)
+						{
+							continue;
+						}
+
+						float dir_x = enemy.x - hero_body[0].x;
+						float dir_y = enemy.y - hero_body[0].y;
+
+						if (dir_x * dir_x + dir_y * dir_y < 650 * 650)
+						{
+							enemy_legs_obj.SetActiveTrack(j, false);
+
+							enemy.agressive_mode = true;
+							enemy.cur_path = nav_mesh.GetPath(enemy.x, enemy.y, hero_body[0].x, hero_body[0].y);
+						}
+					}
+				}
+			}
 		}
 		else
 		{
-			hero_body_obj.ActivateLink(0, "Idle");
-			hero_legs_obj.ActivateLink(0, "Idle");
+			Character@ body = hero_body[0];
+			Character@ enemy = hero_legs[0];
+
+			DeadBodyFly(body, enemy, dt);
+
+			if (enemy.fly_time < 0 && Control_GetState(alias_fire, 1) > 0)
+			{
+				RestartLevel();
+			}
 		}
 
-		dir_x = Control_GetValue(alias_aim_horz, 0);
-		dir_y = -Control_GetValue(alias_aim_vert, 0);
-		
-		if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
+		for (int j = 0; j<enemy_legs.length();j++)
 		{
-			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
-			crosshair_dir_x = dir_x / len;
-			crosshair_dir_y = dir_y / len;
-		}
-
-		for (int j = 0; j<enemy_body.length();j++)
-		{
+			Character@ body = enemy_body[j];
 			Character@ enemy = enemy_legs[j];
 
 			if (enemy.hp <= 0)
 			{
-				if (enemy.fly_time > 0)
-				{
-					enemy.fly_time -= dt;
+				DeadBodyFly(body, enemy, dt);
 
-					if (enemy.fly_time < 0.0f)
+				continue;
+			}
+
+			if (enemy.agressive_mode)
+			{
+				if (enemy.cur_path != -1)
+				{
+					if (hero_legs[0].hp == 0 || IsPlayerVisible(enemy, 500.0f))
 					{
-						enemy.fly_time = -1.0f;
+						nav_mesh.RemovePath(enemy.cur_path);
+						enemy.cur_path = -1;
+
+						enemy_body_obj.ActivateLink(j, "Idle");
+						enemy_legs_obj.ActivateLink(j, "Idle");
 					}
 					else
 					{
-						enemy_body[j].x += enemy.fly_dir_x * 380 * dt * enemy.fly_time;
-						enemy_body[j].y += enemy.fly_dir_y * 380 * dt * enemy.fly_time;
+						int res = nav_mesh.MoveAlongPath(enemy.cur_path, dt * 300.0f);
+						nav_mesh.GetPathCurPoint(enemy.cur_path, enemy.x, enemy.y, enemy.angle);
+
+						body.angle = enemy.angle;
+						body.x = enemy.x;
+						body.y = enemy.y;
+
+						enemy_body_obj.ActivateLink(j, "Walk");
+						enemy_legs_obj.ActivateLink(j, "Walk");
+
+						enemy_legs_obj.MoveTo(j, enemy.x, enemy.y);
+
+						if (res == 0)
+						{
+							nav_mesh.RemovePath(enemy.cur_path);
+							enemy.cur_path = -1;
+
+							enemy_body_obj.ActivateLink(j, "Idle");
+							enemy_legs_obj.ActivateLink(j, "Idle");
+						}
+					}
+				}
+				else
+				{
+					if (hero_legs[0].hp == 0)
+					{
+						continue;
+					}
+
+					if (!IsPlayerVisible(enemy, enemy_view_dist))
+					{
+						enemy.cur_path = nav_mesh.GetPath(enemy.x, enemy.y, hero_body[0].x, hero_body[0].y);
+					}
+					else
+					{
+						float dir_x = hero_body[0].x - enemy.x;
+						float dir_y = hero_body[0].y - enemy.y;
+
+						float len = sqrt(dir_x * dir_x + dir_y * dir_y);
+
+						dir_x /= len;
+						dir_y /= len;
+
+						enemy.angle = atan2(dir_y, dir_x);
+						body.angle = enemy.angle;
+
+						enemy.time_to_shoot -= dt;
+
+						if (enemy.time_to_shoot < 0.0f)
+						{
+							if (enemy_body_obj.ActivateLink(j, "shoot"))
+							{
+								int index = bullet_obj.AddInstance(enemy.x + dir_x * crosshair_fire_dist, enemy.y + dir_y * crosshair_fire_dist - 32, false);
+				
+								float angle = enemy.angle + (-1.0f + 2.0f * rand()) * 0.01745329f;
+								bullets[index].dir_x = cos(angle);
+								bullets[index].dir_y = sin(angle);
+								bullets[index].dist = 0;
+								bullets[index].angle = angle;
+								bullets[index].alpha = 0.0f;
+								bullets[index].size_x = 0.0f;
+
+								enemy.time_to_shoot = 0.55f;
+							}
+							else
+							{
+								Render_Print(10, 30, "sdfdsf");
+							}
+						}
 					}
 				}
 
@@ -138,16 +506,41 @@ class Main
 
 			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
 
-			enemy_body[j].x = enemy.x;
-			enemy_body[j].y = enemy.y;
+			body.x = enemy.x;
+			body.y = enemy.y;
 
 			if (len > 0.01f)
 			{
 				enemy.angle = atan2(dir_y / len, dir_x / len);
-				enemy_body[j].angle = enemy.angle;
+				body.angle = enemy.angle;
 
 				enemy.prev_x = enemy.x; 
 				enemy.prev_y = enemy.y;
+
+				float angle = enemy.angle - enemy_view_angle * 0.01745329f;
+
+				float p2_x = cos(angle) * enemy_view_dist + body.x;
+				float p2_y = sin(angle) * enemy_view_dist + body.y - 33.0f;
+
+				angle = enemy.angle + enemy_view_angle * 0.01745329f;
+
+				float p3_x = cos(angle) * enemy_view_dist + body.x;
+				float p3_y = sin(angle) * enemy_view_dist + body.y - 33.0f;
+
+				//Render_DrawLine2D(body.x, body.y - 33.0f, p2_x, p2_y);
+				//Render_DrawLine2D(body.x, body.y - 33.0f, p3_x, p3_y);
+				//Render_DrawLine2D(p2_x, p2_y, p3_x, p3_y);
+
+				if ((IsPlayerVisibleByRadius(enemy, 175.0f) || IsPointInTriangle(hero_body[0].x, hero_body[0].y - 33.0f, body.x, body.y - 33.0f, p2_x, p2_y, p3_x, p3_y) > 0) &&
+					 IsPlayerVisible(enemy, enemy_view_dist))
+				{
+					enemy_legs_obj.SetActiveTrack(j, false);
+
+					enemy.agressive_mode = true;
+					enemy.cur_path = nav_mesh.GetPath(enemy.x, enemy.y, hero_body[0].x, hero_body[0].y);
+
+					continue;
+				}
 			}
 		}
 
@@ -208,21 +601,20 @@ class Main
 
 						if (legs.hp == 0)
 						{
-							legs.visible = 0;
-							body.angle = bullet.angle;
-							enemy_body_obj.SetActiveTrack(obj_index, false);
-							enemy_body_obj.GotoNode(obj_index, "Death");
+							MakeCharacterDead(obj_index, false, body, legs, pos_x, pos_y, bullet.angle, bullet.dir_x, bullet.dir_y);
+						}
+					}
+					else
+					if (str_object == "HeroGraph_Legs")
+					{
+						Character@ body = hero_body[obj_index];
+						Character@ legs = hero_legs[obj_index];
 
-							legs.fly_time = 0.65f;
-							legs.fly_dir_x = bullet.dir_x;
-							legs.fly_dir_y = bullet.dir_y;
+						legs.hp--;
 
-							int count = 3 + (rand() * 5);
-						
-							for (int i = 0; i < count; i++)
-							{
-								blood_splash_obj.AddInstance(pos_x - 30.0f + 60.0f * rand(), pos_y - 30.0f + 60.0f * rand(), true);
-							}
+						if (legs.hp == 0)
+						{
+							MakeCharacterDead(obj_index, true, body, legs, pos_x, pos_y, bullet.angle, bullet.dir_x, bullet.dir_y);
 						}
 					}
 					else
@@ -241,35 +633,5 @@ class Main
 				bullet.y += bullet.dir_y * len;
 			}
 		}
-
-		if (Control_GetState(alias_fire, 1) > 0)
-		{
-			if (hero_body_obj.ActivateLink(0, "Shoot"))
-			{
-				for (int i = 0; i < 3; i++)
-				{
-					int index = bullet_obj.AddInstance(hero_body[0].x + crosshair_dir_x * crosshair_fire_dist, hero_body[0].y + crosshair_dir_y * crosshair_fire_dist - 32, false);
-				
-					float angle = atan2(crosshair_dir_y, crosshair_dir_x) + (-3.0f + 6.0f * rand()) * 0.01745329f;
-					bullets[index].dir_x = cos(angle);
-					bullets[index].dir_y = sin(angle);
-					bullets[index].dist = 0;
-					bullets[index].angle = angle;
-					bullets[index].alpha = 0.0f;
-					bullets[index].size_x = 0.0f;
-				}
-			}
-		}
-
-		crosshair[0].x = hero_body[0].x + crosshair_dir_x * crosshair_dist;
-		crosshair[0].y = hero_body[0].y + crosshair_dir_y * crosshair_dist - 32;
-
-		hero_body[0].angle = atan2(crosshair_dir_y, crosshair_dir_x);
-
-		hero_legs[0].x = hero_body[0].x;
-		hero_legs[0].y = hero_body[0].y;
-
-		camera.target_pos_x = hero_body[0].x;
-		camera.target_pos_y = hero_body[0].y;
 	}
 }

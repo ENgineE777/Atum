@@ -117,25 +117,26 @@ void MetaData::Load(JSONReader& reader)
 		else
 		if (prop.type == Array)
 		{
-			reader.EnterBlock(prop.propName.c_str());
-
-			int count = 0;
-			if (reader.Read("count", count))
+			if (reader.EnterBlock(prop.propName.c_str()))
 			{
-				prop.adapter->Resize(count);
-				
-				for (int i = 0; i < count; i++)
+				int count = 0;
+				if (reader.Read("count", count))
 				{
-					reader.EnterBlock("Elem");
+					prop.adapter->Resize(count);
+				
+					for (int i = 0; i < count; i++)
+					{
+						reader.EnterBlock("Elem");
 
-					prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
-					prop.adapter->GetMetaData()->Load(reader);
+						prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
+						prop.adapter->GetMetaData()->Load(reader);
 
-					reader.LeaveBlock();
+						reader.LeaveBlock();
+					}
 				}
-			}
 
-			reader.LeaveBlock();
+				reader.LeaveBlock();
+			}
 		}
 		else
 		if (prop.type == Sprite)
@@ -309,7 +310,7 @@ EUIEditBox* MetaData::GetFloatEditBox(const char* name)
 	{
 		if (StringUtils::IsEqual(prop.propName.c_str(), name))
 		{
-			if (prop.type == Float)
+			if (prop.type == Float && prop.widgets.size() > 0)
 			{
 				return ((FloatWidget*)(prop.widgets.begin()->second))->ebox;
 			}

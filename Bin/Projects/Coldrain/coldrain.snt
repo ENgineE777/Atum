@@ -37,6 +37,11 @@
 			"type" : 0
 		},
 		{
+			"uid" : -86284544,
+			"name" : "Arrow",
+			"type" : 1
+		},
+		{
 			"uid" : 676955072,
 			"name" : "BloodSplash",
 			"type" : 1
@@ -69,6 +74,11 @@
 		{
 			"uid" : 835467968,
 			"name" : "Back",
+			"type" : 1
+		},
+		{
+			"uid" : -103625984,
+			"name" : "ExitLevel",
 			"type" : 1
 		},
 		{
@@ -115,6 +125,26 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 895327744,
+			"name" : "UIRestartMessage",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1994090496,
+			"name" : "NavMesh2D",
+			"type" : 1
 		},
 		{
 			"uid" : 200902816,
@@ -284,6 +314,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : -200352256,
+			"name" : "Arrow",
+			"type" : 1
+		},
+		{
 			"uid" : 1553014656,
 			"name" : "BloodSplash",
 			"type" : 1
@@ -301,6 +336,21 @@
 		{
 			"uid" : 988714176,
 			"name" : "Crosshair",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : -876151296,
+			"name" : "UIRestartMessage",
 			"type" : 1
 		},
 		{

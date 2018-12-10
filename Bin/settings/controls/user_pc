@@ -185,23 +185,31 @@
 		{
 			"name" : "Frog.AIM_VERT",
 			"AliasesRef" : [
-				{ "names" : ["KEY_W"], "modifier" : 1.0 },
-				{ "names" : ["KEY_S"], "modifier" : -1.0 },
 				{ "names" : ["JOY_RIGHT_STICK_V"] }
 			]
 		},
 		{
 			"name" : "Frog.AIM_HORZ",
 			"AliasesRef" : [
-				{ "names" : ["KEY_A"], "modifier" : -1.0 },
-				{ "names" : ["KEY_D"], "modifier" : 1.0 },
 				{ "names" : ["JOY_RIGHT_STICK_H"] }
+			]
+		},
+		{
+			"name" : "Frog.CURSOR_X",
+			"AliasesRef" : [
+				{ "names" : ["MS_X"] }
+			]
+		},
+		{
+			"name" : "Frog.CURSOR_Y",
+			"AliasesRef" : [
+				{ "names" : ["MS_Y"] }
 			]
 		},
 		{
 			"name" : "Frog.Fire",
 			"AliasesRef" : [
-				{ "names" : ["KEY_P"]},
+				{ "names" : ["MS_BTN0"] },
 				{ "names" : ["JOY_RIGHT_TRIGER"] }
 			]
 		}

@@ -29,11 +29,6 @@ void ArrayWidget::SetData(void* set_data)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
 
-	//int cur_size = adapter->GetSize();
-
-	//pre_sel_item = -1;
-	//cat->Show(false);
-
 	if (adapter->sel_item)
 	{
 		sel_item = adapter->sel_item;

@@ -182,12 +182,12 @@ void SpriteGraphInst::GotoNode(int index, string& node)
 
 PhysController* SpriteGraphInst::HackGetController(int index)
 {
-	for (auto comp : components)
+	for (auto& comp : components)
 	{
-		Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
-
-		if (phys_comp)
+		if (StringUtils::IsEqual(comp->class_name, "Phys2DCompInst"))
 		{
+			Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
+
 			return phys_comp->bodies[index].controller;
 		}
 	}

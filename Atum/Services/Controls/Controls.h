@@ -161,6 +161,8 @@ public:
 	bool  DebugKeyPressed(const char* name, AliasAction action = Activated, bool ignore_focus = false);
 	bool  DebugHotKeyPressed(const char* name, const char* name2, const char* name3 = nullptr);
 
+	bool IsGamepadConnected();
+
 #ifdef PLATFORM_PC
 	void OverrideMousePos(int mx, int my);
 #endif

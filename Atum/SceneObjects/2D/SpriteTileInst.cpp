@@ -56,7 +56,7 @@ void SpriteTileInst::Draw(float dt)
 #ifdef EDITOR
 	if (edited)
 	{
-		if (sel_inst != -1 && instances[sel_inst].GetPos().Distance(trans.pos) > 0.01f)
+		if (sel_inst != -1 && instances[sel_inst].GetPos().Length(trans.pos) > 0.01f)
 		{
 			instances[sel_inst].SetPos(trans.pos);
 			CalcIndices();

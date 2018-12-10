@@ -21,6 +21,9 @@ void Editor::Init()
 		EUI::Init("settings/EUI/", "theme.dat");
 	}
 
+	ClassFactorySceneObject::Sort();
+	ClassFactorySceneAsset::Sort();
+
 	mainWnd = new EUIWindow("Atum", "settings//editor//icon.ico", EUIWindow::Normal, true, 30, 30, 800, 600);
 	mainWnd->SetListener(-1, this, 0);
 

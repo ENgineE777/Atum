@@ -103,11 +103,13 @@ void Camera2D::Update(float dt)
 	}
 	else
 	{
-		render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN, Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN, Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - Sprite::ed_cam_pos, COLOR_GREEN);
+		Vector2 half_screen = Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f);
+
+		render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN);
+		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
 	}
 }
 
@@ -141,6 +143,7 @@ void Camera2D::SetEditMode(bool ed)
 	{
 		trans.size = 100.0f;
 		Gizmo::inst->SetTrans2D(&trans, Gizmo::trans_2d_move);
+		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"));
 	}
 }
 #endif

@@ -51,8 +51,8 @@ void SpriteGraphInst::ApplyProperties()
 
 bool SpriteGraphInst::Play()
 {
-	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
-	trans.offset = ((SpriteGraphAsset*)asset)->trans.offset;
+	trans.size = ((SpriteGraphAsset*)asset)->GetDefailtSize();
+	trans.offset = ((SpriteGraphAsset*)asset)->GetDefailtOffset();
 
 	return true;
 }
@@ -69,8 +69,8 @@ void SpriteGraphInst::Draw(float dt)
 		return;
 	}
 
-	trans.size = ((SpriteGraphAsset*)asset)->trans.size;
-	trans.offset = ((SpriteGraphAsset*)asset)->trans.offset;
+	trans.size = ((SpriteGraphAsset*)asset)->GetDefailtSize();
+	trans.offset = ((SpriteGraphAsset*)asset)->GetDefailtOffset();
 
 #ifdef EDITOR
 	if (edited)

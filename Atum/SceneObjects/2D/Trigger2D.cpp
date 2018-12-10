@@ -81,5 +81,11 @@ void Trigger2D::SetEditMode(bool ed)
 	SceneObject::SetEditMode(ed);
 
 	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+
+	if (ed)
+	{
+		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"),
+		                               GetMetaData()->GetFloatEditBox("width"), GetMetaData()->GetFloatEditBox("height"));
+	}
 }
 #endif

@@ -11,7 +11,7 @@ class SpriteGraphAsset : public SceneAsset
 public:
 	META_DATA_DECL(SpriteGraphAsset)
 
-	Transform2D trans;
+	Transform2D trans_anim;
 	static Sprite::FrameState state;
 
 	enum DragMode
@@ -87,6 +87,9 @@ public:
 	Vector2 camera_pos = 0.0f;
 	bool UsingCamera2DPos() override;
 	Vector2& Camera2DPos() override;
+
+	Vector2 GetDefailtSize();
+	Vector2 GetDefailtOffset();
 
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);

@@ -81,7 +81,7 @@ void SpritesLayerAsset::OnLeftMouseDown(Vector2 ms)
 	{
 		LayerSprite& sprite = sprites[i];
 
-		Vector2 pos = (sprite.pos + trans.offset * sprite.size * -1.0f) * scale - Sprite::ed_cam_pos;
+		Vector2 pos = (sprite.pos + trans.offset * sprite.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x < ms.x && ms.x < pos.x + sprite.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + sprite.size.y * scale)
@@ -103,6 +103,12 @@ void SpritesLayerAsset::SetGizmo()
 		trans.pos = sprites[sel_sprite].pos;
 	}
 
-	Gizmo::inst->SetTrans2D(sel_sprite != -1 ? &trans : nullptr);
+	Gizmo::inst->SetTrans2D(sel_sprite != -1 ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+
+	if (sel_sprite != -1)
+	{
+		Gizmo::inst->SetTrans2DWidgets(sprites[sel_sprite].GetMetaData()->GetFloatEditBox("x"), sprites[sel_sprite].GetMetaData()->GetFloatEditBox("y"),
+		                               sprites[sel_sprite].GetMetaData()->GetFloatEditBox("width"), sprites[sel_sprite].GetMetaData()->GetFloatEditBox("height"));
+	}
 }
 #endif

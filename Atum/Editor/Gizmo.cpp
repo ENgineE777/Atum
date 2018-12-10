@@ -14,14 +14,28 @@ void Gizmo::Init()
 
 void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions, bool set_ignore_2d_camera)
 {
+	SetTrans2DWidgets();
+
 	trans2D = set_trans2D;
 	if (trans2D)
 	{
 		pos2d = trans2D->pos;
 	}
+
 	trans2D_actions = actions;
 	ignore_2d_camera = set_ignore_2d_camera;
 	enabled = (trans2D != nullptr);
+}
+
+void Gizmo::SetTrans2DWidgets(EUIEditBox* set_ebox_x, EUIEditBox* set_ebox_y, EUIEditBox* set_ebox_width, EUIEditBox* set_ebox_height, EUIEditBox* set_ebox_offset_x, EUIEditBox* set_ebox_offset_y)
+{
+	ebox_x = set_ebox_x;
+	ebox_y = set_ebox_y;
+	ebox_width = set_ebox_width;
+	ebox_height = set_ebox_height;
+	ebox_offset_x = set_ebox_offset_x;
+	ebox_offset_y = set_ebox_offset_y;
+	ebox_x = set_ebox_x;
 }
 
 bool Gizmo::IsTrans2D()
@@ -450,10 +464,25 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 {
 	ms *= (1024.0f / render.GetDevice()->GetHeight());
 
+	if (ms.Length() < 0.001f)
+	{
+		return;
+	}
+
 	if (selAxis == 0)
 	{
 		pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
 		pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
+
+		Vector2 prev_pos = trans2D->pos;
+		trans2D->pos = MakeAligned(pos2d);
+		delta_move += trans2D->pos - prev_pos;
+
+		if (ebox_x && ebox_y)
+		{
+			ebox_x->SetText(trans2D->pos.x);
+			ebox_y->SetText(trans2D->pos.y);
+		}
 	}
 	else
 	if (selAxis == 9 && controls.DebugKeyPressed("KEY_LALT", Controls::Active))
@@ -485,54 +514,53 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 	else
 	if (selAxis == 10)
 	{
-		moved_origin += ms;
+		moved_origin += ms * render.GetDevice()->GetHeight() / 1024.0f;
 	}
 	else
 	if (selAxis > 0)
 	{
 		float dist = ms.Length();
 
-		if (dist > 0.01f)
+		ms.Normalize();
+
+		float k1 = 1.0f;
+		float k2 = 1.0f;
+
+		if (selAxis == 5 || selAxis == 7)
 		{
-			ms.Normalize();
+			k1 = 0.0f;
+		}
 
-			float k1 = 1.0f;
-			float k2 = 1.0f;
+		if (selAxis == 1 || selAxis == 2 || selAxis == 5)
+		{
+			k2 = -1.0f;
+		}
 
-			if (selAxis == 5 || selAxis == 7)
-			{
-				k1 = 0.0f;
-			}
+		if (selAxis == 0 || selAxis== 1 || selAxis == 4 || selAxis == 8)
+		{
+			k1 = -1.0f;
+		}
 
-			if (selAxis == 1 || selAxis == 2 || selAxis == 5)
-			{
-				k2 = -1.0f;
-			}
+		if (selAxis == 6 || selAxis == 8)
+		{
+			k2 = 0.0f;
+		}
 
-			if (selAxis == 0 || selAxis== 1 || selAxis == 4 || selAxis == 8)
-			{
-				k1 = -1.0f;
-			}
+		float dot1 = 0.0f;
+		float dot2 = 0.0f;
 
-			if (selAxis == 6 || selAxis == 8)
-			{
-				k2 = 0.0f;
-			}
+		dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
+		dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
 
-			float dot1 = 0.0f;
-			float dot2 = 0.0f;
+		trans2D->size.x += dist * k1 * dot1;
+		trans2D->size.y += dist * k2 * dot2;
 
-			dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
-			dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
-
-			trans2D->size.x += dist * k1 * dot1;
-			trans2D->size.y += dist * k2 * dot2;
+		if (ebox_width && ebox_height)
+		{
+			ebox_width->SetText(trans2D->size.x);
+			ebox_height->SetText(trans2D->size.y);
 		}
 	}
-
-	Vector2 prev_pos = trans2D->pos;
-	trans2D->pos = MakeAligned(pos2d);
-	delta_move += trans2D->pos - prev_pos;
 }
 
 void Gizmo::MoveTrans3D(Vector2 ms)
@@ -813,6 +841,19 @@ void Gizmo::OnLeftMouseUp()
 		trans2D->offset += Vector2(pos.x, pos.y);
 		trans2D->pos += Vector2(pos.x, pos.y) * trans2D->size;
 		pos2d = trans2D->pos;
+
+		if (ebox_x && ebox_y)
+		{
+			ebox_x->SetText(trans2D->pos.x);
+			ebox_y->SetText(trans2D->pos.y);
+		}
+
+		if (ebox_offset_x && ebox_offset_y)
+		{
+			ebox_offset_x->SetText(trans2D->offset.x);
+			ebox_offset_y->SetText(trans2D->offset.y);
+		}
+
 		selAxis = -1;
 	}
 }

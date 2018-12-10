@@ -48,6 +48,14 @@ void ArrayWidget::SetData(void* set_data)
 			elem.cat = new EUICategories(elements, 10, 0, 190, -1);
 			elements->RegisterChildInCategory("Selected Element", elem.cat);
 			elem_cats.push_back(elem);
+
+			if (adapter->GetSize() > 0)
+			{
+				adapter->GetMetaData()->Prepare(adapter->GetItem(0), root);
+				adapter->GetMetaData()->PrepareWidgets(elem.cat);
+			}
+
+			elem.cat->Show(true);
 		}
 	}
 	else

@@ -100,10 +100,6 @@ CLASSREG(SceneAsset, SpriteGraphAsset, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphAsset)
 	BASE_SCENE_ASSET_PROP(SpriteGraphAsset)
-	FLOAT_PROP(SpriteGraphAsset, trans.pos.x, 0.0f, "Prop", "x")
-	FLOAT_PROP(SpriteGraphAsset, trans.pos.y, 0.0f, "Prop", "y")
-	FLOAT_PROP(SpriteGraphAsset, trans.size.x, 100.0f, "Prop", "width")
-	FLOAT_PROP(SpriteGraphAsset, trans.size.y, 100.0f, "Prop", "height")
 META_DATA_DESC_END()
 
 Sprite::FrameState SpriteGraphAsset::state;
@@ -369,11 +365,11 @@ void SpriteGraphAsset::Draw(float dt)
 			state.looped = node.looped;
 			state.reversed = node.reversed;
 
-			trans.pos = node.asset->trans.size * 0.5f;
-			trans.size = node.asset->trans.size;
-			trans.BuildMatrices();
+			trans_anim.pos = node.asset->trans.size * 0.5f;
+			trans_anim.size = node.asset->trans.size;
+			trans_anim.BuildMatrices();
 			Sprite::UpdateFrame(&node.asset->sprite, &state, dt);
-			Sprite::Draw(&trans, COLOR_WHITE, &node.asset->sprite, &state, true, true);
+			Sprite::Draw(&trans_anim, COLOR_WHITE, &node.asset->sprite, &state, true, true);
 		}
 	}
 }
@@ -387,6 +383,26 @@ bool SpriteGraphAsset::UsingCamera2DPos()
 Vector2& SpriteGraphAsset::Camera2DPos()
 {
 	return camera_pos;
+}
+
+Vector2 SpriteGraphAsset::GetDefailtSize()
+{
+	if (nodes.size() > 0)
+	{
+		return nodes[def_node].asset->trans.size;
+	}
+
+	return 64.0f;
+}
+
+Vector2 SpriteGraphAsset::GetDefailtOffset()
+{
+	if (nodes.size() > 0)
+	{
+		return nodes[def_node].asset->trans.offset;
+	}
+
+	return 0.5f;
 }
 
 void SpriteGraphAsset::PrepareInstance(Instance* inst)

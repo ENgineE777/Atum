@@ -487,10 +487,6 @@ class Main
 
 								enemy.time_to_shoot = 0.55f;
 							}
-							else
-							{
-								Render_Print(10, 30, "sdfdsf");
-							}
 						}
 					}
 				}

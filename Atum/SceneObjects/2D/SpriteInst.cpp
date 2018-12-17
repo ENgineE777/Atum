@@ -690,10 +690,10 @@ void SpriteInst::FillRect()
 
 			sel_instances.push_back((int)instances.size() - 1);
 
-			x += Gizmo::inst->align2d.x;
+			x += trans.size.x;
 		}
 
-		y += Gizmo::inst->align2d.y;
+		y += trans.size.y;
 	}
 }
 

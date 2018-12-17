@@ -410,6 +410,20 @@ void Editor::StartScene()
 
 	ed_scene.EnableTasks(false);
 
+	if (sceneName.size() == 0)
+	{
+		const char* fileName = EUI::EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
+
+		if (fileName)
+		{
+			sceneName = fileName;
+		}
+		else
+		{
+			return;
+		}
+	}
+
 	Save();
 
 	scripts.Start();

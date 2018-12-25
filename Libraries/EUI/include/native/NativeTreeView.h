@@ -16,6 +16,7 @@ public:
 	virtual void  SetItemText(void* item, const char* text) = 0;
 	virtual void* GetSelectedItem() = 0;
 	virtual void  SelectItem(void* item) = 0;
+	virtual void  SetItemImage(void* item, int image) = 0;
 	virtual void  GetItemText(void* item, std::string& text) = 0;
 	virtual void* GetItemPtr(void* item) = 0;
 	virtual void* GetItemParent(void* item) = 0;

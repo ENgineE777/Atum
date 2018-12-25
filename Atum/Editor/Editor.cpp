@@ -8,6 +8,8 @@ map<string, EUIListBox*> Editor::output_boxes;
 
 extern Scene* hack_scene;
 
+Editor editor;
+
 void Editor::Init()
 {
 	GetCurrentDirectory(1024, appdir);
@@ -103,9 +105,23 @@ void Editor::Init()
 	EUITabPanel* tabPanel = new EUITabPanel(leftPanelLt, 30, 50, 100, 30);
 	tabPanel->SetListener(-1, this, 0);
 
-	EUITabSheet* sheet = tabPanel->AddTab("Scene");
+	EUITabSheet* sheet_prj = tabPanel->AddTab("Project");
+	EUILayout* scene_prj = new EUILayout(sheet_prj, true);
 
-	EUILayout* scene_lt = new EUILayout(sheet, true);
+	project_treeview = new EUITreeView(scene_prj, 200, 10, 200, 100, true, true);
+	project_treeview->SetListener(-1, this, 0);
+
+	project_treeview->AddImage("settings/editor/folder.png");
+	project_treeview->AddImage("settings/editor/scene_elem.png");
+	project_treeview->AddImage("settings/editor/scene_elem_active.png");
+
+	scene_sheet = tabPanel->AddTab("Scene");
+	scene_sheet->Enable(false);
+
+	//EUITabSheet* sheet2 = tabPanel->AddTab("Layers");
+	//EUITabSheet* sheet3 = tabPanel->AddTab("Groups");
+
+	EUILayout* scene_lt = new EUILayout(scene_sheet, true);
 
 	scene_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
 	scene_lt->SetChildSize(scene_treeview, 0.5, true);
@@ -171,7 +187,6 @@ void Editor::Init()
 	renderTaskPool->AddTask(1, this, (Object::Delegate)&Editor::Draw);
 
 	freecamera.Init();
-	ed_scene.Init();
 
 	Sprite::Init();
 
@@ -225,13 +240,13 @@ void Editor::ShowGizmoControls(int mode)
 
 void Editor::ClearScene()
 {
+	scene_sheet->Enable(false);
 	SelectObject(nullptr, false);
-	sceneName.clear();
+	project.Reset();
 	scene_nodes.clear();
 	assets_nodes.clear();
 	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
-	ed_scene.Clear();
 }
 
 void Editor::UpdateGizmoToolbar()
@@ -263,7 +278,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		if (selectedObject->UsingCamera2DPos())
 		{
 			selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
-			Sprite::ed_cam_pos = ed_scene.camera2d_pos;
+			Sprite::ed_cam_pos = project.select_scene->camera2d_pos;
 		}
 
 		selectedObject->ShowPropWidgets(nullptr);
@@ -296,7 +311,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (selectedObject->UsingCamera2DPos())
 		{
-			ed_scene.camera2d_pos = Sprite::ed_cam_pos;
+			project.select_scene->camera2d_pos = Sprite::ed_cam_pos;
 			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
 		}
 
@@ -340,8 +355,8 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 		return;
 	}
 
-	SceneObject* copy = ed_scene.AddObject(obj->class_name, is_asset);
-	ed_scene.GenerateUID(copy, is_asset);
+	SceneObject* copy = project.select_scene->AddObject(obj->class_name, is_asset);
+	project.select_scene->GenerateUID(copy, is_asset);
 	copy->Copy(obj);
 
 	string name = obj->GetName();
@@ -363,8 +378,8 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 
 void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 {
-	SceneObject* obj = ed_scene.AddObject(name, is_asset);
-	ed_scene.GenerateUID(obj, is_asset);
+	SceneObject* obj = project.select_scene->AddObject(name, is_asset);
+	project.select_scene->GenerateUID(obj, is_asset);
 	obj->ApplyProperties();
 
 	if (obj->Is3DObject())
@@ -408,15 +423,23 @@ void Editor::StartScene()
 		selectedObject->EnableTasks(false);
 	}
 
-	ed_scene.EnableTasks(false);
-
-	if (sceneName.size() == 0)
+	if (project.select_scene)
 	{
-		const char* fileName = EUI::EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
+		project.select_scene->EnableTasks(false);
+	}
+
+	if (!project.CanRun())
+	{
+		return;
+	}
+
+	if (project.project_name.size() == 0)
+	{
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "apr");
 
 		if (fileName)
 		{
-			sceneName = fileName;
+			project.project_name = fileName;
 		}
 		else
 		{
@@ -424,13 +447,14 @@ void Editor::StartScene()
 		}
 	}
 
-	Save();
+	project.Save();
 
 	scripts.Start();
 
 	scene = new Scene();
 	scene->Init();
-	scene->Load(sceneName.c_str());
+	scene->Load(project.start_scene.c_str());
+
 	if (scene->Play())
 	{
 		mainWnd->Enable(false);
@@ -474,7 +498,10 @@ void Editor::StopScene()
 		selectedObject->EnableTasks(true);
 	}
 
-	ed_scene.EnableTasks(true);
+	if (project.select_scene)
+	{
+		project.select_scene->EnableTasks(true);
+	}
 	
 	if (selectedObject && selectedObject->UsingCamera2DPos())
 	{
@@ -482,7 +509,7 @@ void Editor::StopScene()
 	}
 	else
 	{
-		Sprite::ed_cam_pos = ed_scene.camera2d_pos;
+		Sprite::ed_cam_pos = project.select_scene->camera2d_pos;
 	}
 
 	ShowVieport();
@@ -525,214 +552,6 @@ void Editor::Draw(float dt)
 	render.ExecutePool(ExecuteLevels::Debug, dt);
 
 	render.GetDevice()->Present();
-}
-
-void Editor::LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const char* group)
-{
-	while (reader->EnterBlock(group))
-	{
-		nodes.push_back(SceneTreeNode());
-		SceneTreeNode& node = nodes.back();
-
-		reader->Read("uid", node.uid);
-		reader->Read("name", node.name);
-		reader->Read("type", node.type);
-
-		reader->LeaveBlock();
-	}
-}
-
-void Editor::Load()
-{
-	ed_scene.Load(sceneName.c_str());
-	Sprite::ed_cam_pos = ed_scene.camera2d_pos;
-	freecamera.angles = ed_scene.camera3d_angles;
-	freecamera.pos = ed_scene.camera3d_pos;
-	moveModeBtn->SetPushed(ed_scene.move_mode == 1);
-	x_align->SetText(ed_scene.gizmo2d_align_x);
-	y_align->SetText(ed_scene.gizmo2d_align_y);
-	gizmo.align2d = Vector2((float)ed_scene.gizmo2d_align_x, (float)ed_scene.gizmo2d_align_x);
-
-	string scene_tree = sceneName;
-	scene_tree.resize(scene_tree.size() - 3);
-	scene_tree += "snt";
-
-	JSONReader reader;
-	if (reader.Parse(scene_tree.c_str()))
-	{
-		LoadNodes(&reader, scene_nodes, "scene_nodes");
-		LoadNodes(&reader, assets_nodes, "asset_nodes");
-	}
-	else
-	{
-		for (int i = 0; i < ed_scene.GetObjectsCount(false); i++)
-		{
-			SceneTreeNode node;
-
-			node.type = 1;
-			node.uid = ed_scene.GetObj(i, false)->GetUID();
-			node.name = ed_scene.GetObj(i, false)->GetName();
-
-			scene_nodes.push_back(node);
-		}
-
-		SceneTreeNode node;
-
-		node.type = 2;
-		node.uid = -1;
-
-		scene_nodes.push_back(node);
-
-		for (int i = 0; i < ed_scene.GetObjectsCount(true); i++)
-		{
-			SceneTreeNode node;
-
-			node.type = 1;
-			node.uid = ed_scene.GetObj(i, false)->GetUID();
-			node.name = ed_scene.GetObj(i, true)->GetName();
-
-			assets_nodes.push_back(node);
-		}
-
-		assets_nodes.push_back(node);
-	}
-	
-	RestoreTreeviewNodes();
-}
-
-void Editor::SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const char* group)
-{
-	writer->StartArray(group);
-
-	for (auto& node : nodes)
-	{
-		writer->StartBlock(nullptr);
-
-		writer->Write("uid", node.uid);
-		writer->Write("name", node.name.c_str());
-		writer->Write("type", node.type);
-
-		writer->FinishBlock();
-	}
-
-	writer->FinishArray();
-}
-
-void Editor::Save()
-{
-	if (selectedObject && selectedObject->UsingCamera2DPos())
-	{
-		selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
-	}
-	else
-	{
-		ed_scene.camera2d_pos = Sprite::ed_cam_pos;
-	}
-
-	ed_scene.camera3d_angles = freecamera.angles;
-	ed_scene.camera3d_pos = freecamera.pos;
-
-	GrabTreeviewNodes();
-	ed_scene.Save(sceneName.c_str());
-	string scene_tree = sceneName;
-	scene_tree.resize(scene_tree.size() - 3);
-	scene_tree+="snt";
-
-	JSONWriter writer;
-	writer.Start(scene_tree.c_str());
-
-	SaveNode(&writer, scene_nodes, "scene_nodes");
-	SaveNode(&writer, assets_nodes, "asset_nodes");
-}
-
-void Editor::RestoreTreeviewNodes()
-{
-	RestoreTreeviewNodes(scene_treeview, scene_nodes, false);
-	RestoreTreeviewNodes(assets_treeview, assets_nodes, true);
-}
-
-void Editor::RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, bool is_asset)
-{
-	if (nodes.size() == 0)
-	{
-		for (int i = 0; i < ed_scene.GetObjectsCount(is_asset); i++)
-		{
-			SceneObject* obj = ed_scene.GetObj(i, is_asset);
-			obj->item = treeview->AddItem(obj->GetName(), 1, obj, nullptr, -1, false);
-			obj->AddChildsToTree(treeview);
-		}
-	}
-	else
-	{
-		int index = 0;
-		treeview->ClearTree();
-		RestoreTreeviewNodes(treeview, nodes, index, nullptr, is_asset);
-	}
-}
-
-void Editor::RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, int& index, void* item, bool is_asset)
-{
-	SceneTreeNode& node = nodes[index];
-	index++;
-	
-	while (node.type != 2)
-	{
-		SceneObject* obj = (node.uid != -1) ? ed_scene.FindByUID(node.uid, 0, is_asset) : nullptr;
-
-		void* child = treeview->AddItem(node.name.c_str(), node.type, obj, item , -1, (node.type == 0));
-
-		if (obj)
-		{
-			obj->item = child;
-			obj->AddChildsToTree(treeview);
-		}
-		else
-		{
-			RestoreTreeviewNodes(treeview, nodes, index, child, is_asset);
-		}
-
-		node = nodes[index];
-		index++;
-	}
-}
-
-void Editor::GrabTreeviewNodes()
-{
-	scene_nodes.clear();
-	GrabTreeviewNodes(scene_treeview, scene_nodes, nullptr, false);
-
-	assets_nodes.clear();
-	GrabTreeviewNodes(assets_treeview, assets_nodes, nullptr, true);
-}
-
-void Editor::GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, void* item, bool is_asset)
-{
-	int count = treeview->GetItemChildCount(item);
-
-	for (int i = 0; i < count; i++)
-	{
-		void* child = treeview->GetItemChild(item, i);
-
-		nodes.push_back(SceneTreeNode());
-		SceneTreeNode& node = nodes.back();
-
-		treeview->GetItemText(child, node.name);
-		SceneObject* obj = (SceneObject*)treeview->GetItemPtr(child);
-
-		if (obj)
-		{
-			node.type = 1;
-			node.uid = obj->GetUID();
-		}
-		else
-		{
-			GrabTreeviewNodes(treeview, nodes, child, is_asset);
-		}
-	}
-
-	nodes.push_back(SceneTreeNode());
-	SceneTreeNode& node = nodes.back();
-	node.type = 2;
 }
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
@@ -793,7 +612,62 @@ void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 	popup_menu->ShowAsPopup(treeview, x, y);
 }
 
-void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
+void Editor::ProcessProjectTreeviewPopup(int id)
+{
+	if (id == 4500)
+	{
+		project_treeview->AddItem("Folder", 0, nullptr, popup_item, -1, true);
+	}
+
+	if (id == 4501)
+	{
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
+
+		if (fileName)
+		{
+			if (popup_item && project_treeview->GetItemPtr(popup_item))
+			{
+				popup_item = project_treeview->GetItemParent(popup_item);
+			}
+
+			project.AddScene(fileName, popup_item);
+		}
+	}
+
+	if (id == 4502)
+	{
+		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Scene file", "scn");
+
+		if (fileName)
+		{
+			if (popup_item && project_treeview->GetItemPtr(popup_item))
+			{
+				popup_item = project_treeview->GetItemParent(popup_item);
+			}
+
+			project.AddScene(fileName, popup_item);
+		}
+	}
+
+	if (id == 4503)
+	{
+		Project::SceneHolder* scn = (Project::SceneHolder*)asset_treeview->GetItemPtr(popup_item);
+
+		if (scn)
+		{
+			project.SetStartScene(scn->path.c_str());
+		}
+	}
+
+	if (id == 4504)
+	{
+		allow_delete_objects_by_tree = true;
+		project_treeview->DeleteItem(popup_item);
+		allow_delete_objects_by_tree = false;
+	}
+}
+
+void Editor::ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 {
 	void* parent_item = popup_item;
 
@@ -833,9 +707,6 @@ void Editor::ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset)
 	{
 		CreateSceneObject(is_asset ? ClassFactorySceneAsset::Decls()[id - MenuSceneAssetID]->GetName() : ClassFactorySceneObject::Decls()[id - MenuSceneObjectID]->GetName(), parent_item, is_asset);
 	}
-
-	popup_item = nullptr;
-	popup_scene_item = nullptr;
 }
 
 void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
@@ -898,7 +769,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 			else
 			if (!selectedObject || !selectedObject->HasOwnTasks())
 			{
-				SelectObject(ed_scene.CheckSelection({ (float)mx, (float)my }), false);
+				SelectObject(project.select_scene->CheckSelection({ (float)mx, (float)my }), false);
 			}
 		}
 		else
@@ -979,7 +850,7 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 	if (sender == moveModeBtn)
 	{
-		ed_scene.move_mode = moveModeBtn->IsPushed() ? 1 : 0;
+		project.select_scene->move_mode = moveModeBtn->IsPushed() ? 1 : 0;
 	}
 
 	if (sender == playBtn)
@@ -1022,14 +893,14 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 {
 	if (sender == x_align)
 	{
-		ed_scene.gizmo2d_align_x = x_align->GetAsInt();
-		gizmo.align2d.x = (float)ed_scene.gizmo2d_align_x;
+		project.select_scene->gizmo2d_align_x = x_align->GetAsInt();
+		gizmo.align2d.x = (float)project.select_scene->gizmo2d_align_x;
 	}
 
 	if (sender == y_align)
 	{
-		ed_scene.gizmo2d_align_y = y_align->GetAsInt();
-		gizmo.align2d.y = (float)ed_scene.gizmo2d_align_y;
+		project.select_scene->gizmo2d_align_y = y_align->GetAsInt();
+		gizmo.align2d.y = (float)project.select_scene->gizmo2d_align_y;
 	}
 }
 
@@ -1040,32 +911,31 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 		ClearScene();
 	}
 
-	if (activated_id == MenuSaveID && sceneName.size() != 0)
+	if (activated_id == MenuSaveID && project.project_name.size() != 0)
 	{
-		Save();
+		project.Save();
 	}
 
-	if ((activated_id == MenuSaveID && sceneName.size() == 0) ||
-		activated_id == MenuSaveAsID)
+	if ((activated_id == MenuSaveID && project.project_name.size() == 0) || activated_id == MenuSaveAsID)
 	{
-		const char* fileName = EUI::EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "apr");
 
 		if (fileName)
 		{
-			sceneName = fileName;
-			Save();
+			project.project_name = fileName;
+			project.Save();
 		}
 	}
 
 	if (activated_id == MenuOpenID)
 	{
-		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Scene file", "scn");
+		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Project file", "apr");
 
 		if (fileName)
 		{
 			ClearScene();
-			sceneName = fileName;
-			Load();
+			project.project_name = fileName;
+			project.Load();
 		}
 	}
 
@@ -1084,15 +954,23 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 		((SceneAsset*)selectedObject)->OnAssetTreePopupItem(activated_id);
 	}
 	else
+	if (popup_parent == project_treeview)
+	{
+		ProcessProjectTreeviewPopup(activated_id);
+	}
+	else
 	if (popup_parent == scene_treeview || popup_parent == assets_treeview)
 	{
-		ProcesTreeviewPopup((EUITreeView*)popup_parent, activated_id, (popup_parent == assets_treeview));
+		ProcessTreeviewPopup((EUITreeView*)popup_parent, activated_id, (popup_parent == assets_treeview));
 	}
 	else
 	if (selectedObject)
 	{
 		selectedObject->OnPopupMenuItem(activated_id);
 	}
+
+	popup_item = nullptr;
+	popup_scene_item = nullptr;
 }
 
 void Editor::OnUpdate(EUIWidget* sender)
@@ -1111,7 +989,10 @@ void Editor::OnUpdate(EUIWidget* sender)
 	{
 		asset_drag_as_inst = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
 
-		freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : (ed_scene.move_mode == 1);
+		if (project.select_scene)
+		{
+			freecamera.mode_2d = selectedObject ? !selectedObject->Is3DObject() : (project.select_scene->move_mode == 1);
+		}
 
 		if (!freecamera.mode_2d && (!selectedObject || !selectedObject->HasOwnTasks()))
 		{
@@ -1201,15 +1082,18 @@ void Editor::OnUpdate(EUIWidget* sender)
 			}
 		}
 
-		if (selectedObject && selectedObject->HasOwnTasks())
+		if (project.select_scene)
 		{
-			ed_scene.EnableTasks(false);
-			selectedObject->Tasks(true)->Execute(dt);
-		}
-		else
-		{
-			ed_scene.EnableTasks(true);
-			ed_scene.Execute(dt);
+			if (selectedObject && selectedObject->HasOwnTasks())
+			{
+				project.select_scene->EnableTasks(false);
+				selectedObject->Tasks(true)->Execute(dt);
+			}
+			else
+			{
+				project.select_scene->EnableTasks(true);
+				project.select_scene->Execute(dt);
+			}
 		}
 	}
 }
@@ -1235,6 +1119,11 @@ void Editor::OnWinClose(EUIWidget* sender)
 
 bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void* item, int prev_child_index, void* parent, int child_index)
 {
+	if (sender == project_treeview)
+	{
+		return true;
+	}
+
 	if ((sender == assets_treeview || sender == scene_treeview) && target == viewport)
 	{
 		if (selectedObject)
@@ -1308,7 +1197,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		else
 		{
 			SceneObject* inst = asset->CreateInstance();
-			ed_scene.GenerateUID(inst, false);
+			project.select_scene->GenerateUID(inst, false);
 
 			for (auto comp : asset->components)
 			{
@@ -1327,6 +1216,13 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 {
+	if (sender == project_treeview)
+	{
+		Project::SceneHolder* scn = (Project::SceneHolder*)asset_treeview->GetItemPtr(item);
+		project.SelectScene(scn ? scn->path.c_str() : "");
+		scene_sheet->Enable(project.select_scene != nullptr);
+	}
+	else
 	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
 		((SceneAsset*)selectedObject)->OnAssetTreeSelChange((SceneAsset*)asset_treeview->GetItemPtr(item));
@@ -1376,6 +1272,15 @@ void Editor::OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr)
 
 void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 {
+	if (sender == project_treeview && allow_delete_objects_by_tree)
+	{
+		if (ptr)
+		{
+			project.DeleteScene(((Project::SceneHolder*)ptr)->path.c_str());
+			scene_sheet->Enable(project.select_scene != nullptr);
+		}
+	}
+
 	if ((sender == scene_treeview || sender == assets_treeview) && allow_delete_objects_by_tree)
 	{
 		if (ptr)
@@ -1392,7 +1297,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 				for (auto inst : asset->instances)
 				{
 					scene_treeview->DeleteItem(inst->item);
-					ed_scene.DeleteObject((SceneObject*)inst, false);
+					project.select_scene->DeleteObject((SceneObject*)inst, false);
 				}
 			}
 			else
@@ -1405,7 +1310,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 				}
 			}
 
-			ed_scene.DeleteObject((SceneObject*)ptr, (sender == assets_treeview));
+			project.select_scene->DeleteObject((SceneObject*)ptr, (sender == assets_treeview));
 
 			sender->SelectItem(nullptr);
 		}
@@ -1420,6 +1325,23 @@ void Editor::OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item,
 		((SceneAsset*)selectedObject)->OnAssetTreeRightClick(x, y, (SceneAsset*)sender->GetItemPtr(item), child_index);
 	}
 
+	if (project_treeview == project_treeview)
+	{
+		popup_menu->StartMenu(true);
+
+		popup_menu->AddItem(4500, "Create Folder");
+		popup_menu->AddItem(4501, "Add New scene");
+		popup_menu->AddItem(4502, "Add Scene");
+		popup_menu->AddItem(4503, "Mark as start scene");
+		popup_menu->AddItem(4504, "Delete");
+
+		popup_menu->EndSubMenu();
+
+		popup_item = item;
+		popup_parent = sender;
+		popup_menu->ShowAsPopup(project_treeview, x, y);
+	}
+	else
 	if (sender == scene_treeview || sender == assets_treeview)
 	{
 		popup_item = item;

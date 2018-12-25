@@ -3,9 +3,7 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	Editor ed;
+	editor.Init();
 
-	ed.Init();
-
-	return ed.Run();
+	return editor.Run();
 }

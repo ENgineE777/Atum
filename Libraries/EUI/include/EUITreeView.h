@@ -20,6 +20,7 @@ public:
 	virtual void* AddItem(const char* txt, int image, void* ptr, void* parent, int child_index, bool can_have_childs, const char* tooltip = nullptr);
 	virtual void  SetABSortChilds(void* item, bool sort);
 	virtual void  SetItemText(void* item, const char* text);
+	virtual void  SetItemImage(void* item, int image);
 	virtual void* GetSelectedItem();
 	virtual void  SelectItem(void* item);
 	virtual void  GetItemText(void* item, std::string& text);

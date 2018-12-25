@@ -11,9 +11,12 @@
 #include "EditorDrawer.h"
 #include <map>
 #include "SceneObjCmpWidget.h"
+#include "Project.h"
 
 class Editor : public Object, public EUIWidget::Listener
 {
+	friend class Project;
+
 	enum Const
 	{
 		MenuNewID = 1000,
@@ -30,12 +33,13 @@ class Editor : public Object, public EUIWidget::Listener
 	bool       gizmoMove = true;
 	bool       gizmoGlobal = true;
 
-	std::string  sceneName;
+	EUITreeView* scene_treeview = nullptr;
 
 	SceneObject* selectedObject = nullptr;
 	bool         isSelectedAsset = false;
-	EUITreeView* scene_treeview = nullptr;
+	EUITreeView* project_treeview = nullptr;
 
+	EUITabSheet* scene_sheet = nullptr;
 	EUITreeView* assets_treeview = nullptr;
 
 	static EUITabPanel* outputPanels;
@@ -70,7 +74,6 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIWindow* gameWnd = nullptr;
 	EUIPanel* game_viewport = nullptr;
 
-	Scene ed_scene;
 	Scene* scene = nullptr;
 	Gizmo gizmo;
 
@@ -94,6 +97,8 @@ class Editor : public Object, public EUIWidget::Listener
 		string name;
 		uint32_t uid = -1;
 	};
+
+	Project project;
 
 	bool in_select_object = false;
 	vector<SceneTreeNode> scene_nodes;
@@ -120,17 +125,9 @@ public:
 	void StartScene();
 	void StopScene();
 	void Draw(float dt);
-	void Load();
-	void Save();
-	void LoadNodes(JSONReader* reader, vector<SceneTreeNode>& nodes, const char* group);
-	void SaveNode(JSONWriter* writer, vector<SceneTreeNode>& nodes, const char* group);
-	void RestoreTreeviewNodes();
-	void RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, bool is_asset);
-	void RestoreTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& nodes, int& index, void* item, bool is_asset);
-	void GrabTreeviewNodes();
-	void GrabTreeviewNodes(EUITreeView* treeview, vector<SceneTreeNode>& scene_nodes, void* item, bool is_asset);
 	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
-	void ProcesTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
+	void ProcessProjectTreeviewPopup(int id);
+	void ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
@@ -149,3 +146,5 @@ public:
 	void OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item, int child_index) override;
 	void OnTreeViewSelItemTextChanged(class EUITreeView* sender, void* item, const char* text) override;
 };
+
+extern Editor editor;

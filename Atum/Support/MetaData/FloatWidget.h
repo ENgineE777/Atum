@@ -3,23 +3,13 @@
 
 #include "ProperyWidget.h"
 
-class FloatWidget : public ProperyWidget
+class FloatWidget : public ProperyWidget, public EUIWidget::Listener
 {
 public:
 	EUIEditBox* ebox;
 	float* data;
 
-	class Listiner : public EUIWidget::Listener
-	{
-	public:
-		FloatWidget* owner;
-
-		void OnEditBoxStopEditing(EUIEditBox* sender) override;
-	};
-
-	Listiner listiner;
-
-	virtual void Init(EUICategories* parent, const char* catName, const char* labelName);
-	virtual void SetData(void* set_data);
-	void SetEditedData();
+	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
+	void SetData(void* set_data) override;
+	void OnEditBoxStopEditing(EUIEditBox* sender) override;
 };

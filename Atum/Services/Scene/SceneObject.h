@@ -167,10 +167,12 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 	ENUM_ELEM("Active", 2)\
 ENUM_END
 
+extern void FillGroupsList(EUIComboBox* cbox);
+
 #define BASE_SCENE_OBJ_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")\
 BASE_SCENE_OBJ_STATE_PROP(className)\
-STRING_PROP(className, group_name, "", "Common", "Group")
+STRING_ENUM_PROP(className, group_name, FillGroupsList, "Common", "Group")
 
 #define BASE_SCENE_ASSET_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")

@@ -69,6 +69,11 @@ void MetaData::SetDefValues()
 			int value = enm.values[enm.defIndex];
 			memcpy(prop.value, &value, sizeof(int));
 		}
+		else
+		if (prop.type == EnumString)
+		{
+			*((std::string*)prop.value) = "";
+		}
 	}
 }
 
@@ -105,7 +110,7 @@ void MetaData::Load(JSONReader& reader)
 			}
 		}
 		else
-		if (prop.type == String || prop.type == FileName)
+		if (prop.type == String || prop.type == EnumString || prop.type == FileName)
 		{
 			reader.Read(prop.propName.c_str(), *((std::string*)prop.value));
 		}
@@ -167,7 +172,7 @@ void MetaData::Save(JSONWriter& writer)
 			writer.Write(prop.propName.c_str(), *((float*)prop.value));
 		}
 		else
-		if (prop.type == String || prop.type == FileName)
+		if (prop.type == String || prop.type == EnumString || prop.type == FileName)
 		{
 			writer.Write(prop.propName.c_str(), ((std::string*)prop.value)->c_str());
 		}
@@ -229,7 +234,7 @@ void MetaData::Copy(void* source)
 			memcpy(prop.value, src, sizeof(float));
 		}
 		else
-		if (prop.type == String || prop.type == FileName)
+		if (prop.type == String || prop.type == EnumString || prop.type == FileName)
 		{
 			*((std::string*)prop.value) = *((std::string*)src);
 		}
@@ -367,6 +372,11 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 			if (prop.type == Enum)
 			{
 				widget = new EnumWidget(&enums[prop.defvalue.enumIndex]);
+			}
+			else
+			if (prop.type == EnumString)
+			{
+				widget = new EnumStringWidget(prop.enum_callback);
 			}
 			else
 			if (prop.type == Callback)

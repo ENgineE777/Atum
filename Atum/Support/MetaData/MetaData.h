@@ -13,6 +13,7 @@
 #include "FilenameWidget.h"
 #include "ColorWidget.h"
 #include "EnumWidget.h"
+#include "EnumStringWidget.h"
 #include "CallbackWidget.h"
 #include "ArrayWidget.h"
 #include "SpriteWidget.h"
@@ -38,6 +39,7 @@ public:
 		FileName,
 		Clor,
 		Enum,
+		EnumString,
 		Callback,
 		Array,
 		Sprite
@@ -113,6 +115,7 @@ public:
 #ifdef EDITOR
 		std::map<EUICategories*, ProperyWidget*> widgets;
 		CallbackWidget::Callback callback;
+		EnumStringWidget::Callback enum_callback;
 #endif
 		ArrayAdapter*  adapter = nullptr;
 	};
@@ -230,6 +233,19 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.defvalue.enumIndex = (int)enums.size() - 1;\
 	properties.push_back(prop);\
 }
+
+#ifdef EDITOR
+#define STRING_ENUM_PROP(className, classMember, set_callback, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = EnumString;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	prop.enum_callback = set_callback;\
+	properties.push_back(prop);\
+}
+#endif
 
 #ifdef EDITOR
 #define CALLBACK_PROP(className, set_callback, strCatName, strPropName)\

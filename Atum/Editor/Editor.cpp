@@ -118,9 +118,6 @@ void Editor::Init()
 	scene_sheet = tabPanel->AddTab("Scene");
 	scene_sheet->Enable(false);
 
-	//EUITabSheet* sheet2 = tabPanel->AddTab("Layers");
-	//EUITabSheet* sheet3 = tabPanel->AddTab("Groups");
-
 	EUILayout* scene_lt = new EUILayout(scene_sheet, true);
 
 	scene_treeview = new EUITreeView(scene_lt, 200, 10, 200, 100, true, true);
@@ -135,6 +132,27 @@ void Editor::Init()
 
 	assets_treeview->AddImage("settings/editor/folder.png");
 	assets_treeview->AddImage("settings/editor/scene_elem.png");
+
+	//EUITabSheet* sheet_layers = tabPanel->AddTab("Layers");
+	EUITabSheet* sheet_groups = tabPanel->AddTab("Groups");
+
+	EUILayout* groups_lt = new EUILayout(sheet_groups, true);
+
+	EUIPanel* groups_top_panel = new EUIPanel(groups_lt, 0, 0, 100, 30);
+
+	groups_ebox = new EUIEditBox(groups_top_panel, "", 5, 5, 165, 20, EUIEditBox::InputText);
+	groups_ebox->SetListener(-1, this, 0);
+
+	groups_add_btn = new EUIButton(groups_top_panel, "Add", 175, 5, 25, 20);
+	groups_add_btn->SetListener(-1, this, 0);
+
+	groups_del_btn = new EUIButton(groups_top_panel, "Del", 210, 5, 25, 20);
+	groups_del_btn->SetListener(-1, this, 0);
+
+	groups_lt->SetChildSize(groups_top_panel, 30, false);
+
+	groups_list = new EUIListBox(groups_lt, 0, 0, 100, 30, true);
+
 
 	EUIPanel* voPanels = new EUIPanel(lt, 30, 50, 100, 30);
 
@@ -243,10 +261,10 @@ void Editor::ClearScene()
 	scene_sheet->Enable(false);
 	SelectObject(nullptr, false);
 	project.Reset();
-	scene_nodes.clear();
-	assets_nodes.clear();
 	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
+	project_treeview->ClearTree();
+	groups_list->ClearList();
 }
 
 void Editor::UpdateGizmoToolbar()
@@ -435,7 +453,7 @@ void Editor::StartScene()
 
 	if (project.project_name.size() == 0)
 	{
-		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "apr");
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "pra");
 
 		if (fileName)
 		{
@@ -621,7 +639,7 @@ void Editor::ProcessProjectTreeviewPopup(int id)
 
 	if (id == 4501)
 	{
-		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "scn");
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Scene file", "sca");
 
 		if (fileName)
 		{
@@ -636,7 +654,7 @@ void Editor::ProcessProjectTreeviewPopup(int id)
 
 	if (id == 4502)
 	{
-		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Scene file", "scn");
+		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Scene file", "sca");
 
 		if (fileName)
 		{
@@ -857,6 +875,16 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		StartScene();
 	}
+
+	if (sender == groups_add_btn)
+	{
+		project.AddGroup(groups_ebox->GetText());
+	}
+
+	if (sender == groups_del_btn)
+	{
+		project.DeleteGroup(groups_list->GetSelectedItemText());
+	}
 }
 
 void Editor::OnRightMouseDown(EUIWidget* sender, int mx, int my)
@@ -918,7 +946,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 	if ((activated_id == MenuSaveID && project.project_name.size() == 0) || activated_id == MenuSaveAsID)
 	{
-		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "apr");
+		const char* fileName = EUI::OpenSaveDialog(mainWnd->GetNative(), "Project file", "pra");
 
 		if (fileName)
 		{
@@ -929,7 +957,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 	if (activated_id == MenuOpenID)
 	{
-		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Project file", "apr");
+		const char* fileName = EUI::OpenOpenDialog(mainWnd->GetNative(), "Project file", "pra");
 
 		if (fileName)
 		{

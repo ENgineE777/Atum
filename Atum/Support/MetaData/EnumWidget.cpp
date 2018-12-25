@@ -2,11 +2,6 @@
 #include "EnumWidget.h"
 #include "MetaData.h"
 
-void EnumWidget::Listiner::OnComboBoxSelChange(EUIComboBox* sender, int index)
-{
-	owner->SetEditedData(index);
-}
-
 EnumWidget::EnumWidget(MetaDataEnum* set_enumRef)
 {
 	enumRef = set_enumRef;
@@ -23,8 +18,7 @@ void EnumWidget::Init(EUICategories* parent, const char* catName, const char* la
 		cbox->AddItem(enumRef->names[i].c_str());
 	}
 
-	cbox->SetListener(-1, &listiner, 0);
-	listiner.owner = this;
+	cbox->SetListener(-1, this, 0);
 }
 
 void EnumWidget::SetData(void* set_data)
@@ -41,7 +35,7 @@ void EnumWidget::SetData(void* set_data)
 	}
 }
 
-void EnumWidget::SetEditedData(int index)
+void EnumWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 {
 	*data = enumRef->values[index];
 	changed = true;

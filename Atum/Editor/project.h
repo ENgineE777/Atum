@@ -78,5 +78,8 @@ public:
 	void AddScene(const char* path, void* parent_item);
 	void DeleteScene(const char* path);
 
+	void AddGroup(const char* group);
+	void DeleteGroup(const char* group);
+
 	void Reset();
 };

@@ -150,6 +150,7 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ColorWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\FileNameWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\FloatWidget.cpp" />
@@ -289,6 +290,7 @@
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ColorWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\FileNameWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\FloatWidget.h" />

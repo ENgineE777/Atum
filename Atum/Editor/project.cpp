@@ -2,6 +2,14 @@
 #include "Editor.h"
 #include "SceneObjects/2D/Sprite.h"
 
+void FillGroupsList(EUIComboBox* cbox)
+{
+	for (auto& group : editor.project.groups)
+	{
+		cbox->AddItem(group.c_str());
+	}
+}
+
 bool Project::CanRun()
 {
 	return !start_scene.empty();
@@ -52,6 +60,8 @@ void Project::Load()
 			string& group = groups.back();
 
 			reader.Read("name", group);
+
+			editor.groups_list->AddItem(group.c_str(), nullptr);
 
 			reader.LeaveBlock();
 		}
@@ -543,6 +553,43 @@ void Project::DeleteScene(const char* path)
 		if (scenes.size() > 0 && start_scene.size() != 0)
 		{
 			start_scene = scenes[0]->path;
+		}
+	}
+}
+
+void Project::AddGroup(const char* group_name)
+{
+	if (!group_name[0])
+	{
+		return;
+	}
+
+	for (auto& group : groups)
+	{
+		if (StringUtils::IsEqual(group.c_str(), group_name))
+		{
+			return;
+		}
+	}
+
+	groups.push_back(group_name);
+	editor.groups_list->AddItem(group_name, nullptr);
+}
+
+void Project::DeleteGroup(const char* group)
+{
+	if (!group)
+	{
+		return;
+	}
+
+	for (int i=0; i<groups.size();i++)
+	{
+		if (StringUtils::IsEqual(groups[i].c_str(), group))
+		{
+			editor.groups_list->DeleteItemByText(group);
+			groups.erase(groups.begin() + i);
+			break;
 		}
 	}
 }

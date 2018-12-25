@@ -5,26 +5,17 @@
 
 struct MetaDataEnum;
 
-class EnumWidget : public ProperyWidget
+class EnumWidget : public ProperyWidget, public EUIWidget::Listener
 {
 public:
+
 	EUIComboBox* cbox;
 	int* data;
-
-	class Listiner : public EUIWidget::Listener
-	{
-	public:
-		EnumWidget* owner;
-
-		void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
-	};
-
-	Listiner listiner;
 
 	MetaDataEnum* enumRef;
 
 	EnumWidget(MetaDataEnum* enumRef);
-	virtual void Init(EUICategories* parent, const char* catName, const char* labelName);
-	virtual void SetData(void* set_data);
-	void SetEditedData(int index);
+	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
+	void SetData(void* set_data) override;
+	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 };

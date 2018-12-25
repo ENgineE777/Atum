@@ -68,6 +68,11 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIPanel* asset_treeview_panel = nullptr;
 	EUITreeView* asset_treeview = nullptr;
 
+	EUIListBox* groups_list = nullptr;
+	EUIEditBox* groups_ebox = nullptr;
+	EUIButton*  groups_add_btn = nullptr;
+	EUIButton*  groups_del_btn = nullptr;
+
 	EUILayout* vp_sheet_lt = nullptr;
 
 	EUIWindow* mainWnd = nullptr;
@@ -91,22 +96,12 @@ class Editor : public Object, public EUIWidget::Listener
 	bool allow_delete_objects_by_tree = false;
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 
-	struct SceneTreeNode
-	{
-		int type = 0;
-		string name;
-		uint32_t uid = -1;
-	};
-
-	Project project;
-
 	bool in_select_object = false;
-	vector<SceneTreeNode> scene_nodes;
-	vector<SceneTreeNode> assets_nodes;
-
 	Texture* checker_texture = nullptr;
 
 public:
+
+	Project project;
 
 	~Editor() = default;
 

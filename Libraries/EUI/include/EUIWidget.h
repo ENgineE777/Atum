@@ -87,6 +87,7 @@ public:
 
 		virtual void OnTabChange(class EUITabPanel* sender, int index) {};
 
+		virtual void OnComboBoxOpened(class EUIComboBox* sender) {};
 		virtual void OnComboBoxSelChange(class EUIComboBox* sender, int index) {};
 
 		virtual void OnListBoxSelChange(class EUIListBox* sender, int index) {};

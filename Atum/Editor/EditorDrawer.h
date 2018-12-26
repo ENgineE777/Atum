@@ -17,6 +17,7 @@ public:
 	Texture* center = nullptr;
 	Texture* node_tex = nullptr;
 	Texture* arrow_tex = nullptr;
+	Texture* checker_texture = nullptr;
 
 	void Init();
 	void DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color color);

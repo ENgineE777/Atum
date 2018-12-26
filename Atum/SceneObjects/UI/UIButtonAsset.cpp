@@ -54,7 +54,7 @@ void UIButtonAsset::Draw(float dt)
 	}
 #endif
 
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -91,7 +91,7 @@ void UIButtonAssetInst::Init()
 
 void UIButtonAssetInst::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}

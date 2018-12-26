@@ -133,7 +133,21 @@ void Editor::Init()
 	assets_treeview->AddImage("settings/editor/folder.png");
 	assets_treeview->AddImage("settings/editor/scene_elem.png");
 
-	//EUITabSheet* sheet_layers = tabPanel->AddTab("Layers");
+	EUITabSheet* sheet_layers = tabPanel->AddTab("Layers");
+
+	EUILayout* layers_lt = new EUILayout(sheet_layers, true);
+	EUIPanel* layers_top_panel = new EUIPanel(layers_lt, 0, 0, 100, 30);
+
+	layers_ebox = new EUIEditBox(layers_top_panel, "", 5, 5, 200, 20, EUIEditBox::InputText);
+	layers_ebox->SetListener(-1, this, 0);
+
+	layers_add_btn = new EUIButton(layers_top_panel, "Add", 210, 5, 25, 20);
+	layers_add_btn->SetListener(-1, this, 0);
+
+	layers_lt->SetChildSize(layers_top_panel, 30, false);
+
+	layers_cat = new EUICategories(layers_lt, 0, 0, 100, 30);
+
 	EUITabSheet* sheet_groups = tabPanel->AddTab("Groups");
 
 	EUILayout* groups_lt = new EUILayout(sheet_groups, true);
@@ -220,9 +234,6 @@ void Editor::Init()
 	vp_sheet_lt->Resize();
 	ShowVieport();
 
-	checker_texture = render.LoadTexture("settings/editor/checker.png");
-	checker_texture->SetFilters(Texture::Point, Texture::Point);
-
 	ShowGizmoControls(0);
 }
 
@@ -264,6 +275,7 @@ void Editor::ClearScene()
 	scene_treeview->ClearTree();
 	assets_treeview->ClearTree();
 	project_treeview->ClearTree();
+	layers_cat->DeleteChilds();
 	groups_list->ClearList();
 }
 
@@ -548,7 +560,7 @@ void Editor::Draw(float dt)
 		{
 			Transform2D trans;
 			Sprite::FrameState state;
-			Sprite::Draw(checker_texture, COLOR_WHITE, Matrix(),
+			Sprite::Draw(editor_drawer.checker_texture, COLOR_WHITE, Matrix(),
 			             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
 			             Vector2(((int)(Sprite::ed_cam_pos.x) % 42) / 42.0f, ((int)(1.0f - Sprite::ed_cam_pos.y) % 42) / 42.0f),
 			             Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
@@ -874,6 +886,11 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	if (sender == playBtn)
 	{
 		StartScene();
+	}
+
+	if (sender == layers_add_btn)
+	{
+		project.AddLayer(layers_ebox->GetText());
 	}
 
 	if (sender == groups_add_btn)

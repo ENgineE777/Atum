@@ -18,7 +18,7 @@ void SpritesLayerInst::Init()
 
 void SpritesLayerInst::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}

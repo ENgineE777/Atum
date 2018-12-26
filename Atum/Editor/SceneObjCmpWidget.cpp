@@ -18,7 +18,7 @@ void SceneObjCmpWidget::Init(EUICategories* parent)
 	lbox = new EUIListBox(panel, 5, 30, 190, 100, true);
 	lbox->SetListener(-1, this, 0);
 
-	parent->RegisterChildInCategory("Components", panel);
+	parent->RegisterChildInCategory("Components", panel, false);
 
 	Show(false);
 }

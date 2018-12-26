@@ -9,6 +9,7 @@
 class Project
 {
 public:
+
 	struct ProjectNode
 	{
 		int type = 0;
@@ -20,12 +21,13 @@ public:
 		enum State
 		{
 			Normal,
-			Unselected,
+			Unselectable,
 			Invisible
 		};
 
-		State state;
+		State state = Normal;
 		string name;
+		class LayerEntryWidget* wgt;
 	};
 
 	struct SceneNode
@@ -52,7 +54,7 @@ public:
 	vector<SceneHolder*> scenes;
 	vector<ProjectNode> nodes;
 	vector<string> groups;
-	vector<Layer> layers;
+	vector<Layer*> layers;
 
 	bool CanRun();
 	void Load();
@@ -78,8 +80,18 @@ public:
 	void AddScene(const char* path, void* parent_item);
 	void DeleteScene(const char* path);
 
+	int FindLayer(const char* layer);
+
+	void AddLayer(const char* layer);
+	void DeleteLayer(Layer* layer);
+
+	bool LayerHiden(const char* layer);
+	bool LayerSelectable(const char* layer);
+
 	void AddGroup(const char* group);
 	void DeleteGroup(const char* group);
 
 	void Reset();
 };
+
+extern Project project;

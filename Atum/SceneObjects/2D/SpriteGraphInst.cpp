@@ -59,7 +59,7 @@ bool SpriteGraphInst::Play()
 
 void SpriteGraphInst::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -135,7 +135,7 @@ void SpriteGraphInst::Draw(float dt)
 			continue;
 		}
 
-		if (state == Active)
+		if (GetState() == Active)
 		{
 			inst.graph_instance.Update(dt);
 		}

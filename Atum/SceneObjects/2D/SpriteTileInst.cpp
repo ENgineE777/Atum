@@ -41,7 +41,7 @@ bool SpriteTileInst::Play()
 
 void SpriteTileInst::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -129,7 +129,7 @@ void SpriteTileInst::Draw(float dt)
 
 	for (auto inst : instances)
 	{
-		if (state == Active)
+		if (GetState() == Active)
 		{
 			Sprite::UpdateFrame(&sprite_asset->sprite[inst.index], &inst.frame_state, dt);
 		}

@@ -16,6 +16,7 @@
 class Editor : public Object, public EUIWidget::Listener
 {
 	friend class Project;
+	friend class LayerEntryWidget;
 
 	enum Const
 	{
@@ -68,6 +69,10 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIPanel* asset_treeview_panel = nullptr;
 	EUITreeView* asset_treeview = nullptr;
 
+	EUIEditBox*    layers_ebox = nullptr;
+	EUIButton*     layers_add_btn = nullptr;
+	EUICategories* layers_cat = nullptr;
+
 	EUIListBox* groups_list = nullptr;
 	EUIEditBox* groups_ebox = nullptr;
 	EUIButton*  groups_add_btn = nullptr;
@@ -97,11 +102,8 @@ class Editor : public Object, public EUIWidget::Listener
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 
 	bool in_select_object = false;
-	Texture* checker_texture = nullptr;
 
 public:
-
-	Project project;
 
 	~Editor() = default;
 

@@ -173,7 +173,7 @@ void SimpleCharacter2D::Update(float dt)
 
 void SimpleCharacter2D::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -198,7 +198,7 @@ void SimpleCharacter2D::Draw(float dt)
 		trans.mat_global.Pos().y -= 1024.0f * arraive;
 	}
 
-	if (state == Active)
+	if (GetState() == Active)
 	{
 		graph_instance.Update(dt);
 	}

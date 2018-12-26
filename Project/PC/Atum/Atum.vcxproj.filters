@@ -484,6 +484,9 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\LayerEntryWidget.cpp">
+      <Filter>Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -929,6 +932,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.h">
       <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\LayerEntryWidget.h">
+      <Filter>Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

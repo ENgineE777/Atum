@@ -128,6 +128,9 @@ protected:
 
 	virtual void OnChildShow(int index, bool set);
 
+	virtual void AddChild(EUIWidget* child);
+	virtual void DelChild(EUIWidget* child);
+
 public:
 
 	EUIWidget(EUIWidget* prnt, const char* txt);
@@ -156,8 +159,6 @@ public:
 	virtual void SetText(const char* txt);
 	virtual const char* GetText();
 
-	virtual void AddChild(EUIWidget* child);
-	virtual void DelChild(EUIWidget* child);
 	virtual void DeleteChilds();
 	virtual int  GetIndexAsChild();
 

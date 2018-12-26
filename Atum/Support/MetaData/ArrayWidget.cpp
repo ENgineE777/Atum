@@ -16,7 +16,7 @@ void ArrayWidget::Init(EUICategories* parent, const char* catName, const char* l
 	addBtn->SetListener(-1, this, 0);
 
 	elements = new EUICategories(parent, 10, 30, 190, -1);
-	parent->RegisterChildInCategory(catName, elements);
+	parent->RegisterChildInCategory(catName, elements, false);
 }
 
 void ArrayWidget::Show(bool show)
@@ -41,7 +41,7 @@ void ArrayWidget::SetData(void* set_data)
 			ElemCat elem;
 
 			elem.cat = new EUICategories(elements, 10, 0, 190, -1);
-			elements->RegisterChildInCategory("Selected Element", elem.cat);
+			elements->RegisterChildInCategory("Selected Element", elem.cat, false);
 			elem_cats.push_back(elem);
 
 			if (adapter->GetSize() > 0)
@@ -71,8 +71,8 @@ void ArrayWidget::SetData(void* set_data)
 
 				char str[64];
 				sprintf(str, "Element %i", i + 1);
-				elements->RegisterChildInCategory(str, elem_cats[i].btnDel);
-				elements->RegisterChildInCategory(str, elem_cats[i].cat);
+				elements->RegisterChildInCategory(str, elem_cats[i].btnDel, false);
+				elements->RegisterChildInCategory(str, elem_cats[i].cat, false);
 			}
 		}
 		else

@@ -4,6 +4,8 @@
 #include "Services/Core/Core.h"
 
 #ifdef EDITOR
+#include "Editor/Project.h"
+
 EUITreeView *  SceneObject::ed_asset_treeview = nullptr;
 EUICategories* SceneObject::ed_obj_cat = nullptr;
 EUIMenu*       SceneObject::ed_popup_menu = nullptr;
@@ -236,6 +238,11 @@ void SceneObject::SetState(int set_state)
 
 SceneObject::State SceneObject::GetState()
 {
+	if (project.LayerHiden(layer_name.c_str()))
+	{
+		return State::Invisible;
+	}
+
 	return state;
 }
 

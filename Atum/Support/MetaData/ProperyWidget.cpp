@@ -2,10 +2,11 @@
 
 void ProperyWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {
-	panel = new EUIPanel(parent, 0, 0, 200, 30);
+	panel = new EUIPanel(parent, 2, 0, 200, 30);
+	panel->SetText(labelName);
 	label = new EUILabel(panel, labelName, 5, 5, 85, 20);
 
-	parent->RegisterChildInCategory(catName, panel);
+	parent->RegisterChildInCategory(catName, panel, true);
 }
 
 void ProperyWidget::Show(bool show)

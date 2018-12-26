@@ -57,6 +57,7 @@ protected:
 	Scene* owner = nullptr;
 	std::string name;
 	std::string group_name;
+	std::string layer_name;
 	uint32_t uid = 0;
 	State state = Active;
 	Vector2 cam2d_pos = 0.0f;
@@ -168,11 +169,13 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 ENUM_END
 
 extern void FillGroupsList(EUIComboBox* cbox);
+extern void FillLayersList(EUIComboBox* cbox);
 
 #define BASE_SCENE_OBJ_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")\
 BASE_SCENE_OBJ_STATE_PROP(className)\
-STRING_ENUM_PROP(className, group_name, FillGroupsList, "Common", "Group")
+STRING_ENUM_PROP(className, group_name, FillGroupsList, "Common", "Group")\
+STRING_ENUM_PROP(className, layer_name, FillLayersList, "Common", "Layer")
 
 #define BASE_SCENE_ASSET_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")

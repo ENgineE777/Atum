@@ -317,7 +317,7 @@ bool SpriteInst::Play()
 
 void SpriteInst::Draw(float dt)
 { 
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -438,7 +438,7 @@ void SpriteInst::Draw(float dt)
 			continue;
 		}
 
-		if (state == Active)
+		if (GetState() == Active)
 		{
 			Sprite::UpdateFrame(&sprite_asset->sprite, &inst.frame_state, dt);
 		}

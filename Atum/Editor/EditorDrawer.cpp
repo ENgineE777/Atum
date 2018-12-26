@@ -17,6 +17,8 @@ void EditorDrawer::Init()
 	arrow_tex = render.LoadTexture("settings\\editor\\arrow.png");
 	arrow_tex->SetFilters(Texture::Point, Texture::Point);
 
+	checker_texture = render.LoadTexture("settings/editor/checker.png");
+	checker_texture->SetFilters(Texture::Point, Texture::Point);
 
 	font = fonts.LoadFont("settings\\eui\\DroidSans.ttf", false, false, 11);
 }

@@ -34,7 +34,7 @@ void UIViewAsset::ApplyProperties()
 
 void UIViewAsset::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}

@@ -79,7 +79,7 @@ void UILabelAsset::Draw(float dt)
 	}
 #endif
 
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}

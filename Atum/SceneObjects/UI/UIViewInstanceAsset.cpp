@@ -41,7 +41,7 @@ void UIViewInstanceAsset::BindClassToScript()
 
 void UIViewInstanceAsset::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}

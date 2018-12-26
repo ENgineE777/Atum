@@ -32,13 +32,15 @@ class EUICategories : public EUIWidget
 
 	bool auto_size = false;
 	NativeCategories* Native();
+	void AddChild(EUIWidget* child) override;
+	void DelChild(EUIWidget* child) override;
 
 public:
 
 	EUICategories(EUIWidget* parent, int x, int y, int w, int h);
 	virtual ~EUICategories();
 
-	void AddChild(EUIWidget* child) override;
-	virtual void OnChildShow(int index, bool set);
-	virtual void RegisterChildInCategory(const char* name, EUIWidget* widget);
+	void DeleteChilds() override;
+	void OnChildShow(int index, bool set) override;
+	virtual void RegisterChildInCategory(const char* name, EUIWidget* widget, float abc_sort);
 };

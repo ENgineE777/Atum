@@ -1,12 +1,23 @@
 #include "Project.h"
 #include "Editor.h"
+#include "LayerEntryWidget.h"
 #include "SceneObjects/2D/Sprite.h"
+
+Project project;
 
 void FillGroupsList(EUIComboBox* cbox)
 {
-	for (auto& group : editor.project.groups)
+	for (auto& group : project.groups)
 	{
 		cbox->AddItem(group.c_str());
+	}
+}
+
+void FillLayersList(EUIComboBox* cbox)
+{
+	for (auto& layer : project.layers)
+	{
+		cbox->AddItem(layer->name.c_str());
 	}
 }
 
@@ -45,11 +56,14 @@ void Project::Load()
 
 		while (reader.EnterBlock("layers"))
 		{
-			layers.push_back(Layer());
-			Layer& layer = layers.back();
+			layers.push_back(new Layer());
+			Layer* layer = layers.back();
 
-			reader.Read("state", layer.name);
-			reader.Read("type", (int&)layer.state);
+			reader.Read("name", layer->name);
+			reader.Read("state", (int&)layer->state);
+
+			layer->wgt = new LayerEntryWidget();
+			layer->wgt->Init(layer);
 
 			reader.LeaveBlock();
 		}
@@ -222,8 +236,8 @@ void Project::Save()
 	{
 		writer.StartBlock(nullptr);
 
-		writer.Write("name", layer.name.c_str());
-		writer.Write("type", layer.state);
+		writer.Write("name", layer->name.c_str());
+		writer.Write("state", layer->state);
 
 		writer.FinishBlock();
 	}
@@ -557,6 +571,82 @@ void Project::DeleteScene(const char* path)
 	}
 }
 
+int Project::FindLayer(const char* layer_name)
+{
+	for (int index = 0; index < layers.size(); index++)
+	{
+		if (StringUtils::IsEqual(layers[index]->name.c_str(), layer_name))
+		{
+			return index;
+		}
+	}
+
+	return -1;
+}
+
+void Project::AddLayer(const char* layer_name)
+{
+	if (!layer_name[0])
+	{
+		return;
+	}
+
+	if (FindLayer(layer_name) != -1)
+	{
+		return;
+	}
+
+	layers.push_back(new Layer());
+	Layer* layer = layers.back();
+
+	layer->name = layer_name;
+
+	layer->wgt = new LayerEntryWidget();
+	layer->wgt->Init(layer);
+}
+
+void Project::DeleteLayer(Layer* layer)
+{
+	if (!layer)
+	{
+		return;
+	}
+
+	for (int i = 0; i<layers.size(); i++)
+	{
+		if (layers[i] == layer)
+		{
+			delete layers[i];
+			layers.erase(layers.begin() + i);
+			break;
+		}
+	}
+}
+
+bool Project::LayerHiden(const char* layer_name)
+{
+	int index = FindLayer(layer_name);
+
+	if (index == -1)
+	{
+		return false;
+	}
+
+	return layers[index]->state == Layer::Invisible;
+}
+
+bool Project::LayerSelectable(const char* layer_name)
+{
+	int index = FindLayer(layer_name);
+
+	if (index == -1)
+	{
+		return true;
+	}
+
+	return layers[index]->state == Layer::Normal;
+}
+
 void Project::AddGroup(const char* group_name)
 {
 	if (!group_name[0])
@@ -606,6 +696,12 @@ void Project::Reset()
 			delete scn->scene;
 			delete scn;
 		}
+	}
+
+	for (auto& layer : layers)
+	{
+		delete layer->wgt;
+		delete layer;
 	}
 
 	project_name.clear();

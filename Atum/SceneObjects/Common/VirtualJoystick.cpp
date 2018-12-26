@@ -72,7 +72,7 @@ void VirtualJoystick::ApplyProperties()
 
 void VirtualJoystick::Draw(float dt)
 {
-	if (state == Invisible)
+	if (GetState() == Invisible)
 	{
 		return;
 	}
@@ -88,7 +88,7 @@ void VirtualJoystick::Draw(float dt)
 			stick_delta += delta_ms;
 		}
 
-		if (state == Inactive || (stick_pressed && !controls.GetAliasState(aliases[stick_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (stick_pressed && !controls.GetAliasState(aliases[stick_alias_index].touch, Controls::Active)))
 		{
 			stick_pressed = false;
 			stick_alias_index = -1;
@@ -96,20 +96,20 @@ void VirtualJoystick::Draw(float dt)
 			stick_asb_delta = 0.0f;
 		}
 
-		if (state == Inactive || (button_a_pressed > 0 && !controls.GetAliasState(aliases[button_a_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (button_a_pressed > 0 && !controls.GetAliasState(aliases[button_a_alias_index].touch, Controls::Active)))
 		{
 			button_a_pressed = 0;
 			button_a_alias_index = -1;
 		}
 
-		if (state == Inactive || (button_b_pressed > 0 && !controls.GetAliasState(aliases[button_b_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (button_b_pressed > 0 && !controls.GetAliasState(aliases[button_b_alias_index].touch, Controls::Active)))
 		{
 			button_b_pressed = 0;
 			button_b_alias_index = -1;
 		}
 	}
 
-	if (Playing() && state == Active)
+	if (Playing() && GetState() == Active)
 	{
 		for (int i = 0; i < AliasCount; i++)
 		{

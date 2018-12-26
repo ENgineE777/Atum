@@ -8,6 +8,10 @@
 #include "SceneObjects/2D/SpriteInst.h"
 #include "Services/Script/Libs/scriptarray.h"
 
+#ifdef EDITOR
+#include "Editor/Project.h"
+#endif
+
 int index_hack_show_message = 0;
 
 /*void Scene::ContactListener::BeginContact(b2Contact* contact)
@@ -620,6 +624,16 @@ SceneObject* Scene::CheckSelection(Vector2 ms)
 
 	for (auto& obj : objects)
 	{
+		if (obj->GetState() != SceneObject::State::Active)
+		{
+			continue;
+		}
+
+		if (!project.LayerSelectable(obj->layer_name.c_str()))
+		{
+			continue;
+		}
+
 		if (obj->CheckSelection(ms))
 		{
 			tmp_under_selection.push_back(obj);

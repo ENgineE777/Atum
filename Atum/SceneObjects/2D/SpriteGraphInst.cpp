@@ -18,12 +18,10 @@ META_DATA_DESC_END()
 void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
-	scripts.engine->RegisterObjectMethod(script_class_name, "bool ActivateLink(int index, string&in)", WRAP_MFN(SpriteGraphInst, ActivateLink), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void GotoNode(int index, string&in)", WRAP_MFN(SpriteGraphInst, GotoNode), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(int index, bool under)", WRAP_MFN(SpriteGraphInst, CheckColission), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(int index, float dx, float dy)", WRAP_MFN(SpriteGraphInst, MoveController), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(int index, float x, float y)", WRAP_MFN(SpriteGraphInst, MoveControllerTo), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetActiveTrack(int index, bool set)", WRAP_MFN(SpriteGraphInst, SetActiveTrack), asCALL_GENERIC);
+
+	scripts.engine->RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), asOBJ_REF | asOBJ_NOCOUNT);
+	scripts.engine->RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
@@ -168,59 +166,4 @@ void SpriteGraphInst::Draw(float dt)
 		}
 	}
 #endif
-}
-
-bool SpriteGraphInst::ActivateLink(int index, string& link)
-{
-	return instances[index].graph_instance.ActivateLink(link.c_str());
-}
-
-void SpriteGraphInst::GotoNode(int index, string& node)
-{
-	instances[index].graph_instance.GotoNode(node.c_str());
-}
-
-PhysController* SpriteGraphInst::HackGetController(int index)
-{
-	for (auto& comp : components)
-	{
-		if (StringUtils::IsEqual(comp->class_name, "Phys2DCompInst"))
-		{
-			Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
-
-			return phys_comp->bodies[index].controller;
-		}
-	}
-
-	return nullptr;
-}
-
-bool SpriteGraphInst::CheckColission(int index, bool under)
-{
-	PhysController* controller = HackGetController(index);
-
-	if (controller)
-	{
-		return controller->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
-	}
-
-	return false;
-}
-
-void SpriteGraphInst::MoveController(int index, float dx, float dy)
-{
-	instances[index].dir.x += dx;
-	instances[index].dir.y += dy;
-}
-
-void SpriteGraphInst::MoveControllerTo(int index, float x, float y)
-{
-	instances[index].SetPos(Vector2(x, y));
-
-	PhysController* controller = HackGetController(index);
-
-	if (controller)
-	{
-		controller->SetPosition({ x / 50.0f, -y / 50.0f, 0.0f });
-	}
 }

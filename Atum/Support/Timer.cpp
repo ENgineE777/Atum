@@ -3,12 +3,38 @@
 
 #ifdef PLATFORM_PC
 #define WIN32_LEAN_AND_MEAN
-#include <windows.h>
+#include <time.h>
+
+static BOOL g_first_time = 1;
+static LARGE_INTEGER g_counts_per_sec;
+
+int clock_gettime(struct timespec *ct)
+{
+	LARGE_INTEGER count;
+
+	if (g_first_time)
+	{
+		g_first_time = 0;
+
+		if (0 == QueryPerformanceFrequency(&g_counts_per_sec))
+		{
+			g_counts_per_sec.QuadPart = 0;
+		}
+	}
+
+	if (g_counts_per_sec.QuadPart <= 0 || 0 == QueryPerformanceCounter(&count))
+	{
+		return -1;
+	}
+
+	ct->tv_sec = count.QuadPart / g_counts_per_sec.QuadPart;
+	ct->tv_nsec = (long)(((count.QuadPart % g_counts_per_sec.QuadPart) * 1E9) / g_counts_per_sec.QuadPart);
+
+	return 0;
+}
 #endif
 
-#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 struct timespec lastTimeSpec;
-#endif
 
 double Timer::lastTime = -1.0;
 float  Timer::deltaTime = 0.0f;
@@ -23,14 +49,15 @@ char  Timer::stampStr[32] = "00:00 - ";
 
 float Timer::CountDeltaTime()
 {
-#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	struct timespec currTime;
-	clock_gettime(CLOCK_MONOTONIC, &currTime);
-#endif
 
 #ifdef PLATFORM_PC
-	double cur = GetTickCount() * 0.001;
+	clock_gettime(&currTime);
 #endif
+
+#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
+	clock_gettime(CLOCK_MONOTONIC, &currTime);
+#endif;
 
 	if (lastTime < -0.5)
 	{
@@ -38,23 +65,19 @@ float Timer::CountDeltaTime()
 	}
 	else
 	{
-#ifdef PLATFORM_PC
-		double delta = cur - lastTime;
-		deltaTime = (float)delta;
-#endif
-
-#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 		long iNanoSeconds = (currTime.tv_sec > lastTimeSpec.tv_sec) ? (1000000000 - lastTimeSpec.tv_nsec) + currTime.tv_nsec : currTime.tv_nsec - lastTimeSpec.tv_nsec;
 		deltaTime = (float)iNanoSeconds / 1000000000.0f;
-#endif
 	}
-
-#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	lastTimeSpec = currTime;
-#endif
 
 	totalTime += deltaTime;
 	stampSec += deltaTime;
+
+	if (deltaTime < 0.0001f)
+	{
+		int k = 0;
+		k++;
+	}
 
 	if (stampSec>60.0f)
 	{
@@ -89,13 +112,7 @@ float Timer::CountDeltaTime()
 		deltaTime *= 3.0f;
 	}
 
-#ifdef PLATFORM_PC
-	lastTime = cur;
-#endif
-
-#if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	lastTime = 0;
-#endif;
 
 	return deltaTime;
 }

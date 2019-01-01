@@ -23,11 +23,6 @@ void SceneObjectComp::ApplyProperties()
 
 }
 
-void SceneObjectComp::InjectIntoScript(const char* type, void* property)
-{
-
-}
-
 void SceneObjectComp::Play()
 {
 
@@ -41,6 +36,15 @@ void SceneObjectComp::Stop()
 void SceneObjectComp::Release()
 {
 	delete this;
+}
+
+void SceneObjectComp::BindClassToScript()
+{
+
+}
+
+void SceneObjectComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)
+{
 }
 
 

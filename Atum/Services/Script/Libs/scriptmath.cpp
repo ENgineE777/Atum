@@ -244,6 +244,50 @@ void rand_impl_generic(asIScriptGeneric *gen)
 	*(float*)gen->GetAddressOfReturnLocation() = ((float)rand() / RAND_MAX);
 }
 
+void float_ref_conv_generic(asIScriptGeneric *gen)
+{
+	*(float*)gen->GetAddressOfReturnLocation() = *((float*)gen->GetObject());
+}
+
+void float_ref_assign_generic(asIScriptGeneric *gen)
+{
+	*(float*)gen->GetObject() = gen->GetArgFloat(0);
+	gen->SetReturnObject(gen->GetObject());
+}
+
+void float_ref_add_generic(asIScriptGeneric *gen)
+{
+	float* a = static_cast<float *>(gen->GetObject());
+	float b = gen->GetArgFloat(0);
+	*(float*)gen->GetObject() = *a + b;
+	gen->SetReturnObject(gen->GetObject());
+}
+
+void float_ref_sub_generic(asIScriptGeneric *gen)
+{
+	void* amngj = gen->GetObject();
+	float* a = static_cast<float *>(gen->GetObject());
+	float b = gen->GetArgFloat(0);
+	*(float*)gen->GetObject() = *a - b;
+	gen->SetReturnObject(gen->GetObject());
+}
+
+void float_ref_mul_generic(asIScriptGeneric *gen)
+{
+	float* a = static_cast<float *>(gen->GetObject());
+	float b = gen->GetArgFloat(0);
+	*(float*)gen->GetObject() = *a * b;
+	gen->SetReturnObject(gen->GetObject());
+}
+
+void float_ref_div_generic(asIScriptGeneric *gen)
+{
+	float* a = static_cast<float *>(gen->GetObject());
+	float b = gen->GetArgFloat(0);
+	*(float*)gen->GetObject() = *a / b;
+	gen->SetReturnObject(gen->GetObject());
+}
+
 #else
 // This macro creates simple generic wrappers for functions of type 'double func(double)'
 #define GENERICdd(x) \
@@ -349,6 +393,21 @@ void RegisterScriptMath(asIScriptEngine *engine)
 		RegisterScriptMath_Native(engine);
 
 	engine->RegisterGlobalFunction("float rand()", asFUNCTION(rand_impl_generic), asCALL_GENERIC);
+
+	engine->RegisterObjectType("float_ref", sizeof(float), asOBJ_REF | asOBJ_NOCOUNT);
+	engine->RegisterObjectProperty("float_ref", "float v", 0);
+	engine->RegisterObjectMethod("float_ref", "float opImplConv() const", asFUNCTION(float_ref_conv_generic), asCALL_GENERIC);
+
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opAssign(float) const", asFUNCTION(float_ref_assign_generic), asCALL_GENERIC);
+
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opAdd(float) const", asFUNCTION(float_ref_add_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opSub(float) const", asFUNCTION(float_ref_sub_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opMul(float) const", asFUNCTION(float_ref_mul_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opDiv(float) const", asFUNCTION(float_ref_div_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opAddAssign(float) const", asFUNCTION(float_ref_add_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opSubAssign(float) const", asFUNCTION(float_ref_sub_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opMulAssign(float) const", asFUNCTION(float_ref_mul_generic), asCALL_GENERIC);
+	engine->RegisterObjectMethod("float_ref", "float_ref@ opDivAssign(float) const", asFUNCTION(float_ref_div_generic), asCALL_GENERIC);
 }
 
 END_AS_NAMESPACE

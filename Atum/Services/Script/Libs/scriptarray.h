@@ -25,6 +25,15 @@ struct SArrayCache;
 class CScriptArray
 {
 public:
+
+	class Listiner
+	{
+	public:
+
+		virtual void OnResize(int at, int delta) = 0;
+		virtual void OnRemove(int start, asUINT count) = 0;
+	};
+
 	// Set the memory functions that should be used by all CScriptArrays
 	static void SetMemoryFunctions(asALLOCFUNC_t allocFunc, asFREEFUNC_t freeFunc);
 
@@ -33,6 +42,8 @@ public:
 	static CScriptArray *Create(asITypeInfo *ot, asUINT length);
 	static CScriptArray *Create(asITypeInfo *ot, asUINT length, void *defaultValue);
 	static CScriptArray *Create(asITypeInfo *ot, void *listBuffer);
+
+	Listiner* listiner = nullptr;
 
 	// Memory management
 	void AddRef() const;

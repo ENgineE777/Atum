@@ -538,6 +538,7 @@ void Editor::StopScene()
 		Sprite::ed_cam_pos = selectedObject->Camera2DPos();
 	}
 	else
+	if (project.select_scene)
 	{
 		Sprite::ed_cam_pos = project.select_scene->camera2d_pos;
 	}
@@ -1370,7 +1371,7 @@ void Editor::OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item,
 		((SceneAsset*)selectedObject)->OnAssetTreeRightClick(x, y, (SceneAsset*)sender->GetItemPtr(item), child_index);
 	}
 
-	if (project_treeview == project_treeview)
+	if (sender == project_treeview)
 	{
 		popup_menu->StartMenu(true);
 

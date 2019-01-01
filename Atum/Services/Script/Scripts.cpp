@@ -78,7 +78,7 @@ void Control_GetDebugState(asIScriptGeneric *gen)
 
 void Control_IsGamepadConnected(asIScriptGeneric *gen)
 {
-	gen->SetReturnDWord((controls.IsGamepadConnected() > 0) ? 1 : 0);
+	gen->SetReturnDWord(controls.IsGamepadConnected() ? 1 : 0);
 }
 
 void Scene_Group_SetState(asIScriptGeneric *gen)
@@ -187,6 +187,13 @@ void Scripts::Start()
 		obj->Release();
 	}
 
+	for (const auto& decl : ClassFactorySceneObjectComp::Decls())
+	{
+		SceneObjectComp* obj = decl->Create();
+		obj->script_class_name = decl->GetShortName();
+		obj->BindClassToScript();
+		obj->Release();
+	}
 }
 
 ScriptContext* Scripts::CreateContext()

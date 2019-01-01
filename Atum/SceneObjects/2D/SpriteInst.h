@@ -6,7 +6,7 @@
 #include "Services/Script/Libs/scriptarray.h"
 #include "SpriteGraphAsset.h"
 
-class SpriteInst : public SceneObjectInst
+class SpriteInst : public SceneObjectInst, public CScriptArray::Listiner
 {
 public:
 	META_DATA_DECL(SpriteInst)
@@ -40,6 +40,9 @@ public:
 		float GetAngle();
 		void  SetAngle(float set_angle);
 
+		bool ActivateLink(string& link);
+		void GotoNode(string& node);
+
 		Color color;
 
 		bool auto_delete = false;
@@ -64,6 +67,7 @@ public:
 		Instance* inst = nullptr;
 	};
 
+	bool mapped = false;
 	vector<int> mapping;
 	CScriptArray* array = nullptr;
 
@@ -76,11 +80,13 @@ public:
 
 	vector<int> sel_instances;
 
+	string scr_prefix;
+
 	virtual ~SpriteInst() = default;
 
 	void BindClassToScript() override;
-	bool InjectIntoScript(const char* type, void* property) override;
-	void MakeMapping(asIScriptObject* object);
+	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
+	void MakeMapping(asIScriptObject* object, const char* prefix);
 
 	void Init() override;
 	void ApplyProperties() override;
@@ -88,13 +94,12 @@ public:
 
 	bool Play() override;
 
-	PhysObject* HackGetBody(int index);
+	void OnResize(int at, int delta) override;
+	void OnRemove(int start, asUINT count) override;
+
 	int AddInstance(float x, float y, bool auto_delete);
 	void RemoveInstance(int index);
 	void ClearInstances();
-	void ApplyLinearImpulse(int index, float x, float y);
-	void MoveTo(int index, float x, float y);
-	void SetActiveTrack(int index, bool set);
 
 #ifdef EDITOR
 	void ClearRect();

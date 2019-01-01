@@ -479,6 +479,14 @@ bool Scene::Play()
 		}
 	}
 
+	for (auto object : objects)
+	{
+		if (!object->PostPlay())
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 

@@ -17,6 +17,7 @@ META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScript::NodeScriptProperty)
 STRING_PROP(SceneScript::NodeScriptProperty, name, "", "Property", "Name")
+STRING_PROP(SceneScript::NodeScriptProperty, prefix, "", "Property", "Prefix")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScript::LinkToMethod)
@@ -80,6 +81,20 @@ void SceneScript::NodeSceneObject::Save(JSONWriter& saver)
 
 	saver.Write("object_uid", object_uid);
 	saver.Write("object_child_uid", object_child_uid);
+}
+
+void SceneScript::NodeScriptProperty::Load(JSONReader& loader)
+{
+	NodeSceneObject::Load(loader);
+
+	loader.Read("prefix", prefix);
+}
+
+void SceneScript::NodeScriptProperty::Save(JSONWriter& saver)
+{
+	NodeSceneObject::Save(saver);
+
+	saver.Write("prefix", prefix.c_str());
 }
 
 void SceneScript::NodeScriptMethod::Load(JSONReader& loader)
@@ -222,7 +237,7 @@ void SceneScript::SetName(const char* set_name)
 	}
 }
 
-bool SceneScript::Play()
+bool SceneScript::PostPlay()
 {
 	string filename;
 	GetScriptFileName(GetUID(), filename);
@@ -284,7 +299,7 @@ bool SceneScript::Play()
 					{
 						auto type = scripts.engine->GetTypeInfoById(class_inst->GetPropertyTypeId(i));
 						
-						if (!node_prop->object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i)))
+						if (!node_prop->object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{
 							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", node_prop->object->GetName(), node_prop->object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
 							return false;

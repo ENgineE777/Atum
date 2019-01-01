@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Services/Scene/SceneObjectComp.h"
+#include "SpriteInst.h"
 
 class Phys2DComp : public SceneAssetComp
 {
@@ -38,14 +39,27 @@ public:
 
 	vector<PhysScene::BodyUserData> bodies;
 
+	struct ScriptProxy
+	{
+		SpriteInst::Instance* inst = nullptr;
+		PhysScene::BodyUserData* body = nullptr;
+		void ApplyLinearImpulse(float x, float y);
+		void MoveTo(float x, float y);
+		bool CheckColission(bool under);
+		void MoveController(float dx, float dy);
+	};
+
+	int prop_index = -1;
+	vector<ScriptProxy> script_bodies;
+
 	META_DATA_DECL(Phys2DCompInst)
 
+	void BindClassToScript() override;
+	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
+
+
 	void Play() override;
-	template<typename T>
-	void Play(T* sprite_inst);
 	void CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate);
 	void Stop() override;
 	void UpdateInstances(float dt);
-	template<typename T>
-	void UpdateInstances(T* sprite_inst);
 };

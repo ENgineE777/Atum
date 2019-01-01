@@ -4704,7 +4704,7 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : false,
-					"use_object_size" : true,
+					"use_object_size" : false,
 					"width" : 48.000000,
 					"height" : 64.000000
 				}
@@ -6051,6 +6051,7 @@
 			"Name" : "Hero",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"Depth" : 0.400000,
 			"hack_height" : 0.000000,
 			"draw_level" : 0,
@@ -6092,20 +6093,10 @@
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 60,
+			"Count" : 54,
 			"Node" : [
-				{
-					"type" : 1,
-					"name" : "hero",
-					"pos" :
-					{
-						"x" : 272.000000,
-						"y" : 80.000000
-					},
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0
-				},
 				{
 					"type" : 2,
 					"name" : "Update",
@@ -6124,8 +6115,8 @@
 					"name" : "camera",
 					"pos" :
 					{
-						"x" : 301.000000,
-						"y" : 177.000000
+						"x" : 275.000000,
+						"y" : 180.000000
 					},
 					"object_uid" : 1314392192,
 					"object_child_uid" : 0
@@ -6223,8 +6214,8 @@
 					"name" : "fly_boxes",
 					"pos" :
 					{
-						"x" : 55.000000,
-						"y" : 486.000000
+						"x" : 73.000000,
+						"y" : 473.000000
 					},
 					"object_uid" : -2071699456,
 					"object_child_uid" : 0
@@ -6241,7 +6232,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 13,
+							"node" : 12,
 							"param" : ""
 						}
 					]
@@ -6269,7 +6260,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 15,
+							"node" : 14,
 							"param" : ""
 						}
 					]
@@ -6281,17 +6272,6 @@
 					{
 						"x" : 909.000000,
 						"y" : 472.000000
-					},
-					"object_uid" : -2071699456,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 1,
-					"name" : "boxes_object",
-					"pos" :
-					{
-						"x" : 297.000000,
-						"y" : 442.000000
 					},
 					"object_uid" : -2071699456,
 					"object_child_uid" : 0
@@ -6320,33 +6300,11 @@
 				},
 				{
 					"type" : 1,
-					"name" : "boss",
-					"pos" :
-					{
-						"x" : 493.000000,
-						"y" : 432.000000
-					},
-					"object_uid" : 361006912,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 1,
 					"name" : "boss_cards",
 					"pos" :
 					{
-						"x" : 55.000000,
-						"y" : 144.000000
-					},
-					"object_uid" : 1269363584,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 1,
-					"name" : "cards_object",
-					"pos" :
-					{
-						"x" : 71.000000,
-						"y" : 267.000000
+						"x" : 58.000000,
+						"y" : 163.000000
 					},
 					"object_uid" : 1269363584,
 					"object_child_uid" : 0
@@ -6374,7 +6332,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 22,
+							"node" : 18,
 							"param" : ""
 						}
 					]
@@ -6384,8 +6342,8 @@
 					"name" : "fake_card",
 					"pos" :
 					{
-						"x" : 35.000000,
-						"y" : 605.000000
+						"x" : 80.000000,
+						"y" : 592.000000
 					},
 					"object_uid" : -1182418176,
 					"object_child_uid" : 0
@@ -6413,7 +6371,19 @@
 					"Count" : 6,
 					"Link" : [
 						{
+							"node" : 23,
+							"param" : ""
+						},
+						{
+							"node" : 21,
+							"param" : ""
+						},
+						{
 							"node" : 27,
+							"param" : ""
+						},
+						{
+							"node" : 24,
 							"param" : ""
 						},
 						{
@@ -6421,19 +6391,7 @@
 							"param" : ""
 						},
 						{
-							"node" : 31,
-							"param" : ""
-						},
-						{
-							"node" : 28,
-							"param" : ""
-						},
-						{
-							"node" : 29,
-							"param" : ""
-						},
-						{
-							"node" : 30,
+							"node" : 26,
 							"param" : ""
 						}
 					]
@@ -6505,15 +6463,15 @@
 					"Count" : 3,
 					"Link" : [
 						{
-							"node" : 33,
+							"node" : 29,
 							"param" : "1"
 						},
 						{
-							"node" : 35,
+							"node" : 31,
 							"param" : "2"
 						},
 						{
-							"node" : 36,
+							"node" : 32,
 							"param" : "3"
 						}
 					]
@@ -6651,7 +6609,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 43,
+							"node" : 39,
 							"param" : "1"
 						}
 					]
@@ -6668,7 +6626,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 47,
+							"node" : 43,
 							"param" : "0"
 						}
 					]
@@ -6685,7 +6643,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 48,
+							"node" : 44,
 							"param" : ""
 						}
 					]
@@ -6746,7 +6704,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 50,
+							"node" : 46,
 							"param" : ""
 						}
 					]
@@ -6786,32 +6744,10 @@
 				},
 				{
 					"type" : 1,
-					"name" : "bridge_object",
-					"pos" :
-					{
-						"x" : 742.000000,
-						"y" : 592.000000
-					},
-					"object_uid" : -769245696,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 1,
-					"name" : "boxes_level_object",
-					"pos" :
-					{
-						"x" : 485.000000,
-						"y" : 309.000000
-					},
-					"object_uid" : -980373760,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 1,
 					"name" : "boss_markers",
 					"pos" :
 					{
-						"x" : 74.000000,
+						"x" : 63.000000,
 						"y" : 373.000000
 					},
 					"object_uid" : 1773631360,
@@ -6822,8 +6758,8 @@
 					"name" : "hero_inst",
 					"pos" :
 					{
-						"x" : 278.000000,
-						"y" : -27.000000
+						"x" : 263.000000,
+						"y" : 22.000000
 					},
 					"object_uid" : 1485033472,
 					"object_child_uid" : 0
@@ -6847,6 +6783,7 @@
 			"Name" : "Camera2D",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 1472.000000,
 			"y" : -64.000000,
 			"ScreenBorder" : 200.000000,
@@ -6861,6 +6798,7 @@
 			"Name" : "ItemTaken",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"draw_level" : 0,
@@ -6878,6 +6816,7 @@
 			"Name" : "EagleFly",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"draw_level" : 0,
@@ -7006,6 +6945,7 @@
 			"Name" : "EnemyDeath",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"draw_level" : 0,
@@ -7023,6 +6963,7 @@
 			"Name" : "VirtualJoystick",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"StickPad" : "Projects/Common/stick_pad.png",
 			"Stick" : "Projects/Common/stick.png",
 			"ButtonA" : "Projects/Common/button.png",
@@ -7034,6 +6975,7 @@
 			"Name" : "MovingBlock",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -7194,6 +7136,7 @@
 			"Name" : "Ground1Tiles",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"draw_level" : 0,
@@ -17926,6 +17869,7 @@
 			"Name" : "SkyLayer",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "Pop",
 			"axis_scale" : 0.100000,
 			"Depth" : 0.750000,
 			"y" : 0.000000,
@@ -17937,6 +17881,7 @@
 			"Name" : "TreesLayer",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"axis_scale" : 0.300000,
 			"Depth" : 0.700000,
 			"y" : 3000.000000,
@@ -17948,6 +17893,7 @@
 			"Name" : "TreeSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -18035,6 +17981,7 @@
 			"Name" : "HouseSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -18066,6 +18013,7 @@
 			"Name" : "BushSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -18167,6 +18115,7 @@
 			"Name" : "SignSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -18212,6 +18161,7 @@
 			"Name" : "LeftHangSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"draw_level" : 0,
@@ -18248,6 +18198,7 @@
 			"Name" : "RightHangSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
 			"draw_level" : 0,
@@ -18312,6 +18263,7 @@
 			"Name" : "RightCaveEnter",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.490000,
 			"draw_level" : 0,
@@ -18343,6 +18295,7 @@
 			"Name" : "LeftCaveEnter",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -18402,6 +18355,7 @@
 			"Name" : "CaveInner",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.510000,
 			"draw_level" : 0,
@@ -19273,6 +19227,7 @@
 			"Name" : "CaveBrush",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.470000,
 			"draw_level" : 0,
@@ -19318,6 +19273,7 @@
 			"Name" : "BridgeBaseSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -19363,6 +19319,7 @@
 			"Name" : "BridgeRowSprite",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -19749,6 +19706,7 @@
 			"Name" : "Ground2Tiles",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -21311,6 +21269,7 @@
 			"Name" : "CaveWall",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -21412,6 +21371,7 @@
 			"Name" : "CaveShelf",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -21443,6 +21403,7 @@
 			"Name" : "CherryItem",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -21594,6 +21555,7 @@
 			"Name" : "DiamondItem",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -21745,6 +21707,7 @@
 			"Name" : "DynBox",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"draw_level" : 0,
@@ -21851,6 +21814,7 @@
 			"Name" : "FakeBox",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"draw_level" : 0,
@@ -21882,6 +21846,7 @@
 			"Name" : "BridgeTrigger",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 9408.000000,
 			"y" : -832.000000,
 			"width" : 452.000000,
@@ -21894,6 +21859,7 @@
 			"Name" : "DynBoxFly",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.470000,
 			"draw_level" : 0,
@@ -21930,6 +21896,7 @@
 			"Name" : "BridgeRowSpriteDyn",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
 			"draw_level" : 0,
@@ -22316,6 +22283,7 @@
 			"Name" : "CatBoss",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"Depth" : 0.450000,
 			"hack_height" : 0.000000,
 			"draw_level" : 0,
@@ -22352,6 +22320,7 @@
 			"Name" : "DynCard",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"draw_level" : 0,
@@ -22430,6 +22399,7 @@
 			"Name" : "FakeCard",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"draw_level" : 0,
@@ -22461,6 +22431,7 @@
 			"Name" : "ActivateBossTrigger",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 14272.000000,
 			"y" : 768.000000,
 			"width" : 250.000000,
@@ -22473,6 +22444,7 @@
 			"Name" : "RespawnTrigger",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 576.000000,
 			"width" : 1542.000000,
@@ -22485,6 +22457,7 @@
 			"Name" : "RespawnTrigger2",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 3456.000000,
 			"y" : 640.000000,
 			"width" : 2432.000000,
@@ -22497,6 +22470,7 @@
 			"Name" : "RespawnTrigger3",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 6912.000000,
 			"y" : 384.000000,
 			"width" : 1294.000000,
@@ -22509,6 +22483,7 @@
 			"Name" : "RespawnTrigger4",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 9024.000000,
 			"y" : -192.000000,
 			"width" : 3349.000000,
@@ -22521,6 +22496,7 @@
 			"Name" : "RespawnTrigger5",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 11648.000000,
 			"y" : 768.000000,
 			"width" : 1111.000000,
@@ -22533,6 +22509,7 @@
 			"Name" : "RespawnTrigger6",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 12928.000000,
 			"y" : 1280.000000,
 			"width" : 1111.000000,
@@ -22545,6 +22522,7 @@
 			"Name" : "RespawnActTrigger2",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 4736.000000,
 			"y" : -448.000000,
 			"width" : 624.000000,
@@ -22557,6 +22535,7 @@
 			"Name" : "RespawnPoints",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"draw_level" : 0,
@@ -22630,6 +22609,7 @@
 			"Name" : "RespawnActTrigger3",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 8576.000000,
 			"y" : -960.000000,
 			"width" : 624.000000,
@@ -22642,6 +22622,7 @@
 			"Name" : "RespawnActTrigger4",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 13568.000000,
 			"y" : 704.000000,
 			"width" : 651.000000,
@@ -22654,6 +22635,7 @@
 			"Name" : "OpposumRun",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
 			"draw_level" : 0,
@@ -23047,6 +23029,7 @@
 			"Name" : "BossMarkers",
 			"State" : 2,
 			"Group" : "Level",
+			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
 			"draw_level" : 0,

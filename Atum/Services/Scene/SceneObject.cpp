@@ -393,6 +393,11 @@ bool SceneObject::Play()
 	return true;
 }
 
+bool SceneObject::PostPlay()
+{
+	return true;
+}
+
 void SceneObject::Stop()
 {
 }
@@ -477,7 +482,7 @@ void SceneObject::BindClassToScript()
 {
 }
 
-bool SceneObject::InjectIntoScript(const char* type, void* property)
+bool SceneObject::InjectIntoScript(const char* type, void* property, const char* prefix)
 {
 	if (!StringUtils::IsEqual(type, script_class_name))
 	{

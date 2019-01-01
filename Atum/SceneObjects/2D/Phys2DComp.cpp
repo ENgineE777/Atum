@@ -1,6 +1,5 @@
 
 #include "Phys2DComp.h"
-#include "SpriteInst.h"
 #include "SpriteTileInst.h"
 #include "SpriteGraphAsset.h"
 #include "SpriteGraphInst.h"
@@ -40,22 +39,162 @@ Phys2DComp::Phys2DComp()
 	inst_class_name = "Phys2DCompInst";
 }
 
+void Phys2DCompInst::ScriptProxy::ApplyLinearImpulse(float x, float y)
+{
+	if (!inst->IsVisible())
+	{
+		return;
+	}
+
+	if (body && body->body)
+	{
+		Vector2 pos = inst->GetPos();
+
+		if (!body->body->IsActive())
+		{
+			body->body->SetActive(true);
+			Matrix mat;
+
+			mat.Pos() = { pos.x / 50.0f, -pos.y / 50.0f, 0.0f };
+			body->body->SetTransform(mat);
+		}
+		
+		body->body->AddForceAt({ pos.x / 50.0f, -pos.y / 50.0f, 0.0f }, { x, -y, 0.0f });
+	}
+}
+
+void Phys2DCompInst::ScriptProxy::MoveTo(float x, float y)
+{
+	if (inst)
+	{
+		inst->SetPos(Vector2(x, y));
+	}
+
+	if (body && body->body)
+	{
+		Matrix mat;
+		mat.Pos() = { x / 50.0f, -y / 50.0f, 0.0f };
+		body->body->SetTransform(mat);
+	}
+
+	if (body && body->controller)
+	{
+		body->controller->SetPosition({ x / 50.0f, -y / 50.0f, 0.0f });
+	}
+}
+
+bool Phys2DCompInst::ScriptProxy::CheckColission(bool under)
+{
+	if (body && body->controller)
+	{
+		return body->controller->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
+	}
+
+	return false;
+}
+
+void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy)
+{
+	if (inst)
+	{
+		inst->dir.x += dx;
+		inst->dir.y += dy;
+	}
+}
+
+void Phys2DCompInst::BindClassToScript()
+{
+	script_class_name = "Phys2D";
+	scripts.engine->RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), asOBJ_REF | asOBJ_NOCOUNT);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), asCALL_GENERIC);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), asCALL_GENERIC);
+}
+
+void Phys2DCompInst::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)
+{
+	if (prop_index == -1)
+	{
+		char str[256];
+
+		if (prefix[0])
+		{
+			StringUtils::Printf(str, 256, "%s_phys", prefix);
+
+			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			{
+				if (StringUtils::IsEqual(str, object->GetPropertyName(prop)))
+				{
+					prop_index = prop;
+					break;
+				}
+			}
+		}
+
+		if (prop_index == -1)
+		{
+			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			{
+				if (StringUtils::IsEqual("phys", object->GetPropertyName(prop)))
+				{
+					prop_index = prop;
+					break;
+				}
+			}
+		}
+	}
+
+	if (prop_index != -1)
+	{
+		*(asPWORD*)(object->GetAddressOfProperty(prop_index)) = (asPWORD)&script_bodies[index];
+	}
+}
+
 void Phys2DCompInst::Play()
 {
-	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
+	SpriteInst* sprite_inst = (SpriteInst*)object;
+
+	if (sprite_inst->instances.size() == 0)
 	{
-		Play((SpriteInst*)object);
+		return;
 	}
-	else
-	if (StringUtils::IsEqual(object->class_name, "SpriteTileInst"))
+
+	body_type = ((Phys2DComp*)asset_comp)->body_type;
+
+	float scale = 1.0f / 50.0f;
+
+	bodies.resize(sprite_inst->instances.size());
+	script_bodies.resize(sprite_inst->instances.size());
+	Phys2DComp* comp = (Phys2DComp*)asset_comp;
+
+	Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
+	Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
+		size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
+	size *= scale;
+
+	for (int index = 0; index < bodies.size(); index++)
 	{
-		Play((SpriteTileInst*)object);
+		CreatBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
+		script_bodies[index].inst = &sprite_inst->instances[index];
+		script_bodies[index].body = &bodies[index];
 	}
-	else
-	if (StringUtils::IsEqual(object->class_name, "SpriteGraphInst"))
+
+	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
+}
+
+void Phys2DCompInst::Stop()
+{
+	for (auto& body : bodies)
 	{
-		Play((SpriteGraphInst*)object);
+		if (body.body)
+		{
+			RELEASE(body.body);
+		}
 	}
+
+	bodies.clear();
+
 }
 
 void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)
@@ -105,68 +244,10 @@ void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 siz
 	}
 }
 
-template<typename T>
-void Phys2DCompInst::Play(T* sprite_inst)
-{
-	if (sprite_inst->instances.size() == 0)
-	{
-		return;
-	}
-
-	body_type = ((Phys2DComp*)asset_comp)->body_type;
-
-	float scale = 1.0f / 50.0f;
-
-	bodies.resize(sprite_inst->instances.size());
-	Phys2DComp* comp = (Phys2DComp*)asset_comp;
-
-	Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
-	Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
-	                   size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
-	size *= scale;
-
-	for (int index = 0; index < bodies.size(); index++)
-	{
-		CreatBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
-	}
-
-	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
-}
-
-void Phys2DCompInst::Stop()
-{
-	for (auto& body : bodies)
-	{
-		if (body.body)
-		{
-			RELEASE(body.body);
-		}
-	}
-
-	bodies.clear();
-}
-
 void Phys2DCompInst::UpdateInstances(float dt)
 {
-	if (StringUtils::IsEqual(object->class_name, "SpriteInst"))
-	{
-		UpdateInstances((SpriteInst*)object);
-	}
-	else
-	if (StringUtils::IsEqual(object->class_name, "SpriteTileInst"))
-	{
-		UpdateInstances((SpriteTileInst*)object);
-	}
-	else
-	if (StringUtils::IsEqual(object->class_name, "SpriteGraphInst"))
-	{
-		UpdateInstances((SpriteGraphInst*)object);
-	}
-}
+	SpriteInst* sprite_inst = (SpriteInst*)object;
 
-template<typename T>
-void Phys2DCompInst::UpdateInstances(T* sprite_inst)
-{
 	bool is_active = (sprite_inst->GetState() == SceneObject::State::Active);
 
 	Matrix mat;

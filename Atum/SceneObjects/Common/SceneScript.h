@@ -42,6 +42,11 @@ public:
 	struct NodeScriptProperty : NodeSceneObject
 	{
 		META_DATA_DECL(NodeScriptProperty)
+
+		string prefix;
+
+		void Load(JSONReader& loader) override;
+		void Save(JSONWriter& saver) override;
 	};
 
 	struct LinkToMethod
@@ -80,7 +85,7 @@ public:
 	void SetName(const char* name) override;
 	void Work(float dt);
 
-	bool Play() override;
+	bool PostPlay() override;
 	void Stop() override;
 
 	void Release() override;

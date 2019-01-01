@@ -41,7 +41,7 @@ public:
 class ScriptMetaDataCompInst : public SceneObjectInstComp
 {
 public:
-
+	vector<int> mapping;
 	META_DATA_DECL(ScriptMetaDataComp)
-	void InjectIntoScript(const char* type, void* property) override;
+	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
 };

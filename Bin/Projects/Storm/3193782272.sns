@@ -23,19 +23,18 @@ class Character
 	float prev_y = 0;	
 	int hp = 5;
 	bool horz_flipped;
+	Track2D@ track;
+	Graph2D@ graph;
 }
 
 class Game
 {
 	array<Crosshair> crosshair;
-	Sprite@ bullet_obj;
 	Sprite@ blood_hit;
 	array<Bullet> bullets;
 	Camera2D@ camera;
 	array<Character> hero;
-	SpriteGraph@ hero_obj;
 	array<Character> enemies;
-	SpriteGraph@ enemies_obj;
 
 	float speed = 500.0f;
 	bool inited = false;
@@ -103,7 +102,7 @@ class Game
 
 			node += "_Rf";
 
-			hero_obj.GotoNode(0, node);
+			hero[0].graph.GotoNode(node);
 
 			float len = sqrt(dir_x * dir_x + dir_y * dir_y);
 			crosshair_dir_x = dir_x / len;
@@ -161,7 +160,7 @@ class Game
 				node += "Down";
 			}
 
-			enemies_obj.GotoNode(index, node);
+			enemy.graph.GotoNode(node);
 		}
 
 		for (int index = 0; index<bullets.length(); index++)
@@ -175,7 +174,7 @@ class Game
 
 				if (bullet.fade_time < 0.001f)
 				{
-					bullet_obj.RemoveInstance(index);
+					bullets.removeAt(index);
 					index--;
 				}
 			}
@@ -222,8 +221,8 @@ class Game
 
 						if (enemy.hp == 0)
 						{
-							enemies_obj.SetActiveTrack(j, false);
-							enemies_obj.GotoNode(j, "Die");
+							enemy.track.Activate(false);
+							enemy.graph.GotoNode("Die");
 						}
 					}
 				}
@@ -232,7 +231,11 @@ class Game
 
 		if (Control_GetState(alias_fire, 1) > 0)
 		{
-			int index = bullet_obj.AddInstance(hero[0].x + crosshair_dir_x * crosshair_fire_dist, hero[0].y - 95 + crosshair_dir_y * crosshair_fire_dist, false);
+			int index = bullets.length();
+			bullets.resize(index+1);
+
+			bullets[index].x = hero[0].x + crosshair_dir_x * crosshair_fire_dist;
+			bullets[index].y = hero[0].y + crosshair_dir_y * crosshair_fire_dist - 95;
 				
 			bullets[index].dir_x = crosshair_dir_x;
 			bullets[index].dir_y = crosshair_dir_y;

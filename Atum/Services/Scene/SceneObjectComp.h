@@ -19,6 +19,7 @@ class SceneObjectComp : public Object
 public:
 	SceneObject* object = nullptr;
 	const char* class_name = nullptr;
+	const char* script_class_name = nullptr;
 	bool edited = false;
 
 	virtual void Init();
@@ -26,10 +27,12 @@ public:
 	virtual void Save(JSONWriter& writer);
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
-	virtual void InjectIntoScript(const char* type, void* property);
 	virtual void Play();
 	virtual void Stop();
 	virtual void Release();
+
+	virtual void BindClassToScript();
+	virtual void InjectIntoScript(asIScriptObject* object, int index, const char* prefix);
 
 #ifdef EDITOR
 	virtual void Copy(SceneObjectComp* src);

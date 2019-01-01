@@ -4,6 +4,8 @@
 #include "Phys2DComp.h"
 #include "Track2DComp.h"
 
+#include "Services/Core/Core.h"
+
 META_DATA_DESC(SpriteInst::Instance)
 	FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x")
 	FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y")
@@ -34,6 +36,13 @@ void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* s
 	SetAlpha(alpha);
 	SetSizeX(size_x);
 	SetAngle(angle);
+
+	int prop_index = mapping[0][7];
+
+	if (prop_index != -1)
+	{
+		*(asPWORD*)(object->GetAddressOfProperty(prop_index)) = (asPWORD)this;
+	}
 }
 
 void SpriteInst::Instance::SetPos(Vector2 set_pos)
@@ -228,26 +237,54 @@ void SpriteInst::Instance::SetAngle(float set_angle)
 	angle = set_angle;
 }
 
+bool SpriteInst::Instance::ActivateLink(string& link)
+{
+	return graph_instance.ActivateLink(link.c_str());
+}
+
+void SpriteInst::Instance::GotoNode(string& node)
+{
+	graph_instance.GotoNode(node.c_str());
+}
+
 void SpriteInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteInst)
 	scripts.engine->RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance), asCALL_GENERIC);
 	scripts.engine->RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(int index, float x, float y)", WRAP_MFN(SpriteInst, ApplyLinearImpulse), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(int index, float x, float y)", WRAP_MFN(SpriteInst, MoveTo), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetActiveTrack(int index, bool set)", WRAP_MFN(SpriteInst, SetActiveTrack), asCALL_GENERIC);
+
 }
 
-void SpriteInst::MakeMapping(asIScriptObject* object)
+void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 {
-	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "size_x", "angle" };
+	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "size_x", "angle", "graph" };
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);
 
 	for (int value_index = 0; value_index < count; value_index++)
 	{
 		mapping[value_index] = -1;
+
+		if (prefix[0])
+		{
+			char str[256];
+			StringUtils::Printf(str, 256, "%s_%s", prefix, names[value_index]);
+
+			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			{
+				if (StringUtils::IsEqual(str, object->GetPropertyName(prop)))
+				{
+					mapping[value_index] = prop;
+					break;
+				}
+			}
+		}
+
+		if (mapping[value_index] != -1)
+		{
+			continue;
+		}
 
 		for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
 		{
@@ -258,39 +295,46 @@ void SpriteInst::MakeMapping(asIScriptObject* object)
 			}
 		}
 	}
+
+	mapped = true;
 }
 
-bool SpriteInst::InjectIntoScript(const char* type, void* property)
+bool SpriteInst::InjectIntoScript(const char* type, void* property, const char* prefix)
 {
 	if (StringUtils::IsEqual(type, "array"))
 	{
 		array = (CScriptArray*)property;
 
+		scr_prefix = prefix;
+
 		if (instances.size() > 0)
 		{
 			array->Resize((uint32_t)instances.size());
+			
 			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
-			MakeMapping(objects[0]);
+			MakeMapping(objects[0], prefix);
 
 			int index = 0;
 			for (auto& inst : instances)
 			{
 				inst.SetObject(objects[index], &mapping);
 
+				for (auto& comp : components)
+				{
+					comp->InjectIntoScript(objects[index], index, prefix);
+				}
+
 				index++;
 			}
-
-			for (auto comp : components)
-			{
-				comp->InjectIntoScript(type, property);
-			}
 		}
+
+		array->listiner = this;
 
 		return true;
 	}
 	
-	return SceneObject::InjectIntoScript(type, property);
+	return SceneObject::InjectIntoScript(type, property, prefix);
 }
 
 void SpriteInst::Init()
@@ -503,22 +547,32 @@ void SpriteInst::Draw(float dt)
 	}
 }
 
-PhysObject* SpriteInst::HackGetBody(int index)
+void SpriteInst::OnResize(int at, int delta)
 {
-	for (auto comp : components)
+	instances.insert(instances.begin() + at, delta, Instance());
+
+	asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
+
+	if (!mapped)
 	{
-		if (!StringUtils::IsEqual(comp->class_name, "Phys2DCompInst"))
-		{
-			continue;
-		}
-
-		Phys2DCompInst* phys_comp = (Phys2DCompInst*)comp;
-
-		phys_comp->UpdateInstances(0.0f);
-		return phys_comp->bodies[index].body;
+		MakeMapping(objects[0], scr_prefix.c_str());
 	}
 
-	return nullptr;
+	for (int index = at; index < at + delta; index++)
+	{
+		instances[index].auto_delete = true;
+		instances[index].SetObject(objects[index], &mapping);
+
+		for (auto& comp : components)
+		{
+			comp->InjectIntoScript(objects[index], index, scr_prefix.c_str());
+		}
+	}
+}
+
+void SpriteInst::OnRemove(int start, asUINT count)
+{
+	instances.erase(instances.begin() + start, instances.begin() + start + count);
 }
 
 int SpriteInst::AddInstance(float x, float y, bool auto_delete)
@@ -537,10 +591,15 @@ int SpriteInst::AddInstance(float x, float y, bool auto_delete)
 
 		if (mapping.size() == 0)
 		{
-			MakeMapping(objects[0]);
+			MakeMapping(objects[0], scr_prefix.c_str());
 		}
 
 		inst.SetObject(objects[index], &mapping);
+
+		for (auto& comp : components)
+		{
+			comp->InjectIntoScript(objects[index], index, scr_prefix.c_str());
+		}
 	}
 
 	return index;
@@ -563,44 +622,6 @@ void SpriteInst::ClearInstances()
 	if (array)
 	{
 		array->RemoveRange(0, array->GetSize());
-	}
-}
-
-void SpriteInst::ApplyLinearImpulse(int index, float x, float y)
-{
-	PhysObject* body = HackGetBody(index);
-
-	if (body)
-	{
-		body->AddForceAt({instances[index].GetPos().x / 50.0f, -instances[index].GetPos().x / 50.0f, 0.0f}, {x, y, 0.0f});
-	}
-}
-
-void SpriteInst::MoveTo(int index, float x, float y)
-{
-	PhysObject* body = HackGetBody(index);
-
-	if (body)
-	{
-		Matrix mat;
-		mat.Pos() = { x / 50.0f, -y / 50.0f, 0.0f };
-		body->SetTransform(mat);
-	}
-}
-
-void SpriteInst::SetActiveTrack(int index, bool set)
-{
-	for (auto comp : components)
-	{
-		if (!StringUtils::IsEqual(comp->class_name, "Track2DComp"))
-		{
-			continue;
-		}
-
-		Track2DComp* track_comp = (Track2DComp*)comp;
-
-		track_comp->tracks[index].active = set;
-		break;
 	}
 }
 

@@ -31,6 +31,56 @@ ENUM_END
 ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track)
 META_DATA_DESC_END()
 
+void Track2DComp::Track::Activate(bool set_active)
+{
+	active = set_active;
+}
+
+void Track2DComp::BindClassToScript()
+{
+	scripts.engine->RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), asOBJ_REF | asOBJ_NOCOUNT);
+	scripts.engine->RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate), asCALL_GENERIC);
+}
+
+void Track2DComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)
+{
+	if (prop_index == -1)
+	{
+		char str[256];
+
+		if (prefix[0])
+		{
+			StringUtils::Printf(str, 256, "%s_track", prefix);
+
+			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			{
+				if (StringUtils::IsEqual(str, object->GetPropertyName(prop)))
+				{
+					prop_index = prop;
+					break;
+				}
+			}
+		}
+
+		if (prop_index == -1)
+		{
+			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			{
+				if (StringUtils::IsEqual("track", object->GetPropertyName(prop)))
+				{
+					prop_index = prop;
+					break;
+				}
+			}
+		}
+	}
+
+	if (prop_index != -1)
+	{
+		*(asPWORD*)(object->GetAddressOfProperty(prop_index)) = (asPWORD)&tracks[index];
+	}
+}
+
 void Track2DComp::Play()
 {
 	object->Tasks(false)->AddTask(-100, this, (Object::Delegate)&Track2DComp::UpdateInstances);
@@ -70,68 +120,65 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		return;
 	}
 
-	if (dt > 0.001f)
+	track.cur_dist += track.speed * dt;
+
+	while (track.cur_dist > track.point_dist)
 	{
-		track.cur_dist += track.speed * dt;
+		track.cur_dist -= track.point_dist;
 
-		while (track.cur_dist > track.point_dist)
+		if (track.dir > 0.0f)
 		{
-			track.cur_dist -= track.point_dist;
+			track.cur_point++;
 
-			if (track.dir > 0.0f)
+			if (track.cur_point >= track.points.size())
 			{
-				track.cur_point++;
-
-				if (track.cur_point >= track.points.size())
+				if (track.tp == OneWay)
 				{
-					if (track.tp == OneWay)
+					track.cur_point = 0;
+					track.point_dist = 0.0f;
+				}
+				else
+				if (track.tp == ForwardBack)
+				{
+					track.cur_point = (int)track.points.size() - 1;
+					track.point_dist = 0.0f;
+					track.dir = -1.0f;
+				}
+				else
+				{
+					if (track.cur_point == track.points.size())
+					{
+						track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
+					}
+					else
 					{
 						track.cur_point = 0;
 						track.point_dist = 0.0f;
 					}
-					else
-						if (track.tp == ForwardBack)
-						{
-							track.cur_point = (int)track.points.size() - 1;
-							track.point_dist = 0.0f;
-							track.dir = -1.0f;
-						}
-						else
-						{
-							if (track.cur_point == track.points.size())
-							{
-								track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
-							}
-							else
-							{
-								track.cur_point = 0;
-								track.point_dist = 0.0f;
-							}
-						}
-				}
-				else
-				{
-					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
 				}
 			}
 			else
 			{
-				track.cur_point--;
+				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
+			}
+		}
+		else
+		{
+			track.cur_point--;
 
-				if (track.cur_point < 0)
-				{
-					track.cur_point = 0;
-					track.point_dist = 0.0f;
-					track.dir = 1.0f;
-				}
-				else
-				{
-					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point + 1].pos).Length();
-				}
+			if (track.cur_point < 0)
+			{
+				track.cur_point = 0;
+				track.point_dist = 0.0f;
+				track.dir = 1.0f;
+			}
+			else
+			{
+				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point + 1].pos).Length();
 			}
 		}
 	}
-	
+
 	int p1 = 0;
 	int p2 = 0;
 

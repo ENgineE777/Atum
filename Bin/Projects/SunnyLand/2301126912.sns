@@ -17,6 +17,7 @@ class PhysBox
     float x, y;
     int visible;
     float init_x, init_y;
+    Phys2D@ phys;
 }
 
 class ThrowableBox
@@ -25,11 +26,13 @@ class ThrowableBox
     int visible;
     int contact_nums = 0;
     float in_fly = -1.0f;
+    Phys2D@ phys;
 }
 
 class ChracterData : BaseCharacter
 {
-    SpriteGraph@ graph;
+    Phys2D@ phys;
+    Graph2D@ graph;
 
     float velocity_x = 0.0f;
     float velocity_y = 0.0f;
@@ -46,9 +49,8 @@ class ChracterData : BaseCharacter
     int hp = 3;
     bool horz_flipped_inv = false;
 
-    void Init(SpriteGraph@ set_graph)
+    void Init()
     {
-        @graph = @set_graph;
     }
 }
 
@@ -69,9 +71,9 @@ class CatBossData : ChracterData
     uint  card_index = 0;
     float next_throw = 0.45f;
 
-    void Init(SpriteGraph@ set_graph) override
+    void Init() override
     {
-        ChracterData::Init(set_graph);
+        ChracterData::Init();
 
         move_speed = 400.0f;
         accel_speed = 700.0f;
@@ -88,21 +90,15 @@ class Game
     array<BaseCharacter> eagles;
     array<BaseCharacter> opposums;
     array<PhysBox> respawn_points;
-    Sprite@ boxes_object;
     array<PhysBox> boxes;
-    Sprite@ boxes_level_object;
     array<PhysBox> fake_box;
     array<ThrowableBox> fly_boxes;
     array<ThrowableBox> boss_cards;
     array<BaseCharacter> boss_markers;
     array<PhysBox> fake_card;
-    Sprite@ cards_object;
     array<PhysBox> bridge;
     array<PhysBox> bridge_dyn;
-    Sprite@ bridge_object;
-    SpriteGraph@ hero;
     array<HeroData> hero_inst;
-    SpriteGraph@ boss;
     array<CatBossData> boss_inst;
     Camera2D@ camera;
     Sprite@ item_taken;
@@ -245,7 +241,7 @@ class Game
                 enemy_death.AddInstance(fake_card[0].x, fake_card[0].y, true);
             }
 
-            hero_data.graph.GotoNode(0, "Hit");
+            hero_data.graph.GotoNode("Hit");
             hero_data.in_hit = 1.0f;
 
             hero_data.box_grabbed = -1;
@@ -269,23 +265,23 @@ class Game
     void RespawnHero(HeroData@ hero_data)
     {
         //hero_data.cur_respawn_point = 3;
-        hero_data.graph.MoveTo(0, respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
+        hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
         hero_data.in_hit = -1.0f;
         fake_box[0].visible = 0;
         fake_card[0].visible = 0;
         UpdateHearts(hero_data);
-        hero_data.graph.GotoNode(0, "Idle");
+        hero_data.graph.GotoNode("Idle");
 
         hero_data.velocity_x = 0.0f;
         hero_data.velocity_y = 0.0f;
 
         return_to_title = -1.0f;
         boss_inst[0].active = false;
-        boss_inst[0].graph.GotoNode(0, "idle");
+        boss_inst[0].graph.GotoNode("idle");
         boss_inst[0].hp = 3;
         boss_inst[0].cur_stage = 0;
-        boss_inst[0].graph.MoveTo(0, boss_markers[0].x, boss_markers[0].y);
+        boss_inst[0].phys.MoveTo(boss_markers[0].x, boss_markers[0].y);
 
         hero_data.box_grabbed = -1;
         hero_data.card_grabbed = -1;
@@ -318,7 +314,7 @@ class Game
         for (int i = 0; i<boxes.length();i++)
         {
             boxes[i].visible = 1;
-            boxes_level_object.MoveTo(i, boxes[i].init_x, boxes[i].init_y);
+            boxes[i].phys.MoveTo(boxes[i].init_x, boxes[i].init_y);
         }
 
         falling_bridge = false;
@@ -327,7 +323,7 @@ class Game
         for (int i = 0; i<bridge.length();i++)
         {
             bridge_dyn[i].visible = 0;
-            bridge_object.MoveTo(i, bridge_dyn[i].init_x, bridge_dyn[i].init_y + 1);
+            bridge_dyn[i].phys.MoveTo(bridge_dyn[i].init_x, bridge_dyn[i].init_y + 1);
         }
 
         for (int i = 0; i<bridge.length();i++)
@@ -397,7 +393,7 @@ class Game
 
             if (boss_inst[0].hp > 0)
             {
-                boss_inst[0].graph.SetState(2);
+                boss_inst[0].active = true;
             }
         }
 
@@ -447,7 +443,6 @@ class Game
                 {
                     return_to_title = 2.0f;
                     boss_inst[0].active = false;
-                    boss_inst[0].graph.SetState(0);
                     enemy_death.AddInstance(boss_inst[0].x, boss_inst[0].y, true);
                 }
             }
@@ -539,14 +534,14 @@ class Game
             data.velocity_y = data.max_gravity;
         }
 
-        data.graph.Move(0, data.velocity_x * dt, data.velocity_y * dt);
+        data.phys.Move(data.velocity_x * dt, data.velocity_y * dt);
     }
 
     void ControlBoss(CatBossData@ cat_data, float dt)
     {
         if (cat_data.cur_stage == 0 || cat_data.cur_stage == 1)
         {
-            cat_data.graph.ActivateLink(0, "run");
+            cat_data.graph.ActivateLink("run");
 
             cat_data.dir_x = -1.0f;
 
@@ -558,7 +553,7 @@ class Game
             else
             if (cat_data.cur_stage == 1 && boss_inst[0].x < boss_markers[3].x)
             {
-                cat_data.graph.ActivateLink(0, "idle");
+                cat_data.graph.ActivateLink("idle");
                 boss_inst[0].horz_flipped = 1;
                 cat_data.attacking_time = 1.5f;
                 cat_data.next_throw = 0.45f;
@@ -603,7 +598,7 @@ class Game
                     vec_x /= len;
                     vec_y /= len;
 
-                    cards_object.ApplyLinearImpulse(cat_data.card_index, vec_x * 55.0f, -vec_y * 55.0f);
+                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 55.0f, -vec_y * 55.0f);
 
                     cat_data.next_throw = 0.45f;
                 }
@@ -611,7 +606,7 @@ class Game
 
             if (cat_data.attacking_time < 0.0f)
             {
-                cat_data.graph.ActivateLink(0, "idle");
+                cat_data.graph.ActivateLink("idle");
 
                 cat_data.cur_stage++;
 
@@ -622,13 +617,13 @@ class Game
             }
             else
             {
-                cat_data.graph.ActivateLink(0, "attack");
+                cat_data.graph.ActivateLink("attack");
             }
         }
         else
         if (cat_data.cur_stage == 4 || cat_data.cur_stage == 5)
         {
-            cat_data.graph.ActivateLink(0, "run");
+            cat_data.graph.ActivateLink("run");
 
             cat_data.dir_x = 1.0f;
 
@@ -640,7 +635,7 @@ class Game
             else
             if (cat_data.cur_stage == 5 && boss_inst[0].x > boss_markers[0].x)
             {
-                cat_data.graph.ActivateLink(0, "idle");
+                cat_data.graph.ActivateLink("idle");
                 boss_inst[0].horz_flipped = 1;
                 cat_data.attacking_time = 1.5f;
                 cat_data.next_throw = 0.45f;
@@ -648,7 +643,7 @@ class Game
             }
         }
 
-        if (cat_data.graph.CheckColission(0, true) && cat_data.velocity_y > 25.0f)
+        if (cat_data.phys.CheckColission(true) && cat_data.velocity_y > 25.0f)
         {
             cat_data.velocity_y = 0.0f;
         }
@@ -658,18 +653,18 @@ class Game
 
     void ControlPlayer(HeroData@ hero_data, float dt)
     {
-        bool allow_jump = hero_data.graph.CheckColission(0, true);
+        bool allow_jump = hero_data.phys.CheckColission(true);
 
         if (!allow_jump && hero_data.velocity_y > 20.5f)
         {
-            hero_data.graph.ActivateLink(0, "fall");
+            hero_data.graph.ActivateLink("fall");
         }
         
         if (Control_GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
         {
             if (allow_jump)
             {
-                hero_data.graph.ActivateLink(0, "run");
+                hero_data.graph.ActivateLink("run");
             }
 
             hero_data.dir_x = -1.0f;
@@ -679,7 +674,7 @@ class Game
         {
             if (allow_jump)
             {
-                hero_data.graph.ActivateLink(0, "run");
+                hero_data.graph.ActivateLink("run");
             }
 
             hero_data.dir_x = 1.0f;
@@ -690,7 +685,7 @@ class Game
 
             if (allow_jump)
             {
-                hero_data.graph.ActivateLink(0, "idle");
+                hero_data.graph.ActivateLink("idle");
             }
         }
 
@@ -702,7 +697,7 @@ class Game
         {
             if (hero_data.velocity_y < 0.0f)
             {
-                if (hero_data.graph.CheckColission(0, false))
+                if (hero_data.phys.CheckColission(false))
                 {
                     hero_data.velocity_y = 0.0f;
                 }
@@ -720,7 +715,7 @@ class Game
 
         if ((Control_GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
         {
-            hero_data.graph.ActivateLink(0, "jump");
+            hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
         }
 
@@ -761,7 +756,7 @@ class Game
 
                 fake_box[0].visible = 0;
 
-                boxes_object.ApplyLinearImpulse(0, (hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
+                fly_boxes[0].phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
                 hero_data.box_grabbed = -1;
             }
             else
@@ -774,7 +769,7 @@ class Game
 
                 fake_card[0].visible = 0;
 
-                cards_object.ApplyLinearImpulse(3, (hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
+                boss_cards[3].phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
                 hero_data.card_grabbed = -1;
             }
         }
@@ -831,8 +826,8 @@ class Game
                 bridge_dyn[i].init_y = bridge_dyn[i].y;
             }
 
-            hero_inst[0].Init(hero);
-            boss_inst[0].Init(boss);
+            hero_inst[0].Init();
+            boss_inst[0].Init();
             OnReturnToTitle();
 
             init = true;
@@ -879,7 +874,7 @@ class Game
             if (hero_inst[0].in_hit < 0.0f)
             {
                 hero_inst[0].in_hit = -1.0f;
-                hero_inst[0].graph.ActivateLink(0, "idle");
+                hero_inst[0].graph.ActivateLink("idle");
             }
         }
 

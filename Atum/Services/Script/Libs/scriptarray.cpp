@@ -744,6 +744,14 @@ void CScriptArray::Resize(int delta, asUINT at)
 		Construct(buffer, at, at+delta);
 		buffer->numElements += delta;
 	}
+
+	if (listiner)
+	{
+		if (delta > 0)
+		{
+			listiner->OnResize(at, delta);
+		}
+	}
 }
 
 // internal
@@ -989,6 +997,11 @@ void CScriptArray::Destruct(SArrayBuffer *buf, asUINT start, asUINT end)
 			if( *d )
 				engine->ReleaseScriptObject(*d, objType->GetSubType());
 		}
+	}
+
+	if (listiner)
+	{
+		listiner->OnRemove(start, end - start);
 	}
 }
 

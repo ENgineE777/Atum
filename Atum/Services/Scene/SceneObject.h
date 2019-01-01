@@ -104,6 +104,7 @@ public:
 	virtual TaskExecutor::SingleTaskPool* Tasks(bool edtitor);
 	virtual TaskExecutor::SingleTaskPool* RenderTasks(bool editor);
 	virtual bool Play();
+	virtual bool PostPlay();
 	virtual void Stop();
 	bool Playing();
 	Scene* GetScene();
@@ -114,7 +115,7 @@ public:
 	virtual SceneObject* GetChild(uint32_t uid);
 
 	virtual void BindClassToScript();
-	virtual bool InjectIntoScript(const char* type, void* property);
+	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
 
 	virtual bool OnContact(int index, SceneObject* contact_object, int contact_index);
 

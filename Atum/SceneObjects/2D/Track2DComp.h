@@ -40,13 +40,19 @@ public:
 		META_DATA_DECL(Track)
 		bool active = true;
 		vector<Point> points;
+
+		void Activate(bool active);
 	};
 
 	int sel_point = -1;
 	int sel_track = -1;
+	int prop_index = -1;
 
 	FlipMode flip_mode;
 	vector<Track> tracks;
+
+	void BindClassToScript() override;
+	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
 
 	void Play() override;
 	void UpdateInstances(float dt);

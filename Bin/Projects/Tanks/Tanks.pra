@@ -1,0 +1,26 @@
+﻿{
+
+	"start_scene" : "Projects/Tanks/Tanks.sca",
+	"scenes" : [
+		{
+			"path" : "Projects/Tanks/Tanks.sca"
+		}
+	],
+	"nodes" : [
+		{
+			"name" : "Tanks",
+			"type" : 1
+		},
+		{
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"layers" : [
+	],
+	"groups" : [
+		{
+			"name" : "Level"
+		}
+	]
+}

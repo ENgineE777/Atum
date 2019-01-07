@@ -1,0 +1,29 @@
+﻿{
+
+	"start_scene" : "Projects/Coldrain/coldrain.sca",
+	"scenes" : [
+		{
+			"path" : "Projects/Coldrain/coldrain.sca"
+		},
+		{
+			"path" : "Projects/Beatemup/beatemup.sca"
+		}
+	],
+	"nodes" : [
+		{
+			"name" : "coldrain",
+			"type" : 1
+		},
+		{
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"layers" : [
+	],
+	"groups" : [
+		{
+			"name" : "Level"
+		}
+	]
+}

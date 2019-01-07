@@ -303,7 +303,7 @@ void Scene::Load(const char* name)
 	
 	if (reader.Parse(name))
 	{
-		StringUtils::ExtractPath(name, scene_path);
+		StringUtils::GetPath(name, scene_path);
 
 		reader.Read("camera3d_angles", camera3d_angles);
 		reader.Read("camera3d_pos", camera3d_pos);

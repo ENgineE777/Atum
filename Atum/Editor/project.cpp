@@ -363,7 +363,10 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 
 	while (node.type != 2)
 	{
-		int index_node = (node.type == 1) ? FindScene(node.name.c_str()) : -1;
+		char name[256];
+		StringUtils::Printf(name, 256, "%s.sca", node.name.c_str());
+
+		int index_node = (node.type == 1) ? FindScene(name) : -1;
 
 		int image = node.type;
 
@@ -504,9 +507,17 @@ void Project::SelectScene(const char* path)
 
 int Project::FindScene(const char* path)
 {
+	char name[256];
+	StringUtils::GetFileName(path, name);
+	StringUtils::RemoveExtension(name);
+
 	for (int i = 0; i<scenes.size(); i++)
 	{
-		if (StringUtils::IsEqual(scenes[i]->path.c_str(), path))
+		char scene_name[256];
+		StringUtils::GetFileName(scenes[i]->path.c_str(), scene_name);
+		StringUtils::RemoveExtension(scene_name);
+
+		if (StringUtils::IsEqual(scene_name, name))
 		{
 			return i;
 		}
@@ -532,8 +543,12 @@ void Project::AddScene(const char* path, void* parent_item)
 	scenes.push_back(new SceneHolder());
 	SceneHolder* scn = scenes.back();
 
+	char name[256];
+	StringUtils::GetFileName(cropped_path, name);
+	StringUtils::RemoveExtension(name);
+
 	scn->path = cropped_path;
-	scn->item = editor.project_treeview->AddItem(scn->path.c_str(), 1, scn, parent_item, -1, true);
+	scn->item = editor.project_treeview->AddItem(name, 1, scn, parent_item, -1, true);
 
 	if (start_scene.size() == 0)
 	{

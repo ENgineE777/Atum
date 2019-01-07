@@ -122,7 +122,7 @@ void StringUtils::RemoveSlashes(char* fullPath)
 	fullPath[index] = 0;
 }
 
-void StringUtils::ExtractFileName(const char* fullPath, char* fileName)
+void StringUtils::GetFileName(const char* fullPath, char* fileName)
 {
 	int index = GetLen(fullPath)-1;
 
@@ -141,7 +141,7 @@ void StringUtils::ExtractFileName(const char* fullPath, char* fileName)
 	fileName[len - index - 1] = 0;
 }
 
-bool StringUtils::ExtractPath(const char* fullPath, char* path)
+bool StringUtils::GetPath(const char* fullPath, char* path)
 {
 	int index = GetLen(fullPath)-1;
 
@@ -190,7 +190,7 @@ void StringUtils::GetCropPath(const char* relativePath, const char* fullPath, ch
 	path[len1 - len2]=0;
 }
 
-void StringUtils::ExtractRootPath(const char* path1, const char* path2, char* root)
+void StringUtils::GetRootPath(const char* path1, const char* path2, char* root)
 {
 	char rt[512];
 	int len = GetLen(path1);
@@ -211,7 +211,7 @@ void StringUtils::ExtractRootPath(const char* path1, const char* path2, char* ro
 		}
 	}
 
-	ExtractPath(rt,root);
+	GetPath(rt,root);
 }
 
 void StringUtils::RemoveFirstChar(char* str)
@@ -251,7 +251,7 @@ void StringUtils::FixSlashes(char * str)
 	}
 }
 
-void StringUtils::ExtractExctention(const char* str, char* ext, int ext_lenght)
+void StringUtils::GetExtension(const char* str, char* ext, int ext_lenght)
 {
 	ext[0] = 0;
 
@@ -277,7 +277,7 @@ void StringUtils::ExtractExctention(const char* str, char* ext, int ext_lenght)
 	ext[i-index-1]=0;
 }
 
-void StringUtils::RemoveExctention(char* str)
+void StringUtils::RemoveExtension(char* str)
 {
 	int index = GetLen(str) - 1;
 
@@ -292,7 +292,7 @@ void StringUtils::RemoveExctention(char* str)
 	}
 }
 
-int StringUtils::ExtractNameNumber(const char* str, char* wo_n_str, int len)
+int StringUtils::GetNameNumber(const char* str, char* wo_n_str, int len)
 {
 	Copy(wo_n_str,len,str);
 	int number = 0;

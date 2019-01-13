@@ -64,10 +64,20 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 	if (!is_asset)
 	{
 		decl_objects = ClassFactorySceneObject::Find(name);
+
+		if (!decl_objects)
+		{
+			return nullptr;
+		}
 	}
 	else
 	{
 		decl_assets = ClassFactorySceneAsset::Find(name);
+
+		if (!decl_assets)
+		{
+			return nullptr;
+		}
 	}
 
 	SceneObject* obj = is_asset ? decl_assets->Create(name) : decl_objects->Create(name);
@@ -460,6 +470,14 @@ bool Scene::Play()
 
 	script = scripts.CreateContext();
 	pscene = physics.CreateScene();
+
+	for (auto asset : assets)
+	{
+		if (!asset->Play())
+		{
+			return false;
+		}
+	}
 
 	for (auto object : objects)
 	{

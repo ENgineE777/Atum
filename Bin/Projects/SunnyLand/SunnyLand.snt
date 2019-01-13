@@ -317,7 +317,7 @@
 			"type" : 1
 		},
 		{
-			"uid" : -1993840384,
+			"uid" : 2133115008,
 			"name" : "MainScript",
 			"type" : 1
 		},
@@ -682,6 +682,11 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : -1993840384,
+			"name" : "MainScript",
+			"type" : 1
 		},
 		{
 			"uid" : -1,

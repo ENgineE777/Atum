@@ -21,6 +21,414 @@
 	"gizmo2d_align_y" : 0,
 	"SceneAsset" : [
 		{
+			"type" : "SceneScriptAsset",
+			"uid" : 1806721408,
+			"ed_camera_2d" :
+			{
+				"x" : 538.000000,
+				"y" : -55.000000
+			},
+			"Name" : "Script",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "Controller",
+			"Count" : 34,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "enemy",
+					"pos" :
+					{
+						"x" : 47.000000,
+						"y" : 36.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "player",
+					"pos" :
+					{
+						"x" : 241.000000,
+						"y" : 35.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "background",
+					"pos" :
+					{
+						"x" : 443.000000,
+						"y" : 34.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "floor",
+					"pos" :
+					{
+						"x" : 635.000000,
+						"y" : 36.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "vjoy",
+					"pos" :
+					{
+						"x" : 833.000000,
+						"y" : 38.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 52.000000,
+						"y" : 159.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "about_menu",
+					"pos" :
+					{
+						"x" : 217.000000,
+						"y" : 157.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hud",
+					"pos" :
+					{
+						"x" : 402.000000,
+						"y" : 158.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "about_menu",
+					"pos" :
+					{
+						"x" : 41.000000,
+						"y" : 282.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "main_start",
+					"pos" :
+					{
+						"x" : 47.000000,
+						"y" : 489.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "main_about",
+					"pos" :
+					{
+						"x" : 50.000000,
+						"y" : 380.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "ShowAbout",
+					"pos" :
+					{
+						"x" : 391.000000,
+						"y" : 321.000000
+					},
+					"param_type" : 1,
+					"Count" : 2,
+					"Link" : [
+						{
+							"node" : 8,
+							"param" : "0"
+						},
+						{
+							"node" : 10,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ShowSelect",
+					"pos" :
+					{
+						"x" : 397.000000,
+						"y" : 491.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 9,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ReturnToMainMenu",
+					"pos" :
+					{
+						"x" : 969.000000,
+						"y" : 264.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 14,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "pause_back",
+					"pos" :
+					{
+						"x" : 619.000000,
+						"y" : 267.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "hud_pause",
+					"pos" :
+					{
+						"x" : 628.000000,
+						"y" : 362.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 976.000000,
+						"y" : 391.000000
+					},
+					"param_type" : 1,
+					"Count" : 2,
+					"Link" : [
+						{
+							"node" : 17,
+							"param" : "0"
+						},
+						{
+							"node" : 15,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "pause_resume",
+					"pos" :
+					{
+						"x" : 622.000000,
+						"y" : 444.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "pause_menu",
+					"pos" :
+					{
+						"x" : 602.000000,
+						"y" : 157.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "camera",
+					"pos" :
+					{
+						"x" : 1028.000000,
+						"y" : 42.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "select_character",
+					"pos" :
+					{
+						"x" : 795.000000,
+						"y" : 149.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "slect_start",
+					"pos" :
+					{
+						"x" : 638.000000,
+						"y" : 543.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "StartGame",
+					"pos" :
+					{
+						"x" : 981.000000,
+						"y" : 524.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 21,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "select_next_enemy",
+					"pos" :
+					{
+						"x" : 644.000000,
+						"y" : 638.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "NextEnemy",
+					"pos" :
+					{
+						"x" : 973.000000,
+						"y" : 637.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 23,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "NextPlayer",
+					"pos" :
+					{
+						"x" : 401.000000,
+						"y" : 595.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 26,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "select_next_player",
+					"pos" :
+					{
+						"x" : 56.000000,
+						"y" : 604.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "lbl_next_player",
+					"pos" :
+					{
+						"x" : 1216.000000,
+						"y" : 41.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "lbl_next_enemy",
+					"pos" :
+					{
+						"x" : 1390.000000,
+						"y" : 42.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hp_player",
+					"pos" :
+					{
+						"x" : 1228.000000,
+						"y" : 142.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hp_enemy",
+					"pos" :
+					{
+						"x" : 1408.000000,
+						"y" : 147.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 1229.000000,
+						"y" : 499.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "hp_player_bar",
+					"pos" :
+					{
+						"x" : 1227.000000,
+						"y" : 241.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hp_enemy_bar",
+					"pos" :
+					{
+						"x" : 1418.000000,
+						"y" : 245.000000
+					},
+					"prefix" : ""
+				}
+			]
+		},
+		{
 			"type" : "SpriteAsset",
 			"uid" : -264459008,
 			"ed_camera_2d" :
@@ -5596,466 +6004,6 @@
 			"ButtonB" : "Projects/common/button.png"
 		},
 		{
-			"type" : "SceneScript",
-			"uid" : 1806721408,
-			"ed_camera_2d" :
-			{
-				"x" : 538.000000,
-				"y" : -55.000000
-			},
-			"Name" : "Script",
-			"State" : 2,
-			"Group" : "",
-			"Layer" : "",
-			"main_class" : "Controller",
-			"Count" : 34,
-			"Node" : [
-				{
-					"type" : 1,
-					"name" : "enemy",
-					"pos" :
-					{
-						"x" : 47.000000,
-						"y" : 36.000000
-					},
-					"object_uid" : 587187712,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "player",
-					"pos" :
-					{
-						"x" : 241.000000,
-						"y" : 35.000000
-					},
-					"object_uid" : -2065470720,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "background",
-					"pos" :
-					{
-						"x" : 443.000000,
-						"y" : 34.000000
-					},
-					"object_uid" : 1664628480,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "floor",
-					"pos" :
-					{
-						"x" : 635.000000,
-						"y" : 36.000000
-					},
-					"object_uid" : 585760320,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "vjoy",
-					"pos" :
-					{
-						"x" : 833.000000,
-						"y" : 38.000000
-					},
-					"object_uid" : -1756629248,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "main_menu",
-					"pos" :
-					{
-						"x" : 52.000000,
-						"y" : 159.000000
-					},
-					"object_uid" : 1084967168,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "about_menu",
-					"pos" :
-					{
-						"x" : 217.000000,
-						"y" : 157.000000
-					},
-					"object_uid" : 902647040,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hud",
-					"pos" :
-					{
-						"x" : 402.000000,
-						"y" : 158.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 0,
-					"name" : "about_menu",
-					"pos" :
-					{
-						"x" : 41.000000,
-						"y" : 282.000000
-					},
-					"object_uid" : 902647040,
-					"object_child_uid" : 1995400192
-				},
-				{
-					"type" : 0,
-					"name" : "main_start",
-					"pos" :
-					{
-						"x" : 47.000000,
-						"y" : 489.000000
-					},
-					"object_uid" : 1084967168,
-					"object_child_uid" : 509458336
-				},
-				{
-					"type" : 0,
-					"name" : "main_about",
-					"pos" :
-					{
-						"x" : 50.000000,
-						"y" : 380.000000
-					},
-					"object_uid" : 1084967168,
-					"object_child_uid" : 13755116
-				},
-				{
-					"type" : 2,
-					"name" : "ShowAbout",
-					"pos" :
-					{
-						"x" : 391.000000,
-						"y" : 321.000000
-					},
-					"param_type" : 1,
-					"Count" : 2,
-					"Link" : [
-						{
-							"node" : 8,
-							"param" : "0"
-						},
-						{
-							"node" : 10,
-							"param" : "1"
-						}
-					]
-				},
-				{
-					"type" : 2,
-					"name" : "ShowSelect",
-					"pos" :
-					{
-						"x" : 397.000000,
-						"y" : 491.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 9,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 2,
-					"name" : "ReturnToMainMenu",
-					"pos" :
-					{
-						"x" : 969.000000,
-						"y" : 264.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 14,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 0,
-					"name" : "pause_back",
-					"pos" :
-					{
-						"x" : 619.000000,
-						"y" : 267.000000
-					},
-					"object_uid" : -809602560,
-					"object_child_uid" : 305726912
-				},
-				{
-					"type" : 0,
-					"name" : "hud_pause",
-					"pos" :
-					{
-						"x" : 628.000000,
-						"y" : 362.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : 308192448
-				},
-				{
-					"type" : 2,
-					"name" : "ShowPauseMenu",
-					"pos" :
-					{
-						"x" : 976.000000,
-						"y" : 391.000000
-					},
-					"param_type" : 1,
-					"Count" : 2,
-					"Link" : [
-						{
-							"node" : 17,
-							"param" : "0"
-						},
-						{
-							"node" : 15,
-							"param" : "1"
-						}
-					]
-				},
-				{
-					"type" : 0,
-					"name" : "pause_resume",
-					"pos" :
-					{
-						"x" : 622.000000,
-						"y" : 444.000000
-					},
-					"object_uid" : -809602560,
-					"object_child_uid" : 1134407680
-				},
-				{
-					"type" : 1,
-					"name" : "pause_menu",
-					"pos" :
-					{
-						"x" : 602.000000,
-						"y" : 157.000000
-					},
-					"object_uid" : -809602560,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "camera",
-					"pos" :
-					{
-						"x" : 1028.000000,
-						"y" : 42.000000
-					},
-					"object_uid" : -129243392,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "select_character",
-					"pos" :
-					{
-						"x" : 795.000000,
-						"y" : 149.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 0,
-					"name" : "slect_start",
-					"pos" :
-					{
-						"x" : 638.000000,
-						"y" : 543.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : 116918488
-				},
-				{
-					"type" : 2,
-					"name" : "StartGame",
-					"pos" :
-					{
-						"x" : 981.000000,
-						"y" : 524.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 21,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 0,
-					"name" : "select_next_enemy",
-					"pos" :
-					{
-						"x" : 644.000000,
-						"y" : 638.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1000360256
-				},
-				{
-					"type" : 2,
-					"name" : "NextEnemy",
-					"pos" :
-					{
-						"x" : 973.000000,
-						"y" : 637.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 23,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 2,
-					"name" : "NextPlayer",
-					"pos" :
-					{
-						"x" : 401.000000,
-						"y" : 595.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 26,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 0,
-					"name" : "select_next_player",
-					"pos" :
-					{
-						"x" : 56.000000,
-						"y" : 604.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1038900480
-				},
-				{
-					"type" : 1,
-					"name" : "lbl_next_player",
-					"pos" :
-					{
-						"x" : 1216.000000,
-						"y" : 41.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1280263808,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "lbl_next_enemy",
-					"pos" :
-					{
-						"x" : 1390.000000,
-						"y" : 42.000000
-					},
-					"object_uid" : -1179303936,
-					"object_child_uid" : -462351104,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hp_player",
-					"pos" :
-					{
-						"x" : 1228.000000,
-						"y" : 142.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : 24395866,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hp_enemy",
-					"pos" :
-					{
-						"x" : 1408.000000,
-						"y" : 147.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : -1050057728,
-					"prefix" : ""
-				},
-				{
-					"type" : 2,
-					"name" : "Update",
-					"pos" :
-					{
-						"x" : 1229.000000,
-						"y" : 499.000000
-					},
-					"param_type" : 3,
-					"Count" : 0,
-					"Link" : [
-					]
-				},
-				{
-					"type" : 1,
-					"name" : "hp_player_bar",
-					"pos" :
-					{
-						"x" : 1227.000000,
-						"y" : 241.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : 1396922752,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hp_enemy_bar",
-					"pos" :
-					{
-						"x" : 1418.000000,
-						"y" : 245.000000
-					},
-					"object_uid" : -1031631104,
-					"object_child_uid" : -1168922624,
-					"prefix" : ""
-				}
-			]
-		},
-		{
 			"type" : "SpriteInst",
 			"uid" : 585760320,
 			"Name" : "SpriteFloor",
@@ -6865,9 +6813,166 @@
 					]
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : -90780672,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "Script",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 1806721408,
+			"Count" : 34,
+			"Node" : [
+				{
+					"object_uid" : 587187712,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -2065470720,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 1664628480,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 585760320,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1756629248,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 1084967168,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 902647040,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 902647040,
+					"object_child_uid" : 1995400192
+				},
+				{
+					"object_uid" : 1084967168,
+					"object_child_uid" : 509458336
+				},
+				{
+					"object_uid" : 1084967168,
+					"object_child_uid" : 13755116
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -809602560,
+					"object_child_uid" : 305726912
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : 308192448
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -809602560,
+					"object_child_uid" : 1134407680
+				},
+				{
+					"object_uid" : -809602560,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -129243392,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : 116918488
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : 1000360256
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : 1038900480
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : 1280263808
+				},
+				{
+					"object_uid" : -1179303936,
+					"object_child_uid" : -462351104
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : 24395866
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : -1050057728
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : 1396922752
+				},
+				{
+					"object_uid" : -1031631104,
+					"object_child_uid" : -1168922624
+				}
+			]
 		}
 	],
 	"asset_inctances" : [
+		{
+			"asset_uid" : 1806721408,
+			"inst_uid" : -90780672
+		},
 		{
 			"asset_uid" : -336218880,
 			"inst_uid" : 1664628480

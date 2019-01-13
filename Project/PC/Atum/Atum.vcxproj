@@ -60,7 +60,8 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\CameraPlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\SpritePlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\TrackPlayer.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScript.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.cpp" />
@@ -134,7 +135,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObject.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObjectComp.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptarray.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptarray.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scripthandle.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptmath.cpp" />
@@ -206,7 +207,8 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\CameraPlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\SpritePlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\TrackPlayer.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScript.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.h" />
@@ -273,7 +275,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObjectComp.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\aswrappedcall.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptarray.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptarray.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scripthandle.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h" />

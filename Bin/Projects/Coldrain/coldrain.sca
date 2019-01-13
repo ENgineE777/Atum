@@ -21,6 +21,182 @@
 	"gizmo2d_align_y" : 24,
 	"SceneAsset" : [
 		{
+			"type" : "SceneScriptAsset",
+			"uid" : 200902816,
+			"ed_camera_2d" :
+			{
+				"x" : 370.000000,
+				"y" : -46.000000
+			},
+			"Name" : "Script",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "Main",
+			"Count" : 15,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "camera",
+					"pos" :
+					{
+						"x" : 376.000000,
+						"y" : 151.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "crosshair",
+					"pos" :
+					{
+						"x" : 567.000000,
+						"y" : 145.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hero",
+					"pos" :
+					{
+						"x" : 573.000000,
+						"y" : 255.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hero",
+					"pos" :
+					{
+						"x" : 376.000000,
+						"y" : 256.000000
+					},
+					"prefix" : "body"
+				},
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 797.000000,
+						"y" : 150.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "enemies",
+					"pos" :
+					{
+						"x" : 1009.000000,
+						"y" : 259.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "enemies",
+					"pos" :
+					{
+						"x" : 809.000000,
+						"y" : 254.000000
+					},
+					"prefix" : "body"
+				},
+				{
+					"type" : 1,
+					"name" : "bullets",
+					"pos" :
+					{
+						"x" : 1245.000000,
+						"y" : 375.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "blood_splash_obj",
+					"pos" :
+					{
+						"x" : 1232.000000,
+						"y" : 156.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "bullet_wall_hit",
+					"pos" :
+					{
+						"x" : 1240.000000,
+						"y" : 265.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "nav_mesh",
+					"pos" :
+					{
+						"x" : 388.000000,
+						"y" : 466.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "ui_restart_message",
+					"pos" :
+					{
+						"x" : 579.000000,
+						"y" : 467.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "ExitTrigger",
+					"pos" :
+					{
+						"x" : 813.000000,
+						"y" : 587.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnRestartTrigger",
+					"pos" :
+					{
+						"x" : 1025.000000,
+						"y" : 588.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 12,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "arrow",
+					"pos" :
+					{
+						"x" : 1001.000000,
+						"y" : 153.000000
+					},
+					"prefix" : ""
+				}
+			]
+		},
+		{
 			"type" : "SpriteAsset",
 			"uid" : 1062832448,
 			"ed_camera_2d" :
@@ -3621,208 +3797,6 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
-				}
-			]
-		},
-		{
-			"type" : "SceneScript",
-			"uid" : 200902816,
-			"ed_camera_2d" :
-			{
-				"x" : 370.000000,
-				"y" : -46.000000
-			},
-			"Name" : "Script",
-			"State" : 2,
-			"Group" : "",
-			"Layer" : "",
-			"main_class" : "Main",
-			"Count" : 15,
-			"Node" : [
-				{
-					"type" : 1,
-					"name" : "camera",
-					"pos" :
-					{
-						"x" : 376.000000,
-						"y" : 151.000000
-					},
-					"object_uid" : 410668992,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "crosshair",
-					"pos" :
-					{
-						"x" : 567.000000,
-						"y" : 145.000000
-					},
-					"object_uid" : 1105479296,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hero",
-					"pos" :
-					{
-						"x" : 573.000000,
-						"y" : 255.000000
-					},
-					"object_uid" : -224630016,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "hero",
-					"pos" :
-					{
-						"x" : 376.000000,
-						"y" : 256.000000
-					},
-					"object_uid" : 413751904,
-					"object_child_uid" : 0,
-					"prefix" : "body"
-				},
-				{
-					"type" : 2,
-					"name" : "Update",
-					"pos" :
-					{
-						"x" : 797.000000,
-						"y" : 150.000000
-					},
-					"param_type" : 3,
-					"Count" : 0,
-					"Link" : [
-					]
-				},
-				{
-					"type" : 1,
-					"name" : "enemies",
-					"pos" :
-					{
-						"x" : 1009.000000,
-						"y" : 259.000000
-					},
-					"object_uid" : 913568320,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "enemies",
-					"pos" :
-					{
-						"x" : 809.000000,
-						"y" : 254.000000
-					},
-					"object_uid" : -112360960,
-					"object_child_uid" : 0,
-					"prefix" : "body"
-				},
-				{
-					"type" : 1,
-					"name" : "bullets",
-					"pos" :
-					{
-						"x" : 1245.000000,
-						"y" : 375.000000
-					},
-					"object_uid" : 1071438912,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "blood_splash_obj",
-					"pos" :
-					{
-						"x" : 1232.000000,
-						"y" : 156.000000
-					},
-					"object_uid" : 676955072,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "bullet_wall_hit",
-					"pos" :
-					{
-						"x" : 1240.000000,
-						"y" : 265.000000
-					},
-					"object_uid" : -2003724544,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "nav_mesh",
-					"pos" :
-					{
-						"x" : 388.000000,
-						"y" : 466.000000
-					},
-					"object_uid" : -1994090496,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "ui_restart_message",
-					"pos" :
-					{
-						"x" : 579.000000,
-						"y" : 467.000000
-					},
-					"object_uid" : 895327744,
-					"object_child_uid" : 0,
-					"prefix" : ""
-				},
-				{
-					"type" : 0,
-					"name" : "ExitTrigger",
-					"pos" :
-					{
-						"x" : 813.000000,
-						"y" : 587.000000
-					},
-					"object_uid" : -103625984,
-					"object_child_uid" : 0
-				},
-				{
-					"type" : 2,
-					"name" : "OnRestartTrigger",
-					"pos" :
-					{
-						"x" : 1025.000000,
-						"y" : 588.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 12,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 1,
-					"name" : "arrow",
-					"pos" :
-					{
-						"x" : 1001.000000,
-						"y" : 153.000000
-					},
-					"object_uid" : -86284544,
-					"object_child_uid" : 0,
-					"prefix" : ""
 				}
 			]
 		},
@@ -22488,9 +22462,90 @@
 				]
 			},
 			"asset_uid" : -200352256
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : -211527680,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "Script",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 200902816,
+			"Count" : 15,
+			"Node" : [
+				{
+					"object_uid" : 410668992,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 1105479296,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -224630016,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 413751904,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 913568320,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -112360960,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 1071438912,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 676955072,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -2003724544,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1994090496,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 895327744,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -103625984,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -86284544,
+					"object_child_uid" : 0
+				}
+			]
 		}
 	],
 	"asset_inctances" : [
+		{
+			"asset_uid" : 200902816,
+			"inst_uid" : -211527680
+		},
 		{
 			"asset_uid" : 1078503808,
 			"inst_uid" : 413751904

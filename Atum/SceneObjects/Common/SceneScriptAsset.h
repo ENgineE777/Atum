@@ -1,9 +1,9 @@
 
 #pragma once
 
-#include "Services/Scene/SceneObject.h"
+#include "Services/Scene/SceneAsset.h"
 
-class SceneScript : public SceneObject
+class SceneScriptAsset : public SceneAsset
 {
 public:
 
@@ -29,11 +29,6 @@ public:
 	struct NodeSceneObject : Node
 	{
 		META_DATA_DECL(NodeSceneObject)
-
-		uint32_t object_uid;
-		uint32_t object_child_uid;
-
-		SceneObject* object = nullptr;
 
 		void Load(JSONReader& loader) override;
 		void Save(JSONWriter& saver) override;
@@ -75,18 +70,15 @@ public:
 
 	asIScriptModule* mod = nullptr;
 	asITypeInfo* class_type = nullptr;
-	asIScriptObject* class_inst = nullptr;
 
-	META_DATA_DECL(Script)
+	META_DATA_DECL(SceneScriptAsset)
 
 	void Init() override;
 	void Load(JSONReader& loader) override;
 	void Save(JSONWriter& saver) override;
 	void SetName(const char* name) override;
-	void Work(float dt);
 
-	bool PostPlay() override;
-	void Stop() override;
+	bool Play() override;
 
 	void Release() override;
 
@@ -97,8 +89,9 @@ public:
 	void GetScriptFileName(uint32_t id, string& filename);
 
 #ifdef EDITOR
-
+	SceneObject* CreateInstance() override;
 	void EditorWork(float dt);
+	void EditorWork(float dt, class SceneScriptInst* inst);
 
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);
@@ -108,7 +101,6 @@ public:
 	Vector2 ms_pos = 0.0f;
 	bool in_drag = false;
 	bool link_drag = false;
-	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
 	void ShowProperties(bool show);
 	void OnMouseMove(Vector2 delta_ms) override;
 	void OnLeftMouseDown(Vector2 ms) override;

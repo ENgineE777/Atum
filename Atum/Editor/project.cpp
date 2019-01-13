@@ -268,19 +268,21 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 {
 	treeview->ClearTree();
 
-	if (nodes.size() == 0)
-	{
-		for (int i = 0; i < scene->GetObjectsCount(is_asset); i++)
-		{
-			SceneObject* obj = scene->GetObj(i, is_asset);
-			obj->item = treeview->AddItem(obj->GetName(), 1, obj, nullptr, -1, false);
-			obj->AddChildsToTree(treeview);
-		}
-	}
-	else
+	if (nodes.size() > 0)
 	{
 		int index = 0;
 		RestoreSceneNodes(treeview, scene, nodes, index, nullptr, is_asset);
+	}
+
+	for (int i = 0; i < scene->GetObjectsCount(is_asset); i++)
+	{
+		SceneObject* obj = scene->GetObj(i, is_asset);
+
+		if (!obj->item)
+		{
+			obj->item = treeview->AddItem(obj->GetName(), 1, obj, nullptr, -1, false);
+			obj->AddChildsToTree(treeview);
+		}
 	}
 }
 
@@ -293,12 +295,15 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 	{
 		SceneObject* obj = (node.uid != -1) ? scene->FindByUID(node.uid, 0, is_asset) : nullptr;
 
-		void* child = treeview->AddItem(node.name.c_str(), node.type, obj, item, -1, (node.type == 0));
+		void* child = (node.uid == -1 || (node.uid != -1 && obj)) ? treeview->AddItem(node.name.c_str(), node.type, obj, item, -1, (node.type == 0)) : nullptr;
 
-		if (obj)
+		if (node.uid != -1)
 		{
-			obj->item = child;
-			obj->AddChildsToTree(treeview);
+			if (obj)
+			{
+				obj->item = child;
+				obj->AddChildsToTree(treeview);
+			}
 		}
 		else
 		{

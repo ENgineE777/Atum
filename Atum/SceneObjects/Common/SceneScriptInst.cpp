@@ -12,13 +12,22 @@
 CLASSREG(SceneObject, SceneScriptInst, "Script")
 
 #ifdef EDITOR
-extern void StartScriptEdit(void* owner);
+void StartScriptInstEdit(void* owner)
+{
+	SceneScriptInst* script = (SceneScriptInst*)owner;
+
+	string filename;
+	script->Asset()->GetScriptFileName(filename);
+
+	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
+}
+
 #endif
 
 META_DATA_DESC(SceneScriptInst)
 BASE_SCENE_OBJ_PROP(SceneScriptInst)
 #ifdef EDITOR
-CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
+CALLBACK_PROP(SpriteAsset, StartScriptInstEdit, "Prop", "EditScript")
 #endif
 META_DATA_DESC_END()
 

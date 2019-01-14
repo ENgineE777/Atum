@@ -86,7 +86,7 @@ public:
 	bool UsingCamera2DPos() override;
 	Vector2& Camera2DPos() override;
 
-	void GetScriptFileName(uint32_t id, string& filename);
+	void GetScriptFileName(string& filename);
 
 #ifdef EDITOR
 	SceneObject* CreateInstance() override;

@@ -41,7 +41,7 @@ void StartScriptEdit(void* owner)
 	SceneScriptAsset* script = (SceneScriptAsset*)owner;
 
 	string filename;
-	script->GetScriptFileName(script->GetUID(), filename);
+	script->GetScriptFileName(filename);
 
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
@@ -139,12 +139,25 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void SceneScriptAsset::GetScriptFileName(uint32_t id,string& filename)
+void SceneScriptAsset::GetScriptFileName(string& filename)
 {
 	char str[1024];
+	char str_id[64];
+	StringUtils::Printf(str_id, 64, "%u", GetUID());
+	str_id[4] = 0;
 
-	StringUtils::Printf(str, 1024, "%s%u.sns", owner->GetScenePath(), id);
+	StringUtils::Printf(str, 1024, "%s%s%s.sns", owner->GetScenePath(), GetName(), str_id);
+
+#ifdef EDITOR
+	char cur_dir[2048];
+	GetCurrentDirectory(512, cur_dir);
+
+	filename = cur_dir;
+	filename += "/";
+	filename += str;
+#else
 	filename = str;
+#endif
 }
 
 void SceneScriptAsset::Init()
@@ -219,23 +232,45 @@ void SceneScriptAsset::Save(JSONWriter& saver)
 
 void SceneScriptAsset::SetName(const char* set_name)
 {
+#ifdef EDITOR
+	string prev_filename;
+	GetScriptFileName(prev_filename);
+#endif
+
 	SceneObject::SetName(set_name);
 
+#ifdef EDITOR
 	if (set_name[0])
 	{
+		bool need_rename = false;
+
+		FILE* prev_fl = fopen(prev_filename.c_str(), "a");
+		if (prev_fl)
+		{
+			need_rename = true;
+			fclose(prev_fl);
+		}
+
 		string filename;
-		GetScriptFileName(GetUID(), filename);
-#ifdef EDITOR
-		FILE* fl = fopen(filename.c_str(), "a");
-		fclose(fl);
-#endif
+		GetScriptFileName(filename);
+
+		if (need_rename)
+		{
+			rename(prev_filename.c_str(), filename.c_str());
+		}
+		else
+		{
+			FILE* fl = fopen(filename.c_str(), "a");
+			fclose(fl);
+		}
 	}
+#endif
 }
 
 bool SceneScriptAsset::Play()
 {
 	string filename;
-	GetScriptFileName(GetUID(), filename);
+	GetScriptFileName(filename);
 
 	FileInMemory file;
 

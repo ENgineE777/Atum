@@ -25,15 +25,15 @@
 			"uid" : -1993840384,
 			"ed_camera_2d" :
 			{
-				"x" : -204.000000,
-				"y" : -143.000000
+				"x" : -220.000000,
+				"y" : 44.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 54,
+			"Count" : 52,
 			"Node" : [
 				{
 					"type" : 2,
@@ -202,26 +202,6 @@
 				},
 				{
 					"type" : 1,
-					"name" : "bridge",
-					"pos" :
-					{
-						"x" : 363.000000,
-						"y" : 658.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "bridge_dyn",
-					"pos" :
-					{
-						"x" : 569.000000,
-						"y" : 656.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
 					"name" : "boss_cards",
 					"pos" :
 					{
@@ -251,7 +231,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 18,
+							"node" : 16,
 							"param" : ""
 						}
 					]
@@ -287,19 +267,11 @@
 					"Count" : 6,
 					"Link" : [
 						{
-							"node" : 23,
-							"param" : ""
-						},
-						{
 							"node" : 21,
 							"param" : ""
 						},
 						{
-							"node" : 27,
-							"param" : ""
-						},
-						{
-							"node" : 24,
+							"node" : 19,
 							"param" : ""
 						},
 						{
@@ -307,7 +279,15 @@
 							"param" : ""
 						},
 						{
-							"node" : 26,
+							"node" : 22,
+							"param" : ""
+						},
+						{
+							"node" : 23,
+							"param" : ""
+						},
+						{
+							"node" : 24,
 							"param" : ""
 						}
 					]
@@ -369,15 +349,15 @@
 					"Count" : 3,
 					"Link" : [
 						{
-							"node" : 29,
+							"node" : 27,
 							"param" : "1"
 						},
 						{
-							"node" : 31,
+							"node" : 29,
 							"param" : "2"
 						},
 						{
-							"node" : 32,
+							"node" : 30,
 							"param" : "3"
 						}
 					]
@@ -500,7 +480,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 39,
+							"node" : 37,
 							"param" : "1"
 						}
 					]
@@ -517,7 +497,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 43,
+							"node" : 41,
 							"param" : "0"
 						}
 					]
@@ -534,7 +514,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 44,
+							"node" : 42,
 							"param" : ""
 						}
 					]
@@ -588,7 +568,7 @@
 					"Count" : 1,
 					"Link" : [
 						{
-							"node" : 46,
+							"node" : 44,
 							"param" : ""
 						}
 					]
@@ -6593,6 +6573,82 @@
 							]
 						}
 					]
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 1322567424,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BridgeScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "FallingBridge",
+			"Count" : 5,
+			"Node" : [
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 408.000000,
+						"y" : 255.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "bridge",
+					"pos" :
+					{
+						"x" : 632.000000,
+						"y" : 254.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "bridge_dyn",
+					"pos" :
+					{
+						"x" : 846.000000,
+						"y" : 257.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "OnActivateTrigger",
+					"pos" :
+					{
+						"x" : 844.000000,
+						"y" : 377.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 4,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 630.000000,
+						"y" : 378.000000
+					}
 				}
 			]
 		}
@@ -23047,15 +23103,15 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 299.000000,
-				"y" : 73.000000
+				"x" : -18.000000,
+				"y" : 220.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : -1993840384,
-			"Count" : 54,
+			"Count" : 52,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -23115,14 +23171,6 @@
 				},
 				{
 					"object_uid" : -2071699456,
-					"object_child_uid" : 0
-				},
-				{
-					"object_uid" : -1543425280,
-					"object_child_uid" : 0
-				},
-				{
-					"object_uid" : -769245696,
 					"object_child_uid" : 0
 				},
 				{
@@ -23274,6 +23322,43 @@
 					"object_child_uid" : 0
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 1586412928,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BridgeScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 1322567424,
+			"Count" : 5,
+			"Node" : [
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -1543425280,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : -769245696,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0
+				},
+				{
+					"object_uid" : 688664128,
+					"object_child_uid" : 0
+				}
+			]
 		}
 	],
 	"asset_inctances" : [
@@ -23420,6 +23505,10 @@
 		{
 			"asset_uid" : 206845808,
 			"inst_uid" : 820505600
+		},
+		{
+			"asset_uid" : 1322567424,
+			"inst_uid" : 1586412928
 		}
 	]
 }

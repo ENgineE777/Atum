@@ -31,7 +31,7 @@ void SceneObject::ScriptCallback::SetStringParam(string& param)
 	str_param = &param;
 }
 
-void SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObject* set_class_inst, const char* method_name)
+bool SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObject* set_class_inst, const char* method_name)
 {
 	class_inst = set_class_inst;
 
@@ -110,6 +110,15 @@ void SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObje
 	StringUtils::Cat(prototype, 256, ")");
 
 	method = class_type->GetMethodByDecl(prototype);
+
+	if (!method)
+	{
+		core.Log("ScriptErr", "Callabck %s was not found", prototype);
+
+		return false;
+	}
+
+	return true;
 }
 
 bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
@@ -496,13 +505,6 @@ bool SceneObject::InjectIntoScript(const char* type, void* property, const char*
 
 bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index)
 {
-	if ((StringUtils::IsEqual("CatBoss", GetName()) || StringUtils::IsEqual("CatBoss", contact_object->GetName())) &&
-		(StringUtils::IsEqual("DynCard", GetName()) || StringUtils::IsEqual("DynCard", contact_object->GetName())))
-	{
-		int k = 0;
-		k++;
-	}
-
 	SceneObject::ScriptCallback* callabck = FindScriptCallback("OnContact");
 
 	if (callabck)

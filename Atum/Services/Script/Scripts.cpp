@@ -94,6 +94,12 @@ void Scene_Group_SetState(asIScriptGeneric *gen)
 	}
 }
 
+void Script_CallClassInstancesMethod(asIScriptGeneric *gen)
+{
+	string* arg = (string*)(gen->GetArgAddress(0));
+	scripts.CallClassInstancesMethod(arg->c_str());
+}
+
 void Scene_Raycast2D(asIScriptGeneric *gen)
 {
 	PhysScene::RaycastDesc rcdesc;
@@ -177,6 +183,8 @@ void Scripts::Start()
 	engine->RegisterGlobalFunction("void Scene_Group_SetState(string&in alias, int state)", asFUNCTION(Scene_Group_SetState), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
 
+	engine->RegisterGlobalFunction("void Script_CallClassInstancesMethod(string&in alias)", asFUNCTION(Script_CallClassInstancesMethod), asCALL_GENERIC);
+
 	engine->RegisterGlobalFunction("int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(IsPointInTriangle_Generic), asCALL_GENERIC);
 
 	for (const auto& decl : ClassFactorySceneObject::Decls())
@@ -194,6 +202,8 @@ void Scripts::Start()
 		obj->BindClassToScript();
 		obj->Release();
 	}
+
+	class_instances_ctx = CreateContext();
 }
 
 ScriptContext* Scripts::CreateContext()
@@ -201,8 +211,49 @@ ScriptContext* Scripts::CreateContext()
 	return new ScriptContext(engine->CreateContext());
 }
 
+void Scripts::RegisterClassInstance(asIScriptObject* inst)
+{
+	class_instances.push_back(inst);
+}
+
+void Scripts::CallClassInstancesMethod(const char* method)
+{
+	char prototype[256];
+	StringUtils::Printf(prototype, 256, "void %s()", method);
+
+	for (int index = 0; index < class_instances.size(); index++)
+	{
+		asIScriptFunction* method = class_instances[index]->GetObjectType()->GetMethodByDecl(prototype);
+
+		if (method)
+		{
+			class_instances_ctx->ctx->Prepare(method);
+			class_instances_ctx->ctx->SetObject(class_instances[index]);
+
+			if (class_instances_ctx->ctx->Execute() < 0)
+			{
+
+			}
+		}
+	}
+}
+
+void Scripts::UnregisterClassInstance(asIScriptObject* inst)
+{
+	for (int index = 0; index < class_instances.size(); index++)
+	{
+		if (class_instances[index] == inst)
+		{
+			class_instances.erase(class_instances.begin() + index);
+			break;
+		}
+	}
+}
+
 void Scripts::Stop()
 {
+	RELEASE(class_instances_ctx);
+
 	engine->ShutDownAndRelease();
 	engine = nullptr;
 }

@@ -41,6 +41,11 @@ void PhysController::onShapeHit(const PxControllerShapeHit& hit)
 			{
 				//contact->SetEnabled(false);
 			}
+
+			if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
+			{
+				//contact->SetEnabled(false);
+			}
 		}
 	}
 

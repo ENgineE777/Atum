@@ -206,6 +206,10 @@ void SceneScriptAsset::Load(JSONReader& loader)
 
 		loader.LeaveBlock();
 	}
+
+#ifdef EDITOR
+	GetScriptFileName(prev_filename);
+#endif
 }
 
 void SceneScriptAsset::Save(JSONWriter& saver)
@@ -232,11 +236,6 @@ void SceneScriptAsset::Save(JSONWriter& saver)
 
 void SceneScriptAsset::SetName(const char* set_name)
 {
-#ifdef EDITOR
-	string prev_filename;
-	GetScriptFileName(prev_filename);
-#endif
-
 	SceneObject::SetName(set_name);
 
 #ifdef EDITOR
@@ -257,6 +256,7 @@ void SceneScriptAsset::SetName(const char* set_name)
 		if (need_rename)
 		{
 			rename(prev_filename.c_str(), filename.c_str());
+			prev_filename = filename;
 		}
 		else
 		{
@@ -279,7 +279,7 @@ bool SceneScriptAsset::Play()
 		return false;
 	}
 
-	mod = scripts.engine->GetModule(0, asGM_ALWAYS_CREATE);
+	mod = scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 	mod->AddScriptSection("script", (const char*)file.GetData(), file.GetSize());
 
 	mod->Build();

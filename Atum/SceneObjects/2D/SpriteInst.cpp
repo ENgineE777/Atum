@@ -359,6 +359,14 @@ bool SpriteInst::Play()
 	return true;
 }
 
+void SpriteInst::Stop()
+{
+	if (array)
+	{
+		array->listiner = nullptr;
+	}
+}
+
 void SpriteInst::Draw(float dt)
 { 
 	if (GetState() == Invisible)

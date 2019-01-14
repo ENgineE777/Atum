@@ -99,6 +99,8 @@ bool SceneScriptInst::PostPlay()
 {
 	class_inst = (asIScriptObject*)scripts.engine->CreateScriptObject(Asset()->class_type);
 
+	scripts.RegisterClassInstance(class_inst);
+
 	int index = 0;
 
 	for (auto node : Asset()->nodes)
@@ -170,11 +172,14 @@ bool SceneScriptInst::PostPlay()
 							node_inst.object->script_callbacks[0].SetStringParam(link->param);
 						}
 
-						node_inst.object->script_callbacks[0].Prepare(Asset()->class_type, class_inst, node_method->name.c_str());
+						if (!node_inst.object->script_callbacks[0].Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
+						{
+							return false;
+						}
 					}
 					else
 					{
-						core.Log("ScriptErr", "Callabck for %s was not set", Asset()->nodes[link->node]->name.c_str());
+						core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link->node]->name.c_str());
 						return false;
 					}
 				}
@@ -216,6 +221,7 @@ void SceneScriptInst::Work(float dt)
 
 void SceneScriptInst::Stop()
 {
+	scripts.UnregisterClassInstance(class_inst);
 	RELEASE(class_inst);
 }
 

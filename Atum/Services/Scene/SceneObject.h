@@ -45,7 +45,7 @@ public:
 		inline const char* GetName() { return name; };
 		void SetIntParam(int param);
 		void SetStringParam(string& param);
-		void Prepare(asITypeInfo* class_type, asIScriptObject* class_inst, const char* method_name);
+		bool Prepare(asITypeInfo* class_type, asIScriptObject* class_inst, const char* method_name);
 		bool Call(ScriptContext* context, ...);
 	};
 

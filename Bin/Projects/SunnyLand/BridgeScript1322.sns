@@ -1,0 +1,82 @@
+class BridgePart
+{
+    float x, y;
+    float init_x, init_y;
+    int visible;
+    Phys2D@ phys;
+}
+
+class FallingBridge
+{
+    bool falling_bridge = false;
+    uint falling_bridge_index = 0;
+    float falling_bridge_time = 0.16f;
+
+    array<BridgePart> bridge;
+    array<BridgePart> bridge_dyn;
+
+	bool init = false;
+
+    void OnRespawnHero()
+    {
+    	falling_bridge = false;
+        falling_bridge_index = 0;
+
+        for (int i = 0; i<bridge.length();i++)
+        {
+            bridge_dyn[i].visible = 0;
+            bridge_dyn[i].phys.MoveTo(bridge_dyn[i].init_x, bridge_dyn[i].init_y + 1);
+        }
+
+        for (int i = 0; i<bridge.length();i++)
+        {
+            bridge[i].visible = 1;
+        }
+    }
+
+    int OnActivateTrigger(int self_index, string&in name, int index)
+    {
+        if (name == "Hero")
+        {
+            if (falling_bridge_index == 0)
+            {
+                falling_bridge = true;
+            }
+        }
+
+        return 1;
+    }
+
+	void Update(float dt)
+	{
+		if (!init)
+        {
+			for (int i = 0; i<bridge_dyn.length();i++)
+            {
+                bridge_dyn[i].init_x = bridge_dyn[i].x;
+                bridge_dyn[i].init_y = bridge_dyn[i].y;
+            }
+
+            init = true;
+        }
+
+		if (falling_bridge)
+        {
+            falling_bridge_time -= dt;
+
+            if (falling_bridge_time < 0.0f)
+            {
+                falling_bridge_time += 0.095f;
+
+                bridge[falling_bridge_index].visible = 0;
+                bridge_dyn[falling_bridge_index].visible = 1;
+                falling_bridge_index++;
+
+                if (falling_bridge_index == bridge.length())
+                {
+                    falling_bridge = false;
+                }
+            }
+        }
+	}
+}

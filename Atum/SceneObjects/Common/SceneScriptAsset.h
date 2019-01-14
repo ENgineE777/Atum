@@ -89,6 +89,7 @@ public:
 	void GetScriptFileName(string& filename);
 
 #ifdef EDITOR
+	string prev_filename;
 	SceneObject* CreateInstance() override;
 	void EditorWork(float dt);
 	void EditorWork(float dt, class SceneScriptInst* inst);

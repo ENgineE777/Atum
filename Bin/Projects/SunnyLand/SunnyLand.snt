@@ -312,6 +312,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : 1586412928,
+			"name" : "BridgeScript",
+			"type" : 1
+		},
+		{
 			"uid" : 1314392192,
 			"name" : "Camera2D",
 			"type" : 1
@@ -682,6 +687,11 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : 1322567424,
+			"name" : "BridgeScript",
+			"type" : 1
 		},
 		{
 			"uid" : -1993840384,

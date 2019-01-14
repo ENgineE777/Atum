@@ -1116,6 +1116,8 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 				if (!StringUtils::IsEqual(selectedObject->GetName(), name.c_str()))
 				{
+					selectedObject->SetName(selectedObject->GetName());
+
 					if (isSelectedAsset)
 					{
 						assets_treeview->SetItemText(sel_item, selectedObject->GetName());

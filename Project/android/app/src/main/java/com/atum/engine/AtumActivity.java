@@ -14,6 +14,7 @@ import java.io.File;
 
 import static android.view.View.SYSTEM_UI_FLAG_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+import static java.security.AccessController.getContext;
 
 public class AtumActivity extends Activity
 {
@@ -31,13 +32,6 @@ public class AtumActivity extends Activity
         main_view = new AtumView(getApplication());
         main_view.setPreserveEGLContextOnPause(true);
 
-        main_view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                // Hide the nav bar and status bar
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN);
         setContentView(main_view);
     }
 

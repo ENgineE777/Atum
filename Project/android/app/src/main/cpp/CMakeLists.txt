@@ -69,7 +69,8 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/Common/Animator/TrackPlayers/TrackPlayer.cpp
             ${atum_DIR}/SceneObjects/Common/Animator/Animator.cpp
             ${atum_DIR}/SceneObjects/Common/Animator/AnimatorObject.cpp
-            ${atum_DIR}/SceneObjects/Common/SceneScript.cpp
+            ${atum_DIR}/SceneObjects/Common/SceneScriptAsset.cpp
+            ${atum_DIR}/SceneObjects/Common/SceneScriptInst.cpp
             ${atum_DIR}/SceneObjects/Common/ScriptMetaDataAsset.cpp
             ${atum_DIR}/SceneObjects/Common/ScriptMetaDataComp.cpp
             ${atum_DIR}/SceneObjects/Common/VirtualJoystick.cpp
@@ -82,8 +83,6 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/Other/Demo/SimpleServer.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/tank.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/tankclient.cpp
-            ${atum_DIR}/SceneObjects/Other/PathFinder/AStar.cpp
-            ${atum_DIR}SceneObjects//Other/PathFinder/PathFinder.cpp
             ${atum_DIR}/SceneObjects/UI/UIButtonAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UIContainerAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UIImageAsset.cpp

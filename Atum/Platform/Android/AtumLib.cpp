@@ -141,7 +141,7 @@ public:
 		hack_scene = &scene;
 
 		scene.Init();
-		scene.Load("Projects/SunnyLand/SunnyLand.scn");
+		scene.Load("Projects/SunnyLand/SunnyLand.sca");
 		scene.Play();
 
 		inited = true;

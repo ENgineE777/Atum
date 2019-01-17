@@ -25,15 +25,33 @@ class NetworkClient
 #ifdef PLATFORM_PC
 	SOCKET tcpSocket = INVALID_SOCKET;
 #endif
-	char sendbuffer[BUFFSIZE];
+	char* send_buffer = nullptr;
 	int  send_len = 0;
+	int  send_buff_size = BUFFSIZE;
 
-	char recvbuffer[BUFFSIZE];
+	char* recv_buffer = nullptr;
 	int  recv_len = 0;
+	int  recv_buff_size = BUFFSIZE;
 
 public:
 
-	NetworkDelegate* delegedate;
+	inline void CheckCapacity(char* &buff, int &buff_size, int needed_size)
+	{
+		if (needed_size > send_buff_size)
+		{
+			while (needed_size > send_buff_size)
+			{
+				send_buff_size += BUFFSIZE;
+			}
+
+			realloc(send_buffer, send_buff_size);
+		}
+	}
+
+	NetworkDelegate* delegedate = nullptr;
+
+	NetworkClient();
+	~NetworkClient();
 
 	int  id = -1;
 	bool Connect(const char* ip, int port);
@@ -55,7 +73,7 @@ class NetworkServer
 
 public:
 
-	NetworkDelegate* delegedate;
+	NetworkDelegate* delegedate = nullptr;
 
 	bool Start(const char* ip, int port);
 	void Update();

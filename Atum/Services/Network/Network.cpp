@@ -1,8 +1,21 @@
 #include "Network.h"
+#include "Services/Core/Core.h"
 
 #ifdef PLATFORM_PC
 #pragma comment (lib, "Ws2_32.lib")
 #endif
+
+NetworkClient::NetworkClient()
+{
+	send_buffer = (char*)malloc(BUFFSIZE);
+	recv_buffer = (char*)malloc(BUFFSIZE);
+}
+
+NetworkClient::~NetworkClient()
+{
+	free(send_buffer);
+	free(recv_buffer);
+}
 
 bool NetworkClient::Connect(const char* ip, int port)
 {
@@ -16,7 +29,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 
 	if (res != 0)
 	{
-		printf("WSAStartup failed with error: %d\n", res);
+		core.Log("Network","WSAStartup failed with error: %d", res);
 		return false;
 	}
 
@@ -33,7 +46,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 
 	if (res != 0)
 	{
-		printf("getaddrinfo failed with error: %d\n", res);
+		core.Log("Network", "getaddrinfo failed with error: %d", res);
 		return false;
 	}
 
@@ -43,7 +56,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 
 		if (tcpSocket == INVALID_SOCKET)
 		{
-			printf("socket failed with error: %ld\n", WSAGetLastError());
+			core.Log("Network", "socket failed with error: %ld", WSAGetLastError());
 			return false;
 		}
 
@@ -53,7 +66,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 		{
 			closesocket(tcpSocket);
 			tcpSocket = INVALID_SOCKET;
-			printf("The server is down... did not connect");
+			core.Log("Network", "The server is down... did not connect");
 		}
 	}
 
@@ -61,7 +74,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 
 	if (tcpSocket == INVALID_SOCKET)
 	{
-		printf("Unable to connect to server!\n");
+		core.Log("Network", "Unable to connect to server!");
 		return false;
 	}
 	u_long iMode = 1;
@@ -70,7 +83,7 @@ bool NetworkClient::Connect(const char* ip, int port)
 	
 	if (res == SOCKET_ERROR)
 	{
-		printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+		core.Log("Network", "ioctlsocket failed with error: %d", WSAGetLastError());
 		closesocket(tcpSocket);
 		return false;
 	}
@@ -92,7 +105,9 @@ void NetworkClient::SetSocket(int id, SOCKET socket)
 
 void NetworkClient::Send(void* data, int len)
 {
-	memcpy(&sendbuffer[send_len], data, len);
+	CheckCapacity(send_buffer, send_buff_size, send_len + len);
+
+	memcpy(&send_buffer[send_len], data, len);
 	send_len += len;
 }
 
@@ -101,7 +116,7 @@ void NetworkClient::Recive()
 #ifdef PLATFORM_PC
 	char chunk[CHUNKSIZE];
 
-	char* buffer = recvbuffer;
+	char* buffer = recv_buffer;
 
 	while (true)
 	{
@@ -114,14 +129,17 @@ void NetworkClient::Recive()
 
 		if (rec == 0)
 		{
-			printf("Connection closed\n");
+			core.Log("Network", "Connection closed");
 			closesocket(tcpSocket);
 			break;
 		}
 
 		recv_len += rec;
 
+		CheckCapacity(recv_buffer, recv_buff_size, recv_len);
+
 		memcpy(buffer, chunk, rec);
+		buffer += rec;
 
 		if (rec < CHUNKSIZE)
 		{
@@ -139,7 +157,7 @@ void NetworkClient::Update()
 	{
 		if (delegedate)
 		{
-			delegedate->OnDataRecieved(recvbuffer, recv_len);
+			delegedate->OnDataRecieved(recv_buffer, recv_len);
 		}
 
 		recv_len = 0;
@@ -148,7 +166,7 @@ void NetworkClient::Update()
 #ifdef PLATFORM_PC
 	if (send_len)
 	{
-		send(tcpSocket, sendbuffer, send_len, 0);
+		send(tcpSocket, send_buffer, send_len, 0);
 		send_len = 0;
 	}
 #endif
@@ -163,7 +181,7 @@ bool NetworkServer::Start(const char* ip, int port)
 
 	if (res != 0)
 	{
-		printf("WSAStartup failed with error: %d\n", res);
+		core.Log("Network", "WSAStartup failed with error: %d", res);
 		return false;
 	}
 
@@ -183,7 +201,7 @@ bool NetworkServer::Start(const char* ip, int port)
 
 	if (res != 0)
 	{
-		printf("getaddrinfo failed with error: %d\n", res);
+		core.Log("Network", "getaddrinfo failed with error: %d", res);
 		return false;
 	}
 
@@ -191,7 +209,7 @@ bool NetworkServer::Start(const char* ip, int port)
 
 	if (listenSocket == INVALID_SOCKET)
 	{
-		printf("socket failed with error: %ld\n", WSAGetLastError());
+		core.Log("Network", "socket failed with error: %ld", WSAGetLastError());
 		freeaddrinfo(result);
 		return false;
 	}
@@ -201,7 +219,7 @@ bool NetworkServer::Start(const char* ip, int port)
 
 	if (res == SOCKET_ERROR)
 	{
-		printf("ioctlsocket failed with error: %d\n", WSAGetLastError());
+		core.Log("Network", "ioctlsocket failed with error: %d", WSAGetLastError());
 		closesocket(listenSocket);
 		return false;
 	}
@@ -211,7 +229,7 @@ bool NetworkServer::Start(const char* ip, int port)
 	if (res == SOCKET_ERROR)
 	{
 		int k = WSAGetLastError();
-		printf("bind failed with error: %d\n", WSAGetLastError());
+		core.Log("Network", "bind failed with error: %d", WSAGetLastError());
 		freeaddrinfo(result);
 		closesocket(listenSocket);
 		return false;
@@ -223,7 +241,7 @@ bool NetworkServer::Start(const char* ip, int port)
 
 	if (res == SOCKET_ERROR)
 	{
-		printf("listen failed with error: %d\n", WSAGetLastError());
+		core.Log("Network", "listen failed with error: %d", WSAGetLastError());
 		closesocket(listenSocket);
 		return false;
 	}

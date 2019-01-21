@@ -8,6 +8,7 @@
 #include "Libs/scriptstdstring.h"
 #include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneObject.h"
+#include "SceneObjects/2D/Sprite.h"
 
 Scripts scripts;
 Scene* hack_scene = nullptr;

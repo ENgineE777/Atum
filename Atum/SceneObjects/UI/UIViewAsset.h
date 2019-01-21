@@ -14,7 +14,7 @@ public:
 	void Release() override;
 
 #ifdef EDITOR
-	SceneObject* CreateInstance() override;
+	SceneObject* CreateInstance(Scene* scene) override;
 
 	static UIWidgetAsset* sel_ui_asset;
 	static UIWidgetAsset* asset_to_copy;

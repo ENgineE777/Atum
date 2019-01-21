@@ -38,9 +38,37 @@ void Project::Load()
 			scenes.push_back(new SceneHolder());
 			SceneHolder* scn = scenes.back();
 
-			reader.Read("path", scn->path);
+			string str;
+			reader.Read("path", str);
+			scn->SetPath(str.c_str());
+
+			while (reader.EnterBlock("include"))
+			{
+				string str;
+				reader.Read("path", str);
+
+				scn->included_pathes.push_back(str);
+
+				reader.LeaveBlock();
+			}
 
 			reader.LeaveBlock();
+		}
+
+		for (auto& scn : scenes)
+		{
+			for (auto& incl : scn->included_pathes)
+			{
+				for (auto& sub_scn : scenes)
+				{
+					if (StringUtils::IsEqual(sub_scn->path.c_str(), incl.c_str()))
+					{
+						scn->included.push_back(sub_scn);
+
+						break;
+					}
+				}
+			}
 		}
 
 		while (reader.EnterBlock("nodes"))
@@ -101,8 +129,24 @@ void Project::LoadSceneNodes(JSONReader* reader, vector<SceneNode>& nodes, const
 
 void Project::LoadScene(SceneHolder* holder)
 {
+	for (auto& incl : holder->included)
+	{
+		LoadScene(incl);
+	}
+
+	if (holder->scene)
+	{
+		return;
+	}
+
 	holder->scene = new Scene();
 	holder->scene->Init();
+
+	for (auto& incl : holder->included)
+	{
+		holder->scene->inc_scenes.push_back(incl->scene);
+	}
+
 	holder->scene->Load(holder->path.c_str());
 
 	string scene_tree = holder->path;
@@ -179,7 +223,7 @@ void Project::Save()
 
 		scn->scene->Save(scn->path.c_str());
 
-		if (scn->scene == select_scene)
+		if (scn == select_scene)
 		{
 			GrabSceneNodes(scn);
 		}
@@ -210,6 +254,19 @@ void Project::Save()
 		writer.StartBlock(nullptr);
 
 		writer.Write("path", scn->path.c_str());
+
+		writer.StartArray("include");
+
+		for (auto& incl : scn->included) 
+		{
+			writer.StartBlock(nullptr);
+
+			writer.Write("path", incl->path.c_str());
+
+			writer.FinishBlock();
+		}
+
+		writer.FinishArray();
 
 		writer.FinishBlock();
 	}
@@ -260,27 +317,55 @@ void Project::Save()
 
 void Project::RestoreSceneNodes(SceneHolder* holder)
 {
-	RestoreSceneNodes(editor.scene_treeview, holder->scene, holder->scene_nodes, false);
-	RestoreSceneNodes(editor.assets_treeview, holder->scene, holder->assets_nodes, true);
+	editor.scene_treeview->ClearTree();
+	RestoreSceneNodes(editor.scene_treeview, holder,false, nullptr);
+
+	editor.assets_treeview->ClearTree();
+	RestoreSceneNodes(editor.assets_treeview, holder, true, nullptr);
 }
 
-void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<SceneNode>& nodes, bool is_asset)
+void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool is_asset, void* item)
 {
-	treeview->ClearTree();
+	for (auto& incl : holder->included)
+	{
+		char name[256];
+		StringUtils::Printf(name, 256, "%s (Included)", incl->name.c_str());
+
+		SceneTreeItem* tree_item = new SceneTreeItem();
+		tree_item->scene = incl->scene;
+		tree_item->item = treeview->AddItem(name, 0, tree_item, item, -1, true);
+
+		RestoreSceneNodes(treeview, incl, is_asset, tree_item->item);
+	}
+
+	vector<SceneNode>& nodes = is_asset ? holder->assets_nodes : holder->scene_nodes;
 
 	if (nodes.size() > 0)
 	{
+		if (holder->included.size() > 0)
+		{
+			SceneTreeItem* tree_item = new SceneTreeItem();
+			tree_item->scene = holder->scene;
+			tree_item->item = treeview->AddItem(holder->name.c_str(), 0, tree_item, item, -1, true);
+
+			item = tree_item->item;
+		}
+
 		int index = 0;
-		RestoreSceneNodes(treeview, scene, nodes, index, nullptr, is_asset);
+		RestoreSceneNodes(treeview, holder->scene, nodes, index, item, is_asset);
 	}
 
-	for (int i = 0; i < scene->GetObjectsCount(is_asset); i++)
+	for (int i = 0; i < holder->scene->GetObjectsCount(is_asset); i++)
 	{
-		SceneObject* obj = scene->GetObj(i, is_asset);
+		SceneObject* obj = holder->scene->GetObj(i, is_asset);
 
 		if (!obj->item)
 		{
-			obj->item = treeview->AddItem(obj->GetName(), 1, obj, nullptr, -1, false);
+			SceneTreeItem* tree_item = new SceneTreeItem();
+			tree_item->scene = holder->scene;
+			tree_item->object = obj;
+			tree_item->item = treeview->AddItem(obj->GetName(), 1, tree_item, item, -1, true);
+
 			obj->AddChildsToTree(treeview);
 		}
 	}
@@ -288,26 +373,30 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 
 void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<SceneNode>& nodes, int& index, void* item, bool is_asset)
 {
-	SceneNode& node = nodes[index];
+	SceneNode node = nodes[index];
 	index++;
 
 	while (node.type != 2)
 	{
 		SceneObject* obj = (node.uid != -1) ? scene->FindByUID(node.uid, 0, is_asset) : nullptr;
-
-		void* child = (node.uid == -1 || (node.uid != -1 && obj)) ? treeview->AddItem(node.name.c_str(), node.type, obj, item, -1, (node.type == 0)) : nullptr;
-
-		if (node.uid != -1)
+		
+		if (node.uid == -1 || (node.uid != -1 && obj))
 		{
-			if (obj)
+			SceneTreeItem* tree_item = new SceneTreeItem();
+			tree_item->scene = scene;
+			tree_item->object = obj;
+
+			tree_item->item = treeview->AddItem(node.name.c_str(), node.type, tree_item, item, -1, (node.type == 0));
+
+			if (node.uid != -1)
 			{
-				obj->item = child;
+				obj->item = tree_item->item;
 				obj->AddChildsToTree(treeview);
 			}
-		}
-		else
-		{
-			RestoreSceneNodes(treeview, scene, nodes, index, child, is_asset);
+			else
+			{
+				RestoreSceneNodes(treeview, scene, nodes, index, tree_item->item, is_asset);
+			}
 		}
 
 		node = nodes[index];
@@ -317,11 +406,56 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 
 void Project::GrabSceneNodes(SceneHolder* holder)
 {
-	holder->scene_nodes.clear();
-	GrabSceneNodes(editor.scene_treeview, holder->scene_nodes, nullptr, false);
+	GrabSceneNodes(editor.scene_treeview, holder, nullptr, false);
 
-	holder->assets_nodes.clear();
-	GrabSceneNodes(editor.assets_treeview, holder->assets_nodes, nullptr, true);
+	GrabSceneNodes(editor.assets_treeview, holder, nullptr, true);
+}
+
+void Project::GrabSceneNodes(EUITreeView* treeview, SceneHolder* holder, void* item, bool is_asset)
+{
+	if (is_asset)
+	{
+		holder->assets_nodes.clear();
+	}
+	else
+	{
+		holder->scene_nodes.clear();
+	}
+
+	if (holder->included.size() == 0)
+	{
+		GrabSceneNodes(treeview, is_asset ? holder->assets_nodes : holder->scene_nodes, item, is_asset);
+
+		return;
+	}
+
+	int count = treeview->GetItemChildCount(item);
+
+	for (int i = 0; i < count; i++)
+	{
+		void* child = treeview->GetItemChild(item, i);
+
+		string name;
+		treeview->GetItemText(child, name);
+
+		if (StringUtils::IsEqual(name.c_str(), holder->name.c_str()))
+		{
+			GrabSceneNodes(treeview, is_asset ? holder->assets_nodes : holder->scene_nodes, child, is_asset);
+			continue;
+		}
+
+		for (auto& incl : holder->included)
+		{
+			char incl_name[256];
+			StringUtils::Printf(incl_name, 256, "%s (included)", incl->name.c_str());
+
+			if (StringUtils::IsEqual(name.c_str(), incl_name))
+			{
+				GrabSceneNodes(treeview, incl, child, is_asset);
+				break;
+			}
+		}
+	}
 }
 
 void Project::GrabSceneNodes(EUITreeView* treeview, vector<SceneNode>& nodes, void* item, bool is_asset)
@@ -336,12 +470,12 @@ void Project::GrabSceneNodes(EUITreeView* treeview, vector<SceneNode>& nodes, vo
 		SceneNode& node = nodes.back();
 
 		treeview->GetItemText(child, node.name);
-		SceneObject* obj = (SceneObject*)treeview->GetItemPtr(child);
+		SceneTreeItem* tree_item = (SceneTreeItem*)treeview->GetItemPtr(child);
 
-		if (obj)
+		if (tree_item->object)
 		{
 			node.type = 1;
-			node.uid = obj->GetUID();
+			node.uid = tree_item->object->GetUID();
 		}
 		else
 		{
@@ -371,7 +505,7 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 		char name[256];
 		StringUtils::Printf(name, 256, "%s.sca", node.name.c_str());
 
-		int index_node = (node.type == 1) ? FindScene(name) : -1;
+		int index_node = (node.type == 1) ? FindSceneIndex(name) : -1;
 
 		int image = node.type;
 
@@ -380,11 +514,29 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 			image = 2;
 		}
 
-		void* child = editor.project_treeview->AddItem(node.name.c_str(), image, index_node != -1 ? scenes[index_node] : nullptr, item, -1, (node.type == 0));
+		ProjectTreeItem* tree_item = nullptr;
+		
+		if (index_node != -1)
+		{
+			tree_item = new ProjectTreeItem();
+			tree_item->scene = scenes[index_node];
+		}
+
+		void* child = editor.project_treeview->AddItem(node.name.c_str(), image, tree_item, item, -1, true);
 
 		if (index_node != -1)
 		{
+			tree_item->item = child;
 			scenes[index_node]->item = child;
+
+			for (auto incl : scenes[index_node]->included)
+			{
+				ProjectTreeItem* incl_tree_item = new ProjectTreeItem();
+				incl_tree_item->parent = scenes[index_node];
+				incl_tree_item->scene = incl;
+
+				incl_tree_item->item = editor.project_treeview->AddItem(incl->name.c_str(), image, incl_tree_item, child, -1, true);
+			}
 		}
 
 		if (node.type != 1)
@@ -428,7 +580,7 @@ void Project::GrabProjectNodes(vector<ProjectNode>& nodes, void* item)
 
 void Project::SetStartScene(const char* path)
 {
-	int index = FindScene(start_scene.c_str());
+	int index = FindSceneIndex(start_scene.c_str());
 
 	if (index != -1)
 	{
@@ -436,7 +588,7 @@ void Project::SetStartScene(const char* path)
 		start_scene = "";
 	}
 
-	index = FindScene(path);
+	index = FindSceneIndex(path);
 
 	if (index != -1)
 	{
@@ -445,11 +597,81 @@ void Project::SetStartScene(const char* path)
 	}
 }
 
-void Project::SelectScene(const char* path)
+void Project::SelectScene(SceneHolder* holder)
 {
-	Scene* prev_select_scene = select_scene;
+	if (holder == select_scene)
+	{
+		return;
+	}
 
-	int index = FindScene(path);
+	editor.SelectObject(nullptr, false);
+
+	SceneHolder* prev_select_scene = select_scene;
+	select_scene = holder;
+
+	if (prev_select_scene)
+	{
+		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
+		{
+			editor.selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
+		}
+		else
+		{
+			prev_select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
+		}
+
+		prev_select_scene->scene->camera3d_angles = editor.freecamera.angles;
+		prev_select_scene->scene->camera3d_pos = editor.freecamera.pos;
+
+		GrabSceneNodes(prev_select_scene);
+
+		editor.scene_treeview->ClearTree();
+		editor.assets_treeview->ClearTree();
+
+		EnableScene(prev_select_scene, false);
+	}
+
+	if (select_scene)
+	{
+		if (!select_scene->scene)
+		{
+			LoadScene(select_scene);
+		}
+
+		RestoreSceneNodes(select_scene);
+
+		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
+		editor.freecamera.angles = select_scene->scene->camera3d_angles;
+		editor.freecamera.pos = select_scene->scene->camera3d_pos;
+		editor.moveModeBtn->SetPushed(select_scene->scene->move_mode == 1);
+		editor.x_align->SetText(select_scene->scene->gizmo2d_align_x);
+		editor.y_align->SetText(select_scene->scene->gizmo2d_align_y);
+		editor.gizmo.align2d = Vector2((float)select_scene->scene->gizmo2d_align_x, (float)select_scene->scene->gizmo2d_align_x);
+
+		EnableScene(select_scene, true);
+	}
+}
+
+int Project::FindSceneIndex(const char* path)
+{
+	char name[256];
+	StringUtils::GetFileName(path, name);
+	StringUtils::RemoveExtension(name);
+
+	for (int i = 0; i<scenes.size(); i++)
+	{
+		if (StringUtils::IsEqual(scenes[i]->name.c_str(), name))
+		{
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+Scene* Project::GetScene(const char* path)
+{
+	int index = FindSceneIndex(path);
 
 	if (index != -1)
 	{
@@ -458,77 +680,10 @@ void Project::SelectScene(const char* path)
 			LoadScene(scenes[index]);
 		}
 
-		select_scene = scenes[index]->scene;
-	}
-	else
-	{
-		select_scene = nullptr;
+		return scenes[index]->scene;
 	}
 
-	if (prev_select_scene != select_scene)
-	{
-		if (prev_select_scene)
-		{
-			if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
-			{
-				editor.selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
-			}
-			else
-			{
-				prev_select_scene->camera2d_pos = Sprite::ed_cam_pos;
-			}
-
-			prev_select_scene->camera3d_angles = editor.freecamera.angles;
-			prev_select_scene->camera3d_pos = editor.freecamera.pos;
-
-			for (auto& scn : scenes)
-			{
-				if (scn->scene == prev_select_scene)
-				{
-					GrabSceneNodes(scn);
-					break;
-				}
-			}
-
-			prev_select_scene->EnableTasks(false);
-		}
-
-		if (select_scene)
-		{
-			RestoreSceneNodes(scenes[index]);
-
-			Sprite::ed_cam_pos = select_scene->camera2d_pos;
-			editor.freecamera.angles = select_scene->camera3d_angles;
-			editor.freecamera.pos = select_scene->camera3d_pos;
-			editor.moveModeBtn->SetPushed(select_scene->move_mode == 1);
-			editor.x_align->SetText(select_scene->gizmo2d_align_x);
-			editor.y_align->SetText(select_scene->gizmo2d_align_y);
-			editor.gizmo.align2d = Vector2((float)select_scene->gizmo2d_align_x, (float)select_scene->gizmo2d_align_x);
-
-			select_scene->EnableTasks(true);
-		}
-	}
-}
-
-int Project::FindScene(const char* path)
-{
-	char name[256];
-	StringUtils::GetFileName(path, name);
-	StringUtils::RemoveExtension(name);
-
-	for (int i = 0; i<scenes.size(); i++)
-	{
-		char scene_name[256];
-		StringUtils::GetFileName(scenes[i]->path.c_str(), scene_name);
-		StringUtils::RemoveExtension(scene_name);
-
-		if (StringUtils::IsEqual(scene_name, name))
-		{
-			return i;
-		}
-	}
-
-	return -1;
+	return nullptr;
 }
 
 void Project::AddScene(const char* path, void* parent_item)
@@ -540,44 +695,48 @@ void Project::AddScene(const char* path, void* parent_item)
 	StringUtils::GetCropPath(cur_dir, path, cropped_path, 1024);
 	StringUtils::RemoveFirstChar(cropped_path);
 
-	if (FindScene(cropped_path) != -1)
+	if (FindSceneIndex(cropped_path) != -1)
 	{
 		return;
 	}
 
 	scenes.push_back(new SceneHolder());
-	SceneHolder* scn = scenes.back();
+	SceneHolder* holder = scenes.back();
 
 	char name[256];
 	StringUtils::GetFileName(cropped_path, name);
 	StringUtils::RemoveExtension(name);
 
-	scn->path = cropped_path;
-	scn->item = editor.project_treeview->AddItem(name, 1, scn, parent_item, -1, true);
+	ProjectTreeItem* treeitem = new ProjectTreeItem();
+	treeitem->scene = holder;
+
+	holder->SetPath(cropped_path);
+	holder->item = editor.project_treeview->AddItem(name, 1, holder, parent_item, -1, true);
+	treeitem->item = holder->item;
 
 	if (start_scene.size() == 0)
 	{
 		start_scene = cropped_path;
 	}
 
-	SelectScene(cropped_path);
-	editor.project_treeview->SelectItem(scn->item);
+	SelectScene(holder);
+	editor.project_treeview->SelectItem(holder->item);
 }
 
-void Project::DeleteScene(const char* path)
+void Project::DeleteScene(SceneHolder* holder)
 {
-	if (StringUtils::IsEqual(path, start_scene.c_str()))
+	if (StringUtils::IsEqual(holder->path.c_str(), start_scene.c_str()))
 	{
 		start_scene.clear();
 	}
 
-	int index = FindScene(path);
+	int index = FindSceneIndex(holder->path.c_str());
 
 	if (index != -1)
 	{
-		if (select_scene == scenes[index]->scene)
+		if (select_scene == scenes[index])
 		{
-			SelectScene("");
+			SelectScene(nullptr);
 		}
 
 		delete scenes[index]->scene;
@@ -701,6 +860,299 @@ void Project::DeleteGroup(const char* group)
 			groups.erase(groups.begin() + i);
 			break;
 		}
+	}
+}
+
+bool Project::HaveDepenecy(const char* str, Project::SceneHolder* holder)
+{
+	if (StringUtils::IsEqual(holder->path.c_str(), str))
+	{
+		return true;
+	}
+
+	for (auto& incl : holder->included)
+	{
+		bool res = HaveDepenecy(str, incl);
+
+		if (res)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+void Project::EnableScene(SceneHolder* holder, bool enable)
+{
+	for (auto& incl : holder->included)
+	{
+		EnableScene(incl, enable);
+	}
+
+	holder->scene->EnableTasks(enable);
+}
+
+void Project::CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection)
+{
+	for (auto& obj : holder->scene->objects)
+	{
+		if (obj->GetState() != SceneObject::State::Active)
+		{
+			continue;
+		}
+
+		if (!LayerSelectable(obj->layer_name.c_str()))
+		{
+			continue;
+		}
+
+		if (obj->CheckSelection(ms))
+		{
+			tmp_under_selection.push_back(obj);
+		}
+	}
+
+	for (auto& incl : holder->included)
+	{
+		CheckSelection(ms, incl, tmp_under_selection);
+	}
+}
+
+SceneObject* Project::CheckSelection(Vector2 ms)
+{
+	vector<SceneObject*> tmp_under_selection;
+
+	CheckSelection(ms, select_scene, tmp_under_selection);
+
+	bool same_selection = true;
+
+	if (tmp_under_selection.size() != under_selection.size())
+	{
+		same_selection = false;
+	}
+	else
+	{
+		for (int index = 0; index < under_selection.size(); index++)
+		{
+			if (under_selection[index] != tmp_under_selection[index])
+			{
+				same_selection = false;
+				break;
+			}
+		}
+	}
+
+	if (same_selection)
+	{
+		under_selection_index++;
+
+		if (under_selection_index >= under_selection.size())
+		{
+			under_selection_index = 0;
+		}
+	}
+	else
+	{
+		under_selection_index = 0;
+		under_selection = tmp_under_selection;
+	}
+
+	return under_selection.size() > 0 ? under_selection[under_selection_index] : nullptr;
+}
+
+void Project::GetProjectItem(EUITreeView* sender, void* item, string& name)
+{
+	void* parent = sender->GetItemParent(item);
+
+	if (parent)
+	{
+		string parent_name;
+		sender->GetItemText(parent, parent_name);
+
+		if (strstr(parent_name.c_str(), "(Included)"))
+		{
+			name = parent_name;
+		}
+		else
+		{
+			GetProjectItem(sender, parent, name);
+		}
+	}
+	else
+	{
+		sender->GetItemText(item, name);
+	}
+}
+
+bool Project::FromSameProject(EUITreeView* sender, void* item, void* parent)
+{
+	string item_project;
+	GetProjectItem(sender, item, item_project);
+
+	string parent_project;
+	GetProjectItem(sender, parent, parent_project);
+
+	return StringUtils::IsEqual(item_project.c_str(), parent_project.c_str());
+}
+
+bool Project::OnTreeViewItemDragged(void* item, void* parent)
+{
+	ProjectTreeItem* parent_item = (ProjectTreeItem*)editor.project_treeview->GetItemPtr(parent);
+	ProjectTreeItem* item_item = (ProjectTreeItem*)editor.project_treeview->GetItemPtr(item);
+
+	if (!parent_item && (!item_item || (item_item && !item_item->parent)))
+	{
+		return true;
+	}
+
+	if (parent_item && item_item)
+	{
+		SceneHolder* parent_holder = parent_item->parent ? parent_item->parent : parent_item->scene;
+
+		if (!HaveDepenecy(item_item->scene->path.c_str(), parent_holder) && !HaveDepenecy(parent_holder->path.c_str(), item_item->scene))
+		{
+			ProjectTreeItem* holder = new ProjectTreeItem();
+			holder->parent = parent_holder;
+			holder->scene = item_item->scene;
+
+			parent_holder->included.push_back(holder->scene);
+
+			if (select_scene == parent_holder)
+			{
+				SelectScene(nullptr);
+				SelectScene(parent_holder);
+			}
+
+			holder->item = editor.project_treeview->AddItem(holder->scene->name.c_str(), 1, holder, parent_holder->item, -1, true);
+		}
+	}
+
+	return false;
+}
+
+void Project::ProcessPopup(int id, void* popup_item)
+{
+	ProjectTreeItem* ptr = (ProjectTreeItem*)editor.project_treeview->GetItemPtr(popup_item);
+
+	if (id == 4503)
+	{
+		if (ptr)
+		{
+			Project::SceneHolder* scn = ptr->parent ? ptr->parent : ptr->scene;
+
+			SetStartScene(scn->path.c_str());
+		}
+
+		return;
+	}
+
+	if (id == 4504)
+	{
+		editor.allow_delete_objects_by_tree = true;
+		editor.project_treeview->DeleteItem(popup_item);
+		editor.allow_delete_objects_by_tree = false;
+
+		return;
+	}
+
+	if (ptr)
+	{
+		if (ptr->parent)
+		{
+			popup_item = editor.project_treeview->GetItemParent(ptr->parent->item);
+		}
+		else
+		{
+			popup_item = editor.project_treeview->GetItemParent(ptr->item);
+		}
+	}
+
+	if (id == 4500)
+	{
+		editor.project_treeview->AddItem("Folder", 0, nullptr, popup_item, -1, true);
+	}
+
+	if (id == 4501)
+	{
+		const char* fileName = EUI::OpenSaveDialog(editor.mainWnd->GetNative(), "Scene file", "sca");
+
+		if (fileName)
+		{
+			if (popup_item && editor.project_treeview->GetItemPtr(popup_item))
+			{
+				popup_item = editor.project_treeview->GetItemParent(popup_item);
+			}
+
+			project.AddScene(fileName, popup_item);
+		}
+	}
+
+	if (id == 4502)
+	{
+		const char* fileName = EUI::OpenOpenDialog(editor.mainWnd->GetNative(), "Scene file", "sca");
+
+		if (fileName)
+		{
+			if (popup_item && editor.project_treeview->GetItemPtr(popup_item))
+			{
+				popup_item = editor.project_treeview->GetItemParent(popup_item);
+			}
+
+			AddScene(fileName, popup_item);
+		}
+	}
+}
+
+void Project::OnTreeViewSelChange(void* ptr)
+{
+	ProjectTreeItem* scn = (ProjectTreeItem*)ptr;
+
+	if (scn)
+	{
+		SelectScene(scn->parent ? scn->parent : scn->scene);
+		editor.scene_sheet->Enable(select_scene != nullptr);
+	}
+}
+
+void Project::DeleteItem(void* ptr)
+{
+	ProjectTreeItem* tree_item = (ProjectTreeItem*)ptr;
+
+	if (tree_item->parent)
+	{
+		int index = 0;
+		for (auto& incl : tree_item->parent->included)
+		{
+			if (StringUtils::IsEqual(incl->path.c_str(), tree_item->scene->path.c_str()))
+			{
+				if (select_scene == tree_item->parent)
+				{
+					bool prev = editor.allow_delete_objects_by_tree;
+					editor.allow_delete_objects_by_tree = false;
+
+					SelectScene(nullptr);
+
+					editor.allow_delete_objects_by_tree = prev;
+				}
+
+				tree_item->parent->included.erase(tree_item->parent->included.begin() + index);
+
+				if (select_scene == tree_item->parent)
+				{
+					SelectScene(tree_item->parent);
+				}
+
+				break;
+			}
+
+			index++;
+		}
+	}
+	else
+	{
+		DeleteScene(tree_item->scene);
+		editor.scene_sheet->Enable(project.select_scene != nullptr);
 	}
 }
 

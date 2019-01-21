@@ -123,7 +123,6 @@ public:
 	void StopScene();
 	void Draw(float dt);
 	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
-	void ProcessProjectTreeviewPopup(int id);
 	void ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;

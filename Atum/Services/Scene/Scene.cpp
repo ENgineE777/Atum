@@ -8,15 +8,12 @@
 #include "SceneObjects/2D/SpriteInst.h"
 #include "Services/Script/Libs/scriptarray.h"
 
-#ifdef EDITOR
-#include "Editor/Project.h"
-#endif
-
 int index_hack_show_message = 0;
 
 /*void Scene::ContactListener::BeginContact(b2Contact* contact)
 {
-	void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
+	void* bodyUserDataA = contact->GetFixtu/
+  \bn reA()->GetBody()->GetUserData();
 	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
 
 	if (bodyUserDataA && bodyUserDataB)
@@ -147,12 +144,31 @@ SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, std::vector<Scen
 
 SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset)
 {
+	SceneObject* res = nullptr;
+
 	if (is_asset)
 	{
-		return FindByUID(uid, child_uid, assets);
+		res = FindByUID(uid, child_uid, assets);
+	}
+	else
+	{
+		res = FindByUID(uid, child_uid, objects);
 	}
 
-	return FindByUID(uid, child_uid, objects);
+	if (!res)
+	{
+		for (auto& incl : inc_scenes)
+		{
+			res = incl->FindByUID(uid, child_uid, is_asset);
+
+			if (res)
+			{
+				break;
+			}
+		}
+	}
+
+	return res;
 }
 
 SceneObject* Scene::GetObj(int index, bool is_asset)
@@ -240,6 +256,11 @@ const char* Scene::GetScenePath()
 	return scene_path;
 }
 
+const char* Scene::GetSceneName()
+{
+	return scene_name;
+}
+
 void Scene::Clear()
 {
 	DeleteObjects(objects);
@@ -315,6 +336,9 @@ void Scene::Load(const char* name)
 	{
 		StringUtils::GetPath(name, scene_path);
 
+		StringUtils::GetFileName(name, scene_name);
+		StringUtils::RemoveExtension(scene_name);
+
 		reader.Read("camera3d_angles", camera3d_angles);
 		reader.Read("camera3d_pos", camera3d_pos);
 		reader.Read("camera_pos", camera2d_pos);
@@ -324,42 +348,31 @@ void Scene::Load(const char* name)
 		Load(reader, assets, "SceneAsset", true);
 		Load(reader, objects, "SceneObject", false);
 
-		int index = 0;
-
 #ifdef EDITOR
-		while (reader.EnterBlock("asset_inctances"))
+		while (reader.EnterBlock("asset_instances"))
 		{
-			uint32_t asset_uid = 0;
-			uint32_t inst_uid = 0;
+			uint32_t uid = 0;
 
-			reader.Read("asset_uid", asset_uid);
-			reader.Read("inst_uid", inst_uid);
+			reader.Read("asset_uid", uid);
 
-			SceneAsset* asset = (SceneAsset*)FindByUID(asset_uid, 0, true);
-			SceneObject* asset_inst = FindByUID(inst_uid, 0, false);
+			SceneAsset* asset = (SceneAsset*)FindByUID(uid, 0, true);
 
-			if (asset_inst)
+			if (asset)
 			{
-				bool added = false;
-
-				for (auto inst : asset->instances)
+				while (reader.EnterBlock("instances"))
 				{
-					if (inst == asset_inst)
-					{
-						added = true;
-						break;
-					}
-				}
+					asset->instances.push_back(SceneAsset::AssetInstance());
 
-				if (!added)
-				{
-					asset->instances.push_back(asset_inst);
+					SceneAsset::AssetInstance& inst = asset->instances[asset->instances.size() - 1];
+
+					reader.Read("scene", inst.scene_path);
+					reader.Read("inst_uid", inst.inst_uid);
+
+					reader.LeaveBlock();
 				}
 			}
 
 			reader.LeaveBlock();
-
-			index++;
 		}
 #endif
 	}
@@ -428,22 +441,31 @@ void Scene::Save(const char* name)
 		Save(writer, objects, "SceneObject");
 
 #ifdef EDITOR
-		writer.StartArray("asset_inctances");
+		writer.StartArray("asset_instances");
 
 		for (auto obj : assets)
 		{
 			SceneAsset* asset = (SceneAsset*)obj;
-			for (auto inst : asset->instances)
-			{
-				if (!inst)
-				{
-					continue;
-				}
 
+			if (asset->instances.size() > 0)
+			{
 				writer.StartBlock(nullptr);
 
 				writer.Write("asset_uid", asset->GetUID());
-				writer.Write("inst_uid", inst->GetUID());
+
+				writer.StartArray("instances");
+
+				for (auto& inst : asset->instances)
+				{
+					writer.StartBlock(nullptr);
+
+					writer.Write("scene", inst.scene_path.c_str());
+					writer.Write("inst_uid", inst.inst_uid);
+
+					writer.FinishBlock();
+				}
+
+				writer.FinishArray();
 
 				writer.FinishBlock();
 			}
@@ -642,66 +664,6 @@ void Scene::DelFromAllGroups(SceneObject* obj)
 		DelFromGroup(group.second, obj);
 	}
 }
-
-#ifdef EDITOR
-SceneObject* Scene::CheckSelection(Vector2 ms)
-{
-	vector<SceneObject*> tmp_under_selection;
-
-	for (auto& obj : objects)
-	{
-		if (obj->GetState() != SceneObject::State::Active)
-		{
-			continue;
-		}
-
-		if (!project.LayerSelectable(obj->layer_name.c_str()))
-		{
-			continue;
-		}
-
-		if (obj->CheckSelection(ms))
-		{
-			tmp_under_selection.push_back(obj);
-		}
-	}
-
-	bool same_selection = true;
-
-	if (tmp_under_selection.size() != under_selection.size())
-	{
-		same_selection = false;
-	}
-	else
-	{
-		for (int index = 0; index < under_selection.size(); index++)
-		{
-			if (under_selection[index] != tmp_under_selection[index])
-			{
-				same_selection = false;
-				break;
-			}
-		}
-	}
-
-	if (same_selection)
-	{
-		under_selection_index++;
-
-		if (under_selection_index >= under_selection.size())
-		{
-			under_selection_index = 0;
-		}
-	}
-	else
-	{
-		under_selection_index = 0;
-		under_selection = tmp_under_selection;
-	}
-
-	return under_selection.size() > 0 ? under_selection[under_selection_index] : nullptr;
-}
-#endif
 
 void Scene::Release()
 {

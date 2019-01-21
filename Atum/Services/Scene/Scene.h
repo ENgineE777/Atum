@@ -18,6 +18,10 @@ class Scene
 {
 	friend class SceneObject;
 
+#ifdef EDITOR
+	friend class Project;
+#endif
+
 public:
 
 	struct Group
@@ -55,7 +59,10 @@ private:
 	SceneObject* FindByUID(uint32_t uid, uint32_t parent_uid, std::vector<SceneObject*>& objects);
 
 	char scene_path[512];
+	char scene_name[512];
 
+	int ref_count = 0;
+	std::vector<Scene*> inc_scenes;
 public:
 
 	Scene() = default;
@@ -72,6 +79,7 @@ public:
 	void         DeleteObject(SceneObject* obj, bool is_asset);
 
 	const char* GetScenePath();
+	const char* GetSceneName();
 	void Clear();
 
 	void Load(const char* name);
@@ -90,12 +98,6 @@ public:
 	void AddToGroup(SceneObject* obj, const char* name);
 	void DelFromGroup(SceneObject* obj, const char* name);
 	void DelFromAllGroups(SceneObject* obj);
-
-#ifdef EDITOR
-	int under_selection_index = 0;
-	vector<SceneObject*> under_selection;
-	SceneObject* CheckSelection(Vector2 ms);
-#endif
 
 	void Release();
 };

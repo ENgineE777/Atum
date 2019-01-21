@@ -3,10 +3,14 @@
 	"start_scene" : "Projects/Coldrain/coldrain.sca",
 	"scenes" : [
 		{
-			"path" : "Projects/Coldrain/coldrain.sca"
+			"path" : "Projects/Coldrain/coldrain.sca",
+			"include" : [
+			]
 		},
 		{
-			"path" : "Projects/Beatemup/beatemup.sca"
+			"path" : "Projects/Beatemup/beatemup.sca",
+			"include" : [
+			]
 		}
 	],
 	"nodes" : [

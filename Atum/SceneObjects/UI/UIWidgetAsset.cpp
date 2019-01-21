@@ -63,8 +63,8 @@ void UIWidgetAsset::Load(JSONReader& reader)
 		if (obj)
 		{
 			obj->owner = owner;
-			obj->SetSource(source_child, false);
 			obj->class_name = decl->GetName();
+			obj->SetSource(source_child, false);
 			obj->script_class_name = decl->GetShortName();
 
 			obj->Init();
@@ -239,7 +239,7 @@ void UIWidgetAsset::SetSource(UIWidgetAsset* set_source, bool remove_from_prev)
 		int index = 0;
 		for (auto inst : source->instances)
 		{
-			if (inst == this)
+			if (inst.GetObject() == this)
 			{
 				source->instances.erase(source->instances.begin() + index);
 				break;
@@ -255,7 +255,10 @@ void UIWidgetAsset::SetSource(UIWidgetAsset* set_source, bool remove_from_prev)
 #ifdef EDITOR
 	if (source)
 	{
-		source->instances.push_back(this);
+		if (remove_from_prev || (!remove_from_prev && !StringUtils::IsEqual(class_name, "UIViewInstanceAsset") && !StringUtils::IsEqual(class_name, "UIViewInstance")))
+		{
+			source->instances.push_back(SceneAsset::AssetInstance(this));
+		}
 	}
 #endif
 }

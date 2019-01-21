@@ -40,14 +40,42 @@ public:
 	struct SceneHolder
 	{
 		string path;
+		string name;
 		Scene* scene = nullptr;
 		void* item = nullptr;
 
+		vector<SceneHolder*> included;
 		vector<SceneNode> scene_nodes;
 		vector<SceneNode> assets_nodes;
+		vector<string> included_pathes;
+
+		void SetPath(const char* set_path)
+		{
+			path = set_path;
+
+			char set_name[256];
+			StringUtils::GetFileName(path.c_str(), set_name);
+			StringUtils::RemoveExtension(set_name);
+
+			name = set_name;
+		}
 	};
 
-	Scene* select_scene = nullptr;
+	struct ProjectTreeItem
+	{
+		SceneHolder* parent = nullptr;
+		SceneHolder* scene = nullptr;
+		void* item = nullptr;
+	};
+
+	struct SceneTreeItem
+	{
+		Scene* scene = nullptr;
+		SceneObject* object = nullptr;
+		void* item = nullptr;
+	};
+
+	SceneHolder* select_scene = nullptr;
 
 	string project_name;
 	string start_scene;
@@ -64,10 +92,11 @@ public:
 	void Save();
 
 	void RestoreSceneNodes(SceneHolder* holder);
-	void RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<SceneNode>& nodes, bool is_asset);
+	void RestoreSceneNodes(EUITreeView* treeview, SceneHolder* scene, bool is_asset, void* item);
 	void RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<SceneNode>& nodes, int& index, void* item, bool is_asset);
 
 	void GrabSceneNodes(SceneHolder* holder);
+	void GrabSceneNodes(EUITreeView* treeview, SceneHolder* holder, void* item, bool is_asset);
 	void GrabSceneNodes(EUITreeView* treeview, vector<SceneNode>& nodes, void* item, bool is_asset);
 
 	void RestoreProjectNodes(vector<ProjectNode>& nodes);
@@ -75,10 +104,11 @@ public:
 	void GrabProjectNodes(vector<ProjectNode>& nodes, void* item);
 
 	void SetStartScene(const char* path);
-	void SelectScene(const char* path);
-	int  FindScene(const char* path);
+	void SelectScene(SceneHolder* holder);
+	int  FindSceneIndex(const char* path);
+	Scene* GetScene(const char* path);
 	void AddScene(const char* path, void* parent_item);
-	void DeleteScene(const char* path);
+	void DeleteScene(SceneHolder* holder);
 
 	int FindLayer(const char* layer);
 
@@ -91,6 +121,22 @@ public:
 	void AddGroup(const char* group);
 	void DeleteGroup(const char* group);
 
+	bool HaveDepenecy(const char* str, SceneHolder* holder);
+
+	void EnableScene(SceneHolder* holder, bool enable);
+
+	int under_selection_index = 0;
+	vector<SceneObject*> under_selection;
+	void CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection);
+	SceneObject* CheckSelection(Vector2 ms);
+
+	void GetProjectItem(EUITreeView* sender, void* item, string& name);
+	bool FromSameProject(EUITreeView* sender, void* item, void* parent);
+
+	bool OnTreeViewItemDragged(void* item, void* parent);
+	void ProcessPopup(int id, void* popup_item);
+	void OnTreeViewSelChange(void* ptr);
+	void DeleteItem(void* ptr);
 	void Reset();
 };
 

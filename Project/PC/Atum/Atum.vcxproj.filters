@@ -490,6 +490,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptarray.cpp">
       <Filter>Services\Script\Libs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneManager.cpp">
+      <Filter>Services\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -941,6 +944,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptarray.h">
       <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneManager.h">
+      <Filter>Services\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

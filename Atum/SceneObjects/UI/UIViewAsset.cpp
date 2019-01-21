@@ -60,7 +60,7 @@ void UIViewAsset::Release()
 #ifdef EDITOR
 	for (auto inst : instances)
 	{
-		UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
+		UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
 		ui_inst->DeleteChilds();
 		if (ui_inst->parent)
 		{
@@ -76,9 +76,9 @@ void UIViewAsset::Release()
 }
 
 #ifdef EDITOR
-SceneObject* UIViewAsset::CreateInstance()
+SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 {
-	UIViewInstanceAsset* child = (UIViewInstanceAsset*)owner->AddObject("UIViewInstance", false);
+	UIViewInstanceAsset* child = (UIViewInstanceAsset*)scene->AddObject("UIViewInstance", false);
 
 	child->SetSource(this, true);
 	child->ApplyProperties();
@@ -174,8 +174,8 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 
 	for (int i=0; i<widget->instances.size(); i++)
 	{
-		UIWidgetAsset* widget_inst = (UIWidgetAsset*)widget->instances[i];
-		UIWidgetAsset* parent_widget_inst = (UIWidgetAsset*)parent_widget->instances[i];
+		UIWidgetAsset* widget_inst = (UIWidgetAsset*)widget->instances[i].GetObject();
+		UIWidgetAsset* parent_widget_inst = (UIWidgetAsset*)parent_widget->instances[i].GetObject();
 
 		widget_inst->parent->childs.erase(widget_inst->parent->childs.begin() + prev_child_index);
 
@@ -259,7 +259,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			dest_child_inst->GetMetaData()->SetDefValues();
 			dest_child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)dest_inst)->AddChild(dest_child_inst);
+			((UIWidgetAsset*)dest_inst.GetObject())->AddChild(dest_child_inst);
 			dest_child_inst->SetName(dest_child->GetName());
 		}
 
@@ -360,11 +360,11 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 			if (child_index == -1)
 			{
-				((UIWidgetAsset*)inst)->AddChild(child_inst);
+				((UIWidgetAsset*)inst.GetObject())->AddChild(child_inst);
 			}
 			else
 			{
-				((UIWidgetAsset*)inst)->parent->AddChild(child_inst, child_index);
+				((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, child_index);
 			}
 
 			child_inst->SetName(name);
@@ -409,7 +409,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);
+			((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(popup_item->GetName());
 		}
@@ -459,7 +459,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst)->AddChild(child_inst);
+			((UIWidgetAsset*)inst.GetObject())->AddChild(child_inst);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}
@@ -505,7 +505,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst)->parent->AddChild(child_inst, popup_child_index + 1);
+			((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}
@@ -517,7 +517,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	{
 		for (auto inst : popup_item->instances)
 		{
-			UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
+			UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
 			ui_inst->DeleteChilds();
 			ui_inst->parent->DeleteChild(ui_inst);
 			delete ui_inst;
@@ -600,7 +600,7 @@ void UIViewAsset::CheckProperties()
 		{
 			for (auto inst : sel_ui_asset->instances)
 			{
-				UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst;
+				UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
 
 				ui_inst->StoreProperties();
 

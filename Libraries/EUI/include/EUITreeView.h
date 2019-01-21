@@ -6,13 +6,17 @@
 class EUITreeView : public EUIWidget
 {
 	friend class WinTreeView;
+	friend class WinDX11TreeView;
 
+	bool auto_delete_ptr = false;
 	NativeTreeView* Native();
 
 public:
 
 	EUITreeView(EUIWidget* parent, int x, int y, int w, int h, bool abs_sort, bool allow_edit_names);
 	virtual ~EUITreeView();
+
+	virtual void  SetAutodeletePtr(bool set);
 
 	virtual void  AddImage(const char* name);
 	virtual void  DeleteItem(void* item);

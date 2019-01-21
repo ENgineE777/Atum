@@ -21,6 +21,10 @@ class SceneObject : public Object
 	friend class Scene;
 	friend class UIViewAsset;
 
+#ifdef EDITOR
+	friend class Project;
+#endif
+
 public:
 	enum State
 	{
@@ -53,8 +57,7 @@ public:
 	SceneObject::ScriptCallback* FindScriptCallback(const char* name);
 
 protected:
-	
-	Scene* owner = nullptr;
+
 	std::string name;
 	std::string group_name;
 	std::string layer_name;
@@ -69,6 +72,7 @@ protected:
 
 public:
 
+	Scene * owner = nullptr;
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;
 
@@ -169,14 +173,24 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 	ENUM_ELEM("Active", 2)\
 ENUM_END
 
+#ifdef EDITOR
 extern void FillGroupsList(EUIComboBox* cbox);
 extern void FillLayersList(EUIComboBox* cbox);
+#endif
 
+#ifdef EDITOR
 #define BASE_SCENE_OBJ_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")\
 BASE_SCENE_OBJ_STATE_PROP(className)\
 STRING_ENUM_PROP(className, group_name, FillGroupsList, "Common", "Group")\
 STRING_ENUM_PROP(className, layer_name, FillLayersList, "Common", "Layer")
+#else
+#define BASE_SCENE_OBJ_PROP(className)\
+STRING_PROP(className, name, "", "Common", "Name")\
+BASE_SCENE_OBJ_STATE_PROP(className)\
+STRING_PROP(className, group_name, "", "Common", "Group")\
+STRING_PROP(className, layer_name, "", "Common", "Layer")
+#endif
 
 #define BASE_SCENE_ASSET_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")

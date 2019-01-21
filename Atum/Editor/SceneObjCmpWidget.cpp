@@ -97,8 +97,10 @@ void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 				SceneAsset* asset = (SceneAsset*)obj;
 				SceneAssetComp* asset_comp = (SceneAssetComp*)comp;
 
-				for (auto inst : asset->instances)
+				for (auto& asset_inst : asset->instances)
 				{
+					SceneObject* inst = asset_inst.GetObject();
+
 					for (int index = 0; index < inst->components.size(); index++)
 					{
 						if (inst->components[index]->class_name == asset_comp->inst_class_name)
@@ -147,8 +149,10 @@ void SceneObjCmpWidget::OnComboBoxSelChange(EUIComboBox* sender, int index)
 			SceneAsset* asset = (SceneAsset*)obj;
 			SceneAssetComp* asset_comp = (SceneAssetComp*)comp;
 
-			for (auto inst : asset->instances)
+			for (auto& asset_inst : asset->instances)
 			{
+				SceneObject* inst = asset_inst.GetObject();
+
 				SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(asset_comp->inst_class_name);
 				comp_inst->asset_comp = asset_comp;
 			}

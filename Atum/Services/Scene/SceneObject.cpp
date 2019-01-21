@@ -247,10 +247,12 @@ void SceneObject::SetState(int set_state)
 
 SceneObject::State SceneObject::GetState()
 {
+#ifdef EDITOR
 	if (project.LayerHiden(layer_name.c_str()))
 	{
 		return State::Invisible;
 	}
+#endif
 
 	return state;
 }
@@ -711,7 +713,8 @@ void SceneObjectInst::Copy(SceneObject* src)
 	ApplyProperties();
 
 	asset = ((SceneObjectInst*)src)->asset;
-	asset->instances.push_back(this);
+
+	asset->instances.push_back(SceneAsset::AssetInstance(this));
 
 	for (auto comp : components)
 	{

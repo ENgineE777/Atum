@@ -21,10 +21,20 @@ public:
 	const char* inst_class_name = nullptr;
 
 #ifdef EDITOR
-	vector<SceneObject*> instances;
+	struct AssetInstance
+	{
+		string scene_path;
+		uint32_t inst_uid = 0;
+		SceneObject* object = nullptr;
+
+		AssetInstance() = default;
+		AssetInstance(SceneObject* set_object);
+		SceneObject* GetObject();
+	};
+	vector<AssetInstance> instances;
 
 	bool IsAsset() override;
-	virtual SceneObject* CreateInstance();
+	virtual SceneObject* CreateInstance(Scene* scene);
 	virtual void DeleteAsset(SceneObject* obj);
 
 	virtual void PreapreAssetTree();

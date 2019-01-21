@@ -164,7 +164,7 @@ void SceneScriptAsset::Init()
 {
 	inst_class_name = "SceneScriptInst";
 
-#ifdef EDITOR
+#ifdef EDITORS
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScriptAsset::EditorWork);
 #endif
 }
@@ -363,9 +363,9 @@ Vector2& SceneScriptAsset::Camera2DPos()
 
 #ifdef EDITOR
 
-SceneObject* SceneScriptAsset::CreateInstance()
+SceneObject* SceneScriptAsset::CreateInstance(Scene* scene)
 {
-	SceneScriptInst* inst = (SceneScriptInst*)SceneAsset::CreateInstance();
+	SceneScriptInst* inst = (SceneScriptInst*)SceneAsset::CreateInstance(scene);
 
 	inst->nodes.resize(nodes.size());
 
@@ -654,7 +654,7 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 
 		for (auto& inst : instances)
 		{
-			((SceneScriptInst*)inst)->nodes.push_back(SceneScriptInst::Node());
+			((SceneScriptInst*)inst.GetObject())->nodes.push_back(SceneScriptInst::Node());
 		}
 	}
 
@@ -713,7 +713,8 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 
 			for (auto& inst : instances)
 			{
-				((SceneScriptInst*)inst)->nodes.erase(((SceneScriptInst*)inst)->nodes.begin() + sel_nd);
+				SceneScriptInst* script_inst = (SceneScriptInst*)inst.GetObject();
+				script_inst->nodes.erase(script_inst->nodes.begin() + sel_nd);
 			}
 		}
 		else

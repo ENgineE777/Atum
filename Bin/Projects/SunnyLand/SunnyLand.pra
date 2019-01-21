@@ -3,7 +3,9 @@
 	"start_scene" : "Projects/SunnyLand/SunnyLand.sca",
 	"scenes" : [
 		{
-			"path" : "Projects/SunnyLand/SunnyLand.sca"
+			"path" : "Projects/SunnyLand/SunnyLand.sca",
+			"include" : [
+			]
 		}
 	],
 	"nodes" : [

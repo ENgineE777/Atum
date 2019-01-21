@@ -3,7 +3,9 @@
 	"start_scene" : "Projects/Tanks/Tanks.sca",
 	"scenes" : [
 		{
-			"path" : "Projects/Tanks/Tanks.sca"
+			"path" : "Projects/Tanks/Tanks.sca",
+			"include" : [
+			]
 		}
 	],
 	"nodes" : [

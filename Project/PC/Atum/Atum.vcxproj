@@ -133,6 +133,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Render\Texture.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\Scene.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Scene\SceneManager.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObject.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneObjectComp.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptarray.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Scene\ExecuteLevels.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\Scene.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneAsset.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Scene\SceneManager.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObject.h" />
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneObjectComp.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\aswrappedcall.h" />

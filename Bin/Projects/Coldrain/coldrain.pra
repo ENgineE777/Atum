@@ -13,6 +13,7 @@
 			]
 		}
 	],
+	"selected_scene" : "Projects/Coldrain/coldrain.sca",
 	"nodes" : [
 		{
 			"name" : "coldrain",

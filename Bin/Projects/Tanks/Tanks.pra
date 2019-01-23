@@ -8,6 +8,7 @@
 			]
 		}
 	],
+	"selected_scene" : "Projects/Tanks/Tanks.sca",
 	"nodes" : [
 		{
 			"name" : "Tanks",

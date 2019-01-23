@@ -8,6 +8,7 @@
 			]
 		}
 	],
+	"selected_scene" : "Projects/SunnyLand/SunnyLand.sca",
 	"nodes" : [
 		{
 			"name" : "SunnyLand",

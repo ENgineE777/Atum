@@ -71,6 +71,16 @@ void Project::Load()
 			}
 		}
 
+		string ed_scene;
+		reader.Read("selected_scene", ed_scene);
+
+		int index = FindSceneIndex(ed_scene.c_str());
+
+		if (index != -1)
+		{
+			SelectScene(scenes[index]);
+		}
+
 		while (reader.EnterBlock("nodes"))
 		{
 			nodes.push_back(ProjectNode());
@@ -272,6 +282,15 @@ void Project::Save()
 	}
 
 	writer.FinishArray();
+
+	if (select_scene)
+	{
+		writer.Write("selected_scene", select_scene->path.c_str());
+	}
+	else
+	{
+		writer.Write("selected_scene", "");
+	}
 
 	writer.StartArray("nodes");
 

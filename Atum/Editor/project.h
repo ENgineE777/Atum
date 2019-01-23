@@ -78,7 +78,7 @@ public:
 	SceneHolder* select_scene = nullptr;
 
 	string project_name;
-	string start_scene;
+	int start_scene = -1;
 	vector<SceneHolder*> scenes;
 	vector<ProjectNode> nodes;
 	vector<string> groups;

@@ -17,6 +17,7 @@ class SceneObjectComp;
 class Scene
 {
 	friend class SceneObject;
+	friend class SceneManager;
 
 #ifdef EDITOR
 	friend class Project;
@@ -61,7 +62,6 @@ private:
 	char scene_path[512];
 	char scene_name[512];
 
-	int ref_count = 0;
 	std::vector<Scene*> inc_scenes;
 public:
 

@@ -1,6 +1,7 @@
 ﻿{
 
-	"start_scene" : "Projects/Coldrain/coldrain.sca",
+	"start_scene" : 0,
+	"scenes_count" : 2,
 	"scenes" : [
 		{
 			"path" : "Projects/Coldrain/coldrain.sca",

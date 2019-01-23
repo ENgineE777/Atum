@@ -1,6 +1,7 @@
 ﻿{
 
-	"start_scene" : "Projects/SunnyLand/SunnyLand.sca",
+	"start_scene" : 0,
+	"scenes_count" : 1,
 	"scenes" : [
 		{
 			"path" : "Projects/SunnyLand/SunnyLand.sca",

@@ -23,7 +23,7 @@ void FillLayersList(EUIComboBox* cbox)
 
 bool Project::CanRun()
 {
-	return !start_scene.empty();
+	return (start_scene != -1);
 }
 
 void Project::Load()
@@ -139,14 +139,14 @@ void Project::LoadSceneNodes(JSONReader* reader, vector<SceneNode>& nodes, const
 
 void Project::LoadScene(SceneHolder* holder)
 {
-	for (auto& incl : holder->included)
-	{
-		LoadScene(incl);
-	}
-
 	if (holder->scene)
 	{
 		return;
+	}
+
+	for (auto& incl : holder->included)
+	{
+		LoadScene(incl);
 	}
 
 	holder->scene = new Scene();
@@ -255,7 +255,8 @@ void Project::Save()
 	JSONWriter writer;
 	writer.Start(project_name.c_str());
 
-	writer.Write("start_scene", start_scene.c_str());
+	writer.Write("start_scene", start_scene);
+	writer.Write("scenes_count", (int)scenes.size());
 
 	writer.StartArray("scenes");
 
@@ -528,7 +529,7 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 
 		int image = node.type;
 
-		if (node.type == 1 && StringUtils::IsEqual(node.name.c_str(), start_scene.c_str()))
+		if (node.type == 1 && index_node == start_scene)
 		{
 			image = 2;
 		}
@@ -599,19 +600,17 @@ void Project::GrabProjectNodes(vector<ProjectNode>& nodes, void* item)
 
 void Project::SetStartScene(const char* path)
 {
-	int index = FindSceneIndex(start_scene.c_str());
-
-	if (index != -1)
+	if (start_scene != -1)
 	{
-		editor.project_treeview->SetItemImage(scenes[index]->item, 1);
-		start_scene = "";
+		editor.project_treeview->SetItemImage(scenes[start_scene]->item, 1);
+		start_scene = -1;
 	}
 
-	index = FindSceneIndex(path);
+	int index = FindSceneIndex(path);
 
 	if (index != -1)
 	{
-		start_scene = path;
+		start_scene = index;
 		editor.project_treeview->SetItemImage(scenes[index]->item, 2);
 	}
 }
@@ -730,13 +729,8 @@ void Project::AddScene(const char* path, void* parent_item)
 	treeitem->scene = holder;
 
 	holder->SetPath(cropped_path);
-	holder->item = editor.project_treeview->AddItem(name, 1, holder, parent_item, -1, true);
+	holder->item = editor.project_treeview->AddItem(name, 1, treeitem, parent_item, -1, true);
 	treeitem->item = holder->item;
-
-	if (start_scene.size() == 0)
-	{
-		start_scene = cropped_path;
-	}
 
 	SelectScene(holder);
 	editor.project_treeview->SelectItem(holder->item);
@@ -744,15 +738,15 @@ void Project::AddScene(const char* path, void* parent_item)
 
 void Project::DeleteScene(SceneHolder* holder)
 {
-	if (StringUtils::IsEqual(holder->path.c_str(), start_scene.c_str()))
-	{
-		start_scene.clear();
-	}
-
 	int index = FindSceneIndex(holder->path.c_str());
 
 	if (index != -1)
 	{
+		if (start_scene == index)
+		{
+			start_scene = -1;
+		}
+
 		if (select_scene == scenes[index])
 		{
 			SelectScene(nullptr);
@@ -761,11 +755,6 @@ void Project::DeleteScene(SceneHolder* holder)
 		delete scenes[index]->scene;
 		delete scenes[index];
 		scenes.erase(scenes.begin() + index);
-
-		if (scenes.size() > 0 && start_scene.size() != 0)
-		{
-			start_scene = scenes[0]->path;
-		}
 	}
 }
 
@@ -1196,7 +1185,7 @@ void Project::Reset()
 	}
 
 	project_name.clear();
-	start_scene.clear();
+	start_scene = -1;
 	nodes.clear();
 	groups.clear();
 	layers.clear();

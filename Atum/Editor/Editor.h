@@ -84,7 +84,7 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIWindow* gameWnd = nullptr;
 	EUIPanel* game_viewport = nullptr;
 
-	Scene* scene = nullptr;
+	bool in_scene_run = false;
 	Gizmo gizmo;
 
 	Vector2 prev_ms;

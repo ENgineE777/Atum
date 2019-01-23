@@ -1,6 +1,7 @@
 ﻿{
 
-	"start_scene" : "Projects/Tanks/Tanks.sca",
+	"start_scene" : 0,
+	"scenes_count" : 1,
 	"scenes" : [
 		{
 			"path" : "Projects/Tanks/Tanks.sca",

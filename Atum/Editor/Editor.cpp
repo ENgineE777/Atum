@@ -1,5 +1,6 @@
 
 #include "Editor.h"
+#include "Services/Scene/SceneManager.h"
 
 char appdir[1024];
 
@@ -452,7 +453,7 @@ void Editor::ShowVieport()
 
 	SceneObject::ed_vieport = vp;
 
-	if (scene)
+	if (in_scene_run)
 	{
 		vp = game_viewport;
 	}
@@ -496,14 +497,16 @@ void Editor::StartScene()
 
 	scripts.Start();
 
-	scene = new Scene();
-	scene->Init();
-	scene->Load(project.start_scene.c_str());
+	scene_manager.LoadProject(project.project_name.c_str());
 
-	if (scene->Play())
+	//scene = new Scene();
+	//scene->Init();
+	//scene->Load(project.scenes[project.start_scene]->path.c_str());
+
+	//if (scene->Play())
 	{
 		mainWnd->Enable(false);
-		hack_scene = scene;
+		//hack_scene = scene;
 
 		Sprite::ed_cam_pos = 0.0f;
 
@@ -520,21 +523,22 @@ void Editor::StartScene()
 		gameWnd->Show(true);
 		gameWnd->SetAtScreenCenter();
 	}
-	else
-	{
-		StopScene();
-	}
+	//else
+	//{
+	//	StopScene();
+	//}
+
+	in_scene_run = true;
 }
 
 void Editor::StopScene()
 {
-	if (!scene)
+	if (!in_scene_run)
 	{
 		return;
 	}
 
-	scene->Stop();
-	RELEASE(scene);
+	scene_manager.UnloadAll();
 
 	scripts.Stop();
 
@@ -564,11 +568,13 @@ void Editor::StopScene()
 
 	gameWnd = nullptr;
 	game_viewport = nullptr;
+
+	in_scene_run = false;
 }
 
 void Editor::Draw(float dt)
 {
-	if (!scene)
+	if (!in_scene_run)
 	{
 		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
@@ -729,7 +735,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 				selectedObject->OnMouseMove(ms - prev_ms);
 			}
 
-			if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !scene)
+			if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !in_scene_run)
 			{
 				if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 				{
@@ -988,7 +994,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 void Editor::OnUpdate(EUIWidget* sender)
 {
-	if (scene && sender != game_viewport)
+	if (in_scene_run && sender != game_viewport)
 	{
 		return;
 	}
@@ -998,7 +1004,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 	core.CountDeltaTime();
 	float dt = core.GetDeltaTime();
 
-	if (!scene)
+	if (!in_scene_run)
 	{
 		asset_drag_as_inst = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
 
@@ -1051,15 +1057,15 @@ void Editor::OnUpdate(EUIWidget* sender)
 		}
 	}
 
-	controls.SetFocused(scene ? game_viewport->IsFocused() : viewport->IsFocused());
+	controls.SetFocused(in_scene_run ? game_viewport->IsFocused() : viewport->IsFocused());
 
 	render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
 
 	core.Update();
 
-	if (scene)
+	if (in_scene_run)
 	{
-		scene->Execute(dt);
+		scene_manager.Execute(dt);
 	}
 	else
 	{

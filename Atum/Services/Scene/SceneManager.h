@@ -2,9 +2,12 @@
 #pragma once
 
 #include "Scene.h"
+#include "Services/Physic/Physics.h"
 
 class SceneManager : public Object
 {
+	friend class SceneObject;
+
 	struct SceneHolder
 	{
 		string path;
@@ -14,6 +17,8 @@ class SceneManager : public Object
 		vector<SceneHolder*> included;
 		vector<string> included_pathes;
 	};
+
+	PhysScene* pscene = nullptr;
 
 	vector<SceneHolder> scenes;
 	map<std::string, SceneHolder*> scenes_search;
@@ -25,8 +30,10 @@ public:
 
 	void Init();
 	void LoadProject(const char* project_name);
+	inline PhysScene* PScene() { return pscene; }
 	void LoadScene(const char* name);
 	void Execute(float dt);
+	void SetScenesGroupsState(const char* group, int state);
 	void UnloadScene(const char* name);
 	void UnloadAll();
 };

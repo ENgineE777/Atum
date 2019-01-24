@@ -1,5 +1,6 @@
 
 #include "SceneManager.h"
+#include "SceneObject.h"
 
 SceneManager scene_manager;
 
@@ -63,6 +64,7 @@ void SceneManager::LoadProject(const char* project_name)
 			}
 		}
 
+		pscene = physics.CreateScene();
 		LoadScene(&scenes[start_scene]);
 	}
 }
@@ -102,7 +104,26 @@ void SceneManager::Execute(float dt)
 {
 	for (auto& scn : scenes)
 	{
-		scn.scene->Execute(dt);
+		if (scn.scene)
+		{
+			scn.scene->Execute(dt);
+		}
+	}
+}
+
+void SceneManager::SetScenesGroupsState(const char* group_name, int state)
+{
+	for (auto& scn : scenes)
+	{
+		if (scn.scene)
+		{
+			Scene::Group& group = scn.scene->GetGroup(group_name);
+
+			for (auto obj : group.objects)
+			{
+				obj->SetState(state);
+			}
+		}
 	}
 }
 
@@ -135,10 +156,19 @@ void SceneManager::UnloadAll()
 {
 	for (auto& scn : scenes)
 	{
-		scn.scene->Stop();
-		RELEASE(scn.scene)
+		if (scn.scene)
+		{
+			scn.scene->Stop();
+			RELEASE(scn.scene)
+		}
 	}
 
 	scenes.clear();
 	scenes_search.clear();
+
+	if (pscene)
+	{
+		physics.DestroyScene(pscene);
+		pscene = nullptr;
+	}
 }

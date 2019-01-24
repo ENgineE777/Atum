@@ -5,7 +5,6 @@
 #include <vector>
 
 #include "Services/Script/Scripts.h"
-#include "Services/Physic/Physics.h"
 
 #include "Support/json/JSONReader.h"
 #include "Support/json/JSONWriter.h"
@@ -36,7 +35,6 @@ public:
 	int move_mode = 0;
 	int gizmo2d_align_x = 0;
 	int gizmo2d_align_y = 0;
-	PhysScene* pscene = nullptr;
 
 private:
 	std::vector<SceneObject*> objects;

@@ -1,6 +1,7 @@
 
 #include "SceneObject.h"
 #include "SceneAsset.h"
+#include "SceneManager.h"
 #include "Services/Core/Core.h"
 
 #ifdef EDITOR
@@ -425,7 +426,7 @@ ScriptContext* SceneObject::Script()
 
 PhysScene* SceneObject::PScene()
 {
-	return owner->pscene;
+	return scene_manager.pscene;
 }
 
 void SceneObject::Release()

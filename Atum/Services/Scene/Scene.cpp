@@ -491,7 +491,6 @@ bool Scene::Play()
 	playing = true;
 
 	script = scripts.CreateContext();
-	pscene = physics.CreateScene();
 
 	for (auto asset : assets)
 	{
@@ -550,8 +549,6 @@ void Scene::Stop()
 	}
 
 	RELEASE(script)
-	physics.DestroyScene(pscene);
-	pscene = nullptr;
 }
 
 bool Scene::Playing()

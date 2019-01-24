@@ -7,11 +7,12 @@
 #include "Libs/scriptmath.h"
 #include "Libs/scriptstdstring.h"
 #include "Services/Scene/Scene.h"
+#include "Services/Scene/SceneManager.h"
 #include "Services/Scene/SceneObject.h"
+#include "SceneObjects/2D/Sprite.h"
 #include "SceneObjects/2D/Sprite.h"
 
 Scripts scripts;
-Scene* hack_scene = nullptr;
 
 void MessageCallback(const asSMessageInfo *msg, void *param)
 {
@@ -32,7 +33,7 @@ void PrintString_Generic(asIScriptGeneric *gen)
 
 void RenderPrint_Generic(asIScriptGeneric *gen)
 {
-	string* arg = (string*)(gen->GetArgAddress(2));
+	string* arg = (string*)(gen->GetArgAddress(2)) ;
 	render.DebugPrintText(Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)), COLOR_WHITE, arg->c_str());
 }
 
@@ -84,15 +85,7 @@ void Control_IsGamepadConnected(asIScriptGeneric *gen)
 
 void Scene_Group_SetState(asIScriptGeneric *gen)
 {
-	string* arg = (string*)(gen->GetArgAddress(0));
-	int state = gen->GetArgDWord(1);
-
-	Scene::Group& group = hack_scene->GetGroup(arg->c_str());
-
-	for (auto obj : group.objects)
-	{
-		obj->SetState(state);
-	}
+	scene_manager.SetScenesGroupsState(((string*)gen->GetArgAddress(0))->c_str(), gen->GetArgDWord(1));
 }
 
 void Script_CallClassInstancesMethod(asIScriptGeneric *gen)
@@ -111,7 +104,7 @@ void Scene_Raycast2D(asIScriptGeneric *gen)
 	rcdesc.dir = Vector(gen->GetArgFloat(2), -gen->GetArgFloat(3), 0.0f);
 	rcdesc.length = gen->GetArgFloat(4) * scale;
 
-	if (hack_scene->pscene->RayCast(rcdesc))
+	if (scene_manager.PScene()->RayCast(rcdesc))
 	{
 		*((float*)(gen->GetArgAddress(5))) = rcdesc.hitPos.x * 50.0f;
 		*((float*)(gen->GetArgAddress(6))) = -rcdesc.hitPos.y * 50.0f;

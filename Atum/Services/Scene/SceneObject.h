@@ -12,6 +12,8 @@
 #include "SceneObjectComp.h"
 #include "ExecuteLevels.h"
 
+#include "Services/Physic/Physics.h"
+
 #ifdef EDITOR
 #include "Editor/Gizmo.h"
 #endif

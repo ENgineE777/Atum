@@ -1,15 +1,10 @@
 ﻿{
 
 	"start_scene" : 0,
-	"scenes_count" : 2,
+	"scenes_count" : 1,
 	"scenes" : [
 		{
 			"path" : "Projects/Coldrain/coldrain.sca",
-			"include" : [
-			]
-		},
-		{
-			"path" : "Projects/Beatemup/beatemup.sca",
 			"include" : [
 			]
 		}

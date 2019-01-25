@@ -151,6 +151,7 @@ void Project::LoadScene(SceneHolder* holder)
 
 	holder->scene = new Scene();
 	holder->scene->Init();
+	holder->scene->load_asset_inst = true;
 
 	for (auto& incl : holder->included)
 	{
@@ -749,7 +750,12 @@ void Project::DeleteScene(SceneHolder* holder)
 
 		if (select_scene == scenes[index])
 		{
+			bool prev = editor.allow_delete_objects_by_tree;
+			editor.allow_delete_objects_by_tree = false;
+
 			SelectScene(nullptr);
+
+			editor.allow_delete_objects_by_tree = prev;
 		}
 
 		delete scenes[index]->scene;

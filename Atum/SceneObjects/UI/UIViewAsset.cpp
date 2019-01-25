@@ -1,6 +1,10 @@
 #include "UIViewAsset.h"
 #include "UIViewInstanceAsset.h"
 
+#ifdef EDITOR
+#include "Editor/project.h"
+#endif
+
 CLASSREG(SceneAsset, UIViewAsset, "UIView")
 
 META_DATA_DESC(UIViewAsset)
@@ -144,7 +148,9 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				parent->AddChild(child, child_index);
 				child->SetName("View");
 
-				child->item = ed_asset_treeview->AddItem("View", 1, child, parent->item, child_index, true, "UIViewInstanceAsset");
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
+				tree_item->item = ed_asset_treeview->AddItem("View", 1, tree_item, parent->item, child_index, true, "UIViewInstanceAsset");
+				child->item = tree_item->item;
 
 				ReCreteChilds((UIWidgetAsset*)item, child, true, true);
 			}
@@ -231,7 +237,9 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 
 		if (create_item)
 		{
-			dest_child->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, dest_child, dest->item, -1, true, src_child->class_name);
+			Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(dest_child);
+			tree_item->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, tree_item, dest->item, -1, true, src_child->class_name);
+			dest_child->item = tree_item->item;
 		}
 
 		for (auto dest_inst : dest->instances)
@@ -287,7 +295,9 @@ void UIViewAsset::OnAssetTreeSelChange(SceneAsset* item)
 
 void UIViewAsset::AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = ed_asset_treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->class_name);
+	Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(widget);
+	tree_item->item = ed_asset_treeview->AddItem(widget->GetName(), 1, tree_item, parent_item, -1, true, widget->class_name);
+	widget->item = tree_item->item;
 
 	for (auto child : widget->childs)
 	{
@@ -336,7 +346,9 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(name);
 
-		child->item = ed_asset_treeview->AddItem(name, 1, child, (child_index == -1) ? popup_item->item : popup_item->parent->item, child_index, true, item_classname);
+		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
+		tree_item->item = ed_asset_treeview->AddItem(name, 1, tree_item, (child_index == -1) ? popup_item->item : popup_item->parent->item, child_index, true, item_classname);
+		child->item = tree_item->item;
 
 		string inst_className = item_classname + string("Inst");
 
@@ -386,7 +398,9 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(popup_item->GetName());
 
-		child->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->class_name);
+		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
+		tree_item->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, tree_item, popup_item->parent->item, popup_child_index + 1, true, child->class_name);
+		child->item = tree_item->item;
 
 		string inst_className = popup_item->class_name + string("Inst");
 
@@ -437,7 +451,9 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = ed_asset_treeview->AddItem(child->GetName(), 1, child, popup_item->item, -1, true, child->class_name);
+		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
+		tree_item->item = ed_asset_treeview->AddItem(child->GetName(), 1, tree_item, popup_item->item, -1, true, child->class_name);
+		child->item = tree_item->item;
 
 		string inst_className = asset_to_copy->class_name + string("Inst");
 
@@ -482,7 +498,9 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		child->SetName(asset_to_copy->GetName());
 
-		child->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, child, popup_item->parent->item, popup_child_index + 1, true, child->class_name);
+		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
+		tree_item->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, tree_item, popup_item->parent->item, popup_child_index + 1, true, child->class_name);
+		child->item = tree_item->item;
 
 		string inst_className = asset_to_copy->class_name + string("Inst");
 

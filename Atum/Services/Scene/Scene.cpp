@@ -349,30 +349,33 @@ void Scene::Load(const char* name)
 		Load(reader, objects, "SceneObject", false);
 
 #ifdef EDITOR
-		while (reader.EnterBlock("asset_instances"))
+		if (load_asset_inst)
 		{
-			uint32_t uid = 0;
-
-			reader.Read("asset_uid", uid);
-
-			SceneAsset* asset = (SceneAsset*)FindByUID(uid, 0, true);
-
-			if (asset)
+			while (reader.EnterBlock("asset_instances"))
 			{
-				while (reader.EnterBlock("instances"))
+				uint32_t uid = 0;
+
+				reader.Read("asset_uid", uid);
+
+				SceneAsset* asset = (SceneAsset*)FindByUID(uid, 0, true);
+
+				if (asset)
 				{
-					asset->instances.push_back(SceneAsset::AssetInstance());
+					while (reader.EnterBlock("instances"))
+					{
+						asset->instances.push_back(SceneAsset::AssetInstance());
 
-					SceneAsset::AssetInstance& inst = asset->instances[asset->instances.size() - 1];
+						SceneAsset::AssetInstance& inst = asset->instances[asset->instances.size() - 1];
 
-					reader.Read("scene", inst.scene_path);
-					reader.Read("inst_uid", inst.inst_uid);
+						reader.Read("scene", inst.scene_path);
+						reader.Read("inst_uid", inst.inst_uid);
 
-					reader.LeaveBlock();
+						reader.LeaveBlock();
+					}
 				}
-			}
 
-			reader.LeaveBlock();
+				reader.LeaveBlock();
+			}
 		}
 #endif
 	}

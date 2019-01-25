@@ -36,6 +36,10 @@ public:
 	int gizmo2d_align_x = 0;
 	int gizmo2d_align_y = 0;
 
+#ifdef EDITOR
+	bool load_asset_inst = false;
+#endif
+
 private:
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;

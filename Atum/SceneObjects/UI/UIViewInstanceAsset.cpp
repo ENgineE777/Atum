@@ -1,5 +1,9 @@
 #include "UIViewInstanceAsset.h"
 
+#ifdef EDITOR
+#include "Editor/project.h"
+#endif
+
 CLASSREG(UIWidgetAsset, UIViewInstanceAsset, "UIViewInst")
 
 META_DATA_DESC(UIViewInstanceAsset)
@@ -134,7 +138,9 @@ bool UIViewInstance::UsingCamera2DPos()
 
 void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item)
 {
-	widget->item = treeview->AddItem(widget->GetName(), 1, widget, parent_item, -1, true, widget->class_name);
+	Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(widget);
+	tree_item->item = treeview->AddItem(widget->GetName(), 1, tree_item, parent_item, -1, true, widget->class_name);
+	widget->item = tree_item->item;
 	treeview->SetABSortChilds(widget->item, false);
 
 	for (auto child : widget->childs)

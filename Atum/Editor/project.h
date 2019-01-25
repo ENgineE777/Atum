@@ -73,6 +73,13 @@ public:
 		Scene* scene = nullptr;
 		SceneObject* object = nullptr;
 		void* item = nullptr;
+
+		SceneTreeItem() = default;
+		SceneTreeItem(SceneObject* set_object)
+		{
+			scene = set_object->owner;
+			object = set_object;
+		};
 	};
 
 	SceneHolder* select_scene = nullptr;

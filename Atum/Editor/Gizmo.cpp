@@ -1,9 +1,8 @@
 
 #include "Gizmo.h"
-#include "Services/Controls/Controls.h"
-#include "Services/Render/Render.h"
 #include "SceneObjects/2D/Sprite.h"
 #include "EditorDrawer.h"
+#include "Services/Core/Core.h"
 
 Gizmo* Gizmo::inst = nullptr;
 
@@ -135,7 +134,7 @@ void Gizmo::DrawAxis(int axis)
 
 	dir += tr;
 
-	render.DebugLine(dir, color, tr, color, false);
+	core.render.DebugLine(dir, color, tr, color, false);
 
 	float hgt = 0.85f * scale;
 	float r = 0.05f * scale;
@@ -167,7 +166,7 @@ void Gizmo::DrawAxis(int axis)
 			pos = transform.MulNormal(pos);
 		}
 
-		render.DebugLine(dir, color, pos + tr, color, false);
+		core.render.DebugLine(dir, color, pos + tr, color, false);
 	}
 }
 
@@ -187,7 +186,7 @@ void Gizmo::DrawCircle(int axis)
 	}
 
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 
 	Vector tr = mat.Pos();
 	Vector trans = tr * view;
@@ -234,11 +233,11 @@ void Gizmo::DrawCircle(int axis)
 
 			if (pos_post.z > trans.z && pos2_post.z > trans.z)
 			{
-				render.DebugLine(pos, color_gray, pos2, color_gray, false);
+				core.render.DebugLine(pos, color_gray, pos2, color_gray, false);
 			}
 			else
 			{
-				render.DebugLine(pos, color, pos2, color, false);
+				core.render.DebugLine(pos, color, pos2, color, false);
 			}
 		}
 
@@ -276,8 +275,8 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2, Vector2 ms,
 
 	if (proceed)
 	{
-		pos_post = render.TransformToScreen(pos, 1);
-		pos2_post = render.TransformToScreen(pos2, 1);
+		pos_post = core.render.TransformToScreen(pos, 1);
+		pos2_post = core.render.TransformToScreen(pos2, 1);
 		
 		float x1 = fmin(pos_post.x , pos2_post.x );
 		float x2 = fmax(pos_post.x , pos2_post.x );
@@ -356,10 +355,10 @@ void Gizmo::CheckSelectionTrans2D(Vector2 ms)
 bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 {
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 
 	Matrix view_proj;
-	render.GetTransform(Render::Projection, view_proj);
+	core.render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
 
 	if (mode == 0)
@@ -448,8 +447,8 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 
 void Gizmo::CheckSelectionTrans3D(Vector2 ms)
 {
-	ms.x /= (float)render.GetDevice()->GetWidth();
-	ms.y /= (float)render.GetDevice()->GetHeight();
+	ms.x /= (float)core.render.GetDevice()->GetWidth();
+	ms.y /= (float)core.render.GetDevice()->GetHeight();
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -462,7 +461,7 @@ void Gizmo::CheckSelectionTrans3D(Vector2 ms)
 
 void Gizmo::MoveTrans2D(Vector2 ms)
 {
-	ms *= (1024.0f / render.GetDevice()->GetHeight());
+	ms *= (1024.0f / core.render.GetDevice()->GetHeight());
 
 	if (ms.Length() < 0.001f)
 	{
@@ -485,7 +484,7 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 		}
 	}
 	else
-	if (selAxis == 9 && controls.DebugKeyPressed("KEY_LALT", Controls::Active))
+	if (selAxis == 9 && core.controls.DebugKeyPressed("KEY_LALT", Controls::Active))
 	{
 		Vector2 p1 = prev_ms + ms - origin;
 		p1.Normalize();
@@ -514,7 +513,7 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 	else
 	if (selAxis == 10)
 	{
-		moved_origin += ms * render.GetDevice()->GetHeight() / 1024.0f;
+		moved_origin += ms * core.render.GetDevice()->GetHeight() / 1024.0f;
 	}
 	else
 	if (selAxis > 0)
@@ -570,7 +569,7 @@ void Gizmo::MoveTrans3D(Vector2 ms)
 		return;
 	}
 
-	Vector2 cur_dir(ms.x / (float)render.GetDevice()->GetWidth(), ms.y / (float)render.GetDevice()->GetHeight());
+	Vector2 cur_dir(ms.x / (float)core.render.GetDevice()->GetWidth(), ms.y / (float)core.render.GetDevice()->GetHeight());
 	float da = cur_dir.Length();
 	cur_dir.Normalize();
 
@@ -630,7 +629,7 @@ void Gizmo::MoveTrans3D(Vector2 ms)
 
 void Gizmo::RenderTrans2D()
 {
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	trans2D->BuildMatrices();
 
@@ -691,18 +690,18 @@ void Gizmo::RenderTrans2D()
 
 			if (!ignore_2d_camera)
 			{
-				p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
-				p2 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+				p1 -= Vector(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+				p2 -= Vector(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 			}
 
 			if (phase == 1)
 			{
-				render.DebugLine2D(Vector2(p1.x, p1.y) * scale, COLOR_WHITE, Vector2(p2.x, p2.y) * scale, COLOR_WHITE);
+				core.render.DebugLine2D(Vector2(p1.x, p1.y) * scale, COLOR_WHITE, Vector2(p2.x, p2.y) * scale, COLOR_WHITE);
 			}
 			else
 			{
 				ancorns[i] = Vector2(p1.x, p1.y) * scale;
-				render.DebugSprite(editor_drawer.anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f), selAxis == (i + 1) ? Color(1.0, 0.9f, 0.0f, 1.0f) : COLOR_WHITE);
+				core.render.DebugSprite(editor_drawer.anchorn, ancorns[i] - Vector2(4.0f), Vector2(8.0f), selAxis == (i + 1) ? Color(1.0, 0.9f, 0.0f, 1.0f) : COLOR_WHITE);
 			}
 		}
 	}
@@ -712,21 +711,21 @@ void Gizmo::RenderTrans2D()
 
 	if (!ignore_2d_camera)
 	{
-		p1 -= Vector(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
+		p1 -= Vector(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f, 0) / scale;
 	}
 
 	origin = Vector2(p1.x, p1.y) * scale;
 
-	render.DebugSprite(editor_drawer.center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
+	core.render.DebugSprite(editor_drawer.center, ((selAxis == 10) ? moved_origin : origin) - Vector2(4.0f), Vector2(8.0f));
 }
 
 void Gizmo::RenderTrans3D()
 {
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 
 	Matrix view_proj;
-	render.GetTransform(Render::Projection, view_proj);
+	core.render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
 
 	Vector pos = transform.Pos();
@@ -828,13 +827,13 @@ void Gizmo::OnLeftMouseUp()
 		Matrix inv = trans2D->mat_global;
 		inv.InverseComplette();
 
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 		moved_origin /= scale;
 
 		if (!ignore_2d_camera)
 		{
-			moved_origin += Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f) / scale;
+			moved_origin += Vector2(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f) / scale;
 		}
 
 		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D->size.x, trans2D->size.y, 1.0f);

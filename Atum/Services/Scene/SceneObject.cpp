@@ -362,7 +362,7 @@ TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 #ifdef EDITOR
 		if (!taskPool)
 		{
-			taskPool = taskExecutor.CreateSingleTaskPool();
+			taskPool = core.taskExecutor.CreateSingleTaskPool();
 			taskPool->SetActive(false);
 		}
 
@@ -382,7 +382,7 @@ TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 #ifdef EDITOR
 		if (!renderTaskPool)
 		{
-			renderTaskPool = renderTaskPool = render.AddTaskPool();
+			renderTaskPool = core.render.AddTaskPool();
 			renderTaskPool->SetActive(false);
 		}
 
@@ -426,7 +426,7 @@ ScriptContext* SceneObject::Script()
 
 PhysScene* SceneObject::PScene()
 {
-	return scene_manager.pscene;
+	return core.scene_manager.pscene;
 }
 
 void SceneObject::Release()

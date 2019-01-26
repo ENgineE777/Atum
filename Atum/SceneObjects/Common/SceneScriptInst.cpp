@@ -97,9 +97,9 @@ void SceneScriptInst::Save(JSONWriter& saver)
 
 bool SceneScriptInst::PostPlay()
 {
-	class_inst = (asIScriptObject*)scripts.engine->CreateScriptObject(Asset()->class_type);
+	class_inst = (asIScriptObject*)core.scripts.engine->CreateScriptObject(Asset()->class_type);
 
-	scripts.RegisterClassInstance(class_inst);
+	core.scripts.RegisterClassInstance(class_inst);
 
 	int index = 0;
 
@@ -123,7 +123,7 @@ bool SceneScriptInst::PostPlay()
 					
 					if (node_inst.object)
 					{
-						auto type = scripts.engine->GetTypeInfoById(class_inst->GetPropertyTypeId(i));
+						auto type = core.scripts.engine->GetTypeInfoById(class_inst->GetPropertyTypeId(i));
 						
 						if (!node_inst.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{
@@ -221,7 +221,7 @@ void SceneScriptInst::Work(float dt)
 
 void SceneScriptInst::Stop()
 {
-	scripts.UnregisterClassInstance(class_inst);
+	core.scripts.UnregisterClassInstance(class_inst);
 	RELEASE(class_inst);
 }
 

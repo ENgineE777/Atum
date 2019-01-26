@@ -5,14 +5,10 @@
 #include "Support/ClassFactory.h"
 #include "Support/MetaData/MetaData.h"
 #include <string>
-#include "Services/TaskExecutor/TaskExecutor.h"
-#include "Services/Render/Render.h"
-#include "Services/Controls/Controls.h"
+#include "Services/Core/Core.h"
 #include "Scene.h"
 #include "SceneObjectComp.h"
 #include "ExecuteLevels.h"
-
-#include "Services/Physic/Physics.h"
 
 #ifdef EDITOR
 #include "Editor/Gizmo.h"
@@ -198,7 +194,7 @@ STRING_PROP(className, layer_name, "", "Common", "Layer")
 STRING_PROP(className, name, "", "Common", "Name")
 
 #define BIND_TYPE_TO_SCRIPT(className)\
-scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-GetMetaData()->BindToScript(scripts.engine, script_class_name);
+core.scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+GetMetaData()->BindToScript(core.scripts.engine, script_class_name);

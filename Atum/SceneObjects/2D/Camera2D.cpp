@@ -28,9 +28,9 @@ Camera2D::~Camera2D()
 void Camera2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(Camera2D)
-	scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_x", memberOFFSET(Camera2D, target_pos.x));
-	scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_y", memberOFFSET(Camera2D, target_pos.y));
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Camera2D, Reset), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_x", memberOFFSET(Camera2D, target_pos.x));
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "float target_pos_y", memberOFFSET(Camera2D, target_pos.y));
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Camera2D, Reset), asCALL_GENERIC);
 }
 
 void Camera2D::Init()
@@ -40,7 +40,7 @@ void Camera2D::Init()
 
 void Camera2D::Update(float dt)
 {
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	if (owner->Playing())
 	{
@@ -57,7 +57,7 @@ void Camera2D::Update(float dt)
 			}
 		}
 
-		float half_screen = (float)render.GetDevice()->GetWidth() / scale * 0.5f;
+		float half_screen = (float)core.render.GetDevice()->GetWidth() / scale * 0.5f;
 		float margin = 50.0f;
 		float border = half_screen - screen_border;
 
@@ -71,7 +71,7 @@ void Camera2D::Update(float dt)
 			trans.pos.x = target_pos.x - screen_border;
 		}
 
-		float half_vert_screen = (float)render.GetDevice()->GetHeight() / scale * 0.5f;
+		float half_vert_screen = (float)core.render.GetDevice()->GetHeight() / scale * 0.5f;
 		float border_vert = half_vert_screen - screen_vert_border;
 
 		if (target_pos.y < trans.pos.y - border_vert)
@@ -103,13 +103,13 @@ void Camera2D::Update(float dt)
 	}
 	else
 	{
-		Vector2 half_screen = Vector2(Sprite::ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - render.GetDevice()->GetHeight() * 0.5f);
+		Vector2 half_screen = Vector2(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f);
 
-		render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN);
-		render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
 	}
 }
 

@@ -69,19 +69,19 @@ void SpritesLayerAsset::SetEditMode(bool ed)
 
 void SpritesLayerAsset::OnLeftMouseDown(Vector2 ms)
 {
-	if (!controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
+	if (!core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
 	{
 		return;
 	}
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	sel_sprite = -1;
 	for (int i = 0; i < sprites.size(); i++)
 	{
 		LayerSprite& sprite = sprites[i];
 
-		Vector2 pos = (sprite.pos + trans.offset * sprite.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = (sprite.pos + trans.offset * sprite.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x < ms.x && ms.x < pos.x + sprite.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + sprite.size.y * scale)

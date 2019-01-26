@@ -172,5 +172,3 @@ public:
 
 	void  Update(float dt);
 };
-
-extern Controls controls;

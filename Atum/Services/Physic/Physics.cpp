@@ -2,8 +2,6 @@
 #include "Services/Render/Render.h"
 #include "SceneObjects/2D/Sprite.h"
 
-Physics physics;
-
 #ifdef PLATFORM_ANDROID
 extern "C"
 {

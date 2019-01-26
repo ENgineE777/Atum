@@ -1,5 +1,4 @@
 #include "tankclient.h"
-#include "Services/Controls/Controls.h"
 
 CLASSREG(SceneObject, TankClient, "TankClient")
 
@@ -14,12 +13,12 @@ void TankClient::Init()
 
 	angles.y = -HALF_PI;
 
-	alias_forward = controls.GetAlias("Tank.MOVE_FORWARD");
-	alias_strafe = controls.GetAlias("Tank.MOVE_STRAFE");
-	alias_rotate_active = controls.GetAlias("Tank.ROTATE_ACTIVE");
-	alias_rotate_x = controls.GetAlias("Tank.ROTATE_X");
-	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
-	alias_fire = controls.GetAlias("Tank.FIRE");
+	alias_forward = core.controls.GetAlias("Tank.MOVE_FORWARD");
+	alias_strafe = core.controls.GetAlias("Tank.MOVE_STRAFE");
+	alias_rotate_active = core.controls.GetAlias("Tank.ROTATE_ACTIVE");
+	alias_rotate_x = core.controls.GetAlias("Tank.ROTATE_X");
+	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
+	alias_fire = core.controls.GetAlias("Tank.FIRE");
 
 	hover_model.LoadModelMS3D("Projects/Tanks/tank_base.ms3d");
 	tower_model.LoadModelMS3D("Projects/Tanks/tank_tower.ms3d");
@@ -89,9 +88,9 @@ void TankClient::Update(float dt)
 
 		if (inst.is_contralable)
 		{
-			if (controls.GetAliasState(alias_rotate_active, Controls::Active))
+			if (core.controls.GetAliasState(alias_rotate_active, Controls::Active))
 			{
-				angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
+				angles.x -= core.controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 
 				if (angles.y > HALF_PI)
 				{
@@ -105,15 +104,15 @@ void TankClient::Update(float dt)
 			}
 
 			view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 55, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
-			proj.BuildProjection(45.0f * RADIAN, (float)render.GetDevice()->GetHeight() / (float)render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+			proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 
-			render.SetTransform(Render::View, view);
-			render.SetTransform(Render::Projection, proj);
+			core.render.SetTransform(Render::View, view);
+			core.render.SetTransform(Render::Projection, proj);
 
 			inst.clientState.needed_tower_angel = inst.serverState.angle;
 
-			Vector2 screepos = Vector2((float)controls.GetAliasValue(alias_rotate_x, false) / (float)render.GetDevice()->GetWidth(),
-			                           (float)controls.GetAliasValue(alias_rotate_y, false) / (float)render.GetDevice()->GetHeight());
+			Vector2 screepos = Vector2((float)core.controls.GetAliasValue(alias_rotate_x, false) / (float)core.render.GetDevice()->GetWidth(),
+			                           (float)core.controls.GetAliasValue(alias_rotate_y, false) / (float)core.render.GetDevice()->GetHeight());
 
 			Vector v;
 			v.x = (2.0f * screepos.x - 1) / proj._11;
@@ -138,7 +137,7 @@ void TankClient::Update(float dt)
 			if (PScene()->RayCast(rcdesc))
 			{
 				target_pt = rcdesc.hitPos;
-				render.DebugSphere(target_pt, COLOR_RED, 0.5f);
+				core.render.DebugSphere(target_pt, COLOR_RED, 0.5f);
 
 				dir = target_pt - mat.Pos();
 				dir.Normalize();
@@ -183,10 +182,10 @@ void TankClient::Update(float dt)
 			}
 			else
 			{
-				inst.clientState.up = (int)controls.GetAliasValue(alias_forward, false);
-				inst.clientState.rotate = (int)controls.GetAliasValue(alias_strafe, false);
+				inst.clientState.up = (int)core.controls.GetAliasValue(alias_forward, false);
+				inst.clientState.rotate = (int)core.controls.GetAliasValue(alias_strafe, false);
 
-				inst.clientState.fired = controls.GetAliasState(alias_fire);
+				inst.clientState.fired = core.controls.GetAliasState(alias_fire);
 			}
 		}
 
@@ -242,9 +241,9 @@ void TankClient::Update(float dt)
 
 		mat.Vy() = mat.Vz().Cross(mat.Vx());
 
-		render.DebugSphere(p1, COLOR_RED, 0.5f);
-		render.DebugSphere(p2, COLOR_RED, 0.5f);
-		render.DebugSphere(p3, COLOR_RED, 0.5f);
+		core.render.DebugSphere(p1, COLOR_RED, 0.5f);
+		core.render.DebugSphere(p2, COLOR_RED, 0.5f);
+		core.render.DebugSphere(p3, COLOR_RED, 0.5f);
 
 		Matrix mdl = mat;
 		inst.hover_drawer->SetTransform(mdl);
@@ -288,7 +287,7 @@ void TankClient::Update(float dt)
 				trg = rcdesc.hitPos;
 			}
 
-			render.DebugSphere(trg, COLOR_CYAN, 0.5f);
+			core.render.DebugSphere(trg, COLOR_CYAN, 0.5f);
 		}
 	}
 }

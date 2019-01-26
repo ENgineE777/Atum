@@ -1,32 +1,33 @@
 #include "EditorDrawer.h"
 #include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 
 EditorDrawer editor_drawer;
 
 void EditorDrawer::Init()
 {
-	anchorn = render.LoadTexture("settings\\editor\\gizmo_anch.png");
+	anchorn = core.render.LoadTexture("settings\\editor\\gizmo_anch.png");
 	anchorn->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 
-	center = render.LoadTexture("settings\\editor\\gizmo_center.png");
+	center = core.render.LoadTexture("settings\\editor\\gizmo_center.png");
 	center->SetFilters(Texture::FilterType::Point, Texture::FilterType::Point);
 
-	node_tex = render.LoadTexture("settings\\editor\\node.png");
+	node_tex = core.render.LoadTexture("settings\\editor\\node.png");
 	node_tex->SetFilters(Texture::Point, Texture::Point);
 
-	arrow_tex = render.LoadTexture("settings\\editor\\arrow.png");
+	arrow_tex = core.render.LoadTexture("settings\\editor\\arrow.png");
 	arrow_tex->SetFilters(Texture::Point, Texture::Point);
 
-	checker_texture = render.LoadTexture("settings/editor/checker.png");
+	checker_texture = core.render.LoadTexture("settings/editor/checker.png");
 	checker_texture->SetFilters(Texture::Point, Texture::Point);
 
-	font = fonts.LoadFont("settings\\eui\\DroidSans.ttf", false, false, 11);
+	font = core.fonts.LoadFont("settings\\eui\\DroidSans.ttf", false, false, 11);
 }
 
 void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color color)
 {
-	if (pos.x + size.x < 0 || render.GetDevice()->GetWidth() < pos.x ||
-		pos.y + size.y < 0 || render.GetDevice()->GetHeight() < pos.y)
+	if (pos.x + size.x < 0 || core.render.GetDevice()->GetWidth() < pos.x ||
+		pos.y + size.y < 0 || core.render.GetDevice()->GetHeight() < pos.y)
 	{
 		return;
 	}
@@ -36,8 +37,8 @@ void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color col
 
 void EditorDrawer::PrintText(Vector2 pos, Color color, const char* text)
 {
-	if (pos.x + 250 < 0 || render.GetDevice()->GetWidth() < pos.x ||
-		pos.y + 15 < 0 || render.GetDevice()->GetHeight() < pos.y)
+	if (pos.x + 250 < 0 || core.render.GetDevice()->GetWidth() < pos.x ||
+		pos.y + 15 < 0 || core.render.GetDevice()->GetHeight() < pos.y)
 	{
 		return;
 	}
@@ -78,7 +79,7 @@ void EditorDrawer::DrawCurve(Vector2 from, Vector2 to, Color color)
 		float w4 = t * t *t;
 		Vector2 pos = w1 * from + w2 * p2 + w3 * p3 + w4 * to;
 
-		render.DebugLine2D(last, color, pos, color);
+		core.render.DebugLine2D(last, color, pos, color);
 
 		last = pos;
 	}

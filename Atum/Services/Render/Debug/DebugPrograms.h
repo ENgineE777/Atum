@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 
 class DebugPrograms
 {
@@ -20,8 +20,8 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetDepthTest(false);
-			render.GetDevice()->SetDepthWriting(false);
+			core.render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthWriting(false);
 		};
 	};
 
@@ -40,9 +40,9 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetAlphaBlend(true);
-			render.GetDevice()->SetDepthTest(false);
-			render.GetDevice()->SetDepthWriting(false);
+			core.render.GetDevice()->SetAlphaBlend(true);
+			core.render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthWriting(false);
 		};
 	};
 };

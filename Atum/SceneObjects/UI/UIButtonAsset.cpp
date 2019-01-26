@@ -82,9 +82,9 @@ void UIButtonAssetInst::BindClassToScript()
 
 void UIButtonAssetInst::Init()
 {
-	alias_rotate_x = controls.GetAlias("Tank.ROTATE_X");
-	alias_rotate_y = controls.GetAlias("Tank.ROTATE_Y");
-	alias_fire = controls.GetAlias("Tank.FIRE");
+	alias_rotate_x = core.controls.GetAlias("Tank.ROTATE_X");
+	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
+	alias_fire = core.controls.GetAlias("Tank.FIRE");
 
 	script_callbacks.push_back(ScriptCallback("OnDown", "void", ""));
 }
@@ -98,9 +98,9 @@ void UIButtonAssetInst::Draw(float dt)
 
 	if (Playing())
 	{
-		if (controls.GetAliasState(alias_fire))
+		if (core.controls.GetAliasState(alias_fire))
 		{
-			float scale = render.GetDevice()->GetHeight() / 1024.0f;
+			float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 			Matrix mat = trans.mat_global;
 
 			Vector2 pos = trans.offset * trans.size * -1.0f;
@@ -111,8 +111,8 @@ void UIButtonAssetInst::Draw(float dt)
 
 			Vector2 size = trans.size * scale;
 
-			float mx = controls.GetAliasValue(alias_rotate_x, false);
-			float my = controls.GetAliasValue(alias_rotate_y, false);
+			float mx = core.controls.GetAliasValue(alias_rotate_x, false);
+			float my = core.controls.GetAliasValue(alias_rotate_y, false);
 
 			if (pos.x < mx && mx < pos.x + size.x &&
 				pos.y < my && my < pos.y + size.y)

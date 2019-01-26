@@ -1,5 +1,5 @@
 
-#include "Render.h"
+#include "Services/Core/Core.h"
 #include "Program.h"
 
 std::map<std::string, Vector4>  Program::vectors;
@@ -27,12 +27,12 @@ bool Program::Init()
 {
 	if (GetVsName())
 	{
-		vshader = render.GetDevice()->CreateShader(Shader::Vertex, GetVsName());
+		vshader = core.render.GetDevice()->CreateShader(Shader::Vertex, GetVsName());
 	}
 
 	if (GetPsName())
 	{
-		pshader = render.GetDevice()->CreateShader(Shader::Pixel, GetPsName());
+		pshader = core.render.GetDevice()->CreateShader(Shader::Pixel, GetPsName());
 	}
 
 	return true;

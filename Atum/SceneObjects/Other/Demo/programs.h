@@ -1,5 +1,5 @@
 
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 
 class Programs
 {
@@ -13,7 +13,7 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetAlphaBlend(true);
+			core.render.GetDevice()->SetAlphaBlend(true);
 		};
 	};
 
@@ -23,8 +23,8 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetAlphaBlend(true);
-			render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetAlphaBlend(true);
+			core.render.GetDevice()->SetDepthTest(false);
 		};
 	};
 
@@ -56,7 +56,7 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthTest(false);
 		};
 	};
 
@@ -68,7 +68,7 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthTest(false);
 		};
 	};
 
@@ -80,7 +80,7 @@ public:
 
 		virtual void ApplyStates()
 		{
-			render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthTest(false);
 		};
 	};
 

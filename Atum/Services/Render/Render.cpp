@@ -21,8 +21,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Support/stb/stb_image.h"
 
-Render render;
-
 Render::Render()
 {
 	device = nullptr;
@@ -39,10 +37,10 @@ bool Render::Init(const char* device_name, void* external_device)
 	device = new DeviceGLES();
 #endif
 
-	groupTaskPool = taskExecutor.CreateGroupTaskPool();
+	groupTaskPool = core.taskExecutor.CreateGroupTaskPool();
 	debugTaskPool = groupTaskPool->AddTaskPool();
 
-	taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
+	core.taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
 
 	if (!device->Init(external_device))
 	{
@@ -275,10 +273,10 @@ void Render::DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color colo
 Vector Render::TransformToScreen(Vector pos, int type)
 {
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 
 	Matrix view_proj;
-	render.GetTransform(Render::WrldViewProj, view_proj);
+	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Vector pre_ps = pos * view;
 	Vector4 ps2 = view_proj.MulVertex4(pos);
@@ -300,8 +298,8 @@ Vector Render::TransformToScreen(Vector pos, int type)
 
 		if (type == 2)
 		{
-			ps.x *= render.GetDevice()->GetWidth();
-			ps.y *= render.GetDevice()->GetHeight();
+			ps.x *= core.render.GetDevice()->GetWidth();
+			ps.y *= core.render.GetDevice()->GetHeight();
 		}
 	}
 

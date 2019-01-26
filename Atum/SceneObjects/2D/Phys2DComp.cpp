@@ -105,11 +105,11 @@ void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy)
 void Phys2DCompInst::BindClassToScript()
 {
 	script_class_name = "Phys2D";
-	scripts.engine->RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), asOBJ_REF | asOBJ_NOCOUNT);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), asOBJ_REF | asOBJ_NOCOUNT);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), asCALL_GENERIC);
 }
 
 void Phys2DCompInst::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)

@@ -33,8 +33,6 @@ static int android_close(void* cookie)
 
 #endif
 
-Files files;
-
 void Files::Init()
 {
 }

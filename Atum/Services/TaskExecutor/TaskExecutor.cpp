@@ -1,9 +1,6 @@
 
 #include "TaskExecutor.h"
 
-TaskExecutor taskExecutor;
-
-
 TaskExecutor::SingleTaskPool::SingleTaskPool()
 {
 	active = true;

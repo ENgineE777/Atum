@@ -456,8 +456,8 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 		tb_curTime->SetText(str);
 	}
 
-	render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
-	((EUIPanel*)sender)->SetTexture(render.GetDevice()->GetBackBuffer());
+	core.render.GetDevice()->SetVideoMode((int)sender->GetWidth(), (int)sender->GetHeight(), sender->GetNative());
+	((EUIPanel*)sender)->SetTexture(core.render.GetDevice()->GetBackBuffer());
 
 	Transform2D trans;
 	Sprite::FrameState state;
@@ -465,10 +465,10 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 	Sprite::Draw(nullptr, Color(0.301f, 0.301f, 0.301f, 1.0f), Matrix(), Vector2(0.0f, 1.5f), Vector2(LeftRowWidth, CaptionHeight - 0.5f), 0.0f, 1.0f, false);
 	Sprite::Draw(nullptr, Color(0.301f, 0.301f, 0.301f, 1.0f), Matrix(), Vector2(LeftRowWidth, 1.5f), Vector2((float)timeline_panel->GetWidth(), CaptionHeight - 0.5f), 0.0f, 1.0f, false);
 
-	render.DebugLine2D(Vector2(0.0f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), 0.5f), COLOR_BLACK);
-	render.DebugLine2D(Vector2(0.0f, CaptionHeight - 0.5f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), CaptionHeight - 0.5f), COLOR_BLACK);
+	core.render.DebugLine2D(Vector2(0.0f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), 0.5f), COLOR_BLACK);
+	core.render.DebugLine2D(Vector2(0.0f, CaptionHeight - 0.5f), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), CaptionHeight - 0.5f), COLOR_BLACK);
 
-	render.DebugLine2D(Vector2(LeftRowWidth - 0.5f, 0.5f), COLOR_BLACK, Vector2(LeftRowWidth - 0.5f, (float)timeline_panel->GetHeight() - 0.5f), COLOR_BLACK);
+	core.render.DebugLine2D(Vector2(LeftRowWidth - 0.5f, 0.5f), COLOR_BLACK, Vector2(LeftRowWidth - 0.5f, (float)timeline_panel->GetHeight() - 0.5f), COLOR_BLACK);
 
 	float offset = horz_scroll->GetPosition() * 0.1f;
 	float tm = offset;
@@ -485,11 +485,11 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 			char str[16];
 			sprintf(str, "%i", (int)(tm + 0.25f));
 
-			render.DebugPrintText(Vector2((float)pos - 2.0f, 3.0f), COLOR_LIGHT_GRAY, str);
+			core.render.DebugPrintText(Vector2((float)pos - 2.0f, 3.0f), COLOR_LIGHT_GRAY, str);
 			y = 20;
 		}
 
-		render.DebugLine2D(Vector2((float)pos, (float)y), COLOR_LIGHT_GRAY, Vector2((float)pos, (float)CaptionHeight), COLOR_LIGHT_GRAY);
+		core.render.DebugLine2D(Vector2((float)pos, (float)y), COLOR_LIGHT_GRAY, Vector2((float)pos, (float)CaptionHeight), COLOR_LIGHT_GRAY);
 
 		tm += 0.1f;
 	}
@@ -526,7 +526,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 
 			char str[256];
 			StringUtils::Printf(str, 256, "%s %s", player->GetName(), (active ? "(Active)" : "(Inactive)"));
-			render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_WHITE, str);
+			core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_WHITE, str);
 		}
 
 		index++;
@@ -550,7 +550,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 				Sprite::Draw(nullptr, color, Matrix(), Vector2(0.0f, (float)CalcLinePos(draw_index)), Vector2((float)LeftRowWidth + 1.0f, (float)RowHeight), 0.0f, 1.0f, false);
 				Sprite::Draw(nullptr, color, Matrix(), Vector2((float)LeftRowWidth, (float)CalcLinePos(draw_index)), Vector2((float)timeline_panel->GetWidth() + 1.0f - (float)LeftRowWidth, (float)RowHeight), 0.0f, 1.0f, false);
 
-				render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_LIGHT_GRAY, track->GetName());
+				core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_LIGHT_GRAY, track->GetName());
 
 				for (int p = 0; p < track->GetKeysCount(); p++)
 				{
@@ -563,7 +563,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 
 						if (next_tm > 0.0f && tm < tm_width)
 						{
-							render.DebugLine2D(Vector2((float)CalcKeyPos(fmax(0.0f, tm)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(fmin(next_tm, tm_width)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY);
+							core.render.DebugLine2D(Vector2((float)CalcKeyPos(fmax(0.0f, tm)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(fmin(next_tm, tm_width)), (float)CalcLinePos(draw_index) + 10.0f), COLOR_LIGHT_GRAY);
 						}
 					}
 
@@ -585,7 +585,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 			draw_index++;
 		}
 
-		render.DebugLine2D(Vector2(0.5f, (float)CalcLinePos(draw_index)), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), (float)CalcLinePos(draw_index)), COLOR_BLACK);
+		core.render.DebugLine2D(Vector2(0.5f, (float)CalcLinePos(draw_index)), COLOR_BLACK, Vector2((float)timeline_panel->GetWidth(), (float)CalcLinePos(draw_index)), COLOR_BLACK);
 
 		last_y += 20 * (int)(owner->players[i]->tracks.size() + 1);
 	}
@@ -594,17 +594,17 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 
 	if ((owner->edCurTime - offset >= 0.0f) && (owner->edCurTime - offset <= tm_width))
 	{
-		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+		core.render.DebugLine2D(Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->edCurTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
 	}
 
 	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
 	{
-		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+		core.render.DebugLine2D(Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, 12.0f), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->fromTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
 	}
 
 	if ((owner->toTime - offset >= 0.0f) && (owner->toTime - offset <= tm_width))
 	{
-		render.DebugLine2D(Vector2((float)CalcKeyPos(owner->toTime - offset) + 2, 12), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->toTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
+		core.render.DebugLine2D(Vector2((float)CalcKeyPos(owner->toTime - offset) + 2, 12), COLOR_LIGHT_GRAY, Vector2((float)CalcKeyPos(owner->toTime - offset) + 2.0f, (float)CalcLinePos(max_lines)), COLOR_LIGHT_GRAY);
 	}
 
 	if ((owner->fromTime - offset >= 0.0f) && (owner->fromTime - offset <= tm_width))
@@ -622,9 +622,9 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 		Sprite::Draw(nullptr, COLOR_WHITE, Matrix(), Vector2((float)CalcKeyPos(owner->edCurTime - offset), 2.0f), Vector2(5, 14), 0.0f, 1.0f, false);
 	}
 
-	render.ExecutePool(ExecuteLevels::Debug, 0.0f);
+	core.render.ExecutePool(ExecuteLevels::Debug, 0.0f);
 
-	render.GetDevice()->Present();
+	core.render.GetDevice()->Present();
 }
 
 void AnimatorWindow::SetSelection(int player, int track, int key)

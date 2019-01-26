@@ -4,13 +4,13 @@
 void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(2, desc);
 
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugSprites::Draw);
 
-	whiteTex = render.LoadTexture("settings/editor/white.png");
+	whiteTex = core.render.LoadTexture("settings/editor/white.png");
 
-	vbuffer = render.GetDevice()->CreateBuffer(sizeof(SpriteVertex) * 4, sizeof(SpriteVertex));
+	vbuffer = core.render.GetDevice()->CreateBuffer(sizeof(SpriteVertex) * 4, sizeof(SpriteVertex));
 
 	SpriteVertex* Data = (SpriteVertex*)vbuffer->Lock();
 
@@ -41,7 +41,7 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	vbuffer->Unlock();
 
-	prg = render.GetProgram("DbgSprite");
+	prg = core.render.GetProgram("DbgSprite");
 }
 
 void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Color color)
@@ -61,10 +61,10 @@ void DebugSprites::Draw(float dt)
 {
 	if (sprites.size() == 0) return;
 
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer( 0, vbuffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer( 0, vbuffer);
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 	Vector4 params[2];
 
 	for (int i=0;i<sprites.size();i++)
@@ -72,14 +72,14 @@ void DebugSprites::Draw(float dt)
 		prg->SetTexture(Program::Pixel, "diffuseMap", sprites[i].texture ? sprites[i].texture : whiteTex);
 		prg->SetVector(Program::Pixel, "color", (Vector4*)&sprites[i].color.r, 1);
 
-		params[0] = Vector4((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight(), 0, 0);
+		params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0, 0);
 
 		params[1] = Vector4(sprites[i].pos.x,sprites[i].pos.y,
 		                    sprites[i].size.x,sprites[i].size.y);
 
 		prg->SetVector(Program::Vertex, "desc", params, 2);
 
-		render.GetDevice()->Draw(Device::TriangleStrip, 0, 2 );
+		core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2 );
 	}
 
 	sprites.clear();

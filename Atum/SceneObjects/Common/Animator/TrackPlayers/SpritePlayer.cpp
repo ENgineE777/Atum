@@ -21,7 +21,7 @@ void SpritePlayer::Init()
 {
 	AddTransform2DDataTrack(Transform, &trans, NULL)
 
-	tex = render.LoadTexture("Media/sprite_level16_2-hd.png");
+	tex = core.render.LoadTexture("Media/sprite_level16_2-hd.png");
 
 	owner->RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpritePlayer::Draw);
 }

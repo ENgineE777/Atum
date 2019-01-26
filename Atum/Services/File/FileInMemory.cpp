@@ -1,12 +1,12 @@
 
 #include "FileInMemory.h"
-#include "Files.h"
+#include "Services/Core/Core.h"
 
 bool FileInMemory::Load(const char* name)
 {
 	Release();
 
-	FILE* file = files.FileOpen(name, "rb");
+	FILE* file = core.files.FileOpen(name, "rb");
 
 	if (file)
 	{

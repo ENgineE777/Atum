@@ -1,6 +1,6 @@
 
 #include "Physics.h"
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 #include "Services/Scene/SceneObject.h"
 
 PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type)
@@ -21,8 +21,8 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 
 	if (type == PhysObject::Static || type == PhysObject::Trigger)
 	{
-		obj->actor = physics.physics->createRigidStatic(transform);
-		PxShape* shape = obj->actor->createShape(geometry, *physics.defMaterial);
+		obj->actor = core.physics.physics->createRigidStatic(transform);
+		PxShape* shape = obj->actor->createShape(geometry, *core.physics.defMaterial);
 
 		if (type == PhysObject::Trigger)
 		{
@@ -35,7 +35,7 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 		Quaternion q_offset(trans);
 		PxTransform trans_offset(PxVec3(offset.Pos().x, offset.Pos().y, offset.Pos().z), PxQuat(q_offset.x, q_offset.y, q_offset.z, q_offset.w));
 
-		PxRigidDynamic* actor = PxCreateDynamic(*physics.physics, transform, geometry, *physics.defMaterial, density, trans_offset);
+		PxRigidDynamic* actor = PxCreateDynamic(*core.physics.physics, transform, geometry, *core.physics.defMaterial, density, trans_offset);
 		actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y);
 
 		if (type == PhysObject::Kinetic)
@@ -68,7 +68,7 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
 	pxdesc.contactOffset = 0.1f;
 	pxdesc.stepOffset = 0.5f;
 	pxdesc.scaleCoeff = 0.8f;
-	pxdesc.material = physics.defMaterial;
+	pxdesc.material = core.physics.defMaterial;
 
 	PhysController* controller = new PhysController();
 	pxdesc.reportCallback = controller;
@@ -87,16 +87,16 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char*
 	Physics::StraemReader reader;
 	if (reader.buffer.Load(name))
 	{
-		hm->heightField = physics.physics->createHeightField(reader);
+		hm->heightField = core.physics.physics->createHeightField(reader);
 
 		if (hm->heightField)
 		{
 			PxTransform pose = PxTransform(PxVec3(-desc.width * 0.5f * desc.scale.x, 0.0f, -desc.height * 0.5f * desc.scale.x), PxQuat(PxIdentity));
 
-			hm->actor = physics.physics->createRigidStatic(pose);
+			hm->actor = core.physics.physics->createRigidStatic(pose);
 
 			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
-			hm->actor->createShape(hfGeom, *physics.defMaterial);
+			hm->actor->createShape(hfGeom, *core.physics.defMaterial);
 
 			scene->addActor(*hm->actor);
 		}
@@ -117,8 +117,8 @@ void PhysScene::DrawVisualization()
 	for (PxU32 i = 0; i < rb.getNbLines(); i++)
 	{
 		const PxDebugLine& line = rb.getLines()[i];
-		render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
-		                 Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
+		core.render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
+		                      Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
 	}
 }
 

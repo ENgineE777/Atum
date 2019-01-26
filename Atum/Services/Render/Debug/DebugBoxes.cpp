@@ -1,11 +1,12 @@
 #include "DebugBoxes.h"
+#include "Services/Core/Core.h"
 
 void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(3, desc);
 
-	vbuffer = render.GetDevice()->CreateBuffer(24, sizeof(Vertex));
+	vbuffer = core.render.GetDevice()->CreateBuffer(24, sizeof(Vertex));
 
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
 
@@ -67,7 +68,7 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	vbuffer->Unlock();
 
-	ibuffer = render.GetDevice()->CreateBuffer(12 * 3, sizeof(int));
+	ibuffer = core.render.GetDevice()->CreateBuffer(12 * 3, sizeof(int));
 
 	int* indices = (int*)ibuffer->Lock();
 
@@ -78,7 +79,7 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	ibuffer->Unlock();
 
-	prg = render.GetProgram("DbgTriangle");
+	prg = core.render.GetProgram("DbgTriangle");
 
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugBoxes::Draw);
 }
@@ -99,26 +100,26 @@ void DebugBoxes::Draw(float dt)
 		return;
 	}
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer(0, vbuffer);
-	render.GetDevice()->SetIndexBuffer(ibuffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, vbuffer);
+	core.render.GetDevice()->SetIndexBuffer(ibuffer);
 
 	Matrix view_proj;
 	Matrix tmp;
-	render.SetTransform(Render::World, tmp);
-	render.GetTransform(Render::WrldViewProj, view_proj);
+	core.render.SetTransform(Render::World, tmp);
+	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
 	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
 	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
 
-	render.GetDevice()->SetAlphaBlend(false);
+	core.render.GetDevice()->SetAlphaBlend(false);
 
 	for (int i=0;i<boxes.size();i++)
 	{
@@ -127,7 +128,7 @@ void DebugBoxes::Draw(float dt)
 		prg->SetMatrix(Program::Vertex, "trans", &box.trans, 1);
 		prg->SetVector(Program::Pixel, "color", (Vector4*)&box.color, 1);
 
-		render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, 12);
+		core.render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, 12);
 	}
 
 	boxes.clear();

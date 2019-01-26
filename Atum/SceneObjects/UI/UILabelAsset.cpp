@@ -62,7 +62,7 @@ void UILabelAsset::ApplyProperties()
 {
 	RELEASE(font)
 
-	font = fonts.LoadFont(font_name.c_str(), false, false, (int)(font_height * render.GetDevice()->GetHeight() / 1024.0f));
+	font = core.fonts.LoadFont(font_name.c_str(), false, false, (int)(font_height * core.render.GetDevice()->GetHeight() / 1024.0f));
 }
 
 void UILabelAsset::SetText(string& set_text)
@@ -95,7 +95,7 @@ void UILabelAsset::Draw(float dt)
 		}
 		else
 		{
-			parent_size.x = render.GetDevice()->GetWidth() * 1024.0f / render.GetDevice()->GetHeight();
+			parent_size.x = core.render.GetDevice()->GetWidth() * 1024.0f / core.render.GetDevice()->GetHeight();
 			parent_size.y = 1024.0f;
 		}
 
@@ -107,7 +107,7 @@ void UILabelAsset::Draw(float dt)
 
 	if (horzSize == wrap_context && line_breaks.size() == 1)
 	{
-		trans.size.x = line_breaks[0].width * 1024.0f / render.GetDevice()->GetHeight();
+		trans.size.x = line_breaks[0].width * 1024.0f / core.render.GetDevice()->GetHeight();
 	}
 
 	if (vertSize == wrap_context)
@@ -117,14 +117,14 @@ void UILabelAsset::Draw(float dt)
 
 	CalcState();
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 	Matrix mat = trans.mat_global;
 	mat.Pos().x -= trans.size.x * trans.offset.x;
 	mat.Pos().y -= trans.size.y * trans.offset.y;
 
 	if (textHorzAlign == align_center && line_breaks.size() == 1)
 	{
-		mat.Pos().x += (trans.size.x - line_breaks[0].width * 1024.0f / render.GetDevice()->GetHeight()) * 0.5f;
+		mat.Pos().x += (trans.size.x - line_breaks[0].width * 1024.0f / core.render.GetDevice()->GetHeight()) * 0.5f;
 	}
 
 	if (textVertAlign == align_center)
@@ -156,7 +156,7 @@ META_DATA_DESC_END()
 void UILabelAssetInst::BindClassToScript()
 {
 	BIND_INST_TYPE_TO_SCRIPT(UILabelAssetInst, UILabelAsset)
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText), asCALL_GENERIC);
 }
 
 #ifdef EDITOR

@@ -107,5 +107,3 @@ private:
 
 	std::vector<Pool> pools;
 };
-
-extern TaskExecutor taskExecutor;

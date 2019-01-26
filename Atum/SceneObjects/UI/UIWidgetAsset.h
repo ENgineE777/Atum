@@ -88,7 +88,7 @@ BASE_SCENE_OBJ_STATE_PROP(className)
 
 
 #define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
-scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-classAssetName::meta_data.BindToScript(scripts.engine, script_class_name);
+core.scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
+core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
+core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
+classAssetName::meta_data.BindToScript(core.scripts.engine, script_class_name);

@@ -18,5 +18,3 @@ public:
 
 	void Stop();
 };
-
-extern Scripts scripts;

@@ -75,5 +75,3 @@ public:
 	void Update(float dt);
 	void Fetch();
 };
-
-extern Physics physics;

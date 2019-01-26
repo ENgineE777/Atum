@@ -36,7 +36,7 @@ void PhysBox::Draw(float dt)
 		obj->GetTransform(transform);
 	}
 
-	render.DebugBox(transform, color, Vector(sizeX, sizeY, sizeZ));
+	core.render.DebugBox(transform, color, Vector(sizeX, sizeY, sizeZ));
 }
 
 bool PhysBox::Play()

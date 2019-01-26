@@ -22,7 +22,7 @@ Program* Programs::GetTranglPrg()
 
 	if (!prg)
 	{
-		prg = render.GetProgram("TriangleProgram");
+		prg = core.render.GetProgram("TriangleProgram");
 	}
 
 	return prg;
@@ -34,7 +34,7 @@ Program* Programs::GetShdTranglPrg()
 
 	if (!prg)
 	{
-		prg = render.GetProgram("ShTriangleProgram");
+		prg = core.render.GetProgram("ShTriangleProgram");
 	}
 
 	return prg;

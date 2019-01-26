@@ -3,7 +3,7 @@
 #include <string>
 #include <stdarg.h>
 #include "Support/StringUtils.h"
-#include "Services/File/Files.h"
+#include "Services/Core/Core.h"
 
 JSONWriter::JSONWriter()
 {
@@ -17,7 +17,7 @@ JSONWriter::~JSONWriter()
 
 bool JSONWriter::Start(const char* name)
 {
-	file = files.FileOpen(name, "wb");
+	file = core.files.FileOpen(name, "wb");
 
 	if (file)
 	{

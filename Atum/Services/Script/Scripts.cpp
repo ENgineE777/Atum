@@ -12,8 +12,6 @@
 #include "SceneObjects/2D/Sprite.h"
 #include "SceneObjects/2D/Sprite.h"
 
-Scripts scripts;
-
 void MessageCallback(const asSMessageInfo *msg, void *param)
 {
 	const char *type = "ERR ";
@@ -34,74 +32,74 @@ void PrintString_Generic(asIScriptGeneric *gen)
 void RenderPrint_Generic(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(2)) ;
-	render.DebugPrintText(Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)), COLOR_WHITE, arg->c_str());
+	core.render.DebugPrintText(Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)), COLOR_WHITE, arg->c_str());
 }
 
 void RenderDrawLine2D_Generic(asIScriptGeneric *gen)
 {
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
-	Vector2 p1 = Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)) * scale - Sprite::cam_pos * scale + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-	Vector2 p2 = Vector2(gen->GetArgFloat(2), gen->GetArgFloat(3)) * scale - Sprite::cam_pos * scale + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+	Vector2 p1 = Vector2(gen->GetArgFloat(0), gen->GetArgFloat(1)) * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+	Vector2 p2 = Vector2(gen->GetArgFloat(2), gen->GetArgFloat(3)) * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
-	render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
+	core.render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
 }
 
 void RenderGetWidth_Generic(asIScriptGeneric *gen)
 {
-	gen->SetReturnDWord(render.GetDevice()->GetWidth());
+	gen->SetReturnDWord(core.render.GetDevice()->GetWidth());
 }
 
 void RenderGetHeight_Generic(asIScriptGeneric *gen)
 {
-	gen->SetReturnDWord(render.GetDevice()->GetHeight());
+	gen->SetReturnDWord(core.render.GetDevice()->GetHeight());
 }
 
 void Control_GetAliasIndex(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(0));
-	gen->SetReturnDWord(controls.GetAlias(arg->c_str()));
+	gen->SetReturnDWord(core.controls.GetAlias(arg->c_str()));
 }
 
 void Control_GetState(asIScriptGeneric *gen)
 {
-	gen->SetReturnDWord(controls.GetAliasState(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
+	gen->SetReturnDWord(core.controls.GetAliasState(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
 }
 
 void Control_GetValue(asIScriptGeneric *gen)
 {
-	gen->SetReturnFloat(controls.GetAliasValue(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
+	gen->SetReturnFloat(core.controls.GetAliasValue(gen->GetArgDWord(0), (Controls::AliasAction)gen->GetArgDWord(1)));
 }
 
 void Control_GetDebugState(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(0));
-	gen->SetReturnDWord(controls.DebugKeyPressed(arg->c_str(), (Controls::AliasAction)gen->GetArgDWord(1)));
+	gen->SetReturnDWord(core.controls.DebugKeyPressed(arg->c_str(), (Controls::AliasAction)gen->GetArgDWord(1)));
 }
 
 void Control_IsGamepadConnected(asIScriptGeneric *gen)
 {
-	gen->SetReturnDWord(controls.IsGamepadConnected() ? 1 : 0);
+	gen->SetReturnDWord(core.controls.IsGamepadConnected() ? 1 : 0);
 }
 
 void Scene_Group_SetState(asIScriptGeneric *gen)
 {
-	scene_manager.SetScenesGroupsState(((string*)gen->GetArgAddress(0))->c_str(), gen->GetArgDWord(1));
+	core.scene_manager.SetScenesGroupsState(((string*)gen->GetArgAddress(0))->c_str(), gen->GetArgDWord(1));
 }
 
 void Scene_Load(asIScriptGeneric *gen)
 {
-	scene_manager.LoadScene(((string*)gen->GetArgAddress(0))->c_str());
+	core.scene_manager.LoadScene(((string*)gen->GetArgAddress(0))->c_str());
 }
 
 void Scene_Unload(asIScriptGeneric *gen)
 {
-	scene_manager.UnloadScene(((string*)gen->GetArgAddress(0))->c_str());
+	core.scene_manager.UnloadScene(((string*)gen->GetArgAddress(0))->c_str());
 }
 
 void Script_CallClassInstancesMethod(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(0));
-	scripts.CallClassInstancesMethod(arg->c_str());
+	core.scripts.CallClassInstancesMethod(arg->c_str());
 }
 
 void Scene_Raycast2D(asIScriptGeneric *gen)
@@ -114,7 +112,7 @@ void Scene_Raycast2D(asIScriptGeneric *gen)
 	rcdesc.dir = Vector(gen->GetArgFloat(2), -gen->GetArgFloat(3), 0.0f);
 	rcdesc.length = gen->GetArgFloat(4) * scale;
 
-	if (scene_manager.PScene()->RayCast(rcdesc))
+	if (core.scene_manager.PScene()->RayCast(rcdesc))
 	{
 		*((float*)(gen->GetArgAddress(5))) = rcdesc.hitPos.x * 50.0f;
 		*((float*)(gen->GetArgAddress(6))) = -rcdesc.hitPos.y * 50.0f;

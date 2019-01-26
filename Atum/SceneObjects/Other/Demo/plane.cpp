@@ -5,10 +5,10 @@
 void Plane::Init(float plane_y, const char* tex_name)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(2, desc);
 
 	int stride = sizeof(VertexTri);
-	buffer = render.GetDevice()->CreateBuffer(6, stride);
+	buffer = core.render.GetDevice()->CreateBuffer(6, stride);
 
 	VertexTri* v_tri = (VertexTri*)buffer->Lock();
 
@@ -31,7 +31,7 @@ void Plane::Init(float plane_y, const char* tex_name)
 
 	buffer->Unlock();
 
-	texture = render.LoadTexture("Media//grass.tga");
+	texture = core.render.LoadTexture("Media//grass.tga");
 
 	//render.AddDelegate("geometry", this, (Object::Delegate)&Plane::Render, 0);
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Plane::ShRender, 0);
@@ -49,17 +49,17 @@ void Plane::ShRender(float dt)
 
 void Plane::Render(Program* prg)
 {
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer(0, buffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, buffer);
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 
 	Vector4 color(1.0f, 1.0f, 1.0f, 1.0f);
 
-	render.SetTransform(Render::World, Matrix());
+	core.render.SetTransform(Render::World, Matrix());
 
 	Matrix trans;
-	render.GetTransform(Render::WrldViewProj, trans);
+	core.render.GetTransform(Render::WrldViewProj, trans);
 
 	Matrix mat;
 	prg->SetMatrix(Program::Vertex, "world", &mat, 1);
@@ -67,5 +67,5 @@ void Plane::Render(Program* prg)
 	prg->SetVector(Program::Pixel, "color", &color, 1);
 	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
 
-	render.GetDevice()->Draw(Device::TrianglesList, 0, 2);
+	core.render.GetDevice()->Draw(Device::TrianglesList, 0, 2);
 }

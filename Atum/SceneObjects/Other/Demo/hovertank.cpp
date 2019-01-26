@@ -49,12 +49,12 @@ void HoverTank::Init()
 	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(tolerancesScale));
 #endif
 
-	alias_forward = controls.GetAlias("MOVE_FORWARD");
-	alias_strafe = controls.GetAlias("MOVE_STRAFE");
-	alias_fast = controls.GetAlias("MOVE_FAST");
-	alias_rotate_active = controls.GetAlias("ROTATE_ACTIVE");
-	alias_rotate_x = controls.GetAlias("ROTATE_X");
-	alias_rotate_y = controls.GetAlias("ROTATE_Y");
+	alias_forward = core.controls.GetAlias("MOVE_FORWARD");
+	alias_strafe = core.controls.GetAlias("MOVE_STRAFE");
+	alias_fast = core.controls.GetAlias("MOVE_FAST");
+	alias_rotate_active = core.controls.GetAlias("ROTATE_ACTIVE");
+	alias_rotate_x = core.controls.GetAlias("ROTATE_X");
+	alias_rotate_y = core.controls.GetAlias("ROTATE_Y");
 
 	hover_model.LoadModelMS3D("Media//hover.ms3d");
 
@@ -227,10 +227,10 @@ void HoverTank::Update(float dt)
 		return;
 	}
 
-	if (controls.GetAliasState(alias_rotate_active, Controls::Active))
+	if (core.controls.GetAliasState(alias_rotate_active, Controls::Active))
 	{
-		angles.x -= controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
-		angles.y -= controls.GetAliasValue(alias_rotate_y, true) * 0.01f;
+		angles.x -= core.controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
+		angles.y -= core.controls.GetAliasValue(alias_rotate_y, true) * 0.01f;
 
 		if (angles.y > HALF_PI)
 		{
@@ -272,8 +272,8 @@ void HoverTank::Update(float dt)
 	for (PxU32 i = 0; i < rb.getNbLines(); i++)
 	{
 		const PxDebugLine& line = rb.getLines()[i];
-		render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
-						 Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
+		core.render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
+		                      Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
 	}
 
 	PxTransform pT = box->getGlobalPose();
@@ -294,14 +294,14 @@ void HoverTank::Update(float dt)
 	view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 15, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
 	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
 
-	render.SetTransform(Render::View, view);
-	render.SetTransform(Render::Projection, proj);
+	core.render.SetTransform(Render::View, view);
+	core.render.SetTransform(Render::Projection, proj);
 
 	dir = mat.Vx();
 	dir.y = 0;
 	dir.Normalize();
 
-	if (controls.DebugKeyPressed("KEY_G"))
+	if (core.controls.DebugKeyPressed("KEY_G"))
 	{
 		showDebug = !showDebug;
 		hover_drawer->Show(!showDebug);
@@ -309,7 +309,7 @@ void HoverTank::Update(float dt)
 		gun_drawer->Show(!showDebug);
 	}
 
-	if (controls.DebugKeyPressed("KEY_W", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_W", Controls::Active))
 	{
 		move_speed += 200 * dt;
 
@@ -319,7 +319,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 	else
-	if (controls.DebugKeyPressed("KEY_S", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_S", Controls::Active))
 	{
 		move_speed -= 150 * dt;
 
@@ -351,7 +351,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 
-	if (controls.DebugKeyPressed("KEY_D", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_D", Controls::Active))
 	{
 		strafe_speed += 75 * dt;
 
@@ -361,7 +361,7 @@ void HoverTank::Update(float dt)
 		}
 	}
 	else
-	if (controls.DebugKeyPressed("KEY_A", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_A", Controls::Active))
 	{
 		strafe_speed -= 75 * dt;
 
@@ -398,7 +398,7 @@ void HoverTank::Update(float dt)
 
 	if (showDebug)
 	{
-		render.DebugBox(mat, COLOR_YELLOW, Vector(3.0, 1.0, 2.0f));
+		core.render.DebugBox(mat, COLOR_YELLOW, Vector(3.0, 1.0, 2.0f));
 	}
 	else
 	{
@@ -485,10 +485,10 @@ void HoverTank::Update(float dt)
 			}
 		}
 
-		render.DebugSphere(proj.pos, COLOR_RED, r);
+		core.render.DebugSphere(proj.pos, COLOR_RED, r);
 	}
 
-	if (controls.DebugKeyPressed("MS_BTN0"))
+	if (core.controls.DebugKeyPressed("MS_BTN0"))
 	{
 		projectiles.push_back(Projectile());
 		Projectile& proj = projectiles[projectiles.size() - 1];
@@ -538,11 +538,11 @@ void HoverTank::AddHover(Matrix& mat, Vector offset)
 
 		if (showDebug)
 		{
-			render.DebugLine(org, COLOR_RED, org - Vector(0, len, 0.0f) * (1 - k), COLOR_RED, false);
+			core.render.DebugLine(org, COLOR_RED, org - Vector(0, len, 0.0f) * (1 - k), COLOR_RED, false);
 		}
 
 		PxRigidBodyExt::addForceAtPos(*box, hit.block.normal * k * 85,
-									  hit.block.position, PxForceMode::eFORCE, true);
+		                              hit.block.position, PxForceMode::eFORCE, true);
 	}
 	else
 	{

@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include <string.h>
 #include <stdlib.h>
-#include "Services/File/Files.h"
+#include "Services/Core/Core.h"
 
 JSONReader::JSONReader() : allocator(1 << 10)
 {
@@ -18,7 +18,7 @@ JSONReader::~JSONReader()
 
 bool JSONReader::Parse(const char* name)
 {
-	FILE* file = files.FileOpen(name, "rb");
+	FILE* file = core.files.FileOpen(name, "rb");
 
 	if (file)
 	{

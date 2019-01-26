@@ -85,5 +85,3 @@ protected:
 	void CalcTrans();
 	bool TexRefIsEmpty(Texture* texture);
 };
-
-extern Render render;

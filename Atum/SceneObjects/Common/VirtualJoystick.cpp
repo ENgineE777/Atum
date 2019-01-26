@@ -24,10 +24,10 @@ VirtualJoystick::~VirtualJoystick()
 void VirtualJoystick::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(VirtualJoystick)
-	scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x));
-	scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y));
-	scripts.engine->RegisterObjectProperty(script_class_name, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed));
-	scripts.engine->RegisterObjectProperty(script_class_name, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed));
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x));
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y));
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed));
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed));
 }
 
 void VirtualJoystick::Init()
@@ -37,11 +37,11 @@ void VirtualJoystick::Init()
 	{
 		Alias& alias = aliases[i];
 		StringUtils::Printf(str, 128, "VJoystick.Touch%i", i);
-		alias.touch = controls.GetAlias(str);
+		alias.touch = core.controls.GetAlias(str);
 		StringUtils::Printf(str, 128, "VJoystick.TouchX%i", i);
-		alias.touchX = controls.GetAlias(str);
+		alias.touchX = core.controls.GetAlias(str);
 		StringUtils::Printf(str, 128, "VJoystick.TouchY%i", i);
-		alias.touchY = controls.GetAlias(str);
+		alias.touchY = core.controls.GetAlias(str);
 	}
 
 	RenderTasks(false)->AddTask(ExecuteLevels::GUI, this, (Object::Delegate)&VirtualJoystick::Draw);
@@ -50,16 +50,16 @@ void VirtualJoystick::Init()
 void VirtualJoystick::ApplyProperties()
 {
 	RELEASE(tex_stick_pad)
-	tex_stick_pad = render.LoadTexture(tex_name_stick_pad.c_str());
+	tex_stick_pad = core.render.LoadTexture(tex_name_stick_pad.c_str());
 
 	RELEASE(tex_stick)
-	tex_stick = render.LoadTexture(tex_name_stick.c_str());
+	tex_stick = core.render.LoadTexture(tex_name_stick.c_str());
 
 	RELEASE(tex_button_a)
-	tex_button_a = render.LoadTexture(tex_name_button_a.c_str());
+	tex_button_a = core.render.LoadTexture(tex_name_button_a.c_str());
 
 	RELEASE(tex_button_b)
-	tex_button_b = render.LoadTexture(tex_name_button_b.c_str());
+	tex_button_b = core.render.LoadTexture(tex_name_button_b.c_str());
 
 	stick_pos = 200.0f;
 	stick_pad_size = 250.0f;
@@ -77,18 +77,18 @@ void VirtualJoystick::Draw(float dt)
 		return;
 	}
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	if (Playing())
 	{
 		if (stick_pressed)
 		{
-			Vector2 delta_ms(controls.GetAliasValue(aliases[stick_alias_index].touchX, true), controls.GetAliasValue(aliases[stick_alias_index].touchY, true));
+			Vector2 delta_ms(core.controls.GetAliasValue(aliases[stick_alias_index].touchX, true), core.controls.GetAliasValue(aliases[stick_alias_index].touchY, true));
 			delta_ms /= scale;
 			stick_delta += delta_ms;
 		}
 
-		if (GetState() == Inactive || (stick_pressed && !controls.GetAliasState(aliases[stick_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (stick_pressed && !core.controls.GetAliasState(aliases[stick_alias_index].touch, Controls::Active)))
 		{
 			stick_pressed = false;
 			stick_alias_index = -1;
@@ -96,13 +96,13 @@ void VirtualJoystick::Draw(float dt)
 			stick_asb_delta = 0.0f;
 		}
 
-		if (GetState() == Inactive || (button_a_pressed > 0 && !controls.GetAliasState(aliases[button_a_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (button_a_pressed > 0 && !core.controls.GetAliasState(aliases[button_a_alias_index].touch, Controls::Active)))
 		{
 			button_a_pressed = 0;
 			button_a_alias_index = -1;
 		}
 
-		if (GetState() == Inactive || (button_b_pressed > 0 && !controls.GetAliasState(aliases[button_b_alias_index].touch, Controls::Active)))
+		if (GetState() == Inactive || (button_b_pressed > 0 && !core.controls.GetAliasState(aliases[button_b_alias_index].touch, Controls::Active)))
 		{
 			button_b_pressed = 0;
 			button_b_alias_index = -1;
@@ -115,14 +115,14 @@ void VirtualJoystick::Draw(float dt)
 		{
 			Alias& alias = aliases[i];
 
-			if (controls.GetAliasState(alias.touch))
+			if (core.controls.GetAliasState(alias.touch))
 			{
-				Vector2 ms(controls.GetAliasValue(alias.touchX, false), controls.GetAliasValue(alias.touchY, false));
+				Vector2 ms(core.controls.GetAliasValue(alias.touchX, false), core.controls.GetAliasValue(alias.touchY, false));
 				ms /= scale;
-				float scr_width = (float)render.GetDevice()->GetWidth() / scale;
+				float scr_width = (float)core.render.GetDevice()->GetWidth() / scale;
 
 				if (!stick_pressed &&
-					0.0f < ms.x && ms.x < 0.5f * (float)render.GetDevice()->GetWidth() / scale &&
+					0.0f < ms.x && ms.x < 0.5f * (float)core.render.GetDevice()->GetWidth() / scale &&
 					0.5f * 1024.0f < ms.y && ms.y < 1024.0f)
 				{
 					stick_pos.x = ms.x;
@@ -186,7 +186,7 @@ void VirtualJoystick::Draw(float dt)
 	if (tex_button_a)
 	{
 		clr.a = (button_a_pressed > 0) ? 1.0f : 0.5f;
-		Sprite::Draw(tex_button_a, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_a_pos.x * scale, render.GetDevice()->GetHeight() - button_a_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
+		Sprite::Draw(tex_button_a, clr, mat, Vector2(core.render.GetDevice()->GetWidth() - button_a_pos.x * scale, core.render.GetDevice()->GetHeight() - button_a_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
 
 		if (button_a_pressed != 0 && button_a_pressed < 3)
 		{
@@ -197,7 +197,7 @@ void VirtualJoystick::Draw(float dt)
 	if (tex_button_b)
 	{
 		clr.a = (button_b_pressed > 0) ? 1.0f : 0.5f;
-		Sprite::Draw(tex_button_b, clr, mat, Vector2(render.GetDevice()->GetWidth() - button_b_pos.x * scale, render.GetDevice()->GetHeight() - button_b_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
+		Sprite::Draw(tex_button_b, clr, mat, Vector2(core.render.GetDevice()->GetWidth() - button_b_pos.x * scale, core.render.GetDevice()->GetHeight() - button_b_pos.y * scale) - button_size * 0.5 * scale, button_size * scale, 0.0f, 1.0f, false);
 
 		if (button_b_pressed != 0 && button_b_pressed < 3)
 		{

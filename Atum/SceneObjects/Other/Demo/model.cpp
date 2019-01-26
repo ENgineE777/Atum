@@ -58,31 +58,31 @@ void Model::Drawer::Render(Program* prg)
 	}
 
 	Matrix trans;
-	render.GetTransform(Render::WrldViewProj, trans);
+	core.render.GetTransform(Render::WrldViewProj, trans);
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 
 	prg->SetMatrix(Program::Vertex, "trans", &world, 1);
 	prg->SetMatrix(Program::Vertex, "view_proj", &trans, 1);
 	prg->SetVector(Program::Pixel, "color", &color, 1);
 
-	render.GetDevice()->SetVertexDecl(res->vdecl);
+	core.render.GetDevice()->SetVertexDecl(res->vdecl);
 
 	for (int i = 0; i < res->meshes.size(); i++)
 	{
 		Mesh &mesh = res->meshes[i];
 		
-		render.GetDevice()->SetVertexBuffer(0, mesh.buffer);
+		core.render.GetDevice()->SetVertexBuffer(0, mesh.buffer);
 
 		prg->SetTexture(Program::Pixel, "diffuseMap", res->textures[mesh.texture]);
-		render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);
+		core.render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);
 	}
 }
 
 void Model::LoadModelMS3D(const char* filename)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(3, desc);
 
 	// File header
 	struct MS3DHeader
@@ -242,7 +242,7 @@ void Model::LoadModelMS3D(const char* filename)
 
 		mesh.texture = groups[i].materialIndex;
 		mesh.num_triangles = numGroupTriangles;
-		mesh.buffer = render.GetDevice()->CreateBuffer(numGroupTriangles * 3, sizeof(ModelVertex));
+		mesh.buffer = core.render.GetDevice()->CreateBuffer(numGroupTriangles * 3, sizeof(ModelVertex));
 
 		ModelVertex* mesh_vertices = (ModelVertex*)mesh.buffer->Lock();
 
@@ -318,6 +318,6 @@ void Model::LoadModelMS3D(const char* filename)
 		char path[128];
 		sprintf(path, "Media//%s", ptr);
 
-		textures[i] = render.LoadTexture(path);
+		textures[i] = core.render.LoadTexture(path);
 	}
 }

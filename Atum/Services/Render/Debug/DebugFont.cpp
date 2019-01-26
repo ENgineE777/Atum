@@ -1,5 +1,5 @@
 #include "DebugFont.h"
-#include "Services/Font/Fonts.h"
+#include "Services/Core/Core.h"
 
 DebugFont::DebugFont()
 {
@@ -15,7 +15,7 @@ bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugFont::Draw);
 
-	font = fonts.LoadFont("settings/helvetica", false, false, 11);
+	font = core.fonts.LoadFont("settings/helvetica", false, false, 11);
 
 	return true;
 }
@@ -52,11 +52,11 @@ void DebugFont::Draw(float dt)
 	{
 		Text* txt = &textsIn3d[i];
 
-		Vector pos = render.TransformToScreen(txt->pos, 1);
+		Vector pos = core.render.TransformToScreen(txt->pos, 1);
 
 		if (pos.z>0 && pos.z<txt->dist)
 		{
-			mat.Pos() = Vector(pos.x * render.GetDevice()->GetWidth(), pos.y * render.GetDevice()->GetHeight(), 0);
+			mat.Pos() = Vector(pos.x * core.render.GetDevice()->GetWidth(), pos.y * core.render.GetDevice()->GetHeight(), 0);
 			font->Print(mat, 1.0f, txt->color, txt->text);
 		}
 	}

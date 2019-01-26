@@ -21,9 +21,9 @@ META_DATA_DESC_END()
 void SimpleCharacter2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SimpleCharacter2D)
-	scripts.engine->RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
-	scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph), asCALL_GENERIC);
 }
 
 void SimpleCharacter2D::Init()
@@ -232,7 +232,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 {
 	dir_horz = 0;
 
-	if (controls.DebugKeyPressed("KEY_A", Controls::Active) || (vjoy && vjoy->stick_delta.x < 0.0f))
+	if (core.controls.DebugKeyPressed("KEY_A", Controls::Active) || (vjoy && vjoy->stick_delta.x < 0.0f))
 	{
 		if (!allow_move)
 		{
@@ -250,7 +250,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 		}
 	}
 	else
-	if (controls.DebugKeyPressed("KEY_D", Controls::Active) || (vjoy && vjoy->stick_delta.x > 0.0f))
+	if (core.controls.DebugKeyPressed("KEY_D", Controls::Active) || (vjoy && vjoy->stick_delta.x > 0.0f))
 	{
 		if (!allow_move)
 		{
@@ -270,7 +270,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 
 	dir_vert = 0;
 
-	if (controls.DebugKeyPressed("KEY_W", Controls::Active) || (vjoy && vjoy->stick_delta.y < 0.0f))
+	if (core.controls.DebugKeyPressed("KEY_W", Controls::Active) || (vjoy && vjoy->stick_delta.y < 0.0f))
 	{
 		if (!allow_move)
 		{
@@ -283,7 +283,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 		}
 	}
 	else
-	if (controls.DebugKeyPressed("KEY_S", Controls::Active) || (vjoy && vjoy->stick_delta.y > 0.0f))
+	if (core.controls.DebugKeyPressed("KEY_S", Controls::Active) || (vjoy && vjoy->stick_delta.y > 0.0f))
 	{
 		if (!allow_move)
 		{
@@ -296,7 +296,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 		}
 	}
 
-	if (controls.DebugKeyPressed("KEY_E") || (vjoy && vjoy->button_a_pressed == 2))
+	if (core.controls.DebugKeyPressed("KEY_E") || (vjoy && vjoy->button_a_pressed == 2))
 	{
 		if (graph_instance.ActivateLink("LegKick1"))
 		{
@@ -305,7 +305,7 @@ void SimpleCharacter2D::ControlPlayer(float dt)
 		}
 	}
 
-	if (controls.DebugKeyPressed("KEY_R") || (vjoy && vjoy->button_b_pressed == 2))
+	if (core.controls.DebugKeyPressed("KEY_R") || (vjoy && vjoy->button_b_pressed == 2))
 	{
 		if (graph_instance.ActivateLink("LegKick2"))
 		{

@@ -1,5 +1,6 @@
 ﻿
 #include "Fonts.h"
+#include "Services/Core/Core.h"
 
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "Support/stb/stb_truetype.h"
@@ -107,7 +108,7 @@ bool FontRes::Load()
 
 	stbtt_PackBegin(context, tex_buffer, tex_w, tex_h, 0, 1, nullptr);
 
-	tex = render.GetDevice()->CreateTexture(tex_w, tex_h, Texture::FMT_A8, 1, false, Texture::Tex2D);
+	tex = core.render.GetDevice()->CreateTexture(tex_w, tex_h, Texture::FMT_A8, 1, false, Texture::Tex2D);
 
 	return true;
 }
@@ -208,7 +209,7 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 
 	if (len == 0) return;
 
-	render.GetDevice()->SetProgram(fonts.fntProg);
+	core.render.GetDevice()->SetProgram(core.fonts.fntProg);
 
 	Matrix tmp;
 
@@ -220,10 +221,10 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 
 	tmp = transform;
 
-	params[0] = Vector4((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight(), 0.5f, 0.0f);
+	params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0.5f, 0.0f);
 
-	fonts.fntProg->SetVector(Program::Vertex, "desc", &params[0], 1);
-	fonts.fntProg->SetMatrix(Program::Vertex, "transform", &tmp, 1);
+	core.fonts.fntProg->SetVector(Program::Vertex, "desc", &params[0], 1);
+	core.fonts.fntProg->SetMatrix(Program::Vertex, "transform", &tmp, 1);
 
 	if (font_scale > 1.01f)
 	{
@@ -234,11 +235,11 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 		tex->SetFilters(Texture::Point, Texture::Point);
 	}
 
-	render.GetDevice()->SetVertexDecl(fonts.vdecl);
-	render.GetDevice()->SetVertexBuffer(0, fonts.vbuffer);
+	core.render.GetDevice()->SetVertexDecl(core.fonts.vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, core.fonts.vbuffer);
 
-	fonts.fntProg->SetTexture(Program::Pixel, "diffuseMap", tex);
-	fonts.fntProg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
+	core.fonts.fntProg->SetTexture(Program::Pixel, "diffuseMap", tex);
+	core.fonts.fntProg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
 
 	float scr_x = 0;
 
@@ -250,7 +251,7 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 
 	int dr_index = 0;
 	
-	Fonts::FontVertex* v = (Fonts::FontVertex*)fonts.vbuffer->Lock();
+	Fonts::FontVertex* v = (Fonts::FontVertex*)core.fonts.vbuffer->Lock();
 
 	int w = 0;
 	int bytes = 0;
@@ -323,25 +324,25 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 
 		if (dr_index >= 998)
 		{
-			fonts.vbuffer->Unlock();
+			core.fonts.vbuffer->Unlock();
 
 			if (need_update_tex) UpdateTexture();
 
-			render.GetDevice()->Draw(Device::TrianglesList, 0, 2 * dr_index);
+			core.render.GetDevice()->Draw(Device::TrianglesList, 0, 2 * dr_index);
 
 			dr_index = 0;
 
-			v = (Fonts::FontVertex*)fonts.vbuffer->Lock();
+			v = (Fonts::FontVertex*)core.fonts.vbuffer->Lock();
 		}
 	}
 	
-	fonts.vbuffer->Unlock();
+	core.fonts.vbuffer->Unlock();
 
 	if (dr_index > 0)
 	{
 		if (need_update_tex) UpdateTexture();
 
-		render.GetDevice()->Draw(Device::TrianglesList, 0, 2 * dr_index);
+		core.render.GetDevice()->Draw(Device::TrianglesList, 0, 2 * dr_index);
 	}
 }
 

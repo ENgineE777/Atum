@@ -15,7 +15,7 @@ META_DATA_DESC_END()
 void SpriteTileInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteTileInst)
-	scripts.engine->RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteTileInst, AddInstance), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteTileInst, AddInstance), asCALL_GENERIC);
 }
 
 void SpriteTileInst::Init()
@@ -62,7 +62,7 @@ void SpriteTileInst::Draw(float dt)
 			CalcIndices();
 		}
 
-		if (controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
+		if (core.controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
 		{
 			for (auto comp : components)
 			{
@@ -76,8 +76,8 @@ void SpriteTileInst::Draw(float dt)
 			CalcIndices();
 		}
 
-		bool add_center = controls.DebugKeyPressed("KEY_O");
-		bool add_after = controls.DebugKeyPressed("KEY_P");
+		bool add_center = core.controls.DebugKeyPressed("KEY_O");
+		bool add_after = core.controls.DebugKeyPressed("KEY_P");
 
 		if (add_center || add_after)
 		{
@@ -89,7 +89,7 @@ void SpriteTileInst::Draw(float dt)
 			}
 			else
 			{
-				float scale = 1024.0f / render.GetDevice()->GetHeight();
+				float scale = 1024.0f / core.render.GetDevice()->GetHeight();
 				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
 			}
 

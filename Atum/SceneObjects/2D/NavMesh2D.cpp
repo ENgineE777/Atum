@@ -712,10 +712,10 @@ void NavMesh2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(NavMesh2D)
 
-	scripts.engine->RegisterObjectMethod(script_class_name, "int GetPath(float x, float y, float to_x, float to_y)", WRAP_MFN(NavMesh2D, GetPath), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void RemovePath(int index)", WRAP_MFN(NavMesh2D, RemovePath), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "int MoveAlongPath(int index, float dist)", WRAP_MFN(NavMesh2D, MoveAlongPath), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void GetPathCurPoint(int index, float&out pos_x, float&out pos_y, float&out angle)", WRAP_MFN(NavMesh2D, GetPathCurPoint), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetPath(float x, float y, float to_x, float to_y)", WRAP_MFN(NavMesh2D, GetPath), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void RemovePath(int index)", WRAP_MFN(NavMesh2D, RemovePath), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "int MoveAlongPath(int index, float dist)", WRAP_MFN(NavMesh2D, MoveAlongPath), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void GetPathCurPoint(int index, float&out pos_x, float&out pos_y, float&out angle)", WRAP_MFN(NavMesh2D, GetPathCurPoint), asCALL_GENERIC);
 }
 
 void NavMesh2D::Draw(float dt)
@@ -725,10 +725,10 @@ void NavMesh2D::Draw(float dt)
 		return;
 	}
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 #ifdef EDITOR
-	if (controls.DebugKeyPressed("KEY_M", Controls::Activated))
+	if (core.controls.DebugKeyPressed("KEY_M", Controls::Activated))
 	{
 		ConstructNavMesh();
 	}
@@ -740,8 +740,8 @@ void NavMesh2D::Draw(float dt)
 			{
 				instances[sel_inst].pos = trans.pos;
 
-				bool need_delete_links = controls.DebugKeyPressed("KEY_U");
-				bool need_delete_node = controls.DebugKeyPressed("KEY_I");
+				bool need_delete_links = core.controls.DebugKeyPressed("KEY_U");
+				bool need_delete_node = core.controls.DebugKeyPressed("KEY_I");
 
 				if (need_delete_links || need_delete_node)
 				{
@@ -788,8 +788,8 @@ void NavMesh2D::Draw(float dt)
 				}
 			}
 
-			bool add_center = controls.DebugKeyPressed("KEY_O");
-			bool add_after = controls.DebugKeyPressed("KEY_P");
+			bool add_center = core.controls.DebugKeyPressed("KEY_O");
+			bool add_after = core.controls.DebugKeyPressed("KEY_P");
 
 			if (add_center || add_after)
 			{
@@ -801,7 +801,7 @@ void NavMesh2D::Draw(float dt)
 				}
 				else
 				{
-					float scale = 1024.0f / render.GetDevice()->GetHeight();
+					float scale = 1024.0f / core.render.GetDevice()->GetHeight();
 					inst.pos = { Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale };
 				}
 
@@ -823,18 +823,18 @@ void NavMesh2D::Draw(float dt)
 	{
 		Node& inst = instances[source_inst];
 
-		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		render.DebugLine2D(p1, COLOR_WHITE, target_pos, COLOR_WHITE);
+		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		core.render.DebugLine2D(p1, COLOR_WHITE, target_pos, COLOR_WHITE);
 	}
 
 	{
-		Vector2 p1 = start_pt * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_MAGNETA);
+		Vector2 p1 = start_pt * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		core.render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_MAGNETA);
 	}
 
 	{
-		Vector2 p1 = end_pt * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_RED);
+		Vector2 p1 = end_pt * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		core.render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_RED);
 	}
 
 #endif
@@ -843,14 +843,14 @@ void NavMesh2D::Draw(float dt)
 	{
 		Node& inst = instances[i];
 
-		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, (i == source_inst || i == target_inst) ? COLOR_YELLOW : COLOR_GREEN);
+		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		core.render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, (i == source_inst || i == target_inst) ? COLOR_YELLOW : COLOR_GREEN);
 
 		for (int j = 0; j < inst.links.size(); j++)
 		{
-			Vector2 p2 = instances[inst.links[j].index].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 p2 = instances[inst.links[j].index].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
-			render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
+			core.render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
 		}
 	}
 
@@ -881,24 +881,24 @@ void NavMesh2D::Draw(float dt)
 	MoveAlongPath(0, 150.0f * dt);
 
 	{
-		Vector2 p1 = pathes[0].cur_pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, COLOR_RED);
+		Vector2 p1 = pathes[0].cur_pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		core.render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, COLOR_RED);
 	}
 
 	for (int i = 0; i < (int)pathes[0].points.size() - 1; i++)
 	{
-		Vector2 p1 = pathes[0].points[i].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
-		Vector2 p2 = pathes[0].points[i + 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 p1 = pathes[0].points[i].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 p2 = pathes[0].points[i + 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
-		render.DebugSprite(nullptr, p2 - 5.0f, 10.0f, COLOR_MAGNETA);
+		core.render.DebugSprite(nullptr, p2 - 5.0f, 10.0f, COLOR_MAGNETA);
 
-		render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
+		core.render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
 		p1.x -= 1;
 		p2.x -= 1;
 		p1.y -= 1;
 		p2.y -= 1;
 
-		render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
+		core.render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
 	}
 
 #ifdef EDITOR
@@ -920,7 +920,7 @@ void NavMesh2D::OnMouseMove(Vector2 delta_ms)
 	{
 		target_pos += delta_ms;
 
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 		target_inst = -1;
 
@@ -928,7 +928,7 @@ void NavMesh2D::OnMouseMove(Vector2 delta_ms)
 		{
 			Node& inst = instances[i];
 
-			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 			if (pos.x - 10.0f< target_pos.x && target_pos.x < pos.x + 10.0f &&
 				pos.y - 10.0f< target_pos.y && target_pos.y < pos.y + 10.0f)
@@ -944,24 +944,24 @@ void NavMesh2D::OnMouseMove(Vector2 delta_ms)
 
 void NavMesh2D::OnLeftMouseDown(Vector2 ms)
 {
-	if (controls.DebugKeyPressed("KEY_V", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_V", Controls::Active))
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-		start_pt = (ms + Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f) / scale;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+		start_pt = (ms + Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f) / scale;
 	}
 
-	if (controls.DebugKeyPressed("KEY_B", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_B", Controls::Active))
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
-		end_pt = (ms + Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f) / scale;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+		end_pt = (ms + Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f) / scale;
 
 		pathes[0].used = false;
 		GetPath(start_pt.x, start_pt.y, end_pt.x, end_pt.y);
 	}
 
-	if (controls.DebugKeyPressed("KEY_C", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_C", Controls::Active))
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 		source_inst = -1;
 
@@ -969,7 +969,7 @@ void NavMesh2D::OnLeftMouseDown(Vector2 ms)
 		{
 			Node& inst = instances[i];
 
-			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 			if (pos.x - 10.0f< ms.x && ms.x < pos.x + 10.0f &&
 				pos.y - 10.0f< ms.y && ms.y < pos.y + 10.0f)
@@ -1025,14 +1025,14 @@ void NavMesh2D::OnLeftMouseUp()
 
 bool NavMesh2D::CheckSelection(Vector2 ms)
 {
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	sel_inst = -1;
 	for (int i = 0; i < instances.size(); i++)
 	{
 		Node& inst = instances[i];
 
-		Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 			if (pos.x - 10.0f< ms.x && ms.x < pos.x + 10.0f &&
 				pos.y - 10.0f< ms.y && ms.y < pos.y + 10.0f)
@@ -1065,7 +1065,7 @@ void NavMesh2D::SetGizmo()
 {
 	if (sel_inst != -1)
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
 		trans.pos = instances[sel_inst].pos;
 	}

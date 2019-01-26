@@ -1,7 +1,7 @@
 
 #include "TextureDX11.h"
 #include "DeviceDX11.h"
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 
 #include "d3d11.h"
 
@@ -177,7 +177,7 @@ void TextureDX11::Update(int level, int layer, uint8_t* data, int stride)
 
 void TextureDX11::Release()
 {
-	if (!render.TexRefIsEmpty(this))
+	if (!core.render.TexRefIsEmpty(this))
 	{
 		return;
 	}

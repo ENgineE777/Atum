@@ -1,5 +1,5 @@
 #include "Timer.h"
-#include "Services/Controls/Controls.h"
+#include "Services/Core/Core.h"
 
 #ifdef PLATFORM_PC
 #define WIN32_LEAN_AND_MEAN
@@ -102,12 +102,12 @@ float Timer::CountDeltaTime()
 		fpsTimer -= 1.0f;
 	}
 
-	if (controls.DebugKeyPressed("KEY_X", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_X", Controls::Active))
 	{
 		deltaTime *= 0.4f;
 	}
 	else
-	if (controls.DebugKeyPressed("KEY_Q", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_Q", Controls::Active))
 	{
 		deltaTime *= 3.0f;
 	}

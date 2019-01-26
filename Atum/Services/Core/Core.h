@@ -6,6 +6,8 @@
 #include "Services/File/Files.h"
 #include "Services/Physic/Physics.h"
 #include "Services/Render/Render.h"
+#include "Services/Scene/SceneManager.h"
+#include "Services/Script/Scripts.h"
 #include "Services/TaskExecutor/TaskExecutor.h"
 
 #ifdef PLATFORM_ANDROID
@@ -18,6 +20,15 @@ class Core
 	float dt = 0.0f;
 
 public:
+
+	Controls controls;
+	Files files;
+	Fonts fonts;
+	Physics physics;
+	Render render;
+	SceneManager scene_manager;
+	Scripts scripts;
+	TaskExecutor taskExecutor;
 
 	Core();
 	virtual ~Core();

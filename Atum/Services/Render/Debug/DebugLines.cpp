@@ -6,12 +6,12 @@
 void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 }, { VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(2, desc);
 
-	buffer = render.GetDevice()->CreateBuffer(MaxSize * 2, sizeof(Vertex));
+	buffer = core.render.GetDevice()->CreateBuffer(MaxSize * 2, sizeof(Vertex));
 
-	prg = render.GetProgram("DbgLine");
-	prg_depth = render.GetProgram("DbgLineWithDepth");
+	prg = core.render.GetProgram("DbgLine");
+	prg_depth = core.render.GetProgram("DbgLineWithDepth");
 
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugLines::Draw);
 }
@@ -43,21 +43,21 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 {
 	if (lines.size()==0) return;
 
-	render.GetDevice()->SetProgram(prog);
+	core.render.GetDevice()->SetProgram(prog);
 
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer(0, buffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, buffer);
 
 	Matrix view_proj;
-	render.SetTransform(Render::World, Matrix());
-	render.GetTransform(Render::WrldViewProj, view_proj);
+	core.render.SetTransform(Render::World, Matrix());
+	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view, proj, inv_view;
 
 	if (is2d)
 	{
-		render.GetTransform(Render::View, view);
-		render.GetTransform(Render::Projection, proj);
+		core.render.GetTransform(Render::View, view);
+		core.render.GetTransform(Render::Projection, proj);
 
 		inv_view = view;
 		inv_view.InverseComplette();
@@ -78,8 +78,8 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 		{
 			for (int j = 0; j < 2; j++)
 			{
-				v[count * 2 + j].p.x = (2.0f * v[count * 2 + j].p.x / (float)render.GetDevice()->GetWidth() - 1) / proj._11;
-				v[count * 2 + j].p.y = -(2.0f * v[count * 2 + j].p.y / (float)render.GetDevice()->GetHeight() - 1) / proj._22;
+				v[count * 2 + j].p.x = (2.0f * v[count * 2 + j].p.x / (float)core.render.GetDevice()->GetWidth() - 1) / proj._11;
+				v[count * 2 + j].p.y = -(2.0f * v[count * 2 + j].p.y / (float)core.render.GetDevice()->GetHeight() - 1) / proj._22;
 
 				Vector dir = inv_view.MulNormal(v[count * 2 + j].p);
 				v[count * 2 + j].p = inv_view.Pos() + dir * 10.0f;
@@ -92,7 +92,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 		{
 			buffer->Unlock();
 
-			render.GetDevice()->Draw(Device::LinesList, 0, MaxSize);
+			core.render.GetDevice()->Draw(Device::LinesList, 0, MaxSize);
 
 			count = 0;
 			v = (Vertex*)buffer->Lock();
@@ -103,7 +103,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 
 	if (count>0)
 	{
-		render.GetDevice()->Draw(Device::LinesList, 0, count);
+		core.render.GetDevice()->Draw(Device::LinesList, 0, count);
 	}
 
 	lines.clear();

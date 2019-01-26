@@ -1,9 +1,15 @@
 #include "Fonts.h"
-
-Fonts fonts;
+#include "Services/Core/Core.h"
 
 CLASSREGEX(Program, FontProgram, Fonts::FontProgram, "FontProgram")
 CLASSREGEX_END(Program, FontProgram)
+
+void Fonts::FontProgram::ApplyStates()
+{
+	core.render.GetDevice()->SetAlphaBlend(true);
+	core.render.GetDevice()->SetDepthWriting(false);
+	core.render.GetDevice()->SetDepthTest(false);
+};
 
 Fonts::Fonts()
 {
@@ -18,12 +24,12 @@ Font* Fonts::LoadFont(const char* file_name, bool is_bold, bool is_italic, int h
 {
 	if (!vbuffer)
 	{
-		fntProg = render.GetProgram("FontProgram");
+		fntProg = core.render.GetProgram("FontProgram");
 
-		vbuffer = render.GetDevice()->CreateBuffer(6 * 1000, sizeof(Fonts::FontVertex));
+		vbuffer = core.render.GetDevice()->CreateBuffer(6 * 1000, sizeof(Fonts::FontVertex));
 
 		VertexDecl::ElemDesc desc[] = {{ VertexDecl::Float3, VertexDecl::Position, 0 }, { VertexDecl::Float2, VertexDecl::Texcoord, 0 }};
-		vdecl = render.GetDevice()->CreateVertexDecl(2, desc);
+		vdecl = core.render.GetDevice()->CreateVertexDecl(2, desc);
 	}
 
 	if (!file_name[0]) return nullptr;

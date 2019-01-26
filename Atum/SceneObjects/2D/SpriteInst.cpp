@@ -250,9 +250,9 @@ void SpriteInst::Instance::GotoNode(string& node)
 void SpriteInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteInst)
-	scripts.engine->RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), asCALL_GENERIC);
 
 }
 
@@ -386,12 +386,12 @@ void SpriteInst::Draw(float dt)
 	{
 		if (rect_select)
 		{
-			if (controls.DebugKeyPressed("KEY_I"))
+			if (core.controls.DebugKeyPressed("KEY_I"))
 			{
 				ClearRect();
 			}
 			else
-			if (controls.DebugKeyPressed("KEY_O") || controls.DebugKeyPressed("KEY_P"))
+			if (core.controls.DebugKeyPressed("KEY_O") || core.controls.DebugKeyPressed("KEY_P"))
 			{
 				FillRect();
 			}
@@ -419,7 +419,7 @@ void SpriteInst::Draw(float dt)
 				instances[sel_inst].SetPos(trans.pos);
 			}
 
-			if (controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
+			if (core.controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
 			{
 				for (auto comp : components)
 				{
@@ -431,8 +431,8 @@ void SpriteInst::Draw(float dt)
 				SetGizmo();
 			}
 
-			bool add_center = controls.DebugKeyPressed("KEY_O");
-			bool add_after = controls.DebugKeyPressed("KEY_P");
+			bool add_center = core.controls.DebugKeyPressed("KEY_O");
+			bool add_after = core.controls.DebugKeyPressed("KEY_P");
 
 			if (add_center || add_after)
 			{
@@ -444,7 +444,7 @@ void SpriteInst::Draw(float dt)
 				}
 				else
 				{
-					float scale = 1024.0f / render.GetDevice()->GetHeight();
+					float scale = 1024.0f / core.render.GetDevice()->GetHeight();
 					inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
 				}
 
@@ -522,15 +522,15 @@ void SpriteInst::Draw(float dt)
 #ifdef EDITOR
 	if (rect_select)
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
-		Vector2 delta = Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 		for (auto& index : sel_instances)
 		{
 			auto& inst = instances[index];
 			Vector2 pos = (inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size) * scale - delta;
-			render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
+			core.render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
 		}
 	}
 
@@ -639,9 +639,9 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	sel_inst = -1;
 	rect_select = true;
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
-	Vector2 delta = Sprite::ed_cam_pos - Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+	Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 	rect_p1 = (p1 + delta) / scale;
 	rect_p1 = Gizmo::inst->MakeAligned((p1 + delta) / scale);
@@ -728,7 +728,7 @@ void SpriteInst::FillRect()
 
 bool SpriteInst::CheckSelection(Vector2 ms)
 {
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	rect_select = false;
 	sel_inst = -1;
@@ -736,7 +736,7 @@ bool SpriteInst::CheckSelection(Vector2 ms)
 	{
 		Instance& inst = instances[i];
 
-		Vector2 pos = (inst.GetPos() + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = (inst.GetPos() + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)

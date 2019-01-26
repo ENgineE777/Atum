@@ -37,5 +37,3 @@ public:
 	void UnloadScene(const char* name);
 	void UnloadAll();
 };
-
-extern SceneManager scene_manager;

@@ -432,7 +432,7 @@ void Tank::Update(float dt)
 			inst.serverState.tower_angel = inst.serverState.angle;
 		}
 
-		render.DebugPrintText(Vector2(10.0f, 30.0f), COLOR_GREEN, "%4.3f %4.3f \n", inst.clientState.needed_tower_angel, inst.serverState.tower_angel);
+		core.render.DebugPrintText(Vector2(10.0f, 30.0f), COLOR_GREEN, "%4.3f %4.3f \n", inst.clientState.needed_tower_angel, inst.serverState.tower_angel);
 
 		dir *= inst.serverState.move_speed;
 		dir.y = -9.8f;
@@ -514,7 +514,7 @@ void Tank::Update(float dt)
 			}
 		}
 
-		render.DebugSphere(proj.pos, COLOR_RED, r);
+		core.render.DebugSphere(proj.pos, COLOR_RED, r);
 	}
 }
 

@@ -19,9 +19,9 @@ void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
 
-	scripts.engine->RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), asOBJ_REF | asOBJ_NOCOUNT);
-	scripts.engine->RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink), asCALL_GENERIC);
-	scripts.engine->RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), asOBJ_REF | asOBJ_NOCOUNT);
+	core.scripts.engine->RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode), asCALL_GENERIC);
 }
 
 void SpriteGraphInst::Init()
@@ -78,7 +78,7 @@ void SpriteGraphInst::Draw(float dt)
 			instances[sel_inst].SetPos(trans.pos);
 		}
 
-		if (controls.DebugKeyPressed("KEY_I") && sel_inst != -1)
+		if (core.controls.DebugKeyPressed("KEY_I") && sel_inst != -1)
 		{
 			for (auto comp : components)
 			{
@@ -90,8 +90,8 @@ void SpriteGraphInst::Draw(float dt)
 			SetGizmo();
 		}
 
-		bool add_center = controls.DebugKeyPressed("KEY_O");
-		bool add_after = controls.DebugKeyPressed("KEY_P");
+		bool add_center = core.controls.DebugKeyPressed("KEY_O");
+		bool add_after = core.controls.DebugKeyPressed("KEY_P");
 
 		if (add_center || add_after)
 		{
@@ -103,7 +103,7 @@ void SpriteGraphInst::Draw(float dt)
 			}
 			else
 			{
-				float scale = 1024.0f / render.GetDevice()->GetHeight();
+				float scale = 1024.0f / core.render.GetDevice()->GetHeight();
 				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
 			}
 

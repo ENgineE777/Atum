@@ -217,9 +217,9 @@ void Editor::Init()
 
 	core.Init(EUI::GetRenderDevice());
 
-	render.AddExecutedLevelPool(1);
+	core.render.AddExecutedLevelPool(1);
 
-	renderTaskPool = render.AddTaskPool();
+	renderTaskPool = core.render.AddTaskPool();
 	renderTaskPool->AddTask(1, this, (Object::Delegate)&Editor::Draw);
 
 	freecamera.Init();
@@ -458,8 +458,8 @@ void Editor::ShowVieport()
 		vp = game_viewport;
 	}
 
-	render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
-	vp->SetTexture(render.GetDevice()->GetBackBuffer());
+	core.render.GetDevice()->SetVideoMode((int)vp->GetWidth(), (int)vp->GetHeight(), vp->GetNative());
+	vp->SetTexture(core.render.GetDevice()->GetBackBuffer());
 }
 
 void Editor::StartScene()
@@ -495,9 +495,9 @@ void Editor::StartScene()
 
 	project.Save();
 
-	scripts.Start();
+	core.scripts.Start();
 
-	scene_manager.LoadProject(project.project_name.c_str());
+	core.scene_manager.LoadProject(project.project_name.c_str());
 
 	//scene = new Scene();
 	//scene->Init();
@@ -538,9 +538,9 @@ void Editor::StopScene()
 		return;
 	}
 
-	scene_manager.UnloadAll();
+	core.scene_manager.UnloadAll();
 
-	scripts.Stop();
+	core.scripts.Stop();
 
 	if (selectedObject)
 	{
@@ -576,34 +576,34 @@ void Editor::Draw(float dt)
 {
 	if (!in_scene_run)
 	{
-		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
+		core.render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
 		if (selectedObject && selectedObject->HasOwnTasks() && !selectedObject->Is3DObject())
 		{
 			Transform2D trans;
 			Sprite::FrameState state;
 			Sprite::Draw(editor_drawer.checker_texture, COLOR_WHITE, Matrix(),
-			             0.0f, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight()),
+			             0.0f, Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()),
 			             Vector2(((int)(Sprite::ed_cam_pos.x) % 42) / 42.0f, ((int)(1.0f - Sprite::ed_cam_pos.y) % 42) / 42.0f),
-			             Vector2((float)render.GetDevice()->GetWidth() / 42.0f, (float)render.GetDevice()->GetHeight() / 42.0f), false);
+			             Vector2((float)core.render.GetDevice()->GetWidth() / 42.0f, (float)core.render.GetDevice()->GetHeight() / 42.0f), false);
 		}
 	}
 	else
 	{
-		render.GetDevice()->Clear(false , COLOR_GRAY, true, 1.0f);
+		core.render.GetDevice()->Clear(false , COLOR_GRAY, true, 1.0f);
 	}
 
-	render.ExecutePool(ExecuteLevels::Camera, dt);
-	render.ExecutePool(ExecuteLevels::Prepare, dt);
-	render.ExecutePool(ExecuteLevels::Geometry, dt);
-	render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
-	render.ExecutePool(ExecuteLevels::Sprites, dt);
-	render.ExecutePool(ExecuteLevels::Sprites + 1, dt);
-	render.ExecutePool(ExecuteLevels::PostProcess, dt);
-	render.ExecutePool(ExecuteLevels::GUI, dt);
-	render.ExecutePool(ExecuteLevels::Debug, dt);
+	core.render.ExecutePool(ExecuteLevels::Camera, dt);
+	core.render.ExecutePool(ExecuteLevels::Prepare, dt);
+	core.render.ExecutePool(ExecuteLevels::Geometry, dt);
+	core.render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
+	core.render.ExecutePool(ExecuteLevels::Sprites, dt);
+	core.render.ExecutePool(ExecuteLevels::Sprites + 1, dt);
+	core.render.ExecutePool(ExecuteLevels::PostProcess, dt);
+	core.render.ExecutePool(ExecuteLevels::GUI, dt);
+	core.render.ExecutePool(ExecuteLevels::Debug, dt);
 
-	render.GetDevice()->Present();
+	core.render.GetDevice()->Present();
 }
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
@@ -717,11 +717,11 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 {
 	if (sender == viewport || sender == game_viewport)
 	{
-		controls.OverrideMousePos(mx, my);
+		core.controls.OverrideMousePos(mx, my);
 
 		Vector2 ms((float)mx, (float)my);
 
-		if (controls.DebugKeyPressed("MS_BTN1", Controls::Active) && controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
+		if (core.controls.DebugKeyPressed("MS_BTN1", Controls::Active) && core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
 		{
 			Sprite::ed_cam_pos -= ms - prev_ms;
 		}
@@ -737,7 +737,7 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 
 			if (selectedObject && selectedObject->Is3DObject() && !isSelectedAsset && !in_scene_run)
 			{
-				if (allowCopy && controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+				if (allowCopy && core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
 				{
 					allowCopy = false;
 					//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
@@ -757,7 +757,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 
 	if (sender == viewport || sender == game_viewport)
 	{
-		if (controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
+		if (core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
 		{
 			if (selectedObject && !selectedObject->IsEditMode())
 			{
@@ -780,7 +780,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		{
 			sender->CaptureMouse();
 
-			if (controls.DebugKeyPressed("KEY_LALT", Controls::Active))
+			if (core.controls.DebugKeyPressed("KEY_LALT", Controls::Active))
 			{
 				rect_select = true;
 				ms_rect = prev_ms;
@@ -1006,7 +1006,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 	if (!in_scene_run)
 	{
-		asset_drag_as_inst = controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
+		asset_drag_as_inst = core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active, true);
 
 		if (project.select_scene)
 		{
@@ -1019,14 +1019,14 @@ void Editor::OnUpdate(EUIWidget* sender)
 			{
 				float pos = (float)i - 10.0f;
 
-				render.DebugLine(Vector(pos, 0.0f, -10.0f), COLOR_WHITE, Vector(pos, 0.0f, 10.0f), COLOR_WHITE);
-				render.DebugLine(Vector(-10.0f, 0.0f, pos), COLOR_WHITE, Vector(10.0f, 0.0f, pos), COLOR_WHITE);
+				core.render.DebugLine(Vector(pos, 0.0f, -10.0f), COLOR_WHITE, Vector(pos, 0.0f, 10.0f), COLOR_WHITE);
+				core.render.DebugLine(Vector(-10.0f, 0.0f, pos), COLOR_WHITE, Vector(10.0f, 0.0f, pos), COLOR_WHITE);
 			}
 		}
 
 		if (rect_select)
 		{
-			render.DebugRect2D(prev_ms, ms_rect, COLOR_YELLOW);
+			core.render.DebugRect2D(prev_ms, ms_rect, COLOR_YELLOW);
 		}
 
 		freecamera.Update(dt);
@@ -1050,22 +1050,22 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 		for (float i = 0; i < 3.0f; i+=1.0f)
 		{
-			render.DebugLine2D(Vector2(0.5f, 0.5f + i), color, Vector2((float)render.GetDevice()->GetWidth(), 0.5f + i), color);
-			render.DebugLine2D(Vector2(0.5f, (float)render.GetDevice()->GetHeight() - 0.5f - i), color, Vector2((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight() - 0.5f - i), color);
-			render.DebugLine2D(Vector2(0.5f + i, 0.5f), color, Vector2(0.5f + i, (float)render.GetDevice()->GetHeight()), color);
-			render.DebugLine2D(Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, 0.5f), color, Vector2((float)render.GetDevice()->GetWidth() - i - 0.5f, (float)render.GetDevice()->GetHeight()), color);
+			core.render.DebugLine2D(Vector2(0.5f, 0.5f + i), color, Vector2((float)core.render.GetDevice()->GetWidth(), 0.5f + i), color);
+			core.render.DebugLine2D(Vector2(0.5f, (float)core.render.GetDevice()->GetHeight() - 0.5f - i), color, Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight() - 0.5f - i), color);
+			core.render.DebugLine2D(Vector2(0.5f + i, 0.5f), color, Vector2(0.5f + i, (float)core.render.GetDevice()->GetHeight()), color);
+			core.render.DebugLine2D(Vector2((float)core.render.GetDevice()->GetWidth() - i - 0.5f, 0.5f), color, Vector2((float)core.render.GetDevice()->GetWidth() - i - 0.5f, (float)core.render.GetDevice()->GetHeight()), color);
 		}
 	}
 
-	controls.SetFocused(in_scene_run ? game_viewport->IsFocused() : viewport->IsFocused());
+	core.controls.SetFocused(in_scene_run ? game_viewport->IsFocused() : viewport->IsFocused());
 
-	render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
+	core.render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
 
 	core.Update();
 
 	if (in_scene_run)
 	{
-		scene_manager.Execute(dt);
+		core.scene_manager.Execute(dt);
 	}
 	else
 	{
@@ -1187,7 +1187,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 		SceneAsset* asset = (SceneAsset*)tree_item->object;
 
-		if (controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active, true))
+		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active, true))
 		{
 			if (target_tree_item->object && StringUtils::IsEqual(asset->inst_class_name, target_tree_item->object->class_name))
 			{

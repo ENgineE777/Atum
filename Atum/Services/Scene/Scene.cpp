@@ -49,8 +49,8 @@ void Scene::Init()
 {
 	scene_path[0] = 0;
 
-	taskPool = taskExecutor.CreateSingleTaskPool();
-	renderTaskPool = render.AddTaskPool();
+	taskPool = core.taskExecutor.CreateSingleTaskPool();
+	renderTaskPool = core.render.AddTaskPool();
 }
 
 SceneObject* Scene::AddObject(const char* name, bool is_asset)
@@ -493,7 +493,7 @@ bool Scene::Play()
 
 	playing = true;
 
-	script = scripts.CreateContext();
+	script = core.scripts.CreateContext();
 
 	for (auto asset : assets)
 	{
@@ -670,7 +670,7 @@ void Scene::Release()
 	Clear();
 
 	delete taskPool;
-	render.DelTaskPool(renderTaskPool);
+	core.render.DelTaskPool(renderTaskPool);
 
 	delete this;
 }

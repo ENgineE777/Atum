@@ -130,7 +130,7 @@ void UIWidgetAsset::CalcState()
 	}
 	else
 	{
-		parent_size.x = render.GetDevice()->GetWidth() * 1024.0f / render.GetDevice()->GetHeight();
+		parent_size.x = core.render.GetDevice()->GetWidth() * 1024.0f / core.render.GetDevice()->GetHeight();
 		parent_size.y = 1024.0f;
 
 		cur_color = color;

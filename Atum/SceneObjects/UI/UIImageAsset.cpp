@@ -78,7 +78,7 @@ void UIImageAsset::Draw(float dt)
 		}
 		else
 		{
-			parent_size.x = render.GetDevice()->GetWidth() * 1024.0f / render.GetDevice()->GetHeight();
+			parent_size.x = core.render.GetDevice()->GetWidth() * 1024.0f / core.render.GetDevice()->GetHeight();
 			parent_size.y = 1024.0f;
 		}
 
@@ -165,7 +165,7 @@ META_DATA_DESC_END()
 void UIImageAssetInst::BindClassToScript()
 {
 	BIND_INST_TYPE_TO_SCRIPT(UIImageAssetInst, UIImageAsset)
-	scripts.engine->RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset), asCALL_GENERIC);
 }
 
 void UIImageAssetInst::SetSpriteFromAsset(string& asset_name)

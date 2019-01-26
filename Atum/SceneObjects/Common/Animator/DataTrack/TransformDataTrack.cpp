@@ -3,7 +3,7 @@
 #include "TransformDataTrackWidgets.h"
 
 #ifdef EDITOR
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 #endif
 
 TransformDataTrack::TransformDataTrack(TrackPlayer* own, const char* nm, Matrix* set_value, float rad, bool orinet,
@@ -578,10 +578,10 @@ void TransformDataTrack::DrawKey(Matrix& view_proj, Color& color, TransformKey& 
 	dirx += pos;
 	dirxInvert += pos;
 
-	render.DebugTriangle(pos_up, dirxInvert, dir, color);
-	render.DebugTriangle(pos_up, dir, dirx, color);
-	render.DebugTriangle(dir, dirxInvert, dirx, color);
-	render.DebugTriangle(pos_up, dirx, dirxInvert, color);
+	core.render.DebugTriangle(pos_up, dirxInvert, dir, color);
+	core.render.DebugTriangle(pos_up, dir, dirx, color);
+	core.render.DebugTriangle(dir, dirxInvert, dirx, color);
+	core.render.DebugTriangle(pos_up, dirx, dirxInvert, color);
 }
 
 void TransformDataTrack::DebugDraw()
@@ -594,7 +594,7 @@ void TransformDataTrack::DebugDraw()
 
 			if (!keys[index].blend) continue;
 
-			render.DebugLine(curve[ i ], COLOR_GREEN, curve[i+1], COLOR_GREEN);
+			core.render.DebugLine(curve[ i ], COLOR_GREEN, curve[i+1], COLOR_GREEN);
 		}
 	}
 
@@ -604,10 +604,10 @@ void TransformDataTrack::DebugDraw()
 	}
 
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 
 	Matrix view_proj;
-	render.GetTransform(Render::Projection, view_proj);
+	core.render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
 
 	bool blend = true;
@@ -648,7 +648,7 @@ void TransformDataTrack::DebugDraw()
 void TransformDataTrack::GrabCamera(int index)
 {
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 	view.Inverse();
 
 	values[index].pos = view.Pos();

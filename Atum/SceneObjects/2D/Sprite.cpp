@@ -1,10 +1,11 @@
 
 #include "Sprite.h"
+#include "Services/Core/Core.h"
 
 void Sprite::Data::LoadTexture()
 {
 	RELEASE(texture);
-	texture = render.LoadTexture(tex_name.c_str());
+	texture = core.render.LoadTexture(tex_name.c_str());
 	width = texture ? texture->GetWidth() : 0;
 	height = texture ? texture->GetHeight() : 0;
 }
@@ -119,7 +120,7 @@ void Sprite::Copy(Sprite::Data* src, Sprite::Data* dest)
 
 	dest->frame_time = src->frame_time;
 
-	dest->texture = render.LoadTexture(dest->tex_name.c_str());
+	dest->texture = core.render.LoadTexture(dest->tex_name.c_str());
 
 	int count = (int)src->rects.size();
 	dest->rects.resize(count);
@@ -210,10 +211,10 @@ void Sprite::UpdateFrame(Sprite::Data* data, FrameState* state, float dt)
 void Sprite::Init()
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float2, VertexDecl::Position, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(1, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(1, desc);
 
 	int stride = sizeof(Vector2);
-	buffer = render.GetDevice()->CreateBuffer(4, stride);
+	buffer = core.render.GetDevice()->CreateBuffer(4, stride);
 
 	Vector2* v = (Vector2*)buffer->Lock();
 
@@ -224,22 +225,22 @@ void Sprite::Init()
 
 	buffer->Unlock();
 
-	quad_prg_depth = render.GetProgram("QuadProgramDepth");
-	quad_prg_no_depth = render.GetProgram("QuadProgramNoDepth");
+	quad_prg_depth = core.render.GetProgram("QuadProgramDepth");
+	quad_prg_no_depth = core.render.GetProgram("QuadProgramNoDepth");
 
-	white_tex = render.LoadTexture("settings/editor/white.png");
+	white_tex = core.render.LoadTexture("settings/editor/white.png");
 }
 
 void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
 {
-	render.GetDevice()->SetVertexBuffer(0, buffer);
-	render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, buffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
 
 	Program* quad_prg = use_depth ? quad_prg_depth : quad_prg_no_depth;
-	render.GetDevice()->SetProgram(quad_prg);
+	core.render.GetDevice()->SetProgram(quad_prg);
 
 	Device::Viewport viewport;
-	render.GetDevice()->GetViewport(viewport);
+	core.render.GetDevice()->GetViewport(viewport);
 
 	Vector4 params[3];
 	params[0] = Vector4(pos.x, pos.y, size.x, size.y);
@@ -250,14 +251,14 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 		params[1] = Vector4(uv.x + duv.x, uv.y, -duv.x, duv.y);
 	}
 
-	params[2] = Vector4((float)render.GetDevice()->GetWidth(), (float)render.GetDevice()->GetHeight(), 0.5f, 0);
+	params[2] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0.5f, 0);
 
 	quad_prg->SetVector(Program::Vertex, "desc", &params[0], 3);
 	quad_prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
 	quad_prg->SetVector(Program::Pixel, "color", (Vector4*)&clr.r, 1);
 	quad_prg->SetTexture(Program::Pixel, "diffuseMap", texture ? texture : white_tex);
 
-	render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
+	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }
 
 void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth, bool ignore_camera)
@@ -270,7 +271,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	Matrix local_trans = trans->mat_global;
 
-	float scale = render.GetDevice()->GetHeight() / 1024.0f;
+	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 	local_trans.Pos().x *= scale;
 	local_trans.Pos().y *= scale;
@@ -282,12 +283,12 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 	{
 		if (use_ed_cam)
 		{
-			local_trans.Pos().x -= ed_cam_pos.x - render.GetDevice()->GetWidth() * 0.5f;
+			local_trans.Pos().x -= ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f;
 			local_trans.Pos().y -= ed_cam_pos.y - 512 * scale;
 		}
 		else
 		{
-			local_trans.Pos().x -= cam_pos.x * scale - render.GetDevice()->GetWidth() * 0.5f;
+			local_trans.Pos().x -= cam_pos.x * scale - core.render.GetDevice()->GetWidth() * 0.5f;
 			local_trans.Pos().y -= cam_pos.y * scale - 512 * scale;
 		}
 	}
@@ -306,8 +307,8 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 		max_pos.Max(temp);
 	}
 
-	if (max_pos.x < 0 || min_pos.x > render.GetDevice()->GetWidth() ||
-		max_pos.y < 0 || min_pos.y > render.GetDevice()->GetHeight())
+	if (max_pos.x < 0 || min_pos.x > core.render.GetDevice()->GetWidth() ||
+		max_pos.y < 0 || min_pos.y > core.render.GetDevice()->GetHeight())
 	{
 		return;
 	}

@@ -20,5 +20,3 @@ public:
 	FILE* FileOpen(const char* name, const char* mode);
 	bool IsFileExist(const char*  name);
 };
-
-extern Files files;

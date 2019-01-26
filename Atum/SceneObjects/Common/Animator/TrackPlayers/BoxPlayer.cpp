@@ -29,5 +29,5 @@ void BoxPlayer::Init()
 
 void BoxPlayer::Draw(float dt)
 {
-	render.DebugBox(trans, color, size);
+	core.render.DebugBox(trans, color, size);
 }

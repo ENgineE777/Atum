@@ -33,7 +33,7 @@ bool Terrain::Is3DObject()
 void Terrain::Init()
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(3, desc);
 
 	RenderTasks(false)->AddTask(ExecuteLevels::Geometry, this, (Object::Delegate)&Terrain::Render);
 
@@ -49,7 +49,7 @@ void Terrain::ApplyProperties()
 	sz = (hwidth) * (hheight) * 2;
 
 	RELEASE(buffer)
-	buffer = render.GetDevice()->CreateBuffer(sz * 3, stride);
+	buffer = core.render.GetDevice()->CreateBuffer(sz * 3, stride);
 
 	VertexTri* v_tri = (VertexTri*)buffer->Lock();
 
@@ -174,7 +174,7 @@ void Terrain::ApplyProperties()
 	buffer->Unlock();
 
 	RELEASE(texture)
-	texture = render.LoadTexture(tex_name.c_str());
+	texture = core.render.LoadTexture(tex_name.c_str());
 }
 
 float Terrain::GetHeight(int i, int j)
@@ -240,7 +240,7 @@ void Terrain::LoadHMap(const char* hgt_name)
 #ifdef PLATFORM_PC
 	string cooked_name = hgt_name + string("hm");
 
-	if (!files.IsFileExist(cooked_name.c_str()))
+	if (!core.files.IsFileExist(cooked_name.c_str()))
 	{
 		PhysHeightmap::Desc hdesc;
 		hdesc.width = hwidth;
@@ -248,7 +248,7 @@ void Terrain::LoadHMap(const char* hgt_name)
 		hdesc.scale = Vector2(scaleh, scalev);
 		hdesc.hmap = hmap;
 
-		physics.CookHeightmap(hdesc, cooked_name.c_str());
+		core.physics.CookHeightmap(hdesc, cooked_name.c_str());
 	}
 #endif
 }
@@ -265,15 +265,15 @@ void Terrain::ShRender(float dt)
 
 void Terrain::Render(Program* prg)
 {
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer(0, buffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, buffer);
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 
-	render.SetTransform(Render::World, Matrix());
+	core.render.SetTransform(Render::World, Matrix());
 
 	Matrix view_proj;
-	render.GetTransform(Render::WrldViewProj, view_proj);
+	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix mat;
 	Matrix world;
@@ -283,7 +283,7 @@ void Terrain::Render(Program* prg)
 	prg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
 	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
 
-	render.GetDevice()->Draw(Device::TrianglesList, 0, sz);
+	core.render.GetDevice()->Draw(Device::TrianglesList, 0, sz);
 }
 
 bool Terrain::Play()

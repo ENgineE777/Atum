@@ -279,7 +279,7 @@ bool SceneScriptAsset::Play()
 		return false;
 	}
 
-	mod = scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
+	mod = core.scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 	mod->AddScriptSection("script", (const char*)file.GetData(), file.GetSize());
 
 	mod->Build();

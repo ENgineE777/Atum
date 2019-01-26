@@ -4,11 +4,11 @@
 void DebugTriangles::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 0 },{ VertexDecl::Ubyte4, VertexDecl::Color, 0 } };
-	vdecl = render.GetDevice()->CreateVertexDecl(3, desc);
+	vdecl = core.render.GetDevice()->CreateVertexDecl(3, desc);
 
-	vbuffer = render.GetDevice()->CreateBuffer(3000, sizeof(Vertex));
+	vbuffer = core.render.GetDevice()->CreateBuffer(3000, sizeof(Vertex));
 
-	prg = render.GetProgram("DbgTriangle");
+	prg = core.render.GetProgram("DbgTriangle");
 
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugTriangles::Draw);
 }
@@ -31,18 +31,18 @@ void DebugTriangles::Draw(float dt)
 		return;
 	}
 
-	render.GetDevice()->SetProgram(prg);
+	core.render.GetDevice()->SetProgram(prg);
 
-	render.GetDevice()->SetVertexDecl(vdecl);
-	render.GetDevice()->SetVertexBuffer(0, vbuffer);
+	core.render.GetDevice()->SetVertexDecl(vdecl);
+	core.render.GetDevice()->SetVertexBuffer(0, vbuffer);
 
 	Matrix view_proj;
 	Matrix tmp;
-	render.SetTransform(Render::World, tmp);
-	render.GetTransform(Render::WrldViewProj, view_proj);
+	core.render.SetTransform(Render::World, tmp);
+	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
 	Matrix view;
-	render.GetTransform(Render::View, view);
+	core.render.GetTransform(Render::View, view);
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
@@ -77,7 +77,7 @@ void DebugTriangles::Draw(float dt)
 		if (index > 330)
 		{
 			vbuffer->Unlock();
-			render.GetDevice()->Draw(Device::TrianglesList, 0, index);
+			core.render.GetDevice()->Draw(Device::TrianglesList, 0, index);
 
 			index = 0;
 			vertices = (Vertex*)vbuffer->Lock();
@@ -88,7 +88,7 @@ void DebugTriangles::Draw(float dt)
 
 	if (index > 0)
 	{
-		render.GetDevice()->Draw(Device::TrianglesList, 0, index);
+		core.render.GetDevice()->Draw(Device::TrianglesList, 0, index);
 	}
 
 	triangles.clear();

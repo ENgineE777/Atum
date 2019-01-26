@@ -1,19 +1,18 @@
 
 #include "Controls.h"
+#include "Services/Core/Core.h"
 #include "Support/StringUtils.h"
 #include "Support/json/JSONReader.h"
-
-Controls controls;
 
 Controls::AliasMappig::AliasMappig(const char* name)
 {
 	this->name = name;
 
-	this->alias = controls.GetAlias(name);
+	this->alias = core.controls.GetAlias(name);
 
 	if (this->alias != -1)
 	{
-		Alias& alias = controls.aliases[this->alias];
+		Alias& alias = core.controls.aliases[this->alias];
 		int count = (int)alias.aliasesRef.size();
 
 		if (count)

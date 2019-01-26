@@ -2,8 +2,6 @@
 #include "SceneManager.h"
 #include "SceneObject.h"
 
-SceneManager scene_manager;
-
 void SceneManager::Init()
 {
 }
@@ -64,7 +62,7 @@ void SceneManager::LoadProject(const char* project_name)
 			}
 		}
 
-		pscene = physics.CreateScene();
+		pscene = core.physics.CreateScene();
 		LoadScene(&scenes[start_scene]);
 	}
 }
@@ -173,7 +171,7 @@ void SceneManager::UnloadAll()
 
 	if (pscene)
 	{
-		physics.DestroyScene(pscene);
+		core.physics.DestroyScene(pscene);
 		pscene = nullptr;
 	}
 }

@@ -50,5 +50,5 @@ void SimpleClient::Work(float dt)
 	color.g = koef;
 	color.b = koef;
 
-	render.DebugSphere(transform.Pos(), color, 0.5f);
+	core.render.DebugSphere(transform.Pos(), color, 0.5f);
 }

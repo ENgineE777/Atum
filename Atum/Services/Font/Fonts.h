@@ -26,12 +26,7 @@ public:
 		virtual const char* GetVsName() { return "font_vs.shd"; };
 		virtual const char* GetPsName() { return "font_ps.shd"; };
 
-		virtual void ApplyStates()
-		{
-			render.GetDevice()->SetAlphaBlend(true);
-			render.GetDevice()->SetDepthWriting(false);
-			render.GetDevice()->SetDepthTest(false);
-		};
+		virtual void ApplyStates();
 	};
 
 	Fonts();
@@ -40,5 +35,3 @@ public:
 	virtual void DeleteRes(FontRes* res);
 	virtual void Release();
 };
-
-extern Fonts fonts;

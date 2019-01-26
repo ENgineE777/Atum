@@ -106,7 +106,15 @@ void SceneManager::Execute(float dt)
 	{
 		if (scn.scene)
 		{
-			scn.scene->Execute(dt);
+			if (scn.ref_counter == 0)
+			{
+				scn.scene->Stop();
+				RELEASE(scn.scene)
+			}
+			else
+			{
+				scn.scene->Execute(dt);
+			}
 		}
 	}
 }
@@ -147,9 +155,6 @@ void SceneManager::UnloadScene(SceneHolder* holder)
 		{
 			UnloadScene(incl);
 		}
-
-		holder->scene->Stop();
-		RELEASE(holder->scene)
 	}
 }
 void SceneManager::UnloadAll()

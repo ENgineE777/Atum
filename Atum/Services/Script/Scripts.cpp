@@ -88,6 +88,16 @@ void Scene_Group_SetState(asIScriptGeneric *gen)
 	scene_manager.SetScenesGroupsState(((string*)gen->GetArgAddress(0))->c_str(), gen->GetArgDWord(1));
 }
 
+void Scene_Load(asIScriptGeneric *gen)
+{
+	scene_manager.LoadScene(((string*)gen->GetArgAddress(0))->c_str());
+}
+
+void Scene_Unload(asIScriptGeneric *gen)
+{
+	scene_manager.UnloadScene(((string*)gen->GetArgAddress(0))->c_str());
+}
+
 void Script_CallClassInstancesMethod(asIScriptGeneric *gen)
 {
 	string* arg = (string*)(gen->GetArgAddress(0));
@@ -175,6 +185,9 @@ void Scripts::Start()
 	engine->RegisterGlobalFunction("int Control_IsGamepadConnected()", asFUNCTION(Control_IsGamepadConnected), asCALL_GENERIC);
 
 	engine->RegisterGlobalFunction("void Scene_Group_SetState(string&in alias, int state)", asFUNCTION(Scene_Group_SetState), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("void Scene_Load(string&in alias)", asFUNCTION(Scene_Load), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("void Scene_Unload(string&in alias)", asFUNCTION(Scene_Unload), asCALL_GENERIC);
+
 	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
 
 	engine->RegisterGlobalFunction("void Script_CallClassInstancesMethod(string&in alias)", asFUNCTION(Script_CallClassInstancesMethod), asCALL_GENERIC);

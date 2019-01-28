@@ -31,6 +31,7 @@ public:
 	void Write(const char* name, const char* val);
 	void Write(const char* name, bool val);
 	void Write(const char* name, float val);
+	void Write(const char* name, uint16_t& val);
 	void Write(const char* name, int val);
 	void Write(const char* name, uint32_t val);
 	void Write(const char* name, int64_t val);

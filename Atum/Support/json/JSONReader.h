@@ -34,6 +34,7 @@ public:
 	bool Read(const char* name, std::string& val);
 	bool Read(const char* name, bool& val);
 	bool Read(const char* name, float& val);
+	bool Read(const char* name, uint16_t& val);
 	bool Read(const char* name, int& val);
 	bool Read(const char* name, uint32_t& val);
 	bool Read(const char* name, int64_t& val);

@@ -5,6 +5,7 @@
 	"scenes" : [
 		{
 			"path" : "Projects/Beatemup/beatemup.sca",
+			"uid" : 28688,
 			"include" : [
 			]
 		}

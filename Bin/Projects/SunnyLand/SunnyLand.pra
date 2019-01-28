@@ -5,6 +5,7 @@
 	"scenes" : [
 		{
 			"path" : "Projects/SunnyLand/SunnyLand.sca",
+			"uid" : 28888,
 			"include" : [
 			]
 		}

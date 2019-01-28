@@ -339,6 +339,7 @@ void Scene::Load(const char* name)
 		StringUtils::GetFileName(name, scene_name);
 		StringUtils::RemoveExtension(scene_name);
 
+		reader.Read("uid", uid);
 		reader.Read("camera3d_angles", camera3d_angles);
 		reader.Read("camera3d_pos", camera3d_pos);
 		reader.Read("camera_pos", camera2d_pos);
@@ -433,6 +434,7 @@ void Scene::Save(const char* name)
 
 	if (writer.Start(name))
 	{
+		writer.Write("uid", uid);
 		writer.Write("camera3d_angles", camera3d_angles);
 		writer.Write("camera3d_pos", camera3d_pos);
 		writer.Write("camera_pos", camera2d_pos);
@@ -596,16 +598,28 @@ void Scene::GenerateChildUID(SceneObject* obj)
 		pool_childs.push_back(obj);
 	}
 
-	uint32_t uid = 0;
+	union UID32
+	{
+		uint32_t id;
+		struct
+		{
+			uint16_t id1;
+			uint16_t id2;
+		};
+	};
 
-	while (!uid)
+	UID32 obj_uid;
+	obj_uid.id = 0;
+
+	while (!obj_uid.id)
 	{
 		float koef = rnd() * 0.99f;
-		uid = (uint32_t)(koef * uint32_t(-1));
-		uid = FindByUID(uid, 0, pool_childs) ? 0 : uid;
+		obj_uid.id = (uint32_t)(koef * 1048576);
+		obj_uid.id1 |= uid;
+		obj_uid.id = FindByUID(obj_uid.id, 0, pool_childs) ? 0 : obj_uid.id;
 	}
 
-	obj->uid = uid;
+	obj->uid = obj_uid.id;
 }
 
 SceneObject* Scene::FindInGroup(const char* group_name, const char* name)

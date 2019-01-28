@@ -5,6 +5,7 @@
 	"scenes" : [
 		{
 			"path" : "Projects/Coldrain/coldrain.sca",
+			"uid" : 28788,
 			"include" : [
 			]
 		}

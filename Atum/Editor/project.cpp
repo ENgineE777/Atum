@@ -150,6 +150,7 @@ void Project::LoadScene(SceneHolder* holder)
 	}
 
 	holder->scene = new Scene();
+
 	holder->scene->Init();
 	holder->scene->load_asset_inst = true;
 
@@ -719,8 +720,38 @@ void Project::AddScene(const char* path, void* parent_item)
 		return;
 	}
 
-	scenes.push_back(new SceneHolder());
-	SceneHolder* holder = scenes.back();
+	SceneHolder* holder = new SceneHolder();
+	holder->SetPath(cropped_path);
+
+	LoadScene(holder);
+
+	if (holder->uid == 0)
+	{
+		GenerateUID(holder);
+	}
+	else
+	{
+		for (auto& scn : scenes)
+		{
+			if (scn == holder)
+			{
+				continue;
+			}
+
+			if (scn->uid == holder->uid)
+			{
+				holder->scene->Clear();
+				delete holder->scene;
+				delete holder;
+
+				return;
+			}
+		}
+	}
+
+	holder->uid = holder->scene->uid;
+
+	scenes.push_back(holder);
 
 	char name[256];
 	StringUtils::GetFileName(cropped_path, name);
@@ -1008,6 +1039,37 @@ bool Project::FromSameProject(EUITreeView* sender, void* item, void* parent)
 	GetProjectItem(sender, parent, parent_project);
 
 	return StringUtils::IsEqual(item_project.c_str(), parent_project.c_str());
+}
+
+void Project::GenerateUID(SceneHolder* holder)
+{
+	uint16_t uid = 0;
+
+	while (uid == 0)
+	{
+		float koef = rnd() * 0.99f;
+		uid = (uint16_t)(koef * 4096) << 4;
+
+		for (auto& scn : scenes)
+		{
+			if (scn == holder)
+			{
+				continue;
+			}
+
+			if (scn->uid == uid)
+			{
+				uid = 0;
+				break;
+			}
+		}
+
+		if (uid != 0)
+		{
+			holder->uid = uid;
+			holder->scene->uid = uid;
+		}
+	}
 }
 
 bool Project::OnTreeViewItemDragged(void* item, void* parent)

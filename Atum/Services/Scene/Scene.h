@@ -61,6 +61,8 @@ private:
 	SceneObject* FindByName(const char* name, std::vector<SceneObject*>& objects);
 	SceneObject* FindByUID(uint32_t uid, uint32_t parent_uid, std::vector<SceneObject*>& objects);
 
+	uint16_t uid = 0;
+
 	char scene_path[512];
 	char scene_name[512];
 

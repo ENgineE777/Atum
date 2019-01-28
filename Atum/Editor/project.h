@@ -41,6 +41,7 @@ public:
 	{
 		string path;
 		string name;
+		uint16_t uid = 0;
 		Scene* scene = nullptr;
 		void* item = nullptr;
 
@@ -140,6 +141,7 @@ public:
 	void GetProjectItem(EUITreeView* sender, void* item, string& name);
 	bool FromSameProject(EUITreeView* sender, void* item, void* parent);
 
+	void GenerateUID(SceneHolder* holder);
 	bool OnTreeViewItemDragged(void* item, void* parent);
 	void ProcessPopup(int id, void* popup_item);
 	void OnTreeViewSelChange(void* ptr);

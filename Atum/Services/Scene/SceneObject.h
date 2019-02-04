@@ -56,6 +56,7 @@ public:
 
 protected:
 
+	Scene * owner = nullptr;
 	std::string name;
 	std::string group_name;
 	std::string layer_name;
@@ -70,7 +71,11 @@ protected:
 
 public:
 
-	Scene * owner = nullptr;
+	inline Scene * GetOwner()
+	{
+		return owner;
+	}
+
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;
 
@@ -88,6 +93,7 @@ public:
 
 	const char* GetName();
 	virtual void SetName(const char* name);
+	virtual void SetUID(uint32_t uid);
 	virtual uint32_t GetUID();
 	virtual uint32_t GetParentUID();
 	virtual void SetState(int state);
@@ -123,6 +129,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual void SetOwner(Scene* owner);
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
 	virtual bool IsAsset();
@@ -157,6 +164,7 @@ public:
 	void Save(JSONWriter& writer) override;
 
 #ifdef EDITOR
+	void SetOwner(Scene* owner) override;
 	void Copy(SceneObject* src);
 #endif
 };

@@ -1,0 +1,665 @@
+﻿{
+
+	"uid" : 14304,
+	"camera3d_angles" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
+	"camera3d_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000,
+		"z" : 0.000000
+	},
+	"camera_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
+	"move_mode" : 0,
+	"gizmo2d_align_x" : 0,
+	"gizmo2d_align_y" : 0,
+	"SceneAsset" : [
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 14304,
+			"ed_camera_2d" :
+			{
+				"x" : -220.000000,
+				"y" : 44.000000
+			},
+			"Name" : "MainScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "Game",
+			"Count" : 52,
+			"Node" : [
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 370.000000,
+						"y" : 503.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "camera",
+					"pos" :
+					{
+						"x" : 438.000000,
+						"y" : -13.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "item_taken",
+					"pos" :
+					{
+						"x" : 647.000000,
+						"y" : -13.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "enemy_death",
+					"pos" :
+					{
+						"x" : 646.000000,
+						"y" : 91.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "vjoy",
+					"pos" :
+					{
+						"x" : 146.000000,
+						"y" : 494.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "diamonds",
+					"pos" :
+					{
+						"x" : 438.000000,
+						"y" : 197.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "cherries",
+					"pos" :
+					{
+						"x" : 439.000000,
+						"y" : 302.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "eagles",
+					"pos" :
+					{
+						"x" : 848.000000,
+						"y" : 87.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boxes",
+					"pos" :
+					{
+						"x" : 435.000000,
+						"y" : 84.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fake_box",
+					"pos" :
+					{
+						"x" : 213.000000,
+						"y" : 286.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fly_boxes",
+					"pos" :
+					{
+						"x" : 219.000000,
+						"y" : 190.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 1238.000000,
+						"y" : 352.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 12,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 980.000000,
+						"y" : 350.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnBoxContact",
+					"pos" :
+					{
+						"x" : 1237.000000,
+						"y" : 468.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 14,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 978.000000,
+						"y" : 468.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "boss_cards",
+					"pos" :
+					{
+						"x" : -8.000000,
+						"y" : 193.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "OnCardContact",
+					"pos" :
+					{
+						"x" : 978.000000,
+						"y" : 593.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnCardContact",
+					"pos" :
+					{
+						"x" : 1237.000000,
+						"y" : 592.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 16,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "fake_card",
+					"pos" :
+					{
+						"x" : -9.000000,
+						"y" : 287.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1706.000000,
+						"y" : 33.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnRespawnTrigger",
+					"pos" :
+					{
+						"x" : 1912.000000,
+						"y" : 230.000000
+					},
+					"param_type" : 0,
+					"Count" : 6,
+					"Link" : [
+						{
+							"node" : 21,
+							"param" : ""
+						},
+						{
+							"node" : 19,
+							"param" : ""
+						},
+						{
+							"node" : 25,
+							"param" : ""
+						},
+						{
+							"node" : 22,
+							"param" : ""
+						},
+						{
+							"node" : 23,
+							"param" : ""
+						},
+						{
+							"node" : 24,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1526.000000,
+						"y" : 87.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1429.000000,
+						"y" : 229.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1507.000000,
+						"y" : 352.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1622.000000,
+						"y" : 420.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1862.000000,
+						"y" : 409.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnActivateResapwnTrigger",
+					"pos" :
+					{
+						"x" : 1963.000000,
+						"y" : 597.000000
+					},
+					"param_type" : 1,
+					"Count" : 3,
+					"Link" : [
+						{
+							"node" : 27,
+							"param" : "1"
+						},
+						{
+							"node" : 29,
+							"param" : "2"
+						},
+						{
+							"node" : 30,
+							"param" : "3"
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1558.000000,
+						"y" : 572.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "respawn_points",
+					"pos" :
+					{
+						"x" : 220.000000,
+						"y" : 82.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1556.000000,
+						"y" : 732.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 1746.000000,
+						"y" : 798.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "opposums",
+					"pos" :
+					{
+						"x" : 835.000000,
+						"y" : -10.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart1",
+					"pos" :
+					{
+						"x" : 1099.000000,
+						"y" : 1050.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart2",
+					"pos" :
+					{
+						"x" : 1089.000000,
+						"y" : 950.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart3",
+					"pos" :
+					{
+						"x" : 1103.000000,
+						"y" : 830.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fade",
+					"pos" :
+					{
+						"x" : 1289.000000,
+						"y" : 846.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "score_label",
+					"pos" :
+					{
+						"x" : 1286.000000,
+						"y" : 940.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 301.000000,
+						"y" : 846.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 679.000000,
+						"y" : 846.000000
+					},
+					"param_type" : 1,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 37,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 687.000000,
+						"y" : 938.000000
+					},
+					"param_type" : 1,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 41,
+							"param" : "0"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "OnReturnToTitle",
+					"pos" :
+					{
+						"x" : 688.000000,
+						"y" : 1040.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 42,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 302.000000,
+						"y" : 933.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 301.000000,
+						"y" : 1044.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "pause_menu",
+					"pos" :
+					{
+						"x" : 905.000000,
+						"y" : 837.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 297.000000,
+						"y" : 1153.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnStartGame",
+					"pos" :
+					{
+						"x" : 689.000000,
+						"y" : 1154.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 44,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 902.000000,
+						"y" : 940.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "level_ui",
+					"pos" :
+					{
+						"x" : 904.000000,
+						"y" : 1043.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "start_label",
+					"pos" :
+					{
+						"x" : 1287.000000,
+						"y" : 1045.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_markers",
+					"pos" :
+					{
+						"x" : -6.000000,
+						"y" : 87.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "hero_inst",
+					"pos" :
+					{
+						"x" : 219.000000,
+						"y" : -10.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_inst",
+					"pos" :
+					{
+						"x" : -7.000000,
+						"y" : -10.000000
+					},
+					"prefix" : ""
+				}
+			]
+		}
+	],
+	"SceneObject" : [
+		{
+			"type" : "VirtualJoystick",
+			"uid" : 14304,
+			"Name" : "VirtualJoystick",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"StickPad" : "Projects/Common/stick_pad.png",
+			"Stick" : "Projects/Common/stick.png",
+			"ButtonA" : "Projects/Common/button.png",
+			"ButtonB" : "Projects/Common/button.png"
+		}
+	],
+	"asset_instances" : [
+		{
+			"asset_uid" : 14304,
+			"instances" : [
+				{
+					"scene" : "Projects/SunnyLand/SunnyLand.sca",
+					"inst_uid" : 2133115008
+				}
+			]
+		}
+	]
+}

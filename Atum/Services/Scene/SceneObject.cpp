@@ -221,6 +221,36 @@ void SceneObject::ApplyProperties()
 
 }
 
+#ifdef EDITOR
+void SceneObject::SetOwner(Scene* set_owner)
+{
+	owner->DeleteObject(this, IsAsset(), false);
+
+	owner->taskPool->DelAllTasks(this, set_owner->taskPool);
+
+	for (auto comp : components)
+	{
+		owner->taskPool->DelAllTasks(comp);
+	}
+
+	if (owner)
+	{
+		owner->renderTaskPool->DelAllTasks(this, set_owner->renderTaskPool);
+
+		for (auto comp : components)
+		{
+			owner->renderTaskPool->DelAllTasks(comp, set_owner->renderTaskPool);
+		}
+	}
+
+	owner->DelFromAllGroups(this, set_owner);
+
+	owner = set_owner;
+	owner->GenerateUID(this, IsAsset());
+	owner->AddObject(this, IsAsset());
+}
+#endif
+
 const char* SceneObject::GetName()
 {
 	return name.c_str();
@@ -229,6 +259,11 @@ const char* SceneObject::GetName()
 void SceneObject::SetName(const char* set_name)
 {
 	name = set_name;
+}
+
+void SceneObject::SetUID(uint32_t set_uid)
+{
+	uid = set_uid;
 }
 
 uint32_t SceneObject::GetUID()
@@ -444,12 +479,7 @@ void SceneObject::Release()
 #ifdef EDITOR
 	if (taskPool)
 	{
-		taskPool->DelAllTasks(this);
-
-		for (auto comp : components)
-		{
-			taskPool->DelAllTasks(comp);
-		}
+		delete taskPool;
 	}
 #endif
 
@@ -466,12 +496,8 @@ void SceneObject::Release()
 #ifdef EDITOR
 	if (renderTaskPool)
 	{
-		renderTaskPool->DelAllTasks(this);
-
-		for (auto comp : components)
-		{
-			renderTaskPool->DelAllTasks(comp);
-		}
+		core.render.DelTaskPool(renderTaskPool);
+		delete renderTaskPool;
 	}
 #endif
 
@@ -705,6 +731,19 @@ void SceneObjectInst::Save(JSONWriter& saver)
 }
 
 #ifdef EDITOR
+void SceneObjectInst::SetOwner(Scene* owner)
+{
+	SceneObject::SetOwner(owner);
+
+	for (auto& inst : asset->instances)
+	{
+		if (inst.GetObject() == this)
+		{
+			inst.inst_uid = GetUID();
+		}
+	}
+}
+
 void SceneObjectInst::Copy(SceneObject* src)
 {
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;

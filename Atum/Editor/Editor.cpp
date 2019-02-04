@@ -397,7 +397,7 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 		scene = ((Project::SceneTreeItem*)treeview->GetItemPtr(parent))->scene;
 	}
 
-	SceneObject* copy = scene->AddObject(obj->class_name, is_asset);
+	SceneObject* copy = scene->CreateObject(obj->class_name, is_asset);
 	scene->GenerateUID(copy, is_asset);
 	copy->Copy(obj);
 
@@ -426,7 +426,7 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 		scene = ((Project::SceneTreeItem*)treeview->GetItemPtr(parent))->scene;
 	}
 
-	SceneObject* obj = scene->AddObject(name, is_asset);
+	SceneObject* obj = scene->CreateObject(name, is_asset);
 	scene->GenerateUID(obj, is_asset);
 	obj->ApplyProperties();
 
@@ -1171,13 +1171,28 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 	if (sender == target)
 	{
-		if (!project.FromSameProject(sender, item, parent))
+		Project::SceneTreeItem* with = (Project::SceneTreeItem*)sender->GetItemPtr(item);
+		Project::SceneTreeItem* to = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
+
+		if (project.select_scene->included.size() > 0)
+		{
+			if (!to)
+			{
+				return false;
+			}
+		}
+
+		if (with->object && with->object->AddedToTreeByParent())
 		{
 			return false;
 		}
 
-		SceneObject* obj = ((Project::SceneTreeItem*)sender->GetItemPtr(item))->object;
-		return obj ? !obj->AddedToTreeByParent() : true;
+		if (with->scene != to->scene)
+		{
+			project.SetScene(sender, item, to->scene);
+		}
+
+		return true;
 	}
 
 	if (sender == assets_treeview && target == scene_treeview && ((Project::SceneTreeItem*)assets_treeview->GetItemPtr(item))->object)
@@ -1331,7 +1346,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 				for (auto inst : asset->instances)
 				{
 					scene_treeview->DeleteItem(inst.GetObject()->item);
-					inst.GetObject()->owner->DeleteObject(inst.GetObject(), false);
+					inst.GetObject()->GetOwner()->DeleteObject(inst.GetObject(), false, true);
 				}
 			}
 			else
@@ -1344,7 +1359,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 				}
 			}
 
-			tree_item->scene->DeleteObject(tree_item->object, (sender == assets_treeview));
+			tree_item->scene->DeleteObject(tree_item->object, (sender == assets_treeview), true);
 
 			sender->SelectItem(nullptr);
 		}

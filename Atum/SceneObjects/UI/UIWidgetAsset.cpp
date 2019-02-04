@@ -306,6 +306,16 @@ void UIWidgetAsset::DeleteChilds()
 }
 
 #ifdef EDITOR
+void UIWidgetAsset::SetOwner(Scene* owner)
+{
+	SceneObject::SetOwner(owner);
+
+	for (auto& child : childs)
+	{
+		child->SetOwner(owner);
+	}
+}
+
 bool UIWidgetAsset::UsingCamera2DPos()
 {
 	return !AddedToTreeByParent();

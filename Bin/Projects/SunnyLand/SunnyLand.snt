@@ -327,11 +327,6 @@
 			"type" : 1
 		},
 		{
-			"uid" : -182577152,
-			"name" : "VirtualJoystick",
-			"type" : 1
-		},
-		{
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
@@ -691,11 +686,6 @@
 		{
 			"uid" : 1322567424,
 			"name" : "BridgeScript",
-			"type" : 1
-		},
-		{
-			"uid" : -1993840384,
-			"name" : "MainScript",
 			"type" : 1
 		},
 		{

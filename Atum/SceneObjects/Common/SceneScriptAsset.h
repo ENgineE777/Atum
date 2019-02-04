@@ -90,6 +90,8 @@ public:
 
 #ifdef EDITOR
 	string prev_filename;
+	void RenameScriptFile();
+	void SetUID(uint32_t uid) override;
 	SceneObject* CreateInstance(Scene* scene) override;
 	void EditorWork(float dt);
 	void EditorWork(float dt, class SceneScriptInst* inst);

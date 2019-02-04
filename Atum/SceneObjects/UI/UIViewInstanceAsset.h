@@ -26,6 +26,7 @@ public:
 	void BindClassToScript() override;
 
 #ifdef EDITOR
+	bool IsAsset() override;
 	bool UsingCamera2DPos() override;
 	void AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item);
 	void AddChildsToTree(EUITreeView* treeview) override;

@@ -1,17 +1,28 @@
 ﻿{
 
 	"start_scene" : 0,
-	"scenes_count" : 1,
+	"scenes_count" : 2,
 	"scenes" : [
 		{
 			"path" : "Projects/SunnyLand/SunnyLand.sca",
-			"uid" : 28888,
+			"include" : [
+				{
+					"path" : "Projects/SunnyLand/CoreScene.sca"
+				}
+			]
+		},
+		{
+			"path" : "Projects/SunnyLand/CoreScene.sca",
 			"include" : [
 			]
 		}
 	],
 	"selected_scene" : "Projects/SunnyLand/SunnyLand.sca",
 	"nodes" : [
+		{
+			"name" : "CoreScene",
+			"type" : 1
+		},
 		{
 			"name" : "SunnyLand",
 			"type" : 1

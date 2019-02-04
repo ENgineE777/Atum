@@ -1,0 +1,27 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : 14304,
+			"name" : "VirtualJoystick",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : 14304,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

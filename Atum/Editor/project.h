@@ -137,10 +137,7 @@ public:
 	vector<SceneObject*> under_selection;
 	void CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection);
 	SceneObject* CheckSelection(Vector2 ms);
-
-	void GetProjectItem(EUITreeView* sender, void* item, string& name);
-	bool FromSameProject(EUITreeView* sender, void* item, void* parent);
-
+	void SetScene(EUITreeView* treeview, void* item, Scene* scene);
 	void GenerateUID(SceneHolder* holder);
 	bool OnTreeViewItemDragged(void* item, void* parent);
 	void ProcessPopup(int id, void* popup_item);

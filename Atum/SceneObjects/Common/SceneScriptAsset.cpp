@@ -164,7 +164,7 @@ void SceneScriptAsset::Init()
 {
 	inst_class_name = "SceneScriptInst";
 
-#ifdef EDITORS
+#ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScriptAsset::EditorWork);
 #endif
 }
@@ -241,28 +241,7 @@ void SceneScriptAsset::SetName(const char* set_name)
 #ifdef EDITOR
 	if (set_name[0])
 	{
-		bool need_rename = false;
-
-		FILE* prev_fl = fopen(prev_filename.c_str(), "a");
-		if (prev_fl)
-		{
-			need_rename = true;
-			fclose(prev_fl);
-		}
-
-		string filename;
-		GetScriptFileName(filename);
-
-		if (need_rename)
-		{
-			rename(prev_filename.c_str(), filename.c_str());
-			prev_filename = filename;
-		}
-		else
-		{
-			FILE* fl = fopen(filename.c_str(), "a");
-			fclose(fl);
-		}
+		RenameScriptFile();
 	}
 #endif
 }
@@ -362,6 +341,39 @@ Vector2& SceneScriptAsset::Camera2DPos()
 }
 
 #ifdef EDITOR
+void SceneScriptAsset::RenameScriptFile()
+{
+	bool need_rename = false;
+
+	FILE* prev_fl = fopen(prev_filename.c_str(), "a");
+	if (prev_fl)
+	{
+		need_rename = true;
+		fclose(prev_fl);
+	}
+
+	string filename;
+	GetScriptFileName(filename);
+
+	if (need_rename)
+	{
+		rename(prev_filename.c_str(), filename.c_str());
+	}
+	else
+	{
+		FILE* fl = fopen(filename.c_str(), "a");
+		fclose(fl);
+	}
+
+	prev_filename = filename;
+}
+
+void SceneScriptAsset::SetUID(uint32_t set_uid)
+{
+	SceneAsset::SetUID(set_uid);
+
+	RenameScriptFile();
+}
 
 SceneObject* SceneScriptAsset::CreateInstance(Scene* scene)
 {
@@ -418,7 +430,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 
 			if (!scene_node.object)
 			{
-				scene_node.object = owner->FindByUID(scene_node.object_uid, scene_node.object_child_uid, false);
+				scene_node.object = inst->GetOwner()->FindByUID(scene_node.object_uid, scene_node.object_child_uid, false);
 			}
 
 			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node.object ? scene_node.object->GetName() : "NULL");

@@ -670,6 +670,8 @@ void Project::SelectScene(SceneHolder* holder)
 
 		EnableScene(select_scene, true);
 	}
+
+	editor.scene_sheet->Enable(select_scene != nullptr);
 }
 
 int Project::FindSceneIndex(const char* path)
@@ -1006,39 +1008,23 @@ SceneObject* Project::CheckSelection(Vector2 ms)
 	return under_selection.size() > 0 ? under_selection[under_selection_index] : nullptr;
 }
 
-void Project::GetProjectItem(EUITreeView* sender, void* item, string& name)
+void Project::SetScene(EUITreeView* treeview, void* item, Scene* scene)
 {
-	void* parent = sender->GetItemParent(item);
+	SceneTreeItem* tree_item = (SceneTreeItem*)treeview->GetItemPtr(item);
 
-	if (parent)
+	if (tree_item->object)
 	{
-		string parent_name;
-		sender->GetItemText(parent, parent_name);
-
-		if (strstr(parent_name.c_str(), "(Included)"))
-		{
-			name = parent_name;
-		}
-		else
-		{
-			GetProjectItem(sender, parent, name);
-		}
+		tree_item->object->SetOwner(scene);
 	}
 	else
 	{
-		sender->GetItemText(item, name);
+		int count = treeview->GetItemChildCount(item);
+
+		for (int i = 0; i < count; i++)
+		{
+			SetScene(treeview, treeview->GetItemChild(item, i), scene);
+		}
 	}
-}
-
-bool Project::FromSameProject(EUITreeView* sender, void* item, void* parent)
-{
-	string item_project;
-	GetProjectItem(sender, item, item_project);
-
-	string parent_project;
-	GetProjectItem(sender, parent, parent_project);
-
-	return StringUtils::IsEqual(item_project.c_str(), parent_project.c_str());
 }
 
 void Project::GenerateUID(SceneHolder* holder)
@@ -1187,7 +1173,6 @@ void Project::OnTreeViewSelChange(void* ptr)
 	if (scn)
 	{
 		SelectScene(scn->parent ? scn->parent : scn->scene);
-		editor.scene_sheet->Enable(select_scene != nullptr);
 	}
 }
 
@@ -1228,7 +1213,6 @@ void Project::DeleteItem(void* ptr)
 	else
 	{
 		DeleteScene(tree_item->scene);
-		editor.scene_sheet->Enable(project.select_scene != nullptr);
 	}
 }
 

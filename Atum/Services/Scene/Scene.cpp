@@ -53,7 +53,7 @@ void Scene::Init()
 	renderTaskPool = core.render.AddTaskPool();
 }
 
-SceneObject* Scene::AddObject(const char* name, bool is_asset)
+SceneObject* Scene::CreateObject(const char* name, bool is_asset)
 {
 	ClassFactorySceneObject* decl_objects;
 	ClassFactorySceneAsset* decl_assets;
@@ -93,17 +93,22 @@ SceneObject* Scene::AddObject(const char* name, bool is_asset)
 		obj->GetMetaData()->Prepare(obj);
 		obj->GetMetaData()->SetDefValues();
 
-		if (is_asset)
-		{
-			assets.push_back(obj);
-		}
-		else
-		{
-			objects.push_back(obj);
-		}
+		AddObject(obj, is_asset);
 	}
 
 	return obj;
+}
+
+void Scene::AddObject(SceneObject* obj, bool is_asset)
+{
+	if (is_asset)
+	{
+		assets.push_back(obj);
+	}
+	else
+	{
+		objects.push_back(obj);
+	}
 }
 
 SceneObject* Scene::FindByName(const char* name, std::vector<SceneObject*>& objects)
@@ -181,7 +186,7 @@ int Scene::GetObjectsCount(bool is_asset)
 	return is_asset ? (int)assets.size() : (int)objects.size();
 }
 
-void Scene::DeleteObject(SceneObject* obj, bool is_asset)
+void Scene::DeleteObject(SceneObject* obj, bool is_asset, bool release_obj)
 {
 	if (is_asset)
 	{
@@ -190,7 +195,7 @@ void Scene::DeleteObject(SceneObject* obj, bool is_asset)
 			if ((SceneAsset*)assets[i] == obj)
 			{
 				assets.erase(assets.begin() + i);
-				obj->Release();
+				if (release_obj) obj->Release();
 				break;
 			}
 		}
@@ -202,7 +207,7 @@ void Scene::DeleteObject(SceneObject* obj, bool is_asset)
 			if (objects[i] == obj)
 			{
 				objects.erase(objects.begin() + i);
-				obj->Release();
+				if (release_obj) obj->Release();
 				break;
 			}
 		}
@@ -276,7 +281,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 		SceneObject* obj = nullptr;
 
-		obj = AddObject(type, is_asset);
+		obj = CreateObject(type, is_asset);
 
 		if (obj)
 		{
@@ -490,7 +495,7 @@ bool Scene::Play()
 {
 	if (playing)
 	{
-		return false;
+		return true;
 	}
 
 	playing = true;
@@ -569,16 +574,28 @@ void Scene::EnableTasks(bool enable)
 
 void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 {
-	uint32_t uid = 0;
-
-	while (!uid)
+	union UID32
 	{
-		float koef = rnd() * 0.98f;
-		uid = (uint32_t)(koef * uint32_t(-1));
-		uid = FindByUID(uid, 0, is_asset) ? 0 : uid;
+		uint32_t id;
+		struct
+		{
+			uint16_t id1;
+			uint16_t id2;
+		};
+	};
+
+	UID32 obj_uid;
+	obj_uid.id = 0;
+
+	while (!obj_uid.id)
+	{
+		float koef = rnd() * 0.99f;
+		obj_uid.id = (uint32_t)(koef * 1048576);
+		obj_uid.id1 |= uid;
+		obj_uid.id = FindByUID(uid, 0, is_asset) ? 0 : obj_uid.id;
 	}
 
-	obj->uid = uid;
+	obj->SetUID(uid);
 }
 
 void Scene::GenerateChildUID(SceneObject* obj)
@@ -619,7 +636,7 @@ void Scene::GenerateChildUID(SceneObject* obj)
 		obj_uid.id = FindByUID(obj_uid.id, 0, pool_childs) ? 0 : obj_uid.id;
 	}
 
-	obj->uid = obj_uid.id;
+	obj->SetUID(obj_uid.id);
 }
 
 SceneObject* Scene::FindInGroup(const char* group_name, const char* name)
@@ -651,15 +668,24 @@ void Scene::AddToGroup(SceneObject* obj, const char* name)
 {
 	Group& group = groups[name];
 
+	if (group.name.c_str()[0] == 0)
+	{
+		group.name = name;
+	}
+
 	group.objects.push_back(obj);
 }
 
-void Scene::DelFromGroup(Group& group, SceneObject* obj)
+void Scene::DelFromGroup(Group& group, SceneObject* obj, Scene* new_scene)
 {
 	for (int i = 0; i < group.objects.size(); i++)
 	{
 		if (group.objects[i] == obj)
 		{
+			if (new_scene)
+			{
+				new_scene->AddToGroup(obj, group.name.c_str());
+			}
 			group.objects.erase(group.objects.begin() + i);
 			break;
 		}
@@ -671,11 +697,11 @@ void Scene::DelFromGroup(SceneObject* obj, const char* name)
 	DelFromGroup(groups[name], obj);
 }
 
-void Scene::DelFromAllGroups(SceneObject* obj)
+void Scene::DelFromAllGroups(SceneObject* obj, Scene* new_scene)
 {
 	for (auto& group : groups)
 	{
-		DelFromGroup(group.second, obj);
+		DelFromGroup(group.second, obj, new_scene);
 	}
 }
 

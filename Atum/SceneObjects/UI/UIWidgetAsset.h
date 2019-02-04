@@ -68,6 +68,7 @@ public:
 	uint32_t GetParentUID() override;
 	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
+	void SetOwner(Scene* owner) override;
 	bool UsingCamera2DPos() override;
 	void SetEditMode(bool ed) override;
 	virtual void StoreProperties();

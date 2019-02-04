@@ -92,7 +92,7 @@ void TaskExecutor::SingleTaskPool::AddTask(int level, Object* entity, Object::De
 	}
 }
 
-void TaskExecutor::SingleTaskPool::DelTask(int level, Object* entity)
+void TaskExecutor::SingleTaskPool::DelTask(int level, Object* entity, SingleTaskPool* new_pool)
 {
 	TaskList* list = FindTaskList(level);
 
@@ -102,6 +102,11 @@ void TaskExecutor::SingleTaskPool::DelTask(int level, Object* entity)
 		{
 			if (entity == list->list[i].entity)
 			{
+				if (new_pool)
+				{
+					new_pool->AddTask(list->level, list->list[i].entity, list->list[i].call, list->list[i].freq);
+				}
+
 				list->list.erase(list->list.begin() + i);
 				i--;
 			}
@@ -115,11 +120,11 @@ void TaskExecutor::SingleTaskPool::DelTask(int level, Object* entity)
 	}
 }
 
-void TaskExecutor::SingleTaskPool::DelAllTasks(Object* entity)
+void TaskExecutor::SingleTaskPool::DelAllTasks(Object* entity, SingleTaskPool* new_pool)
 {
 	for (int i = 0; i < lists.size(); i++)
 	{
-		DelTask(lists[i]->level, entity);
+		DelTask(lists[i]->level, entity, new_pool);
 	}
 }
 

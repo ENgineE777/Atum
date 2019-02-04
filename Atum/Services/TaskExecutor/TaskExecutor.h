@@ -53,8 +53,8 @@ public:
 		virtual void Execute(float dt);
 
 		void AddTask(int level, Object* entity, Object::Delegate call, float freq = -1.0f);
-		void DelTask(int level, Object* entity);
-		void DelAllTasks(Object* entity);
+		void DelTask(int level, Object* entity, SingleTaskPool* new_pool = nullptr);
+		void DelAllTasks(Object* entity, SingleTaskPool* new_pool = nullptr);
 	};
 
 	class GroupTaskPool : public TaskPool

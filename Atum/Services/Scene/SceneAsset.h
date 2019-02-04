@@ -33,6 +33,7 @@ public:
 	};
 	vector<AssetInstance> instances;
 
+	void SetOwner(Scene* owner) override;
 	bool IsAsset() override;
 	virtual SceneObject* CreateInstance(Scene* scene);
 	virtual void DeleteAsset(SceneObject* obj);

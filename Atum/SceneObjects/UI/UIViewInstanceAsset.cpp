@@ -131,6 +131,11 @@ void UIViewInstance::BindClassToScript()
 }
 
 #ifdef EDITOR
+bool UIViewInstance::IsAsset()
+{
+	return false;
+}
+
 bool UIViewInstance::UsingCamera2DPos()
 {
 	return false;

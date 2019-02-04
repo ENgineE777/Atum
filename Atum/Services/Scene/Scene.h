@@ -26,6 +26,7 @@ public:
 
 	struct Group
 	{
+		string name;
 		std::vector<SceneObject*> objects;
 	};
 
@@ -52,7 +53,7 @@ private:
 
 	ScriptContext* script = nullptr;
 
-	void DelFromGroup(Group& group, SceneObject* obj);
+	void DelFromGroup(Group& group, SceneObject* obj, Scene* new_scene = nullptr);
 
 	void Load(JSONReader& reader, std::vector<SceneObject*>& objects, const char* block, bool is_asset);
 	void Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block);
@@ -74,13 +75,14 @@ public:
 
 	void Init();
 
-	SceneObject* AddObject(const char* name, bool is_asset);
+	SceneObject* CreateObject(const char* name, bool is_asset);
+	void AddObject(SceneObject* obj, bool is_asset);
 	SceneObject* FindByName(const char* name, bool is_asset);
 	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 	SceneObject* GetObj(int index, bool is_asset);
 	int          GetObjectIndex(SceneObject* obj, bool is_asset);
 	int          GetObjectsCount(bool is_asset);
-	void         DeleteObject(SceneObject* obj, bool is_asset);
+	void         DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
 
 	const char* GetScenePath();
 	const char* GetSceneName();
@@ -101,7 +103,7 @@ public:
 	Group& GetGroup(const char* name);
 	void AddToGroup(SceneObject* obj, const char* name);
 	void DelFromGroup(SceneObject* obj, const char* name);
-	void DelFromAllGroups(SceneObject* obj);
+	void DelFromAllGroups(SceneObject* obj, Scene* new_scene = nullptr);
 
 	void Release();
 };

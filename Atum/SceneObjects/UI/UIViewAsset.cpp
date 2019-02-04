@@ -82,7 +82,7 @@ void UIViewAsset::Release()
 #ifdef EDITOR
 SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 {
-	UIViewInstanceAsset* child = (UIViewInstanceAsset*)scene->AddObject("UIViewInstance", false);
+	UIViewInstanceAsset* child = (UIViewInstanceAsset*)scene->CreateObject("UIViewInstance", false);
 
 	child->SetSource(this, true);
 	child->ApplyProperties();

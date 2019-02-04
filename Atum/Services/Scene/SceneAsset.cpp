@@ -6,9 +6,9 @@
 
 SceneAsset::AssetInstance::AssetInstance(SceneObject* set_object)
 {
-	scene_path = set_object->owner->GetScenePath();
+	scene_path = set_object->GetOwner()->GetScenePath();
 	scene_path += "/";
-	scene_path += set_object->owner->GetSceneName();
+	scene_path += set_object->GetOwner()->GetSceneName();
 	scene_path += ".sca";
 
 	inst_uid = set_object->GetUID();
@@ -32,6 +32,16 @@ bool SceneAsset::UsingCamera2DPos()
 }
 
 #ifdef EDITOR
+void SceneAsset::SetOwner(Scene* owner)
+{
+	SceneObject::SetOwner(owner);
+
+	for (auto& inst : instances)
+	{
+		((SceneObjectInst*)inst.GetObject())->asset_uid = GetUID();
+	}
+}
+
 bool SceneAsset::IsAsset()
 {
 	return true;
@@ -39,7 +49,7 @@ bool SceneAsset::IsAsset()
 
 SceneObject* SceneAsset::CreateInstance(Scene* scene)
 {
-	SceneObjectInst* inst = (SceneObjectInst*)scene->AddObject(inst_class_name, false);
+	SceneObjectInst* inst = (SceneObjectInst*)scene->CreateObject(inst_class_name, false);
 	scene->GenerateUID(inst, false);
 
 	inst->asset_uid = GetUID();

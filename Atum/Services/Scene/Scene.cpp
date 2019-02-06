@@ -595,7 +595,7 @@ void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 		obj_uid.id = FindByUID(obj_uid.id, 0, is_asset) ? 0 : obj_uid.id;
 	}
 
-	obj->SetUID(uid);
+	obj->SetUID(obj_uid.id);
 }
 
 void Scene::GenerateChildUID(SceneObject* obj)

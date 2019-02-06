@@ -493,6 +493,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Scene\SceneManager.cpp">
       <Filter>Services\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -947,6 +950,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Scene\SceneManager.h">
       <Filter>Services\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h">
+      <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -42,6 +42,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />

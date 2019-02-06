@@ -124,7 +124,7 @@ public:
 	void Draw(float dt);
 	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
 	void ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
-
+	SceneObject* GetSceneObjectFromItem(EUITreeView* tree_view, void* item);
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;

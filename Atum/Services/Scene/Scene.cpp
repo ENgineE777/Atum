@@ -592,7 +592,7 @@ void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 		float koef = rnd() * 0.99f;
 		obj_uid.id = (uint32_t)(koef * 1048576);
 		obj_uid.id1 |= uid;
-		obj_uid.id = FindByUID(uid, 0, is_asset) ? 0 : obj_uid.id;
+		obj_uid.id = FindByUID(obj_uid.id, 0, is_asset) ? 0 : obj_uid.id;
 	}
 
 	obj->SetUID(uid);

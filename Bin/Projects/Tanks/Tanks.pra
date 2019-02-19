@@ -5,7 +5,6 @@
 	"scenes" : [
 		{
 			"path" : "Projects/Tanks/Tanks.sca",
-			"uid" : 28988,
 			"include" : [
 			]
 		}

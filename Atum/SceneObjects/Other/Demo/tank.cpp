@@ -20,7 +20,7 @@ void Tank::Init()
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&Tank::SendClientState, 1.0f / 15.0f);
 }
 
-void Tank::AddIsntance(int id)
+void Tank::AddInstance(int id, Vector pos, bool is_bot)
 {
 	client->AddIsntance(id, clientID == id);
 
@@ -29,17 +29,17 @@ void Tank::AddIsntance(int id)
 		return;
 	}
 
-	Vector pos = transform.Pos();
-	pos.x += id * 10.0f;
-
 	PhysControllerDesc cdesc;
 	cdesc.height = 1.0f;
 	cdesc.radius = 1.0f;
 	cdesc.pos = pos;
 	cdesc.slopeLimit = cosf(RADIAN * 60.0f);
 
-	client->instances[client->instances.size() - 1].serverState.pos = pos;
-	client->instances[client->instances.size() - 1].serverState.controller = PScene()->CreateController(cdesc);
+	ServerState& state = client->instances[client->instances.size() - 1].serverState;
+
+	state.pos = pos;
+	state.is_ai = is_bot;
+	state.controller = PScene()->CreateController(cdesc);
 }
 
 Matrix& Tank::Trans()
@@ -81,8 +81,6 @@ bool Tank::Play()
 		OnClientConnected(0);
 	}
 
-	showDebug = false;
-
 	return true;
 }
 
@@ -93,7 +91,7 @@ void Tank::Stop()
 
 void Tank::OnClientConnected(int id)
 {
-	AddIsntance(id);
+	AddInstance(id, Vector(transform.Pos().x + id * 10.0f, transform.Pos().y, transform.Pos().z), false);
 
 	char packet[256];
 
@@ -169,7 +167,7 @@ void Tank::OnDataRecieved(void* data, int size)
 			}
 			case ADDINSTANCE:
 			{
-				AddIsntance(*((int*)ptr));
+				AddInstance(*((int*)ptr), Vector(transform.Pos().x + *((int*)ptr) * 10.0f, transform.Pos().y, transform.Pos().z), false);
 				ptr += 4;
 				break;
 			}
@@ -287,6 +285,65 @@ void Tank::Update(float dt)
 	if (!Playing())
 	{
 		return;
+	}
+
+	if (!bonuses_places)
+	{
+		Scene::Group& group_bot = owner->GetGroup("Bot");
+
+		int index = 100;
+
+		for (auto& obj : group_bot.objects)
+		{
+			AddInstance(index, obj->Trans().Pos(), false);
+
+			index++;
+		}
+
+		Scene::Group& group = owner->GetGroup("Terrain");
+
+		PhysScene::RaycastDesc rcdesc;
+
+		if (group.objects.size() > 0)
+		{
+			Terrain* terrain = (Terrain*)group.objects[0];
+
+			float square = 25.0f;
+			float gap = 10.0f;
+
+
+			float z = -terrain->hheight * 0.5f * terrain->scaleh + gap;
+
+			while (z + square < terrain->hheight * 0.5f * terrain->scaleh)
+			{
+				float x = -terrain->hwidth * 0.5f * terrain->scaleh + gap;
+
+				while (x + square < terrain->hwidth * 0.5f * terrain->scaleh)
+				{
+					bonuses.push_back(Bonus());
+
+					Bonus& bonus = bonuses[bonuses.size() - 1];
+
+					bonus.type = (int)(3.0f * rnd() * 0.999f);
+					bonus.pos = Vector(x + square * rnd(), 25.0f, z + square * rnd());
+
+					rcdesc.origin = bonus.pos;
+					rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
+					rcdesc.length = 100.0f;
+
+					if (PScene()->RayCast(rcdesc))
+					{
+						bonus.pos.y = rcdesc.hitPos.y + 0.75f;
+					}
+
+					x += square + gap;
+				}
+
+				z += square + gap;
+			}
+		}
+
+		bonuses_places = true;
 	}
 
 	time += dt;
@@ -445,7 +502,7 @@ void Tank::Update(float dt)
 			inst.serverState.shoot_cooldown -= dt;
 		}
 
-		if (inst.clientState.fired && inst.serverState.shoot_cooldown <= 0.0f)
+		if (((inst.clientState.special_fired && inst.serverState.special == 100) || (inst.clientState.fired && inst.serverState.ammo > 0)) && inst.serverState.shoot_cooldown <= 0.0f)
 		{
 			projectiles.push_back(Projectile());
 			Projectile& proj = projectiles[projectiles.size() - 1];
@@ -456,6 +513,19 @@ void Tank::Update(float dt)
 			proj.state = 0;
 
 			inst.serverState.shoot_cooldown = 1.5f;
+
+			proj.special = inst.clientState.special_fired;
+
+			if (proj.special)
+			{
+				inst.serverState.special = 1;
+				proj.special = true;
+			}
+			else
+			{
+				inst.serverState.ammo--;
+				proj.special = false;
+			}
 		}
 	}
 
@@ -486,7 +556,18 @@ void Tank::Update(float dt)
 					proj.state = 1;
 					proj.lifetime = Projectile::splashTime;
 
-					AddSplash(proj.pos, Projectile::splashMaxRadius, 400);
+					if (proj.special)
+					{
+						for (int i = 0; i < 5; i++)
+						{
+							proj.claster_pos[i] = proj.pos + Vector(-2.0f + 4.0f * rnd(), 0.0f, -2.0f + 4.0f * rnd());
+							AddSplash(proj.claster_pos[i], Projectile::splashMaxRadius, 200);
+						}
+					}
+					else
+					{
+						AddSplash(proj.pos, Projectile::splashMaxRadius, 400);
+					}
 				}
 				else
 				{
@@ -514,8 +595,67 @@ void Tank::Update(float dt)
 			}
 		}
 
-		core.render.DebugSphere(proj.pos, COLOR_RED, r);
+		if (proj.special && proj.state == 1)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				core.render.DebugSphere(proj.claster_pos[i], COLOR_MAGNETA, r * 0.5f);
+			}
+		}
+		else
+		{
+			core.render.DebugSphere(proj.pos, COLOR_RED, r);
+		}
 	}
+
+	for (auto& bonus : bonuses)
+	{
+		if (bonus.cooldown > 0.0f)
+		{
+			bonus.cooldown -= dt;
+
+			if (bonus.cooldown < 0.0f)
+			{
+				bonus.cooldown = -1.0f;
+			}
+
+			continue;
+		}
+
+		for (auto& inst : client->instances)
+		{
+			if (inst.serverState.hp <= 0)
+			{
+				continue;
+			}
+
+			if ((inst.serverState.pos - bonus.pos).Length2() < 9)
+			{
+				if (bonus.type == 0 && inst.serverState.hp < 100)
+				{
+					inst.serverState.hp = (int)fmin(inst.serverState.hp + 40, 100);
+					bonus.cooldown = 10.0f;
+				}
+				else
+				if (bonus.type == 1 && inst.serverState.ammo < 100)
+				{
+					inst.serverState.ammo = (int)fmin(inst.serverState.ammo + 40, 100);
+					bonus.cooldown = 10.0f;
+				}
+				else
+				if (bonus.type == 2 && inst.serverState.special < 100)
+				{
+					inst.serverState.special = (int)fmin(inst.serverState.special + 40, 100);
+					bonus.cooldown = 10.0f;
+				}
+			}
+		}
+
+		Color colors[] = { COLOR_GREEN, COLOR_CYAN, COLOR_YELLOW };
+
+		core.render.DebugSphere(bonus.pos, colors[bonus.type], 0.5f);
+	}
+
 }
 
 void Tank::AddSplash(Vector& pos, float radius, float force)

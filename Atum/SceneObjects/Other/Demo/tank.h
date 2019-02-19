@@ -38,16 +38,22 @@ public:
 		static float splashMaxRadius;
 
 		Vector pos;
+		Vector claster_pos[5];
 		Vector dir;
 		int    stage;
 		float  lifetime;
 		int    state;
+		bool   special;
 	};
 
 	std::vector<Projectile> projectiles;
  
 	struct ServerState
 	{
+		int    hp = 100;
+		int    ammo = 50;
+		bool   is_ai = false;
+		int    special = 0;
 		float  angle = 0;
 		Vector pos = 0.0f;
 		float  move_speed = 0.0f;
@@ -63,6 +69,7 @@ public:
 		int    up = 0;
 		int    rotate = 0;
 		bool   fired = false;
+		bool   special_fired = false;
 		float  needed_tower_angel = 0.0f;
 		float  timeStamp = 0.0f;
 		Vector gun_pos;
@@ -73,16 +80,26 @@ public:
 
 	bool is_server = false;
 
+	bool bonuses_places = false;
+
+	struct Bonus
+	{
+		int type = 0;
+		Vector pos;
+		float cooldown = -1.0f;
+	};
+
+	vector<Bonus> bonuses;
+
 	int  clientID;
 	NetworkServer netServer;
 	NetworkClient netClient;
 
 	float time = 0.0f;
-	bool  showDebug;
 
 	void Init();
 
-	void AddIsntance(int id);
+	void AddInstance(int id, Vector pos, bool is_bot);
 
 	Matrix& Trans() override;
 	bool Is3DObject() override;

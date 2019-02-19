@@ -88,9 +88,9 @@ void TankClient::Update(float dt)
 
 		if (inst.is_contralable)
 		{
-			if (core.controls.GetAliasState(alias_rotate_active, Controls::Active))
+			/*if (core.controls.GetAliasState(alias_rotate_active, Controls::Active))
 			{
-				angles.x -= core.controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
+				angles.x -= core.controls.GetAliasValue(alias_rotate_x, true);
 
 				if (angles.y > HALF_PI)
 				{
@@ -101,7 +101,7 @@ void TankClient::Update(float dt)
 				{
 					angles.y = -HALF_PI;
 				}
-			}
+			}*/
 
 			view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 55, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
 			proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
@@ -186,6 +186,7 @@ void TankClient::Update(float dt)
 				inst.clientState.rotate = (int)core.controls.GetAliasValue(alias_strafe, false);
 
 				inst.clientState.fired = core.controls.GetAliasState(alias_fire);
+				inst.clientState.special_fired = core.controls.GetAliasState(alias_rotate_active);
 			}
 		}
 
@@ -197,8 +198,23 @@ void TankClient::Update(float dt)
 		Vector org = mat.Pos();
 		org.y += under;
 
-			Vector p1 = org + mat.Vx() * 1.75f;
-			rcdesc.origin = p1;
+		Vector scr_pos = core.render.TransformToScreen(mat.Pos(), 2);
+		Vector2 bar_size(60.0f, 5.0f);
+
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 60.0f), bar_size, COLOR_RED);
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 60.0f), Vector2(bar_size.x * inst.serverState.hp * 0.01f, bar_size.y), COLOR_GREEN);
+
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 50.0f), bar_size, COLOR_RED);
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 50.0f), Vector2(bar_size.x * inst.serverState.ammo * 0.01f, bar_size.y), COLOR_CYAN);
+
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 40.0f), bar_size, COLOR_RED);
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 40.0f), Vector2(bar_size.x * inst.serverState.special * 0.01f, bar_size.y), COLOR_YELLOW);
+
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 30.0f), bar_size, COLOR_RED);
+		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 30.0f), Vector2(bar_size.x * (1.0f - inst.serverState.shoot_cooldown / 1.5f), bar_size.y), COLOR_BLUE);
+
+		Vector p1 = org + mat.Vx() * 1.75f;
+		rcdesc.origin = p1;
 
 			if (PScene()->RayCast(rcdesc))
 		{

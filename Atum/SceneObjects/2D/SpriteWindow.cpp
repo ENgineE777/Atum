@@ -994,16 +994,12 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		const char* file_name = EUI::OpenOpenDialog(wnd->GetNative(), "Image files", "*");
 
-		char cur_dir[2048];
-		GetCurrentDirectory(512, cur_dir);
-
 		if (file_name)
 		{
-			char cropped_path[1024];
-			StringUtils::GetCropPath(cur_dir, file_name, cropped_path, 1024);
-			StringUtils::RemoveFirstChar(cropped_path);
+			string name;
+			core.files.MakePathRelative(name, file_name);
 
-			SetImage(cropped_path, true);
+			SetImage(name.c_str(), true);
 		}
 	}
 

@@ -148,16 +148,7 @@ void SceneScriptAsset::GetScriptFileName(string& filename)
 
 	StringUtils::Printf(str, 1024, "%s%s%s.sns", owner->GetScenePath(), GetName(), str_id);
 
-#ifdef EDITOR
-	char cur_dir[2048];
-	GetCurrentDirectory(512, cur_dir);
-
-	filename = cur_dir;
-	filename += "/";
-	filename += str;
-#else
 	filename = str;
-#endif
 }
 
 void SceneScriptAsset::Init()

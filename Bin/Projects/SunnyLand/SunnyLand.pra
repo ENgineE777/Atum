@@ -4,20 +4,20 @@
 	"scenes_count" : 2,
 	"scenes" : [
 		{
-			"path" : "Projects/SunnyLand/SunnyLand.sca",
+			"path" : "SunnyLand.sca",
 			"include" : [
 				{
-					"path" : "Projects/SunnyLand/CoreScene.sca"
+					"path" : "CoreScene.sca"
 				}
 			]
 		},
 		{
-			"path" : "Projects/SunnyLand/CoreScene.sca",
+			"path" : "CoreScene.sca",
 			"include" : [
 			]
 		}
 	],
-	"selected_scene" : "Projects/SunnyLand/SunnyLand.sca",
+	"selected_scene" : "SunnyLand.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

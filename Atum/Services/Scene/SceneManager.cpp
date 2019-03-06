@@ -8,6 +8,8 @@ void SceneManager::Init()
 
 void SceneManager::LoadProject(const char* project_name)
 {
+	StringUtils::GetPath(project_name, project_path);
+
 	JSONReader reader;
 	if (reader.Parse(project_name))
 	{
@@ -94,7 +96,10 @@ void SceneManager::LoadScene(SceneHolder* holder)
 		holder->scene->inc_scenes.push_back(incl->scene);
 	}
 
-	holder->scene->Load(holder->path.c_str());
+	char path[1024];
+	StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
+
+	holder->scene->Load(path);
 	holder->scene->Play();
 }
 

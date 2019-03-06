@@ -31,7 +31,11 @@ public:
 	int alias_rotate_y;
 	int alias_fire;
 
-	Model hover_model;
+	string base_model_name;
+	string tower_model_name;
+	string gun_model_name;
+
+	Model base_model;
 	Model tower_model;
 	Model gun_model;
 
@@ -44,7 +48,7 @@ public:
 		int id;
 		Tank::ClientState clientState;
 		Tank::ServerState serverState;
-		Model::Drawer* hover_drawer;
+		Model::Drawer* base_drawer;
 		Model::Drawer* tower_drawer;
 		Model::Drawer* gun_drawer;
 	};

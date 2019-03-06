@@ -1,6 +1,7 @@
 
 #include "FileNameWidget.h"
 #include "Support\StringUtils.h"
+#include "Services\Core\Core.h"
 
 void FileNameWidget::Init(EUICategories* parent, const char* catName, const char* labelName)
 {
@@ -23,17 +24,11 @@ void FileNameWidget::OpenFileDialog()
 {
 	const char* file_name = EUI::OpenOpenDialog(openBtn->GetRoot()->GetNative(), "Any file", NULL);
 
-	char cur_dir[2048];
-	GetCurrentDirectory(512, cur_dir);
-
 	if (file_name)
 	{
-		char cropped_path[1024];
-		StringUtils::GetCropPath(cur_dir, file_name, cropped_path, 1024);
-		StringUtils::RemoveFirstChar(cropped_path);
+		core.files.MakePathRelative(*data, file_name);
 
-		*data = cropped_path;
-		openBtn->SetText(cropped_path);
+		openBtn->SetText(data->c_str());
 		changed = true;
 	}
 }

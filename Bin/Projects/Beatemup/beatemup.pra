@@ -4,13 +4,12 @@
 	"scenes_count" : 1,
 	"scenes" : [
 		{
-			"path" : "Projects/Beatemup/beatemup.sca",
-			"uid" : 28688,
+			"path" : "beatemup.sca",
 			"include" : [
 			]
 		}
 	],
-	"selected_scene" : "Projects/Beatemup/beatemup.sca",
+	"selected_scene" : "beatemup.sca",
 	"nodes" : [
 		{
 			"name" : "beatemup",

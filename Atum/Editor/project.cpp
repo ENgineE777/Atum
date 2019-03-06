@@ -29,6 +29,9 @@ bool Project::CanRun()
 void Project::Load()
 {
 	JSONReader reader;
+
+	StringUtils::GetPath(project_name.c_str(), project_path);
+
 	if (reader.Parse(project_name.c_str()))
 	{
 		reader.Read("start_scene", start_scene);
@@ -159,14 +162,18 @@ void Project::LoadScene(SceneHolder* holder)
 		holder->scene->inc_scenes.push_back(incl->scene);
 	}
 
-	holder->scene->Load(holder->path.c_str());
+	char path[1024];
+	StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
 
-	string scene_tree = holder->path;
-	scene_tree.resize(scene_tree.size() - 3);
-	scene_tree += "snt";
+	holder->scene->Load(path);
+
+	int len = (int)strlen(path);
+
+	path[len - 2] = 'n';
+	path[len - 1] = 't';
 
 	JSONReader reader;
-	if (reader.Parse(scene_tree.c_str()))
+	if (reader.Parse(path))
 	{
 		LoadSceneNodes(&reader, holder->scene_nodes, "scene_nodes");
 		LoadSceneNodes(&reader, holder->assets_nodes, "asset_nodes");
@@ -226,29 +233,33 @@ void Project::SaveSceneNodes(JSONWriter* writer, vector<SceneNode>& nodes, const
 
 void Project::Save()
 {
-	for (auto& scn : scenes)
+	for (auto& holder : scenes)
 	{
-		if (!scn->scene)
+		if (!holder->scene)
 		{
 			continue;
 		}
 
-		scn->scene->Save(scn->path.c_str());
+		char path[1024];
+		StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
 
-		if (scn == select_scene)
+		holder->scene->Save(path);
+
+		if (holder == select_scene)
 		{
-			GrabSceneNodes(scn);
+			GrabSceneNodes(holder);
 		}
 
-		string scene_tree = scn->path;
-		scene_tree.resize(scene_tree.size() - 3);
-		scene_tree += "snt";
+		int len = (int)strlen(path);
+
+		path[len - 2] = 'n';
+		path[len - 1] = 't';
 
 		JSONWriter writer;
-		writer.Start(scene_tree.c_str());
+		writer.Start(path);
 
-		SaveSceneNodes(&writer, scn->scene_nodes, "scene_nodes");
-		SaveSceneNodes(&writer, scn->assets_nodes, "asset_nodes");
+		SaveSceneNodes(&writer, holder->scene_nodes, "scene_nodes");
+		SaveSceneNodes(&writer, holder->assets_nodes, "asset_nodes");
 	}
 
 	nodes.clear();
@@ -710,12 +721,8 @@ Scene* Project::GetScene(const char* path)
 
 void Project::AddScene(const char* path, void* parent_item)
 {
-	char cur_dir[2048];
-	GetCurrentDirectory(512, cur_dir);
-
 	char cropped_path[1024];
-	StringUtils::GetCropPath(cur_dir, path, cropped_path, 1024);
-	StringUtils::RemoveFirstChar(cropped_path);
+	StringUtils::GetCropPath(project_path, path, cropped_path, 1024);
 
 	if (FindSceneIndex(cropped_path) != -1)
 	{
@@ -1146,7 +1153,7 @@ void Project::ProcessPopup(int id, void* popup_item)
 				popup_item = editor.project_treeview->GetItemParent(popup_item);
 			}
 
-			project.AddScene(fileName, popup_item);
+			AddScene(fileName, popup_item);
 		}
 	}
 

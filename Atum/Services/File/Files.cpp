@@ -2,6 +2,10 @@
 #include "Files.h"
 #include <sys/stat.h>
 
+#ifdef PLATFORM_PC
+#include "Windows.h"
+#endif
+
 #ifdef PLATFORM_ANDROID
 #include <android/asset_manager.h>
 
@@ -64,11 +68,84 @@ FILE* Files::FileOpen(const char* name, const char* mode)
 	return fopen(file_path, mode);
 #endif
 
-	return fopen(name, mode);
+	FILE* file = nullptr;
+	char path[1024];
+
+	if (GetPath(path, name))
+	{
+		file = fopen(path, mode);
+	}
+
+	if (!file)
+	{
+		file = fopen(name, mode);
+	}
+
+	return file;
 }
 
 bool Files::IsFileExist(const char*  name)
 {
 	struct stat buffer;
+
+	char path[1024];
+
+	if (GetPath(path, name))
+	{
+		if (stat(path, &buffer) == 0)
+		{
+			return true;
+		}
+	}
+
 	return (stat(name, &buffer) == 0);
 }
+
+#ifdef PLATFORM_PC
+void Files::SetActivePath(void* object)
+{
+	active_path = object;
+}
+
+void Files::MakePathRelative(string& path, const char* file_name)
+{
+	char cur_dir[512];
+	GetCurrentDirectory(512, cur_dir);
+
+	const char* source = nullptr;
+
+	if (active_path && pathes.count(active_path) > 0)
+	{
+		source = pathes[active_path].c_str();
+	}
+	else
+	{
+		source = cur_dir;
+	}
+
+	char cropped_path[1024];
+	StringUtils::GetCropPath(source, file_name, cropped_path, 1024);
+
+	if (cur_dir == source)
+	{
+		StringUtils::RemoveFirstChar(cropped_path);
+	}
+
+	path = cropped_path;
+}
+
+void Files::AddRootPath(void* object, const char* path)
+{
+	DelRootPath(object);
+
+	pathes[object] = path;
+}
+
+void Files::DelRootPath(void* object)
+{
+	if (pathes.count(object) > 0)
+	{
+		pathes.erase(object);
+	}
+}
+#endif

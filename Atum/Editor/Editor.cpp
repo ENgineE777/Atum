@@ -339,6 +339,8 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
+		core.files.SetActivePath(selectedObject->GetOwner());
+
 		obj->ShowPropWidgets(objCat);
 		obj->EnableTasks(true);
 		obj->SetEditMode(true);
@@ -950,6 +952,7 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 
 		if (fileName)
 		{
+			//TODO: pathes for all scenes should be corected in case project dir was changed
 			project.project_name = fileName;
 			project.Save();
 		}
@@ -1360,7 +1363,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 			}
 			else
 			{
-				SceneObjectInst* inst = static_cast<SceneObjectInst*>(tree_item->object);
+				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(tree_item->object);
 
 				if (inst && inst->asset)
 				{

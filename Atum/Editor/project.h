@@ -86,6 +86,7 @@ public:
 	SceneHolder* select_scene = nullptr;
 
 	string project_name;
+	char project_path[1024];
 	int start_scene = -1;
 	vector<SceneHolder*> scenes;
 	vector<ProjectNode> nodes;

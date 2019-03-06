@@ -18,6 +18,8 @@ class SceneManager : public Object
 		vector<string> included_pathes;
 	};
 
+	char project_path[1024];
+
 	PhysScene* pscene = nullptr;
 
 	vector<SceneHolder> scenes;

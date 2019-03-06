@@ -722,6 +722,9 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
+			"BaseModel" : "Projects/Tanks/tank_base.ms3d",
+			"TowerModel" : "Projects/Tanks/tank_tower.ms3d",
+			"GunModel" : "Projects/Tanks/tank_gun.ms3d",
 			"VJoy" : ""
 		},
 		{
@@ -749,7 +752,7 @@
 				"m9" : 0.000000,
 				"m10" : 1.000000,
 				"m11" : 0.000000,
-				"m12" : 17.065123,
+				"m12" : 17.065117,
 				"m13" : 4.283759,
 				"m14" : 28.983555,
 				"m15" : 1.000000

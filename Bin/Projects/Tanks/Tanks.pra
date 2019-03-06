@@ -4,12 +4,12 @@
 	"scenes_count" : 1,
 	"scenes" : [
 		{
-			"path" : "Projects/Tanks/Tanks.sca",
+			"path" : "Tanks.sca",
 			"include" : [
 			]
 		}
 	],
-	"selected_scene" : "Projects/Tanks/Tanks.sca",
+	"selected_scene" : "Tanks.sca",
 	"nodes" : [
 		{
 			"name" : "Tanks",

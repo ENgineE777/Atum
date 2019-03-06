@@ -4,13 +4,12 @@
 	"scenes_count" : 1,
 	"scenes" : [
 		{
-			"path" : "Projects/Coldrain/coldrain.sca",
-			"uid" : 28788,
+			"path" : "coldrain.sca",
 			"include" : [
 			]
 		}
 	],
-	"selected_scene" : "Projects/Coldrain/coldrain.sca",
+	"selected_scene" : "coldrain.sca",
 	"nodes" : [
 		{
 			"name" : "coldrain",

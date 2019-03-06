@@ -337,10 +337,12 @@ void Scene::Load(const char* name)
 {
 	JSONReader reader;
 	
+	StringUtils::GetPath(name, scene_path);
+	core.files.AddRootPath(this, scene_path);
+	core.files.SetActivePath(this);
+
 	if (reader.Parse(name))
 	{
-		StringUtils::GetPath(name, scene_path);
-
 		StringUtils::GetFileName(name, scene_name);
 		StringUtils::RemoveExtension(scene_name);
 

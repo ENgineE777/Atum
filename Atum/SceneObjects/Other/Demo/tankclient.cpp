@@ -4,6 +4,9 @@ CLASSREG(SceneObject, TankClient, "TankClient")
 
 META_DATA_DESC(TankClient)
 BASE_SCENE_OBJ_PROP(TankClient)
+FILENAME_PROP(TankClient, base_model_name, "", "Prop", "BaseModel")
+FILENAME_PROP(TankClient, tower_model_name, "", "Prop", "TowerModel")
+FILENAME_PROP(TankClient, gun_model_name, "", "Prop", "GunModel")
 STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
 META_DATA_DESC_END()
 
@@ -20,10 +23,6 @@ void TankClient::Init()
 	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
 	alias_fire = core.controls.GetAlias("Tank.FIRE");
 
-	hover_model.LoadModelMS3D("Projects/Tanks/tank_base.ms3d");
-	tower_model.LoadModelMS3D("Projects/Tanks/tank_tower.ms3d");
-	gun_model.LoadModelMS3D("Projects/Tanks/tank_gun.ms3d");
-
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&TankClient::Update);
 }
 
@@ -34,6 +33,10 @@ bool TankClient::Is3DObject()
 
 void TankClient::ApplyProperties()
 {
+	base_model.LoadModelMS3D(base_model_name.c_str());
+	tower_model.LoadModelMS3D(tower_model_name.c_str());
+	gun_model.LoadModelMS3D(gun_model_name.c_str());
+
 	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
 }
 
@@ -58,8 +61,8 @@ void TankClient::AddIsntance(int id, bool is_contralable)
 	inst.id = id;
 	inst.is_contralable = is_contralable;
 
-	inst.hover_drawer = new Model::Drawer;
-	inst.hover_drawer->Init(&hover_model, RenderTasks(false));
+	inst.base_drawer = new Model::Drawer;
+	inst.base_drawer->Init(&base_model, RenderTasks(false));
 
 	inst.tower_drawer = new Model::Drawer;
 	inst.tower_drawer->Init(&tower_model, RenderTasks(false));
@@ -262,9 +265,9 @@ void TankClient::Update(float dt)
 		core.render.DebugSphere(p3, COLOR_RED, 0.5f);
 
 		Matrix mdl = mat;
-		inst.hover_drawer->SetTransform(mdl);
+		inst.base_drawer->SetTransform(mdl);
 
-		mdl = Matrix().RotateY(inst.serverState.tower_angel - inst.serverState.angle) * Matrix().Move(hover_model.locator) * mdl;
+		mdl = Matrix().RotateY(inst.serverState.tower_angel - inst.serverState.angle) * Matrix().Move(base_model.locator) * mdl;
 		inst.tower_drawer->SetTransform(mdl);
 
 		Vector tower = mdl.Pos();

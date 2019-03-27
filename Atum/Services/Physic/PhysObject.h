@@ -47,6 +47,7 @@ public:
 	void* GetUserData();
 	void SetFixedRotation(bool set);
 	BodyType GetType();
+	void SetGroup(int group);
 	void SetTransform(Matrix& mat);
 	void GetTransform(Matrix& mat);
 	void AddForceAt(Vector pos, Vector force);

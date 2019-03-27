@@ -327,14 +327,13 @@ class Game
         score_label.SetText("Score: " + hero_data.score);
     }
 
-    int OnHeroContact(int self_index, string&in name, int index)
+    void OnHeroContact(int self_index, string&in name, int index)
     {
         if (name == "CherryItem")
         {
             AddScore(hero_inst[0], cherries[index].score);
             cherries[index].visible = 0;
             item_taken.AddInstance(cherries[index].x, cherries[index].y, true);
-            return 1;
         }
         else
         if (name == "DiamondItem")
@@ -342,7 +341,6 @@ class Game
             AddScore(hero_inst[0], diamonds[index].score);
             diamonds[index].visible = 0;
             item_taken.AddInstance(diamonds[index].x, diamonds[index].y, true);
-            return 1;
         }
         else
         if (name == "EagleFly")
@@ -369,15 +367,13 @@ class Game
                 boss_inst[0].active = true;
             }
         }
-
-        return 0;
     }
 
-    int OnBoxContact(int self_index, string&in name, int index)
+    void OnBoxContact(int self_index, string&in name, int index)
     {
         if (name == "Hero")
         {
-            return 1;
+            return;
         }
 
         if (name == "EagleFly")
@@ -395,11 +391,9 @@ class Game
         fly_boxes[0].visible = 0;
         fly_boxes[0].in_fly = -1.0f;
         enemy_death.AddInstance(fly_boxes[0].x, fly_boxes[0].y, true);
-
-        return 0;
     }
 
-    int OnCardContact(int self_index, string&in name, int index)
+    void OnCardContact(int self_index, string&in name, int index)
     {
         if (boss_cards[self_index].contact_nums < 1 && (name == "Hero" || name == "CatBoss"))
         {
@@ -424,32 +418,26 @@ class Game
             boss_cards[self_index].in_fly = -1.0f;
             enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y, true);
             
-            return 1;
+            return;
         }
 
         boss_cards[self_index].contact_nums++;
-
-        return 0;
     }
 
-    int OnActivateResapwnTrigger(int self_index, string&in name, int index, int param)
+    void OnActivateResapwnTrigger(int self_index, string&in name, int index, int param)
     {
         if (name == "Hero")
         {
             hero_inst[0].cur_respawn_point = param;
         }
-
-        return 1;
     }
 
-    int OnRespawnTrigger(int self_index, string&in name, int index)
+    void OnRespawnTrigger(int self_index, string&in name, int index)
     {
         if (name == "Hero" && fade_out < 0.01f)
         {
             fade_out = 2.0f;
         }
-
-        return 1;
     }
 
     void MoveCharacter(ChracterData@ data, float dt)

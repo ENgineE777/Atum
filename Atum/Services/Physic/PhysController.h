@@ -28,10 +28,11 @@ using namespace physx;
 
 struct PhysControllerDesc
 {
-	float height = 1.0f;
-	float radius = 0.25f;
-	Vector pos;
-	float slopeLimit = cosf(RADIAN * 20.0f);
+	float    height = 1.0f;
+	float    radius = 0.25f;
+	Vector   pos;
+	uint32_t group;
+	float    slopeLimit = cosf(RADIAN * 20.0f);
 };
 
 class PhysController : public PxUserControllerHitReport, PxControllerBehaviorCallback, PxQueryFilterCallback
@@ -72,6 +73,7 @@ public:
 
 	bool IsColliding(CollideType type);
 	void Move(Vector dir);
+	void SetGroup(int group);
 	void SetPosition(Vector pos);
 	void GetPosition(Vector& pos);
 	void Release();

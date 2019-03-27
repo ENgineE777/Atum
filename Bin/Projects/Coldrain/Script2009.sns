@@ -102,7 +102,7 @@ class Main
 			dir_x /= len;
 			dir_y /= len;
 
-			if (Scene_Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+			if (Scene_Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
 			{
 				//Render_DrawLine2D(enemy.x+ dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, pos_x, pos_y);
 
@@ -179,7 +179,7 @@ class Main
 		}
 	}
 
-	int OnRestartTrigger(int self_index, string&in name, int index)
+	void OnRestartTrigger(int self_index, string&in name, int index)
 	{
 		Render_Print(10, 30, "OnRestartTrigger");
 		if (name == "HeroGraph_Legs")
@@ -188,14 +188,12 @@ class Main
 			{
 				if (enemies[j].hp > 0)
 				{
-					return 0;
+					return;
 				}
 			}
 
 			RestartLevel();
 		}
-
-		return 0;
 	}
 
 	void RestartLevel()
@@ -582,7 +580,7 @@ class Main
 				string str_object;
 				int obj_index;
 
-				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
 				{
 					if (str_object == "EnemyGraph_Legs")
 					{

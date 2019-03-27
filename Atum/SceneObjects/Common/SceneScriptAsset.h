@@ -58,6 +58,7 @@ public:
 		META_DATA_DECL(NodeScriptMethod)
 
 		int param_type;
+		string callback_type;
 		asIScriptFunction* method = nullptr;
 		vector<LinkToMethod*> links;
 

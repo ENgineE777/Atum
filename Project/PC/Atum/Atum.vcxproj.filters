@@ -496,6 +496,12 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp">
       <Filter>SceneObjects\3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\ShadowCaster2D.cpp">
+      <Filter>SceneObjects\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.cpp">
+      <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -953,6 +959,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h">
       <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\ShadowCaster2D.h">
+      <Filter>SceneObjects\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.h">
+      <Filter>Services\Render\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

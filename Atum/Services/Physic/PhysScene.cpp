@@ -3,7 +3,7 @@
 #include "Services/Core/Core.h"
 #include "Services/Scene/SceneObject.h"
 
-PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type)
+PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group)
 {
 	PhysObject* obj = new PhysObject();
 
@@ -18,11 +18,12 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 	PxVec3 dimensions(size.x * 0.5f, size.y * 0.5f, size.z * 0.5f);
 
 	PxBoxGeometry geometry(dimensions);
+	PxShape* shape;
 
 	if (type == PhysObject::Static || type == PhysObject::Trigger)
 	{
 		obj->actor = core.physics.physics->createRigidStatic(transform);
-		PxShape* shape = obj->actor->createShape(geometry, *core.physics.defMaterial);
+		shape = obj->actor->createShape(geometry, *core.physics.defMaterial);
 
 		if (type == PhysObject::Trigger)
 		{
@@ -38,6 +39,8 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 		PxRigidDynamic* actor = PxCreateDynamic(*core.physics.physics, transform, geometry, *core.physics.defMaterial, density, trans_offset);
 		actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y);
 
+		actor->getShapes(&shape, 1);
+
 		if (type == PhysObject::Kinetic)
 		{
 			actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, true);
@@ -51,12 +54,17 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 		obj->actor = actor;
 	}
 
+	if (type != PhysObject::Trigger)
+	{
+		SetShapeGroup(shape, group);
+	}
+
 	scene->addActor(*obj->actor);
 
 	return obj;
 }
 
-PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
+PhysController* PhysScene::CreateController(PhysControllerDesc& desc, uint32_t group)
 {
 	PxCapsuleControllerDesc pxdesc;
 	pxdesc.height = desc.height;
@@ -77,10 +85,18 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc)
 	controller->controller = manager->createController(pxdesc);
 	controller->height = desc.height + desc.radius * 2.0f + controller->controller->getContactOffset();
 
+	auto actor = controller->controller->getActor();
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+
+	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
+
+	SetShapeGroup(shape, group);
+
 	return controller;
 }
 
-PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char* name)
+PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char* name, uint32_t group)
 {
 	PhysHeightmap* hm = new PhysHeightmap();
 
@@ -96,7 +112,7 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char*
 			hm->actor = core.physics.physics->createRigidStatic(pose);
 
 			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
-			hm->actor->createShape(hfGeom, *core.physics.defMaterial);
+			SetShapeGroup(hm->actor->createShape(hfGeom, *core.physics.defMaterial), group);
 
 			scene->addActor(*hm->actor);
 		}
@@ -130,9 +146,13 @@ bool PhysScene::RayCast(RaycastDesc& desc)
 	}
 
 	PxRaycastBuffer hit;
+	PxQueryFilterData filterData = PxQueryFilterData();
+	filterData.data.word0 = desc.group;
 
-	if (scene->raycast(PxVec3(desc.origin.x, desc.origin.y, desc.origin.z), PxVec3(desc.dir.x, desc.dir.y, desc.dir.z), desc.length, hit))
+
+	if (scene->raycast(PxVec3(desc.origin.x, desc.origin.y, desc.origin.z), PxVec3(desc.dir.x, desc.dir.y, desc.dir.z), desc.length, hit, PxHitFlags(PxHitFlag::eDEFAULT), filterData))
 	{
+		
 		desc.userdata = (BodyUserData*)(hit.block.actor->userData);
 		desc.hitPos = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
 		desc.hitNormal = Vector(hit.block.normal.x, hit.block.normal.y, hit.block.normal.z);
@@ -163,28 +183,31 @@ void PhysScene::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 	if (udataA && udataB)
 	{
-		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
-		{
-			//contact->SetEnabled(false);
-		}
-
-		if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
-		{
-			//contact->SetEnabled(false);
-		}
+		udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
+		udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
 	}
 }
 
 void PhysScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
 {
-	BodyUserData* udataA = static_cast<BodyUserData*>(pairs->triggerActor->userData);
-	BodyUserData* udataB = static_cast<BodyUserData*>(pairs->otherActor->userData);
-
-	if (udataA && udataB)
+	for (uint32_t i = 0; i < count; i++)
 	{
-		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
+		BodyUserData* udataA = static_cast<BodyUserData*>(pairs[i].triggerActor->userData);
+		BodyUserData* udataB = static_cast<BodyUserData*>(pairs[i].otherActor->userData);
+
+		//eNOTIFY_TOUCH_FOUND or eNOTIFY_TOUCH_LOST
+
+		if (udataA && udataB)
 		{
-			//contact->SetEnabled(false);
+			if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_FOUND)
+			{
+				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContactStart");
+			}
+
+			if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_LOST)
+			{
+				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContactEnd");
+			}
 		}
 	}
 }

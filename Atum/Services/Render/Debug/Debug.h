@@ -8,3 +8,4 @@
 #include "DebugBoxes.h"
 #include "DebugFont.h"
 #include "DebugSprites.h"
+#include "DebugTriangles2D.h"

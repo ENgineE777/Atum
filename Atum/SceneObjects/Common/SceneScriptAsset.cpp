@@ -33,6 +33,7 @@ ENUM_PROP(SceneScriptAsset::NodeScriptMethod, param_type, 0, "Property", "ParamT
 	ENUM_ELEM("String", 2)
 	ENUM_ELEM("EveryFrame", 3)
 ENUM_END
+STRING_PROP(SceneScriptAsset::NodeScriptMethod, callback_type, "", "Property", "callback_type")
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -97,6 +98,7 @@ void SceneScriptAsset::NodeScriptMethod::Load(JSONReader& loader)
 	Node::Load(loader);
 
 	loader.Read("param_type", param_type);
+	loader.Read("callback_name", callback_type);
 
 	int link_count = 0;
 	loader.Read("Count", link_count);
@@ -120,6 +122,7 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 	Node::Save(saver);
 
 	saver.Write("param_type", param_type);
+	saver.Write("callback_name", callback_type.c_str());
 
 	int link_count = (int)links.size();
 	saver.Write("Count", link_count);

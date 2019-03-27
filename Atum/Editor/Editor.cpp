@@ -512,12 +512,12 @@ void Editor::StartScene()
 
 		Sprite::ed_cam_pos = 0.0f;
 
-		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1024, 768);
+		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1920, 1080);
 		gameWnd->SetListener(-1, this, 0);
 
 		EUILayout* lt = new EUILayout(gameWnd, false);
 
-		game_viewport = new EUIPanel(lt, 0, 0, 800, 600);
+		game_viewport = new EUIPanel(lt, 0, 0, 1024, 768);
 		game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
 		game_viewport->SetFocused();
@@ -601,6 +601,7 @@ void Editor::Draw(float dt)
 	core.render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
 	core.render.ExecutePool(ExecuteLevels::Sprites, dt);
 	core.render.ExecutePool(ExecuteLevels::Sprites + 1, dt);
+	core.render.ExecutePool(ExecuteLevels::Sprites + 2, dt);
 	core.render.ExecutePool(ExecuteLevels::PostProcess, dt);
 	core.render.ExecutePool(ExecuteLevels::GUI, dt);
 	core.render.ExecutePool(ExecuteLevels::Debug, dt);

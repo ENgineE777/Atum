@@ -26,17 +26,25 @@ public:
 
 	struct RaycastDesc
 	{
-		Vector origin;
-		Vector dir;
-		float  length;
-		Vector hitPos;
-		Vector hitNormal;
+		Vector   origin;
+		Vector   dir;
+		float    length;
+		Vector   hitPos;
+		Vector   hitNormal;
+		uint32_t group;
 		BodyUserData* userdata = nullptr;
 	};
 
-	PhysObject*     CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type);
-	PhysController* CreateController(PhysControllerDesc& desc);
-	PhysHeightmap* CreateHeightmap(PhysHeightmap::Desc& desc, const char* name);
+	PhysObject*     CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group);
+	PhysController* CreateController(PhysControllerDesc& desc, uint32_t group);
+	PhysHeightmap* CreateHeightmap(PhysHeightmap::Desc& desc, const char* name, uint32_t group);
+
+	inline static void SetShapeGroup(PxShape* shape, uint32_t group)
+	{
+		PxFilterData data;
+		data.word0 = group;
+		shape->setQueryFilterData(data);
+	}
 
 	bool RayCast(RaycastDesc& desc);
 

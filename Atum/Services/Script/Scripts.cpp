@@ -111,16 +111,17 @@ void Scene_Raycast2D(asIScriptGeneric *gen)
 	rcdesc.origin = Vector(gen->GetArgFloat(0) * scale, -gen->GetArgFloat(1) * scale, 0.0f);
 	rcdesc.dir = Vector(gen->GetArgFloat(2), -gen->GetArgFloat(3), 0.0f);
 	rcdesc.length = gen->GetArgFloat(4) * scale;
+	rcdesc.group = gen->GetArgDWord(5);
 
 	if (core.scene_manager.PScene()->RayCast(rcdesc))
 	{
-		*((float*)(gen->GetArgAddress(5))) = rcdesc.hitPos.x * 50.0f;
-		*((float*)(gen->GetArgAddress(6))) = -rcdesc.hitPos.y * 50.0f;
+		*((float*)(gen->GetArgAddress(6))) = rcdesc.hitPos.x * 50.0f;
+		*((float*)(gen->GetArgAddress(7))) = -rcdesc.hitPos.y * 50.0f;
 
-		*((float*)(gen->GetArgAddress(7))) = rcdesc.hitNormal.x;
-		*((float*)(gen->GetArgAddress(8))) = -rcdesc.hitNormal.y;
-		*((string*)(gen->GetArgAddress(9))) = rcdesc.userdata->object->GetName();
-		*((int*)(gen->GetArgAddress(10))) = rcdesc.userdata->index;
+		*((float*)(gen->GetArgAddress(8))) = rcdesc.hitNormal.x;
+		*((float*)(gen->GetArgAddress(9))) = -rcdesc.hitNormal.y;
+		*((string*)(gen->GetArgAddress(10))) = rcdesc.userdata->object->GetName();
+		*((int*)(gen->GetArgAddress(11))) = rcdesc.userdata->index;
 
 		gen->SetReturnDWord(1);
 
@@ -186,7 +187,7 @@ void Scripts::Start()
 	engine->RegisterGlobalFunction("void Scene_Load(string&in alias)", asFUNCTION(Scene_Load), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("void Scene_Unload(string&in alias)", asFUNCTION(Scene_Unload), asCALL_GENERIC);
 
-	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
 
 	engine->RegisterGlobalFunction("void Script_CallClassInstancesMethod(string&in alias)", asFUNCTION(Script_CallClassInstancesMethod), asCALL_GENERIC);
 

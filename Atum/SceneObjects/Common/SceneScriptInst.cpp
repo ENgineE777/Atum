@@ -162,19 +162,33 @@ bool SceneScriptInst::PostPlay()
 
 					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
 					{
-						if (node_method->param_type == 1)
+						ScriptCallback* callback = nullptr;
+
+						if (node_method->callback_type.size() > 0)
 						{
-							node_inst.object->script_callbacks[0].SetIntParam(atoi(link->param.c_str()));
+							callback = node_inst.object->FindScriptCallback(node_method->callback_type.c_str());
 						}
 						else
-						if (node_method->param_type == 2)
 						{
-							node_inst.object->script_callbacks[0].SetStringParam(link->param);
+							callback = &node_inst.object->script_callbacks[0];
 						}
 
-						if (!node_inst.object->script_callbacks[0].Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
+						if (callback)
 						{
-							return false;
+							if (node_method->param_type == 1)
+							{
+								callback->SetIntParam(atoi(link->param.c_str()));
+							}
+							else
+							if (node_method->param_type == 2)
+							{
+								callback->SetStringParam(link->param);
+							}
+
+							if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
+							{
+								return false;
+							}
 						}
 					}
 					else

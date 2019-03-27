@@ -18,7 +18,8 @@ void Trigger2D::Init()
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&Trigger2D::EditorDraw);
 #endif
 
-	script_callbacks.push_back(ScriptCallback("OnContact", "int", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback("OnContactStart", "void", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback("OnContactEnd", "void", "%i%s%i"));
 }
 
 bool Trigger2D::Play()
@@ -31,7 +32,7 @@ bool Trigger2D::Play()
 	Matrix offset;
 
 	body.object = this;
-	body.body = PScene()->CreateBox({ trans.size.x * scale, trans.size.y * scale, 1.0f }, body_trans, offset, PhysObject::Trigger);
+	body.body = PScene()->CreateBox({ trans.size.x * scale, trans.size.y * scale, 1.0f }, body_trans, offset, PhysObject::Trigger, 0);
 	body.body->SetUserData(&body);
 
 	return true;

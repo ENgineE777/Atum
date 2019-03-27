@@ -37,15 +37,8 @@ void PhysController::onShapeHit(const PxControllerShapeHit& hit)
 
 		if (udataA && udataB)
 		{
-			if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
-			{
-				//contact->SetEnabled(false);
-			}
-
-			if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
-			{
-				//contact->SetEnabled(false);
-			}
+			udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
+			udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
 		}
 	}
 
@@ -106,8 +99,8 @@ PxControllerBehaviorFlags PhysController::getBehaviorFlags(const PxShape& shape,
 
 	if (udataA && udataB)
 	{
-		udataA->object->OnContact(udataA->index, udataB->object, udataB->index);
-		udataB->object->OnContact(udataB->index, udataA->object, udataA->index);
+		udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
+		udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
 	}
 
 	if (udataB)
@@ -145,13 +138,16 @@ PxQueryHitType::Enum PhysController::preFilter(const PxFilterData& filterData, c
 		}
 		else
 		{
-			if (StringUtils::IsEqual(udataA->object->class_name, "Triger2D") ||
-			    udataA->body && udataA->body->GetType() == PhysObject::Trigger ||
-			    StringUtils::IsEqual(udataB->object->class_name, "Triger2D") ||
-			    udataB->body && udataB->body->GetType() == PhysObject::Trigger)
+			if (udataA->body && udataA->body->GetType() == PhysObject::Trigger)
 			{
-				udataA->object->OnContact(udataA->index, udataB->object, udataB->index);
-				udataB->object->OnContact(udataB->index, udataA->object, udataA->index);
+				udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
+				return PxQueryHitType::eTOUCH;
+			}
+			else
+			if (udataB->body && udataB->body->GetType() == PhysObject::Trigger)
+			{
+				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
+				return PxQueryHitType::eTOUCH;
 			}
 		}
 	}
@@ -180,6 +176,12 @@ void PhysController::SetActive(bool set)
 	}
 
 	controller->setFootPosition(active ? PxExtendedVec3(deactive_pos.x, deactive_pos.y, deactive_pos.z) : PxExtendedVec3(-100000.0f, -100000.0f, -100000.0f));
+
+	auto actor = controller->getActor();
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+
+	shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, set);
 }
 
 bool PhysController::IsActive()
@@ -235,6 +237,15 @@ void PhysController::Move(Vector dir)
 	filters.mFilterCallback = this;
 
 	const PxU32 flags = controller->move(PxVec3(dir.x, dir.y, dir.z), 0.0001f, 1.0f/60.0f, filters, NULL);
+}
+
+void PhysController::SetGroup(int group)
+{
+	auto actor = controller->getActor();
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+
+	PhysScene::SetShapeGroup(shape, group);
 }
 
 void PhysController::SetPosition(Vector pos)

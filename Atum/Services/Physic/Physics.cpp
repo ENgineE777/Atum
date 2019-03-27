@@ -60,7 +60,7 @@ physx::PxFilterFlags CollisionFilterShader(physx::PxFilterObjectAttributes attri
                                            physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
                                            physx::PxPairFlags& retPairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
-	retPairFlags = PxPairFlag::eSOLVE_CONTACT | PxPairFlag::eDETECT_DISCRETE_CONTACT | PxPairFlag::eNOTIFY_TOUCH_FOUND;
+	retPairFlags = PxPairFlag::eSOLVE_CONTACT | PxPairFlag::eDETECT_DISCRETE_CONTACT | PxPairFlag::eNOTIFY_TOUCH_FOUND | PxPairFlag::eNOTIFY_TOUCH_LOST;
 	return PxFilterFlag::eDEFAULT;
 }
 

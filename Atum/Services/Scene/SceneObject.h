@@ -125,7 +125,7 @@ public:
 	virtual void BindClassToScript();
 	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
 
-	virtual bool OnContact(int index, SceneObject* contact_object, int contact_index);
+	virtual void OnContact(int index, SceneObject* contact_object, int contact_index, const char* callback_name);
 
 #ifdef EDITOR
 	void* item = nullptr;

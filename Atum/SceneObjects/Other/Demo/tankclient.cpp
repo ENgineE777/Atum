@@ -136,6 +136,7 @@ void TankClient::Update(float dt)
 			rcdesc.origin = camPos;
 			rcdesc.dir = dir;
 			rcdesc.length = 500;
+			rcdesc.group = 1;
 
 			if (PScene()->RayCast(rcdesc))
 			{
@@ -218,8 +219,9 @@ void TankClient::Update(float dt)
 
 		Vector p1 = org + mat.Vx() * 1.75f;
 		rcdesc.origin = p1;
+		rcdesc.group = 1;
 
-			if (PScene()->RayCast(rcdesc))
+		if (PScene()->RayCast(rcdesc))
 		{
 			p1 = rcdesc.hitPos;
 		}

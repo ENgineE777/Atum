@@ -34,7 +34,7 @@ class FallingBridge
         }
     }
 
-    int OnActivateTrigger(int self_index, string&in name, int index)
+    void OnActivateTrigger(int self_index, string&in name, int index)
     {
         if (name == "Hero")
         {
@@ -43,8 +43,6 @@ class FallingBridge
                 falling_bridge = true;
             }
         }
-
-        return 1;
     }
 
 	void Update(float dt)

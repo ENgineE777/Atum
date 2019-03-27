@@ -1,4 +1,5 @@
 #include "PhysObject.h"
+#include "PhysScene.h"
 
 PhysObject::BodyType PhysObject::GetType()
 {
@@ -15,6 +16,11 @@ void PhysObject::SetActive(bool set)
 	is_active = set;
 
 	actor->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !set);
+
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+
+	shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, set);
 }
 
 bool PhysObject::IsActive()
@@ -35,6 +41,14 @@ void* PhysObject::GetUserData()
 void PhysObject::SetFixedRotation(bool set)
 {
 	((PxRigidDynamic*)actor)->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z);
+}
+
+void PhysObject::SetGroup(int group)
+{
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+
+	PhysScene::SetShapeGroup(shape, group);
 }
 
 void PhysObject::SetTransform(Matrix& mat)

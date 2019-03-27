@@ -1096,10 +1096,10 @@ void SpriteWindow::OnKey(EUIWidget* sender, int key)
 
 	switch (key)
 	{
-		case VK_UP : delta.y = 1.0f; break;
-		case VK_DOWN: delta.y = -1.0f; break;
-		case VK_LEFT: delta.x = 1.0f; break;
-		case VK_RIGHT: delta.x = -1.0f; break;
+		case VK_UP : delta.y = 0.5f; break;
+		case VK_DOWN: delta.y = -0.5f; break;
+		case VK_LEFT: delta.x = 0.5f; break;
+		case VK_RIGHT: delta.x = -0.5f; break;
 	}
 
 	if (fabs(delta.x) > 0.0f || fabs(delta.y) > 0.0f)

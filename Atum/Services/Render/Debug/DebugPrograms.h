@@ -32,6 +32,20 @@ public:
 		virtual const char* GetPsName() { return "debug_triangle_ps.shd"; };
 	};
 
+	class DbgTriangle2D : public Program
+	{
+	public:
+		virtual const char* GetVsName() { return "debug_triangle2D_vs.shd"; };
+		virtual const char* GetPsName() { return "debug_triangle2D_ps.shd"; };
+
+		virtual void ApplyStates()
+		{
+			core.render.GetDevice()->SetAlphaBlend(true);
+			core.render.GetDevice()->SetDepthTest(false);
+			core.render.GetDevice()->SetDepthWriting(false);
+		};
+	};
+
 	class DbgSprite : public Program
 	{
 	public:

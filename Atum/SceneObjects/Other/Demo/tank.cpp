@@ -34,12 +34,13 @@ void Tank::AddInstance(int id, Vector pos, bool is_bot)
 	cdesc.radius = 1.0f;
 	cdesc.pos = pos;
 	cdesc.slopeLimit = cosf(RADIAN * 60.0f);
+	cdesc.group = 1;
 
 	ServerState& state = client->instances[client->instances.size() - 1].serverState;
 
 	state.pos = pos;
 	state.is_ai = is_bot;
-	state.controller = PScene()->CreateController(cdesc);
+	state.controller = PScene()->CreateController(cdesc, 1);
 }
 
 Matrix& Tank::Trans()
@@ -330,6 +331,7 @@ void Tank::Update(float dt)
 					rcdesc.origin = bonus.pos;
 					rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
 					rcdesc.length = 100.0f;
+					rcdesc.group = 1;
 
 					if (PScene()->RayCast(rcdesc))
 					{
@@ -548,6 +550,7 @@ void Tank::Update(float dt)
 				rcdesc.origin = proj.pos;
 				rcdesc.dir = proj.dir;
 				rcdesc.length = len;
+				rcdesc.group = 1;
 
 				if (PScene()->RayCast(rcdesc))
 				{

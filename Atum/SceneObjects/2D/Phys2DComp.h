@@ -24,6 +24,7 @@ public:
 	float density;
 	float friction;
 	bool allow_rotate;
+	uint32_t group;
 	bool use_object_size;
 	float width;
 	float height;
@@ -36,6 +37,7 @@ class Phys2DCompInst : public SceneObjectInstComp
 public:
 
 	Phys2DComp::BodyType body_type;
+	uint32_t group;
 
 	vector<PhysScene::BodyUserData> bodies;
 
@@ -45,6 +47,7 @@ public:
 		PhysScene::BodyUserData* body = nullptr;
 		void ApplyLinearImpulse(float x, float y);
 		void MoveTo(float x, float y);
+		void SetGroup(int group);
 		bool CheckColission(bool under);
 		void MoveController(float dx, float dy);
 	};

@@ -532,19 +532,17 @@ bool SceneObject::InjectIntoScript(const char* type, void* property, const char*
 	return true;
 }
 
-bool SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index)
+void SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index, const char* callback_name)
 {
-	SceneObject::ScriptCallback* callabck = FindScriptCallback("OnContact");
+	SceneObject::ScriptCallback* callabck = FindScriptCallback(callback_name);
 
 	if (callabck)
 	{
 		if (callabck->Call(Script(), index, contact_object->GetName(), contact_index))
 		{
-			return (Script()->ctx->GetReturnDWord() > 0);
+			Script()->ctx->GetReturnDWord();
 		}
 	}
-
-	return false;
 }
 
 #ifdef EDITOR

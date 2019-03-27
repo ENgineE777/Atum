@@ -212,6 +212,13 @@
 				{ "names" : ["MS_BTN0"] },
 				{ "names" : ["JOY_RIGHT_TRIGER"] }
 			]
+		},
+		{
+			"name" : "Frog.Cover",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN1"] },
+				{ "names" : ["JOY_LEFT_TRIGER"] }
+			]
 		}
 	]
 } 

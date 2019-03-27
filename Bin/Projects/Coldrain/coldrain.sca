@@ -85,6 +85,7 @@
 						"y" : 150.000000
 					},
 					"param_type" : 3,
+					"callback_name" : "",
 					"Count" : 0,
 					"Link" : [
 					]
@@ -177,6 +178,7 @@
 						"y" : 588.000000
 					},
 					"param_type" : 0,
+					"callback_name" : "",
 					"Count" : 1,
 					"Link" : [
 						{
@@ -1687,7 +1689,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : false,
 					"width" : 64.000000,
-					"height" : 66.000000
+					"height" : 66.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -2997,7 +3000,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : false,
 					"width" : 64.000000,
-					"height" : 66.000000
+					"height" : 66.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -3195,7 +3199,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -3269,7 +3274,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},

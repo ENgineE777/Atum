@@ -26,12 +26,13 @@ class Render
 
 	std::map<std::string, Program*> programs;
 
-	class DebugLines*     lines;
-	class DebugSpheres*   spheres;
-	class DebugBoxes*     boxes;
-	class DebugTriangles* triangles;
-	class DebugFont*      font;
-	class DebugSprites*   sprites;
+	class DebugLines*       lines;
+	class DebugSpheres*     spheres;
+	class DebugBoxes*       boxes;
+	class DebugTriangles*   triangles;
+	class DebugFont*        font;
+	class DebugSprites*     sprites;
+	class DebugTriangles2D* triangles2D;
 
 	TaskExecutor::GroupTaskPool* groupTaskPool;
 	TaskExecutor::SingleTaskPool* debugTaskPool;
@@ -73,6 +74,7 @@ public:
 	void DebugSphere(Vector pos, Color color, float radius);
 	void DebugBox(Matrix pos, Color color, Vector scale);
 	void DebugTriangle(Vector p1, Vector p2, Vector p3, Color color);
+	void DebugTriangle2D(Vector2 p1, Vector2 p2, Vector2 p3, Color color);
 	void DebugPrintText(Vector2 pos, Color color, const char* text, ...);
 	void DebugPrintText(Vector pos, float dist, Color color, const char* text, ...);
 	void DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color = COLOR_WHITE);

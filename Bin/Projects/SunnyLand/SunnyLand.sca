@@ -1019,7 +1019,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : false,
 					"width" : 64.000000,
-					"height" : 80.000000
+					"height" : 80.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -1179,7 +1180,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : false,
 					"width" : 100.000000,
-					"height" : 100.000000
+					"height" : 100.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -1423,7 +1425,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : false,
 					"width" : 50.000000,
-					"height" : 50.000000
+					"height" : 50.000000,
+					"group" : 1
 				},
 				{
 					"type" : "ScriptMetaDataComp",
@@ -1622,7 +1625,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : false,
 					"width" : 50.000000,
-					"height" : 50.000000
+					"height" : 50.000000,
+					"group" : 1
 				},
 				{
 					"type" : "ScriptMetaDataComp",
@@ -2059,7 +2063,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -2153,7 +2158,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -2595,7 +2601,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -3053,7 +3060,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -3275,7 +3283,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -3659,7 +3668,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -4101,7 +4111,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -4361,7 +4372,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -4435,7 +4447,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -4707,7 +4720,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : false,
 					"width" : 48.000000,
-					"height" : 64.000000
+					"height" : 64.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -4781,7 +4795,8 @@
 					"allow_rotate" : false,
 					"use_object_size" : true,
 					"width" : 64.000000,
-					"height" : 28.000000
+					"height" : 28.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -5059,7 +5074,8 @@
 					"allow_rotate" : true,
 					"use_object_size" : false,
 					"width" : 100.000000,
-					"height" : 100.000000
+					"height" : 100.000000,
+					"group" : 1
 				}
 			]
 		},
@@ -5986,6 +6002,7 @@
 						"y" : 255.000000
 					},
 					"param_type" : 3,
+					"callback_name" : "",
 					"Count" : 0,
 					"Link" : [
 					]
@@ -6019,6 +6036,7 @@
 						"y" : 377.000000
 					},
 					"param_type" : 0,
+					"callback_name" : "",
 					"Count" : 1,
 					"Link" : [
 						{

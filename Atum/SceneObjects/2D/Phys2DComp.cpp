@@ -25,6 +25,7 @@ BOOL_PROP(Phys2DComp, allow_rotate, true, "Phys2D", "allow_rotate")
 BOOL_PROP(Phys2DComp, use_object_size, true, "Phys2D", "use_object_size")
 FLOAT_PROP(Phys2DComp, width, 64, "Phys2D", "width")
 FLOAT_PROP(Phys2DComp, height, 64, "Phys2D", "height")
+INT_PROP(Phys2DComp, group, 1, "Phys2D", "group")
 META_DATA_DESC_END()
 
 COMPREG(Phys2DCompInst, "Phys2DInst")
@@ -83,6 +84,22 @@ void Phys2DCompInst::ScriptProxy::MoveTo(float x, float y)
 	}
 }
 
+void Phys2DCompInst::ScriptProxy::SetGroup(int group)
+{
+	if (body)
+	{
+		if (body->body)
+		{
+			body->body->SetGroup(group);
+		}
+		else
+		if (body->controller)
+		{
+			body->controller->SetGroup(group);
+		}
+	}
+}
+
 bool Phys2DCompInst::ScriptProxy::CheckColission(bool under)
 {
 	if (body && body->controller)
@@ -108,6 +125,7 @@ void Phys2DCompInst::BindClassToScript()
 	core.scripts.engine->RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), asOBJ_REF | asOBJ_NOCOUNT);
 	core.scripts.engine->RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse), asCALL_GENERIC);
 	core.scripts.engine->RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), asCALL_GENERIC);
+	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetGroup(int group)", WRAP_MFN(Phys2DCompInst::ScriptProxy, SetGroup), asCALL_GENERIC);
 	core.scripts.engine->RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), asCALL_GENERIC);
 	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), asCALL_GENERIC);
 }
@@ -161,6 +179,7 @@ void Phys2DCompInst::Play()
 	}
 
 	body_type = ((Phys2DComp*)asset_comp)->body_type;
+	group = ((Phys2DComp*)asset_comp)->group;
 
 	float scale = 1.0f / 50.0f;
 
@@ -216,7 +235,8 @@ void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 siz
 		desc.radius = size.x * 0.5f;
 		desc.height = size.y - size.x;
 		desc.pos = { pos.x, -pos.y, 0.0f };
-		bodies[index].controller = object->PScene()->CreateController(desc);
+		desc.group = group;
+		bodies[index].controller = object->PScene()->CreateController(desc, group);
 		bodies[index].controller->SetUserData(&bodies[index]);
 
 		if (!visible)
@@ -229,7 +249,7 @@ void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 siz
 		Matrix offset;
 		offset.Pos() = { center.x, -center.y, 0.0f };
 
-		bodies[index].body = object->PScene()->CreateBox({ size.x, size.y, 1.0f }, body_trans, offset, (PhysObject::BodyType)body_type);
+		bodies[index].body = object->PScene()->CreateBox({ size.x, size.y, 1.0f }, body_trans, offset, (PhysObject::BodyType)body_type, group);
 		bodies[index].body->SetUserData(&bodies[index]);
 
 		if (!allow_rotate && body_type == Phys2DComp::BodyType::DynamicBody)

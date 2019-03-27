@@ -32,7 +32,7 @@ void ArrayWidget::SetData(void* set_data)
 	if (adapter->sel_item)
 	{
 		sel_item = adapter->sel_item;
-		addBtn->Enable(false);
+		addBtn->Enable(true);
 
 		pre_sel_item = -1;
 

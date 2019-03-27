@@ -99,16 +99,32 @@ inline Color operator * (const Color& c1, const Color& c2)
 }
 
 #define COLOR_WHITE Color()
+#define COLOR_WHITE_A(alpha) Color(1.0, 1.0f, 1.0f, alpha)
+
 #define COLOR_BLACK Color(0.0f, 0.0f, 0.0f)
+#define COLOR_BLACK_A(alpha) Color(0.0f, 0.0f, 0.0f, alpha)
+
 #define COLOR_GRAY Color(0.4f, 0.4f, 0.4f)
+#define COLOR_GRAY_A(alpha) Color(0.4f, 0.4f, 0.4f, alpha)
+
 #define COLOR_LIGHT_GRAY Color(0.65f, 0.65f, 0.65f)
+#define COLOR_LIGHT_GRAY_A(alpha) Color(0.65f, 0.65f, 0.65f, alpha)
 
 #define COLOR_RED Color(1.0f, 0.0f, 0.0f)
+#define COLOR_RED_A(alpha) Color(1.0f, 0.0f, 0.0f, alpha)
+
 #define COLOR_GREEN Color(0.0f, 1.0f, 0.0f)
+#define COLOR_GREEN_A(alpha) Color(0.0f, 1.0f, 0.0f, alpha)
+
 #define COLOR_BLUE Color(0.0f, 0.0f, 1.0f)
+#define COLOR_BLUE_A(alpha) Color(0.0f, 0.0f, 1.0f, alpha)
+
 
 #define COLOR_YELLOW Color(1.0f, 1.0f, 0.0f)
-#define COLOR_MAGNETA Color(1.0f, 0.0f, 1.0f)
-#define COLOR_CYAN Color(0.0f, 1.0f, 1.0f)
+#define COLOR_YELLOW_A(alpha) Color(1.0f, 1.0f, 0.0f, alpha)
 
-#define COLOR_EMPTY Color(0.0f, 0.0f, 0.0f, 0.0f)
+#define COLOR_MAGNETA Color(1.0f, 0.0f, 1.0f)
+#define COLOR_MAGNETA_A(alpha) Color(1.0f, 0.0f, 1.0f, alpha)
+
+#define COLOR_CYAN Color(0.0f, 1.0f, 1.0f)
+#define COLOR_CYAN_A(alpha) Color(0.0f, 1.0f, 1.0f, alpha)

@@ -66,6 +66,10 @@ bool Render::Init(const char* device_name, void* external_device)
 	sprites = new DebugSprites();
 	sprites->Init(debugTaskPool);
 
+	triangles2D = new DebugTriangles2D();
+	triangles2D->Init(debugTaskPool);
+
+
 	font = new DebugFont();
 	font->Init(debugTaskPool);
 
@@ -239,6 +243,11 @@ void Render::DebugBox(Matrix pos, Color color, Vector scale)
 void Render::DebugTriangle(Vector p1, Vector p2, Vector p3, Color color)
 {
 	triangles->AddTriangle(p1, p2, p3, color);
+}
+
+void Render::DebugTriangle2D(Vector2 p1, Vector2 p2, Vector2 p3, Color color)
+{
+	triangles2D->AddTriangle(p1, p2, p3, color);
 }
 
 void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)

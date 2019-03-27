@@ -30,6 +30,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Camera2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\ShadowCaster2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Sprite.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteGraphAsset.cpp" />
@@ -104,6 +105,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Camera2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\ShadowCaster2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Sprite.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteGraphAsset.h" />
@@ -255,6 +258,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSpheres.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugSprites.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Device.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h" />

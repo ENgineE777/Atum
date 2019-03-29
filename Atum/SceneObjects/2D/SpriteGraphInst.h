@@ -19,4 +19,8 @@ public:
 	void ApplyProperties() override;
 	bool Play() override;
 	void Draw(float dt);
+
+#ifdef EDITOR
+	void ShowProperties(bool show);
+#endif
 };

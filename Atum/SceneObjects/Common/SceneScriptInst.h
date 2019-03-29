@@ -10,8 +10,11 @@ public:
 
 	struct Node
 	{
+		META_DATA_DECL(Node)
+
 		uint32_t object_uid = 0;
 		uint32_t object_child_uid = 0;
+		string   callback_type;
 
 		SceneObject* object = nullptr;
 
@@ -45,6 +48,8 @@ public:
 
 	void EditorWork(float dt);
 
+	void SetEditMode(bool ed) override;
+
 	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
 
 	void OnMouseMove(Vector2 delta_ms) override;
@@ -52,5 +57,6 @@ public:
 	void OnLeftMouseUp() override;
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
+	void ShowProperties(bool show);
 #endif
 };

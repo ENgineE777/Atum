@@ -7,6 +7,7 @@
 #include "Support/Quaternion.h"
 #include "Support/Color.h"
 #include <stdint.h>
+#include "string"
 
 class JSONWriter
 {
@@ -28,6 +29,7 @@ public:
 	void StartBlock(const char* name);
 	void FinishBlock();
 
+	void Write(const char* name, std::string& val);
 	void Write(const char* name, const char* val);
 	void Write(const char* name, bool val);
 	void Write(const char* name, float val);

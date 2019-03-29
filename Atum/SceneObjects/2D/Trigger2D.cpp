@@ -49,7 +49,7 @@ void Trigger2D::Stop()
 #ifdef EDITOR
 void Trigger2D::EditorDraw(float dt)
 {
-	if (owner->Playing())
+	if (owner->Playing() || GetState() == State::Invisible)
 	{
 		return;
 	}

@@ -88,8 +88,8 @@ public:
 	bool UsingCamera2DPos() override;
 	Vector2& Camera2DPos() override;
 
-	Vector2 GetDefailtSize();
-	Vector2 GetDefailtOffset();
+	Vector2 GetDefaultSize();
+	Vector2 GetDefaultOffset();
 
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);

@@ -58,7 +58,6 @@ public:
 		META_DATA_DECL(NodeScriptMethod)
 
 		int param_type;
-		string callback_type;
 		asIScriptFunction* method = nullptr;
 		vector<LinkToMethod*> links;
 
@@ -90,12 +89,15 @@ public:
 	void GetScriptFileName(string& filename);
 
 #ifdef EDITOR
+	class SceneScriptInst* script_inst = nullptr;
 	string prev_filename;
 	void RenameScriptFile();
 	void SetUID(uint32_t uid) override;
 	SceneObject* CreateInstance(Scene* scene) override;
 	void EditorWork(float dt);
 	void EditorWork(float dt, class SceneScriptInst* inst);
+
+	void SetEditMode(bool ed) override;
 
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);

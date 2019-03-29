@@ -83,6 +83,11 @@ void JSONWriter::FinishBlock()
 	depth--;
 }
 
+void JSONWriter::Write(const char* name, std::string& val)
+{
+	Write(name, val.c_str());
+}
+
 void JSONWriter::Write(const char* name, const char* val)
 {
 	StringUtils::FixSlashes((char*)val);

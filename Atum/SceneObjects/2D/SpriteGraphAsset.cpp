@@ -385,7 +385,7 @@ Vector2& SpriteGraphAsset::Camera2DPos()
 	return camera_pos;
 }
 
-Vector2 SpriteGraphAsset::GetDefailtSize()
+Vector2 SpriteGraphAsset::GetDefaultSize()
 {
 	if (nodes.size() > 0)
 	{
@@ -395,7 +395,7 @@ Vector2 SpriteGraphAsset::GetDefailtSize()
 	return 64.0f;
 }
 
-Vector2 SpriteGraphAsset::GetDefailtOffset()
+Vector2 SpriteGraphAsset::GetDefaultOffset()
 {
 	if (nodes.size() > 0)
 	{

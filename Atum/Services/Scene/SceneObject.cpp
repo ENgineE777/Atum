@@ -284,7 +284,7 @@ void SceneObject::SetState(int set_state)
 SceneObject::State SceneObject::GetState()
 {
 #ifdef EDITOR
-	if (project.LayerHiden(layer_name.c_str()))
+	if (!owner->Playing() && project.LayerHiden(layer_name.c_str()))
 	{
 		return State::Invisible;
 	}

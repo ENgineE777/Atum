@@ -11,6 +11,10 @@
 
 CLASSREG(SceneObject, SceneScriptInst, "Script")
 
+META_DATA_DESC(SceneScriptInst::Node)
+STRING_PROP(SceneScriptInst::Node, callback_type, "", "Property", "callback_type")
+META_DATA_DESC_END()
+
 #ifdef EDITOR
 void StartScriptInstEdit(void* owner)
 {
@@ -35,12 +39,14 @@ void SceneScriptInst::Node::Load(JSONReader& loader)
 {
 	loader.Read("object_uid", object_uid);
 	loader.Read("object_child_uid", object_child_uid);
+	loader.Read("callback_type", callback_type);
 }
 
 void SceneScriptInst::Node::Save(JSONWriter& saver)
 {
 	saver.Write("object_uid", object_uid);
 	saver.Write("object_child_uid", object_child_uid);
+	saver.Write("callback_type", callback_type);
 }
 
 void SceneScriptInst::Init()
@@ -164,9 +170,9 @@ bool SceneScriptInst::PostPlay()
 					{
 						ScriptCallback* callback = nullptr;
 
-						if (node_method->callback_type.size() > 0)
+						if (node_inst.callback_type.size() > 0)
 						{
-							callback = node_inst.object->FindScriptCallback(node_method->callback_type.c_str());
+							callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
 						}
 						else
 						{
@@ -261,6 +267,22 @@ void SceneScriptInst::EditorWork(float dt)
 	Asset()->EditorWork(dt, this);
 }
 
+void SceneScriptInst::SetEditMode(bool ed)
+{
+	SceneObjectInst::SetEditMode(ed);
+
+	if (ed)
+	{
+		Asset()->script_inst = this;
+		Asset()->ShowProperties(true);
+	}
+	else
+	{
+		Asset()->ShowProperties(false);
+		Asset()->script_inst = nullptr;
+	}
+}
+
 void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
 {
 	if (!is_scene_tree)
@@ -325,5 +347,22 @@ void SceneScriptInst::OnRightMouseDown(Vector2 ms)
 void SceneScriptInst::OnPopupMenuItem(int id)
 {
 	Asset()->OnPopupMenuItem(id);
+}
+
+void SceneScriptInst::ShowProperties(bool show)
+{
+	if (Asset()->sel_node != -1 && Asset()->sel_link == -1 && Asset()->nodes[Asset()->sel_node]->type == SceneScriptAsset::ScnCallback)
+	{
+		if (show)
+		{
+			Node& node = nodes[Asset()->sel_node];
+			node.GetMetaData()->Prepare(&node);
+			node.GetMetaData()->PrepareWidgets(ed_obj_cat);
+		}
+		else
+		{
+			nodes[Asset()->sel_node].GetMetaData()->HideWidgets();
+		}
+	}
 }
 #endif

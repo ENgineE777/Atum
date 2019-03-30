@@ -180,8 +180,8 @@ ENUM_PROP(className, state, 2, "Common", "State")\
 ENUM_END
 
 #ifdef EDITOR
-extern void FillGroupsList(EUIComboBox* cbox);
-extern void FillLayersList(EUIComboBox* cbox);
+extern void FillGroupsList(EUIComboBox* cbox, void* object);
+extern void FillLayersList(EUIComboBox* cbox, void* object);
 #endif
 
 #ifdef EDITOR

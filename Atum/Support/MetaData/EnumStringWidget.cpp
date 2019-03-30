@@ -20,13 +20,18 @@ void EnumStringWidget::SetData(void* set_data)
 	cbox->SetText(data->c_str());
 }
 
+void EnumStringWidget::Prepare(void* set_owner)
+{
+	owner = set_owner;
+}
+
 void EnumStringWidget::OnComboBoxOpened(EUIComboBox* sender)
 {
 	cbox->ClearList();
 
 	if (callback)
 	{
-		callback(cbox);
+		callback(cbox, owner);
 		cbox->SetText(data->c_str());
 	}
 }

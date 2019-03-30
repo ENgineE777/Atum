@@ -407,6 +407,11 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 		else
 		{
 			widget->SetData(prop.value);
+
+			if (prop.type == EnumString)
+			{
+				((EnumStringWidget*)widget)->Prepare(owner);
+			}
 		}
 
 		widget->Show(true);

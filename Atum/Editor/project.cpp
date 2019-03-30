@@ -5,7 +5,7 @@
 
 Project project;
 
-void FillGroupsList(EUIComboBox* cbox)
+void FillGroupsList(EUIComboBox* cbox, void* owner)
 {
 	for (auto& group : project.groups)
 	{
@@ -13,7 +13,7 @@ void FillGroupsList(EUIComboBox* cbox)
 	}
 }
 
-void FillLayersList(EUIComboBox* cbox)
+void FillLayersList(EUIComboBox* cbox, void* owner)
 {
 	for (auto& layer : project.layers)
 	{

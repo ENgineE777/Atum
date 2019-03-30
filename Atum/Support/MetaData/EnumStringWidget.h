@@ -9,13 +9,15 @@ public:
 	EUIComboBox * cbox;
 	std::string* data;
 
-	typedef void(*Callback)(EUIComboBox* cbox);
+	typedef void(*Callback)(EUIComboBox* cbox, void* object);
 
+	void* owner;
 	Callback callback;
 
 	EnumStringWidget(Callback callback);
 	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
 	void SetData(void* set_data) override;
+	void Prepare(void* set_owner);
 	void OnComboBoxOpened(EUIComboBox* sender) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 };

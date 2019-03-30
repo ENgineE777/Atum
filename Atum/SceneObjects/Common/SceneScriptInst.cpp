@@ -9,10 +9,23 @@
 
 #include "Services/Script/Libs/scriptarray.h"
 
+void FillCallbackList(EUIComboBox* cbox, void* object)
+{
+	SceneScriptInst::Node* node = (SceneScriptInst::Node*)object;
+
+	if (node->object)
+	{
+		for (auto& callback : node->object->script_callbacks)
+		{
+			cbox->AddItem(callback.GetName());
+		}
+	}
+}
+
 CLASSREG(SceneObject, SceneScriptInst, "Script")
 
 META_DATA_DESC(SceneScriptInst::Node)
-STRING_PROP(SceneScriptInst::Node, callback_type, "", "Property", "callback_type")
+STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, FillCallbackList, "Property", "callback_type")
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -315,6 +328,18 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 				}
 
 				nd.object = object;
+
+				if (object->script_callbacks.size() > 0)
+				{
+					nd.callback_type = object->script_callbacks[0].GetName();
+
+					nd.GetMetaData()->Prepare(&nd);
+					nd.GetMetaData()->PrepareWidgets(ed_obj_cat);
+				}
+				else
+				{
+					nd.callback_type = "";
+				}
 			}
 
 			break;

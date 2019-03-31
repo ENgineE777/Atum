@@ -460,26 +460,42 @@ void Scene::Save(const char* name)
 #ifdef EDITOR
 		writer.StartArray("asset_instances");
 
-		for (auto obj : assets)
-		{
-			SceneAsset* asset = (SceneAsset*)obj;
+		map<SceneObject*, SceneObject*> saved_assets;
 
-			if (asset->instances.size() > 0)
+		for (auto obj : objects)
+		{
+			auto* asset_inst = dynamic_cast<SceneObjectInst*>(obj);
+
+			if (asset_inst)
 			{
+				if (saved_assets.count(asset_inst->asset) > 0)
+				{
+					continue;
+				}
+
+				saved_assets[asset_inst->asset] = asset_inst->asset;
+
 				writer.StartBlock(nullptr);
 
-				writer.Write("asset_uid", asset->GetUID());
+				writer.Write("asset_uid", asset_inst->asset->GetUID());
+				writer.Write("asset_name", asset_inst->asset->GetName());
 
 				writer.StartArray("instances");
 
-				for (auto& inst : asset->instances)
+				for (auto& inst : asset_inst->asset->instances)
 				{
-					writer.StartBlock(nullptr);
+					auto* object = inst.GetObject();
 
-					writer.Write("scene", inst.scene_path.c_str());
-					writer.Write("inst_uid", inst.inst_uid);
+					if (object && object->GetOwner() == this)
+					{
+						writer.StartBlock(nullptr);
 
-					writer.FinishBlock();
+						writer.Write("scene", inst.scene_path.c_str());
+						writer.Write("inst_uid", object->GetUID());
+						writer.Write("inst_name", object->GetName());
+
+						writer.FinishBlock();
+					}
 				}
 
 				writer.FinishArray();

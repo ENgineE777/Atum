@@ -736,6 +736,7 @@ void SceneObjectInst::SetOwner(Scene* owner)
 	{
 		if (inst.GetObject() == this)
 		{
+			inst.scene_path = owner->project_scene_path;
 			inst.inst_uid = GetUID();
 		}
 	}

@@ -48,6 +48,11 @@ void Scene::ContactListener::EndContact(b2Contact* contact)
 void Scene::Init()
 {
 	scene_path[0] = 0;
+	scene_name[0] = 0;
+
+#ifdef EDITOR
+	project_scene_path[0] = 0;
+#endif
 
 	taskPool = core.taskExecutor.CreateSingleTaskPool();
 	renderTaskPool = core.render.AddTaskPool();

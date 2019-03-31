@@ -39,6 +39,7 @@ public:
 
 #ifdef EDITOR
 	bool load_asset_inst = false;
+	char project_scene_path[512];
 #endif
 
 private:

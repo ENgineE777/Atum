@@ -246,7 +246,6 @@ void SceneObject::SetOwner(Scene* set_owner)
 	owner->DelFromAllGroups(this, set_owner);
 
 	owner = set_owner;
-	owner->GenerateUID(this, IsAsset());
 	owner->AddObject(this, IsAsset());
 }
 #endif

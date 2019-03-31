@@ -2,6 +2,31 @@
 
 	"scene_nodes" : [
 		{
+			"uid" : -1,
+			"name" : "FX",
+			"type" : 0
+		},
+		{
+			"uid" : -970252032,
+			"name" : "EnemyDeath",
+			"type" : 1
+		},
+		{
+			"uid" : 1225762432,
+			"name" : "ItemTaken",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 1314392192,
+			"name" : "Camera2D",
+			"type" : 1
+		},
+		{
 			"uid" : 14304,
 			"name" : "VirtualJoystick",
 			"type" : 1
@@ -13,6 +38,121 @@
 		}
 	],
 	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "MetaData",
+			"type" : 0
+		},
+		{
+			"uid" : 1583784704,
+			"name" : "ItemData",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Sprites",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "FX",
+			"type" : 0
+		},
+		{
+			"uid" : -1558477824,
+			"name" : "EnemyDeath",
+			"type" : 1
+		},
+		{
+			"uid" : 780797440,
+			"name" : "ItemTaken",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Hero",
+			"type" : 0
+		},
+		{
+			"uid" : 1917411200,
+			"name" : "Hero_Fall",
+			"type" : 1
+		},
+		{
+			"uid" : -389033728,
+			"name" : "Hero_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 1511894784,
+			"name" : "Hero_Hit",
+			"type" : 1
+		},
+		{
+			"uid" : -1039027712,
+			"name" : "Hero_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : -442886144,
+			"name" : "Hero_Jump",
+			"type" : 1
+		},
+		{
+			"uid" : -246291712,
+			"name" : "Hero_Run",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 1435982208,
+			"name" : "CherryItem",
+			"type" : 1
+		},
+		{
+			"uid" : -350622976,
+			"name" : "DiamondItem",
+			"type" : 1
+		},
+		{
+			"uid" : 532556576,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"uid" : 1373046016,
+			"name" : "DynBoxFly",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
 		{
 			"uid" : 14304,
 			"name" : "MainScript",

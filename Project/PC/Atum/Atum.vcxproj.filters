@@ -472,9 +472,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp">
       <Filter>SceneObjects\2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Editor\project.cpp">
-      <Filter>Editor</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
@@ -501,6 +498,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.cpp">
       <Filter>Services\Render\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Editor\Project.cpp">
+      <Filter>Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -936,9 +936,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h">
       <Filter>SceneObjects\2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Editor\project.h">
-      <Filter>Editor</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.h">
       <Filter>Support\MetaData</Filter>
     </ClInclude>
@@ -965,6 +962,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.h">
       <Filter>Services\Render\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Editor\Project.h">
+      <Filter>Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

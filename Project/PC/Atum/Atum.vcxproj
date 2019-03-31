@@ -20,7 +20,7 @@
     <ClCompile Include="..\..\..\Atum\Editor\freecamera.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\Gizmo.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\LayerEntryWidget.cpp" />
-    <ClCompile Include="..\..\..\Atum\Editor\project.cpp" />
+    <ClCompile Include="..\..\..\Atum\Editor\Project.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\SceneObjCmpWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\main.cpp" />
     <ClCompile Include="..\..\..\Atum\Platform\Android\AtumLib.cpp">
@@ -175,7 +175,7 @@
     <ClInclude Include="..\..\..\Atum\Editor\freecamera.h" />
     <ClInclude Include="..\..\..\Atum\Editor\Gizmo.h" />
     <ClInclude Include="..\..\..\Atum\Editor\LayerEntryWidget.h" />
-    <ClInclude Include="..\..\..\Atum\Editor\project.h" />
+    <ClInclude Include="..\..\..\Atum\Editor\Project.h" />
     <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Camera2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h" />

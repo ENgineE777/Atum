@@ -1347,34 +1347,37 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 		{
 			Project::SceneTreeItem* tree_item = static_cast<Project::SceneTreeItem*>(ptr);
 
-			if (item == tree_item->item)
+			if (tree_item->object)
 			{
-				SelectObject(nullptr, false);
-			}
-
-			if (sender == assets_treeview)
-			{
-				SceneAsset* asset = static_cast<SceneAsset*>(tree_item->object);
-
-				for (auto inst : asset->instances)
+				if (item == tree_item->item)
 				{
-					scene_treeview->DeleteItem(inst.GetObject()->item);
-					inst.GetObject()->GetOwner()->DeleteObject(inst.GetObject(), false, true);
+					SelectObject(nullptr, false);
 				}
-			}
-			else
-			{
-				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(tree_item->object);
 
-				if (inst && inst->asset)
+				if (sender == assets_treeview)
 				{
-					inst->asset->DeleteAsset(inst);
+					SceneAsset* asset = static_cast<SceneAsset*>(tree_item->object);
+
+					for (auto inst : asset->instances)
+					{
+						scene_treeview->DeleteItem(inst.GetObject()->item);
+						inst.GetObject()->GetOwner()->DeleteObject(inst.GetObject(), false, true);
+					}
 				}
+				else
+				{
+					SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(tree_item->object);
+
+					if (inst && inst->asset)
+					{
+						inst->asset->DeleteAsset(inst);
+					}
+				}
+
+				tree_item->scene->DeleteObject(tree_item->object, (sender == assets_treeview), true);
+
+				sender->SelectItem(nullptr);
 			}
-
-			tree_item->scene->DeleteObject(tree_item->object, (sender == assets_treeview), true);
-
-			sender->SelectItem(nullptr);
 		}
 	}
 }

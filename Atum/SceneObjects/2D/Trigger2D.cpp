@@ -15,7 +15,7 @@ META_DATA_DESC_END()
 void Trigger2D::Init()
 {
 #ifdef EDITOR
-	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&Trigger2D::EditorDraw);
+	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + 2, this, (Object::Delegate)&Trigger2D::EditorDraw);
 #endif
 
 	script_callbacks.push_back(ScriptCallback("OnContactStart", "void", "%i%s%i"));
@@ -59,6 +59,7 @@ void Trigger2D::EditorDraw(float dt)
 	Sprite::FrameState state;
 	Color color = COLOR_WHITE;
 	color.a = 0.5f;
+	trans.depth = 0.01f;
 	Sprite::Draw(&trans, color, &sprite, &state, true, false);
 }
 

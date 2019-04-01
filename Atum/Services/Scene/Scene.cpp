@@ -131,12 +131,31 @@ SceneObject* Scene::FindByName(const char* name, std::vector<SceneObject*>& obje
 
 SceneObject* Scene::FindByName(const char* name, bool is_asset)
 {
+	SceneObject* res = nullptr;
+
 	if (is_asset)
 	{
-		return FindByName(name, assets);
+		res = FindByName(name, assets);
+	}
+	else
+	{
+		res = FindByName(name, objects);
 	}
 
-	return FindByName(name, objects);
+	if (!res)
+	{
+		for (auto& incl : inc_scenes)
+		{
+			res = incl->FindByName(name, is_asset);
+
+			if (res)
+			{
+				break;
+			}
+		}
+	}
+
+	return res;
 }
 
 SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, std::vector<SceneObject*>& objects)

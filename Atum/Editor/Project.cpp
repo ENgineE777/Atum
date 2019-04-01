@@ -374,17 +374,17 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool
 
 	vector<SceneNode>& nodes = is_asset ? holder->assets_nodes : holder->scene_nodes;
 
+	if (holder->included.size() > 0)
+	{
+		SceneTreeItem* tree_item = new SceneTreeItem();
+		tree_item->scene = holder->scene;
+		tree_item->item = treeview->AddItem(holder->name.c_str(), 0, tree_item, item, -1, true);
+
+		item = tree_item->item;
+	}
+
 	if (nodes.size() > 0)
 	{
-		if (holder->included.size() > 0)
-		{
-			SceneTreeItem* tree_item = new SceneTreeItem();
-			tree_item->scene = holder->scene;
-			tree_item->item = treeview->AddItem(holder->name.c_str(), 0, tree_item, item, -1, true);
-
-			item = tree_item->item;
-		}
-
 		int index = 0;
 		RestoreSceneNodes(treeview, holder->scene, nodes, index, item, is_asset);
 	}

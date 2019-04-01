@@ -234,6 +234,11 @@ void Project::SaveSceneNodes(JSONWriter* writer, vector<SceneNode>& nodes, const
 
 void Project::Save()
 {
+	if (select_scene)
+	{
+		GrabSceneNodes(select_scene);
+	}
+
 	for (auto& holder : scenes)
 	{
 		if (!holder->scene)
@@ -245,11 +250,6 @@ void Project::Save()
 		StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
 
 		holder->scene->Save(path);
-
-		if (holder == select_scene)
-		{
-			GrabSceneNodes(holder);
-		}
 
 		int len = (int)strlen(path);
 

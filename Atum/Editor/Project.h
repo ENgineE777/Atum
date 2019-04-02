@@ -74,6 +74,7 @@ public:
 		Scene* scene = nullptr;
 		SceneObject* object = nullptr;
 		void* item = nullptr;
+		bool root = false;
 
 		SceneTreeItem() = default;
 		SceneTreeItem(SceneObject* set_object)

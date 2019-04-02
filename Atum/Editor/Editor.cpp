@@ -1187,6 +1187,11 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		Project::SceneTreeItem* with = (Project::SceneTreeItem*)sender->GetItemPtr(item);
 		Project::SceneTreeItem* to = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
 
+		if (with->root)
+		{
+			return false;
+		}
+
 		if (project.select_scene->included.size() > 0)
 		{
 			if (!to)

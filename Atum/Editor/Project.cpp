@@ -366,6 +366,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool
 		StringUtils::Printf(name, 256, "%s (Included)", incl->name.c_str());
 
 		SceneTreeItem* tree_item = new SceneTreeItem();
+		tree_item->root = true;
 		tree_item->scene = incl->scene;
 		tree_item->item = treeview->AddItem(name, 0, tree_item, item, -1, true);
 
@@ -377,6 +378,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool
 	if (holder->included.size() > 0)
 	{
 		SceneTreeItem* tree_item = new SceneTreeItem();
+		tree_item->root = true;
 		tree_item->scene = holder->scene;
 		tree_item->item = treeview->AddItem(holder->name.c_str(), 0, tree_item, item, -1, true);
 

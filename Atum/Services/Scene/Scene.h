@@ -96,7 +96,11 @@ public:
 	void Stop();
 	bool Playing();
 
-	virtual void EnableTasks(bool enable);
+	void EnableTasks(bool enable);
+
+#ifdef EDITOR
+	bool DependFromScene(Scene* scene);
+#endif
 
 	void GenerateUID(SceneObject* obj, bool is_asset);
 	void GenerateChildUID(SceneObject* obj);

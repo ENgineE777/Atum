@@ -16978,24 +16978,66 @@
 			"asset_uid" : 1322567424,
 			"asset_name" : "BridgeScript",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1586412928,
+					"inst_name" : "BridgeScript"
+				}
 			]
 		},
 		{
 			"asset_uid" : 14304,
 			"asset_name" : "MainScript",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 2133115008,
+					"inst_name" : "MainScript"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1435982208,
 			"asset_name" : "CherryItem",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 596790336,
+					"inst_name" : "CherryItem"
+				}
 			]
 		},
 		{
 			"asset_uid" : -350622976,
 			"asset_name" : "DiamondItem",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1321915904,
+					"inst_name" : "DiamondItem"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1157116672,
+			"asset_name" : "DynCard",
+			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1773631360,
+					"inst_name" : "BossMarkers"
+				}
+			]
+		},
+		{
+			"asset_uid" : -682692352,
+			"asset_name" : "CatGraph",
+			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 361006912,
+					"inst_name" : "CatBoss"
+				}
 			]
 		},
 		{
@@ -17010,165 +17052,289 @@
 			]
 		},
 		{
-			"asset_uid" : -682692352,
-			"asset_name" : "CatGraph",
-			"instances" : [
-			]
-		},
-		{
 			"asset_uid" : -1232377856,
 			"asset_name" : "FakeCard",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1182418176,
+					"inst_name" : "FakeCard"
+				}
 			]
 		},
 		{
 			"asset_uid" : 532556576,
 			"asset_name" : "DynBox",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -980373760,
+					"inst_name" : "DynBox"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1373046016,
 			"asset_name" : "DynBoxFly",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -2071699456,
+					"inst_name" : "DynBoxFly"
+				}
 			]
 		},
 		{
 			"asset_uid" : -1084575232,
 			"asset_name" : "EagleFly",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1084704768,
+					"inst_name" : "EagleFly"
+				}
 			]
 		},
 		{
 			"asset_uid" : 477276576,
 			"asset_name" : "FakeBox",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -335829760,
+					"inst_name" : "FakeBox"
+				}
 			]
 		},
 		{
 			"asset_uid" : -389033728,
 			"asset_name" : "Hero_Graph",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1485033472,
+					"inst_name" : "Hero"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1689413632,
 			"asset_name" : "MovingBlock",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 2050420608,
+					"inst_name" : "MovingBlock"
+				}
 			]
 		},
 		{
 			"asset_uid" : 826604608,
 			"asset_name" : "OpposumRun",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -968305408,
+					"inst_name" : "OpposumRun"
+				}
 			]
 		},
 		{
 			"asset_uid" : -536187136,
 			"asset_name" : "CaveBrush",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 240584768,
+					"inst_name" : "CaveBrush"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1682146816,
 			"asset_name" : "CaveInner",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 229165424,
+					"inst_name" : "CaveInner"
+				}
 			]
 		},
 		{
 			"asset_uid" : -1981123072,
 			"asset_name" : "CaveShelf",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1415736064,
+					"inst_name" : "CaveShelf"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1979438976,
 			"asset_name" : "CaveWall",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -2022648064,
+					"inst_name" : "CaveWall"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1683574144,
 			"asset_name" : "LeftCaveEnter",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1016188928,
+					"inst_name" : "LeftCaveEnter"
+				}
 			]
 		},
 		{
 			"asset_uid" : 2073259264,
 			"asset_name" : "RightCaveEnter",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -52422400,
+					"inst_name" : "RightCaveEnter"
+				}
 			]
 		},
 		{
 			"asset_uid" : 450155648,
 			"asset_name" : "BridgeBaseSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -998151680,
+					"inst_name" : "BridgeBaseSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : 606003712,
 			"asset_name" : "BridgeRowSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1543425280,
+					"inst_name" : "BridgeRowSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : -794679808,
 			"asset_name" : "BridgeRowSpriteDyn",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -769245696,
+					"inst_name" : "BridgeRowSpriteDyn"
+				}
 			]
 		},
 		{
 			"asset_uid" : 86683184,
 			"asset_name" : "BushSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 348808960,
+					"inst_name" : "BushSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : -735117312,
 			"asset_name" : "Ground1Tiles",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 385792064,
+					"inst_name" : "Ground1Tiles"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1186573440,
 			"asset_name" : "Ground2Tiles",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1478545152,
+					"inst_name" : "Ground2Tiles"
+				}
 			]
 		},
 		{
 			"asset_uid" : -1650481664,
 			"asset_name" : "HouseSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1777521664,
+					"inst_name" : "HouseSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : 982452608,
 			"asset_name" : "LeftHangSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1057456960,
+					"inst_name" : "LeftHangSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : 1511894784,
 			"asset_name" : "Hero_Hit",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -413818880,
+					"inst_name" : "RespawnPoints"
+				}
 			]
 		},
 		{
 			"asset_uid" : 217616304,
 			"asset_name" : "RightHangSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 1345146496,
+					"inst_name" : "RightHangSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : -794419968,
 			"asset_name" : "SignSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 329993024,
+					"inst_name" : "SignSprite"
+				}
 			]
 		},
 		{
 			"asset_uid" : -2112705280,
 			"asset_name" : "TreeSprite",
 			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : -1800360448,
+					"inst_name" : "TreeSprite"
+				}
 			]
 		}
 	]

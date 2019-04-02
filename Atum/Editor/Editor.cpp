@@ -1187,6 +1187,37 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		Project::SceneTreeItem* with = (Project::SceneTreeItem*)sender->GetItemPtr(item);
 		Project::SceneTreeItem* to = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
 
+		if (with->object)
+		{
+			if (with->object->IsAsset())
+			{
+				SceneAsset* asset = (SceneAsset*)with->object;
+
+				for (auto& inst : asset->instances)
+				{
+					SceneObject* object = inst.GetObject();
+
+					if (!object->GetOwner()->DependFromScene(to->scene))
+					{
+						return false;
+					}
+				}
+			}
+			else
+			{
+				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(with->object);
+
+				if (!to->scene->FindByUID(inst->asset->GetUID(), 0, false))
+				{
+					return false;
+				}
+				else
+				{
+
+				}
+			}
+		}
+
 		if (with->root)
 		{
 			return false;

@@ -4120,12 +4120,22 @@
 			"asset_uid" : -1067835392,
 			"asset_name" : "SkyLayer",
 			"instances" : [
+				{
+					"scene" : "SunnyLand.sca",
+					"inst_uid" : -91092480,
+					"inst_name" : "SkyLayer"
+				}
 			]
 		},
 		{
 			"asset_uid" : -786504704,
 			"asset_name" : "TreesLayer",
 			"instances" : [
+				{
+					"scene" : "SunnyLand.sca",
+					"inst_uid" : 263163904,
+					"inst_name" : "TreesLayer"
+				}
 			]
 		}
 	]

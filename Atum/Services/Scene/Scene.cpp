@@ -479,21 +479,12 @@ void Scene::Save(const char* name)
 #ifdef EDITOR
 		writer.StartArray("asset_instances");
 
-		map<SceneObject*, SceneObject*> saved_assets;
-
 		for (auto obj : objects)
 		{
 			auto* asset_inst = dynamic_cast<SceneObjectInst*>(obj);
 
 			if (asset_inst)
 			{
-				if (saved_assets.count(asset_inst->asset) > 0)
-				{
-					continue;
-				}
-
-				saved_assets[asset_inst->asset] = asset_inst->asset;
-
 				writer.StartBlock(nullptr);
 
 				writer.Write("asset_uid", asset_inst->asset->GetUID());
@@ -501,21 +492,13 @@ void Scene::Save(const char* name)
 
 				writer.StartArray("instances");
 
-				for (auto& inst : asset_inst->asset->instances)
-				{
-					auto* object = inst.GetObject();
+				writer.StartBlock(nullptr);
 
-					if (object && object->GetOwner() == this)
-					{
-						writer.StartBlock(nullptr);
+				writer.Write("scene", asset_inst->GetOwner()->project_scene_path);
+				writer.Write("inst_uid", asset_inst->GetUID());
+				writer.Write("inst_name", asset_inst->GetName());
 
-						writer.Write("scene", inst.scene_path.c_str());
-						writer.Write("inst_uid", object->GetUID());
-						writer.Write("inst_name", object->GetName());
-
-						writer.FinishBlock();
-					}
-				}
+				writer.FinishBlock();
 
 				writer.FinishArray();
 
@@ -613,6 +596,26 @@ void Scene::EnableTasks(bool enable)
 	taskPool->SetActive(enable);
 	renderTaskPool->SetActive(enable);
 }
+
+#ifdef EDITOR
+bool Scene::DependFromScene(Scene* scene)
+{
+	if (scene == this)
+	{
+		return true;
+	}
+
+	for (auto& incl : inc_scenes)
+	{
+		if (incl->DependFromScene(scene))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+#endif
 
 void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 {

@@ -2400,12 +2400,22 @@
 			"asset_uid" : -1558477824,
 			"asset_name" : "EnemyDeath",
 			"instances" : [
+				{
+					"scene" : "CoreScene.sca",
+					"inst_uid" : -970252032,
+					"inst_name" : "EnemyDeath"
+				}
 			]
 		},
 		{
 			"asset_uid" : 780797440,
 			"asset_name" : "ItemTaken",
 			"instances" : [
+				{
+					"scene" : "CoreScene.sca",
+					"inst_uid" : 1225762432,
+					"inst_name" : "ItemTaken"
+				}
 			]
 		}
 	]

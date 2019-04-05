@@ -26,7 +26,8 @@ public:
 	};
 
 	vector<TypedValue> values;
-	string asset_name;
+	SceneObjectRef asset_ref;
+
 	ScriptMetaDataAsset* asset = nullptr;
 
 	void Load(JSONReader& reader) override;
@@ -34,6 +35,7 @@ public:
 	void ApplyProperties() override;
 
 #ifdef EDITOR
+	EUICategories* saved_objCat = nullptr;
 	void ShowPropWidgets(EUICategories* objCat) override;
 #endif
 };

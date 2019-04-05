@@ -9,7 +9,7 @@ void BoolWidget::Init(EUICategories* parent, const char* catName, const char* la
 	cbox->SetListener(-1, this, 0);
 }
 
-void BoolWidget::SetData(void* set_data)
+void BoolWidget::SetData(void* owner, void* set_data)
 {
 	data = (bool*)set_data;
 	cbox->SetChecked(*data);

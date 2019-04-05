@@ -21,7 +21,7 @@ void EnumWidget::Init(EUICategories* parent, const char* catName, const char* la
 	cbox->SetListener(-1, this, 0);
 }
 
-void EnumWidget::SetData(void* set_data)
+void EnumWidget::SetData(void* owner, void* set_data)
 {
 	data = (int*)set_data;
 

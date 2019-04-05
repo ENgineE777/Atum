@@ -11,7 +11,7 @@ public:
 	META_DATA_DECL(SimpleCharacter2D)
 
 	VirtualJoystick* vjoy = nullptr;
-	string vjoy_name;
+	SceneObjectRef vjoy_ref;
 
 	SpriteGraphAsset* asset = nullptr;
 	SpriteGraphAsset::Instance graph_instance;

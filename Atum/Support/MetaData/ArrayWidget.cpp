@@ -25,7 +25,7 @@ void ArrayWidget::Show(bool show)
 	elements->Show(show);
 }
 
-void ArrayWidget::SetData(void* set_data)
+void ArrayWidget::SetData(void* owner, void* set_data)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
 
@@ -120,7 +120,7 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		adapter->GetMetaData()->Prepare(adapter->GetItem((int)adapter->GetSize() - 1));
 		adapter->GetMetaData()->SetDefValues();
 
-		SetData(nullptr);
+		SetData(nullptr, nullptr);
 	}
 	else
 	{
@@ -128,7 +128,7 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		{
 			adapter->Delete(sender->GetID());
 
-			SetData(nullptr);
+			SetData(nullptr, nullptr);
 		}
 	}
 }

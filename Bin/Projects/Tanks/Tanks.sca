@@ -725,7 +725,13 @@
 			"BaseModel" : "Projects/Tanks/tank_base.ms3d",
 			"TowerModel" : "Projects/Tanks/tank_tower.ms3d",
 			"GunModel" : "Projects/Tanks/tank_gun.ms3d",
-			"VJoy" : ""
+			"VJoy" :
+			{
+				"uid" : 0,
+				"child_uid" : 0,
+				"is_asset" : false,
+				"owner_is_comp" : false
+			}
 		},
 		{
 			"type" : "ColorCorrection",
@@ -752,7 +758,7 @@
 				"m9" : 0.000000,
 				"m10" : 1.000000,
 				"m11" : 0.000000,
-				"m12" : 17.065109,
+				"m12" : 17.065107,
 				"m13" : 4.283759,
 				"m14" : 28.983555,
 				"m15" : 1.000000

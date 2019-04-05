@@ -129,6 +129,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual void GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid);
 	virtual void SetOwner(Scene* owner);
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
@@ -152,6 +153,14 @@ public:
 	virtual void OnRightMouseUp();
 	virtual void OnPopupMenuItem(int id);
 #endif
+};
+
+struct SceneObjectRef
+{
+	uint32_t uid = 0;
+	uint32_t child_uid = 0;
+	bool is_asset = false;
+	SceneObject* object = nullptr;
 };
 
 class SceneObjectInst : public SceneObject

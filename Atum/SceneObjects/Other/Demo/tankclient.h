@@ -39,8 +39,8 @@ public:
 	Model tower_model;
 	Model gun_model;
 
+	SceneObjectRef vjoy_ref;
 	VirtualJoystick* vjoy = nullptr;
-	string vjoy_name;
 
 	struct Instance
 	{

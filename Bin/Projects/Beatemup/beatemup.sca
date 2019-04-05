@@ -5952,7 +5952,12 @@
 			"Layer" : "",
 			"x" : -200.000000,
 			"y" : 800.000000,
-			"VJoy" : "VJoy",
+			"VJoy" :
+			{
+				"uid" : -1756629248,
+				"child_uid" : 0,
+				"is_asset" : false
+			},
 			"Asset" : "SpriteBat_Graph",
 			"Speed" : 300.000000,
 			"IsEnemy" : false,
@@ -5969,7 +5974,12 @@
 			"Layer" : "",
 			"x" : 200.000000,
 			"y" : 800.000000,
-			"VJoy" : "VJoy",
+			"VJoy" :
+			{
+				"uid" : 0,
+				"child_uid" : 0,
+				"is_asset" : false
+			},
 			"Asset" : "SpriteEnemy1_Graph",
 			"Speed" : 200.000000,
 			"IsEnemy" : true,
@@ -6832,234 +6842,208 @@
 			"Node" : [
 				{
 					"object_uid" : 587187712,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -2065470720,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 1664628480,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 585760320,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1756629248,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 1084967168,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 902647040,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 902647040,
-					"object_child_uid" : 1995400192
+					"object_child_uid" : 1995400192,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 1084967168,
-					"object_child_uid" : 509458336
+					"object_child_uid" : 509458336,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 1084967168,
-					"object_child_uid" : 13755116
+					"object_child_uid" : 13755116,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -809602560,
-					"object_child_uid" : 305726912
+					"object_child_uid" : 305726912,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : 308192448
+					"object_child_uid" : 308192448,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -809602560,
-					"object_child_uid" : 1134407680
+					"object_child_uid" : 1134407680,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -809602560,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -129243392,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : 116918488
+					"object_child_uid" : 116918488,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : 1000360256
+					"object_child_uid" : 1000360256,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : 1038900480
+					"object_child_uid" : 1038900480,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : 1280263808
+					"object_child_uid" : 1280263808,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1179303936,
-					"object_child_uid" : -462351104
+					"object_child_uid" : -462351104,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : 24395866
+					"object_child_uid" : 24395866,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : -1050057728
+					"object_child_uid" : -1050057728,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
-					"object_child_uid" : 0
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : 1396922752
+					"object_child_uid" : 1396922752,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : -1031631104,
-					"object_child_uid" : -1168922624
+					"object_child_uid" : -1168922624,
+					"callback_type" : ""
 				}
 			]
 		}
 	],
 	"asset_instances" : [
 		{
-			"asset_uid" : 1806721408,
+			"asset_uid" : 1716145280,
+			"asset_name" : "SpriteFloor",
 			"instances" : [
 				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -90780672
+					"scene" : "beatemup.sca",
+					"inst_uid" : 585760320,
+					"inst_name" : "SpriteFloor"
 				}
 			]
 		},
 		{
 			"asset_uid" : -336218880,
+			"asset_name" : "SpriteBackground",
 			"instances" : [
 				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : 1664628480
+					"scene" : "beatemup.sca",
+					"inst_uid" : 1664628480,
+					"inst_name" : "SpriteBackground"
 				}
 			]
 		},
 		{
-			"asset_uid" : 1716145280,
+			"asset_uid" : 1806721408,
+			"asset_name" : "Script",
 			"instances" : [
 				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : 585760320
-				}
-			]
-		},
-		{
-			"asset_uid" : 572264768,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : 1084967168
-				}
-			]
-		},
-		{
-			"asset_uid" : 514389440,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : 902647040
-				}
-			]
-		},
-		{
-			"asset_uid" : 1894183168,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -1109879296
-				},
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -1208371200
-				},
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : 24395866
-				},
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -1050057728
-				}
-			]
-		},
-		{
-			"asset_uid" : 868518720,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -809602560
-				}
-			]
-		},
-		{
-			"asset_uid" : 29326944,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -1179303936
-				}
-			]
-		},
-		{
-			"asset_uid" : 1859665664,
-			"instances" : [
-				{
-					"scene" : "Projects/Beatemup/beatemup.sca",
-					"inst_uid" : -1031631104
+					"scene" : "beatemup.sca",
+					"inst_uid" : -90780672,
+					"inst_name" : "Script"
 				}
 			]
 		}

@@ -379,6 +379,8 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		}
 	}
 
+	MetaData::scene = selectedObject ? selectedObject->GetOwner() : nullptr;
+
 	objCmpWgt.Prepare(selectedObject);
 
 	in_select_object = false;
@@ -1311,6 +1313,15 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			inst->AddChildsToTree(scene_treeview);
 			SelectObject(inst, false);
 		}
+	}
+
+	if ((sender == scene_treeview || sender == assets_treeview) && target->GetUserData())
+	{
+		SceneObjectWidget* wgt = (SceneObjectWidget*)target->GetUserData();
+
+		Project::SceneTreeItem* with = (Project::SceneTreeItem*)sender->GetItemPtr(item);
+		
+		wgt->SetObject(with->object);
 	}
 
 	return false;

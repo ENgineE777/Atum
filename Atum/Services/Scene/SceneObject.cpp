@@ -222,6 +222,23 @@ void SceneObject::ApplyProperties()
 }
 
 #ifdef EDITOR
+void SceneObject::GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid)
+{
+	out_uid = GetParentUID();
+	out_child_uid = GetUID();
+
+	if (out_uid == 0)
+	{
+		out_uid = out_child_uid;
+		out_child_uid = 0;
+	}
+
+	if (out_uid == out_child_uid)
+	{
+		out_child_uid = 0;
+	}
+}
+
 void SceneObject::SetOwner(Scene* set_owner)
 {
 	owner->DeleteObject(this, IsAsset(), false);

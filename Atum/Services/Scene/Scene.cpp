@@ -346,12 +346,20 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 		reader.LeaveBlock();
 	}
 
+	MetaData::scene = this;
+
 	for (auto obj : objects)
 	{
+		obj->GetMetaData()->Prepare(obj);
+		obj->GetMetaData()->PostLoad();
+
 		obj->ApplyProperties();
 
 		for (auto comp : obj->components)
 		{
+			comp->GetMetaData()->Prepare(obj);
+			comp->GetMetaData()->PostLoad();
+
 			comp->ApplyProperties();
 		}
 	}

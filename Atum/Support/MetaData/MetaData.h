@@ -17,6 +17,7 @@
 #include "CallbackWidget.h"
 #include "ArrayWidget.h"
 #include "SpriteWidget.h"
+#include "SceneObjectWidget.h"
 #endif
 
 struct MetaDataEnum
@@ -37,12 +38,13 @@ public:
 		Float,
 		String,
 		FileName,
-		Clor,
+		Color,
 		Enum,
 		EnumString,
 		Callback,
 		Array,
-		Sprite
+		Sprite,
+		SceneObject
 	};
 
 	union DefValue
@@ -120,6 +122,8 @@ public:
 		ArrayAdapter*  adapter = nullptr;
 	};
 
+	static class Scene* scene;
+
 	bool inited = false;
 	void* owner = nullptr;
 	void* root = nullptr;
@@ -130,6 +134,7 @@ public:
 	void Prepare(void* owner, void* root = nullptr);
 	void SetDefValues();
 	void Load(JSONReader& reader);
+	void PostLoad();
 	void Save(JSONWriter& writer);
 	void Copy(void* source);
 	void BindToScript(class asIScriptEngine* engine, const char* script_class_name);
@@ -206,9 +211,8 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
-	prop.type = Clor;\
-	Color tmp = defValue;\
-	memcpy(&prop.defvalue, &tmp, sizeof(float) * 4);\
+	prop.type = Type::Color;\
+	::Color tmp = ::defValue;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\
@@ -220,7 +224,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
-	prop.type = Enum;\
+	prop.type = Type::Enum;\
 	MetaDataEnum enm;\
 	enm.defIndex = defValue;
 
@@ -234,12 +238,22 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	properties.push_back(prop);\
 }
 
+#define SCENEOBJECT_PROP(className, classMember, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Type::SceneObject;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	properties.push_back(prop);\
+}
+
 #ifdef EDITOR
 #define STRING_ENUM_PROP(className, classMember, set_callback, strCatName, strPropName)\
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
-	prop.type = EnumString;\
+	prop.type = Type::EnumString;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.enum_callback = set_callback;\
@@ -251,7 +265,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 #define CALLBACK_PROP(className, set_callback, strCatName, strPropName)\
 {\
 	Property prop;\
-	prop.type = Callback;\
+	prop.type = Type::Callback;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.callback = set_callback;\
@@ -263,7 +277,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
-	prop.type = Array;\
+	prop.type = Type::Array;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.adapter = new ArrayAdapterImpl<structType>;\
@@ -275,7 +289,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
-	prop.type = Array;\
+	prop.type = Type::Array;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.adapter = new ArrayAdapterImpl<structType>;\
@@ -287,7 +301,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
-	prop.type = Sprite;\
+	prop.type = Type::Sprite;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\

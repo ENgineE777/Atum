@@ -1968,13 +1968,14 @@
 				},
 				{
 					"type" : "ScriptMetaDataComp",
-					"AssetName" : "ItemData",
-					"count" : 1,
+					"Asset" :
+					{
+						"uid" : 1583784704,
+						"child_uid" : 0,
+						"is_asset" : true
+					},
+					"count" : 0,
 					"value" : [
-						{
-							"type" : 1,
-							"value" : 50
-						}
 					]
 				}
 			]
@@ -2168,13 +2169,14 @@
 				},
 				{
 					"type" : "ScriptMetaDataComp",
-					"AssetName" : "ItemData",
-					"count" : 1,
+					"Asset" :
+					{
+						"uid" : 1583784704,
+						"child_uid" : 0,
+						"is_asset" : true
+					},
+					"count" : 0,
 					"value" : [
-						{
-							"type" : 1,
-							"value" : 100
-						}
 					]
 				}
 			]

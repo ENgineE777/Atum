@@ -9,7 +9,7 @@ void ColorWidget::Init(EUICategories* parent, const char* catName, const char* l
 	ecolor->SetListener(-1, this, 0);
 }
 
-void ColorWidget::SetData(void* set_data)
+void ColorWidget::SetData(void* owner, void* set_data)
 {
 	data = (Color*)set_data;
 	int clr[3];

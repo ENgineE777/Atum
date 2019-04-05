@@ -9,7 +9,7 @@ void FloatWidget::Init(EUICategories* parent, const char* catName, const char* l
 	ebox->SetListener(-1, this, 0);
 }
 
-void FloatWidget::SetData(void* set_data)
+void FloatWidget::SetData(void* owner, void* set_data)
 {
 	data = (float*)set_data;
 	ebox->SetText(*data);

@@ -9,7 +9,7 @@ void IntWidget::Init(EUICategories* parent, const char* catName, const char* lab
 	ebox->SetListener(-1, this, 0);
 }
 
-void IntWidget::SetData(void* set_data)
+void IntWidget::SetData(void* owner, void* set_data)
 {
 	data = (int*)set_data;
 	ebox->SetText(*data);

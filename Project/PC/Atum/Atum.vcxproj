@@ -163,6 +163,7 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\IntWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\MetaData.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ProperyWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\MetaData\SceneObjectWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\SpriteWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\StringWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\StringUtils.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="..\..\..\Atum\Support\MetaData\IntWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\MetaData.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ProperyWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MetaData\SceneObjectWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\SpriteWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\StringWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\Quaternion.h" />

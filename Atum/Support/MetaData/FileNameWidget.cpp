@@ -14,7 +14,7 @@ void FileNameWidget::Init(EUICategories* parent, const char* catName, const char
 	deleteBtn->SetListener(-1, this, 0);
 }
 
-void FileNameWidget::SetData(void* set_data)
+void FileNameWidget::SetData(void* owner, void* set_data)
 {
 	data = (std::string*)set_data;
 	openBtn->SetText(data->c_str());

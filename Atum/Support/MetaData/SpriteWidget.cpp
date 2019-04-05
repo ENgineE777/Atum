@@ -11,7 +11,7 @@ void SpriteWidget::Init(EUICategories* parent, const char* catName, const char* 
 
 }
 
-void SpriteWidget::SetData(void* set_data)
+void SpriteWidget::SetData(void* owner, void* set_data)
 {
 	sprite = (Sprite::Data*)set_data;
 }

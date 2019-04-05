@@ -314,20 +314,8 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 			{
 				Node& nd = nodes[index];
 
-				nd.object_uid = object->GetParentUID();
-				nd.object_child_uid = object->GetUID();
-
-				if (nd.object_uid == 0)
-				{
-					nd.object_uid = nd.object_child_uid;
-					nd.object_child_uid = 0;
-				}
-				if (nd.object_uid == nd.object_child_uid)
-				{
-					nd.object_child_uid = 0;
-				}
-
 				nd.object = object;
+				nd.object->GetUIDs(nd.object_uid, nd.object_child_uid);
 
 				if (object->script_callbacks.size() > 0)
 				{

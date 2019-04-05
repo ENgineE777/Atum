@@ -11,13 +11,11 @@ public:
 
 	typedef void(*Callback)(EUIComboBox* cbox, void* object);
 
-	void* owner;
 	Callback callback;
 
 	EnumStringWidget(Callback callback);
 	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
-	void SetData(void* set_data) override;
-	void Prepare(void* set_owner);
+	void SetData(void* owner, void* set_data) override;
 	void OnComboBoxOpened(EUIComboBox* sender) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 };

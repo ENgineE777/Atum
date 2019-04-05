@@ -7,7 +7,7 @@ BASE_SCENE_OBJ_PROP(TankClient)
 FILENAME_PROP(TankClient, base_model_name, "", "Prop", "BaseModel")
 FILENAME_PROP(TankClient, tower_model_name, "", "Prop", "TowerModel")
 FILENAME_PROP(TankClient, gun_model_name, "", "Prop", "GunModel")
-STRING_PROP(TankClient, vjoy_name, "", "Prop", "VJoy")
+SCENEOBJECT_PROP(TankClient, vjoy_ref, "Prop", "VJoy")
 META_DATA_DESC_END()
 
 void TankClient::Init()
@@ -37,7 +37,7 @@ void TankClient::ApplyProperties()
 	tower_model.LoadModelMS3D(tower_model_name.c_str());
 	gun_model.LoadModelMS3D(gun_model_name.c_str());
 
-	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
+	vjoy = (VirtualJoystick*)vjoy_ref.object;
 }
 
 bool TankClient::Play()

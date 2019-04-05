@@ -2,6 +2,10 @@
 #include <angelscript.h>
 #include "MetaData.h"
 #include "SceneObjects/2D/Sprite.h"
+#include "Services/Scene/SceneObject.h"
+#include "Services/Scene/Scene.h"
+
+Scene* MetaData::scene = nullptr;
 
 void MetaData::Prepare(void* set_owner, void* set_root)
 {
@@ -18,6 +22,13 @@ void MetaData::Prepare(void* set_owner, void* set_root)
 	{
 		Property& prop = properties[i];
 		prop.value = (uint8_t*)owner + prop.offset;
+
+#ifdef EDITOR
+		if (prop.type == Type::Callback)
+		{
+			prop.value = (uint8_t*)prop.callback;
+		}
+#endif
 
 		if (prop.adapter)
 		{
@@ -37,32 +48,32 @@ void MetaData::SetDefValues()
 	{
 		Property& prop = properties[i];
 
-		if (prop.type == Boolean)
+		if (prop.type == Type::Boolean)
 		{
 			memcpy(prop.value, &prop.defvalue.boolean, sizeof(bool));
 		}
 		else
-		if (prop.type == Integer)
+		if (prop.type == Type::Integer)
 		{
 			memcpy(prop.value, &prop.defvalue.integer, sizeof(int));
 		}
 		else
-		if (prop.type == Float)
+		if (prop.type == Type::Float)
 		{
 			memcpy(prop.value, &prop.defvalue.flt, sizeof(float));
 		}
 		else
-		if (prop.type == String || prop.type == FileName)
+		if (prop.type == Type::String || prop.type == Type::FileName)
 		{
 			*((std::string*)prop.value) = defStrings[prop.defvalue.string];
 		}
 		else
-		if (prop.type == Clor)
+		if (prop.type == Type::Color)
 		{
 			memcpy(prop.value, prop.defvalue.color, sizeof(float) * 4);
 		}
 		else
-		if (prop.type == Enum)
+		if (prop.type == Type::Enum)
 		{
 			MetaDataEnum& enm = enums[prop.defvalue.enumIndex];
 
@@ -70,7 +81,7 @@ void MetaData::SetDefValues()
 			memcpy(prop.value, &value, sizeof(int));
 		}
 		else
-		if (prop.type == EnumString)
+		if (prop.type == Type::EnumString)
 		{
 			*((std::string*)prop.value) = "";
 		}
@@ -83,7 +94,7 @@ void MetaData::Load(JSONReader& reader)
 	{
 		Property& prop = properties[i];
 
-		if (prop.type == Boolean)
+		if (prop.type == Type::Boolean)
 		{
 			bool val;
 			if (reader.Read(prop.propName.c_str(), val))
@@ -92,7 +103,7 @@ void MetaData::Load(JSONReader& reader)
 			}
 		}
 		else
-		if (prop.type == Integer || prop.type == Enum)
+		if (prop.type == Type::Integer || prop.type == Type::Enum)
 		{
 			int val;
 			if (reader.Read(prop.propName.c_str(), val))
@@ -101,7 +112,7 @@ void MetaData::Load(JSONReader& reader)
 			}
 		}
 		else
-		if (prop.type == Float)
+		if (prop.type == Type::Float)
 		{
 			float val;
 			if (reader.Read(prop.propName.c_str(), val))
@@ -110,17 +121,17 @@ void MetaData::Load(JSONReader& reader)
 			}
 		}
 		else
-		if (prop.type == String || prop.type == EnumString || prop.type == FileName)
+		if (prop.type == Type::String || prop.type == Type::EnumString || prop.type == Type::FileName)
 		{
 			reader.Read(prop.propName.c_str(), *((std::string*)prop.value));
 		}
 		else
-		if (prop.type == Clor)
+		if (prop.type == Type::Color)
 		{
-			reader.Read(prop.propName.c_str(), *((Color*)prop.value));
+			reader.Read(prop.propName.c_str(), *((::Color*)prop.value));
 		}
 		else
-		if (prop.type == Array)
+		if (prop.type == Type::Array)
 		{
 			if (reader.EnterBlock(prop.propName.c_str()))
 			{
@@ -144,9 +155,45 @@ void MetaData::Load(JSONReader& reader)
 			}
 		}
 		else
-		if (prop.type == Sprite)
+		if (prop.type == Type::SceneObject)
+		{
+			if (reader.EnterBlock(prop.propName.c_str()))
+			{
+				SceneObjectRef* ref = (SceneObjectRef*)prop.value;
+
+				reader.Read("uid", ref->uid);
+				reader.Read("child_uid", ref->child_uid);
+				reader.Read("is_asset", ref->is_asset);
+
+				reader.LeaveBlock();
+			}
+		}
+		else
+		if (prop.type == Type::Sprite)
 		{
 			Sprite::Load(reader, (Sprite::Data*)prop.value, prop.propName.c_str());
+		}
+	}
+}
+
+void MetaData::PostLoad()
+{
+	for (auto& prop : properties)
+	{
+		if (prop.type == Type::Array)
+		{
+			for (int i = 0; i < prop.adapter->GetSize(); i++)
+			{
+				prop.adapter->GetMetaData()->Prepare(prop.adapter->GetItem(i), root);
+				prop.adapter->GetMetaData()->PostLoad();
+			}
+		}
+		else
+		if (prop.type == Type::SceneObject)
+		{
+			SceneObjectRef* ref = (SceneObjectRef*)prop.value;
+
+			ref->object = scene->FindByUID(ref->uid, ref->child_uid, ref->is_asset);
 		}
 	}
 }
@@ -157,17 +204,17 @@ void MetaData::Save(JSONWriter& writer)
 	{
 		Property& prop = properties[i];
 
-		if (prop.type == Boolean)
+		if (prop.type == Type::Boolean)
 		{
 			writer.Write(prop.propName.c_str(), *((bool*)prop.value));
 		}
 		else
-		if (prop.type == Integer || prop.type == Enum)
+		if (prop.type == Type::Integer || prop.type == Type::Enum)
 		{
 			writer.Write(prop.propName.c_str(), *((int*)prop.value));
 		}
 		else
-		if (prop.type == Float)
+		if (prop.type == Type::Float)
 		{
 			writer.Write(prop.propName.c_str(), *((float*)prop.value));
 		}
@@ -177,12 +224,12 @@ void MetaData::Save(JSONWriter& writer)
 			writer.Write(prop.propName.c_str(), ((std::string*)prop.value)->c_str());
 		}
 		else
-		if (prop.type == Clor)
+		if (prop.type == Type::Color)
 		{
-			writer.Write(prop.propName.c_str(), *((Color*)prop.value));
+			writer.Write(prop.propName.c_str(), *((::Color*)prop.value));
 		}
 		else
-		if (prop.type == Array)
+		if (prop.type == Type::Array)
 		{
 			writer.StartBlock(prop.propName.c_str());
 
@@ -206,7 +253,20 @@ void MetaData::Save(JSONWriter& writer)
 			writer.FinishBlock();
 		}
 		else
-		if (prop.type == Sprite)
+		if (prop.type == Type::SceneObject)
+		{
+			SceneObjectRef* ref = (SceneObjectRef*)prop.value;
+
+			writer.StartBlock(prop.propName.c_str());
+
+			writer.Write("uid", ref->uid);
+			writer.Write("child_uid", ref->child_uid);
+			writer.Write("is_asset", ref->is_asset);
+
+			writer.FinishBlock();
+		}
+		else
+		if (prop.type == Type::Sprite)
 		{
 			Sprite::Save(writer, (Sprite::Data*)prop.value, prop.propName.c_str());
 		}
@@ -219,32 +279,32 @@ void MetaData::Copy(void* source)
 	{
 		uint8_t* src = (uint8_t*)source + prop.offset;
 
-		if (prop.type == Boolean)
+		if (prop.type == Type::Boolean)
 		{
 			memcpy(prop.value, src, sizeof(bool));
 		}
 		else
-		if (prop.type == Integer || prop.type == Enum)
+		if (prop.type == Type::Integer || prop.type == Type::Enum)
 		{
 			memcpy(prop.value, src, sizeof(int));
 		}
 		else
-		if (prop.type == Float)
+		if (prop.type == Type::Float)
 		{
 			memcpy(prop.value, src, sizeof(float));
 		}
 		else
-		if (prop.type == String || prop.type == EnumString || prop.type == FileName)
+		if (prop.type == Type::String || prop.type == Type::EnumString || prop.type == Type::FileName)
 		{
 			*((std::string*)prop.value) = *((std::string*)src);
 		}
 		else
-		if (prop.type == Clor)
+		if (prop.type == Type::Color)
 		{
 			memcpy(prop.value, src, sizeof(float) * 4);
 		}
 		else
-		if (prop.type == Array)
+		if (prop.type == Type::Array)
 		{
 			prop.adapter->value = src;
 			int count = prop.adapter->GetSize();
@@ -264,7 +324,7 @@ void MetaData::Copy(void* source)
 			}
 		}
 		else
-		if (prop.type == Sprite)
+		if (prop.type == Type::Sprite)
 		{
 			Sprite::Copy((Sprite::Data*)src, (Sprite::Data*)prop.value);
 		}
@@ -339,80 +399,73 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 		}
 		else
 		{
-			if (prop.type == Boolean)
+			if (prop.type == Type::Boolean)
 			{
 				widget = new BoolWidget();
 			}
 			else
-			if (prop.type == Integer)
+			if (prop.type == Type::Integer)
 			{
 				widget = new IntWidget();
 			}
 			else
-			if (prop.type == Float)
+			if (prop.type == Type::Float)
 			{
 				widget = new FloatWidget();
 			}
 			else
-			if (prop.type == String)
+			if (prop.type == Type::String)
 			{
 				widget = new StringWidget();
 			}
 			else
-			if (prop.type == FileName)
+			if (prop.type == Type::FileName)
 			{
 				widget = new FileNameWidget();
 			}
 			else
-			if (prop.type == Clor)
+			if (prop.type == Type::Color)
 			{
 				widget = new ColorWidget();
 			}
 			else
-			if (prop.type == Enum)
+			if (prop.type == Type::Enum)
 			{
 				widget = new EnumWidget(&enums[prop.defvalue.enumIndex]);
 			}
 			else
-			if (prop.type == EnumString)
+			if (prop.type == Type::EnumString)
 			{
 				widget = new EnumStringWidget(prop.enum_callback);
 			}
 			else
-			if (prop.type == Callback)
+			if (prop.type == Type::Callback)
 			{
 				widget = new CallbackWidget();
 			}
 			else
-			if (prop.type == Array)
+			if (prop.type == Type::Array)
 			{
 				widget = new ArrayWidget();
 				((ArrayWidget*)widget)->prop = prop.adapter;
 				((ArrayWidget*)widget)->root = root;
 			}
 			else
-			if (prop.type == Sprite)
+			if (prop.type == Type::Sprite)
 			{
 				widget = new SpriteWidget();
+			}
+			else
+			if (prop.type == Type::SceneObject)
+			{
+				widget = new SceneObjectWidget();
 			}
 
 			widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());
 			prop.widgets[parent] = widget;
 		}
 
-		if (prop.type == Callback)
-		{
-			((CallbackWidget*)widget)->Prepare(owner, prop.callback);
-		}
-		else
-		{
-			widget->SetData(prop.value);
-
-			if (prop.type == EnumString)
-			{
-				((EnumStringWidget*)widget)->Prepare(owner);
-			}
-		}
+		widget->SetData(owner, prop.value);
 
 		widget->Show(true);
 	}
@@ -429,14 +482,7 @@ void MetaData::UpdateWidgets()
 				continue;
 			}
 
-			if (prop.type == Callback)
-			{
-				((CallbackWidget*)widget.second)->Prepare(owner, prop.callback);
-			}
-			else
-			{
-				widget.second->SetData(prop.value);
-			}
+			widget.second->SetData(owner, prop.value);
 		}
 	}
 }
@@ -446,7 +492,7 @@ bool MetaData::IsValueWasChanged()
 	bool res = false;
 	for (auto& prop : properties)
 	{
-		if (prop.type == Array)
+		if (prop.type == Type::Array)
 		{
 			res |= prop.adapter->GetMetaData()->IsValueWasChanged();
 			continue;

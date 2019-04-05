@@ -23,7 +23,7 @@ public:
 	int32_t* sel_item = nullptr;
 	void Init(EUICategories* parent, const char* catName, const char* labelName) override;
 	void Show(bool show) override;
-	void SetData(void* set_data) override;
+	void SetData(void* owner, void* set_data) override;
 	void OnUpdate(EUIWidget* sender) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 };

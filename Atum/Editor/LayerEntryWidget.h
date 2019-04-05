@@ -14,7 +14,7 @@ public:
 	EUIButton* deleteBtn;
 
 	void Init(Project::Layer* layer);
-	void SetData(void* data) override {};
+	void SetData(void* owner, void* data) override {};
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnComboBoxSelChange(EUIComboBox* sender, int index) override;
 };

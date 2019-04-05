@@ -9,7 +9,7 @@ void StringWidget::Init(EUICategories* parent, const char* catName, const char* 
 	ebox->SetListener(-1, this, 0);
 }
 
-void StringWidget::SetData(void* set_data)
+void StringWidget::SetData(void* owner, void* set_data)
 {
 	data = (std::string*)set_data;
 	ebox->SetText(data->c_str());

@@ -9,14 +9,10 @@ void CallbackWidget::Init(EUICategories* parent, const char* catName, const char
 	openBtn->SetListener(-1, this, 0);
 }
 
-void CallbackWidget::Prepare(void* set_owner, Callback set_callback)
+void CallbackWidget::SetData(void* set_owner, void* set_data)
 {
 	owner = set_owner;
-	callback = set_callback;
-}
-
-void CallbackWidget::SetData(void* set_data)
-{
+	callback = (Callback)set_data;
 }
 
 void CallbackWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)

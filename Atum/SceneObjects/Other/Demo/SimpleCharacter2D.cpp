@@ -9,7 +9,7 @@ META_DATA_DESC(SimpleCharacter2D)
 BASE_SCENE_OBJ_PROP(SimpleCharacter2D)
 FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "x")
 FLOAT_PROP(SimpleCharacter2D, trans.pos.y, 100.0f, "Geometry", "y")
-STRING_PROP(SimpleCharacter2D, vjoy_name, "", "Prop", "VJoy")
+SCENEOBJECT_PROP(SimpleCharacter2D, vjoy_ref, "Prop", "VJoy")
 STRING_PROP(SimpleCharacter2D, asset_name, "", "Prop", "Asset")
 FLOAT_PROP(SimpleCharacter2D, speed, 120.0f, "Prop", "Speed")
 BOOL_PROP(SimpleCharacter2D, is_enemy, true, "Prop", "IsEnemy")
@@ -40,7 +40,7 @@ void SimpleCharacter2D::ApplyProperties()
 {
 	SetAnimGraph(asset_name);
 
-	vjoy = (VirtualJoystick*)owner->FindByName(vjoy_name.c_str(), false);
+	vjoy = (VirtualJoystick*)vjoy_ref.object;
 }
 
 void SimpleCharacter2D::Update(float dt)

@@ -7,7 +7,7 @@ COMPEXCL(ScriptMetaDataAsset)
 COMPREG_END(ScriptMetaDataComp)
 
 META_DATA_DESC(ScriptMetaDataComp)
-STRING_PROP(ScriptMetaDataComp, asset_name, "", "MetaData", "AssetName")
+SCENEOBJECT_PROP(ScriptMetaDataComp, asset_ref, "MetaData", "Asset")
 META_DATA_DESC_END()
 
 COMPREG(ScriptMetaDataCompInst, "ScriptMetaDataInst")
@@ -24,7 +24,7 @@ ScriptMetaDataComp::ScriptMetaDataComp()
 
 void ScriptMetaDataComp::Load(JSONReader& loader)
 {
-	loader.Read("AssetName", asset_name);
+	SceneAssetComp::Load(loader);
 
 	int count = 0;
 	loader.Read("count", count);
@@ -49,7 +49,7 @@ void ScriptMetaDataComp::Load(JSONReader& loader)
 
 void ScriptMetaDataComp::Save(JSONWriter& saver)
 {
-	saver.Write("AssetName", asset_name.c_str());
+	SceneAssetComp::Save(saver);
 
 	saver.Write("count", (int)values.size());
 
@@ -77,32 +77,35 @@ void ScriptMetaDataComp::ApplyProperties()
 {
 	ScriptMetaDataAsset* prev_asset = asset;
 
-	asset = (ScriptMetaDataAsset*)object->GetScene()->FindByName(asset_name.c_str(), true);
+	asset = (ScriptMetaDataAsset*)asset_ref.object;
 
+	if (!asset)
+	{
+		values.clear();
+	}
+	else
 	if (asset && asset->properties.size() != values.size() || (prev_asset && prev_asset != asset))
 	{
-		if (!asset)
-		{
-			values.clear();
-		}
-		else
-		{
-			values.resize(asset->properties.size());
+		values.resize(asset->properties.size());
 
-			int index = 0;
-			for (auto& prop : asset->properties)
+		int index = 0;
+		for (auto& prop : asset->properties)
+		{
+			values[index].type = prop.type;
+			
+			switch (prop.type)
 			{
-				values[index].type = prop.type;
-
-				switch (prop.type)
-				{
-					case ScriptMetaDataAsset::Bool  : values[index].value.boolean = false; break;
-					case ScriptMetaDataAsset::Int   : values[index].value.integer = 0; break;
-					case ScriptMetaDataAsset::Float : values[index].value.flt = 0.0f; break;
-				}
-
-				index++;
+				case ScriptMetaDataAsset::Bool  : values[index].value.boolean = false; break;
+				case ScriptMetaDataAsset::Int   : values[index].value.integer = 0; break;
+				case ScriptMetaDataAsset::Float : values[index].value.flt = 0.0f; break;
 			}
+
+			index++;
+		}
+
+		if (object->IsEditMode())
+		{
+			ShowPropWidgets(saved_objCat);
 		}
 	}
 }
@@ -110,20 +113,15 @@ void ScriptMetaDataComp::ApplyProperties()
 #ifdef EDITOR
 void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 {
+	saved_objCat = objCat;
+
 	if (objCat)
 	{
 		auto meta = GetMetaData();
 
-		meta->properties.clear();
-
+		if (meta->properties.size() > 1)
 		{
-			MetaData::Property prop;
-			prop.offset = memberOFFSET(ScriptMetaDataComp, asset_name);
-			prop.type = MetaData::String;
-			prop.defvalue.string = 0;
-			prop.catName = "MetaData";
-			prop.propName = "AssetName";
-			meta->properties.push_back(prop);
+			meta->properties.erase(meta->properties.begin() + 1, meta->properties.end());
 		}
 
 		int index = 0;

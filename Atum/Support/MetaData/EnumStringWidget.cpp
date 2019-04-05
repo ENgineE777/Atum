@@ -14,15 +14,11 @@ void EnumStringWidget::Init(EUICategories* parent, const char* catName, const ch
 	cbox->SetListener(-1, this, 0);
 }
 
-void EnumStringWidget::SetData(void* set_data)
-{
-	data = (std::string*)set_data;
-	cbox->SetText(data->c_str());
-}
-
-void EnumStringWidget::Prepare(void* set_owner)
+void EnumStringWidget::SetData(void* set_owner, void* set_data)
 {
 	owner = set_owner;
+	data = (std::string*)set_data;
+	cbox->SetText(data->c_str());
 }
 
 void EnumStringWidget::OnComboBoxOpened(EUIComboBox* sender)

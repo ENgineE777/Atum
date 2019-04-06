@@ -78,7 +78,6 @@ public:
 
 	SceneObject* CreateObject(const char* name, bool is_asset);
 	void AddObject(SceneObject* obj, bool is_asset);
-	SceneObject* FindByName(const char* name, bool is_asset);
 	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 	SceneObject* GetObj(int index, bool is_asset);
 	int          GetObjectIndex(SceneObject* obj, bool is_asset);

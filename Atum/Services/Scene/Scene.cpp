@@ -116,48 +116,6 @@ void Scene::AddObject(SceneObject* obj, bool is_asset)
 	}
 }
 
-SceneObject* Scene::FindByName(const char* name, std::vector<SceneObject*>& objects)
-{
-	for (auto obj : objects)
-	{
-		if (StringUtils::IsEqual(obj->GetName(), name))
-		{
-			return (SceneAsset*)obj;
-		}
-	}
-
-	return nullptr;
-}
-
-SceneObject* Scene::FindByName(const char* name, bool is_asset)
-{
-	SceneObject* res = nullptr;
-
-	if (is_asset)
-	{
-		res = FindByName(name, assets);
-	}
-	else
-	{
-		res = FindByName(name, objects);
-	}
-
-	if (!res)
-	{
-		for (auto& incl : inc_scenes)
-		{
-			res = incl->FindByName(name, is_asset);
-
-			if (res)
-			{
-				break;
-			}
-		}
-	}
-
-	return res;
-}
-
 SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, std::vector<SceneObject*>& objects)
 {
 	for (auto obj : objects)

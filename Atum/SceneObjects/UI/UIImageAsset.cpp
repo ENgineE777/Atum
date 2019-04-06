@@ -170,11 +170,11 @@ void UIImageAssetInst::BindClassToScript()
 
 void UIImageAssetInst::SetSpriteFromAsset(string& asset_name)
 {
-	SpriteAsset* asset = (SpriteAsset*)owner->FindByName(asset_name.c_str(), true);
+	/*SpriteAsset* asset = (SpriteAsset*)owner->FindByName(asset_name.c_str(), true);
 	if (asset)
 	{
 		Sprite::Copy(&asset->sprite, &sprite);
-	}
+	}*/
 }
 
 #ifdef EDITOR

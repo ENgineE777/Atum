@@ -58,12 +58,12 @@ bool AnimatorObject::Play()
 {
 	curTime = 0.0f;
 	SceneObject::Play();
-	animator = (Animator*)owner->FindByName(animator_name.c_str(), true);
+	/*animator = (Animator*)owner->FindByName(animator_name.c_str(), true);
 
 	if (animator)
 	{
 		animator->Reset();
-	}
+	}*/
 
 	return true;
 }

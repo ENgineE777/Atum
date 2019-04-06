@@ -3761,7 +3761,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "TitleMenu",
+			"source_uid" : 1166329984,
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
@@ -3843,7 +3843,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "IngameMenu",
+			"source_uid" : 206845808,
 			"Childs" : [
 				{
 					"type" : "UIContainerAssetInst",

@@ -5824,7 +5824,7 @@
 					"anchorn_y" : 0.000000,
 					"scale_childs" : false,
 					"clip_childs" : false,
-					"source" : "HPBar",
+					"source_uid" : 1894183168,
 					"Childs" : [
 						{
 							"type" : "UILabelAssetInst",
@@ -5889,7 +5889,7 @@
 					"anchorn_y" : 0.000000,
 					"scale_childs" : false,
 					"clip_childs" : false,
-					"source" : "HPBar",
+					"source_uid" : 1894183168,
 					"Childs" : [
 						{
 							"type" : "UILabelAssetInst",
@@ -6096,7 +6096,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "MainMenu",
+			"source_uid" : 572264768,
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
@@ -6210,7 +6210,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "AboutMenu",
+			"source_uid" : 514389440,
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
@@ -6309,7 +6309,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "HPBSelectCharacter",
+			"source_uid" : 29326944,
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
@@ -6546,7 +6546,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "PauseMenu",
+			"source_uid" : 868518720,
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
@@ -6660,7 +6660,7 @@
 			"anchorn_y" : 0.000000,
 			"scale_childs" : false,
 			"clip_childs" : false,
-			"source" : "HUD",
+			"source_uid" : 1859665664,
 			"Childs" : [
 				{
 					"type" : "UILabelAssetInst",
@@ -6708,7 +6708,7 @@
 					"anchorn_y" : 0.000000,
 					"scale_childs" : false,
 					"clip_childs" : false,
-					"source" : "HPBar",
+					"source_uid" : 1894183168,
 					"Childs" : [
 						{
 							"type" : "UILabelAssetInst",
@@ -6773,7 +6773,7 @@
 					"anchorn_y" : 0.000000,
 					"scale_childs" : false,
 					"clip_childs" : false,
-					"source" : "HPBar",
+					"source_uid" : 1894183168,
 					"Childs" : [
 						{
 							"type" : "UILabelAssetInst",

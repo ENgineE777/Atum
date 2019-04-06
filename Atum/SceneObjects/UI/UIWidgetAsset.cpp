@@ -34,13 +34,13 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 	SceneAsset::Load(reader);
 	
-	char source_name[512];
+	uint32_t source_uid;
 
 	if (source_is_asset)
 	{
-		if (reader.Read("source", source_name, 512))
+		if (reader.Read("source_uid", source_uid))
 		{
-			SetSource((UIWidgetAsset*)owner->FindByName(source_name, true), false);
+			SetSource((UIWidgetAsset*)owner->FindByUID(source_uid, 0, true), false);
 		}
 	}
 
@@ -94,7 +94,7 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 
 	if (source && source_is_asset)
 	{
-		writer.Write("source", source->GetName());
+		writer.Write("source_uid", source->GetUID());
 	}
 
 	writer.StartArray("Childs");

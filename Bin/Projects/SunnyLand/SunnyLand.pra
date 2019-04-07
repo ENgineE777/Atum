@@ -1,7 +1,7 @@
 ﻿{
 
-	"start_scene" : 2,
-	"scenes_count" : 3,
+	"start_scene" : 3,
+	"scenes_count" : 4,
 	"scenes" : [
 		{
 			"path" : "SunnyLand.sca",
@@ -21,7 +21,15 @@
 			"include" : [
 				{
 					"path" : "SunnyLand.sca"
+				},
+				{
+					"path" : "MainMenu.sca"
 				}
+			]
+		},
+		{
+			"path" : "MainMenu.sca",
+			"include" : [
 			]
 		}
 	],
@@ -29,6 +37,10 @@
 	"nodes" : [
 		{
 			"name" : "CoreScene",
+			"type" : 1
+		},
+		{
+			"name" : "MainMenu",
 			"type" : 1
 		},
 		{

@@ -1,0 +1,562 @@
+﻿{
+
+	"uid" : 44400,
+	"camera3d_angles" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
+	"camera3d_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000,
+		"z" : 0.000000
+	},
+	"camera_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
+	"move_mode" : 0,
+	"gizmo2d_align_x" : 0,
+	"gizmo2d_align_y" : 0,
+	"SceneAsset" : [
+		{
+			"type" : "UIViewAsset",
+			"uid" : 1166329984,
+			"ed_camera_2d" :
+			{
+				"x" : -776.000000,
+				"y" : -749.000000
+			},
+			"Name" : "TitleMenu",
+			"x" : 576.000000,
+			"y" : 64.000000,
+			"width" : 717.536011,
+			"height" : 1011.300049,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"Childs" : [
+				{
+					"type" : "UIImageAsset",
+					"uid" : 1713420288,
+					"Name" : "logo",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 210.000000,
+					"horz_align" : 1,
+					"vert_align" : 3,
+					"width" : 792.000000,
+					"height" : 152.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 194,
+						"height" : 38,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Projects/SunnyLand/Sprites/title-screen.png",
+						"texMode" : 0,
+						"texFilter" : 0,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 38.000000
+								},
+								"size" :
+								{
+									"x" : 194.000000,
+									"y" : 38.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"uid" : 589180,
+					"Name" : "back",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 717.536011,
+					"height" : 1011.300049,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : -107374176.000000,
+						"g" : -107374176.000000,
+						"b" : -107374176.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 0,
+						"height" : 0,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "",
+						"texMode" : 0,
+						"texFilter" : 1,
+						"count" : 0,
+						"Rect" : [
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"uid" : 1882504320,
+					"Name" : "start_label",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 600.000000,
+					"horz_align" : 1,
+					"vert_align" : 3,
+					"width" : 304.000000,
+					"height" : 48.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 76,
+						"height" : 12,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Projects/SunnyLand/Sprites/press-enter-text.png",
+						"texMode" : 0,
+						"texFilter" : 0,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 12.000000
+								},
+								"size" :
+								{
+									"x" : 76.000000,
+									"y" : 12.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
+					"uid" : -741605632,
+					"Name" : "credits",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 40.000000,
+					"horz_align" : 1,
+					"vert_align" : 4,
+					"width" : 744.000000,
+					"height" : 64.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 186,
+						"height" : 16,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "Projects/SunnyLand/Sprites/credits-text.png",
+						"texMode" : 0,
+						"texFilter" : 0,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 16.000000
+								},
+								"size" :
+								{
+									"x" : 186.000000,
+									"y" : 16.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIButtonAsset",
+					"uid" : -470785792,
+					"Name" : "start_btn",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 0.000000,
+					"horz_align" : 0,
+					"vert_align" : 3,
+					"width" : 717.536011,
+					"height" : 1011.300049,
+					"horz_size" : 1,
+					"vert_size" : 1,
+					"anchorn_x" : 0.000000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"Childs" : [
+					]
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 983036,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "MenuScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "",
+			"Count" : 3,
+			"Node" : [
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 387.000000,
+						"y" : 306.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnStart",
+					"pos" :
+					{
+						"x" : 644.000000,
+						"y" : 305.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 0,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "main_menu",
+					"pos" :
+					{
+						"x" : 384.000000,
+						"y" : 413.000000
+					},
+					"prefix" : ""
+				}
+			]
+		}
+	],
+	"SceneObject" : [
+		{
+			"type" : "UIViewInstance",
+			"uid" : 221639040,
+			"Name" : "TitleMenu",
+			"State" : 2,
+			"Group" : "",
+			"x" : 0.000000,
+			"y" : 0.000000,
+			"horz_align" : 1,
+			"vert_align" : 3,
+			"width" : 2055.140869,
+			"height" : 1024.000000,
+			"horz_size" : 1,
+			"vert_size" : 1,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.000000,
+			"scale_childs" : false,
+			"clip_childs" : false,
+			"source_uid" : 1166329984,
+			"Childs" : [
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : 1335414144,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : 507889,
+					"State" : 2,
+					"color" :
+					{
+						"r" : -107374176.000000,
+						"g" : -107374176.000000,
+						"b" : -107374176.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : 11549106,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAssetInst",
+					"uid" : 1649316224,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIButtonAssetInst",
+					"uid" : 1403800320,
+					"State" : 2,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"Childs" : [
+					]
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 507761,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "MenuScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 983036,
+			"Count" : 3,
+			"Node" : [
+				{
+					"object_uid" : 221639040,
+					"object_child_uid" : 1403800320,
+					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 221639040,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
+		}
+	],
+	"asset_instances" : [
+		{
+			"asset_uid" : 983036,
+			"asset_name" : "MenuScript",
+			"instances" : [
+				{
+					"scene" : "MainMenu.sca",
+					"inst_uid" : 507761,
+					"inst_name" : "MenuScript"
+				}
+			]
+		}
+	]
+}

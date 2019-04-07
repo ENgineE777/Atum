@@ -22,6 +22,21 @@
 			"type" : 2
 		},
 		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 820505600,
+			"name" : "IngameMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
 			"uid" : 1314392192,
 			"name" : "Camera2D",
 			"type" : 1
@@ -147,6 +162,21 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 206845808,
+			"name" : "IngameMenu",
+			"type" : 1
 		},
 		{
 			"uid" : -1,

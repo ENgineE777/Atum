@@ -136,7 +136,12 @@ class Game
     void OnReturnToTitle()
     {
         main_menu.SetState(2);
-        is_paused = true;
+        level_ui.SetState(0);
+        pause_menu.SetState(0);
+
+        Scene_Unload("SunnyLand_Level1");
+
+        /*is_paused = true;
 
         title_menu_pos_x = 0.0f;
 
@@ -144,7 +149,7 @@ class Game
         vjoy.SetState(0);
         fade.alpha = 0.0f;
         pause_menu.SetState(0);
-        Scene_Group_SetState("Level", 0);
+        Scene_Group_SetState("Level", 0);*/
     }
 
     void OnStartGame()
@@ -783,7 +788,7 @@ class Game
 
             hero_inst[0].Init();
             boss_inst[0].Init();
-            OnReturnToTitle();
+            OnStartGame();
 
             init = true;
 

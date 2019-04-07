@@ -23,26 +23,6 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "UI",
-			"type" : 0
-		},
-		{
-			"uid" : 820505600,
-			"name" : "IngameMenu",
-			"type" : 1
-		},
-		{
-			"uid" : 221639040,
-			"name" : "TitleMenu",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		}
@@ -252,26 +232,6 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "UI",
-			"type" : 0
-		},
-		{
-			"uid" : 206845808,
-			"name" : "IngameMenu",
-			"type" : 1
-		},
-		{
-			"uid" : 1166329984,
-			"name" : "TitleMenu",
-			"type" : 1
 		},
 		{
 			"uid" : -1,

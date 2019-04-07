@@ -1,0 +1,13 @@
+
+class MainMenu
+{
+	UIView@ main_menu;
+	UIView@ level_ui;
+
+    void OnStart()
+    {
+		main_menu.SetState(0);
+
+		Scene_Load("SunnyLand_Level1");
+    }
+}

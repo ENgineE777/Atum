@@ -1,0 +1,57 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 221639040,
+			"name" : "TitleMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 507761,
+			"name" : "MenuScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "UI",
+			"type" : 0
+		},
+		{
+			"uid" : 1166329984,
+			"name" : "TitleMenu",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 983036,
+			"name" : "MenuScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

@@ -1209,7 +1209,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			{
 				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(with->object);
 
-				if (!to->scene->FindByUID(inst->asset->GetUID(), 0, false))
+				if (inst && !to->scene->FindByUID(inst->asset->GetUID(), 0, false))
 				{
 					return false;
 				}

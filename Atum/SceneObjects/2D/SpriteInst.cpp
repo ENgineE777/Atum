@@ -481,25 +481,29 @@ void SpriteInst::Draw(float dt)
 		Sprite::cam_pos *= axis_scale;
 	}
 
+	bool update_frames = (GetState() == Active);
+	
 	for (int i = 0; i<instances.size(); i++)
 	{
 		Instance& inst = instances[i];
-
-		if (!inst.IsVisible())
-		{
-			continue;
-		}
-
-		if (GetState() == Active)
-		{
-			Sprite::UpdateFrame(&sprite_asset->sprite, &inst.frame_state, dt);
-		}
 
 		if (inst.frame_state.finished && inst.auto_delete)
 		{
 			RemoveInstance(i);
 			i--;
 			continue;
+		}
+
+		bool is_visible = inst.IsVisible();
+
+		if (owner->Playing() && !is_visible)
+		{
+			continue;
+		}
+
+		if (update_frames)
+		{
+			Sprite::UpdateFrame(&sprite_asset->sprite, &inst.frame_state, dt);
 		}
 
 		if (inst.GetAlpha() < 0.01f)
@@ -516,7 +520,7 @@ void SpriteInst::Draw(float dt)
 		inst.frame_state.horz_flipped = inst.GetFlipped();
 		inst.color.a = inst.GetAlpha();
 
-		Sprite::Draw(&trans, inst.color, &sprite_asset->sprite, &inst.frame_state, true, false);
+		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &sprite_asset->sprite, &inst.frame_state, true, false);
 	}
 
 #ifdef EDITOR

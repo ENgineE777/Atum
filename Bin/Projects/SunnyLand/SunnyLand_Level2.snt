@@ -1,0 +1,102 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Trigers",
+			"type" : 0
+		},
+		{
+			"uid" : 1011191,
+			"name" : "RespawnTrigger1",
+			"type" : 1
+		},
+		{
+			"uid" : 486900,
+			"name" : "RespawnTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Sprites",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Decor",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Tiles",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 748786,
+			"name" : "Ground1Tiles",
+			"type" : 1
+		},
+		{
+			"uid" : 749309,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
+			"uid" : 556286,
+			"name" : "RespawnPoints",
+			"type" : 1
+		},
+		{
+			"uid" : 982262,
+			"name" : "TreeSprite",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 978933,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

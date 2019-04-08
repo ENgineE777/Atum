@@ -168,7 +168,7 @@ class Game
             cherries[i].visible = 1;
         }
 
-        main_menu.SetState(0);
+        //main_menu.SetState(0);
         level_ui.SetState(2);
         vjoy.SetState(2);
 
@@ -266,8 +266,8 @@ class Game
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
         hero_data.in_hit = -1.0f;
-        fake_box[0].visible = 0;
-        fake_card[0].visible = 0;
+        //fake_box[0].visible = 0;
+        //fake_card[0].visible = 0;
         UpdateHearts(hero_data);
         hero_data.graph.GotoNode("Idle");
 
@@ -275,11 +275,11 @@ class Game
         hero_data.velocity_y = 0.0f;
 
         return_to_title = -1.0f;
-        boss_inst[0].active = false;
+        /*boss_inst[0].active = false;
         boss_inst[0].graph.GotoNode("idle");
         boss_inst[0].hp = 3;
         boss_inst[0].cur_stage = 0;
-        boss_inst[0].phys.MoveTo(boss_markers[0].x, boss_markers[0].y);
+        boss_inst[0].phys.MoveTo(boss_markers[0].x, boss_markers[0].y);*/
 
         hero_data.box_grabbed = -1;
         hero_data.card_grabbed = -1;
@@ -787,7 +787,7 @@ class Game
             }
 
             hero_inst[0].Init();
-            boss_inst[0].Init();
+            //boss_inst[0].Init();
             OnStartGame();
 
             init = true;
@@ -818,10 +818,10 @@ class Game
             return;
         }
 
-        if (boss_inst[0].active && boss_inst[0].hp != 0)
+        /*if (boss_inst[0].active && boss_inst[0].hp != 0)
         {
             ControlBoss(boss_inst[0], dt);
-        }
+        }*/
 
         if (hero_inst[0].in_hit < -0.01f && hero_inst[0].hp > 0)
         {

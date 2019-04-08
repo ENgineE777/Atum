@@ -1,7 +1,7 @@
 ﻿{
 
-	"start_scene" : 3,
-	"scenes_count" : 4,
+	"start_scene" : 4,
+	"scenes_count" : 5,
 	"scenes" : [
 		{
 			"path" : "SunnyLand.sca",
@@ -31,9 +31,20 @@
 			"path" : "MainMenu.sca",
 			"include" : [
 			]
+		},
+		{
+			"path" : "SunnyLand_Level2.sca",
+			"include" : [
+				{
+					"path" : "SunnyLand.sca"
+				},
+				{
+					"path" : "MainMenu.sca"
+				}
+			]
 		}
 	],
-	"selected_scene" : "SunnyLand_Level1.sca",
+	"selected_scene" : "SunnyLand_Level2.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",
@@ -49,6 +60,10 @@
 		},
 		{
 			"name" : "SunnyLand_Level1",
+			"type" : 1
+		},
+		{
+			"name" : "SunnyLand_Level2",
 			"type" : 1
 		},
 		{

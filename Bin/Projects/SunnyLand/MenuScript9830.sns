@@ -8,6 +8,6 @@ class MainMenu
     {
 		main_menu.SetState(0);
 
-		Scene_Load("SunnyLand_Level1");
+		Scene_Load("SunnyLand_Level2");
     }
 }

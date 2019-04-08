@@ -690,15 +690,15 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 245.000000,
-				"y" : 540.000000
+				"x" : 69.000000,
+				"y" : 454.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 50,
+			"Count" : 52,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -947,6 +947,16 @@
 				},
 				{
 					"object_uid" : 361006912,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 221639040,
+					"object_child_uid" : 1403800320,
+					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 0,
 					"object_child_uid" : 0,
 					"callback_type" : ""
 				}

@@ -147,7 +147,6 @@ bool SceneScriptInst::PostPlay()
 						if (!node_inst.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{
 							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", node_inst.object->GetName(), node_inst.object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
-							return false;
 						}
 
 						injected = true;
@@ -160,7 +159,6 @@ bool SceneScriptInst::PostPlay()
 			if (!injected)
 			{
 				core.Log("ScriptErr", "Object for property %s was not set", node_prop->name.c_str());
-				return false;
 			}
 		}
 		else
@@ -206,14 +204,13 @@ bool SceneScriptInst::PostPlay()
 
 							if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
 							{
-								return false;
+								//return false;
 							}
 						}
 					}
 					else
 					{
 						core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link->node]->name.c_str());
-						return false;
 					}
 				}
 			}

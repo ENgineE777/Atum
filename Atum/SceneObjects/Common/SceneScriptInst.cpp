@@ -254,6 +254,45 @@ void SceneScriptInst::Work(float dt)
 
 void SceneScriptInst::Stop()
 {
+	int index = 0;
+
+	for (auto node : Asset()->nodes)
+	{
+		if (node->type == SceneScriptAsset::ScriptMethod)
+		{
+			SceneScriptAsset::NodeScriptMethod* node_method = (SceneScriptAsset::NodeScriptMethod*)node;
+
+			if (node_method->param_type != 3)
+			{
+				for (auto link : node_method->links)
+				{
+					Node& node_inst = nodes[link->node];
+
+					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
+					{
+						ScriptCallback* callback = nullptr;
+
+						if (node_inst.callback_type.size() > 0)
+						{
+							callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
+						}
+						else
+						{
+							callback = &node_inst.object->script_callbacks[0];
+						}
+
+						if (callback)
+						{
+							callback->Unbind(class_inst);
+						}
+					}
+				}
+			}
+		}
+
+		index++;
+	}
+
 	core.scripts.UnregisterClassInstance(class_inst);
 	RELEASE(class_inst);
 }

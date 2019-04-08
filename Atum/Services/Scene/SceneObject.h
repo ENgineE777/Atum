@@ -33,8 +33,14 @@ public:
 
 	class ScriptCallback
 	{
-		asIScriptObject* class_inst = nullptr;
-		asIScriptFunction* method = nullptr;
+		struct ClassInst
+		{
+			asIScriptObject* class_inst = nullptr;
+			asIScriptFunction* method = nullptr;
+		};
+
+		vector<ClassInst> instances;
+
 		const char* name = nullptr;
 		const char* ret = nullptr;
 		const char* decl = nullptr;
@@ -48,6 +54,7 @@ public:
 		void SetIntParam(int param);
 		void SetStringParam(string& param);
 		bool Prepare(asITypeInfo* class_type, asIScriptObject* class_inst, const char* method_name);
+		void Unbind(asIScriptObject* class_inst);
 		bool Call(ScriptContext* context, ...);
 	};
 

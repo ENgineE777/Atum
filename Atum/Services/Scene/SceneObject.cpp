@@ -34,7 +34,8 @@ void SceneObject::ScriptCallback::SetStringParam(string& param)
 
 bool SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObject* set_class_inst, const char* method_name)
 {
-	class_inst = set_class_inst;
+	ClassInst inst;
+	inst.class_inst = set_class_inst;
 
 	char prototype[256];
 
@@ -110,97 +111,110 @@ bool SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObje
 
 	StringUtils::Cat(prototype, 256, ")");
 
-	method = class_type->GetMethodByDecl(prototype);
+	inst.method = class_type->GetMethodByDecl(prototype);
 
-	if (!method)
+	if (!inst.method)
 	{
 		core.Log("ScriptErr", "Callabck %s was not found", prototype);
 
 		return false;
 	}
 
+	instances.push_back(inst);
+
 	return true;
+}
+
+void SceneObject::ScriptCallback::Unbind(asIScriptObject* class_inst)
+{
+	for (int i = 0; i < instances.size(); i++)
+	{
+		if (instances[i].class_inst == class_inst)
+		{
+			instances.erase(instances.begin() + i);
+			i--;
+		}
+	}
 }
 
 bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 {
-	if (!method || !class_inst)
+	bool res = true;
+
+	for (auto& inst : instances)
 	{
-		return false;
-	}
+		context->ctx->Prepare(inst.method);
+		context->ctx->SetObject(inst.class_inst);
 
-	context->ctx->Prepare(method);
-	context->ctx->SetObject(class_inst);
+		bool fail = false;
+		int len = (int)strlen(decl);
 
-	bool fail = false;
-	int len = (int)strlen(decl);
+		int count = (int)(len * 0.5f);
+		va_list args;
+		va_start(args, context);
 
-	int count = (int)(len * 0.5f);
-	va_list args;
-	va_start(args, context);
+		string param;
+		int cur_arg = 0;
 
-	string param;
-	int cur_arg = 0;
-
-	for (int index = 0; cur_arg < count; cur_arg++, index +=2)
-	{
-		if (decl[index] != '%' || index + 1 >= len)
+		for (int index = 0; cur_arg < count; cur_arg++, index +=2)
 		{
-			fail = true;
-			break;
-		}
-
-		switch (decl[index + 1])
-		{
-			case 'i':
+			if (decl[index] != '%' || index + 1 >= len)
 			{
-				context->ctx->SetArgDWord(cur_arg, va_arg(args, int));
+				fail = true;
 				break;
 			}
-			case 'f':
+
+			switch (decl[index + 1])
 			{
-				context->ctx->SetArgFloat(cur_arg, va_arg(args, float));
+				case 'i':
+				{
+					context->ctx->SetArgDWord(cur_arg, va_arg(args, int));
+					break;
+				}
+				case 'f':
+				{
+					context->ctx->SetArgFloat(cur_arg, va_arg(args, float));
+					break;
+				}
+				case 's':
+				{
+					param = va_arg(args, const char*);
+					context->ctx->SetArgObject(cur_arg, &param);
+					break;
+				}
+				default:
+				fail = true;
+			}
+
+			if (fail)
+			{
 				break;
 			}
-			case 's':
-			{
-				param = va_arg(args, const char*);
-				context->ctx->SetArgObject(cur_arg, &param);
-				break;
-			}
-		default:
-			fail = true;
 		}
 
-		if (fail)
+		va_end(args);
+
+		if (!fail)
 		{
-			break;
+			if (param_type == 1)
+			{
+				context->ctx->SetArgDWord(cur_arg, int_param);
+			}
+			else
+			if (param_type == 2)
+			{
+				context->ctx->SetArgObject(cur_arg, str_param);
+			}
+
+			if (context->ctx->Execute() != 0)
+			{
+				res = false;
+				core.Log("ScriptErr", "Error occured in call of '%s'", name);
+			}
 		}
 	}
 
-	va_end(args);
-
-	if (!fail)
-	{
-		if (param_type == 1)
-		{
-			context->ctx->SetArgDWord(cur_arg, int_param);
-		}
-		else
-		if (param_type == 2)
-		{
-			context->ctx->SetArgObject(cur_arg, str_param);
-		}
-
-		if (context->ctx->Execute() == 0)
-		{
-			return true;
-		}
-
-		core.Log("ScriptErr", "Error occured in call of '%s'", name);
-	}
-
-	return false;
+	return res;
 }
 
 SceneObject::ScriptCallback* SceneObject::FindScriptCallback(const char* name)

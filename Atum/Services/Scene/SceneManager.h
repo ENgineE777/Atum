@@ -23,6 +23,9 @@ class SceneManager : public Object
 	PhysScene* pscene = nullptr;
 
 	vector<SceneHolder> scenes;
+
+	vector<SceneHolder*> scenes_to_delete;
+
 	map<std::string, SceneHolder*> scenes_search;
 
 	void LoadScene(SceneHolder* holder);

@@ -105,16 +105,20 @@ void SceneManager::LoadScene(SceneHolder* holder)
 
 void SceneManager::Execute(float dt)
 {
-	for (auto& scn : scenes)
+	for (auto* holder : scenes_to_delete)
 	{
+		UnloadScene(holder);
+	}
+
+	scenes_to_delete.clear();
+
+	for (int i = 0; i < scenes.size(); i++)
+	{
+		auto& scn = scenes[i];
+
 		if (scn.scene)
 		{
-			if (scn.ref_counter == 0)
-			{
-				scn.scene->Stop();
-				RELEASE(scn.scene)
-			}
-			else
+			if (scn.ref_counter != 0)
 			{
 				scn.scene->Execute(dt);
 			}
@@ -140,26 +144,35 @@ void SceneManager::SetScenesGroupsState(const char* group_name, int state)
 
 void SceneManager::UnloadScene(const char* name)
 {
-	UnloadScene(scenes_search[name]);
+	SceneHolder* holder = scenes_search[name];
+
+	if (holder->ref_counter > 0)
+	{
+		holder->ref_counter--;
+
+		if (holder->ref_counter == 0)
+		{
+			scenes_to_delete.push_back(holder);
+		}
+	}
 }
 
 void SceneManager::UnloadScene(SceneHolder* holder)
 {
 	if (holder->ref_counter == 0)
 	{
-		return;
+		holder->scene->Stop();
+		RELEASE(holder->scene)
 	}
 
-	holder->ref_counter--;
-
-	if (holder->ref_counter == 0)
+	for (auto& incl : holder->included)
 	{
-		for (auto& incl : holder->included)
-		{
-			UnloadScene(incl);
-		}
+		incl->ref_counter--;
+
+		UnloadScene(incl);
 	}
 }
+
 void SceneManager::UnloadAll()
 {
 	for (auto& scn : scenes)

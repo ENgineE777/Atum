@@ -26,23 +26,23 @@
 			"uid" : 14304,
 			"ed_camera_2d" :
 			{
-				"x" : 66.000000,
-				"y" : 349.000000
+				"x" : 542.000000,
+				"y" : -148.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 52,
+			"Count" : 36,
 			"Node" : [
 				{
 					"type" : 2,
 					"name" : "Update",
 					"pos" :
 					{
-						"x" : 370.000000,
-						"y" : 503.000000
+						"x" : 850.000000,
+						"y" : 246.000000
 					},
 					"param_type" : 3,
 					"Count" : 0,
@@ -84,8 +84,8 @@
 					"name" : "vjoy",
 					"pos" :
 					{
-						"x" : 146.000000,
-						"y" : 494.000000
+						"x" : 651.000000,
+						"y" : 251.000000
 					},
 					"prefix" : ""
 				},
@@ -307,8 +307,8 @@
 					"name" : "Object",
 					"pos" :
 					{
-						"x" : 1429.000000,
-						"y" : 229.000000
+						"x" : 1457.000000,
+						"y" : 220.000000
 					}
 				},
 				{
@@ -316,8 +316,8 @@
 					"name" : "Object",
 					"pos" :
 					{
-						"x" : 1507.000000,
-						"y" : 352.000000
+						"x" : 1485.000000,
+						"y" : 329.000000
 					}
 				},
 				{
@@ -412,174 +412,6 @@
 				},
 				{
 					"type" : 1,
-					"name" : "heart1",
-					"pos" :
-					{
-						"x" : 1099.000000,
-						"y" : 1050.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "heart2",
-					"pos" :
-					{
-						"x" : 1089.000000,
-						"y" : 950.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "heart3",
-					"pos" :
-					{
-						"x" : 1103.000000,
-						"y" : 830.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "fade",
-					"pos" :
-					{
-						"x" : 1289.000000,
-						"y" : 846.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "score_label",
-					"pos" :
-					{
-						"x" : 1286.000000,
-						"y" : 940.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 301.000000,
-						"y" : 846.000000
-					}
-				},
-				{
-					"type" : 2,
-					"name" : "ShowPauseMenu",
-					"pos" :
-					{
-						"x" : 679.000000,
-						"y" : 846.000000
-					},
-					"param_type" : 1,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 37,
-							"param" : "1"
-						}
-					]
-				},
-				{
-					"type" : 2,
-					"name" : "ShowPauseMenu",
-					"pos" :
-					{
-						"x" : 687.000000,
-						"y" : 938.000000
-					},
-					"param_type" : 1,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 41,
-							"param" : "0"
-						}
-					]
-				},
-				{
-					"type" : 2,
-					"name" : "OnReturnToTitle",
-					"pos" :
-					{
-						"x" : 688.000000,
-						"y" : 1040.000000
-					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 42,
-							"param" : ""
-						}
-					]
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 302.000000,
-						"y" : 933.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 301.000000,
-						"y" : 1044.000000
-					}
-				},
-				{
-					"type" : 1,
-					"name" : "pause_menu",
-					"pos" :
-					{
-						"x" : 905.000000,
-						"y" : 837.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "main_menu",
-					"pos" :
-					{
-						"x" : 902.000000,
-						"y" : 940.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "level_ui",
-					"pos" :
-					{
-						"x" : 904.000000,
-						"y" : 1043.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
-					"name" : "start_label",
-					"pos" :
-					{
-						"x" : 1287.000000,
-						"y" : 1045.000000
-					},
-					"prefix" : ""
-				},
-				{
-					"type" : 1,
 					"name" : "boss_markers",
 					"pos" :
 					{
@@ -609,30 +441,14 @@
 					"prefix" : ""
 				},
 				{
-					"type" : 0,
-					"name" : "Object",
+					"type" : 1,
+					"name" : "game_menu",
 					"pos" :
 					{
-						"x" : 354.000000,
-						"y" : 661.000000
-					}
-				},
-				{
-					"type" : 2,
-					"name" : "OnStartGame",
-					"pos" :
-					{
-						"x" : 590.000000,
-						"y" : 658.000000
+						"x" : 1108.000000,
+						"y" : 121.000000
 					},
-					"param_type" : 0,
-					"Count" : 1,
-					"Link" : [
-						{
-							"node" : 50,
-							"param" : ""
-						}
-					]
+					"prefix" : ""
 				}
 			]
 		},
@@ -3229,6 +3045,168 @@
 					]
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 16352,
+			"ed_camera_2d" :
+			{
+				"x" : 39.000000,
+				"y" : 531.000000
+			},
+			"Name" : "GameMenuScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "GameMenu",
+			"Count" : 13,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "pause_menu",
+					"pos" :
+					{
+						"x" : 252.000000,
+						"y" : 650.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "level_ui",
+					"pos" :
+					{
+						"x" : 435.000000,
+						"y" : 651.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fade",
+					"pos" :
+					{
+						"x" : 622.000000,
+						"y" : 649.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "score_label",
+					"pos" :
+					{
+						"x" : 249.000000,
+						"y" : 770.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart1",
+					"pos" :
+					{
+						"x" : 439.000000,
+						"y" : 767.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart2",
+					"pos" :
+					{
+						"x" : 626.000000,
+						"y" : 763.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "heart3",
+					"pos" :
+					{
+						"x" : 801.000000,
+						"y" : 761.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "ShowPauseMenu",
+					"pos" :
+					{
+						"x" : 588.000000,
+						"y" : 943.000000
+					},
+					"param_type" : 1,
+					"Count" : 2,
+					"Link" : [
+						{
+							"node" : 10,
+							"param" : "0"
+						},
+						{
+							"node" : 9,
+							"param" : "1"
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "OnReturnToTitle",
+					"pos" :
+					{
+						"x" : 588.000000,
+						"y" : 1107.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 11,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Show",
+					"pos" :
+					{
+						"x" : 344.000000,
+						"y" : 896.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Hide",
+					"pos" :
+					{
+						"x" : 342.000000,
+						"y" : 1000.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Quit",
+					"pos" :
+					{
+						"x" : 337.000000,
+						"y" : 1106.000000
+					}
+				},
+				{
+					"type" : 1,
+					"name" : "vjoy",
+					"pos" :
+					{
+						"x" : 125.000000,
+						"y" : 968.000000
+					},
+					"prefix" : ""
+				}
+			]
 		}
 	],
 	"SceneObject" : [
@@ -3299,7 +3277,7 @@
 			"type" : "UIViewInstance",
 			"uid" : 820505600,
 			"Name" : "IngameMenu",
-			"State" : 0,
+			"State" : 2,
 			"Group" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3559,6 +3537,88 @@
 					]
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 131060,
+			"ed_camera_2d" :
+			{
+				"x" : -39.000000,
+				"y" : 539.000000
+			},
+			"Name" : "GameMenuScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 16352,
+			"Count" : 13,
+			"Node" : [
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : -1467901952,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : -393704960,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 392410080,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 2003964672,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 1876924416,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : -138846208,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : -1507998976,
+					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 455995040,
+					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 820505600,
+					"object_child_uid" : 42433232,
+					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 14304,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -3581,6 +3641,17 @@
 					"scene" : "CoreScene.sca",
 					"inst_uid" : 1225762432,
 					"inst_name" : "ItemTaken"
+				}
+			]
+		},
+		{
+			"asset_uid" : 16352,
+			"asset_name" : "GameMenuScript",
+			"instances" : [
+				{
+					"scene" : "CoreScene.sca",
+					"inst_uid" : 131060,
+					"inst_name" : "GameMenuScript"
 				}
 			]
 		}

@@ -103,15 +103,7 @@ class Game
     Sprite@ enemy_death;
     VirtualJoystick@ vjoy;
 
-    UIImage@ heart1;
-    UIImage@ heart2;
-    UIImage@ heart3;
-    UILabel@ score_label;
-    UIImage@ fade;
-    UIImage@ start_label;
-    UIContainer@ pause_menu;
-    UIView@ main_menu;
-    UIView@ level_ui;
+    GameMenu@ game_menu;
 
     float fade_out = -1.0f;
 
@@ -124,38 +116,8 @@ class Game
     float title_menu_pos_x = 0.0f;
     float label_fade = 2.0f;
 
-    void ShowPauseMenu(int show)
-    {
-        is_paused = (show == 1);
-        fade.alpha = (show == 1) ? 0.5f : 0.0f;
-        pause_menu.SetState((show == 1) ? 2 : 0);
-        vjoy.SetState((show == 1) ? 1 : 2);
-        Scene_Group_SetState("Level", (show == 1) ? 1 : 2);
-    }
-
-    void OnReturnToTitle()
-    {
-        main_menu.SetState(2);
-        level_ui.SetState(0);
-        pause_menu.SetState(0);
-
-        Scene_Unload("SunnyLand_Level1");
-
-        /*is_paused = true;
-
-        title_menu_pos_x = 0.0f;
-
-        level_ui.SetState(0);
-        vjoy.SetState(0);
-        fade.alpha = 0.0f;
-        pause_menu.SetState(0);
-        Scene_Group_SetState("Level", 0);*/
-    }
-
     void OnStartGame()
     {
-        Log("OnStartGame()");
-
         is_paused = false;
 
         for (int i = 0; i<diamonds.length();i++)
@@ -168,11 +130,7 @@ class Game
             cherries[i].visible = 1;
         }
 
-        //main_menu.SetState(0);
-        level_ui.SetState(2);
-        vjoy.SetState(2);
-
-        Scene_Group_SetState("Level", 2);
+        game_menu.ShowPauseMenu(0);
 
         fade_out = -1.0f;
         hero_inst[0].cur_respawn_point = 0;
@@ -221,7 +179,7 @@ class Game
         if (hero_data.in_hit < -0.01f)
         {
             hero_data.hp--;
-            UpdateHearts(hero_data);
+            game_menu.UpdateHearts(hero_data.hp);
 
             if (hero_data.hp == 0)
             {
@@ -254,13 +212,6 @@ class Game
         }
     }
 
-    void UpdateHearts(HeroData@ hero_data)
-    {
-        heart1.SetState((hero_data.hp >= 1) ? 2 : 0);
-        heart2.SetState((hero_data.hp >= 2) ? 2 : 0);
-        heart3.SetState((hero_data.hp >= 3) ? 2 : 0);
-    }
-
     void RespawnHero(HeroData@ hero_data)
     {
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
@@ -268,7 +219,8 @@ class Game
         hero_data.in_hit = -1.0f;
         //fake_box[0].visible = 0;
         //fake_card[0].visible = 0;
-        UpdateHearts(hero_data);
+        game_menu.UpdateHearts(hero_data.hp);
+
         hero_data.graph.GotoNode("Idle");
 
         hero_data.velocity_x = 0.0f;
@@ -329,7 +281,7 @@ class Game
             hero_data.score += score;
         }
 
-        score_label.SetText("Score: " + hero_data.score);
+        game_menu.SetScore(hero_data.score);
     }
 
     void OnHeroContact(int self_index, string&in name, int index)
@@ -797,12 +749,12 @@ class Game
 
         if (is_paused)
         {
-            if (pause_menu.GetState() != 2)
+            /*if (pause_menu.GetState() != 2)
             {
                 title_menu_pos_x += dt * 1000;
                 label_fade -= dt;
 
-                start_label.alpha = (label_fade > 1.0f) ? 1.0f : 0.0f;
+                //start_label.alpha = (label_fade > 1.0f) ? 1.0f : 0.0f;
 
                 while (label_fade < 0.0f)
                 {
@@ -813,7 +765,7 @@ class Game
                 camera.x = camera.target_pos_x;
                 camera.target_pos_y = -800;
                 camera.y = camera.target_pos_y;
-            }
+            }*/
 
             return;
         }
@@ -845,10 +797,11 @@ class Game
         {
             float prev_fade_out = fade_out;
             fade_out -= dt * 2.0f;
+            float fade_alpha = 0.0f; 
 
             if (fade_out > 1.0f)
             {
-                fade.alpha = 2.0f - fade_out;
+                fade_alpha = 2.0f - fade_out;
             }
             else
             {
@@ -857,14 +810,16 @@ class Game
                     RespawnHero(hero_inst[0]);
                 }
 
-                fade.alpha = fade_out;
+                fade_alpha = fade_out;
             }
 
             if (fade_out < 0.01f)
             {
                 fade_out = -1.0f;
-                fade.alpha = 0.0f;
+                fade_alpha = 0.0f;
             }
+
+            game_menu.SetFade(fade_alpha);
         }
 
         if (return_to_title > 0.0f)
@@ -874,7 +829,7 @@ class Game
             if (return_to_title < 0.01f)
             {
                 return_to_title = -1.0f;
-                OnReturnToTitle();
+                game_menu.OnReturnToTitle();
             }
         }
 

@@ -861,23 +861,23 @@
 					"callback_type" : ""
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : 2003964672,
-					"callback_type" : ""
+					"object_uid" : 1773631360,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : 1876924416,
-					"callback_type" : ""
+					"object_uid" : 1485033472,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : -138846208,
-					"callback_type" : ""
+					"object_uid" : 361006912,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : -393704960,
+					"object_uid" : 131060,
+					"object_child_uid" : 0,
 					"callback_type" : ""
 				},
 				{

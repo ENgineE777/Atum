@@ -3,26 +3,6 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "Trigers",
-			"type" : 0
-		},
-		{
-			"uid" : 1011191,
-			"name" : "RespawnTrigger1",
-			"type" : 1
-		},
-		{
-			"uid" : 486900,
-			"name" : "RespawnTrigger2",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
 			"name" : "Sprites",
 			"type" : 0
 		},
@@ -75,6 +55,26 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Trigers",
+			"type" : 0
+		},
+		{
+			"uid" : 1011191,
+			"name" : "RespawnTrigger1",
+			"type" : 1
+		},
+		{
+			"uid" : 486900,
+			"name" : "RespawnTrigger2",
+			"type" : 1
 		},
 		{
 			"uid" : -1,

@@ -1,0 +1,57 @@
+
+class GameMenu
+{
+	UIImage@ heart1;
+    UIImage@ heart2;
+    UIImage@ heart3;
+    UILabel@ score_label;
+    UIImage@ fade;
+    UIContainer@ pause_menu;
+    UIView@ level_ui;
+    VirtualJoystick@ vjoy;
+
+	bool is_paused = false;
+
+    void UpdateHearts(int hp)
+    {
+        heart1.SetState((hp >= 1) ? 2 : 0);
+        heart2.SetState((hp >= 2) ? 2 : 0);
+        heart3.SetState((hp >= 3) ? 2 : 0);
+    }
+
+    void SetScore(int score)
+    {
+    	score_label.SetText("Score: " + score);
+    }
+
+    void SetFade(float alpha)
+    {
+    	fade.alpha = alpha;
+    }
+
+    void ShowPauseMenu(int show)
+    {
+        is_paused = (show == 1);
+        fade.alpha = (show == 1) ? 0.5f : 0.0f;
+        pause_menu.SetState((show == 1) ? 2 : 0);
+        vjoy.SetState((show == 1) ? 1 : 2);
+        Scene_Group_SetState("Level", (show == 1) ? 1 : 2);
+    }
+
+    void OnReturnToTitle()
+    {
+        //main_menu.SetState(2);
+        level_ui.SetState(0);
+        pause_menu.SetState(0);
+
+        //Scene_Unload("SunnyLand_Level1");
+
+        is_paused = true;
+
+        level_ui.SetState(0);
+        vjoy.SetState(0);
+        fade.alpha = 0.0f;
+        pause_menu.SetState(0);
+        Scene_Group_SetState("Level", 0);
+    }
+}

@@ -1,6 +1,6 @@
 ﻿{
 
-	"start_scene" : 4,
+	"start_scene" : 2,
 	"scenes_count" : 5,
 	"scenes" : [
 		{
@@ -44,7 +44,7 @@
 			]
 		}
 	],
-	"selected_scene" : "SunnyLand_Level2.sca",
+	"selected_scene" : "SunnyLand_Level1.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

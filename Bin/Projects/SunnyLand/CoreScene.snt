@@ -42,6 +42,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 131060,
+			"name" : "GameMenuScript",
+			"type" : 1
+		},
+		{
 			"uid" : 14304,
 			"name" : "VirtualJoystick",
 			"type" : 1
@@ -182,6 +187,11 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : 16352,
+			"name" : "GameMenuScript",
+			"type" : 1
 		},
 		{
 			"uid" : 14304,

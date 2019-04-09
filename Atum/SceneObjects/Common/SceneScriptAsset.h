@@ -9,7 +9,7 @@ public:
 
 	enum NodeType
 	{
-		ScnCallback,
+		SceneCallback,
 		ScriptProperty,
 		ScriptMethod
 	};
@@ -59,7 +59,7 @@ public:
 
 		int param_type;
 		asIScriptFunction* method = nullptr;
-		vector<LinkToMethod*> links;
+		vector<LinkToMethod> links;
 
 		void Load(JSONReader& loader) override;
 		void Save(JSONWriter& saver) override;
@@ -96,6 +96,8 @@ public:
 	SceneObject* CreateInstance(Scene* scene) override;
 	void EditorWork(float dt);
 	void EditorWork(float dt, class SceneScriptInst* inst);
+
+	void Copy(SceneObject* src) override;
 
 	void SetEditMode(bool ed) override;
 

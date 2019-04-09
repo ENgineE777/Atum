@@ -181,7 +181,7 @@ public:
 
 #ifdef EDITOR
 	void SetOwner(Scene* owner) override;
-	void Copy(SceneObject* src);
+	void Copy(SceneObject* src) override;
 #endif
 };
 

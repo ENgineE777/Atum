@@ -106,10 +106,8 @@ void SceneScriptAsset::NodeScriptMethod::Load(JSONReader& loader)
 	{
 		loader.EnterBlock("Link");
 
-		link = new LinkToMethod();
-
-		loader.Read("node", link->node);
-		loader.Read("param", ((LinkToMethod*)link)->param);
+		loader.Read("node", link.node);
+		loader.Read("param", link.param);
 
 		loader.LeaveBlock();
 	}
@@ -126,12 +124,12 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 
 	saver.StartArray("Link");
 
-	for (auto link : links)
+	for (auto& link : links)
 	{
 		saver.StartBlock(nullptr);
 
-		saver.Write("node", link->node);
-		saver.Write("param", ((LinkToMethod*)link)->param.c_str());
+		saver.Write("node", link.node);
+		saver.Write("param", link.param.c_str());
 
 		saver.FinishBlock();
 	}
@@ -177,17 +175,17 @@ void SceneScriptAsset::Load(JSONReader& loader)
 
 		loader.Read("type", type);
 
-		if (type == ScnCallback)
+		if (type == NodeType::SceneCallback)
 		{
 			node = new NodeSceneObject();
 		}
 
-		if (type == ScriptProperty)
+		if (type == NodeType::ScriptProperty)
 		{
 			node = new NodeScriptProperty();
 		}
 
-		if (type == ScriptMethod)
+		if (type == NodeType::ScriptMethod)
 		{
 			node = new NodeScriptMethod();
 		}
@@ -252,6 +250,14 @@ bool SceneScriptAsset::Play()
 	mod = core.scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 	mod->AddScriptSection("script", (const char*)file.GetData(), file.GetSize());
 
+	if (StringUtils::IsEqual(GetName(), "MainScript"))
+	{
+		FileInMemory incl_file;
+		incl_file.Load("F:\\Work\\Atum\\Bin\\Projects\\SunnyLand\\GameMenuScript1635.sns");
+
+		mod->AddScriptSection("include", (const char*)incl_file.GetData(), incl_file.GetSize());
+	}
+
 	mod->Build();
 
 	if (main_class.c_str()[0])
@@ -280,7 +286,7 @@ bool SceneScriptAsset::Play()
 
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptMethod)
+		if (node->type == NodeType::ScriptMethod)
 		{
 			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
@@ -307,16 +313,6 @@ void SceneScriptAsset::Release()
 {
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptMethod)
-		{
-			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
-
-			for (auto& link : node_method->links)
-			{
-				delete link;
-			}
-		}
-
 		delete node;
 	}
 }
@@ -383,7 +379,7 @@ void SceneScriptAsset::EditorWork(float dt)
 void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 {
 	int index = 0;
-	for (auto node : nodes)
+	for (auto& node : nodes)
 	{
 		Color color = COLOR_CYAN;
 		if ((sel_node == index || target_link == index) && sel_link == -1)
@@ -394,9 +390,9 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos - Sprite::ed_cam_pos, nodeSize, color);
 		editor_drawer.PrintText(node->pos + Vector2(5.0f + (node->type == ScriptMethod ? 15.0f : 0.0f), 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
 
-		if (node->type == ScnCallback)
+		if (node->type == NodeType::SceneCallback)
 		{
-			Color color = (sel_link != -1 && ((NodeScriptMethod*)nodes[sel_node])->links[sel_link]->node == index) ? COLOR_GREEN : COLOR_WHITE;
+			Color color = (sel_link != -1 && ((NodeScriptMethod*)nodes[sel_node])->links[sel_link].node == index) ? COLOR_GREEN : COLOR_WHITE;
 
 			if (link_drag && sel_node == index)
 			{
@@ -415,7 +411,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 		const char* names[] = {"Callback", "Property", "Method"};
 		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
 
-		if (inst && (node->type == ScnCallback || node->type == ScriptProperty))
+		if (inst && (node->type == NodeType::SceneCallback || node->type == NodeType::ScriptProperty))
 		{
 			SceneScriptInst::Node& scene_node = inst->nodes[index];
 
@@ -433,17 +429,17 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 	index = 0;
 	for (auto node : nodes)
 	{
-		if (node->type == ScriptMethod)
+		if (node->type == NodeType::ScriptMethod)
 		{
 			int link_index = 0;
-			for (auto link : ((NodeScriptMethod*)node)->links)
+			for (auto& link : ((NodeScriptMethod*)node)->links)
 			{
-				Vector2 p1 = nodes[link->node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
+				Vector2 p1 = nodes[link.node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
 				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f) - Sprite::ed_cam_pos;
 
 				editor_drawer.DrawCurve(p1, p2, (index == sel_node && link_index == sel_link) ? COLOR_GREEN : COLOR_WHITE);
 
-				link->arrow_pos = nodes[link->node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
+				link.arrow_pos = nodes[link.node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
 				link_index++;
 			}
 		}
@@ -523,8 +519,8 @@ void SceneScriptAsset::OnLeftMouseDown(Vector2 ms)
 
 			for (auto& link : ((NodeScriptMethod*)node)->links)
 			{
-				if (link->arrow_pos.x < ms.x && ms.x < link->arrow_pos.x + linkSize.x &&
-					link->arrow_pos.y < ms.y && ms.y < link->arrow_pos.y + linkSize.y)
+				if (link.arrow_pos.x < ms.x && ms.x < link.arrow_pos.x + linkSize.x &&
+					link.arrow_pos.y < ms.y && ms.y < link.arrow_pos.y + linkSize.y)
 				{
 					sel_node = index;
 					sel_link = link_index;
@@ -543,7 +539,7 @@ void SceneScriptAsset::OnLeftMouseDown(Vector2 ms)
 
 		Node* node = nodes[sel_node];
 
-		if (node->type == ScnCallback)
+		if (node->type == NodeType::SceneCallback)
 		{
 			if (node->pos.x + nodeSize.x - 15.0f - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
 				node->pos.y + 30.0f - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + 45.0f - Sprite::ed_cam_pos.y)
@@ -563,7 +559,7 @@ void SceneScriptAsset::OnLeftMouseUp()
 {
 	if (link_drag && target_link != -1)
 	{
-		if ((nodes[sel_node]->type == ScnCallback && nodes[target_link]->type == ScriptMethod))
+		if ((nodes[sel_node]->type == NodeType::SceneCallback && nodes[target_link]->type == NodeType::ScriptMethod))
 		{
 			int tmp = sel_node;
 			sel_node = target_link;
@@ -573,7 +569,7 @@ void SceneScriptAsset::OnLeftMouseUp()
 		Node* node = nodes[sel_node];
 		Node* traget = nodes[target_link];
 
-		if (node->type == ScriptMethod && traget->type == ScnCallback)
+		if (node->type == NodeType::ScriptMethod && traget->type == NodeType::SceneCallback)
 		{
 			NodeScriptMethod* method_node = (NodeScriptMethod*)node;
 
@@ -581,7 +577,7 @@ void SceneScriptAsset::OnLeftMouseUp()
 
 			for (auto& link : method_node->links)
 			{
-				if (link->node == target_link)
+				if (link.node == target_link)
 				{
 					allow_add = false;
 					break;
@@ -590,9 +586,9 @@ void SceneScriptAsset::OnLeftMouseUp()
 
 			if (allow_add)
 			{
-				LinkToMethod* link = new LinkToMethod();
+				LinkToMethod link;
 
-				link->node = target_link;
+				link.node = target_link;
 
 				method_node->links.push_back(link);
 			}
@@ -629,7 +625,7 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 	if (id == 5001)
 	{
 		NodeSceneObject* scene_node = new NodeSceneObject();
-		scene_node->type = ScnCallback;
+		scene_node->type = NodeType::SceneCallback;
 		scene_node->name = "Object";
 		node = scene_node;
 	}
@@ -637,7 +633,7 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 	if (id == 5002)
 	{
 		NodeScriptProperty* prop_node = new NodeScriptProperty();
-		prop_node->type = ScriptProperty;
+		prop_node->type = NodeType::ScriptProperty;
 		prop_node->name = "property";
 		node = prop_node;
 	}
@@ -645,7 +641,7 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 	if (id == 5003)
 	{
 		NodeScriptMethod* method_node = new NodeScriptMethod();
-		method_node->type = ScriptMethod;
+		method_node->type = NodeType::ScriptMethod;
 		method_node->name = "method";
 		node = method_node;
 	}
@@ -671,35 +667,25 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 		{
 			Node* node = nodes[sel_node];
 
-			if (node->type == ScriptMethod)
-			{
-				NodeScriptMethod* node_method = (NodeScriptMethod*)nodes[sel_node];
-
-				for (auto& link : node_method->links)
-				{
-					delete link;
-				}
-			}
-			else
+			if (node->type != NodeType::ScriptMethod)
 			{
 				for (auto& nd : nodes)
 				{
-					if (nd->type == ScriptMethod)
+					if (nd->type == NodeType::ScriptMethod)
 					{
 						NodeScriptMethod* node_method = (NodeScriptMethod*)nd;
 
 						int index = 0;
 						for (auto& link : node_method->links)
 						{
-							if (link->node == sel_node)
+							if (link.node == sel_node)
 							{
-								delete link;
 								node_method->links.erase(node_method->links.begin() + index);
 							}
 							else
-							if (link->node > sel_node)
+							if (link.node > sel_node)
 							{
-								link->node--;
+								link.node--;
 							}
 
 							index++;
@@ -727,9 +713,48 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 			int link = sel_link;
 			ShowProperties(false);
 
-			delete node_method->links[link];
 			node_method->links.erase(node_method->links.begin() + link);
 		}
+	}
+}
+
+void SceneScriptAsset::Copy(SceneObject* src)
+{
+	SceneAsset::Copy(src);
+
+	int type = 0;
+
+	SceneScriptAsset* src_asset = (SceneScriptAsset*)src;
+
+	nodes.resize(src_asset->nodes.size());
+
+	for (int i = 0; i < nodes.size(); i++)
+	{
+		Node* node = nullptr;
+
+		switch (src_asset->nodes[i]->type)
+		{
+			case NodeType::SceneCallback:
+			{
+				node = new NodeSceneObject();
+				*((NodeSceneObject*)node) = *((NodeSceneObject*)src_asset->nodes[i]);
+				break;
+			}
+			case NodeType::ScriptProperty:
+			{
+				node = new NodeScriptProperty();
+				*((NodeScriptProperty*)node) = *((NodeScriptProperty*)src_asset->nodes[i]);
+				break;
+			}
+			case NodeType::ScriptMethod:
+			{
+				node = new NodeScriptMethod();
+				*((NodeScriptMethod*)node) = *((NodeScriptMethod*)src_asset->nodes[i]);
+				break;
+			}
+		}
+
+		nodes[i] = node;
 	}
 }
 
@@ -746,11 +771,11 @@ void SceneScriptAsset::ShowProperties(bool show)
 	{
 		if (sel_node != -1 && sel_link != -1)
 		{
-			LinkToMethod* link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
-			if (link->GetMetaData())
+			LinkToMethod& link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
+			if (link.GetMetaData())
 			{
-				link->GetMetaData()->Prepare(link);
-				link->GetMetaData()->PrepareWidgets(ed_obj_cat);
+				link.GetMetaData()->Prepare(&link);
+				link.GetMetaData()->PrepareWidgets(ed_obj_cat);
 			}
 		}
 		else
@@ -765,10 +790,10 @@ void SceneScriptAsset::ShowProperties(bool show)
 	{
 		if (sel_node != -1 && sel_link != -1)
 		{
-			LinkToMethod* link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
-			if (link->GetMetaData())
+			LinkToMethod& link = ((NodeScriptMethod*)nodes[sel_node])->links[sel_link];
+			if (link.GetMetaData())
 			{
-				link->GetMetaData()->HideWidgets();
+				link.GetMetaData()->HideWidgets();
 			}
 		}
 		else

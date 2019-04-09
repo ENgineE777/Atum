@@ -114,9 +114,27 @@ void SceneScriptInst::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
+bool SceneScriptInst::InjectIntoScript(const char* type, void* property, const char* prefix)
+{
+	if (!StringUtils::IsEqual(type, Asset()->main_class.c_str()))
+	{
+		return false;
+	}
+
+	class_inst->AddRef();
+	*(asPWORD*)(property) = (asPWORD)class_inst;
+
+	return true;
+}
+
 bool SceneScriptInst::PostPlay()
 {
 	class_inst = (asIScriptObject*)core.scripts.engine->CreateScriptObject(Asset()->class_type);
+
+	if (!class_inst)
+	{
+		return false;
+	}
 
 	core.scripts.RegisterClassInstance(class_inst);
 
@@ -168,9 +186,9 @@ bool SceneScriptInst::PostPlay()
 
 			if (node_method->param_type != 3)
 			{
-				for (auto link : node_method->links)
+				for (auto& link : node_method->links)
 				{
-					Node& node_inst = nodes[link->node];
+					Node& node_inst = nodes[link.node];
 
 					if (!node_inst.object)
 					{
@@ -194,12 +212,12 @@ bool SceneScriptInst::PostPlay()
 						{
 							if (node_method->param_type == 1)
 							{
-								callback->SetIntParam(atoi(link->param.c_str()));
+								callback->SetIntParam(atoi(link.param.c_str()));
 							}
 							else
 							if (node_method->param_type == 2)
 							{
-								callback->SetStringParam(link->param);
+								callback->SetStringParam(link.param);
 							}
 
 							if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
@@ -210,7 +228,7 @@ bool SceneScriptInst::PostPlay()
 					}
 					else
 					{
-						core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link->node]->name.c_str());
+						core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link.node]->name.c_str());
 					}
 				}
 			}
@@ -263,7 +281,7 @@ void SceneScriptInst::Stop()
 			{
 				for (auto link : node_method->links)
 				{
-					Node& node_inst = nodes[link->node];
+					Node& node_inst = nodes[link.node];
 
 					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
 					{
@@ -310,6 +328,11 @@ Vector2& SceneScriptInst::Camera2DPos()
 }
 
 #ifdef EDITOR
+void SceneScriptInst::Copy(SceneObject* src)
+{
+	SceneObjectInst::Copy(src);
+	nodes = ((SceneScriptInst*)src)->nodes;
+}
 
 void SceneScriptInst::EditorWork(float dt)
 {
@@ -346,7 +369,7 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + Asset()->nodeSize.x - Sprite::ed_cam_pos.x &&
 			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + Asset()->nodeSize.y - Sprite::ed_cam_pos.y)
 		{
-			if (node->type == SceneScriptAsset::ScnCallback || node->type == SceneScriptAsset::ScriptProperty)
+			if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
 			{
 				Node& nd = nodes[index];
 
@@ -400,7 +423,7 @@ void SceneScriptInst::OnPopupMenuItem(int id)
 
 void SceneScriptInst::ShowProperties(bool show)
 {
-	if (Asset()->sel_node != -1 && Asset()->sel_link == -1 && Asset()->nodes[Asset()->sel_node]->type == SceneScriptAsset::ScnCallback)
+	if (Asset()->sel_node != -1 && Asset()->sel_link == -1 && Asset()->nodes[Asset()->sel_node]->type == SceneScriptAsset::NodeType::SceneCallback)
 	{
 		if (show)
 		{

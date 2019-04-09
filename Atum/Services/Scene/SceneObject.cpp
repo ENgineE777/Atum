@@ -777,6 +777,7 @@ void SceneObjectInst::Copy(SceneObject* src)
 {
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;
 
+	cam2d_pos = src->Camera2DPos();
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();

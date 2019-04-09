@@ -37,6 +37,7 @@ public:
 	void Save(JSONWriter& saver) override;
 	void Work(float dt);
 
+	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
 	bool PostPlay() override;
 	void Stop() override;
 
@@ -45,6 +46,8 @@ public:
 	Vector2& Camera2DPos() override;
 
 #ifdef EDITOR
+
+	void Copy(SceneObject* src) override;
 
 	void EditorWork(float dt);
 

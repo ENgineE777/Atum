@@ -612,7 +612,6 @@ void SceneScriptAsset::OnRightMouseDown(Vector2 ms)
 	ed_popup_menu->AddItem(5003, "Method");
 	ed_popup_menu->EndSubMenu();
 
-	ed_popup_menu->AddItem(5004, "Duplicate", (sel_node != -1 && sel_link == -1));
 	ed_popup_menu->AddItem(5005, "Delete", (sel_node != -1));
 
 	ed_popup_menu->ShowAsPopup(ed_vieport, (int)ms.x, (int)ms.y);
@@ -657,38 +656,31 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 		}
 	}
 
-	if (id == 5004)
-	{
-	}
-
 	if (id == 5005)
 	{
 		if (sel_link == -1)
 		{
 			Node* node = nodes[sel_node];
 
-			if (node->type != NodeType::ScriptMethod)
+			for (auto& nd : nodes)
 			{
-				for (auto& nd : nodes)
+				if (nd->type == NodeType::ScriptMethod)
 				{
-					if (nd->type == NodeType::ScriptMethod)
+					NodeScriptMethod* node_method = (NodeScriptMethod*)nd;
+
+					for (int i = 0; i < node_method->links.size(); i++)
 					{
-						NodeScriptMethod* node_method = (NodeScriptMethod*)nd;
+						auto& link = node_method->links[i];
 
-						int index = 0;
-						for (auto& link : node_method->links)
+						if (link.node == sel_node)
 						{
-							if (link.node == sel_node)
-							{
-								node_method->links.erase(node_method->links.begin() + index);
-							}
-							else
-							if (link.node > sel_node)
-							{
-								link.node--;
-							}
-
-							index++;
+							node_method->links.erase(node_method->links.begin() + i);
+							i--;
+						}
+						else
+						if (link.node > sel_node)
+						{
+							link.node--;
 						}
 					}
 				}

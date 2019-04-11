@@ -99,6 +99,7 @@ void Physics::DestroyScene(PhysScene* scene)
 		{
 			scenes.erase(scenes.begin() + i);
 			scene->Release();
+			break;
 		}
 	}
 }

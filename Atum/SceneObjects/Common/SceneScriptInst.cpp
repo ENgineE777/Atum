@@ -242,7 +242,7 @@ bool SceneScriptInst::PostPlay()
 
 void SceneScriptInst::Work(float dt)
 {
-	if (!Playing())
+	if (!Playing() || !class_inst)
 	{
 		return;
 	}

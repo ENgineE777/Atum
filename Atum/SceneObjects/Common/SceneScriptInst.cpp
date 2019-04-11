@@ -116,7 +116,7 @@ void SceneScriptInst::Save(JSONWriter& saver)
 
 bool SceneScriptInst::InjectIntoScript(const char* type, void* property, const char* prefix)
 {
-	if (!StringUtils::IsEqual(type, Asset()->main_class.c_str()))
+	if (!class_inst || !StringUtils::IsEqual(type, Asset()->main_class.c_str()))
 	{
 		return false;
 	}

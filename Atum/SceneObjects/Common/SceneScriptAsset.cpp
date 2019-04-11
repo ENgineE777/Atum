@@ -155,6 +155,8 @@ void SceneScriptAsset::Init()
 
 #ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScriptAsset::EditorWork);
+
+	GetOwner()->AddToGroup(this, "AssetScripts");
 #endif
 }
 
@@ -237,6 +239,13 @@ void SceneScriptAsset::SetName(const char* set_name)
 
 bool SceneScriptAsset::Play()
 {
+	if (played)
+	{
+		return true;
+	}
+
+	played = true;
+
 	string filename;
 	GetScriptFileName(filename);
 
@@ -248,15 +257,44 @@ bool SceneScriptAsset::Play()
 	}
 
 	mod = core.scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
-	mod->AddScriptSection("script", (const char*)file.GetData(), file.GetSize());
 
-	if (StringUtils::IsEqual(GetName(), "MainScript"))
+	string src = (const char*)file.GetData();
+
+	const char* incl = strstr(src.c_str(), "#import \"");
+
+	while (incl)
 	{
-		FileInMemory incl_file;
-		incl_file.Load("F:\\Work\\Atum\\Bin\\Projects\\SunnyLand\\GameMenuScript1635.sns");
+		int64_t index_from = incl - src.c_str();
+		int64_t index_to = index_from + 9;
 
-		mod->AddScriptSection("include", (const char*)incl_file.GetData(), incl_file.GetSize());
+		while (src[index_to] != '"' || src[index_to] == 0)
+		{
+			index_to++;
+		}
+
+		if (src[index_to] == 0)
+		{
+			break;
+		}
+
+		char name[256];
+		int64_t len = index_to - index_from - 9;
+		memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
+		name[len] = 0;
+
+		auto* object = GetOwner()->FindInGroup("AssetScripts", name);
+
+		if (object)
+		{
+			object->Play();
+		}
+
+		src.erase(index_from, index_to - index_from + 1);
+
+		incl = strstr(src.c_str(), "#import \"");
 	}
+
+	mod->AddScriptSection(GetName(), src.c_str(), src.size());
 
 	mod->Build();
 

@@ -1,5 +1,5 @@
 
-class GameMenu
+shared class GameMenu
 {
 	UIImage@ heart1;
     UIImage@ heart2;

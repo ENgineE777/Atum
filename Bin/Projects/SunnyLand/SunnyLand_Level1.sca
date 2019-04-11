@@ -640,6 +640,138 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 966624,
+			"ed_camera_2d" :
+			{
+				"x" : 313.000000,
+				"y" : -24.000000
+			},
+			"Name" : "BossCatScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "BossCat",
+			"Count" : 10,
+			"Node" : [
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 821.000000,
+						"y" : 334.000000
+					},
+					"param_type" : 3,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "boss_cards",
+					"pos" :
+					{
+						"x" : 729.000000,
+						"y" : 234.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "OnCardContact",
+					"pos" :
+					{
+						"x" : 730.000000,
+						"y" : 446.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnCardContact",
+					"pos" :
+					{
+						"x" : 938.000000,
+						"y" : 446.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 2,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "fake_card",
+					"pos" :
+					{
+						"x" : 918.000000,
+						"y" : 234.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_markers",
+					"pos" :
+					{
+						"x" : 917.000000,
+						"y" : 119.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_inst",
+					"pos" :
+					{
+						"x" : 731.000000,
+						"y" : 116.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 481.000000,
+						"y" : 235.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 727.000000,
+						"y" : 544.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 935.000000,
+						"y" : 545.000000
+					},
+					"param_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 8,
+							"param" : ""
+						}
+					]
+				}
+			]
 		}
 	],
 	"SceneObject" : [
@@ -690,15 +822,15 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 69.000000,
-				"y" : 454.000000
+				"x" : 234.000000,
+				"y" : -11.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 52,
+			"Count" : 46,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -776,26 +908,6 @@
 					"callback_type" : "OnContact"
 				},
 				{
-					"object_uid" : 1269363584,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 1269363584,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : -1182418176,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
 					"object_uid" : 140016704,
 					"object_child_uid" : 0,
 					"callback_type" : ""
@@ -861,17 +973,7 @@
 					"callback_type" : ""
 				},
 				{
-					"object_uid" : 1773631360,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
-				},
-				{
 					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
-				},
-				{
-					"object_uid" : 361006912,
 					"object_child_uid" : 0,
 					"callback_type" : "OnContact"
 				},
@@ -16971,6 +17073,73 @@
 				]
 			},
 			"asset_uid" : -2112705280
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 243959,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BossCatScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 966624,
+			"Count" : 10,
+			"Node" : [
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 1269363584,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 1269363584,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : -1182418176,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 1773631360,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 361006912,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 2133115008,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 1485033472,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -17334,6 +17503,17 @@
 					"scene" : "SunnyLand_Level1.sca",
 					"inst_uid" : -1800360448,
 					"inst_name" : "TreeSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 966624,
+			"asset_name" : "BossCatScript",
+			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 243959,
+					"inst_name" : "BossCatScript"
 				}
 			]
 		}

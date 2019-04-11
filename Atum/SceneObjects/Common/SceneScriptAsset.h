@@ -65,6 +65,8 @@ public:
 		void Save(JSONWriter& saver) override;
 	};
 
+	bool played = false;
+
 	vector<Node*> nodes;
 	string main_class;
 

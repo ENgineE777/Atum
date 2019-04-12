@@ -63,7 +63,7 @@ public:
 
 protected:
 
-	Scene * owner = nullptr;
+	Scene* owner = nullptr;
 	std::string name;
 	std::string group_name;
 	std::string layer_name;
@@ -78,7 +78,7 @@ protected:
 
 public:
 
-	inline Scene * GetOwner()
+	inline Scene* GetOwner()
 	{
 		return owner;
 	}
@@ -87,7 +87,7 @@ public:
 	const char* script_class_name = nullptr;
 
 #ifdef EDITOR
-	static EUITreeView *  ed_asset_treeview;
+	static EUITreeView*   ed_asset_treeview;
 	static EUICategories* ed_obj_cat;
 	static EUIMenu*       ed_popup_menu;
 	static EUIPanel*      ed_vieport;

@@ -57,11 +57,16 @@ bool Tank::Play()
 {
 	time = 0.0f;
 
-	Scene::Group& group = owner->GetGroup("TankClient");
+	vector<Scene::Group*> out_groups;
+	GetOwner()->GetGroup(out_groups, "TankClient");
 
-	if (group.objects.size() > 0)
+	for (auto group : out_groups)
 	{
-		client = (TankClient*)group.objects[0];
+		if (group->objects.size() > 0)
+		{
+			client = (TankClient*)group->objects[0];
+			break;
+		}
 	}
 
 /*	if (netClient.Connect("192.168.0.19", 7890))
@@ -290,58 +295,65 @@ void Tank::Update(float dt)
 
 	if (!bonuses_places)
 	{
-		Scene::Group& group_bot = owner->GetGroup("Bot");
+		vector<Scene::Group*> out_group_bot;
+		GetOwner()->GetGroup(out_group_bot, "Bot");
 
 		int index = 100;
 
-		for (auto& obj : group_bot.objects)
+		for (auto group : out_group_bot)
 		{
-			AddInstance(index, obj->Trans().Pos(), false);
+			for (auto& obj : group->objects)
+			{
+				AddInstance(index, obj->Trans().Pos(), false);
 
-			index++;
+				index++;
+			}
 		}
 
-		Scene::Group& group = owner->GetGroup("Terrain");
+		vector<Scene::Group*> out_group;
+		GetOwner()->GetGroup(out_group, "Terrain");
 
 		PhysScene::RaycastDesc rcdesc;
 
-		if (group.objects.size() > 0)
+		for (auto group : out_group)
 		{
-			Terrain* terrain = (Terrain*)group.objects[0];
-
-			float square = 25.0f;
-			float gap = 10.0f;
-
-
-			float z = -terrain->hheight * 0.5f * terrain->scaleh + gap;
-
-			while (z + square < terrain->hheight * 0.5f * terrain->scaleh)
+			if (group->objects.size() > 0)
 			{
-				float x = -terrain->hwidth * 0.5f * terrain->scaleh + gap;
+				Terrain* terrain = (Terrain*)group->objects[0];
 
-				while (x + square < terrain->hwidth * 0.5f * terrain->scaleh)
+				float square = 25.0f;
+				float gap = 10.0f;
+
+				float z = -terrain->hheight * 0.5f * terrain->scaleh + gap;
+
+				while (z + square < terrain->hheight * 0.5f * terrain->scaleh)
 				{
-					bonuses.push_back(Bonus());
+					float x = -terrain->hwidth * 0.5f * terrain->scaleh + gap;
 
-					Bonus& bonus = bonuses[bonuses.size() - 1];
-
-					bonus.type = (int)(3.0f * rnd() * 0.999f);
-					bonus.pos = Vector(x + square * rnd(), 25.0f, z + square * rnd());
-
-					rcdesc.origin = bonus.pos;
-					rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
-					rcdesc.length = 100.0f;
-					rcdesc.group = 1;
-
-					if (PScene()->RayCast(rcdesc))
+					while (x + square < terrain->hwidth * 0.5f * terrain->scaleh)
 					{
-						bonus.pos.y = rcdesc.hitPos.y + 0.75f;
+						bonuses.push_back(Bonus());
+
+						Bonus& bonus = bonuses[bonuses.size() - 1];
+
+						bonus.type = (int)(3.0f * rnd() * 0.999f);
+						bonus.pos = Vector(x + square * rnd(), 25.0f, z + square * rnd());
+
+						rcdesc.origin = bonus.pos;
+						rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
+						rcdesc.length = 100.0f;
+						rcdesc.group = 1;
+
+						if (PScene()->RayCast(rcdesc))
+						{
+							bonus.pos.y = rcdesc.hitPos.y + 0.75f;
+						}
+
+						x += square + gap;
 					}
 
-					x += square + gap;
+					z += square + gap;
 				}
-
-				z += square + gap;
 			}
 		}
 
@@ -663,23 +675,27 @@ void Tank::Update(float dt)
 
 void Tank::AddSplash(Vector& pos, float radius, float force)
 {
-	Scene::Group& bgroup = owner->GetGroup("PhysBox");
+	vector<Scene::Group*> out_group;
+	GetOwner()->GetGroup(out_group, "PhysBox");
 
-	for (int i = 0; i < bgroup.objects.size(); i++)
+	for (auto group : out_group)
 	{
-		PhysBox* box = (PhysBox*)bgroup.objects[i];
-
-		if (box->isStatic)
+		for (int i = 0; i < group->objects.size(); i++)
 		{
-			continue;
-		}
+			PhysBox* box = (PhysBox*)group->objects[i];
 
-		Vector dir = box->Trans().Pos() - pos;
-		float len = dir.Normalize();
+			if (box->isStatic)
+			{
+				continue;
+			}
 
-		if (len < radius)
-		{
-			box->obj->AddForceAt(pos, dir * len / radius * force);
+			Vector dir = box->Trans().Pos() - pos;
+			float len = dir.Normalize();
+
+			if (len < radius)
+			{
+				box->obj->AddForceAt(pos, dir * len / radius * force);
+			}
 		}
 	}
 }

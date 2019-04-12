@@ -208,20 +208,24 @@ void SimpleCharacter2D::Draw(float dt)
 
 SimpleCharacter2D* SimpleCharacter2D::FindTarget()
 {
-	auto& group = owner->GetGroup("SimpleCharacter2D");
+	vector<Scene::Group*> out_group;
+	GetOwner()->GetGroup(out_group, "SimpleCharacter2D");
 
-	for (auto& object : group.objects)
+	for (auto group : out_group)
 	{
-		SimpleCharacter2D* chraracter = (SimpleCharacter2D*)object;
-
-		if (chraracter->cur_hp <= 0)
+		for (auto& object : group->objects)
 		{
-			continue;
-		}
+			SimpleCharacter2D* chraracter = (SimpleCharacter2D*)object;
 
-		if (chraracter->is_enemy == !is_enemy)
-		{
-			return chraracter;
+			if (chraracter->cur_hp <= 0)
+			{
+				continue;
+			}
+
+			if (chraracter->is_enemy == !is_enemy)
+			{
+				return chraracter;
+			}
 		}
 	}
 
@@ -383,29 +387,33 @@ void SimpleCharacter2D::ControlEnemy(float dt)
 
 void SimpleCharacter2D::MakeHit(Vector2 pos, int damage)
 {
-	auto& group = owner->GetGroup("SimpleCharacter2D");
+	vector<Scene::Group*> out_group;
+	GetOwner()->GetGroup(out_group, "SimpleCharacter2D");
 
-	for (auto& object : group.objects)
+	for (auto group : out_group)
 	{
-		SimpleCharacter2D* chraracter = (SimpleCharacter2D*)object;
-
-		if (chraracter->is_enemy == !is_enemy && chraracter->cur_hp > 0)
+		for (auto& object : group->objects)
 		{
-			if ((chraracter->trans.pos.x - 85.0f) < pos.x && pos.x < (chraracter->trans.pos.x + 85.0f) && fabs(chraracter->trans.pos.y - pos.y) < 15.0f)
+			SimpleCharacter2D* chraracter = (SimpleCharacter2D*)object;
+
+			if (chraracter->is_enemy == !is_enemy && chraracter->cur_hp > 0)
 			{
-				if (chraracter->graph_instance.ActivateLink("Hit"))
+				if ((chraracter->trans.pos.x - 85.0f) < pos.x && pos.x < (chraracter->trans.pos.x + 85.0f) && fabs(chraracter->trans.pos.y - pos.y) < 15.0f)
 				{
-					chraracter->cur_hp -= damage;
-
-					chraracter->cur_time_to_kick = -1.0f;
-					chraracter->allow_move = false;
-
-					if (chraracter->cur_hp <= 0)
+					if (chraracter->graph_instance.ActivateLink("Hit"))
 					{
-						chraracter->cur_hp = 0;
-						chraracter->target = nullptr;
-						chraracter->graph_instance.GotoNode("Death");
-						chraracter->death_fly = 0.75f;
+						chraracter->cur_hp -= damage;
+
+						chraracter->cur_time_to_kick = -1.0f;
+						chraracter->allow_move = false;
+
+						if (chraracter->cur_hp <= 0)
+						{
+							chraracter->cur_hp = 0;
+							chraracter->target = nullptr;
+							chraracter->graph_instance.GotoNode("Death");
+							chraracter->death_fly = 0.75f;
+						}
 					}
 				}
 			}

@@ -83,11 +83,16 @@ void HoverTank::Init()
 
 bool HoverTank::Play()
 {
-	Scene::Group& group = owner->GetGroup("Terrain");
+	vector<Scene::Group*> out_group;
+	GetOwner()->GetGroup(out_group, "Terrain");
 
-	if (group.objects.size() > 0)
+	for (auto group : out_group)
 	{
-		terrain = (Terrain*)group.objects[0];
+		if (group->objects.size() > 0)
+		{
+			terrain = (Terrain*)group->objects[0];
+			break;
+		}
 	}
 
 	PxTolerancesScale scl = mPhysics->getTolerancesScale();
@@ -158,35 +163,42 @@ bool HoverTank::Play()
 
 	angles = Vector2(0.0f, 0.0f);
 
-	Scene::Group& bgroup = owner->GetGroup("PhysBox");
-	boxes.resize(bgroup.objects.size());
+	vector<Scene::Group*> out_group_pb;
+	GetOwner()->GetGroup(out_group_pb, "PhysBox");
 
-	for (int i = 0; i < bgroup.objects.size(); i++)
+	for (auto group : out_group_pb)
 	{
-		boxes[i].obj = (PhysBox*)bgroup.objects[i];
-
-		PxReal density = 1.0f;
-
-		Quaternion q(boxes[i].obj->Trans());
-
-		PxTransform transform(PxVec3(boxes[i].obj->Trans().Pos().x, boxes[i].obj->Trans().Pos().y, boxes[i].obj->Trans().Pos().z), PxQuat(q.x, q.y, q.z, q.w));
-
-		PxVec3 dimensions(boxes[i].obj->sizeX * 0.5f, boxes[i].obj->sizeY * 0.5f, boxes[i].obj->sizeZ * 0.5f);
-		PxBoxGeometry geometry(dimensions);
-
-		if (boxes[i].obj->isStatic)
+		for (int i = 0; i < group->objects.size(); i++)
 		{
-			PxRigidStatic* plane = mPhysics->createRigidStatic(transform);
-			PxShape* shape = plane->createShape(geometry, *mMaterial);
-			mScene->addActor(*plane);
+			boxes.push_back(Box());
 
-			boxes[i].box = NULL;
-		}
-		else
-		{
-			boxes[i].box = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
-			boxes[i].box->setLinearVelocity(PxVec3(0, 0, 0));
-			mScene->addActor(*boxes[i].box);
+			Box& box = boxes[boxes.size() - 1];
+
+			box.obj = (PhysBox*)group->objects[i];
+
+			PxReal density = 1.0f;
+
+			Quaternion q(box.obj->Trans());
+
+			PxTransform transform(PxVec3(box.obj->Trans().Pos().x, box.obj->Trans().Pos().y, box.obj->Trans().Pos().z), PxQuat(q.x, q.y, q.z, q.w));
+
+			PxVec3 dimensions(box.obj->sizeX * 0.5f, box.obj->sizeY * 0.5f, box.obj->sizeZ * 0.5f);
+			PxBoxGeometry geometry(dimensions);
+
+			if (box.obj->isStatic)
+			{
+				PxRigidStatic* plane = mPhysics->createRigidStatic(transform);
+				PxShape* shape = plane->createShape(geometry, *mMaterial);
+				mScene->addActor(*plane);
+
+				box.box = nullptr;
+			}
+			else
+			{
+				box.box = PxCreateDynamic(*mPhysics, transform, geometry, *mMaterial, density);
+				box.box->setLinearVelocity(PxVec3(0, 0, 0));
+				mScene->addActor(*box.box);
+			}
 		}
 	}
 

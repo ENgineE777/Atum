@@ -652,27 +652,35 @@ void Scene::GenerateChildUID(SceneObject* obj)
 
 SceneObject* Scene::FindInGroup(const char* group_name, const char* name)
 {
-	Scene::Group& group = GetGroup(group_name);
+	vector<Group*> out_groups;
 
-	for (auto object : group.objects)
+	GetGroup(out_groups, group_name);
+
+	for (auto group : out_groups)
 	{
-		if (StringUtils::IsEqual(object->GetName(), name))
+		for (auto object : group->objects)
 		{
-			return object;
+			if (StringUtils::IsEqual(object->GetName(), name))
+			{
+				return object;
+			}
 		}
 	}
 
 	return nullptr;
 }
 
-Scene::Group& Scene::GetGroup(const char* name)
+void Scene::GetGroup(vector<Group*>& out_groups, const char* name)
 {
-	if (groups.find(name) == groups.end())
+	if (groups.find(name) != groups.end())
 	{
-		return emptyGroup;
+		out_groups.push_back(&groups[name]);
 	}
 
-	return groups[name];
+	for (auto& incl : inc_scenes)
+	{
+		incl->GetGroup(out_groups, name);
+	}
 }
 
 void Scene::AddToGroup(SceneObject* obj, const char* name)

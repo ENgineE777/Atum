@@ -132,11 +132,15 @@ void SceneManager::SetScenesGroupsState(const char* group_name, int state)
 	{
 		if (scn.scene)
 		{
-			Scene::Group& group = scn.scene->GetGroup(group_name);
+			vector<Scene::Group*> out_group;
+			scn.scene->GetGroup(out_group, group_name);
 
-			for (auto obj : group.objects)
+			for (auto group : out_group)
 			{
-				obj->SetState(state);
+				for (auto obj : group->objects)
+				{
+					obj->SetState(state);
+				}
 			}
 		}
 	}

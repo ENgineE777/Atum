@@ -49,7 +49,7 @@ private:
 	TaskExecutor::SingleTaskPool* taskPool = nullptr;
 	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 	bool playing = false;
-	Group emptyGroup;
+
 	std::map<std::string, Group> groups;
 
 	ScriptContext* script = nullptr;
@@ -60,7 +60,6 @@ private:
 	void Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const char* block);
 
 	void DeleteObjects(std::vector<SceneObject*>& objects);
-	SceneObject* FindByName(const char* name, std::vector<SceneObject*>& objects);
 	SceneObject* FindByUID(uint32_t uid, uint32_t parent_uid, std::vector<SceneObject*>& objects);
 
 	uint16_t uid = 0;
@@ -103,8 +102,9 @@ public:
 
 	void GenerateUID(SceneObject* obj, bool is_asset);
 	void GenerateChildUID(SceneObject* obj);
+
 	SceneObject* FindInGroup(const char* group_name, const char* name);
-	Group& GetGroup(const char* name);
+	void GetGroup(vector<Group*>& groups, const char* name);
 	void AddToGroup(SceneObject* obj, const char* name);
 	void DelFromGroup(SceneObject* obj, const char* name);
 	void DelFromAllGroups(SceneObject* obj, Scene* new_scene = nullptr);

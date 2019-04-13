@@ -83,8 +83,8 @@ public:
 	int          GetObjectsCount(bool is_asset);
 	void         DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
 
-	const char* GetScenePath();
-	const char* GetSceneName();
+	const char* GetPath();
+	const char* GetName();
 	void Clear();
 
 	void Load(const char* name);

@@ -238,12 +238,12 @@ int Scene::GetObjectIndex(SceneObject* object, bool is_asset)
 	return -1;
 }
 
-const char* Scene::GetScenePath()
+const char* Scene::GetPath()
 {
 	return scene_path;
 }
 
-const char* Scene::GetSceneName()
+const char* Scene::GetName()
 {
 	return scene_name;
 }

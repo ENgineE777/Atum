@@ -6,9 +6,9 @@
 
 SceneAsset::AssetInstance::AssetInstance(SceneObject* set_object)
 {
-	scene_path = set_object->GetOwner()->GetScenePath();
+	scene_path = set_object->GetOwner()->GetPath();
 	scene_path += "/";
-	scene_path += set_object->GetOwner()->GetSceneName();
+	scene_path += set_object->GetOwner()->GetName();
 	scene_path += ".sca";
 
 	inst_uid = set_object->GetUID();

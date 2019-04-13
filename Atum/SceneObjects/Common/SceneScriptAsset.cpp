@@ -144,7 +144,7 @@ void SceneScriptAsset::GetScriptFileName(string& filename)
 	StringUtils::Printf(str_id, 64, "%u", GetUID());
 	str_id[4] = 0;
 
-	StringUtils::Printf(str, 1024, "%s%s%s.sns", owner->GetScenePath(), GetName(), str_id);
+	StringUtils::Printf(str, 1024, "%s%s%s.sns", owner->GetPath(), GetName(), str_id);
 
 	filename = str;
 }

@@ -5,15 +5,23 @@
 class Scripts
 {
 public:
-	asIScriptEngine *engine = nullptr;
+	asIScriptEngine * engine = nullptr;
 	ScriptContext* class_instances_ctx = nullptr;
-	std::vector<asIScriptObject*> class_instances;
+
+	struct ClassInst
+	{
+		const char* scene_name = nullptr;
+		asIScriptObject* inst = nullptr;
+	};
+
+	std::vector<ClassInst> class_instances;
+
 public:
 	void Init();
 	void Start();
 	ScriptContext* CreateContext();
-	void RegisterClassInstance(asIScriptObject* inst);
-	void CallClassInstancesMethod(const char* method);
+	void RegisterClassInstance(const char* scene_name, asIScriptObject* inst);
+	void CallClassInstancesMethod(const char* scene_name, const char* class_name, const char* method);
 	void UnregisterClassInstance(asIScriptObject* inst);
 
 	void Stop();

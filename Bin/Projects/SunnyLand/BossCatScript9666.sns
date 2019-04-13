@@ -200,7 +200,7 @@ class BossCat
         game.MoveCharacter(cat_data, dt);
     }
 
-    void Respawn()
+    void OnRespawnHero()
     {
         boss_inst[0].active = false;
         boss_inst[0].graph.GotoNode("idle");

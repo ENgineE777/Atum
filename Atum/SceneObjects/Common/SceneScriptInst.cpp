@@ -136,7 +136,7 @@ bool SceneScriptInst::PostPlay()
 		return false;
 	}
 
-	core.scripts.RegisterClassInstance(class_inst);
+	core.scripts.RegisterClassInstance(GetOwner()->GetName(), class_inst);
 
 	int index = 0;
 

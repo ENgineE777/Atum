@@ -98,8 +98,11 @@ void Scene_Unload(asIScriptGeneric *gen)
 
 void Script_CallClassInstancesMethod(asIScriptGeneric *gen)
 {
-	string* arg = (string*)(gen->GetArgAddress(0));
-	core.scripts.CallClassInstancesMethod(arg->c_str());
+	string* scene_name = (string*)(gen->GetArgAddress(0));
+	string* class_name = (string*)(gen->GetArgAddress(1));
+	string* method_name = (string*)(gen->GetArgAddress(2));
+
+	core.scripts.CallClassInstancesMethod(scene_name->c_str(), class_name->c_str(), method_name->c_str());
 }
 
 void Scene_Raycast2D(asIScriptGeneric *gen)
@@ -189,7 +192,7 @@ void Scripts::Start()
 
 	engine->RegisterGlobalFunction("int Scene_Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(Scene_Raycast2D), asCALL_GENERIC);
 
-	engine->RegisterGlobalFunction("void Script_CallClassInstancesMethod(string&in alias)", asFUNCTION(Script_CallClassInstancesMethod), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("void Script_CallClassInstancesMethod(string&in scene, string&in class_name, string&in method)", asFUNCTION(Script_CallClassInstancesMethod), asCALL_GENERIC);
 
 	engine->RegisterGlobalFunction("int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(IsPointInTriangle_Generic), asCALL_GENERIC);
 
@@ -217,28 +220,37 @@ ScriptContext* Scripts::CreateContext()
 	return new ScriptContext(engine->CreateContext());
 }
 
-void Scripts::RegisterClassInstance(asIScriptObject* inst)
+void Scripts::RegisterClassInstance(const char* scene_name, asIScriptObject* inst)
 {
-	class_instances.push_back(inst);
+	ClassInst class_inst;
+	class_inst.scene_name = scene_name;
+	class_inst.inst = inst;
+	class_instances.push_back(class_inst);
 }
 
-void Scripts::CallClassInstancesMethod(const char* method)
+void Scripts::CallClassInstancesMethod(const char* scene_name, const char* class_name, const char* method)
 {
 	char prototype[256];
 	StringUtils::Printf(prototype, 256, "void %s()", method);
 
-	for (int index = 0; index < class_instances.size(); index++)
+	for (auto& class_inst : class_instances)
 	{
-		asIScriptFunction* method = class_instances[index]->GetObjectType()->GetMethodByDecl(prototype);
+		if ((scene_name[0] && !StringUtils::IsEqual(scene_name, scene_name)) ||
+			(class_name[0] && !StringUtils::IsEqual(class_name, class_inst.inst->GetObjectType()->GetName())))
+		{
+			continue;
+		}
+
+		asIScriptFunction* method = class_inst.inst->GetObjectType()->GetMethodByDecl(prototype);
 
 		if (method)
 		{
 			class_instances_ctx->ctx->Prepare(method);
-			class_instances_ctx->ctx->SetObject(class_instances[index]);
+			class_instances_ctx->ctx->SetObject(class_inst.inst);
 
 			if (class_instances_ctx->ctx->Execute() < 0)
 			{
-
+				core.Log("ScriptErr", "Error occured in call of '%s'", method);
 			}
 		}
 	}
@@ -248,7 +260,7 @@ void Scripts::UnregisterClassInstance(asIScriptObject* inst)
 {
 	for (int index = 0; index < class_instances.size(); index++)
 	{
-		if (class_instances[index] == inst)
+		if (class_instances[index].inst == inst)
 		{
 			class_instances.erase(class_instances.begin() + index);
 			break;

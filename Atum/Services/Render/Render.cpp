@@ -274,9 +274,9 @@ void Render::DebugPrintText(Vector pos, float dist, Color color, const char* tex
 	font->AddText(pos, dist, color, buffer);
 }
 
-void Render::DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color)
+void Render::DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color, Vector2 offset, float angle)
 {
-	sprites->AddSprite(texture, pos, size, color);
+	sprites->AddSprite(texture, pos, size, offset, angle, color);
 }
 
 Vector Render::TransformToScreen(Vector pos, int type)

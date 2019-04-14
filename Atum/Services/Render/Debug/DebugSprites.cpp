@@ -44,7 +44,7 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	prg = core.render.GetProgram("DbgSprite");
 }
 
-void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Color color)
+void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Vector2 offset, float angle, Color color)
 {
 	if (sprites.size()>1000) return;
 
@@ -55,6 +55,8 @@ void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Color 
 	spr->color = color;
 	spr->pos = pos;
 	spr->size = size;
+	spr->offset = offset;
+	spr->angle = angle;
 }
 
 void DebugSprites::Draw(float dt)
@@ -65,21 +67,22 @@ void DebugSprites::Draw(float dt)
 	core.render.GetDevice()->SetVertexBuffer( 0, vbuffer);
 
 	core.render.GetDevice()->SetProgram(prg);
-	Vector4 params[2];
+	Vector4 params[3];
 
-	for (int i=0;i<sprites.size();i++)
+	for (auto& sprite : sprites)
 	{
-		prg->SetTexture(Program::Pixel, "diffuseMap", sprites[i].texture ? sprites[i].texture : whiteTex);
-		prg->SetVector(Program::Pixel, "color", (Vector4*)&sprites[i].color.r, 1);
+		prg->SetTexture(Program::Pixel, "diffuseMap", sprite.texture ? sprite.texture : whiteTex);
+		prg->SetVector(Program::Pixel, "color", (Vector4*)&sprite.color.r, 1);
 
 		params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0, 0);
 
-		params[1] = Vector4(sprites[i].pos.x,sprites[i].pos.y,
-		                    sprites[i].size.x,sprites[i].size.y);
+		params[1] = Vector4(sprite.pos.x, sprite.pos.y, sprite.size.x, sprite.size.y);
 
-		prg->SetVector(Program::Vertex, "desc", params, 2);
+		params[2] = Vector4(sprite.offset.x, sprite.offset.y, sprite.angle, 0.0f);
 
-		core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2 );
+		prg->SetVector(Program::Vertex, "desc", params, 3);
+
+		core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 	}
 
 	sprites.clear();

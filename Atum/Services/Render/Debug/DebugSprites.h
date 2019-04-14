@@ -21,6 +21,8 @@ class DebugSprites : public Object
 		Color    color;
 		Vector2  pos;
 		Vector2  size;
+		Vector2  offset = 0.0f;
+		float    angle = 0.0f;
 	};
 
 	Texture* whiteTex = nullptr;
@@ -29,7 +31,7 @@ class DebugSprites : public Object
 public:
 
 	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddSprite(Texture* texture, Vector2 pos, Vector2 size, Color color);
+	void AddSprite(Texture* texture, Vector2 pos, Vector2 size, Vector2 offset, float angle, Color color);
 	void Draw(float dt);
 	void Release();
 };

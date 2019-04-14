@@ -1,6 +1,6 @@
 cbuffer vs_params : register( b0 )
 {
-    float4 desc[2];    
+    float4 desc[3];    
 };
 
 cbuffer ps_params : register( b0 )
@@ -25,15 +25,19 @@ SamplerState samLinear : register( s0 );
 
 PS_INPUT VS( VS_INPUT input )
 {
-	float4 posTemp = float4(desc[1].x + desc[1].z * input.position.x,
-						    desc[1].y + desc[1].w * input.position.y, 0, 0);
+	float4 posTemp = float4(desc[2].x + desc[1].z * input.position.x,
+	                        desc[2].y + desc[1].w * input.position.y,
+	                        cos(desc[2].z), sin(desc[2].z));
 
-	posTemp.z = -1.0f + posTemp.x/desc[0].x * 2.0;
-	posTemp.w = 1.0f - posTemp.y/desc[0].y * 2.0f;
+	float2 pos = float2(desc[1].x + posTemp.x * posTemp.z - posTemp.y * posTemp.w,
+						desc[1].y + posTemp.y * posTemp.z + posTemp.x * posTemp.w);
+
+	pos.x = -1.0f + pos.x/desc[0].x * 2.0;
+	pos.y =  1.0f - pos.y/desc[0].y * 2.0f;
 
 	PS_INPUT output;
 
-	output.position = float4( posTemp.z, posTemp.w, 0.5f, 1.0f);
+	output.position = float4(pos.x, pos.y, 0.5f, 1.0f);
 	output.texCoord = input.texCoord;    
 
 	return output;

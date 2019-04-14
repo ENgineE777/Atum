@@ -77,7 +77,7 @@ public:
 	void DebugTriangle2D(Vector2 p1, Vector2 p2, Vector2 p3, Color color);
 	void DebugPrintText(Vector2 pos, Color color, const char* text, ...);
 	void DebugPrintText(Vector pos, float dist, Color color, const char* text, ...);
-	void DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color = COLOR_WHITE);
+	void DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color = COLOR_WHITE, Vector2 offset = 0.0f, float angle = 0.0f);
 
 	Vector TransformToScreen(Vector pos, int type);
 

@@ -315,7 +315,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 		for (auto comp : obj->components)
 		{
-			comp->GetMetaData()->Prepare(obj);
+			comp->GetMetaData()->Prepare(comp);
 			comp->GetMetaData()->PostLoad();
 
 			comp->ApplyProperties();

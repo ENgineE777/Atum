@@ -1724,8 +1724,12 @@
 						"child_uid" : 0,
 						"is_asset" : true
 					},
-					"count" : 0,
+					"count" : 1,
 					"value" : [
+						{
+							"type" : 1,
+							"value" : 50
+						}
 					]
 				}
 			]
@@ -1925,8 +1929,12 @@
 						"child_uid" : 0,
 						"is_asset" : true
 					},
-					"count" : 0,
+					"count" : 1,
 					"value" : [
+						{
+							"type" : 1,
+							"value" : 75
+						}
 					]
 				}
 			]

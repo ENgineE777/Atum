@@ -328,6 +328,28 @@ Vector2& SceneScriptInst::Camera2DPos()
 }
 
 #ifdef EDITOR
+void SceneScriptInst::SetOwner(Scene* owner)
+{
+	SceneObjectInst::SetOwner(owner);
+
+	int index = 0;
+	for (auto& node : Asset()->nodes)
+	{
+		if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
+		{
+			Node& nd = nodes[index];
+
+			if (!GetOwner()->FindByUID(nd.object_uid, nd.object_child_uid, nd.object->IsAsset()))
+			{
+				nd = Node();
+			}
+
+		}
+
+		index++;
+	}
+}
+
 void SceneScriptInst::Copy(SceneObject* src)
 {
 	SceneObjectInst::Copy(src);
@@ -373,19 +395,28 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 			{
 				Node& nd = nodes[index];
 
-				nd.object = object;
-				nd.object->GetUIDs(nd.object_uid, nd.object_child_uid);
+				uint32_t object_uid = 0;
+				uint32_t object_child_uid = 0;
 
-				if (object->script_callbacks.size() > 0)
-				{
-					nd.callback_type = object->script_callbacks[0].GetName();
+				object->GetUIDs(object_uid, object_child_uid);
 
-					nd.GetMetaData()->Prepare(&nd);
-					nd.GetMetaData()->PrepareWidgets(ed_obj_cat);
-				}
-				else
+				if (GetOwner()->FindByUID(object_uid, object_child_uid, object->IsAsset()))
 				{
-					nd.callback_type = "";
+					nd.object = object;
+					nd.object_uid = object_uid;
+					nd.object_child_uid = object_child_uid;
+
+					if (object->script_callbacks.size() > 0)
+					{
+						nd.callback_type = object->script_callbacks[0].GetName();
+
+						nd.GetMetaData()->Prepare(&nd);
+						nd.GetMetaData()->PrepareWidgets(ed_obj_cat);
+					}
+					else
+					{
+						nd.callback_type = "";
+					}
 				}
 			}
 

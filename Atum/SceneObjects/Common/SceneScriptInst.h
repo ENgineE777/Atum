@@ -47,6 +47,7 @@ public:
 
 #ifdef EDITOR
 
+	void SetOwner(Scene* owner) override;
 	void Copy(SceneObject* src) override;
 
 	void EditorWork(float dt);

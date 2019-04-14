@@ -140,11 +140,7 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 void SceneScriptAsset::GetScriptFileName(string& filename)
 {
 	char str[1024];
-	char str_id[64];
-	StringUtils::Printf(str_id, 64, "%u", GetUID());
-	str_id[4] = 0;
-
-	StringUtils::Printf(str, 1024, "%s%s%s.sns", owner->GetPath(), GetName(), str_id);
+	StringUtils::Printf(str, 1024, "%s%s.sns", owner->GetPath(), GetName());
 
 	filename = str;
 }

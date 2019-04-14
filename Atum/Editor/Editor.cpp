@@ -1189,7 +1189,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		Project::SceneTreeItem* with = (Project::SceneTreeItem*)sender->GetItemPtr(item);
 		Project::SceneTreeItem* to = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
 
-		if (with->object)
+		if (with->object && to)
 		{
 			if (with->object->IsAsset())
 			{
@@ -1209,13 +1209,9 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			{
 				SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(with->object);
 
-				if (inst && !to->scene->FindByUID(inst->asset->GetUID(), 0, false))
+				if (inst && to && !to->scene->FindByUID(inst->asset->GetUID(), 0, false))
 				{
 					return false;
-				}
-				else
-				{
-
 				}
 			}
 		}

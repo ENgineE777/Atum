@@ -413,6 +413,30 @@ void SceneScriptAsset::EditorWork(float dt)
 void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 {
 	int index = 0;
+
+	index = 0;
+	for (auto node : nodes)
+	{
+		if (node->type == NodeType::ScriptMethod)
+		{
+			int link_index = 0;
+			for (auto& link : ((NodeScriptMethod*)node)->links)
+			{
+				Vector2 p1 = nodes[link.node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
+				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f) - Sprite::ed_cam_pos;
+
+				editor_drawer.DrawCurve(p1, p2, (index == sel_node && link_index == sel_link) ? COLOR_GREEN : COLOR_WHITE);
+
+				link.arrow_pos = nodes[link.node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
+				link_index++;
+			}
+		}
+
+		index++;
+	}
+
+	index = 0;
+
 	for (auto& node : nodes)
 	{
 		Color color = COLOR_CYAN;
@@ -455,27 +479,6 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 			}
 
 			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node.object ? scene_node.object->GetName() : "NULL");
-		}
-
-		index++;
-	}
-
-	index = 0;
-	for (auto node : nodes)
-	{
-		if (node->type == NodeType::ScriptMethod)
-		{
-			int link_index = 0;
-			for (auto& link : ((NodeScriptMethod*)node)->links)
-			{
-				Vector2 p1 = nodes[link.node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
-				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f) - Sprite::ed_cam_pos;
-
-				editor_drawer.DrawCurve(p1, p2, (index == sel_node && link_index == sel_link) ? COLOR_GREEN : COLOR_WHITE);
-
-				link.arrow_pos = nodes[link.node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
-				link_index++;
-			}
 		}
 
 		index++;

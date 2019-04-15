@@ -79,7 +79,16 @@ void EditorDrawer::DrawCurve(Vector2 from, Vector2 to, Color color)
 		float w4 = t * t *t;
 		Vector2 pos = w1 * from + w2 * p2 + w3 * p3 + w4 * to;
 
-		core.render.DebugLine2D(last, color, pos, color);
+		Vector2 dir = pos - last;
+		Vector2 size(dir.Length(), 2.0f);
+
+		Vector2 center = last + dir * 0.5f;
+
+		Matrix mat;
+		mat.RotateZ(atan2(dir.y / size.x, dir.x / size.x));
+		mat.Pos() = Vector(center.x, center.y, 0.01f);
+
+		Sprite::Draw(nullptr, color, mat, -0.5f * size, size, 0.0f, 1.0f, false);
 
 		last = pos;
 	}

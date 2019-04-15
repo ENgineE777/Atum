@@ -311,7 +311,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 	{
 		if (selectedObject->UsingCamera2DPos())
 		{
-			selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
+			selectedObject->cam2d_pos = Sprite::ed_cam_pos;
 			Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
 		}
 
@@ -348,7 +348,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		if (selectedObject->UsingCamera2DPos())
 		{
 			project.select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
-			Sprite::ed_cam_pos = selectedObject->Camera2DPos();
+			Sprite::ed_cam_pos = selectedObject->cam2d_pos;
 		}
 
 		int panel_width = 1;
@@ -558,7 +558,7 @@ void Editor::StopScene()
 	
 	if (selectedObject && selectedObject->UsingCamera2DPos())
 	{
-		Sprite::ed_cam_pos = selectedObject->Camera2DPos();
+		Sprite::ed_cam_pos = selectedObject->cam2d_pos;
 	}
 	else
 	if (project.select_scene)

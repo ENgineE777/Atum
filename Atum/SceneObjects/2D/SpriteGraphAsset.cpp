@@ -380,11 +380,6 @@ bool SpriteGraphAsset::UsingCamera2DPos()
 	return true;
 }
 
-Vector2& SpriteGraphAsset::Camera2DPos()
-{
-	return camera_pos;
-}
-
 Vector2 SpriteGraphAsset::GetDefaultSize()
 {
 	if (nodes.size() > 0)
@@ -541,7 +536,7 @@ void SpriteGraphAsset::ShowProperties(bool show)
 void SpriteGraphAsset::Copy(SceneObject* src)
 {
 	SpriteGraphAsset* src_graph = (SpriteGraphAsset*)src;
-	camera_pos = src_graph->camera_pos;
+	cam2d_pos = src_graph->cam2d_pos;
 	def_node = src_graph->def_node;
 
 	int count = (int)src_graph->nodes.size();

@@ -54,6 +54,7 @@ SceneObject* SceneAsset::CreateInstance(Scene* scene)
 
 	inst->asset_uid = GetUID();
 	inst->asset = this;
+	inst->cam2d_pos = cam2d_pos;
 	inst->ApplyProperties();
 	inst->SetName(GetName());
 

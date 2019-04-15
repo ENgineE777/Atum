@@ -69,7 +69,6 @@ protected:
 	std::string layer_name;
 	uint32_t uid = 0;
 	State state = Active;
-	Vector2 cam2d_pos = 0.0f;
 #ifdef EDITOR
 	bool edited = false;
 	TaskExecutor::SingleTaskPool* taskPool = nullptr;
@@ -87,6 +86,7 @@ public:
 	const char* script_class_name = nullptr;
 
 #ifdef EDITOR
+	Vector2 cam2d_pos = 0.0f;
 	static EUITreeView*   ed_asset_treeview;
 	static EUICategories* ed_obj_cat;
 	static EUIMenu*       ed_popup_menu;
@@ -107,7 +107,6 @@ public:
 	virtual State GetState();
 	virtual Matrix& Trans();
 	virtual bool UsingCamera2DPos();
-	virtual Vector2& Camera2DPos();
 
 	virtual SceneObjectComp* AddComponent(const char* name);
 	virtual void DelComponent(SceneObjectComp* comp);

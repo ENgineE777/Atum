@@ -647,7 +647,7 @@ void Project::SelectScene(SceneHolder* holder)
 	{
 		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
 		{
-			editor.selectedObject->Camera2DPos() = Sprite::ed_cam_pos;
+			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
 		}
 		else
 		{

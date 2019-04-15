@@ -334,11 +334,6 @@ bool SceneObject::UsingCamera2DPos()
 	return false;
 }
 
-Vector2& SceneObject::Camera2DPos()
-{
-	return cam2d_pos;
-}
-
 SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 {
 	auto decl = ClassFactorySceneObjectComp::Find(comp_name);
@@ -777,7 +772,7 @@ void SceneObjectInst::Copy(SceneObject* src)
 {
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;
 
-	cam2d_pos = src->Camera2DPos();
+	cam2d_pos = src->cam2d_pos;
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();

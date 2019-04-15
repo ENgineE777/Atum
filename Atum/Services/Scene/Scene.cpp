@@ -281,7 +281,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 
 			if (obj->UsingCamera2DPos())
 			{
-				reader.Read("ed_camera_2d", obj->Camera2DPos());
+				reader.Read("ed_camera_2d", obj->cam2d_pos);
 			}
 
 			obj->Load(reader);
@@ -397,7 +397,7 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 		
 		if (obj->UsingCamera2DPos())
 		{
-			writer.Write("ed_camera_2d", obj->Camera2DPos());
+			writer.Write("ed_camera_2d", obj->cam2d_pos);
 		}
 
 		obj->Save(writer);

@@ -356,11 +356,6 @@ bool SceneScriptAsset::UsingCamera2DPos()
 	return true;
 }
 
-Vector2& SceneScriptAsset::Camera2DPos()
-{
-	return camera_pos;
-}
-
 #ifdef EDITOR
 void SceneScriptAsset::RenameScriptFile()
 {

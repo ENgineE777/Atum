@@ -317,16 +317,6 @@ bool SceneScriptInst::UsingCamera2DPos()
 	return true;
 }
 
-Vector2& SceneScriptInst::Camera2DPos()
-{
-	if (asset)
-	{
-		asset->Camera2DPos();
-	}
-
-	return camera_pos;
-}
-
 #ifdef EDITOR
 void SceneScriptInst::SetOwner(Scene* owner)
 {

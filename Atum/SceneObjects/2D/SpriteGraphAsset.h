@@ -84,9 +84,7 @@ public:
 
 	void PrepareInstance(Instance* inst);
 
-	Vector2 camera_pos = 0.0f;
 	bool UsingCamera2DPos() override;
-	Vector2& Camera2DPos() override;
 
 	Vector2 GetDefaultSize();
 	Vector2 GetDefaultOffset();

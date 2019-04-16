@@ -1,23 +1,20 @@
-
 #import "GameMenuScript"
 
-external shared class GameMenu;
-
-shared class BaseCharacter
+class BaseCharacter
 {
     float x, y;
     int horz_flipped;
     int visible;
 }
 
-shared class Bonus
+class Bonus
 {
     float x, y;
     int visible;
     int score;
 }
 
-shared class PhysBox
+class PhysBox
 {
     float x, y;
     int visible;
@@ -25,7 +22,7 @@ shared class PhysBox
     Phys2D@ phys;
 }
 
-shared class ThrowableBox
+class ThrowableBox
 {
     float x, y;
     int visible;
@@ -34,7 +31,7 @@ shared class ThrowableBox
     Phys2D@ phys;
 }
 
-shared class ChracterData : BaseCharacter
+class ChracterData : BaseCharacter
 {
     Phys2D@ phys;
     Graph2D@ graph;
@@ -59,7 +56,7 @@ shared class ChracterData : BaseCharacter
     }
 }
 
-shared class HeroData : ChracterData
+class HeroData : ChracterData
 {
     int score = 0;
     int box_grabbed = -1;
@@ -68,7 +65,7 @@ shared class HeroData : ChracterData
     int cur_respawn_point = 0;
 }
 
-shared class Game
+class Game
 {
     array<Bonus> diamonds;
     array<Bonus> cherries;

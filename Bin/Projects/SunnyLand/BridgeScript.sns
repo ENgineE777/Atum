@@ -1,10 +1,4 @@
-class BridgePart
-{
-    float x, y;
-    float init_x, init_y;
-    int visible;
-    Phys2D@ phys;
-}
+#import "MainScript"
 
 class FallingBridge
 {
@@ -12,8 +6,8 @@ class FallingBridge
     uint falling_bridge_index = 0;
     float falling_bridge_time = 0.16f;
 
-    array<BridgePart> bridge;
-    array<BridgePart> bridge_dyn;
+    array<PhysBox> bridge;
+    array<PhysBox> bridge_dyn;
 
 	bool init = false;
 

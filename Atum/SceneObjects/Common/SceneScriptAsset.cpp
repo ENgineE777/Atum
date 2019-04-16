@@ -258,6 +258,8 @@ bool SceneScriptAsset::Play()
 
 	const char* incl = strstr(src.c_str(), "#import \"");
 
+	string external_decl;
+
 	while (incl)
 	{
 		int64_t index_from = incl - src.c_str();
@@ -278,16 +280,32 @@ bool SceneScriptAsset::Play()
 		memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
 		name[len] = 0;
 
-		auto* object = GetOwner()->FindInGroup("AssetScripts", name);
+		SceneScriptAsset* object = (SceneScriptAsset*)GetOwner()->FindInGroup("AssetScripts", name);
 
 		if (object)
 		{
 			object->Play();
+
+			if (object->mod)
+			{
+				for (uint32_t i = 0; i < object->mod->GetObjectTypeCount(); i++)
+				{
+					asITypeInfo* tp = object->mod->GetObjectTypeByIndex(i);
+					external_decl += string("external shared class ") + tp->GetName() + ";\r\n";
+				}
+			}
 		}
 
 		src.erase(index_from, index_to - index_from + 1);
 
 		incl = strstr(src.c_str(), "#import \"");
+	}
+
+	StringUtils::Replace(src, "class ", "shared class ");
+
+	if (external_decl.size() > 0)
+	{
+		src = external_decl + src;
 	}
 
 	mod->AddScriptSection(GetName(), src.c_str(), src.size());

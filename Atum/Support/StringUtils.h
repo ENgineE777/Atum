@@ -29,6 +29,7 @@ public:
 	static void GetRootPath(const char* path1, const char* path2, char* root);
 	static void GetExtension(const char* str, char* ext, int ext_lenght);
 	static void RemoveExtension(char* str);
+	static void Replace(string& str, const char* from, const char* to);
 	static int  GetNameNumber(const char* str, char* wo_n_str, int len);
 	static void EscapeChars(const char* in, char* out, int len);
 	static bool BuildUtf16fromUtf8(char c, int& bytes, int& w);

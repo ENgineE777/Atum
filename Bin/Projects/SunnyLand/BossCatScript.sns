@@ -1,13 +1,6 @@
+#import "MainScript"
 
-#import "GameMenuScript"
-
-external shared class Game;
-external shared class PhysBox;
-external shared class ThrowableBox;
-external shared class BaseCharacter;
-external shared class ChracterData;
-
-shared class CatBossData : ChracterData
+class CatBossData : ChracterData
 {
     bool active = false;
     int cur_stage = 0;

@@ -292,6 +292,19 @@ void StringUtils::RemoveExtension(char* str)
 	}
 }
 
+void StringUtils::Replace(string& str, const char* from, const char* to)
+{
+	auto pos = str.find(from);
+	auto len = strlen(from);
+	auto len2 = strlen(to);
+
+	while (pos != std::string::npos)
+	{
+		str.replace(pos, len, to);
+		pos = str.find(from, pos + len2);
+	}
+}
+
 int StringUtils::GetNameNumber(const char* str, char* wo_n_str, int len)
 {
 	Copy(wo_n_str,len,str);

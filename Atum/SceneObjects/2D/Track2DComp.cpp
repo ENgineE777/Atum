@@ -77,7 +77,19 @@ void Track2DComp::InjectIntoScript(asIScriptObject* object, int index, const cha
 
 	if (prop_index != -1)
 	{
+		SyncInstances();
+
 		*(asPWORD*)(object->GetAddressOfProperty(prop_index)) = (asPWORD)&tracks[index];
+	}
+}
+
+void Track2DComp::SyncInstances()
+{
+	SpriteInst* sprite_inst = (SpriteInst*)object;
+
+	if (sprite_inst->instances.size() != tracks.size())
+	{
+		tracks.resize(sprite_inst->instances.size());
 	}
 }
 

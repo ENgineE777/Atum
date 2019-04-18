@@ -165,7 +165,71 @@ void Phys2DCompInst::InjectIntoScript(asIScriptObject* object, int index, const 
 
 	if (prop_index != -1)
 	{
+		SyncInstances();
+
 		*(asPWORD*)(object->GetAddressOfProperty(prop_index)) = (asPWORD)&script_bodies[index];
+	}
+}
+
+void Phys2DCompInst::SyncInstances()
+{
+	SpriteInst* sprite_inst = (SpriteInst*)object;
+
+	if (sprite_inst->instances.size() != bodies.size())
+	{
+		int dif = (int)(sprite_inst->instances.size() - bodies.size());
+
+		if (dif < 0)
+		{
+			for (int index = (int)bodies.size() + dif; index < (int)bodies.size(); index++)
+			{
+				if (bodies[index].body)
+				{
+					RELEASE(bodies[index].body);
+				}
+
+				if (bodies[index].controller)
+				{
+					RELEASE(bodies[index].controller);
+				}
+			}
+		}
+		
+		bodies.resize(sprite_inst->instances.size());
+		script_bodies.resize(sprite_inst->instances.size());
+
+		if (dif > 0)
+		{
+			Phys2DComp* comp = (Phys2DComp*)asset_comp;
+
+			float scale = 1.0f / 50.0f;
+
+			Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
+			Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
+			size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
+			size *= scale;
+
+			for (int index = (int)bodies.size() - dif; index < (int)bodies.size(); index++)
+			{
+				CreateBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
+			}
+		}
+
+		for (int index = 0; index < (int)bodies.size(); index++)
+		{
+			script_bodies[index].inst = &sprite_inst->instances[index];
+			script_bodies[index].body = &bodies[index];
+
+			if (bodies[index].body)
+			{
+				bodies[index].body->SetUserData(&bodies[index]);
+			}
+			else
+			if (bodies[index].controller)
+			{
+				bodies[index].controller->SetUserData(&bodies[index]);
+			}
+		}
 	}
 }
 
@@ -173,31 +237,10 @@ void Phys2DCompInst::Play()
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
-	if (sprite_inst->instances.size() == 0)
-	{
-		return;
-	}
-
 	body_type = ((Phys2DComp*)asset_comp)->body_type;
 	group = ((Phys2DComp*)asset_comp)->group;
 
-	float scale = 1.0f / 50.0f;
-
-	bodies.resize(sprite_inst->instances.size());
-	script_bodies.resize(sprite_inst->instances.size());
-	Phys2DComp* comp = (Phys2DComp*)asset_comp;
-
-	Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
-	Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
-		size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
-	size *= scale;
-
-	for (int index = 0; index < bodies.size(); index++)
-	{
-		CreatBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
-		script_bodies[index].inst = &sprite_inst->instances[index];
-		script_bodies[index].body = &bodies[index];
-	}
+	SyncInstances();
 
 	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
 }
@@ -210,13 +253,18 @@ void Phys2DCompInst::Stop()
 		{
 			RELEASE(body.body);
 		}
+
+		if (body.controller)
+		{
+			RELEASE(body.controller);
+		}
 	}
 
 	bodies.clear();
-
+	script_bodies.clear();
 }
 
-void Phys2DCompInst::CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)
+void Phys2DCompInst::CreateBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)
 {
 	Matrix body_trans;
 	body_trans.Pos() = { pos.x, -pos.y, 0.0f };

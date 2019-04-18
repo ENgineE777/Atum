@@ -60,9 +60,10 @@ public:
 	void BindClassToScript() override;
 	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
 
+	void SyncInstances();
 
 	void Play() override;
-	void CreatBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate);
+	void CreateBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate);
 	void Stop() override;
 	void UpdateInstances(float dt);
 };

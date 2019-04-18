@@ -54,6 +54,8 @@ public:
 	void BindClassToScript() override;
 	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
 
+	void SyncInstances();
+
 	void Play() override;
 	void UpdateInstances(float dt);
 	void UpdateTrack(int index, float dt);

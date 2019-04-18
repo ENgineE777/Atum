@@ -570,7 +570,7 @@ void SpriteInst::OnResize(int at, int delta)
 		MakeMapping(objects[0], scr_prefix.c_str());
 	}
 
-	for (int index = at; index < at + delta; index++)
+	for (int index = 0; index < instances.size(); index++)
 	{
 		instances[index].auto_delete = true;
 		instances[index].SetObject(objects[index], &mapping);

@@ -164,6 +164,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 477276576,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
 			"uid" : -1,
 			"name" : "",
 			"type" : 2

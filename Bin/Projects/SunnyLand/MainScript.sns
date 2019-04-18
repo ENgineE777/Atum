@@ -22,15 +22,6 @@ class PhysBox
     Phys2D@ phys;
 }
 
-class ThrowableBox
-{
-    float x, y;
-    int visible;
-    int contact_nums = 0;
-    float in_fly = -1.0f;
-    Phys2D@ phys;
-}
-
 class ChracterData : BaseCharacter
 {
     Phys2D@ phys;
@@ -59,10 +50,40 @@ class ChracterData : BaseCharacter
 class HeroData : ChracterData
 {
     int score = 0;
-    int box_grabbed = -1;
-    //int card_grabbed = -1;
+    int boxes_pool = -1;
+    bool box_grabbed = false;
     float in_hit = -1.0f;
     int cur_respawn_point = 0;
+}
+
+class ThrowableBox
+{
+    float x, y;
+    float init_x, init_y;
+    int visible;
+    int contact_nums = 0;
+    float in_fly = -1.0f;
+    Phys2D@ phys;
+}
+
+class ThrowableBoxesHolder
+{
+    array<ThrowableBox>@ boxes;
+    array<PhysBox>@ fake_box;
+    array<ThrowableBox>@ fly_boxes;
+
+    float grab_offset = 0.0f;
+    int hero_fly_box_index = -1;
+
+    PhysBox@ FakeBox()
+    {
+        return @fake_box[0];
+    }
+
+    ThrowableBox@ FlyBox()
+    {
+        return @fly_boxes[hero_fly_box_index];
+    }
 }
 
 class Game
@@ -72,9 +93,13 @@ class Game
     array<BaseCharacter> eagles;
     array<BaseCharacter> opposums;
     array<PhysBox> respawn_points;
-    array<PhysBox> boxes;
+
+    array<ThrowableBox> boxes;
     array<PhysBox> fake_box;
     array<ThrowableBox> fly_boxes;
+
+    array<ThrowableBoxesHolder> throwable_boxes;
+
     array<HeroData> hero_inst;
     Camera2D@ camera;
     Sprite@ item_taken;
@@ -93,6 +118,24 @@ class Game
 
     float title_menu_pos_x = 0.0f;
     float label_fade = 2.0f;
+
+    void RegisterThrowableBoxes(array<ThrowableBox>@ boxes, array<PhysBox>@ fake_box, array<ThrowableBox>@ fly_boxes, float grab_offset)
+    {
+        ThrowableBoxesHolder holder;
+
+        @holder.boxes = @boxes;
+        @holder.fake_box = @fake_box;
+        @holder.fly_boxes = @fly_boxes;
+
+        holder.grab_offset = grab_offset;
+
+        fake_box.resize(1);
+
+        holder.fly_boxes.resize(fly_boxes.length() + 1);
+        holder.hero_fly_box_index = fly_boxes.length() - 1;
+
+        throwable_boxes.insertLast(holder);
+    }
 
     void OnStartGame()
     {
@@ -116,16 +159,16 @@ class Game
         RespawnHero(hero_inst[0]);
     }
 
-    int FindBox(float pos_x, float pos_y)
+    int FindBox(array<ThrowableBox>@ boxes, int diff, float pos_x, float pos_y, float grab_offset)
     {
-        for (uint i=0; i<boxes.length(); i++)
+        for (uint i=0; i<boxes.length() - diff; i++)
         {
             if (boxes[i].visible == 0)
             {
                 continue;
             }
 
-            if (abs(boxes[i].x + 32 - pos_x) < 15 && abs(boxes[i].y - 32 - pos_y) < 32)
+            if (abs(boxes[i].x + grab_offset - pos_x) < 15 && abs(boxes[i].y - 32 - pos_y) < 32)
             {
                 return i;
             }
@@ -133,24 +176,6 @@ class Game
 
         return -1;
     }
-
-    /*int FindCard(float pos_x, float pos_y)
-    {
-        for (uint i=0; i<boss_cards.length(); i++)
-        {
-            if (boss_cards[i].visible == 0)
-            {
-                continue;
-            }
-
-            if (abs(boss_cards[i].x - pos_x) < 15 && abs(boss_cards[i].y - 32 - pos_y) < 32)
-            {
-                return i;
-            }
-        }
-
-        return -1;
-    }*/
 
     void HitHero(HeroData@ hero_data, float x)
     {
@@ -164,23 +189,20 @@ class Game
                 fade_out = 2.0f;
             }
 
-            if (hero_data.box_grabbed != -1)
+            if (hero_data.box_grabbed)
             {
-                fake_box[0].visible = 0;
-                enemy_death.AddInstance(fake_box[0].x, fake_box[0].y, true);
-            }
+                ThrowableBoxesHolder@ holder = throwable_boxes[hero_data.boxes_pool];
 
-            /*if (hero_data.card_grabbed != -1)
-            {
-                fake_card[0].visible = 1;
-                enemy_death.AddInstance(fake_card[0].x, fake_card[0].y, true);
-            }*/
+                holder.FlyBox().visible = 0;
+                holder.FlyBox().in_fly = -1.0f;
+
+                enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+
+                hero_data.box_grabbed = false;
+            }
 
             hero_data.graph.GotoNode("Hit");
             hero_data.in_hit = 1.0f;
-
-            hero_data.box_grabbed = -1;
-            //hero_data.card_grabbed = -1;
 
             //hero_velocity_x = 
             //hero_velocity_y = 200.0f;
@@ -192,11 +214,12 @@ class Game
 
     void RespawnHero(HeroData@ hero_data)
     {
+        hero_data.cur_respawn_point = 3;
+        
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
         hero_data.in_hit = -1.0f;
-        //fake_box[0].visible = 0;
-        //fake_card[0].visible = 0;
+
         game_menu.UpdateHearts(hero_data.hp);
 
         hero_data.graph.GotoNode("Idle");
@@ -206,8 +229,7 @@ class Game
 
         return_to_title = -1.0f;
 
-        hero_data.box_grabbed = -1;
-        //hero_data.card_grabbed = -1;
+        hero_data.box_grabbed = false;
 
         item_taken.ClearInstances();
         enemy_death.ClearInstances();
@@ -222,22 +244,18 @@ class Game
             opposums[i].visible = 1;
         }
 
-        for (int i = 0; i<fly_boxes.length();i++)
+        for (int i = 0; i<throwable_boxes.length(); i++)
         {
-            fly_boxes[i].visible = 0;
-            fly_boxes[i].in_fly = -1.0f;
-        }
+            ThrowableBoxesHolder@ holder = throwable_boxes[i];
 
-        /*for (int i = 0; i<boss_cards.length();i++)
-        {
-            boss_cards[i].visible = 0;
-            boss_cards[i].in_fly = -1.0f;
-        }*/
+            holder.FlyBox().visible = 0;
+            holder.FlyBox().in_fly = -1.0f;
 
-        for (int i = 0; i<boxes.length();i++)
-        {
-            boxes[i].visible = 1;
-            boxes[i].phys.MoveTo(boxes[i].init_x, boxes[i].init_y);
+            for (int j = 0; j<holder.boxes.length(); j++)
+            {
+                holder.boxes[j].visible = 1;
+                holder.boxes[j].phys.MoveTo(holder.boxes[j].init_x, holder.boxes[j].init_y);
+            }
         }
 
         Script_CallClassInstancesMethod("", "", "OnRespawnHero");
@@ -303,9 +321,13 @@ class Game
             enemy_death.AddInstance(opposums[index].x, opposums[index].y, true);
         }
 
-        fly_boxes[0].visible = 0;
-        fly_boxes[0].in_fly = -1.0f;
-        enemy_death.AddInstance(fly_boxes[0].x, fly_boxes[0].y, true);
+        if (hero_inst[0].boxes_pool != -1)
+        {
+            ThrowableBoxesHolder@ holder = throwable_boxes[hero_inst[0].boxes_pool];
+            holder.FlyBox().visible = 0;
+            holder.FlyBox().in_fly = -1.0f;
+            enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+        }
     }
 
     void OnActivateResapwnTrigger(int self_index, string&in name, int index, int param)
@@ -452,92 +474,70 @@ class Game
 
         if (Control_GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
         {
-            if (hero_data.box_grabbed == -1 /*&& hero_data.card_grabbed == -1*/)
+            if (!hero_data.box_grabbed)
             {
-                if (fly_boxes[0].in_fly > 0.0f)
+                for (int i = 0; i<throwable_boxes.length(); i++)
                 {
-                    fly_boxes[0].visible = 0;
-                    fly_boxes[0].in_fly = -1.0f;
-                    enemy_death.AddInstance(fly_boxes[0].x, fly_boxes[0].y, true);
+                    ThrowableBoxesHolder@ holder = throwable_boxes[i];
+
+                    bool boxes = true;
+                    int box_grabbed = FindBox(holder.boxes, 0, hero_data.x - 64 * (hero_data.horz_flipped > 0 ? 1 : -1), hero_data.y - 32, holder.grab_offset);
+
+                    if (box_grabbed == -1)
+                    {
+                        boxes = false;
+                        box_grabbed = FindBox(holder.fly_boxes, 1, hero_data.x - 64 * (hero_data.horz_flipped > 0 ? 1 : -1), hero_data.y - 32, holder.grab_offset);
+                    }
+
+                    if (box_grabbed != -1)
+                    {
+                        if (holder.FlyBox().in_fly > 0.0f)
+                        {
+                            holder.FlyBox().visible = 0;
+                            holder.FlyBox().in_fly = -1.0f;
+                            enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+                        }
+
+                        hero_data.boxes_pool = i;
+                        hero_data.box_grabbed = true;
+                        holder.FakeBox().visible = 1;
+
+                        if (boxes)
+                        {
+                            holder.boxes[box_grabbed].visible = 0;
+                        }
+                        else
+                        {
+                            holder.fly_boxes[box_grabbed].visible = 0;
+                        }
+
+                        break;
+                    }
                 }
-
-                hero_data.box_grabbed = FindBox(hero_data.x - 64 * (hero_data.horz_flipped > 0 ? 1 : -1), hero_data.y - 32);
-
-                if (hero_data.box_grabbed != -1)
-                {
-                    fake_box[0].visible = 1;
-                    boxes[hero_data.box_grabbed].visible = 0;
-                }
-
-                /*hero_data.card_grabbed = FindCard(hero_data.x - 64 * (hero_data.horz_flipped > 0 ? 1 : -1), hero_data.y - 32);
-
-                if (hero_data.card_grabbed != -1)
-                {
-                    fake_card[0].visible = 1;
-                    boss_cards[hero_data.card_grabbed].visible = 0;
-                }*/
             }
             else
-            if (hero_data.box_grabbed != -1)
             {
-                fly_boxes[0].visible = 1;
-                fly_boxes[0].x = fake_box[0].x;
-                fly_boxes[0].y = fake_box[0].y;
-                fly_boxes[0].in_fly = 2.0f;
+                ThrowableBoxesHolder@ holder = throwable_boxes[hero_data.boxes_pool];
 
-                fake_box[0].visible = 0;
+                holder.FlyBox().visible = 1;
+                holder.FlyBox().x = holder.FakeBox().x;
+                holder.FlyBox().y = holder.FakeBox().y;
+                holder.FlyBox().contact_nums = 0;
+                holder.FlyBox().in_fly = 2.0f;
 
-                fly_boxes[0].phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
-                hero_data.box_grabbed = -1;
+                holder.FakeBox().visible = 0;
+
+                holder.FlyBox().phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
+                hero_data.box_grabbed = false;
             }
-            /*else
-            if (hero_data.card_grabbed != -1)
-            {
-                boss_cards[3].visible = 1;
-                boss_cards[3].x = fake_card[0].x;
-                boss_cards[3].y = fake_card[0].y;
-                boss_cards[3].in_fly = 2.0f;
-
-                fake_card[0].visible = 0;
-
-                boss_cards[3].phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
-                hero_data.card_grabbed = -1;
-            }*/
         }
 
-        if (hero_data.box_grabbed != -1)
+        if (hero_data.box_grabbed)
         {
-            fake_box[0].x = hero_inst[0].x;
-            fake_box[0].y = hero_inst[0].y - 114;
-        }
+            ThrowableBoxesHolder@ holder = throwable_boxes[hero_data.boxes_pool];
 
-        /*if (hero_data.card_grabbed != -1)
-        {
-            fake_card[0].x = hero_inst[0].x;
-            fake_card[0].y = hero_inst[0].y - 114;
-        }*/
-    }
-
-    void CheckFlyBoxes(array<ThrowableBox>@ boxes, float dt)
-    {
-        for (uint i = 0; i < boxes.length(); i++)
-        {
-            if (boxes[i].visible == 0)
-            {
-                continue;
-            }
-
-            if (boxes[i].in_fly > 0.0f)
-            {
-                boxes[i].in_fly -= dt;
-
-                if (boxes[i].in_fly < 0.0f)
-                {
-                    boxes[i].visible = 0;
-                    enemy_death.AddInstance(boxes[i].x, boxes[i].y, true);
-                    boxes[i].in_fly = -1.0f;
-                }
-            }
+            holder.FakeBox().x = hero_inst[0].x;
+            holder.FakeBox().y = hero_inst[0].y - 114;
         }
     }
 
@@ -545,10 +545,17 @@ class Game
     {
         if (!init)
         {
-            for (int i = 0; i<boxes.length();i++)
+            RegisterThrowableBoxes(boxes, fake_box, fly_boxes, 32);
+
+            for (int i = 0; i<throwable_boxes.length(); i++)
             {
-                boxes[i].init_x = boxes[i].x;
-                boxes[i].init_y = boxes[i].y;
+                ThrowableBoxesHolder@ holder = throwable_boxes[i];
+
+                for (int j = 0; j<holder.boxes.length(); j++)
+                {
+                    holder.boxes[j].init_x = holder.boxes[j].x;
+                    holder.boxes[j].init_y = holder.boxes[j].y;
+                }
             }
 
             hero_inst[0].Init();
@@ -597,7 +604,26 @@ class Game
             }
         }
 
-        CheckFlyBoxes(fly_boxes, dt);
+        for (int i = 0; i<throwable_boxes.length(); i++)
+        {
+            ThrowableBoxesHolder@ holder = throwable_boxes[i];
+
+            for (int j = 0; j<holder.fly_boxes.length(); j++)
+            {
+                if (holder.fly_boxes[j].visible == 1 || holder.fly_boxes[j].in_fly > 0.0f)
+                {
+                    holder.fly_boxes[j].in_fly -= dt;
+
+                    if (holder.fly_boxes[j].in_fly < 0.0f)
+                    {
+                        holder.fly_boxes[j].visible = 0;
+                        enemy_death.AddInstance(holder.fly_boxes[j].x, holder.fly_boxes[j].y, true);
+                        holder.fly_boxes[j].in_fly = -1.0f;
+                    }
+                }
+            }
+
+        }
 
         if (fade_out > 0.0f)
         {

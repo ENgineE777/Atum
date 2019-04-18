@@ -87,7 +87,7 @@
 			"type" : 1
 		},
 		{
-			"uid" : -2071699456,
+			"uid" : 506940,
 			"name" : "DynBoxFly",
 			"type" : 1
 		},
@@ -361,11 +361,6 @@
 		{
 			"uid" : 1157116672,
 			"name" : "DynCard",
-			"type" : 1
-		},
-		{
-			"uid" : 477276576,
-			"name" : "FakeBox",
 			"type" : 1
 		},
 		{

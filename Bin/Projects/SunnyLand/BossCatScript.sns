@@ -22,9 +22,10 @@ class CatBossData : ChracterData
 
 class BossCat
 {
+	array<ThrowableBox> empty_cards;
     array<ThrowableBox> boss_cards;
-    array<BaseCharacter> boss_markers;
     array<PhysBox> fake_card;
+    array<BaseCharacter> boss_markers;
     array<CatBossData> boss_inst;
     bool inited = false;
 
@@ -140,7 +141,7 @@ class BossCat
                     vec_x /= len;
                     vec_y /= len;
 
-                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 55.0f, -vec_y * 55.0f);
+                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 55.0f, vec_y * 55.0f);
 
                     cat_data.next_throw = 0.45f;
                 }
@@ -206,11 +207,11 @@ class BossCat
     {
         if (!inited)
         {
+        	boss_cards.resize(3);
+        	game.RegisterThrowableBoxes(empty_cards, fake_card, boss_cards, 0);
             boss_inst[0].Init();
             inited = true;
         }
-
-        game.CheckFlyBoxes(boss_cards, dt);
 
         if (boss_inst[0].active && boss_inst[0].hp != 0)
         {

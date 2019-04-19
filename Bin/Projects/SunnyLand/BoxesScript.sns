@@ -1,0 +1,15 @@
+#import "MainScript"
+
+class Boxes
+{
+	array<ThrowableBox> boxes;
+    array<PhysBox> fake_box;
+    array<ThrowableBox> fly_boxes;
+
+	Game@ game;
+
+    void OnInit()
+    {
+    	game.RegisterThrowableBoxes(boxes, fake_box, fly_boxes, 32);
+    }
+}

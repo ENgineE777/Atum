@@ -785,7 +785,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 47,
+			"Count" : 44,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -824,16 +824,6 @@
 				},
 				{
 					"object_uid" : -1084704768,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : -980373760,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : -335829760,
 					"object_child_uid" : 0,
 					"callback_type" : ""
 				},
@@ -931,11 +921,6 @@
 					"object_uid" : 131060,
 					"object_child_uid" : 0,
 					"callback_type" : ""
-				},
-				{
-					"object_uid" : 506940,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
 				},
 				{
 					"object_uid" : 820505600,
@@ -17007,6 +16992,48 @@
 					"type" : "Phys2DCompInst"
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 638463,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BoxesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 178155,
+			"Count" : 5,
+			"Node" : [
+				{
+					"object_uid" : -980373760,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : -335829760,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 506940,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 2133115008,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -17381,6 +17408,17 @@
 					"scene" : "SunnyLand_Level1.sca",
 					"inst_uid" : 506940,
 					"inst_name" : "DynBoxFly"
+				}
+			]
+		},
+		{
+			"asset_uid" : 178155,
+			"asset_name" : "BoxesScript",
+			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 638463,
+					"inst_name" : "BoxesScript"
 				}
 			]
 		}

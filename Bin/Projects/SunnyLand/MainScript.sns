@@ -94,10 +94,6 @@ class Game
     array<BaseCharacter> opposums;
     array<PhysBox> respawn_points;
 
-    array<ThrowableBox> boxes;
-    array<PhysBox> fake_box;
-    array<ThrowableBox> fly_boxes;
-
     array<ThrowableBoxesHolder> throwable_boxes;
 
     array<HeroData> hero_inst;
@@ -131,6 +127,12 @@ class Game
 
         holder.fly_boxes.resize(fly_boxes.length() + 1);
         holder.hero_fly_box_index = fly_boxes.length() - 1;
+
+        for (int j = 0; j<boxes.length(); j++)
+        {
+            boxes[j].init_x = boxes[j].x;
+            boxes[j].init_y = boxes[j].y;
+        }
 
         throwable_boxes.insertLast(holder);
     }
@@ -212,7 +214,7 @@ class Game
 
     void RespawnHero(HeroData@ hero_data)
     {
-        hero_data.cur_respawn_point = 3;
+        //hero_data.cur_respawn_point = 3;
         
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
@@ -545,19 +547,6 @@ class Game
 
     void OnInit()
     {
-        RegisterThrowableBoxes(boxes, fake_box, fly_boxes, 32);
-
-        for (int i = 0; i<throwable_boxes.length(); i++)
-        {
-            ThrowableBoxesHolder@ holder = throwable_boxes[i];
-
-            for (int j = 0; j<holder.boxes.length(); j++)
-            {
-                holder.boxes[j].init_x = holder.boxes[j].x;
-                holder.boxes[j].init_y = holder.boxes[j].y;
-            }
-        }
-
         hero_inst[0].Init();
         OnStartGame();
     }

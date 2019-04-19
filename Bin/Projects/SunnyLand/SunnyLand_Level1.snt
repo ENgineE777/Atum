@@ -307,8 +307,18 @@
 			"type" : 0
 		},
 		{
+			"uid" : 243959,
+			"name" : "BossCatScript",
+			"type" : 1
+		},
+		{
 			"uid" : 638463,
 			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 1586412928,
+			"name" : "BridgeScript",
 			"type" : 1
 		},
 		{
@@ -325,16 +335,6 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
-		},
-		{
-			"uid" : 243959,
-			"name" : "BossCatScript",
-			"type" : 1
-		},
-		{
-			"uid" : 1586412928,
-			"name" : "BridgeScript",
-			"type" : 1
 		},
 		{
 			"uid" : -1,

@@ -34,7 +34,7 @@ class BossCat
     {
         if (name == "CatBoss")
         {
-            game.HitHero(game.hero_inst[0], boss_inst[0].x);
+            game.HitHero(boss_inst[0].x);
         }
         else
         if (name == "ActivateBossTrigger")
@@ -54,7 +54,7 @@ class BossCat
         {
             if (name == "Hero")
             {
-                game.HitHero(game.hero_inst[0], boss_cards[self_index].x);
+                game.HitHero(boss_cards[self_index].x);
             }
 
             if (name == "CatBoss")

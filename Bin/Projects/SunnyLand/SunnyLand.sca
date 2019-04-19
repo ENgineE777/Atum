@@ -2555,6 +2555,107 @@
 					}
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 753660,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "SL_EnemiesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "SLEnemies",
+			"Count" : 7,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "eagles",
+					"pos" :
+					{
+						"x" : 459.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "opposums",
+					"pos" :
+					{
+						"x" : 673.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 461.000000,
+						"y" : 348.000000
+					}
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 456.000000,
+						"y" : 465.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 680.000000,
+						"y" : 348.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 2,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "OnBoxContact",
+					"pos" :
+					{
+						"x" : 684.000000,
+						"y" : 467.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 3,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 259.000000,
+						"y" : 345.000000
+					},
+					"prefix" : ""
+				}
+			]
 		}
 	],
 	"SceneObject" : [

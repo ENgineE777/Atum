@@ -1,0 +1,62 @@
+#import "MainScript"
+
+class SLEnemies
+{
+	array<BaseCharacter> eagles;
+    array<BaseCharacter> opposums;
+
+	Game@ game;
+
+	void OnRespawnHero()
+	{
+		for (int i = 0; i<eagles.length();i++)
+        {
+            eagles[i].visible = 1;
+        }
+
+        for (int i = 0; i<opposums.length();i++)
+        {
+            opposums[i].visible = 1;
+        }
+    }
+
+    void OnHeroContact(int self_index, string&in name, int index)
+    {
+        if (name == "EagleFly")
+        {
+            game.HitHero(eagles[index].x);
+        }
+        else
+        if (name == "OpposumRun")
+        {
+            game.HitHero(opposums[index].x);
+        }
+    }
+
+    void OnBoxContact(int self_index, string&in name, int index)
+    {
+        if (name == "EagleFly")
+        {
+            eagles[index].visible = 0;
+            game.enemy_death.AddInstance(eagles[index].x, eagles[index].y, true);
+        }
+
+        if (name == "OpposumRun")
+        {
+            opposums[index].visible = 0;
+            game.enemy_death.AddInstance(opposums[index].x, opposums[index].y, true);
+        }
+
+        if (game.hero_inst[0].boxes_pool != -1)
+        {
+            ThrowableBoxesHolder@ holder = game.throwable_boxes[game.hero_inst[0].boxes_pool];
+
+            if (holder.FlyBox().visible == 1)
+            {
+                holder.FlyBox().visible = 0;
+                holder.FlyBox().in_fly = -1.0f;
+                game.enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+            }
+        }
+    }
+}

@@ -90,8 +90,6 @@ class Game
 {
     array<Bonus> diamonds;
     array<Bonus> cherries;
-    array<BaseCharacter> eagles;
-    array<BaseCharacter> opposums;
     array<PhysBox> respawn_points;
 
     array<ThrowableBoxesHolder> throwable_boxes;
@@ -177,8 +175,10 @@ class Game
         return -1;
     }
 
-    void HitHero(HeroData@ hero_data, float x)
+    void HitHero(float x)
     {
+        HeroData@ hero_data = hero_inst[0];
+
         if (hero_data.in_hit < -0.01f)
         {
             hero_data.hp--;
@@ -234,16 +234,6 @@ class Game
         item_taken.ClearInstances();
         enemy_death.ClearInstances();
 
-        for (int i = 0; i<eagles.length();i++)
-        {
-            eagles[i].visible = 1;
-        }
-
-        for (int i = 0; i<opposums.length();i++)
-        {
-            opposums[i].visible = 1;
-        }
-
         for (int i = 0; i<throwable_boxes.length(); i++)
         {
             ThrowableBoxesHolder@ holder = throwable_boxes[i];
@@ -289,48 +279,6 @@ class Game
             AddScore(hero_inst[0], diamonds[index].score);
             diamonds[index].visible = 0;
             item_taken.AddInstance(diamonds[index].x, diamonds[index].y, true);
-        }
-        else
-        if (name == "EagleFly")
-        {
-            HitHero(hero_inst[0], eagles[index].x);
-        }
-        else
-        if (name == "OpposumRun")
-        {
-            HitHero(hero_inst[0], opposums[index].x);
-        }
-    }
-
-    void OnBoxContact(int self_index, string&in name, int index)
-    {
-        if (name == "Hero")
-        {
-            return;
-        }
-
-        if (name == "EagleFly")
-        {
-            eagles[index].visible = 0;
-            enemy_death.AddInstance(eagles[index].x, eagles[index].y, true);
-        }
-
-        if (name == "OpposumRun")
-        {
-            opposums[index].visible = 0;
-            enemy_death.AddInstance(opposums[index].x, opposums[index].y, true);
-        }
-
-        if (hero_inst[0].boxes_pool != -1)
-        {
-            ThrowableBoxesHolder@ holder = throwable_boxes[hero_inst[0].boxes_pool];
-
-            if (holder.FlyBox().visible == 1)
-            {
-                holder.FlyBox().visible = 0;
-                holder.FlyBox().in_fly = -1.0f;
-                enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
-            }
         }
     }
 

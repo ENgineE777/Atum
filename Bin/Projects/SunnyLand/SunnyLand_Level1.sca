@@ -785,7 +785,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 44,
+			"Count" : 40,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -823,27 +823,12 @@
 					"callback_type" : ""
 				},
 				{
-					"object_uid" : -1084704768,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
 					"object_uid" : 0,
 					"object_child_uid" : 0,
 					"callback_type" : ""
 				},
 				{
 					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 506940,
 					"object_child_uid" : 0,
 					"callback_type" : "OnContact"
 				},
@@ -904,11 +889,6 @@
 				},
 				{
 					"object_uid" : 52814452,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : -968305408,
 					"object_child_uid" : 0,
 					"callback_type" : ""
 				},
@@ -17034,6 +17014,58 @@
 					"callback_type" : ""
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 835253,
+			"ed_camera_2d" :
+			{
+				"x" : -28.000000,
+				"y" : -2.000000
+			},
+			"Name" : "SL_EnemiesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 753660,
+			"Count" : 7,
+			"Node" : [
+				{
+					"object_uid" : -1084704768,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : -968305408,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 1485033472,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 506940,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 2133115008,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -17419,6 +17451,17 @@
 					"scene" : "SunnyLand_Level1.sca",
 					"inst_uid" : 638463,
 					"inst_name" : "BoxesScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 753660,
+			"asset_name" : "SL_EnemiesScript",
+			"instances" : [
+				{
+					"scene" : "SunnyLand_Level1.sca",
+					"inst_uid" : 835253,
+					"inst_name" : "SL_EnemiesScript"
 				}
 			]
 		}

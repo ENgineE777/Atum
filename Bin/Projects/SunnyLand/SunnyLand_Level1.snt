@@ -317,6 +317,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 835253,
+			"name" : "SL_EnemiesScript",
+			"type" : 1
+		},
+		{
 			"uid" : -1,
 			"name" : "",
 			"type" : 2

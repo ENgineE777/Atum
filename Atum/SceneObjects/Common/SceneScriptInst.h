@@ -41,11 +41,11 @@ public:
 	bool PostPlay() override;
 	void Stop() override;
 
-	Vector2 camera_pos = 0.0f;
 	bool UsingCamera2DPos() override;
 
-#ifdef EDITOR
+	void CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> methods, bool use_dt);
 
+#ifdef EDITOR
 	void SetOwner(Scene* owner) override;
 	void Copy(SceneObject* src) override;
 

@@ -26,25 +26,26 @@
 			"uid" : 14304,
 			"ed_camera_2d" :
 			{
-				"x" : 399.000000,
-				"y" : 124.000000
+				"x" : 672.000000,
+				"y" : 58.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 30,
+			"Count" : 31,
 			"Node" : [
 				{
 					"type" : 2,
 					"name" : "Update",
 					"pos" :
 					{
-						"x" : 737.000000,
-						"y" : 546.000000
+						"x" : 748.000000,
+						"y" : 629.000000
 					},
-					"param_type" : 3,
+					"param_type" : 0,
+					"call_type" : 2,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -144,10 +145,11 @@
 					"name" : "OnHeroContact",
 					"pos" :
 					{
-						"x" : 1254.000000,
-						"y" : 489.000000
+						"x" : 1255.000000,
+						"y" : 491.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -174,6 +176,7 @@
 						"y" : 627.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -209,6 +212,7 @@
 						"y" : 230.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 6,
 					"Link" : [
 						{
@@ -291,6 +295,7 @@
 						"y" : 597.000000
 					},
 					"param_type" : 1,
+					"call_type" : 0,
 					"Count" : 3,
 					"Link" : [
 						{
@@ -383,6 +388,20 @@
 						"y" : 258.000000
 					},
 					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "OnInit",
+					"pos" :
+					{
+						"x" : 746.000000,
+						"y" : 494.000000
+					},
+					"param_type" : 0,
+					"call_type" : 1,
+					"Count" : 0,
+					"Link" : [
+					]
 				}
 			]
 		},
@@ -2993,8 +3012,8 @@
 			"uid" : 16352,
 			"ed_camera_2d" :
 			{
-				"x" : 39.000000,
-				"y" : 531.000000
+				"x" : -77.000000,
+				"y" : 537.000000
 			},
 			"Name" : "GameMenuScript",
 			"State" : 2,
@@ -3082,6 +3101,7 @@
 						"y" : 943.000000
 					},
 					"param_type" : 1,
+					"call_type" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
@@ -3103,6 +3123,7 @@
 						"y" : 1107.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -3211,6 +3232,67 @@
 					}
 				]
 			}
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 178155,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "Boxes",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "",
+			"Count" : 4,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "boxes",
+					"pos" :
+					{
+						"x" : 413.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fake_box",
+					"pos" :
+					{
+						"x" : 622.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "fly_boxes",
+					"pos" :
+					{
+						"x" : 833.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "method",
+					"pos" :
+					{
+						"x" : 621.000000,
+						"y" : 360.000000
+					},
+					"param_type" : 0,
+					"call_type" : 1,
+					"Count" : 0,
+					"Link" : [
+					]
+				}
+			]
 		}
 	],
 	"SceneObject" : [

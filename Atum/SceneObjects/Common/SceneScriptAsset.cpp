@@ -31,7 +31,11 @@ ENUM_PROP(SceneScriptAsset::NodeScriptMethod, param_type, 0, "Property", "ParamT
 	ENUM_ELEM("None", 0)
 	ENUM_ELEM("Int", 1)
 	ENUM_ELEM("String", 2)
-	ENUM_ELEM("EveryFrame", 3)
+ENUM_END
+ENUM_PROP(SceneScriptAsset::NodeScriptMethod, call_type, 0, "Property", "CallType")
+	ENUM_ELEM("OnCallback", 0)
+	ENUM_ELEM("OnInit", 1)
+	ENUM_ELEM("EveryFrame", 2)
 ENUM_END
 META_DATA_DESC_END()
 
@@ -96,7 +100,8 @@ void SceneScriptAsset::NodeScriptMethod::Load(JSONReader& loader)
 {
 	Node::Load(loader);
 
-	loader.Read("param_type", param_type);
+	loader.Read("param_type", (int&)param_type);
+	loader.Read("call_type", (int&)call_type);
 
 	int link_count = 0;
 	loader.Read("Count", link_count);
@@ -118,6 +123,7 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 	Node::Save(saver);
 
 	saver.Write("param_type", param_type);
+	saver.Write("call_type", call_type);
 
 	int link_count = (int)links.size();
 	saver.Write("Count", link_count);
@@ -336,23 +342,35 @@ bool SceneScriptAsset::Play()
 		class_type = mod->GetObjectTypeByIndex(0);
 	}
 
-	for (auto node : nodes)
+	if (class_type)
 	{
-		if (node->type == NodeType::ScriptMethod)
+		for (auto node : nodes)
 		{
-			NodeScriptMethod* node_method = (NodeScriptMethod*)node;
-
-			if (node_method->param_type == 3)
+			if (node->type == NodeType::ScriptMethod)
 			{
-				char prototype[256];
-				StringUtils::Printf(prototype, 256, "void %s(float)", node_method->name.c_str());
+				NodeScriptMethod* node_method = (NodeScriptMethod*)node;
 
-				node_method->method = class_type->GetMethodByDecl(prototype);
-
-				if (!node_method->method)
+				if (node_method->call_type == CallType::OnInit || node_method->call_type == CallType::EveryFrame)
 				{
-					core.Log("ScriptErr", "Method %s not found", node_method->name.c_str());
-					return false;
+					char prototype[256];
+
+					if (node_method->call_type == CallType::OnInit)
+					{
+						StringUtils::Printf(prototype, 256, "void %s()", node_method->name.c_str());
+						on_start_init.push_back(node_method);
+					}
+					else
+					{
+						StringUtils::Printf(prototype, 256, "void %s(float)", node_method->name.c_str());
+						frame_updates.push_back(node_method);
+					}
+
+					node_method->method = class_type->GetMethodByDecl(prototype);
+
+					if (!node_method->method)
+					{
+						core.Log("ScriptErr", "Method %s not found", node_method->name.c_str());
+					}
 				}
 			}
 		}

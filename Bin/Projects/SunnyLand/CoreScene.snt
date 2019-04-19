@@ -75,6 +75,31 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "Scripts",
+			"type" : 0
+		},
+		{
+			"uid" : 178155,
+			"name" : "Boxes",
+			"type" : 1
+		},
+		{
+			"uid" : 16352,
+			"name" : "GameMenuScript",
+			"type" : 1
+		},
+		{
+			"uid" : 14304,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Sprites",
 			"type" : 0
 		},
@@ -192,16 +217,6 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
-		},
-		{
-			"uid" : 16352,
-			"name" : "GameMenuScript",
-			"type" : 1
-		},
-		{
-			"uid" : 14304,
-			"name" : "MainScript",
-			"type" : 1
 		},
 		{
 			"uid" : -1,

@@ -27,7 +27,6 @@ class BossCat
     array<PhysBox> fake_card;
     array<BaseCharacter> boss_markers;
     array<CatBossData> boss_inst;
-    bool inited = false;
 
     Game@ game;
 
@@ -203,16 +202,15 @@ class BossCat
         boss_inst[0].phys.MoveTo(boss_markers[0].x, boss_markers[0].y);
     }
 
+    void OnInit()
+    {
+        boss_cards.resize(3);
+        game.RegisterThrowableBoxes(empty_cards, fake_card, boss_cards, 0);
+        boss_inst[0].Init();
+    }
+
     void Update(float dt)
     {
-        if (!inited)
-        {
-        	boss_cards.resize(3);
-        	game.RegisterThrowableBoxes(empty_cards, fake_card, boss_cards, 0);
-            boss_inst[0].Init();
-            inited = true;
-        }
-
         if (boss_inst[0].active && boss_inst[0].hp != 0)
         {
             ControllCatBoss(boss_inst[0], dt);

@@ -592,17 +592,18 @@
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "BossCat",
-			"Count" : 10,
+			"Count" : 11,
 			"Node" : [
 				{
 					"type" : 2,
 					"name" : "Update",
 					"pos" :
 					{
-						"x" : 821.000000,
-						"y" : 334.000000
+						"x" : 934.000000,
+						"y" : 335.000000
 					},
 					"param_type" : 3,
+					"call_type" : 2,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -635,6 +636,7 @@
 						"y" : 446.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -701,12 +703,27 @@
 						"y" : 545.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 8,
 							"param" : ""
 						}
+					]
+				},
+				{
+					"type" : 2,
+					"name" : "OnInit",
+					"pos" :
+					{
+						"x" : 728.000000,
+						"y" : 335.000000
+					},
+					"param_type" : 0,
+					"call_type" : 1,
+					"Count" : 0,
+					"Link" : [
 					]
 				}
 			]
@@ -768,7 +785,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 46,
+			"Count" : 47,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -989,6 +1006,11 @@
 					"object_uid" : 221639040,
 					"object_child_uid" : 1403800320,
 					"callback_type" : "OnDown"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,
@@ -16904,7 +16926,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 966624,
-			"Count" : 10,
+			"Count" : 11,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -16950,6 +16972,11 @@
 					"object_uid" : 1485033472,
 					"object_child_uid" : 0,
 					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				},
 				{
 					"object_uid" : 0,

@@ -2502,6 +2502,7 @@
 						"y" : 255.000000
 					},
 					"param_type" : 3,
+					"call_type" : 2,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -2535,6 +2536,7 @@
 						"y" : 377.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{

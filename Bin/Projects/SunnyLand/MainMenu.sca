@@ -394,6 +394,7 @@
 						"y" : 305.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{

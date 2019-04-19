@@ -112,8 +112,6 @@ class Game
 
     bool is_paused = false;
 
-    bool init = false;
-
     float return_to_title = -1.0f;
 
     float title_menu_pos_x = 0.0f;
@@ -324,9 +322,13 @@ class Game
         if (hero_inst[0].boxes_pool != -1)
         {
             ThrowableBoxesHolder@ holder = throwable_boxes[hero_inst[0].boxes_pool];
-            holder.FlyBox().visible = 0;
-            holder.FlyBox().in_fly = -1.0f;
-            enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+
+            if (holder.FlyBox().visible == 1)
+            {
+                holder.FlyBox().visible = 0;
+                holder.FlyBox().in_fly = -1.0f;
+                enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+            }
         }
     }
 
@@ -541,31 +543,27 @@ class Game
         }
     }
 
-    void Update(float dt)
+    void OnInit()
     {
-        if (!init)
+        RegisterThrowableBoxes(boxes, fake_box, fly_boxes, 32);
+
+        for (int i = 0; i<throwable_boxes.length(); i++)
         {
-            RegisterThrowableBoxes(boxes, fake_box, fly_boxes, 32);
+            ThrowableBoxesHolder@ holder = throwable_boxes[i];
 
-            for (int i = 0; i<throwable_boxes.length(); i++)
+            for (int j = 0; j<holder.boxes.length(); j++)
             {
-                ThrowableBoxesHolder@ holder = throwable_boxes[i];
-
-                for (int j = 0; j<holder.boxes.length(); j++)
-                {
-                    holder.boxes[j].init_x = holder.boxes[j].x;
-                    holder.boxes[j].init_y = holder.boxes[j].y;
-                }
+                holder.boxes[j].init_x = holder.boxes[j].x;
+                holder.boxes[j].init_y = holder.boxes[j].y;
             }
-
-            hero_inst[0].Init();
-            OnStartGame();
-
-            init = true;
-
-            return;
         }
 
+        hero_inst[0].Init();
+        OnStartGame();
+    }
+
+    void Update(float dt)
+    {
         if (is_paused)
         {
             /*if (pause_menu.GetState() != 2)

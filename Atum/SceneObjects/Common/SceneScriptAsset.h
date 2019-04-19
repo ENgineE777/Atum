@@ -53,11 +53,27 @@ public:
 		string param;
 	};
 
+	enum ParamType
+	{
+		None,
+		Int,
+		Float,
+	};
+
+	enum CallType
+	{
+		OnCallback,
+		OnInit,
+		EveryFrame
+	};
+
 	struct NodeScriptMethod : Node
 	{
 		META_DATA_DECL(NodeScriptMethod)
 
-		int param_type;
+		ParamType param_type;
+		CallType call_type;
+
 		asIScriptFunction* method = nullptr;
 		vector<LinkToMethod> links;
 
@@ -69,6 +85,9 @@ public:
 
 	vector<Node*> nodes;
 	string main_class;
+
+	vector<NodeScriptMethod*> on_start_init;
+	vector<NodeScriptMethod*> frame_updates;
 
 	asIScriptModule* mod = nullptr;
 	asITypeInfo* class_type = nullptr;

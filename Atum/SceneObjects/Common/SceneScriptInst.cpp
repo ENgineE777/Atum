@@ -237,6 +237,8 @@ bool SceneScriptInst::PostPlay()
 		index++;
 	}
 
+	CallMethods(Asset()->on_start_init, false);
+
 	return true;
 }
 
@@ -247,24 +249,7 @@ void SceneScriptInst::Work(float dt)
 		return;
 	}
 
-	for (auto& node : Asset()->nodes)
-	{
-		if (node->type == SceneScriptAsset::ScriptMethod)
-		{
-			SceneScriptAsset::NodeScriptMethod* node_method = (SceneScriptAsset::NodeScriptMethod*)node;
-
-			if (node_method->param_type == 3)
-			{
-				Script()->ctx->Prepare(node_method->method);
-				Script()->ctx->SetArgFloat(0, core.GetDeltaTime());
-				Script()->ctx->SetObject(class_inst);
-				if (Script()->ctx->Execute() < 0)
-				{
-					core.Log("ScriptErr", "Error occured in call of '%s'", node_method->name.c_str());
-				}
-			}
-		}
-	}
+	CallMethods(Asset()->frame_updates, true);
 }
 
 void SceneScriptInst::Stop()
@@ -315,6 +300,26 @@ void SceneScriptInst::Stop()
 bool SceneScriptInst::UsingCamera2DPos()
 {
 	return true;
+}
+
+void SceneScriptInst::CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> methods, bool use_dt)
+{
+	for (auto* node : methods)
+	{
+		Script()->ctx->Prepare(node->method);
+
+		if (use_dt)
+		{
+			Script()->ctx->SetArgFloat(0, core.GetDeltaTime());
+		}
+
+		Script()->ctx->SetObject(class_inst);
+
+		if (Script()->ctx->Execute() < 0)
+		{
+			core.Log("ScriptErr", "Error occured in call of '%s'", node->name.c_str());
+		}
+	}
 }
 
 #ifdef EDITOR

@@ -135,6 +135,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual void SaveAssetData(JSONWriter& writer);
 	virtual void GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid);
 	virtual void SetOwner(Scene* owner);
 	virtual void EnableTasks(bool enable);
@@ -179,6 +180,7 @@ public:
 	void Save(JSONWriter& writer) override;
 
 #ifdef EDITOR
+	void SaveAssetData(JSONWriter& writer) override;
 	void SetOwner(Scene* owner) override;
 	void Copy(SceneObject* src) override;
 #endif

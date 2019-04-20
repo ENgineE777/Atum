@@ -22741,6 +22741,19 @@
 			]
 		},
 		{
+			"asset_uid" : -876151296,
+			"asset_name" : "UIRestartMessage",
+			"instances" : [
+				{
+					"scene" : "coldrain.sca",
+					"inst_uid" : 895327744,
+					"inst_child_uid" : 0,
+					"is_asset" : false,
+					"inst_name" : "UIRestartMessage"
+				}
+			]
+		},
+		{
 			"asset_uid" : -200352256,
 			"asset_name" : "Arrow",
 			"instances" : [

@@ -13,6 +13,10 @@ public:
 
 	void Draw(float dt) override;
 	void Release() override;
+
+#ifdef EDITOR
+	void SaveAssetData(JSONWriter& writer) override;
+#endif
 };
 
 class UIViewInstance : public UIViewInstanceAsset

@@ -70,6 +70,41 @@ void UIViewInstanceAsset::Release()
 	UIWidgetAsset::Release();
 }
 
+#ifdef EDITOR
+void UIViewInstanceAsset::SaveAssetData(JSONWriter& writer)
+{
+	writer.StartBlock(nullptr);
+
+	writer.Write("asset_uid", source->GetUID());
+	writer.Write("asset_name", source->GetName());
+
+	writer.StartArray("instances");
+
+	writer.StartBlock(nullptr);
+
+	writer.Write("scene", GetOwner()->project_scene_path);
+
+	uint32_t inst_uid = 0;
+	uint32_t inst_child_uid = 0;
+
+	GetUIDs(inst_uid, inst_child_uid);
+
+	writer.Write("inst_uid", inst_uid);
+	writer.Write("inst_child_uid", inst_child_uid);
+	writer.Write("is_asset", IsParentAsset());
+
+	writer.Write("inst_name", GetName());
+
+	writer.FinishBlock();
+
+	writer.FinishArray();
+
+	writer.FinishBlock();
+
+	UIWidgetAsset::SaveAssetData(writer);
+}
+#endif
+
 CLASSREG(SceneObject, UIViewInstance, "UIView")
 
 META_DATA_DESC(UIViewInstance)

@@ -367,6 +367,8 @@ void Scene::Load(const char* name)
 
 						reader.Read("scene", inst.scene_path);
 						reader.Read("inst_uid", inst.inst_uid);
+						reader.Read("inst_child_uid", inst.inst_child_uid);
+						reader.Read("is_asset", inst.is_asset);
 
 						reader.LeaveBlock();
 					}
@@ -447,29 +449,12 @@ void Scene::Save(const char* name)
 
 		for (auto obj : objects)
 		{
-			auto* asset_inst = dynamic_cast<SceneObjectInst*>(obj);
+			obj->SaveAssetData(writer);
+		}
 
-			if (asset_inst)
-			{
-				writer.StartBlock(nullptr);
-
-				writer.Write("asset_uid", asset_inst->asset->GetUID());
-				writer.Write("asset_name", asset_inst->asset->GetName());
-
-				writer.StartArray("instances");
-
-				writer.StartBlock(nullptr);
-
-				writer.Write("scene", asset_inst->GetOwner()->project_scene_path);
-				writer.Write("inst_uid", asset_inst->GetUID());
-				writer.Write("inst_name", asset_inst->GetName());
-
-				writer.FinishBlock();
-
-				writer.FinishArray();
-
-				writer.FinishBlock();
-			}
+		for (auto obj : assets)
+		{
+			obj->SaveAssetData(writer);
 		}
 
 		writer.FinishArray();

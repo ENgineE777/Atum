@@ -549,6 +549,19 @@
 	],
 	"asset_instances" : [
 		{
+			"asset_uid" : 1166329984,
+			"asset_name" : "TitleMenu",
+			"instances" : [
+				{
+					"scene" : "MainMenu.sca",
+					"inst_uid" : 221639040,
+					"inst_child_uid" : 0,
+					"is_asset" : false,
+					"inst_name" : "TitleMenu"
+				}
+			]
+		},
+		{
 			"asset_uid" : 983036,
 			"asset_name" : "MenuScript",
 			"instances" : [

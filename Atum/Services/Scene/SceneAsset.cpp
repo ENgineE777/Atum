@@ -19,7 +19,7 @@ SceneObject* SceneAsset::AssetInstance::GetObject()
 {
 	if (!object)
 	{
-		object = project.GetScene(scene_path.c_str())->FindByUID(inst_uid, 0, false);
+		object = project.GetScene(scene_path.c_str())->FindByUID(inst_uid, inst_child_uid, is_asset);
 	}
 
 	return object;

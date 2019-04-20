@@ -306,6 +306,24 @@ void UIWidgetAsset::DeleteChilds()
 }
 
 #ifdef EDITOR
+bool UIWidgetAsset::IsParentAsset()
+{
+	if (parent)
+	{
+		return parent->IsParentAsset();
+	}
+
+	return IsAsset();
+}
+
+void UIWidgetAsset::SaveAssetData(JSONWriter& writer)
+{
+	for (auto& child : childs)
+	{
+		child->SaveAssetData(writer);
+	}
+}
+
 void UIWidgetAsset::SetOwner(Scene* owner)
 {
 	SceneObject::SetOwner(owner);

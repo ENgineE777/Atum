@@ -25,6 +25,8 @@ public:
 	{
 		string scene_path;
 		uint32_t inst_uid = 0;
+		uint32_t inst_child_uid = 0;
+		bool is_asset = false;
 		SceneObject* object = nullptr;
 
 		AssetInstance() = default;

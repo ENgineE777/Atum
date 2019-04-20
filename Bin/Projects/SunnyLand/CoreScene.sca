@@ -3664,6 +3664,19 @@
 			]
 		},
 		{
+			"asset_uid" : 206845808,
+			"asset_name" : "IngameMenu",
+			"instances" : [
+				{
+					"scene" : "CoreScene.sca",
+					"inst_uid" : 820505600,
+					"inst_child_uid" : 0,
+					"is_asset" : false,
+					"inst_name" : "IngameMenu"
+				}
+			]
+		},
+		{
 			"asset_uid" : 16352,
 			"asset_name" : "GameMenuScript",
 			"instances" : [

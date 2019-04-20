@@ -236,6 +236,11 @@ void SceneObject::ApplyProperties()
 }
 
 #ifdef EDITOR
+void SceneObject::SaveAssetData(JSONWriter& writer)
+{
+
+}
+
 void SceneObject::GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid)
 {
 	out_uid = GetParentUID();
@@ -754,6 +759,28 @@ void SceneObjectInst::Save(JSONWriter& saver)
 }
 
 #ifdef EDITOR
+void SceneObjectInst::SaveAssetData(JSONWriter& writer)
+{
+	writer.StartBlock(nullptr);
+
+	writer.Write("asset_uid", asset->GetUID());
+	writer.Write("asset_name", asset->GetName());
+
+	writer.StartArray("instances");
+
+	writer.StartBlock(nullptr);
+
+	writer.Write("scene", GetOwner()->project_scene_path);
+	writer.Write("inst_uid", GetUID());
+	writer.Write("inst_name", GetName());
+
+	writer.FinishBlock();
+
+	writer.FinishArray();
+
+	writer.FinishBlock();
+}
+
 void SceneObjectInst::SetOwner(Scene* owner)
 {
 	SceneObject::SetOwner(owner);

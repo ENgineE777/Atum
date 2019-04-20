@@ -612,7 +612,7 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int chil
 
 void UIViewAsset::CheckProperties()
 {
-	if (sel_ui_asset != this && !StringUtils::IsEqual(sel_ui_asset->GetName(), "UIViewInstanceAsset"))
+	if (sel_ui_asset && sel_ui_asset != this && !StringUtils::IsEqual(sel_ui_asset->GetName(), "UIViewInstanceAsset"))
 	{
 		if (sel_ui_asset->GetMetaData()->IsValueWasChanged())
 		{
@@ -630,7 +630,6 @@ void UIViewAsset::CheckProperties()
 			}
 
 			ApplyProperties();
-
 		}
 	}
 	else

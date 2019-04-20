@@ -84,7 +84,8 @@
 						"x" : 797.000000,
 						"y" : 150.000000
 					},
-					"param_type" : 3,
+					"param_type" : 0,
+					"call_type" : 2,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -177,6 +178,7 @@
 						"y" : 588.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{

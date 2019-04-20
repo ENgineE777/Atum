@@ -152,6 +152,7 @@
 						"y" : 321.000000
 					},
 					"param_type" : 1,
+					"call_type" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
@@ -173,6 +174,7 @@
 						"y" : 491.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -190,6 +192,7 @@
 						"y" : 264.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -225,6 +228,7 @@
 						"y" : 391.000000
 					},
 					"param_type" : 1,
+					"call_type" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
@@ -294,6 +298,7 @@
 						"y" : 524.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -320,6 +325,7 @@
 						"y" : 637.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -337,6 +343,7 @@
 						"y" : 595.000000
 					},
 					"param_type" : 0,
+					"call_type" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
@@ -402,7 +409,8 @@
 						"x" : 1229.000000,
 						"y" : 499.000000
 					},
-					"param_type" : 3,
+					"param_type" : 0,
+					"call_type" : 2,
 					"Count" : 0,
 					"Link" : [
 					]

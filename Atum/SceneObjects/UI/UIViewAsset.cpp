@@ -176,6 +176,12 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 	widget->parent->childs.erase(widget->parent->childs.begin() + prev_child_index);
 
 	widget->parent = parent_widget;
+
+	if (widget->parent == parent_widget && child_index != 0)
+	{
+		child_index--;
+	}
+
 	parent_widget->childs.insert(parent_widget->childs.begin() + child_index, widget);
 
 	for (int i=0; i<widget->instances.size(); i++)

@@ -1240,6 +1240,8 @@ void Project::Reset()
 		}
 	}
 
+	scenes.clear();
+
 	for (auto& layer : layers)
 	{
 		delete layer->wgt;

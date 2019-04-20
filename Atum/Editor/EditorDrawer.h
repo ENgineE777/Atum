@@ -20,8 +20,9 @@ public:
 	Texture* checker_texture = nullptr;
 
 	void Init();
-	void DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color color);
+	void DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Vector2 offset, float rotate, Color color);
 	void PrintText(Vector2 pos, Color color, const char* text);
+	void DrawLine(Vector2 from, Vector2 to, Color color);
 	void DrawCurve(Vector2 from, Vector2 to, Color color);
 };
 

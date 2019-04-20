@@ -38,6 +38,7 @@ public:
 		string  name;
 		bool    def_link = false;
 		Vector2 arrow_pos;
+		float   angle = 0.0f;
 	};
 
 	class Node : public Object

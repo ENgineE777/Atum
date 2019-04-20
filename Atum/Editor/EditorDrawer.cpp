@@ -24,7 +24,7 @@ void EditorDrawer::Init()
 	font = core.fonts.LoadFont("settings\\eui\\DroidSans.ttf", false, false, 11);
 }
 
-void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color color)
+void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Vector2 offset, float rotate, Color color)
 {
 	if (pos.x + size.x < 0 || core.render.GetDevice()->GetWidth() < pos.x ||
 		pos.y + size.y < 0 || core.render.GetDevice()->GetHeight() < pos.y)
@@ -32,7 +32,11 @@ void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Color col
 		return;
 	}
 
-	Sprite::Draw(tex, color, Matrix(), pos, size, 0.0f, 1.0f, false);
+	Matrix mat;
+	mat.RotateZ(rotate);
+	mat.Pos() = Vector(pos.x, pos.y, 0.01f);
+
+	Sprite::Draw(tex, color, mat, offset, size, 0.0f, 1.0f, false);
 }
 
 void EditorDrawer::PrintText(Vector2 pos, Color color, const char* text)
@@ -58,6 +62,20 @@ void EditorDrawer::PrintText(Vector2 pos, Color color, const char* text)
 	font->Print(mat, 1.0f, color, str);
 }
 
+void EditorDrawer::DrawLine(Vector2 from, Vector2 to, Color color)
+{
+	Vector2 dir = to - from;
+	Vector2 size(dir.Length(), 2.0f);
+
+	Vector2 center = from + dir * 0.5f;
+
+	Matrix mat;
+	mat.RotateZ(atan2(dir.y / size.x, dir.x / size.x));
+	mat.Pos() = Vector(center.x, center.y, 0.01f);
+
+	Sprite::Draw(nullptr, color, mat, -0.5f * size, size, 0.0f, 1.0f, false);
+}
+
 void EditorDrawer::DrawCurve(Vector2 from, Vector2 to, Color color)
 {
 	Vector2 last = from;
@@ -79,16 +97,7 @@ void EditorDrawer::DrawCurve(Vector2 from, Vector2 to, Color color)
 		float w4 = t * t *t;
 		Vector2 pos = w1 * from + w2 * p2 + w3 * p3 + w4 * to;
 
-		Vector2 dir = pos - last;
-		Vector2 size(dir.Length(), 2.0f);
-
-		Vector2 center = last + dir * 0.5f;
-
-		Matrix mat;
-		mat.RotateZ(atan2(dir.y / size.x, dir.x / size.x));
-		mat.Pos() = Vector(center.x, center.y, 0.01f);
-
-		Sprite::Draw(nullptr, color, mat, -0.5f * size, size, 0.0f, 1.0f, false);
+		DrawLine(last, pos, color);
 
 		last = pos;
 	}

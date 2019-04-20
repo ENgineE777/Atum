@@ -54,7 +54,7 @@ public:
 
 public:
 
-	void Normalize();
+	float Normalize();
 	float Length();
 	float Length(Vector2 v);
 	float Length2(Vector2 v);
@@ -125,11 +125,14 @@ inline Vector2& Vector2::operator = (const Vector2 & v)
 	return *this;
 }
 
-inline void Vector2::Normalize()
+inline float Vector2::Normalize()
 {
-	double k = 1.0/sqrt(x*x + y*y);
+	float len = sqrtf(x * x + y * y);
+	float k = 1.0f / len;
 	x = float(k*x);
 	y = float(k*y);
+
+	return len;
 }
 
 inline float Vector2::Length()

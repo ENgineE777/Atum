@@ -241,7 +241,7 @@ void SpriteGraphAsset::Draw(float dt)
 {
 	if (drag == AddLink)
 	{
-		editor_drawer.DrawCurve(nodes[sel_node].pos + Vector2(nodeSize.x, 47.0f) - Sprite::ed_cam_pos, mouse_pos, COLOR_WHITE);
+		editor_drawer.DrawLine(nodes[sel_node].pos + nodeSize * 0.5f - Sprite::ed_cam_pos, mouse_pos, COLOR_WHITE);
 	}
 
 	if (sel_link != -1 && sel_node != -1)
@@ -289,23 +289,90 @@ void SpriteGraphAsset::Draw(float dt)
 				}
 			}
 
-			Vector2 p1 = node.pos + Vector2(nodeSize.x, 47.0f) - Sprite::ed_cam_pos;
-			Vector2 p2 = nodes[link.index].pos + Vector2(0.0f, 47.0f) - Sprite::ed_cam_pos;
+			Vector2 p1 = node.pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
+			Vector2 p2 = nodes[link.index].pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
+
+			Vector2 dir = (p2 - p1);
+			float len = dir.Normalize();
+
+			link.arrow_pos = p1 + dir * len * 0.4f;
+			link.angle = atan2(dir.y, dir.x);
+
+			if (sel_node != -1 && link.index == sel_node)
+			{
+				bool should_skip = false;
+
+				for (auto& sub_link : nodes[sel_node].links)
+				{
+					if (sub_link.index == index)
+					{
+						should_skip = true;
+						break;
+					}
+				}
+
+				if (should_skip)
+				{
+					continue;
+				}
+			}
 
 			Color color = COLOR_WHITE;
 
 			if (index == sel_node)
 			{
-				color = (link_index == sel_link) ? COLOR_GREEN : COLOR_YELLOW;
+				if (sel_link == -1)
+				{
+					color = COLOR_YELLOW;
+				}
+				else
+				if (link_index == sel_link)
+				{
+					color = COLOR_GREEN;
+				}
 			}
 
-			editor_drawer.DrawCurve(p1, p2, color);
+			editor_drawer.DrawLine(p1, p2, color);
 
-			link.arrow_pos = Vector2(p1.x - 15.0f, p1.y - 7.0f);
-			
 			link_index++;
 		}
 
+		index++;
+	}
+
+	index = 0;
+	for (auto& node : nodes)
+	{
+		int link_index = 0;
+		for (auto& link : node.links)
+		{
+			Color color = COLOR_WHITE;
+
+			if (index == sel_node)
+			{
+				if (sel_link == -1)
+				{
+					color = COLOR_CYAN;
+				}
+				else
+				if (link_index == sel_link)
+				{
+					color = COLOR_CYAN;
+				}
+			}
+
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, link.arrow_pos, linkSize, -0.5f * linkSize, link.angle, color);
+
+			link_index++;
+		}
+
+		index++;
+	}
+
+	index = 0;
+
+	for (auto& node : nodes)
+	{
 		Color color = COLOR_CYAN;
 
 		if (index == def_node)
@@ -313,7 +380,7 @@ void SpriteGraphAsset::Draw(float dt)
 			color = COLOR_MAGNETA;
 		}
 
-		if (sel_node == index || target_node == index)
+		if ((sel_node == index && sel_link == -1) || target_node == index)
 		{
 			color = COLOR_GREEN;
 		}
@@ -339,10 +406,7 @@ void SpriteGraphAsset::Draw(float dt)
 			color.b = 1.0f;
 		}*/
 
-		editor_drawer.DrawSprite(editor_drawer.node_tex, node.pos - Sprite::ed_cam_pos, nodeSize, color);
-
-		editor_drawer.DrawSprite(editor_drawer.arrow_tex, node.pos + Vector2(0.0f, 40.0f) - Sprite::ed_cam_pos, linkSize, (index == target_node) ? COLOR_GREEN : COLOR_WHITE);
-		editor_drawer.DrawSprite(editor_drawer.arrow_tex, node.pos + Vector2(nodeSize.x - 15.0f, 40.0f) - Sprite::ed_cam_pos, linkSize, (index == sel_node && sel_link != -1) ? COLOR_GREEN : COLOR_WHITE);
+		editor_drawer.DrawSprite(editor_drawer.node_tex, node.pos - Sprite::ed_cam_pos, nodeSize, 0.0f, 0.0f, color);
 
 		editor_drawer.PrintText(node.pos + Vector2(5.0f, 3.0f) - Sprite::ed_cam_pos, COLOR_WHITE,node.name.c_str());
 
@@ -356,7 +420,7 @@ void SpriteGraphAsset::Draw(float dt)
 		index++;
 	}
 
-	if (sel_node != -1)
+	if (sel_node != -1 && sel_link == -1)
 	{
 		Node& node = nodes[sel_node];
 
@@ -599,8 +663,8 @@ void SpriteGraphAsset::OnMouseMove(Vector2 delta_ms)
 		{
 			Node& node = nodes[target_node];
 
-			if (node.pos.x - Sprite::ed_cam_pos.x > mouse_pos.x || mouse_pos.x > node.pos.x + 15.0f - Sprite::ed_cam_pos.x ||
-				node.pos.y + 40.0f - Sprite::ed_cam_pos.y > mouse_pos.y || mouse_pos.y > node.pos.y + 55.0f - Sprite::ed_cam_pos.y)
+			if (node.pos.x - Sprite::ed_cam_pos.x > mouse_pos.x || mouse_pos.x > node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x ||
+				node.pos.y - Sprite::ed_cam_pos.y > mouse_pos.y || mouse_pos.y > node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
 			{
 				target_node = -1;
 			}
@@ -625,31 +689,28 @@ void SpriteGraphAsset::OnLeftMouseDown(Vector2 ms)
 	sel_node = GetNodeIndex(mouse_pos);
 	sel_link = -1;
 
-	if (sel_node != -1)
+	if (sel_node == -1)
 	{
-		Node& node = nodes[sel_node];
-
-		if (node.links.size() > 0)
+		int index = 0;
+		for (auto& node : nodes)
 		{
-			Link& link = node.links[0];
-	
-			if (link.arrow_pos.x < ms.x && ms.x < link.arrow_pos.x + linkSize.x &&
-				link.arrow_pos.y < ms.y && ms.y < link.arrow_pos.y + linkSize.y)
+			if (node.links.size() > 0)
 			{
-				if (prev_sel_node != sel_node)
-				{
-					sel_link = 0;
-				}
-				else
-				{
-					sel_link = prev_sel_link;
-					sel_link++;
+				int link_index = 0;
 
-					if (sel_link >= (int)node.links.size())
+				for (auto& link : node.links)
+				{
+					if (link.arrow_pos.x - linkSize.x < ms.x && ms.x < link.arrow_pos.x + linkSize.x &&
+						link.arrow_pos.y - linkSize.y < ms.y && ms.y < link.arrow_pos.y + linkSize.y)
 					{
-						sel_link = 0;
+						sel_node = index;
+						sel_link = link_index;
 					}
+
+					link_index++;
 				}
+
+				index++;
 			}
 		}
 	}
@@ -660,15 +721,9 @@ void SpriteGraphAsset::OnLeftMouseDown(Vector2 ms)
 		drag = MoveNode;
 	}
 
-	if (sel_node != -1)
+	if (sel_node != -1 && core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active))
 	{
-		Node& node = nodes[sel_node];
-
-		if (node.pos.x + nodeSize.x - 15.0f - Sprite::ed_cam_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-			node.pos.y + 40.0f - Sprite::ed_cam_pos.y < ms.y && ms.y < node.pos.y + 55.0f - Sprite::ed_cam_pos.y)
-		{
-			drag = AddLink;
-		}
+		drag = AddLink;
 	}
 
 	ShowProperties(true);

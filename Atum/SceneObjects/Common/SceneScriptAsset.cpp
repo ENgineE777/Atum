@@ -476,7 +476,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 			color = COLOR_GREEN;
 		}
 
-		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos - Sprite::ed_cam_pos, nodeSize, color);
+		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos - Sprite::ed_cam_pos, nodeSize, 0.0f, 0.0f, color);
 		editor_drawer.PrintText(node->pos + Vector2(5.0f + (node->type == ScriptMethod ? 15.0f : 0.0f), 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
 
 		if (node->type == NodeType::SceneCallback)
@@ -488,13 +488,13 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 				color = COLOR_GREEN;
 			}
 
-			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, color);
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, 0.0f, 0.0f, color);
 		}
 		else
 		if (node->type == ScriptMethod)
 		{
 			Color color = (link_drag && target_link == index) ? COLOR_GREEN : COLOR_WHITE;
-			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, color);
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, 0.0f, 0.0f, color);
 		}
 
 		const char* names[] = {"Callback", "Property", "Method"};

@@ -66,15 +66,15 @@ void SpritesLayerInst::Draw(float dt)
 	{
 		cam_pos = Sprite::ed_cam_pos;
 		Sprite::ed_cam_pos *= axis_scale;
-		from = (int)((Sprite::ed_cam_pos.x / scale) / size.x);
-		to = (int)(((Sprite::ed_cam_pos.x + core.render.GetDevice()->GetWidth())/ scale) / size.x);
+		from = (int)(((Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f) / scale) / size.x);
+		to = (int)(((Sprite::ed_cam_pos.x + core.render.GetDevice()->GetWidth() * 0.5f)/ scale) / size.x);
 	}
 	else
 	{
 		cam_pos = Sprite::cam_pos;
 		Sprite::cam_pos *= axis_scale;
-		from = (int)((Sprite::cam_pos.x) / size.x);
-		to = (int)(((Sprite::cam_pos.x + core.render.GetDevice()->GetWidth())) / size.x);
+		from = (int)(((Sprite::cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f)) / size.x);
+		to = (int)(((Sprite::cam_pos.x + core.render.GetDevice()->GetWidth() * 0.5f)) / size.x);
 	}
 
 	for (int x = from - 1; x < to + 1; x++)

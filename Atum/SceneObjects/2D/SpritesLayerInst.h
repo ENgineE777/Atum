@@ -10,7 +10,7 @@ public:
 	META_DATA_DECL(SpritesLayerInst)
 
 	Transform2D trans;
-	float axis_scale = 1.0f;
+	Vector2 axis_scale = 1.0f;
 
 	virtual ~SpritesLayerInst() = default;
 

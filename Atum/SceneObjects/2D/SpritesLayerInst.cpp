@@ -6,7 +6,8 @@ CLASSREG(SceneObject, SpritesLayerInst, "SpritesLayer")
 
 META_DATA_DESC(SpritesLayerInst)
 BASE_SCENE_OBJ_PROP(SpritesLayerInst)
-FLOAT_PROP(SpritesLayerInst, axis_scale, 1.0f, "Geometry", "axis_scale")
+FLOAT_PROP(SpritesLayerInst, axis_scale.x, 1.0f, "Geometry", "x_axis_scale")
+FLOAT_PROP(SpritesLayerInst, axis_scale.y, 1.0f, "Geometry", "y_axis_scale")
 FLOAT_PROP(SpritesLayerInst, trans.depth, 0.5f, "Geometry", "Depth")
 FLOAT_PROP(SpritesLayerInst, trans.pos.y, 0.0f, "Geometry", "y")
 META_DATA_DESC_END()
@@ -86,7 +87,7 @@ void SpritesLayerInst::Draw(float dt)
 			tmp_trans.pos.x -= min_pos.x;
 			tmp_trans.pos.x += (float)x * size.x;
 			tmp_trans.pos.y -= min_pos.y + size.y * 0.5f;
-			tmp_trans.pos.y += trans.pos.y * axis_scale;
+			tmp_trans.pos.y += trans.pos.y * axis_scale.y;
 			tmp_trans.BuildMatrices();
 			Sprite::Draw(&tmp_trans, COLOR_WHITE, &sprite.sprite, &sprite.state, true, false);
 		}

@@ -56,55 +56,90 @@ void SpriteTileInst::Draw(float dt)
 #ifdef EDITOR
 	if (edited)
 	{
-		if (sel_inst != -1 && instances[sel_inst].GetPos().Length(trans.pos) > 0.01f)
+		if (rect_select)
 		{
-			instances[sel_inst].SetPos(trans.pos);
-			CalcIndices();
-		}
-
-		if (core.controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
-		{
-			for (auto comp : components)
+			if (core.controls.DebugKeyPressed("KEY_I"))
 			{
-				comp->InstDeleted(sel_inst);
+				ClearRect();
+				CalcIndices();
 			}
-
-			instances.erase(sel_inst + instances.begin());
-			sel_inst = -1;
-			SetGizmo();
-
-			CalcIndices();
-		}
-
-		bool add_center = core.controls.DebugKeyPressed("KEY_O");
-		bool add_after = core.controls.DebugKeyPressed("KEY_P");
-
-		if (add_center || add_after)
-		{
-			Instance inst;
-
-			if (sel_inst != -1 && add_after)
+			else
+			if (core.controls.DebugKeyPressed("KEY_O") || core.controls.DebugKeyPressed("KEY_P"))
 			{
-				inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
+				FillRect();
+				CalcIndices();
 			}
 			else
 			{
-				float scale = 1024.0f / core.render.GetDevice()->GetHeight();
-				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
+				if (Gizmo::inst->delta_move.Length() > 0.01f)
+				{
+					for (auto& index : sel_instances)
+					{
+						auto& inst = instances[index];
+						inst.SetPos(inst.GetPos() + Gizmo::inst->delta_move);
+					}
+
+					rect_p1 += Gizmo::inst->delta_move;
+					rect_p2 += Gizmo::inst->delta_move;
+
+					Gizmo::inst->delta_move = 0.0f;
+
+					CalcIndices();
+				}
 			}
-
-			instances.push_back(inst);
-
-			sel_inst = (int)instances.size() - 1;
-
-			for (auto comp : components)
+		}
+		else
+		{
+			if (sel_inst != -1 && instances[sel_inst].GetPos().Length(trans.pos) > 0.01f)
 			{
-				comp->InstAdded();
+				instances[sel_inst].SetPos(trans.pos);
+				CalcIndices();
 			}
 
-			CalcIndices();
+			if (core.controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
+			{
+				for (auto comp : components)
+				{
+					comp->InstDeleted(sel_inst);
+				}
 
-			SetGizmo();
+				instances.erase(sel_inst + instances.begin());
+				sel_inst = -1;
+				SetGizmo();
+
+				CalcIndices();
+			}
+
+			bool add_center = core.controls.DebugKeyPressed("KEY_O");
+			bool add_after = core.controls.DebugKeyPressed("KEY_P");
+
+			if (add_center || add_after)
+			{
+				Instance inst;
+
+				if (sel_inst != -1 && add_after)
+				{
+					inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
+				}
+				else
+				{
+					float scale = 1024.0f / core.render.GetDevice()->GetHeight();
+					inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
+				}
+
+				instances.push_back(inst);
+
+				sel_inst = (int)instances.size() - 1;
+
+				for (auto comp : components)
+				{
+					comp->InstAdded();
+				}
+
+				CalcIndices();
+
+				SetGizmo();
+			}
 		}
 	}
 #endif
@@ -146,6 +181,32 @@ void SpriteTileInst::Draw(float dt)
 
 		Sprite::Draw(&trans, inst.color, &sprite_asset->sprite[inst.index], &inst.frame_state, true, false);
 	}
+
+#ifdef EDITOR
+	if (rect_select)
+	{
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+
+		Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+
+		for (auto& index : sel_instances)
+		{
+			auto& inst = instances[index];
+			Vector2 pos = (inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size) * scale - delta;
+			core.render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
+		}
+	}
+
+	if (edited)
+	{
+		if (sel_inst != -1)
+		{
+			trans.pos = instances[sel_inst].GetPos();
+			trans.rotation = instances[sel_inst].GetAngle();
+			trans.BuildMatrices();
+		}
+	}
+#endif
 
 	if (Sprite::use_ed_cam)
 	{

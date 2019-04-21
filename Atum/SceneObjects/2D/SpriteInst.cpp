@@ -404,12 +404,12 @@ void SpriteInst::Draw(float dt)
 						auto& inst = instances[index];
 						inst.SetPos(inst.GetPos() + Gizmo::inst->delta_move);
 					}
+
+					rect_p1 += Gizmo::inst->delta_move;
+					rect_p2 += Gizmo::inst->delta_move;
+
+					Gizmo::inst->delta_move = 0.0f;
 				}
-
-				rect_p1 += Gizmo::inst->delta_move;
-				rect_p2 += Gizmo::inst->delta_move;
-
-				Gizmo::inst->delta_move = 0.0f;
 			}
 		}
 		else

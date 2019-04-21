@@ -647,10 +647,14 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 
 	Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
-	rect_p1 = (p1 + delta) / scale;
-	rect_p1 = Gizmo::inst->MakeAligned((p1 + delta) / scale);
-	rect_p2 = (p2 + delta) / scale;
-	rect_p2 = Gizmo::inst->MakeAligned((p2 + delta) / scale);
+	auto left_offset = trans.offset * trans.size;
+	auto right_offset = (1.0f - trans.offset) * trans.size;
+
+	rect_p1 = (p1 + delta) / scale + left_offset;
+	rect_p2 = (p2 + delta) / scale + right_offset;
+
+	rect_p1 = Gizmo::inst->MakeAligned(rect_p1) - left_offset;
+	rect_p2 = Gizmo::inst->MakeAligned(rect_p2) + right_offset;
 
 	sel_instances.clear();
 
@@ -668,9 +672,9 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 		index++;
 	}
 
-	multi_trans.offset = 0.0f;
-	multi_trans.pos = rect_p1 - Vector2(trans.offset.x, trans.offset.y) * trans.size;
-	multi_trans.size = rect_p2 + Vector2(1.0f - trans.offset.x, 1.0f - trans.offset.y) * trans.size - rect_p1;
+	multi_trans.pos = rect_p1 + left_offset;
+	multi_trans.size = rect_p2 - rect_p1;
+	multi_trans.offset = left_offset / multi_trans.size;
 
 	Gizmo::inst->SetTrans2D(&multi_trans, Gizmo::trans_2d_move);
 }
@@ -702,13 +706,16 @@ void SpriteInst::FillRect()
 {
 	ClearRect();
 
-	float y = rect_p1.y;
+	auto left_offset = trans.offset * trans.size;
+	auto right_offset = (1.0f - trans.offset) * trans.size;
 
-	while (y < rect_p2.y + 0.01f)
+	float y = rect_p1.y + left_offset.y;
+
+	while (y < rect_p2.y - right_offset.y + 0.01f)
 	{
-		float x = rect_p1.x;
+		float x = rect_p1.x +left_offset.x;
 
-		while (x < rect_p2.x + 0.01f)
+		while (x < rect_p2.x - right_offset.x + 0.01f)
 		{
 			Instance inst;
 

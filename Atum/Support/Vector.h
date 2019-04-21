@@ -190,8 +190,8 @@ inline Vector operator + (const Vector& v, float f)
 
 inline Vector operator + (float f, const Vector& v)
 {
-	Vector tv(v);
-	tv += f;
+	Vector tv(f);
+	tv += v;
 	return tv;
 }
 
@@ -211,8 +211,8 @@ inline Vector operator - (const Vector& v, float f)
 
 inline Vector operator - (float f, const Vector& v)
 {
-	Vector tv(v);
-	tv -= f;
+	Vector tv(f);
+	tv -= v;
 	return tv;
 }
 

@@ -269,8 +269,8 @@ inline Vector2 operator / (const Vector2 & v, double d)
 
 inline Vector2 operator / (double d, const Vector2 & v)
 {
-	Vector2 tv(v);
-	tv /= d;
+	Vector2 tv(d);
+	tv /= v;
 	return tv;
 }
 
@@ -311,8 +311,8 @@ inline Vector2 operator - (const Vector2 & v, double d)
 
 inline Vector2 operator - (double d, const Vector2 & v)
 {
-	Vector2 tv(v);
-	tv -= d;
+	Vector2 tv(d);
+	tv -= v;
 	return tv;
 }
 

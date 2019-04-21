@@ -320,8 +320,8 @@ inline Vector4 operator / (const Vector4 & v, double d)
 
 inline Vector4 operator / (double d, const Vector4 & v)
 {
-	Vector4 tv(v);
-	tv /= d;
+	Vector4 tv(d);
+	tv /= v;
 	return tv;
 }
 
@@ -362,8 +362,8 @@ inline Vector4 operator - (const Vector4 & v, double d)
 
 inline Vector4 operator - (double d, const Vector4 & v)
 {
-	Vector4 tv(v);
-	tv -= d;
+	Vector4 tv(d);
+	tv -= v;
 	return tv;
 }
 

@@ -1,5 +1,5 @@
 
-Copyright 2017-2018 Evgeny Solyanov
+Copyright 2017-2019 Evgeny Solyanov
 
 This software is provided 'as-is', without any express or implied 
 warranty. In no event will the authors be held liable for any 

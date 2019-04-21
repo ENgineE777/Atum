@@ -75,10 +75,6 @@ void SpriteTileAsset::SetEditMode(bool ed)
 	if (ed)
 	{
 		Gizmo::inst->SetTrans2D(&trans);
-
-		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"),
-		                               GetMetaData()->GetFloatEditBox("width"), GetMetaData()->GetFloatEditBox("height"),
-		                               GetMetaData()->GetFloatEditBox("anchorn_x"), GetMetaData()->GetFloatEditBox("anchorn_y"));
 	}
 	else
 	{

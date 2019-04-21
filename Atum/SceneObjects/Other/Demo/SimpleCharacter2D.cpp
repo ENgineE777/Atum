@@ -495,10 +495,5 @@ void SimpleCharacter2D::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
 	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move);
-
-	if (ed)
-	{
-		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"));
-	}
 }
 #endif

@@ -139,7 +139,6 @@ public:
 	void Copy(void* source);
 	void BindToScript(class asIScriptEngine* engine, const char* script_class_name);
 #ifdef EDITOR
-	EUIEditBox* GetFloatEditBox(const char* name);
 	void PrepareWidgets(EUICategories* parent);
 	void UpdateWidgets();
 	bool IsValueWasChanged();

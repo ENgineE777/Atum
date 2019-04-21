@@ -343,13 +343,6 @@ void UIWidgetAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);
 	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, !AddedToTreeByParent() ? 0xffff : 0, true);
-
-	if (ed)
-	{
-		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"),
-		                               GetMetaData()->GetFloatEditBox("width"), GetMetaData()->GetFloatEditBox("height"),
-		                               GetMetaData()->GetFloatEditBox("anchorn_x"), GetMetaData()->GetFloatEditBox("anchorn_y"));
-	}
 }
 
 void UIWidgetAsset::StoreProperties()

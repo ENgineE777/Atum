@@ -143,7 +143,6 @@ void Camera2D::SetEditMode(bool ed)
 	{
 		trans.size = 100.0f;
 		Gizmo::inst->SetTrans2D(&trans, Gizmo::trans_2d_move);
-		Gizmo::inst->SetTrans2DWidgets(GetMetaData()->GetFloatEditBox("x"), GetMetaData()->GetFloatEditBox("y"));
 	}
 }
 #endif

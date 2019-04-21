@@ -1071,12 +1071,6 @@ void NavMesh2D::SetGizmo()
 	}
 
 	Gizmo::inst->SetTrans2D(sel_inst != -1 ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
-
-	if (sel_inst != -1)
-	{
-		Gizmo::inst->SetTrans2DWidgets(instances[sel_inst].GetMetaData()->GetFloatEditBox("x"), instances[sel_inst].GetMetaData()->GetFloatEditBox("y"),
-		                               instances[sel_inst].GetMetaData()->GetFloatEditBox("width"), instances[sel_inst].GetMetaData()->GetFloatEditBox("height"));
-	}
 }
 
 int NavMesh2D::GetInstCount()

@@ -369,24 +369,6 @@ void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_cl
 }
 
 #ifdef EDITOR
-EUIEditBox* MetaData::GetFloatEditBox(const char* name)
-{
-	for (auto& prop : properties)
-	{
-		if (StringUtils::IsEqual(prop.propName.c_str(), name))
-		{
-			if (prop.type == Float && prop.widgets.size() > 0)
-			{
-				return ((FloatWidget*)(prop.widgets.begin()->second))->ebox;
-			}
-
-			break;
-		}
-	}
-
-	return nullptr;
-}
-
 void MetaData::PrepareWidgets(EUICategories* parent)
 {
 	for (auto& prop : properties)

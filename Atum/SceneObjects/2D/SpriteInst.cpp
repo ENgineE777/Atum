@@ -784,11 +784,6 @@ void SpriteInst::SetGizmo()
 	}
 
 	Gizmo::inst->SetTrans2D(sel_inst != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
-
-	if (sel_inst != -1)
-	{
-		Gizmo::inst->SetTrans2DWidgets(instances[sel_inst].GetMetaData()->GetFloatEditBox("x"), instances[sel_inst].GetMetaData()->GetFloatEditBox("y"));
-	}
 }
 
 int SpriteInst::GetInstCount()

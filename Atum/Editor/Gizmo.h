@@ -23,13 +23,6 @@ public:
 	float   scale = 1.0f;
 	Vector2 align2d = 0.0f;
 
-	EUIEditBox* ebox_x = nullptr;
-	EUIEditBox* ebox_y = nullptr;
-	EUIEditBox* ebox_width = nullptr;
-	EUIEditBox* ebox_height = nullptr;
-	EUIEditBox* ebox_offset_x = nullptr;
-	EUIEditBox* ebox_offset_y = nullptr;
-
 private:
 
 	Matrix  transform;
@@ -74,7 +67,6 @@ public:
 
 	void Init();
 	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);
-	void SetTrans2DWidgets(EUIEditBox* ebox_x = nullptr, EUIEditBox* ebox_y = nullptr, EUIEditBox* ebox_width = nullptr, EUIEditBox* ebox_height = nullptr, EUIEditBox* ebox_offset_x = nullptr, EUIEditBox* ebox_offset_y = nullptr);
 	void SetTrans3D(Matrix transform);
 	Matrix& GetTrans3D();
 	bool IsTrans2D();

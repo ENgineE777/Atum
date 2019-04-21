@@ -429,10 +429,5 @@ void Track2DComp::SetGizmo()
 	}
 
 	Gizmo::inst->SetTrans2D(sel_point != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
-
-	if (sel_point != -1)
-	{
-		Gizmo::inst->SetTrans2DWidgets(track.points[sel_point].GetMetaData()->GetFloatEditBox("x"), track.points[sel_point].GetMetaData()->GetFloatEditBox("y"));
-	}
 }
 #endif

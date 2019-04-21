@@ -6,13 +6,23 @@ void IntWidget::Init(EUICategories* parent, const char* catName, const char* lab
 	ProperyWidget::Init(parent, catName, labelName);
 
 	ebox = new EUIEditBox(panel, "0", 90, 5, 95, 20, EUIEditBox::InputInteger);
-	ebox->SetListener(-1, this, 0);
+	ebox->SetListener(-1, this, EUIWidget::OnUpdate);
 }
 
 void IntWidget::SetData(void* owner, void* set_data)
 {
 	data = (int*)set_data;
+	prev_value = *data;
 	ebox->SetText(*data);
+}
+
+void IntWidget::OnUpdate(EUIWidget* sender)
+{
+	if (prev_value != *data)
+	{
+		prev_value = *data;
+		ebox->SetText(prev_value);
+	}
 }
 
 void IntWidget::OnEditBoxStopEditing(EUIEditBox* sender)

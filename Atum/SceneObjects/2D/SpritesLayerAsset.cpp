@@ -104,11 +104,5 @@ void SpritesLayerAsset::SetGizmo()
 	}
 
 	Gizmo::inst->SetTrans2D(sel_sprite != -1 ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
-
-	if (sel_sprite != -1)
-	{
-		Gizmo::inst->SetTrans2DWidgets(sprites[sel_sprite].GetMetaData()->GetFloatEditBox("x"), sprites[sel_sprite].GetMetaData()->GetFloatEditBox("y"),
-		                               sprites[sel_sprite].GetMetaData()->GetFloatEditBox("width"), sprites[sel_sprite].GetMetaData()->GetFloatEditBox("height"));
-	}
 }
 #endif

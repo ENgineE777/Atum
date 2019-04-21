@@ -429,6 +429,13 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	{
 		scene = ((Project::SceneTreeItem*)treeview->GetItemPtr(parent))->scene;
 	}
+	else
+	{
+		if (project.select_scene->included.size() > 0)
+		{
+			return;
+		}
+	}
 
 	SceneObject* obj = scene->CreateObject(name, is_asset);
 	scene->GenerateUID(obj, is_asset);

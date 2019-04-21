@@ -23,12 +23,30 @@ public:
 	float   scale = 1.0f;
 	Vector2 align2d = 0.0f;
 
+	struct Transform2D
+	{
+		Vector2* pos = nullptr;
+		Vector2* axis = nullptr;
+		float*   depth = nullptr;
+		Vector2* size = nullptr;
+		float*   rotation = nullptr;
+		Vector2* offset = nullptr;
+		Matrix   mat_local;
+		Matrix   mat_parent;
+		Matrix   mat_global;
+
+		Transform2D(Vector2* set_pos = nullptr, Vector2* set_size = nullptr, Vector2* set_offset = nullptr, float* set_depth = nullptr, float* set_rotation = nullptr, Vector2* set_axis = nullptr, Matrix mat_parent = Matrix());
+		Transform2D(::Transform2D& trans);
+		void BuildMatrices();
+	};
+
 private:
 
 	Matrix  transform;
 	bool    mousedPressed = false;
 
-	Transform2D* trans2D = nullptr;
+	bool use_trans2D = false;
+	Transform2D trans2D ;
 	int     trans2D_actions = 0;
 	bool    ignore_2d_camera = true;
 	Vector2 pos2d = 0.0f;
@@ -66,7 +84,8 @@ public:
 	Vector2 delta_move = 0.0;
 
 	void Init();
-	void SetTrans2D(Transform2D* trans2D, int actions = 0xffff, bool ignore_2d_camera = false);
+
+	void SetTrans2D(Transform2D trans, int actions = 0xffff, bool ignore_2d_camera = false);
 	void SetTrans3D(Matrix transform);
 	Matrix& GetTrans3D();
 	bool IsTrans2D();

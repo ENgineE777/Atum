@@ -9,8 +9,6 @@ class SpritesLayerAsset : public SceneAsset
 public:
 	META_DATA_DECL(SpritesLayerAsset)
 
-	Transform2D trans;
-
 	struct LayerSprite
 	{
 		META_DATA_DECL(Sprite)

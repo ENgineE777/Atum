@@ -74,7 +74,7 @@ void SpriteTileAsset::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		Gizmo::inst->SetTrans2D(&trans);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans));
 	}
 	else
 	{

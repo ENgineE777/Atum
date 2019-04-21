@@ -82,6 +82,6 @@ void Trigger2D::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
 
-	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+	Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
 }
 #endif

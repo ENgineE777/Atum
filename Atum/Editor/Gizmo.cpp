@@ -6,33 +6,71 @@
 
 Gizmo* Gizmo::inst = nullptr;
 
+Gizmo::Transform2D::Transform2D(Vector2* set_pos, Vector2* set_size, Vector2* set_offset, float* set_depth, float* set_rotation, Vector2* set_axis, Matrix set_mat_parent)
+{
+	pos = set_pos;
+	size = set_size;
+	offset = set_offset;
+	rotation = set_rotation;
+	depth = set_depth;
+	axis = set_axis;
+	mat_parent = set_mat_parent;
+}
+
+Gizmo::Transform2D::Transform2D(::Transform2D& trans)
+{
+	pos = &trans.pos;
+	size = &trans.size;
+	offset = &trans.offset;
+	rotation = &trans.rotation;
+	depth = &trans.depth;
+	axis = &trans.axis;
+	mat_parent = trans.mat_parent;
+}
+
+void Gizmo::Transform2D::BuildMatrices()
+{
+	mat_local.Identity();
+
+	if (rotation)
+	{
+		mat_local.RotateZ(*rotation);
+	}
+
+	mat_local.Pos() = Vector((!axis || axis->x > 0.0f) ? pos->x : -pos->x - size->x,
+		(!axis || axis->y > 0.0f) ? pos->y : -pos->y - size->y,
+		depth ? *depth : 0.5f);
+
+	mat_global = mat_local * mat_parent;
+}
+
 void Gizmo::Init()
 {
 	inst = this;
 }
 
-void Gizmo::SetTrans2D(Transform2D* set_trans2D, int actions, bool set_ignore_2d_camera)
+bool Gizmo::IsTrans2D()
 {
-	trans2D = set_trans2D;
-	if (trans2D)
-	{
-		pos2d = trans2D->pos;
-	}
+	return use_trans2D;
+}
+
+void Gizmo::SetTrans2D(Transform2D trans, int actions, bool set_ignore_2d_camera)
+{
+	use_trans2D = true;
+
+	trans2D = trans;
+	pos2d = *trans2D.pos;
 
 	trans2D_actions = actions;
 	ignore_2d_camera = set_ignore_2d_camera;
-	enabled = (trans2D != nullptr);
-}
-
-bool Gizmo::IsTrans2D()
-{
-	return (trans2D != nullptr);
+	enabled = true;
 }
 
 void Gizmo::SetTrans3D(Matrix set_transform)
 {
+	use_trans2D = false;
+
 	transform = set_transform;
-	trans2D = nullptr;
 	enabled = true;
 }
 
@@ -457,12 +495,12 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 
 	if (selAxis == 0)
 	{
-		pos2d.x += (trans2D->axis.x > 0.0f) ? ms.x : -ms.x;
-		pos2d.y += (trans2D->axis.y > 0.0f) ? ms.y : -ms.y;
+		pos2d.x += (!trans2D.axis || trans2D.axis->x > 0.0f) ? ms.x : -ms.x;
+		pos2d.y += (!trans2D.axis || trans2D.axis->y > 0.0f) ? ms.y : -ms.y;
 
-		Vector2 prev_pos = trans2D->pos;
-		trans2D->pos = MakeAligned(pos2d);
-		delta_move += trans2D->pos - prev_pos;
+		Vector2 prev_pos = *trans2D.pos;
+		*trans2D.pos = MakeAligned(pos2d);
+		delta_move += *trans2D.pos - prev_pos;
 	}
 	else
 	if (selAxis == 9 && core.controls.DebugKeyPressed("KEY_LALT", Controls::Active))
@@ -488,7 +526,10 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 				k *= -1.0f;
 			}
 
-			trans2D->rotation += k;
+			if (trans2D.rotation)
+			{
+				*trans2D.rotation += k;
+			}
 		}
 	}
 	else
@@ -529,11 +570,11 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 		float dot1 = 0.0f;
 		float dot2 = 0.0f;
 
-		dot1 = ms.x * trans2D->mat_global.Vx().x + ms.y * trans2D->mat_global.Vx().y;
-		dot2 = ms.x * trans2D->mat_global.Vy().x + ms.y * trans2D->mat_global.Vy().y;
+		dot1 = ms.x * trans2D.mat_global.Vx().x + ms.y * trans2D.mat_global.Vx().y;
+		dot2 = ms.x * trans2D.mat_global.Vy().x + ms.y * trans2D.mat_global.Vy().y;
 
-		trans2D->size.x += dist * k1 * dot1;
-		trans2D->size.y += dist * k2 * dot2;
+		trans2D.size->x += dist * k1 * dot1;
+		trans2D.size->y += dist * k2 * dot2;
 	}
 }
 
@@ -606,7 +647,7 @@ void Gizmo::RenderTrans2D()
 {
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
-	trans2D->BuildMatrices();
+	trans2D.BuildMatrices();
 
 	Vector p1, p2;
 
@@ -617,51 +658,51 @@ void Gizmo::RenderTrans2D()
 			if (i == 0)
 			{
 				p1 = Vector(0, 0, 0);
-				p2 = Vector(trans2D->size.x, 0, 0);
+				p2 = Vector(trans2D.size->x, 0, 0);
 			}
 			else
 			if (i == 1)
 			{
-				p1 = Vector(trans2D->size.x, 0, 0);
-				p2 = Vector(trans2D->size.x, trans2D->size.y, 0);
+				p1 = Vector(trans2D.size->x, 0, 0);
+				p2 = Vector(trans2D.size->x, trans2D.size->y, 0);
 			}
 			else
 			if (i == 2)
 			{
-				p1 = Vector(trans2D->size.x, trans2D->size.y, 0);
-				p2 = Vector(0, trans2D->size.y, 0);
+				p1 = Vector(trans2D.size->x, trans2D.size->y, 0);
+				p2 = Vector(0, trans2D.size->y, 0);
 			}
 			else
 			if (i == 3)
 			{
-				p1 = Vector(0, trans2D->size.y, 0);
+				p1 = Vector(0, trans2D.size->y, 0);
 				p2 = Vector(0, 0, 0);
 			}
 			else
 			if (i == 4)
 			{
-				p1 = Vector(trans2D->size.x * 0.5f, 0, 0);
+				p1 = Vector(trans2D.size->x * 0.5f, 0, 0);
 			}
 			else
 			if (i == 5)
 			{
-				p1 = Vector(trans2D->size.x, trans2D->size.y * 0.5f, 0);
+				p1 = Vector(trans2D.size->x, trans2D.size->y * 0.5f, 0);
 			}
 			else
 			if (i == 6)
 			{
-				p1 = Vector(trans2D->size.x * 0.5f, trans2D->size.y, 0);
+				p1 = Vector(trans2D.size->x * 0.5f, trans2D.size->y, 0);
 			}
 			else
 			if (i == 7)
 			{
-				p1 = Vector(0, trans2D->size.y * 0.5f, 0);
+				p1 = Vector(0, trans2D.size->y * 0.5f, 0);
 			}
 
-			p1 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-			p1 = p1 * trans2D->mat_global;
-			p2 -= Vector(trans2D->offset.x * trans2D->size.x, trans2D->offset.y * trans2D->size.y, 0);
-			p2 = p2 * trans2D->mat_global;
+			p1 -= Vector((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
+			p1 = p1 * trans2D.mat_global;
+			p2 -= Vector((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
+			p2 = p2 * trans2D.mat_global;
 
 			if (!ignore_2d_camera)
 			{
@@ -682,7 +723,7 @@ void Gizmo::RenderTrans2D()
 	}
 
 	p1 = Vector(0.0f, 0.0f, 0.0f);
-	p1 = p1 * trans2D->mat_global;
+	p1 = p1 * trans2D.mat_global;
 
 	if (!ignore_2d_camera)
 	{
@@ -797,9 +838,9 @@ void Gizmo::OnLeftMouseUp()
 {
 	mousedPressed = false;
 
-	if (selAxis == 10 && trans2D)
+	if (selAxis == 10 && IsTrans2D())
 	{
-		Matrix inv = trans2D->mat_global;
+		Matrix inv = trans2D.mat_global;
 		inv.InverseComplette();
 
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
@@ -811,10 +852,10 @@ void Gizmo::OnLeftMouseUp()
 			moved_origin += Vector2(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f) / scale;
 		}
 
-		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D->size.x, trans2D->size.y, 1.0f);
-		trans2D->offset += Vector2(pos.x, pos.y);
-		trans2D->pos += Vector2(pos.x, pos.y) * trans2D->size;
-		pos2d = trans2D->pos;
+		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D.size->x, trans2D.size->y, 1.0f);
+		*trans2D.offset += Vector2(pos.x, pos.y);
+		*trans2D.pos += Vector2(pos.x, pos.y) * (*trans2D.size);
+		pos2d = *trans2D.pos;
 
 		selAxis = -1;
 	}

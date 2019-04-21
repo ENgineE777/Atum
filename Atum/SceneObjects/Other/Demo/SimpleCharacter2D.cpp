@@ -494,6 +494,6 @@ void SimpleCharacter2D::Stop()
 void SimpleCharacter2D::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
-	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, Gizmo::trans_2d_move);
+	Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
 }
 #endif

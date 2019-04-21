@@ -342,7 +342,15 @@ bool UIWidgetAsset::UsingCamera2DPos()
 void UIWidgetAsset::SetEditMode(bool ed)
 {
 	SceneAsset::SetEditMode(ed);
-	Gizmo::inst->SetTrans2D(ed ? &trans : nullptr, !AddedToTreeByParent() ? 0xffff : 0, true);
+
+	if (ed)
+	{
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), !AddedToTreeByParent() ? 0xffff : 0, true);
+	}
+	else
+	{
+		Gizmo::inst->Disable();
+	}
 }
 
 void UIWidgetAsset::StoreProperties()

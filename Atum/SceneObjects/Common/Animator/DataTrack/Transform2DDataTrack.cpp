@@ -90,7 +90,7 @@ void Transform2DDataTrack::StartEditKey(int key)
 	{
 		wigets->blend = &keys[key].blend;
 		wigets->StartEditKey(&values[key]);
-		Gizmo::inst->SetTrans2D(&values[key]);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(values[key]));
 	}
 }
 

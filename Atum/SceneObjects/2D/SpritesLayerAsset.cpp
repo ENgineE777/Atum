@@ -33,17 +33,6 @@ void SpritesLayerAsset::Init()
 
 void SpritesLayerAsset::Draw(float dt)
 {
-#ifdef EDITOR
-	if (edited)
-	{
-		if (sel_sprite != -1)
-		{
-			sprites[sel_sprite].size = trans.size;
-			sprites[sel_sprite].pos = trans.pos;
-		}
-	}
-#endif
-
 	Transform2D tmp_trans;
 
 	for (auto sprite : sprites)
@@ -81,7 +70,7 @@ void SpritesLayerAsset::OnLeftMouseDown(Vector2 ms)
 	{
 		LayerSprite& sprite = sprites[i];
 
-		Vector2 pos = (sprite.pos + trans.offset * sprite.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = (sprite.pos - 0.5f * sprite.size) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 		if (pos.x < ms.x && ms.x < pos.x + sprite.size.x * scale &&
 			pos.y < ms.y && ms.y < pos.y + sprite.size.y * scale)
@@ -99,10 +88,11 @@ void SpritesLayerAsset::SetGizmo()
 {
 	if (sel_sprite != -1)
 	{
-		trans.size = sprites[sel_sprite].size;
-		trans.pos = sprites[sel_sprite].pos;
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&sprites[sel_sprite].pos, &sprites[sel_sprite].size), Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
 	}
-
-	Gizmo::inst->SetTrans2D(sel_sprite != -1 ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+	else
+	{
+		Gizmo::inst->Disable();
+	}
 }
 #endif

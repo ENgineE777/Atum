@@ -1068,9 +1068,13 @@ void NavMesh2D::SetGizmo()
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
 		trans.pos = instances[sel_inst].pos;
-	}
 
-	Gizmo::inst->SetTrans2D(sel_inst != -1 ? &trans : nullptr, Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+	}
+	else
+	{
+		Gizmo::inst->Disable();
+	}
 }
 
 int NavMesh2D::GetInstCount()

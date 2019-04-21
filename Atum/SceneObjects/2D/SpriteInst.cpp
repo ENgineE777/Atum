@@ -676,7 +676,7 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	multi_trans.size = rect_p2 - rect_p1;
 	multi_trans.offset = left_offset / multi_trans.size;
 
-	Gizmo::inst->SetTrans2D(&multi_trans, Gizmo::trans_2d_move);
+	Gizmo::inst->SetTrans2D(Gizmo::Transform2D(multi_trans), Gizmo::trans_2d_move);
 }
 
 void SpriteInst::ClearRect()
@@ -783,7 +783,14 @@ void SpriteInst::SetGizmo()
 		trans.pos = instances[sel_inst].GetPos();
 	}
 
-	Gizmo::inst->SetTrans2D(sel_inst != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
+	if (sel_inst != -1)
+	{
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
+	}
+	else
+	{
+		Gizmo::inst->Disable();
+	}
 }
 
 int SpriteInst::GetInstCount()

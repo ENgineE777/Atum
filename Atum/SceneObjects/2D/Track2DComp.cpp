@@ -428,6 +428,13 @@ void Track2DComp::SetGizmo()
 		trans.pos = track.points[sel_point].pos;
 	}
 
-	Gizmo::inst->SetTrans2D(sel_point != -1 ? &trans : nullptr, Gizmo::trans_2d_move);
+	if (sel_point)
+	{
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
+	}
+	else
+	{
+		Gizmo::inst->Disable();
+	}
 }
 #endif

@@ -236,6 +236,11 @@ void SceneObject::ApplyProperties()
 }
 
 #ifdef EDITOR
+void SceneObject::Set2DPos(Vector2 pos)
+{
+
+}
+
 void SceneObject::SaveAssetData(JSONWriter& writer)
 {
 
@@ -568,10 +573,7 @@ void SceneObject::OnContact(int index, SceneObject* contact_object, int contact_
 
 	if (callabck)
 	{
-		if (callabck->Call(Script(), index, contact_object->GetName(), contact_index))
-		{
-			Script()->ctx->GetReturnDWord();
-		}
+		callabck->Call(Script(), index, contact_object->GetName(), contact_index);
 	}
 }
 

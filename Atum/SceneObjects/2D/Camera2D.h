@@ -32,6 +32,7 @@ public:
 	void Reset();
 
 #ifdef EDITOR
+	void Set2DPos(Vector2 pos) override;
 	void SetEditMode(bool ed);
 #endif
 };

@@ -447,6 +447,11 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	{
 		obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
 	}
+	else
+	{
+		float scale = 1024.0f / core.render.GetDevice()->GetHeight();
+		obj->Set2DPos(Sprite::ed_cam_pos * scale);
+	}
 
 	obj->SetName(is_asset ? ClassFactorySceneAsset::Find(name)->GetShortName() : ClassFactorySceneObject::Find(name)->GetShortName());
 

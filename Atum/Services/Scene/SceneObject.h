@@ -135,6 +135,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	virtual void Set2DPos(Vector2 pos);
 	virtual void SaveAssetData(JSONWriter& writer);
 	virtual void GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid);
 	virtual void SetOwner(Scene* owner);

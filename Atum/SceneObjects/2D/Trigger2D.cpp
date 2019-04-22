@@ -47,6 +47,11 @@ void Trigger2D::Stop()
 }
 
 #ifdef EDITOR
+void Trigger2D::Set2DPos(Vector2 pos)
+{
+	trans.pos = pos;
+}
+
 void Trigger2D::EditorDraw(float dt)
 {
 	if (owner->Playing() || GetState() == State::Invisible)

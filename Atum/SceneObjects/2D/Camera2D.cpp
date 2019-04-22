@@ -135,6 +135,11 @@ void Camera2D::Reset()
 }
 
 #ifdef EDITOR
+void Camera2D::Set2DPos(Vector2 pos)
+{
+	trans.pos = pos;
+}
+
 void Camera2D::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);

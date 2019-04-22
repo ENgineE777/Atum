@@ -20,6 +20,7 @@ public:
 	void Stop() override;
 
 #ifdef EDITOR
+	void Set2DPos(Vector2 pos) override;
 	void EditorDraw(float dt);
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;

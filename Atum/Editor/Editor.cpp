@@ -334,6 +334,8 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		}
 	}
 
+	Gizmo::inst->Disable();
+
 	selectedObject = obj;
 	isSelectedAsset = is_asset;
 

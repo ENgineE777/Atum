@@ -85,8 +85,6 @@ PhysScene* Physics::CreateScene()
 	scene->manager = PxCreateControllerManager(*scene->scene);
 	scene->scene->setFlag(physx::PxSceneFlag::eENABLE_CCD, true);
 
-	//scene->SetVisualization(true);
-
 	scenes.push_back(scene);
 
 	return scene;
@@ -129,25 +127,51 @@ void Physics::Update(float dt)
 		accum_dt -= physStep;
 	}
 
-	/*for (auto scene : scenes)
+	for (auto scene : scenes)
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+		if (core.controls.DebugHotKeyPressed("KEY_LCONTROL", "KEY_B"))
+		{
+			scene->SetVisualization(false);
+			scene->debug_render = 0;
+		}
 
-		Vector2 cam_pos;
-		cam_pos.x = Sprite::cam_pos.x / 50.0f;//* scale - render.GetDevice()->GetWidth() * 0.5f;
-		cam_pos.y = Sprite::cam_pos.y / 50.0f;//* scale - 512 * scale;
+		if (core.controls.DebugHotKeyPressed("KEY_LCONTROL", "KEY_N"))
+		{
+			scene->SetVisualization(true);
+			scene->debug_render = 1;
+		}
 
-		Matrix view;
-		view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector(0, 1, 0));
+		if (core.controls.DebugHotKeyPressed("KEY_LCONTROL", "KEY_M"))
+		{
+			scene->SetVisualization(true);
+			scene->debug_render = 2;
+		}
 
-		core.render.SetTransform(Render::View, view);
+		if (scene->debug_render == 0)
+		{
+			continue;
+		}
 
-		Matrix proj;
-		proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
-		core.render.SetTransform(Render::Projection, proj);
+		if (scene->debug_render == 2)
+		{
+			float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+
+			Vector2 cam_pos;
+			cam_pos.x = Sprite::cam_pos.x / 50.0f;//* scale - render.GetDevice()->GetWidth() * 0.5f;
+			cam_pos.y = Sprite::cam_pos.y / 50.0f;//* scale - 512 * scale;
+
+			Matrix view;
+			view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector(0, 1, 0));
+
+			core.render.SetTransform(Render::View, view);
+
+			Matrix proj;
+			proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+			core.render.SetTransform(Render::Projection, proj);
+		}
 
 		scene->DrawVisualization();
-	}*/
+	}
 }
 
 void Physics::Fetch()

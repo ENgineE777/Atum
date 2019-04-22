@@ -13,6 +13,7 @@ class PhysScene : public PxSimulationEventCallback
 	PxScene* scene = nullptr;
 	bool needFetch = false;
 	PxControllerManager* manager = nullptr;
+	int debug_render = 0;
 
 public:
 

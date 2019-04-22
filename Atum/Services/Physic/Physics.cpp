@@ -1,6 +1,7 @@
 #include "Physics.h"
 #include "Services/Render/Render.h"
 #include "SceneObjects/2D/Sprite.h"
+#include "Services/Core/Core.h"
 
 #ifdef PLATFORM_ANDROID
 extern "C"
@@ -130,7 +131,7 @@ void Physics::Update(float dt)
 
 	/*for (auto scene : scenes)
 	{
-		float scale = render.GetDevice()->GetHeight() / 1024.0f;
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
 		Vector2 cam_pos;
 		cam_pos.x = Sprite::cam_pos.x / 50.0f;//* scale - render.GetDevice()->GetWidth() * 0.5f;
@@ -139,11 +140,11 @@ void Physics::Update(float dt)
 		Matrix view;
 		view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector(0, 1, 0));
 
-		render.SetTransform(Render::View, view);
+		core.render.SetTransform(Render::View, view);
 
 		Matrix proj;
-		proj.BuildProjection(45.0f * RADIAN, (float)render.GetDevice()->GetHeight() / (float)render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
-		render.SetTransform(Render::Projection, proj);
+		proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+		core.render.SetTransform(Render::Projection, proj);
 
 		scene->DrawVisualization();
 	}*/

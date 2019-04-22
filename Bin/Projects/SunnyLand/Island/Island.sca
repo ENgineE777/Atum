@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 5686.000000,
-		"y" : -519.000000
+		"x" : 6184.000000,
+		"y" : 906.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -38,8 +38,8 @@
 			"anchorn_y" : 0.500000,
 			"sprite" :
 			{
-				"width" : 490,
-				"height" : 143,
+				"width" : 160,
+				"height" : 41,
 				"type" : 4,
 				"color" :
 				{
@@ -48,7 +48,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas.png",
+				"texName" : "Enemies/eagle-attack.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.200000,
@@ -57,7 +57,7 @@
 					{
 						"pos" :
 						{
-							"x" : 332.000000,
+							"x" : 0.000000,
 							"y" : 41.000000
 						},
 						"size" :
@@ -67,13 +67,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.677551,
-							"y" : 0.286713
+							"x" : 0.000000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.081633,
-							"y" : 0.286713
+							"x" : 0.250000,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -85,7 +85,7 @@
 					{
 						"pos" :
 						{
-							"x" : 416.000000,
+							"x" : 40.000000,
 							"y" : 41.000000
 						},
 						"size" :
@@ -95,13 +95,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.848980,
-							"y" : 0.286713
+							"x" : 0.250000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.081633,
-							"y" : 0.286713
+							"x" : 0.250000,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -113,7 +113,7 @@
 					{
 						"pos" :
 						{
-							"x" : 374.000000,
+							"x" : 80.000000,
 							"y" : 41.000000
 						},
 						"size" :
@@ -123,13 +123,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.763265,
-							"y" : 0.286713
+							"x" : 0.500000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.081633,
-							"y" : 0.286713
+							"x" : 0.250000,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -141,7 +141,7 @@
 					{
 						"pos" :
 						{
-							"x" : 290.000000,
+							"x" : 120.000000,
 							"y" : 41.000000
 						},
 						"size" :
@@ -151,13 +151,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.591837,
-							"y" : 0.286713
+							"x" : 0.750000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.081633,
-							"y" : 0.286713
+							"x" : 0.250000,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -209,7 +209,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas-props.png",
+				"texName" : "Level/atlas-props.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -284,7 +284,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -330,7 +330,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -376,7 +376,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -422,7 +422,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -468,7 +468,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -514,7 +514,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -560,7 +560,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -606,7 +606,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -652,7 +652,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -716,8 +716,8 @@
 					{
 						"x" : 1280.000000,
 						"y" : 448.000000,
-						"width" : 2458.000000,
-						"height" : 1536.000000,
+						"width" : 2496.000000,
+						"height" : 1560.000000,
 						"sprite" :
 						{
 							"width" : 384,
@@ -730,7 +730,7 @@
 								"b" : 1.000000,
 								"a" : 1.000000
 							},
-							"texName" : "Projects/SunnyLand/Sprites/back.png",
+							"texName" : "Background/back.png",
 							"texMode" : 0,
 							"texFilter" : 0,
 							"count" : 1,
@@ -798,7 +798,7 @@
 								"b" : 1.000000,
 								"a" : 1.000000
 							},
-							"texName" : "Projects/SunnyLand/Sprites/middle.png",
+							"texName" : "Background/middle.png",
 							"texMode" : 0,
 							"texFilter" : 0,
 							"count" : 1,
@@ -863,7 +863,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas-props.png",
+				"texName" : "Level/atlas-props.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -925,7 +925,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas-props.png",
+				"texName" : "Level/atlas-props.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -987,7 +987,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas-props.png",
+				"texName" : "Level/atlas-props.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1049,7 +1049,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas-props.png",
+				"texName" : "Level/atlas-props.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1111,7 +1111,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1186,7 +1186,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1261,7 +1261,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1323,7 +1323,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1385,7 +1385,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1447,7 +1447,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1509,7 +1509,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1571,7 +1571,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1646,7 +1646,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1692,7 +1692,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1738,7 +1738,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1784,7 +1784,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1830,7 +1830,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1876,7 +1876,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1922,7 +1922,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1968,7 +1968,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2014,7 +2014,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2089,7 +2089,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2151,7 +2151,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2213,7 +2213,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/tileset.png",
+				"texName" : "Level/tileset.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2278,8 +2278,8 @@
 			"anchorn_y" : 1.000000,
 			"sprite" :
 			{
-				"width" : 490,
-				"height" : 143,
+				"width" : 216,
+				"height" : 28,
 				"type" : 4,
 				"color" :
 				{
@@ -2288,7 +2288,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/atlas.png",
+				"texName" : "Enemies/oposum.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.175000,
@@ -2297,8 +2297,8 @@
 					{
 						"pos" :
 						{
-							"x" : 368.000000,
-							"y" : 75.000000
+							"x" : 0.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2307,13 +2307,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.751020,
-							"y" : 0.524476
+							"x" : 0.000000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2325,8 +2325,8 @@
 					{
 						"pos" :
 						{
-							"x" : 292.000000,
-							"y" : 75.000000
+							"x" : 36.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2335,13 +2335,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.595918,
-							"y" : 0.524476
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2353,8 +2353,8 @@
 					{
 						"pos" :
 						{
-							"x" : 330.000000,
-							"y" : 75.000000
+							"x" : 72.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2363,13 +2363,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.673469,
-							"y" : 0.524476
+							"x" : 0.333333,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2381,8 +2381,8 @@
 					{
 						"pos" :
 						{
-							"x" : 406.000000,
-							"y" : 75.000000
+							"x" : 108.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2391,13 +2391,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.828571,
-							"y" : 0.524476
+							"x" : 0.500000,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2409,8 +2409,8 @@
 					{
 						"pos" :
 						{
-							"x" : 0.000000,
-							"y" : 41.000000
+							"x" : 144.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2419,13 +2419,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.000000,
-							"y" : 0.286713
+							"x" : 0.666667,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2437,8 +2437,8 @@
 					{
 						"pos" :
 						{
-							"x" : 444.000000,
-							"y" : 75.000000
+							"x" : 180.000000,
+							"y" : 28.000000
 						},
 						"size" :
 						{
@@ -2447,13 +2447,13 @@
 						},
 						"uv" :
 						{
-							"x" : 0.906122,
-							"y" : 0.524476
+							"x" : 0.833333,
+							"y" : 1.000000
 						},
 						"duv" :
 						{
-							"x" : 0.073469,
-							"y" : 0.195804
+							"x" : 0.166667,
+							"y" : 1.000000
 						},
 						"offset" :
 						{
@@ -2564,11 +2564,11 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "SL_EnemiesScript",
+			"Name" : "IslandEnemiesScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"main_class" : "SLEnemies",
+			"main_class" : "IslandEnemies",
 			"Count" : 7,
 			"Node" : [
 				{
@@ -2656,6 +2656,574 @@
 					"prefix" : ""
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 344051,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "IslandItemsScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "IslandItems",
+			"Count" : 5,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "diamonds",
+					"pos" :
+					{
+						"x" : 437.000000,
+						"y" : 257.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "cherries",
+					"pos" :
+					{
+						"x" : 649.000000,
+						"y" : 254.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Hero",
+					"pos" :
+					{
+						"x" : 435.000000,
+						"y" : 384.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 656.000000,
+						"y" : 384.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 2,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 856.000000,
+						"y" : 316.000000
+					},
+					"prefix" : ""
+				}
+			]
+		},
+		{
+			"type" : "SpriteAsset",
+			"uid" : 1435982208,
+			"ed_camera_2d" :
+			{
+				"x" : 668.000000,
+				"y" : 354.000000
+			},
+			"Name" : "CherryItem",
+			"x" : 896.000000,
+			"y" : 512.000000,
+			"width" : 84.000000,
+			"height" : 84.000000,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"sprite" :
+			{
+				"width" : 105,
+				"height" : 21,
+				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
+				"texName" : "Items/cherry.png",
+				"texMode" : 0,
+				"texFilter" : 0,
+				"frame_time" : 0.150000,
+				"count" : 8,
+				"Rect" : [
+					{
+						"pos" :
+						{
+							"x" : 0.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.000000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 42.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.400000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 63.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.600000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 84.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.800000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 63.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.600000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 42.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.400000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"size" :
+						{
+							"x" : 21.000000,
+							"y" : 21.000000
+						},
+						"uv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					}
+				]
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 4,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : false,
+					"width" : 50.000000,
+					"height" : 50.000000,
+					"group" : 1
+				},
+				{
+					"type" : "ScriptMetaDataComp",
+					"Asset" :
+					{
+						"uid" : 1583784704,
+						"child_uid" : 0,
+						"is_asset" : true
+					},
+					"count" : 1,
+					"value" : [
+						{
+							"type" : 1,
+							"value" : 50
+						}
+					]
+				}
+			]
+		},
+		{
+			"type" : "SpriteAsset",
+			"uid" : -350622976,
+			"ed_camera_2d" :
+			{
+				"x" : 837.000000,
+				"y" : 497.000000
+			},
+			"Name" : "DiamondItem",
+			"x" : 1088.000000,
+			"y" : 640.000000,
+			"width" : 62.000000,
+			"height" : 54.000000,
+			"anchorn_x" : 0.500000,
+			"anchorn_y" : 0.500000,
+			"sprite" :
+			{
+				"width" : 75,
+				"height" : 13,
+				"type" : 4,
+				"color" :
+				{
+					"r" : 1.000000,
+					"g" : 1.000000,
+					"b" : 1.000000,
+					"a" : 1.000000
+				},
+				"texName" : "Items/gem.png",
+				"texMode" : 0,
+				"texFilter" : 0,
+				"frame_time" : 0.200000,
+				"count" : 5,
+				"Rect" : [
+					{
+						"pos" :
+						{
+							"x" : 0.000000,
+							"y" : 13.000000
+						},
+						"size" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"uv" :
+						{
+							"x" : 0.000000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"size" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"uv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 30.000000,
+							"y" : 13.000000
+						},
+						"size" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"uv" :
+						{
+							"x" : 0.400000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 45.000000,
+							"y" : 13.000000
+						},
+						"size" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"uv" :
+						{
+							"x" : 0.600000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					},
+					{
+						"pos" :
+						{
+							"x" : 60.000000,
+							"y" : 13.000000
+						},
+						"size" :
+						{
+							"x" : 15.000000,
+							"y" : 13.000000
+						},
+						"uv" :
+						{
+							"x" : 0.800000,
+							"y" : 1.000000
+						},
+						"duv" :
+						{
+							"x" : 0.200000,
+							"y" : 1.000000
+						},
+						"offset" :
+						{
+							"x" : 0.000000,
+							"y" : 0.000000
+						},
+						"frame_time" : -1.000000
+					}
+				]
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 4,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : false,
+					"width" : 50.000000,
+					"height" : 50.000000,
+					"group" : 1
+				},
+				{
+					"type" : "ScriptMetaDataComp",
+					"Asset" :
+					{
+						"uid" : 1583784704,
+						"child_uid" : 0,
+						"is_asset" : true
+					},
+					"count" : 1,
+					"value" : [
+						{
+							"type" : 1,
+							"value" : 75
+						}
+					]
+				}
+			]
 		}
 	],
 	"SceneObject" : [
@@ -2666,7 +3234,8 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "Pop",
-			"axis_scale" : 0.100000,
+			"x_axis_scale" : 0.100000,
+			"y_axis_scale" : 0.050000,
 			"Depth" : 0.750000,
 			"y" : 0.000000,
 			"asset_uid" : -1067835392
@@ -2678,7 +3247,8 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"axis_scale" : 0.300000,
+			"x_axis_scale" : 0.300000,
+			"y_axis_scale" : 0.300000,
 			"Depth" : 0.700000,
 			"y" : 3000.000000,
 			"asset_uid" : -786504704
@@ -2690,7 +3260,7 @@
 			"asset_name" : "SkyLayer",
 			"instances" : [
 				{
-					"scene" : "SunnyLand.sca",
+					"scene" : "Island/Island.sca",
 					"inst_uid" : -91092480,
 					"inst_name" : "SkyLayer"
 				}
@@ -2701,7 +3271,7 @@
 			"asset_name" : "TreesLayer",
 			"instances" : [
 				{
-					"scene" : "SunnyLand.sca",
+					"scene" : "Island/Island.sca",
 					"inst_uid" : 263163904,
 					"inst_name" : "TreesLayer"
 				}

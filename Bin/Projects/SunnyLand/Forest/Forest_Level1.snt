@@ -1,0 +1,47 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : 524134,
+			"name" : "Forest_GroundTiles",
+			"type" : 1
+		},
+		{
+			"uid" : 130681,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
+			"uid" : 262000,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : 491256,
+			"name" : "RespawnPoints",
+			"type" : 1
+		},
+		{
+			"uid" : 294525,
+			"name" : "Trigger2D",
+			"type" : 1
+		},
+		{
+			"uid" : 98149,
+			"name" : "Trigger2D_copy",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

@@ -30,11 +30,6 @@
 	"asset_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "Sprites",
-			"type" : 0
-		},
-		{
-			"uid" : -1,
 			"name" : "Background",
 			"type" : 0
 		},
@@ -59,24 +54,9 @@
 			"type" : 0
 		},
 		{
-			"uid" : -1,
-			"name" : "Eagle",
-			"type" : 0
-		},
-		{
 			"uid" : -1084575232,
 			"name" : "EagleFly",
 			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Opposum",
-			"type" : 0
 		},
 		{
 			"uid" : 826604608,
@@ -87,6 +67,21 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 1435982208,
+			"name" : "CherryItem",
+			"type" : 1
+		},
+		{
+			"uid" : -350622976,
+			"name" : "DiamondItem",
+			"type" : 1
 		},
 		{
 			"uid" : -1,
@@ -234,18 +229,18 @@
 			"type" : 2
 		},
 		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
 			"uid" : 1322567424,
 			"name" : "BridgeScript",
 			"type" : 1
 		},
 		{
 			"uid" : 753660,
-			"name" : "SL_EnemiesScript",
+			"name" : "IslandEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 344051,
+			"name" : "IslandItemsScript",
 			"type" : 1
 		},
 		{

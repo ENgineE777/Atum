@@ -1,0 +1,47 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : 113533,
+			"name" : "Forest_GroundTiles",
+			"type" : 1
+		},
+		{
+			"uid" : 704359,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
+			"uid" : 244048,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : 638049,
+			"name" : "RespawnPoints",
+			"type" : 1
+		},
+		{
+			"uid" : 113381,
+			"name" : "RespawnTrigger1",
+			"type" : 1
+		},
+		{
+			"uid" : 916707,
+			"name" : "RespawnTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

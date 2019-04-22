@@ -322,13 +322,18 @@
 			"type" : 1
 		},
 		{
-			"uid" : 2133115008,
-			"name" : "MainScript",
+			"uid" : 835253,
+			"name" : "EnemiesScript",
 			"type" : 1
 		},
 		{
-			"uid" : 835253,
-			"name" : "SL_EnemiesScript",
+			"uid" : 244472,
+			"name" : "IslandItemsScript",
+			"type" : 1
+		},
+		{
+			"uid" : 2133115008,
+			"name" : "MainScript",
 			"type" : 1
 		},
 		{

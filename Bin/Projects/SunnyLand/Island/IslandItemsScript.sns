@@ -1,0 +1,39 @@
+#import "MainScript"
+
+class IslandItems
+{
+    array<Bonus> diamonds;
+    array<Bonus> cherries;
+
+	Game@ game;
+
+    void OnHeroContact(int self_index, string&in name, int index)
+    {
+        if (name == "CherryItem")
+        {
+            game.AddScore(cherries[index].score);
+            cherries[index].visible = 0;
+            game.item_taken.AddInstance(cherries[index].x, cherries[index].y, true);
+        }
+        else
+        if (name == "DiamondItem")
+        {
+            game.AddScore(diamonds[index].score);
+            diamonds[index].visible = 0;
+            game.item_taken.AddInstance(diamonds[index].x, diamonds[index].y, true);
+        }
+    }
+
+    void OnStartGame()
+    {
+        for (int i = 0; i<diamonds.length();i++)
+        {
+            diamonds[i].visible = 1;
+        }
+
+        for (int i = 0; i<cherries.length();i++)
+        {
+            cherries[i].visible = 1;
+        }
+    }
+}

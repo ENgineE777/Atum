@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 0.000000,
-		"y" : 0.000000
+		"x" : 720.000000,
+		"y" : 110.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 0,
@@ -48,7 +48,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/cat.png",
+				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.175000,
@@ -259,7 +259,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/cat.png",
+				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -321,7 +321,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/cat.png",
+				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.175000,
@@ -469,7 +469,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/cat.png",
+				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -544,7 +544,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/SunnyLand/Sprites/cat.png",
+				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -777,15 +777,15 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 262.000000,
-				"y" : -38.000000
+				"x" : 615.000000,
+				"y" : -40.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 40,
+			"Count" : 36,
 			"Node" : [
 				{
 					"object_uid" : 0,
@@ -811,26 +811,6 @@
 					"object_uid" : 14304,
 					"object_child_uid" : 0,
 					"callback_type" : ""
-				},
-				{
-					"object_uid" : -1321915904,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 596790336,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
 				},
 				{
 					"object_uid" : 140016704,
@@ -17023,7 +17003,7 @@
 				"x" : -28.000000,
 				"y" : -2.000000
 			},
-			"Name" : "SL_EnemiesScript",
+			"Name" : "EnemiesScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
@@ -17066,6 +17046,48 @@
 					"callback_type" : ""
 				}
 			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 244472,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "IslandItemsScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 344051,
+			"Count" : 5,
+			"Node" : [
+				{
+					"object_uid" : -1321915904,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 596790336,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 1485033472,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 2133115008,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -17074,7 +17096,7 @@
 			"asset_name" : "BridgeScript",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1586412928,
 					"inst_name" : "BridgeScript"
 				}
@@ -17085,7 +17107,7 @@
 			"asset_name" : "MainScript",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 2133115008,
 					"inst_name" : "MainScript"
 				}
@@ -17096,7 +17118,7 @@
 			"asset_name" : "CherryItem",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 596790336,
 					"inst_name" : "CherryItem"
 				}
@@ -17107,7 +17129,7 @@
 			"asset_name" : "DiamondItem",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1321915904,
 					"inst_name" : "DiamondItem"
 				}
@@ -17118,7 +17140,7 @@
 			"asset_name" : "DynCard",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1773631360,
 					"inst_name" : "BossMarkers"
 				}
@@ -17129,7 +17151,7 @@
 			"asset_name" : "CatGraph",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 361006912,
 					"inst_name" : "CatBoss"
 				}
@@ -17140,7 +17162,7 @@
 			"asset_name" : "DynCard",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1269363584,
 					"inst_name" : "DynCard"
 				}
@@ -17151,7 +17173,7 @@
 			"asset_name" : "FakeCard",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1182418176,
 					"inst_name" : "FakeCard"
 				}
@@ -17162,7 +17184,7 @@
 			"asset_name" : "DynBox",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -980373760,
 					"inst_name" : "DynBox"
 				}
@@ -17173,7 +17195,7 @@
 			"asset_name" : "EagleFly",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1084704768,
 					"inst_name" : "EagleFly"
 				}
@@ -17184,7 +17206,7 @@
 			"asset_name" : "FakeBox",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -335829760,
 					"inst_name" : "FakeBox"
 				}
@@ -17195,7 +17217,7 @@
 			"asset_name" : "Hero_Graph",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1485033472,
 					"inst_name" : "Hero"
 				}
@@ -17206,7 +17228,7 @@
 			"asset_name" : "MovingBlock",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 2050420608,
 					"inst_name" : "MovingBlock"
 				}
@@ -17217,7 +17239,7 @@
 			"asset_name" : "OpposumRun",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -968305408,
 					"inst_name" : "OpposumRun"
 				}
@@ -17228,7 +17250,7 @@
 			"asset_name" : "CaveBrush",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 240584768,
 					"inst_name" : "CaveBrush"
 				}
@@ -17239,7 +17261,7 @@
 			"asset_name" : "CaveInner",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 229165424,
 					"inst_name" : "CaveInner"
 				}
@@ -17250,7 +17272,7 @@
 			"asset_name" : "CaveShelf",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1415736064,
 					"inst_name" : "CaveShelf"
 				}
@@ -17261,7 +17283,7 @@
 			"asset_name" : "CaveWall",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -2022648064,
 					"inst_name" : "CaveWall"
 				}
@@ -17272,7 +17294,7 @@
 			"asset_name" : "LeftCaveEnter",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1016188928,
 					"inst_name" : "LeftCaveEnter"
 				}
@@ -17283,7 +17305,7 @@
 			"asset_name" : "RightCaveEnter",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -52422400,
 					"inst_name" : "RightCaveEnter"
 				}
@@ -17294,7 +17316,7 @@
 			"asset_name" : "BridgeBaseSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -998151680,
 					"inst_name" : "BridgeBaseSprite"
 				}
@@ -17305,7 +17327,7 @@
 			"asset_name" : "BridgeRowSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1543425280,
 					"inst_name" : "BridgeRowSprite"
 				}
@@ -17316,7 +17338,7 @@
 			"asset_name" : "BridgeRowSpriteDyn",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -769245696,
 					"inst_name" : "BridgeRowSpriteDyn"
 				}
@@ -17327,7 +17349,7 @@
 			"asset_name" : "BushSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 348808960,
 					"inst_name" : "BushSprite"
 				}
@@ -17338,7 +17360,7 @@
 			"asset_name" : "Ground1Tiles",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 385792064,
 					"inst_name" : "Ground1Tiles"
 				}
@@ -17349,7 +17371,7 @@
 			"asset_name" : "Ground2Tiles",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1478545152,
 					"inst_name" : "Ground2Tiles"
 				}
@@ -17360,7 +17382,7 @@
 			"asset_name" : "HouseSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1777521664,
 					"inst_name" : "HouseSprite"
 				}
@@ -17371,7 +17393,7 @@
 			"asset_name" : "LeftHangSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1057456960,
 					"inst_name" : "LeftHangSprite"
 				}
@@ -17382,7 +17404,7 @@
 			"asset_name" : "Hero_Hit",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -413818880,
 					"inst_name" : "RespawnPoints"
 				}
@@ -17393,7 +17415,7 @@
 			"asset_name" : "RightHangSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 1345146496,
 					"inst_name" : "RightHangSprite"
 				}
@@ -17404,7 +17426,7 @@
 			"asset_name" : "SignSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 329993024,
 					"inst_name" : "SignSprite"
 				}
@@ -17415,7 +17437,7 @@
 			"asset_name" : "TreeSprite",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : -1800360448,
 					"inst_name" : "TreeSprite"
 				}
@@ -17426,7 +17448,7 @@
 			"asset_name" : "BossCatScript",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 243959,
 					"inst_name" : "BossCatScript"
 				}
@@ -17437,7 +17459,7 @@
 			"asset_name" : "DynBoxFly",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 506940,
 					"inst_name" : "DynBoxFly"
 				}
@@ -17448,7 +17470,7 @@
 			"asset_name" : "BoxesScript",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 638463,
 					"inst_name" : "BoxesScript"
 				}
@@ -17456,12 +17478,23 @@
 		},
 		{
 			"asset_uid" : 753660,
-			"asset_name" : "SL_EnemiesScript",
+			"asset_name" : "IslandEnemiesScript",
 			"instances" : [
 				{
-					"scene" : "SunnyLand_Level1.sca",
+					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 835253,
-					"inst_name" : "SL_EnemiesScript"
+					"inst_name" : "EnemiesScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 344051,
+			"asset_name" : "IslandItemsScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 244472,
+					"inst_name" : "IslandItemsScript"
 				}
 			]
 		}

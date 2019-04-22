@@ -1,0 +1,907 @@
+﻿{
+
+	"uid" : 27824,
+	"camera3d_angles" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000
+	},
+	"camera3d_pos" :
+	{
+		"x" : 0.000000,
+		"y" : 0.000000,
+		"z" : 0.000000
+	},
+	"camera_pos" :
+	{
+		"x" : 315.000000,
+		"y" : 761.000000
+	},
+	"move_mode" : 0,
+	"gizmo2d_align_x" : 64,
+	"gizmo2d_align_y" : 64,
+	"SceneAsset" : [
+	],
+	"SceneObject" : [
+		{
+			"type" : "SpriteTileInst",
+			"uid" : 748786,
+			"Name" : "Ground1Tiles",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 34,
+				"Elem" : [
+					{
+						"x" : 512.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 576.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 512.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 576.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 640.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 640.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 704.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 704.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 768.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 768.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 832.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 832.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 896.000000,
+						"y" : 1088.000000,
+						"index" : 2,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 896.000000,
+						"y" : 1152.000000,
+						"index" : 5,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 896.000000,
+						"y" : 1216.000000,
+						"index" : 8,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 832.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 704.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 768.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 640.000000,
+						"y" : 1280.000000,
+						"index" : 7,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 576.000000,
+						"y" : 1280.000000,
+						"index" : 7,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 512.000000,
+						"y" : 1280.000000,
+						"index" : 6,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 448.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 448.000000,
+						"y" : 1152.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 448.000000,
+						"y" : 1088.000000,
+						"index" : 1,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 384.000000,
+						"y" : 1088.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 384.000000,
+						"y" : 1152.000000,
+						"index" : 3,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 448.000000,
+						"y" : 1216.000000,
+						"index" : 7,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 384.000000,
+						"y" : 1216.000000,
+						"index" : 6,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 640.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 576.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 512.000000,
+						"y" : 1216.000000,
+						"index" : 4,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 704.000000,
+						"y" : 1280.000000,
+						"index" : 7,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 768.000000,
+						"y" : 1280.000000,
+						"index" : 7,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 832.000000,
+						"y" : 1280.000000,
+						"index" : 8,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -735117312,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 982262,
+			"Name" : "TreeSprite",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 704.000000,
+						"y" : 1088.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -2112705280
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 556286,
+			"Name" : "RespawnPoints",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 704.000000,
+						"y" : 1088.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 1511894784
+		},
+		{
+			"type" : "SpriteGraphInst",
+			"uid" : 749309,
+			"Name" : "Hero",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"Depth" : 0.400000,
+			"hack_height" : 0.000000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 576.000000,
+						"y" : 1088.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -389033728,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 978933,
+			"ed_camera_2d" :
+			{
+				"x" : 666.000000,
+				"y" : -18.000000
+			},
+			"Name" : "MainScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 14304,
+			"Count" : 36,
+			"Node" : [
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 1314392192,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 1225762432,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : -970252032,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 14304,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 749309,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 486900,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContactStart"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 748731,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContactStart"
+				},
+				{
+					"object_uid" : 322805,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 556286,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 749309,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 131060,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 1011191,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContactStart"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 749309,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 131060,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 556286,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 749309,
+					"object_child_uid" : 0,
+					"callback_type" : "OnContact"
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 131060,
+					"object_child_uid" : 0,
+					"callback_type" : ""
+				}
+			]
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 486900,
+			"Name" : "RespawnTrigger1",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : -64.000000,
+			"y" : 1344.000000,
+			"width" : 912.630432,
+			"height" : 380.340424,
+			"Depth" : 0.010000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 748731,
+			"Name" : "RespawnTrigger2",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 1408.000000,
+			"y" : 1344.000000,
+			"width" : 912.630432,
+			"height" : 380.340424,
+			"Depth" : 0.010000
+		}
+	],
+	"asset_instances" : [
+		{
+			"asset_uid" : -735117312,
+			"asset_name" : "Ground1Tiles",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 748786,
+					"inst_name" : "Ground1Tiles"
+				}
+			]
+		},
+		{
+			"asset_uid" : -2112705280,
+			"asset_name" : "TreeSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 982262,
+					"inst_name" : "TreeSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1511894784,
+			"asset_name" : "Hero_Hit",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556286,
+					"inst_name" : "RespawnPoints"
+				}
+			]
+		},
+		{
+			"asset_uid" : -389033728,
+			"asset_name" : "Hero_Graph",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749309,
+					"inst_name" : "Hero"
+				}
+			]
+		},
+		{
+			"asset_uid" : 14304,
+			"asset_name" : "MainScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 978933,
+					"inst_name" : "MainScript"
+				}
+			]
+		}
+	]
+}

@@ -169,16 +169,6 @@
 			"type" : 0
 		},
 		{
-			"uid" : 1435982208,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"uid" : -350622976,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
 			"uid" : 532556576,
 			"name" : "DynBox",
 			"type" : 1

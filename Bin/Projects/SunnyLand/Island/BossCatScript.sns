@@ -22,7 +22,7 @@ class CatBossData : ChracterData
 
 class BossCat
 {
-	array<ThrowableBox> empty_cards;
+    array<ThrowableBox> empty_cards;
     array<ThrowableBox> boss_cards;
     array<PhysBox> fake_card;
     array<BaseCharacter> boss_markers;

@@ -39,85 +39,6 @@
 			"Childs" : [
 				{
 					"type" : "UIImageAsset",
-					"uid" : 1713420288,
-					"Name" : "logo",
-					"State" : 2,
-					"x" : 0.000000,
-					"y" : 210.000000,
-					"horz_align" : 1,
-					"vert_align" : 3,
-					"width" : 792.000000,
-					"height" : 152.000000,
-					"horz_size" : 0,
-					"vert_size" : 0,
-					"anchorn_x" : 0.500000,
-					"anchorn_y" : 0.000000,
-					"left_padding" : 0.000000,
-					"top_padding" : 0.000000,
-					"right_padding" : 0.000000,
-					"bottom_padding" : 0.000000,
-					"rotate" : 0.000000,
-					"color" :
-					{
-						"r" : 1.000000,
-						"g" : 1.000000,
-						"b" : 1.000000,
-						"a" : 1.000000
-					},
-					"alpha" : 1.000000,
-					"scale_childs" : false,
-					"clip_childs" : false,
-					"image" :
-					{
-						"width" : 194,
-						"height" : 38,
-						"type" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"texName" : "Projects/SunnyLand/Sprites/title-screen.png",
-						"texMode" : 0,
-						"texFilter" : 0,
-						"count" : 1,
-						"Rect" : [
-							{
-								"pos" :
-								{
-									"x" : 0.000000,
-									"y" : 38.000000
-								},
-								"size" :
-								{
-									"x" : 194.000000,
-									"y" : 38.000000
-								},
-								"uv" :
-								{
-									"x" : 0.000000,
-									"y" : 1.000000
-								},
-								"duv" :
-								{
-									"x" : 1.000000,
-									"y" : 1.000000
-								},
-								"offset" :
-								{
-									"x" : 0.000000,
-									"y" : 0.000000
-								}
-							}
-						]
-					},
-					"Childs" : [
-					]
-				},
-				{
-					"type" : "UIImageAsset",
 					"uid" : 589180,
 					"Name" : "back",
 					"State" : 2,
@@ -170,6 +91,85 @@
 				},
 				{
 					"type" : "UIImageAsset",
+					"uid" : 1713420288,
+					"Name" : "logo",
+					"State" : 2,
+					"x" : 0.000000,
+					"y" : 210.000000,
+					"horz_align" : 1,
+					"vert_align" : 3,
+					"width" : 792.000000,
+					"height" : 152.000000,
+					"horz_size" : 0,
+					"vert_size" : 0,
+					"anchorn_x" : 0.500000,
+					"anchorn_y" : 0.000000,
+					"left_padding" : 0.000000,
+					"top_padding" : 0.000000,
+					"right_padding" : 0.000000,
+					"bottom_padding" : 0.000000,
+					"rotate" : 0.000000,
+					"color" :
+					{
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
+						"a" : 1.000000
+					},
+					"alpha" : 1.000000,
+					"scale_childs" : false,
+					"clip_childs" : false,
+					"image" :
+					{
+						"width" : 194,
+						"height" : 38,
+						"type" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"texName" : "UI/title-screen.png",
+						"texMode" : 0,
+						"texFilter" : 0,
+						"count" : 1,
+						"Rect" : [
+							{
+								"pos" :
+								{
+									"x" : 0.000000,
+									"y" : 38.000000
+								},
+								"size" :
+								{
+									"x" : 194.000000,
+									"y" : 38.000000
+								},
+								"uv" :
+								{
+									"x" : 0.000000,
+									"y" : 1.000000
+								},
+								"duv" :
+								{
+									"x" : 1.000000,
+									"y" : 1.000000
+								},
+								"offset" :
+								{
+									"x" : 0.000000,
+									"y" : 0.000000
+								}
+							}
+						]
+					},
+					"Childs" : [
+					]
+				},
+				{
+					"type" : "UIImageAsset",
 					"uid" : 1882504320,
 					"Name" : "start_label",
 					"State" : 2,
@@ -210,7 +210,7 @@
 							"b" : 1.000000,
 							"a" : 1.000000
 						},
-						"texName" : "Projects/SunnyLand/Sprites/press-enter-text.png",
+						"texName" : "UI/press-enter-text.png",
 						"texMode" : 0,
 						"texFilter" : 0,
 						"count" : 1,
@@ -289,7 +289,7 @@
 							"b" : 1.000000,
 							"a" : 1.000000
 						},
-						"texName" : "Projects/SunnyLand/Sprites/credits-text.png",
+						"texName" : "UI/credits-text.png",
 						"texMode" : 0,
 						"texFilter" : 0,
 						"count" : 1,
@@ -374,7 +374,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "",
-			"Count" : 3,
+			"Count" : 5,
 			"Node" : [
 				{
 					"type" : 0,
@@ -412,6 +412,30 @@
 						"y" : 413.000000
 					},
 					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "start_label",
+					"pos" :
+					{
+						"x" : 642.000000,
+						"y" : 415.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 864.000000,
+						"y" : 359.000000
+					},
+					"param_type" : 0,
+					"call_type" : 2,
+					"Count" : 0,
+					"Link" : [
+					]
 				}
 			]
 		}
@@ -421,7 +445,7 @@
 			"type" : "UIViewInstance",
 			"uid" : 221639040,
 			"Name" : "TitleMenu",
-			"State" : 0,
+			"State" : 2,
 			"Group" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -439,13 +463,13 @@
 			"Childs" : [
 				{
 					"type" : "UIImageAssetInst",
-					"uid" : 1335414144,
+					"uid" : 507889,
 					"State" : 2,
 					"color" :
 					{
-						"r" : 1.000000,
-						"g" : 1.000000,
-						"b" : 1.000000,
+						"r" : -107374176.000000,
+						"g" : -107374176.000000,
+						"b" : -107374176.000000,
 						"a" : 1.000000
 					},
 					"alpha" : 1.000000,
@@ -454,13 +478,13 @@
 				},
 				{
 					"type" : "UIImageAssetInst",
-					"uid" : 507889,
+					"uid" : 1335414144,
 					"State" : 2,
 					"color" :
 					{
-						"r" : -107374176.000000,
-						"g" : -107374176.000000,
-						"b" : -107374176.000000,
+						"r" : 1.000000,
+						"g" : 1.000000,
+						"b" : 1.000000,
 						"a" : 1.000000
 					},
 					"alpha" : 1.000000,
@@ -527,7 +551,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 983036,
-			"Count" : 3,
+			"Count" : 5,
 			"Node" : [
 				{
 					"object_uid" : 221639040,
@@ -543,6 +567,16 @@
 					"object_uid" : 221639040,
 					"object_child_uid" : 0,
 					"callback_type" : ""
+				},
+				{
+					"object_uid" : 221639040,
+					"object_child_uid" : 11549106,
+					"callback_type" : ""
+				},
+				{
+					"object_uid" : 0,
+					"object_child_uid" : 0,
+					"callback_type" : ""
 				}
 			]
 		}
@@ -553,7 +587,7 @@
 			"asset_name" : "TitleMenu",
 			"instances" : [
 				{
-					"scene" : "MainMenu.sca",
+					"scene" : "MainMenu/MainMenu.sca",
 					"inst_uid" : 221639040,
 					"inst_child_uid" : 0,
 					"is_asset" : false,
@@ -566,7 +600,7 @@
 			"asset_name" : "MenuScript",
 			"instances" : [
 				{
-					"scene" : "MainMenu.sca",
+					"scene" : "MainMenu/MainMenu.sca",
 					"inst_uid" : 507761,
 					"inst_name" : "MenuScript"
 				}

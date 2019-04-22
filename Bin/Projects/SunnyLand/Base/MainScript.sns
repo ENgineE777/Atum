@@ -88,8 +88,6 @@ class ThrowableBoxesHolder
 
 class Game
 {
-    array<Bonus> diamonds;
-    array<Bonus> cherries;
     array<PhysBox> respawn_points;
 
     array<ThrowableBoxesHolder> throwable_boxes;
@@ -108,9 +106,6 @@ class Game
 
     float return_to_title = -1.0f;
 
-    float title_menu_pos_x = 0.0f;
-    float label_fade = 2.0f;
-
     void RegisterThrowableBoxes(array<ThrowableBox>@ boxes, array<PhysBox>@ fake_box, array<ThrowableBox>@ fly_boxes, float grab_offset)
     {
         ThrowableBoxesHolder holder;
@@ -122,8 +117,11 @@ class Game
         holder.grab_offset = grab_offset;
 
         fake_box.resize(1);
+        fake_box[0].visible = 0;
 
         holder.fly_boxes.resize(fly_boxes.length() + 1);
+        fly_boxes[fly_boxes.length() - 1].visible = 0;
+
         holder.hero_fly_box_index = fly_boxes.length() - 1;
 
         for (int j = 0; j<boxes.length(); j++)
@@ -139,21 +137,13 @@ class Game
     {
         is_paused = false;
 
-        for (int i = 0; i<diamonds.length();i++)
-        {
-            diamonds[i].visible = 1;
-        }
-
-        for (int i = 0; i<cherries.length();i++)
-        {
-            cherries[i].visible = 1;
-        }
+        Script_CallClassInstancesMethod("", "", "OnStartGame");
 
         game_menu.ShowPauseMenu(0);
 
         fade_out = -1.0f;
         hero_inst[0].cur_respawn_point = 0;
-        AddScore(hero_inst[0], -1);
+        AddScore(-1);
         RespawnHero(hero_inst[0]);
     }
 
@@ -251,8 +241,10 @@ class Game
         Script_CallClassInstancesMethod("", "", "OnRespawnHero");
     }
 
-    void AddScore(HeroData@ hero_data, int score)
+    void AddScore(int score)
     {
+        HeroData@ hero_data = hero_inst[0];
+
         if (score == -1)
         {
             hero_data.score = 0;
@@ -263,23 +255,6 @@ class Game
         }
 
         game_menu.SetScore(hero_data.score);
-    }
-
-    void OnHeroContact(int self_index, string&in name, int index)
-    {
-        if (name == "CherryItem")
-        {
-            AddScore(hero_inst[0], cherries[index].score);
-            cherries[index].visible = 0;
-            item_taken.AddInstance(cherries[index].x, cherries[index].y, true);
-        }
-        else
-        if (name == "DiamondItem")
-        {
-            AddScore(hero_inst[0], diamonds[index].score);
-            diamonds[index].visible = 0;
-            item_taken.AddInstance(diamonds[index].x, diamonds[index].y, true);
-        }
     }
 
     void OnActivateResapwnTrigger(int self_index, string&in name, int index, int param)
@@ -503,24 +478,6 @@ class Game
     {
         if (is_paused)
         {
-            /*if (pause_menu.GetState() != 2)
-            {
-                title_menu_pos_x += dt * 1000;
-                label_fade -= dt;
-
-                //start_label.alpha = (label_fade > 1.0f) ? 1.0f : 0.0f;
-
-                while (label_fade < 0.0f)
-                {
-                    label_fade += 2.0f;
-                }
-
-                camera.target_pos_x = title_menu_pos_x;
-                camera.x = camera.target_pos_x;
-                camera.target_pos_y = -800;
-                camera.y = camera.target_pos_y;
-            }*/
-
             return;
         }
 

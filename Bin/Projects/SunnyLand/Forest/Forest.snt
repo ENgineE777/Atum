@@ -1,0 +1,177 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Background",
+			"type" : 0
+		},
+		{
+			"uid" : 953703,
+			"name" : "Forest_LayerFar",
+			"type" : 1
+		},
+		{
+			"uid" : 910692,
+			"name" : "Forest_LayerNear",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Background",
+			"type" : 0
+		},
+		{
+			"uid" : 579043,
+			"name" : "Forest_LayerFar",
+			"type" : 1
+		},
+		{
+			"uid" : 302968,
+			"name" : "Forest_LayerNear",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Characters",
+			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Piranha",
+			"type" : 0
+		},
+		{
+			"uid" : 310772,
+			"name" : "Forest_Piranha",
+			"type" : 1
+		},
+		{
+			"uid" : 954222,
+			"name" : "Forest_Piranha_Attack",
+			"type" : 1
+		},
+		{
+			"uid" : 972796,
+			"name" : "Forest_Piranha_Idle",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 567162,
+			"name" : "Forest_Bee",
+			"type" : 1
+		},
+		{
+			"uid" : 1023339,
+			"name" : "Forest_Slug",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Decor",
+			"type" : 0
+		},
+		{
+			"uid" : 317297,
+			"name" : "Forest_BigTree",
+			"type" : 1
+		},
+		{
+			"uid" : 251876,
+			"name" : "Forest_Bush",
+			"type" : 1
+		},
+		{
+			"uid" : 440304,
+			"name" : "Forest_House",
+			"type" : 1
+		},
+		{
+			"uid" : 503138,
+			"name" : "Forest_MovingBlock",
+			"type" : 1
+		},
+		{
+			"uid" : 302566,
+			"name" : "Forest_Mushroom1",
+			"type" : 1
+		},
+		{
+			"uid" : 322912,
+			"name" : "Forest_Mushroom2",
+			"type" : 1
+		},
+		{
+			"uid" : 458086,
+			"name" : "Forest_Rock",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 194534,
+			"name" : "Forest_star",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Tiles",
+			"type" : 0
+		},
+		{
+			"uid" : 313327,
+			"name" : "Forest_GroundTiles",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

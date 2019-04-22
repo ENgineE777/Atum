@@ -1,0 +1,35 @@
+
+class MainMenu
+{
+	UIView@ main_menu;
+	UIView@ level_ui;
+    UIImage@ start_label;
+
+    float title_menu_pos_x = 0.0f;
+    float label_fade = 2.0f;
+
+    void Update(float dt)
+    {
+        //title_menu_pos_x += dt * 1000;
+        label_fade -= dt;
+
+        start_label.alpha = (label_fade > 1.0f) ? 1.0f : 0.0f;
+
+        while (label_fade < 0.0f)
+        {
+            label_fade += 2.0f;
+        }
+
+        //camera.target_pos_x = title_menu_pos_x;
+        //camera.x = camera.target_pos_x;
+        //camera.target_pos_y = -800;
+        //camera.y = camera.target_pos_y;
+    }
+
+    void OnStart()
+    {
+		main_menu.SetState(0);
+
+		Scene_Load("Island_Level1");
+    }
+}

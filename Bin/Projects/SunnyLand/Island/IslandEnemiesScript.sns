@@ -1,6 +1,6 @@
 #import "MainScript"
 
-class SLEnemies
+class IslandEnemies
 {
 	array<BaseCharacter> eagles;
     array<BaseCharacter> opposums;

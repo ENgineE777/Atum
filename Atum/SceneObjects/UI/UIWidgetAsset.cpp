@@ -306,11 +306,11 @@ void UIWidgetAsset::DeleteChilds()
 }
 
 #ifdef EDITOR
-bool UIWidgetAsset::IsParentAsset()
+bool UIWidgetAsset::IsAsset()
 {
 	if (parent)
 	{
-		return parent->IsParentAsset();
+		return parent->IsAsset();
 	}
 
 	return IsAsset();

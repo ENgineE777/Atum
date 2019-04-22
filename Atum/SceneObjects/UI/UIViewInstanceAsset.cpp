@@ -91,7 +91,7 @@ void UIViewInstanceAsset::SaveAssetData(JSONWriter& writer)
 
 	writer.Write("inst_uid", inst_uid);
 	writer.Write("inst_child_uid", inst_child_uid);
-	writer.Write("is_asset", IsParentAsset());
+	writer.Write("is_asset", IsAsset());
 
 	writer.Write("inst_name", GetName());
 

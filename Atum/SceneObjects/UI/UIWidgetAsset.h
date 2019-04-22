@@ -68,7 +68,7 @@ public:
 	uint32_t GetParentUID() override;
 	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
-	bool IsParentAsset();
+	bool IsAsset() override;
 	void SaveAssetData(JSONWriter& writer) override;
 	void SetOwner(Scene* owner) override;
 	bool UsingCamera2DPos() override;

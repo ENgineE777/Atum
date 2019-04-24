@@ -174,7 +174,7 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt, void* data)
 
 			DXGI_SWAP_CHAIN_DESC sd;
 			ZeroMemory(&sd, sizeof(sd));
-			sd.BufferCount = 1;
+			sd.BufferCount = 2;
 			sd.BufferDesc.Width = wgt;
 			sd.BufferDesc.Height = hgt;
 			sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
@@ -184,6 +184,7 @@ void DeviceDX11::SetVideoMode(int wgt, int hgt, void* data)
 			sd.OutputWindow = backbuffer_holder->handle;
 			sd.SampleDesc.Count = 1;
 			sd.SampleDesc.Quality = 0;
+			sd.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;
 			sd.Windowed = TRUE;
 
 			factory->CreateSwapChain(pd3dDevice, &sd, &backbuffer_holder->swapChain);

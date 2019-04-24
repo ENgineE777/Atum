@@ -118,6 +118,8 @@ protected:
 	EUIWidget* parent;
 	std::vector<EUIWidget*> childs;
 
+	void* user_data = nullptr;
+
 	EUIWidget* focused;
 
 	NativeWidget* nativeWidget;
@@ -138,6 +140,9 @@ public:
 	virtual ~EUIWidget();
 
 	virtual int  GetID();
+
+	void SetUserData(void* user_data);
+	void* GetUserData();
 
 	virtual void SetListener(int id, Listener* listener, uint32_t flag);
 	virtual void SetID(int id);

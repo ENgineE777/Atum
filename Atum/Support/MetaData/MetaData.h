@@ -20,6 +20,10 @@
 #include "SceneObjectWidget.h"
 #endif
 
+/**
+\ingroup gr_code_common_metadata
+*/
+
 struct MetaDataEnum
 {
 	int defIndex;
@@ -137,7 +141,7 @@ public:
 	void PostLoad();
 	void Save(JSONWriter& writer);
 	void Copy(void* source);
-	void BindToScript(class asIScriptEngine* engine, const char* script_class_name);
+	void BindToScript(const char* script_class_name);
 #ifdef EDITOR
 	void PrepareWidgets(EUICategories* parent);
 	void UpdateWidgets();

@@ -5,6 +5,10 @@
 #include <vector>
 #include <map>
 
+/**
+\ingroup gr_code_services_task_executor
+*/
+
 class TaskExecutor
 {
 public:

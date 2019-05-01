@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObjectComp.h"
 #include "ScriptMetaDataAsset.h"
 
+/**
+\page scene_assets_components_ScriptMetaData Script Meta Data
+
+Script Meta Data component
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_components
+*/
+
 class ScriptMetaDataComp : public SceneAssetComp
 {
 public:

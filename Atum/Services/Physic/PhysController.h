@@ -10,6 +10,10 @@
 
 #endif
 
+/**
+\ingroup gr_code_services_physic
+*/
+
 #include "PxPhysicsAPI.h"
 
 #ifdef PLATFORM_IOS

@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneObject.h"
 
+/**
+\page scene_object_3D_GenericMarker Generic Marker
+
+Generic Marker
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_3D
+*/
+
 class GenericMarker : public SceneObject
 {
 public:

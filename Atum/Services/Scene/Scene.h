@@ -13,6 +13,10 @@ class SceneObject;
 class SceneAsset;
 class SceneObjectComp;
 
+/**
+\ingroup gr_code_services_scene
+*/
+
 class Scene
 {
 	friend class SceneObject;

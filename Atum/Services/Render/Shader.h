@@ -4,8 +4,12 @@
 #include "Support/Support.h"
 #include "Services/Render/Texture.h"
 
+/**
+\ingroup gr_code_services_render
+*/
+
 class Shader
-{	
+{
 public:
 	enum Type
 	{

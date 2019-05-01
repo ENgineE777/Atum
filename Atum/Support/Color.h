@@ -3,11 +3,16 @@
 
 #include <stdint.h>
 
+/**
+\ingroup gr_code_common
+*/
+
+
 class Color
 {	
 public:
 
-	float r,g,b,a;
+	float r, g, b, a;
 
 	Color()
 	{

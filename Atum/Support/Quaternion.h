@@ -4,6 +4,10 @@
 #include "Vector.h"
 #include "Matrix.h"
 
+/**
+\ingroup gr_code_common
+*/
+
 class Quaternion
 {
 public:

@@ -129,7 +129,7 @@ bool SceneScriptInst::InjectIntoScript(const char* type, void* property, const c
 
 bool SceneScriptInst::PostPlay()
 {
-	class_inst = (asIScriptObject*)core.scripts.engine->CreateScriptObject(Asset()->class_type);
+	class_inst = (asIScriptObject*)core.scripts.CreateScriptObject(Asset()->class_type);
 
 	if (!class_inst)
 	{
@@ -160,7 +160,7 @@ bool SceneScriptInst::PostPlay()
 					
 					if (node_inst.object)
 					{
-						auto type = core.scripts.engine->GetTypeInfoById(class_inst->GetPropertyTypeId(i));
+						auto type = core.scripts.GetTypeInfoById(class_inst->GetPropertyTypeId(i));
 						
 						if (!node_inst.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{

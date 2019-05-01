@@ -4,6 +4,10 @@
 #include "Support/Support.h"
 #include "EUI.h"
 
+/**
+\ingroup gr_code_editor
+*/
+
 class Gizmo
 {
 public:

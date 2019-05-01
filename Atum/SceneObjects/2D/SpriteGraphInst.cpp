@@ -19,9 +19,9 @@ void SpriteGraphInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
 
-	core.scripts.engine->RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), asOBJ_REF | asOBJ_NOCOUNT);
-	core.scripts.engine->RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink), asCALL_GENERIC);
-	core.scripts.engine->RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode), asCALL_GENERIC);
+	core.scripts.RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), "gr_script_scene_object_components");
+	core.scripts.RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink));
+	core.scripts.RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode));
 }
 
 void SpriteGraphInst::Init()

@@ -3,6 +3,10 @@
 
 #include "Support/Support.h"
 
+/**
+\ingroup gr_code_services_render
+*/
+
 class GeometryBuffer
 {
 protected:

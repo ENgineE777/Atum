@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObject.h"
 #include "Phys2DComp.h"
 
+/**
+\page scene_object_2D_Trigger2D Trigger2D
+
+Trigger2D
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class Trigger2D : public SceneObject
 {
 public:

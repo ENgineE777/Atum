@@ -15,7 +15,7 @@ META_DATA_DESC_END()
 void SpriteTileInst::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SpriteTileInst)
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteTileInst, AddInstance), asCALL_GENERIC);
+	core.scripts.RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteTileInst, AddInstance));
 }
 
 void SpriteTileInst::Init()

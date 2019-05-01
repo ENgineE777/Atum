@@ -5,6 +5,10 @@
 #include "SceneObjects/2D/Sprite.h"
 #include "Services/Font/Fonts.h"
 
+/**
+\ingroup gr_code_editor
+*/
+
 class EditorDrawer
 {
 	Transform2D trans;

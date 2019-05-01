@@ -4,6 +4,10 @@
 #include "Scene.h"
 #include "Services/Physic/Physics.h"
 
+/**
+\ingroup gr_code_services_scene
+*/
+
 class SceneManager : public Object
 {
 	friend class SceneObject;

@@ -11,6 +11,10 @@
 #include <android/asset_manager.h>
 #endif
 
+/**
+\ingroup gr_code_services_files
+*/
+
 class Files
 {
 public:

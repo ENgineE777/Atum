@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneObject.h"
 
+/**
+\page scene_object_2D_Camera2D Camera2D
+
+Camera2D
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class Camera2D : public SceneObject
 {
 public:

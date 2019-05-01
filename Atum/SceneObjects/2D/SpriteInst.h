@@ -6,6 +6,18 @@
 #include "Services/Script/Libs/scriptarray.h"
 #include "SpriteGraphAsset.h"
 
+/**
+\page scene_assets_2D_SpriteInst Instance
+
+Sprite Instance
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class SpriteInst : public SceneObjectInst, public CScriptArray::Listiner
 {
 public:

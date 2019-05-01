@@ -6,6 +6,10 @@
 #include "Services/File/FileInMemory.h"
 using namespace physx;
 
+/**
+\ingroup gr_code_services_physic
+*/
+
 class Physics
 {
 	friend class PhysScene;

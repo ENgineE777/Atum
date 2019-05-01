@@ -24,6 +24,10 @@
 
 #include "Support/Support.h"
 
+/**
+\ingroup gr_code_services_physic
+*/
+
 using namespace physx;
 
 class PhysObject

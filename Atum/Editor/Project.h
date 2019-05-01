@@ -6,6 +6,10 @@
 #include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneObject.h"
 
+/**
+\ingroup gr_code_editor
+*/
+
 class Project
 {
 public:

@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneObjectComp.h"
 
+/**
+\page scene_assets_components_track2d Track 2D
+
+Track 2D Component
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_components
+*/
+
 class Track2DComp : public SceneObjectComp
 {
 public:

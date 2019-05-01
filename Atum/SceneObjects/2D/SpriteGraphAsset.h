@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneAsset.h"
 #include "Sprite.h"
 
+/**
+\page scene_assets_2D_SpriteGraphAsset Asset
+
+Sprite Anim Graph
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_2D
+*/
+
 class SpriteAsset;
 
 class SpriteGraphAsset : public SceneAsset

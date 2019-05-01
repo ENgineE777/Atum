@@ -7,6 +7,10 @@
 #include <vector>
 #include <map>
 
+/**
+\ingroup gr_code_services_render
+*/
+
 class Render
 {
 	friend class TextureDX11;

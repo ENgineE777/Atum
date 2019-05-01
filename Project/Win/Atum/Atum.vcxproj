@@ -22,11 +22,11 @@
     <ClCompile Include="..\..\..\Atum\Editor\LayerEntryWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\Project.cpp" />
     <ClCompile Include="..\..\..\Atum\Editor\SceneObjCmpWidget.cpp" />
-    <ClCompile Include="..\..\..\Atum\main.cpp" />
     <ClCompile Include="..\..\..\Atum\Platform\Android\AtumLib.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Win\main.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Camera2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.cpp" />
@@ -146,6 +146,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\ScriptCore.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp" />
@@ -290,6 +291,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\ScriptCore.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h" />
     <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />

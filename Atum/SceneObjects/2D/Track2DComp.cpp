@@ -38,8 +38,8 @@ void Track2DComp::Track::Activate(bool set_active)
 
 void Track2DComp::BindClassToScript()
 {
-	core.scripts.engine->RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), asOBJ_REF | asOBJ_NOCOUNT);
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate), asCALL_GENERIC);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), "gr_script_scene_object_components");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate));
 }
 
 void Track2DComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)

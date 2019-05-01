@@ -34,7 +34,7 @@ class GameMenu
         fade.alpha = (show == 1) ? 0.5f : 0.0f;
         pause_menu.SetState((show == 1) ? 2 : 0);
         vjoy.SetState((show == 1) ? 1 : 2);
-        Scene_Group_SetState("Level", (show == 1) ? 1 : 2);
+        core.scene.SetStateToGroup("Level", (show == 1) ? 1 : 2);
     }
 
     void OnReturnToTitle()
@@ -43,7 +43,7 @@ class GameMenu
         level_ui.SetState(0);
         pause_menu.SetState(0);
 
-        //Scene_Unload("SunnyLand_Level1");
+        //core.scene.Unload("SunnyLand_Level1");
 
         is_paused = true;
 
@@ -51,6 +51,6 @@ class GameMenu
         vjoy.SetState(0);
         fade.alpha = 0.0f;
         pause_menu.SetState(0);
-        Scene_Group_SetState("Level", 0);
+        core.scene.SetStateToGroup("Level", 0);
     }
 }

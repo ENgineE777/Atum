@@ -8,6 +8,10 @@
 #include "VertexDecl.h"
 #include "Texture.h"
 
+/**
+\ingroup gr_code_services_render
+*/
+
 class Device
 {
 	friend class Render;

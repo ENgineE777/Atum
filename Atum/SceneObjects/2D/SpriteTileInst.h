@@ -5,6 +5,18 @@
 #include "SpriteTileAsset.h"
 #include "SpriteInst.h"
 
+/**
+\page scene_assets_2D_SpriteTileInst Instance
+
+Sprite Tile Instance
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class SpriteTileInst : public SpriteInst
 {
 public:

@@ -3,6 +3,10 @@
 
 #include "Vector.h"
 
+/**
+\ingroup gr_code_common
+*/
+
 struct Vector4
 {
 public:

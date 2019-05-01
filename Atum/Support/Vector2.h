@@ -3,6 +3,10 @@
 
 #include <math.h>
 
+/**
+\ingroup gr_code_common
+*/
+
 struct Vector2
 {
 public:

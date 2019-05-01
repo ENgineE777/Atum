@@ -14,6 +14,10 @@
 #include "Editor/Gizmo.h"
 #endif
 
+/**
+\ingroup gr_code_services_scene
+*/
+
 class SceneObjectComp : public Object
 {
 public:

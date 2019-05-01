@@ -137,7 +137,7 @@ class Game
     {
         is_paused = false;
 
-        Script_CallClassInstancesMethod("", "", "OnStartGame");
+        core.scene.CallClassInstancesMethod("", "", "OnStartGame");
 
         game_menu.ShowPauseMenu(0);
 
@@ -238,7 +238,7 @@ class Game
             }
         }
 
-        Script_CallClassInstancesMethod("", "", "OnRespawnHero");
+        core.scene.CallClassInstancesMethod("", "", "OnRespawnHero");
     }
 
     void AddScore(int score)
@@ -340,7 +340,7 @@ class Game
             hero_data.graph.ActivateLink("fall");
         }
         
-        if (Control_GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
+        if (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
         {
             if (allow_jump)
             {
@@ -350,7 +350,7 @@ class Game
             hero_data.dir_x = -1.0f;
         }
         else
-        if (Control_GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
+        if (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
         {
             if (allow_jump)
             {
@@ -393,13 +393,13 @@ class Game
 
         MoveCharacter(hero_data, dt);
 
-        if ((Control_GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
+        if ((core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
         {
             hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
         }
 
-        if (Control_GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
+        if (core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
         {
             if (!hero_data.box_grabbed)
             {

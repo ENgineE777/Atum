@@ -6,6 +6,10 @@ class  Texture;
 #include "Services/Render/Render.h"
 #include "Services/File/FileInMemory.h"
 
+/**
+\ingroup gr_code_services_font
+*/
+
 class Font;
 
 class FontRes

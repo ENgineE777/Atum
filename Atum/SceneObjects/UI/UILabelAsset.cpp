@@ -156,7 +156,7 @@ META_DATA_DESC_END()
 void UILabelAssetInst::BindClassToScript()
 {
 	BIND_INST_TYPE_TO_SCRIPT(UILabelAssetInst, UILabelAsset)
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText), asCALL_GENERIC);
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText));
 }
 
 #ifdef EDITOR

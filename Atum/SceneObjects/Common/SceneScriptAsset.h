@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneAsset.h"
 
+/**
+\page scene_assets_common_SceneScriptAsset Asset
+
+Script Asset
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_common
+*/
+
 class SceneScriptAsset : public SceneAsset
 {
 public:

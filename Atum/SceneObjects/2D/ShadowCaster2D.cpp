@@ -22,8 +22,8 @@ void ShadowCaster2D::Init()
 void ShadowCaster2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(ShadowCaster2D)
-	core.scripts.engine->RegisterObjectProperty(script_class_name, "float pos_x", memberOFFSET(ShadowCaster2D, pos.x));
-	core.scripts.engine->RegisterObjectProperty(script_class_name, "float pos_y", memberOFFSET(ShadowCaster2D, pos.y));
+	core.scripts.RegisterObjectProperty(script_class_name, "float pos_x", memberOFFSET(ShadowCaster2D, pos.x));
+	core.scripts.RegisterObjectProperty(script_class_name, "float pos_y", memberOFFSET(ShadowCaster2D, pos.y));
 }
 
 void ShadowCaster2D::Draw(float dt)

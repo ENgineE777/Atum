@@ -3,6 +3,18 @@
 
 class Font;
 
+/**
+\page scene_assets_ui_button_asset Asset
+
+Button
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_ui
+*/
+
 class UIButtonAsset : public UIWidgetAsset
 {
 public:
@@ -13,6 +25,18 @@ public:
 
 	void Draw(float dt) override;
 };
+
+/**
+\page scene_assets_ui_button_inst Instance
+
+Button
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_ui
+*/
 
 class UIButtonAssetInst : public UIButtonAsset
 {

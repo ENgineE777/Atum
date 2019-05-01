@@ -3,6 +3,10 @@
 
 #include "Services/Render/Texture.h"
 
+/**
+\ingroup gr_code_services_render_dx11
+*/
+
 class TextureDX11 : public Texture
 {
 	struct ID3D11SamplerState* sampler;

@@ -14,6 +14,10 @@
 #include "Editor/Gizmo.h"
 #endif
 
+/**
+\ingroup gr_code_services_scene
+*/
+
 class SceneObject : public Object
 {
 	friend class Scene;
@@ -220,7 +224,7 @@ STRING_PROP(className, layer_name, "", "Common", "Layer")
 STRING_PROP(className, name, "", "Common", "Name")
 
 #define BIND_TYPE_TO_SCRIPT(className)\
-core.scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-GetMetaData()->BindToScript(core.scripts.engine, script_class_name);
+core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects");\
+core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState));\
+core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState));\
+GetMetaData()->BindToScript(script_class_name);

@@ -2,6 +2,18 @@
 #include "Services/Scene/SceneAsset.h"
 #include "SceneObjects/2D/Sprite.h"
 
+/**
+\page scene_assets_ui_base Base widget
+
+Physic Box
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_ui
+*/
+
 class UIWidgetAsset : public SceneAsset
 {
 protected:
@@ -91,7 +103,7 @@ BASE_SCENE_OBJ_STATE_PROP(className)
 
 
 #define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
-core.scripts.engine->RegisterObjectType(script_class_name, sizeof(className), asOBJ_REF | asOBJ_NOCOUNT);\
-core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), asCALL_GENERIC);\
-core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), asCALL_GENERIC);\
-classAssetName::meta_data.BindToScript(core.scripts.engine, script_class_name);
+core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects");\
+core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState));\
+core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState));\
+classAssetName::meta_data.BindToScript(script_class_name);

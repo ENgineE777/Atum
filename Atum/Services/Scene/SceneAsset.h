@@ -7,6 +7,10 @@
 #include "EUI.h"
 #endif
 
+/**
+\ingroup gr_code_services_scene
+*/
+
 class SceneAsset : public SceneObject
 {
 	friend class Scene;

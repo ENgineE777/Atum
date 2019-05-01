@@ -4,6 +4,10 @@
 #include "Vector.h"
 #include "Vector4.h"
 
+/**
+\ingroup gr_code_common
+*/
+
 class Matrix
 {
 public:

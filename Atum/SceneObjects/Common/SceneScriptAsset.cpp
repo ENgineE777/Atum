@@ -258,7 +258,7 @@ bool SceneScriptAsset::Play()
 		return false;
 	}
 
-	mod = core.scripts.engine->GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
+	mod = core.scripts.GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 
 	string src = (const char*)file.GetData();
 

@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObject.h"
 #include "SceneScriptAsset.h"
 
+/**
+\page scene_assets_common_SceneScriptInst Instance
+
+Script Instance
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_common
+*/
+
 class SceneScriptInst : public SceneObjectInst
 {
 public:

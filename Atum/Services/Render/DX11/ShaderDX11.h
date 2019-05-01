@@ -7,6 +7,10 @@
 #include <map>
 #include <stdint.h>
 
+/**
+\ingroup gr_code_services_render_dx11
+*/
+
 class ShaderDX11 : public Shader
 {
 	friend class VertexDeclDX11;

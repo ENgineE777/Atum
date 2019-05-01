@@ -12,6 +12,10 @@
 #include <OpenGLES/ES3/glext.h>
 #endif
 
+/**
+\ingroup gr_code_services_render_gles3
+*/
+
 class TextureGLES : public Texture
 {
 public:

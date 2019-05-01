@@ -5,6 +5,10 @@
 #include "PhysController.h"
 #include "PhysHeightmap.h"
 
+/**
+\ingroup gr_code_services_physic
+*/
+
 using namespace physx;
 
 class PhysScene : public PxSimulationEventCallback

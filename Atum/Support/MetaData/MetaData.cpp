@@ -4,6 +4,7 @@
 #include "SceneObjects/2D/Sprite.h"
 #include "Services/Scene/SceneObject.h"
 #include "Services/Scene/Scene.h"
+#include "Services/Core/Core.h"
 
 Scene* MetaData::scene = nullptr;
 
@@ -331,7 +332,7 @@ void MetaData::Copy(void* source)
 	}
 }
 
-void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_class_name)
+void MetaData::BindToScript( const char* script_class_name)
 {
 	if (!inited)
 	{
@@ -362,7 +363,7 @@ void MetaData::BindToScript(class asIScriptEngine* engine, const char* script_cl
 
 		if (decl[0])
 		{
-			engine->RegisterObjectProperty(script_class_name, decl, (int)prop.offset);
+			core.scripts.RegisterObjectProperty(script_class_name, decl, (int)prop.offset);
 		}
 		
 	}

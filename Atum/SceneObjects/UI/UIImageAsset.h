@@ -1,6 +1,19 @@
 #pragma once
 #include "UIWidgetAsset.h"
 
+/**
+\page scene_assets_ui_image_asset Asset
+
+Image
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_ui
+*/
+
+
 class UIImageAsset : public UIWidgetAsset
 {
 public:
@@ -15,6 +28,18 @@ public:
 	void Init() override;
 	void Draw(float dt) override;
 };
+
+/**
+\page scene_assets_ui_image_inst Instance
+
+Image
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_ui
+*/
 
 class UIImageAssetInst : public UIImageAsset
 {

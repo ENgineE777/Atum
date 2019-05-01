@@ -6,6 +6,10 @@
 #include <map>
 #include "Support/ClassFactory.h"
 
+/**
+\ingroup gr_code_services_render
+*/
+
 class Program
 {
 protected:

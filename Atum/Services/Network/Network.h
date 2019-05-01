@@ -7,6 +7,10 @@
 #include <stdio.h> 
 #include <vector> 
 
+/**
+\ingroup gr_code_services_network
+*/
+
 class NetworkDelegate
 {
 public:

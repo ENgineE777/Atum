@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneObject.h"
 
+/**
+\page scene_object_2D_ShadowCaster2D ShadowCaster2D
+
+ShadowCaster2D
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class ShadowCaster2D : public SceneObject
 {
 public:

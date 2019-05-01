@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneAsset.h"
 #include "Services/Script/Libs/scriptarray.h"
 
+/**
+\page scene_assets_common_ScriptMetaDataAsset Script Meta Data
+
+Script Meta Data
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_common
+*/
+
 class ScriptMetaDataAsset : public SceneAsset
 {
 public:

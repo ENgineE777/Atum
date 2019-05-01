@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObjectComp.h"
 #include "SpriteInst.h"
 
+/**
+\page scene_assets_components_phys2d Physic 2D
+
+Physic 2D component
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_components
+*/
+
 class Phys2DComp : public SceneAssetComp
 {
 public:

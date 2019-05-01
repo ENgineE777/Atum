@@ -8,6 +8,10 @@
 #include "Support/Color.h"
 #include "string"
 
+/**
+\ingroup gr_code_common_json
+*/
+
 class JSONReader
 {
 	block_allocator allocator;

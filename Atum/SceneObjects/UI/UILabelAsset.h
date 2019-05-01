@@ -3,6 +3,18 @@
 
 class Font;
 
+/**
+\page scene_assets_ui_label_asset Asset
+
+Image
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_ui
+*/
+
 class UILabelAsset : public UIWidgetAsset
 {
 public:
@@ -22,6 +34,18 @@ public:
 	void SetText(string& text);
 	void Draw(float dt) override;
 };
+
+/**
+\page scene_assets_ui_label_inst Instance
+
+Label
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_ui
+*/
 
 class UILabelAssetInst : public UILabelAsset
 {

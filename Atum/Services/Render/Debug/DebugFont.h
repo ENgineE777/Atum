@@ -3,6 +3,10 @@
 
 #include "Services/Render/Render.h"
 
+/**
+\ingroup gr_code_services_render_debug
+*/
+
 class Font;
 
 class DebugFont : public Object

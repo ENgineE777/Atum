@@ -1,6 +1,18 @@
 #pragma once
 #include "UIWidgetAsset.h"
 
+/**
+\page scene_assets_ui_view_asset Asset
+
+Image
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_ui
+*/
+
 class UIViewAsset : public UIWidgetAsset
 {
 public:
@@ -21,6 +33,7 @@ public:
 	static int            popup_child_index;
 	static UIWidgetAsset* popup_item;
 
+	bool IsAsset() override;
 	bool UseAseetsTree() override;
 	void SetEditMode(bool ed) override;
 	void PreapreAssetTree()  override;

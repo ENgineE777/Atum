@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <string.h>
 
+/**
+\ingroup gr_code_services_files
+*/
+
 class FileInMemory
 {
 	uint8_t* buffer = nullptr;

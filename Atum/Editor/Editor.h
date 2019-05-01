@@ -13,6 +13,10 @@
 #include "SceneObjCmpWidget.h"
 #include "Project.h"
 
+/**
+\ingroup gr_code_editor
+*/
+
 class Editor : public Object, public EUIWidget::Listener
 {
 	friend class Project;

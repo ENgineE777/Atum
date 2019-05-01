@@ -102,9 +102,9 @@ class Main
 			dir_x /= len;
 			dir_y /= len;
 
-			if (Scene_Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+			if (core.scene.Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
 			{
-				//Render_DrawLine2D(enemy.x+ dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, pos_x, pos_y);
+				//core.render.DrawLine2D(enemy.x+ dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, pos_x, pos_y);
 
 				if (str_object == "HeroGraph_Legs")
 				{
@@ -181,7 +181,7 @@ class Main
 
 	void OnRestartTrigger(int self_index, string&in name, int index)
 	{
-		Render_Print(10, 30, "OnRestartTrigger");
+		core.render.DebugText(10, 30, "OnRestartTrigger");
 		if (name == "HeroGraph_Legs")
 		{
 			for (int j = 0; j<enemies.length();j++)
@@ -237,13 +237,13 @@ class Main
 	{
 		if (!inited)
 		{
-			alias_move_vert = Control_GetAlias("Frog.MOVE_VERT");
-			alias_move_horz = Control_GetAlias("Frog.MOVE_HORZ");
-			alias_aim_vert = Control_GetAlias("Frog.AIM_VERT");
-			alias_aim_horz = Control_GetAlias("Frog.AIM_HORZ");
-			alias_cursor_x = Control_GetAlias("Frog.CURSOR_X");
-			alias_cursor_y = Control_GetAlias("Frog.CURSOR_Y");
-			alias_fire = Control_GetAlias("Frog.Fire");
+			alias_move_vert = core.controls.GetAliasIndex("Frog.MOVE_VERT");
+			alias_move_horz = core.controls.GetAliasIndex("Frog.MOVE_HORZ");
+			alias_aim_vert = core.controls.GetAliasIndex("Frog.AIM_VERT");
+			alias_aim_horz = core.controls.GetAliasIndex("Frog.AIM_HORZ");
+			alias_cursor_x = core.controls.GetAliasIndex("Frog.CURSOR_X");
+			alias_cursor_y = core.controls.GetAliasIndex("Frog.CURSOR_Y");
+			alias_fire = core.controls.GetAliasIndex("Frog.Fire");
 
 			RestartLevel();
 
@@ -252,8 +252,8 @@ class Main
 
 		if (hero[0].hp > 0)
 		{
-			float dir_x = Control_GetValue(alias_move_horz, 0);
-			float dir_y = -Control_GetValue(alias_move_vert, 0);
+			float dir_x = core.controls.GetValue(alias_move_horz, 0);
+			float dir_y = -core.controls.GetValue(alias_move_vert, 0);
 
 			if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
 			{
@@ -274,10 +274,10 @@ class Main
 				hero[0].graph.ActivateLink("Idle");
 			}
 
-			if (Control_IsGamepadConnected() > 0)
+			if (core.controls.IsGamepadConnected() > 0)
 			{
-				dir_x = Control_GetValue(alias_aim_horz, 0);
-				dir_y = -Control_GetValue(alias_aim_vert, 0);
+				dir_x = core.controls.GetValue(alias_aim_horz, 0);
+				dir_y = -core.controls.GetValue(alias_aim_vert, 0);
 		
 				if (abs(dir_x) > 0.2f || abs(dir_y) > 0.2f)
 				{
@@ -298,10 +298,10 @@ class Main
 				crosshair_dir_x = dir_x / len;
 				crosshair_dir_y = dir_y / len;
 
-				float scale = 1024.0f / Render_GetHeight();
+				float scale = 1024.0f / core.render.GetHeight();
 
-				crosshair[0].x = (Control_GetValue(alias_cursor_x, 0) - Render_GetWidth()  * 0.5f) * scale + camera.x;
-				crosshair[0].y = (Control_GetValue(alias_cursor_y, 0) - Render_GetHeight() * 0.5f)* scale + camera.y;
+				crosshair[0].x = (core.controls.GetValue(alias_cursor_x, 0) - core.render.GetWidth()  * 0.5f) * scale + camera.x;
+				crosshair[0].y = (core.controls.GetValue(alias_cursor_y, 0) - core.render.GetHeight() * 0.5f)* scale + camera.y;
 			}
 
 			hero[0].body_angle = atan2(crosshair_dir_y, crosshair_dir_x);
@@ -337,7 +337,7 @@ class Main
 			camera.target_pos_x = hero[0].x;
 			camera.target_pos_y = hero[0].y;
 
-			if (Control_GetState(alias_fire, 1) > 0)
+			if (core.controls.GetState(alias_fire, 1) > 0)
 			{
 				if (hero[0].body_graph.ActivateLink("Shoot"))
 				{
@@ -387,7 +387,7 @@ class Main
 
 			DeadBodyFly(enemy, dt);
 
-			if (enemy.fly_time < 0 && Control_GetState(alias_fire, 1) > 0)
+			if (enemy.fly_time < 0 && core.controls.GetState(alias_fire, 1) > 0)
 			{
 				RestartLevel();
 			}
@@ -517,11 +517,11 @@ class Main
 				float p3_x = cos(angle) * enemy_view_dist + enemy.x;
 				float p3_y = sin(angle) * enemy_view_dist + enemy.y - 33.0f;
 
-				//Render_DrawLine2D(enemy.x, enemy.y - 33.0f, p2_x, p2_y);
-				//Render_DrawLine2D(enemy.x, enemy.y - 33.0f, p3_x, p3_y);
-				//Render_DrawLine2D(p2_x, p2_y, p3_x, p3_y);
+				//core.render.DrawLine2D(enemy.x, enemy.y - 33.0f, p2_x, p2_y);
+				//core.render.DrawLine2D(enemy.x, enemy.y - 33.0f, p3_x, p3_y);
+				//core.render.DrawLine2D(p2_x, p2_y, p3_x, p3_y);
 
-				if ((IsPlayerVisibleByRadius(enemy, 175.0f) || IsPointInTriangle(hero[0].x, hero[0].y - 33.0f, enemy.x, enemy.y - 33.0f, p2_x, p2_y, p3_x, p3_y) > 0) &&
+				if ((IsPlayerVisibleByRadius(enemy, 175.0f) || core.utils.IsPointInTriangle(hero[0].x, hero[0].y - 33.0f, enemy.x, enemy.y - 33.0f, p2_x, p2_y, p3_x, p3_y) > 0) &&
 					 IsPlayerVisible(enemy, enemy_view_dist))
 				{
 					enemy.track.Activate(false);
@@ -580,7 +580,7 @@ class Main
 				string str_object;
 				int obj_index;
 
-				if (Scene_Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+				if (core.scene.Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
 				{
 					if (str_object == "EnemyGraph_Legs")
 					{

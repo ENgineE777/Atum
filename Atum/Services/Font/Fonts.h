@@ -3,6 +3,10 @@
 #include "Font.h"
 #include <map>
 
+/**
+\ingroup gr_code_services_font
+*/
+
 class Fonts
 {
 	friend class FontRes;

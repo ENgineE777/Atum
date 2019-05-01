@@ -14,6 +14,10 @@
 extern void CallJavaMethod(const char* function, const char* format, ...);
 #endif
 
+/**
+\ingroup gr_code_services_core
+*/
+
 class Core
 {
 	char  logs_dir[1024];

@@ -19,6 +19,18 @@ public:
 #endif
 };
 
+/**
+\page scene_assets_ui_view_inst Instance
+
+Label
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_ui
+*/
+
 class UIViewInstance : public UIViewInstanceAsset
 {
 public:

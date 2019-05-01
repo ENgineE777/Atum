@@ -9,6 +9,10 @@
 #include <stdint.h>
 #include "string"
 
+/**
+\ingroup gr_code_common_json
+*/
+
 class JSONWriter
 {
 	FILE* file = nullptr;

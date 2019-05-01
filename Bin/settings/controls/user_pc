@@ -219,6 +219,18 @@
 				{ "names" : ["MS_BTN1"] },
 				{ "names" : ["JOY_LEFT_TRIGER"] }
 			]
+		},
+		{
+			"name" : "Frog.EnterLeaveTunel",
+			"AliasesRef" : [
+				{ "names" : ["KEY_F"] }
+			]
+		},
+		{
+			"name" : "Frog.Kick",
+			"AliasesRef" : [
+				{ "names" : ["KEY_E"] }
+			]
 		}
 	]
 } 

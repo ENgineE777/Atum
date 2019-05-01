@@ -2,6 +2,10 @@
 
 #include "FontRes.h"
 
+/**
+\ingroup gr_code_services_font
+*/
+
 class Font
 {
 	FontRes* res;

@@ -712,10 +712,10 @@ void NavMesh2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(NavMesh2D)
 
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "int GetPath(float x, float y, float to_x, float to_y)", WRAP_MFN(NavMesh2D, GetPath), asCALL_GENERIC);
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void RemovePath(int index)", WRAP_MFN(NavMesh2D, RemovePath), asCALL_GENERIC);
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "int MoveAlongPath(int index, float dist)", WRAP_MFN(NavMesh2D, MoveAlongPath), asCALL_GENERIC);
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void GetPathCurPoint(int index, float&out pos_x, float&out pos_y, float&out angle)", WRAP_MFN(NavMesh2D, GetPathCurPoint), asCALL_GENERIC);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetPath(float x, float y, float to_x, float to_y)", WRAP_MFN(NavMesh2D, GetPath));
+	core.scripts.RegisterObjectMethod(script_class_name, "void RemovePath(int index)", WRAP_MFN(NavMesh2D, RemovePath));
+	core.scripts.RegisterObjectMethod(script_class_name, "int MoveAlongPath(int index, float dist)", WRAP_MFN(NavMesh2D, MoveAlongPath));
+	core.scripts.RegisterObjectMethod(script_class_name, "void GetPathCurPoint(int index, float&out pos_x, float&out pos_y, float&out angle)", WRAP_MFN(NavMesh2D, GetPathCurPoint));
 }
 
 void NavMesh2D::Draw(float dt)

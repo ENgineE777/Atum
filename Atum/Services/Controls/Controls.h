@@ -15,6 +15,10 @@
 
 #endif
 
+/**
+\ingroup gr_code_services_controls
+*/
+
 class Controls
 {
 public:

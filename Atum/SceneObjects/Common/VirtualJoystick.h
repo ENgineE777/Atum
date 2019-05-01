@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObject.h"
 #include "Services/Render/Render.h"
 
+/**
+\page scene_object_common_VirtualJoystick Virtual Joystick
+
+Virtual Joystick
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_common
+*/
+
 class VirtualJoystick : public SceneObject
 {
 public:

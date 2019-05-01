@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneObject.h"
 #include <list>
 
+/**
+\page scene_object_2D_NavMesh2D NavMesh2D
+
+NavMesh2D
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_2D
+*/
+
 class NavMesh2D : public SceneObject
 {
 public:

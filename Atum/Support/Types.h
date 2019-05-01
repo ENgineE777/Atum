@@ -4,6 +4,10 @@
 #include "Vector2.h"
 #include "Matrix.h"
 
+/**
+\ingroup gr_code_common
+*/
+
 struct Transform2D
 {
 	Vector2 pos = 0.0f;

@@ -3,6 +3,10 @@
 #include <string>
 #include <map>
 
+/**
+\ingroup gr_code_common
+*/
+
 using namespace std;
 
 class StringUtils

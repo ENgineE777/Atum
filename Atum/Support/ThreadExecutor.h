@@ -5,6 +5,10 @@
 #include <windows.h>
 #endif
 
+/**
+\ingroup gr_code_common
+*/
+
 class CriticalSection
 {
 public:

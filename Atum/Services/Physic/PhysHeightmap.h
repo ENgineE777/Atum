@@ -26,6 +26,9 @@
 
 using namespace physx;
 
+/**
+\ingroup gr_code_services_physic
+*/
 
 class PhysHeightmap
 {

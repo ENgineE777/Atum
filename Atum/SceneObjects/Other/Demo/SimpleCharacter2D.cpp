@@ -21,9 +21,9 @@ META_DATA_DESC_END()
 void SimpleCharacter2D::BindClassToScript()
 {
 	BIND_TYPE_TO_SCRIPT(SimpleCharacter2D)
-	core.scripts.engine->RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset), asCALL_GENERIC);
-	core.scripts.engine->RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph), asCALL_GENERIC);
+	core.scripts.RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
+	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset));
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph));
 }
 
 void SimpleCharacter2D::Init()

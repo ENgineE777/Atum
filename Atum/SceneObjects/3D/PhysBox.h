@@ -3,6 +3,18 @@
 
 #include "Services/Scene/SceneObject.h"
 
+/**
+\page scene_object_3D_PhysBox Physic Box
+
+Physic Box
+
+*/
+
+
+/**
+\ingroup gr_code_scene_objects_3D
+*/
+
 class PhysBox : public SceneObject
 {
 public:

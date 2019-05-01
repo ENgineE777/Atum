@@ -4,6 +4,18 @@
 #include "Services/Scene/SceneAsset.h"
 #include "Sprite.h"
 
+/**
+\page scene_assets_2D_SpriteAsset Asset
+
+Sprite Asset
+
+*/
+
+
+/**
+\ingroup gr_code_scene_assets_2D
+*/
+
 class SpriteAsset : public SceneAsset
 {
 public:

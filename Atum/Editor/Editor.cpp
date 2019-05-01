@@ -1307,21 +1307,24 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		{
 			SceneObject* inst = asset->CreateInstance(target_tree_item->scene);
 
-			for (auto comp : asset->components)
+			if (inst)
 			{
-				SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
-				comp_inst->asset_comp = comp;
+				for (auto comp : asset->components)
+				{
+					SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+					comp_inst->asset_comp = comp;
+				}
+
+				Project::SceneTreeItem* inst_item = new Project::SceneTreeItem();
+
+				inst_item->scene = target_tree_item->scene;
+				inst_item->object = inst;
+				inst_item->item = scene_treeview->AddItem(inst->GetName(), 1, inst_item, parent, -1, false);
+
+				inst->item = inst_item->item;
+				inst->AddChildsToTree(scene_treeview);
+				SelectObject(inst, false);
 			}
-
-			Project::SceneTreeItem* inst_item = new Project::SceneTreeItem();
-
-			inst_item->scene = target_tree_item->scene;
-			inst_item->object = inst;
-			inst_item->item = scene_treeview->AddItem(inst->GetName(), 1, inst_item, parent, -1, false);
-
-			inst->item = inst_item->item;
-			inst->AddChildsToTree(scene_treeview);
-			SelectObject(inst, false);
 		}
 	}
 

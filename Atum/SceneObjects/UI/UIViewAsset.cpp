@@ -94,6 +94,11 @@ SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 	return child;
 }
 
+bool UIViewAsset::IsAsset()
+{
+	return true;
+}
+
 bool UIViewAsset::UseAseetsTree()
 {
 	return true;

@@ -5,49 +5,50 @@ CLASSREG(UIWidgetAsset, UILabelAsset, "Label")
 
 META_DATA_DESC(UILabelAsset)
 BASE_WIDGET_ASSET_PROP(UILabelAsset)
-FLOAT_PROP(UILabelAsset, trans.pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(UILabelAsset, trans.pos.y, 0.0f, "Prop", "y")
-ENUM_PROP(UILabelAsset, horzAlign, 0, "Prop", "horz_align")
+FLOAT_PROP(UILabelAsset, trans.pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(UILabelAsset, trans.pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
+ENUM_PROP(UILabelAsset, horzAlign, 0, "Prop", "horz_align", "Horizontal aligment of a widget")
 	ENUM_ELEM("Left", 0)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Right", 2)
 ENUM_END
-ENUM_PROP(UILabelAsset, vertAlign, 0, "Prop", "vert_align")
+ENUM_PROP(UILabelAsset, vertAlign, 0, "Prop", "vert_align", "Vertical aligment of a widget")
 	ENUM_ELEM("Top", 3)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Bottom", 4)
 ENUM_END
-FLOAT_PROP(UILabelAsset, trans.size.x, 100.0f, "Prop", "width")
-FLOAT_PROP(UILabelAsset, trans.size.y, 100.0f, "Prop", "height")
-ENUM_PROP(UILabelAsset, horzSize, 0, "Prop", "horz_size")
+FLOAT_PROP(UILabelAsset, trans.size.x, 100.0f, "Prop", "width", "Width of a widget")
+FLOAT_PROP(UILabelAsset, trans.size.y, 100.0f, "Prop", "height", "Height of a widget")
+ENUM_PROP(UILabelAsset, horzSize, 0, "Prop", "horz_size", "Horizontal aligment of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-ENUM_PROP(UILabelAsset, vertSize, 0, "Prop", "vert_size")
+ENUM_PROP(UILabelAsset, vertSize, 0, "Prop", "vert_size", "Vertical aligment of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-FLOAT_PROP(UILabelAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x")
-FLOAT_PROP(UILabelAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y")
-FLOAT_PROP(UILabelAsset, left_padding.x, 0.0f, "Prop", "left_padding")
-FLOAT_PROP(UILabelAsset, left_padding.y, 0.0f, "Prop", "top_padding")
-FLOAT_PROP(UILabelAsset, right_padding.x, 0.0f, "Prop", "right_padding")
-FLOAT_PROP(UILabelAsset, right_padding.y, 0.0f, "Prop", "bottom_padding")
-FLOAT_PROP(UILabelAsset, rotate, 0.0f, "Prop", "rotate")
+FLOAT_PROP(UILabelAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
+FLOAT_PROP(UILabelAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
+FLOAT_PROP(UILabelAsset, left_padding.x, 0.0f, "Prop", "left_padding", "Left padding of a widget")
+FLOAT_PROP(UILabelAsset, left_padding.y, 0.0f, "Prop", "top_padding", "Top padding of a widget")
+FLOAT_PROP(UILabelAsset, right_padding.x, 0.0f, "Prop", "right_padding", "Right padding of a widget")
+FLOAT_PROP(UILabelAsset, right_padding.y, 0.0f, "Prop", "bottom_padding", "Bottom padding of a widget")
+FLOAT_PROP(UILabelAsset, rotate, 0.0f, "Prop", "rotate", "Rotation a widget")
 COLOR_PROP(UILabelAsset, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(UILabelAsset, color.a, 1.0f, "Prop", "alpha")
-BOOL_PROP(UILabelAsset, scaleChilds, false, "Prop", "scale_childs")
+FLOAT_PROP(UILabelAsset, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
+BOOL_PROP(UILabelAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")
+BOOL_PROP(UILabelAsset, clipChilds, false, "Prop", "clip_childs", "Should be childs clipped by size of a widget")
 FILENAME_PROP(UILabelAsset, font_name, "settings/helvetica", "Prop", "font_name")
-INT_PROP(UILabelAsset, font_height, 15, "Prop", "font_height")
+INT_PROP(UILabelAsset, font_height, 15, "Prop", "font_height", "Font geight in logical units")
 STRING_PROP(UILabelAsset, text, "Label", "Prop", "text")
-ENUM_PROP(UILabelAsset, textHorzAlign, 0, "Prop", "text_horz_align")
+ENUM_PROP(UILabelAsset, textHorzAlign, 0, "Prop", "text_horz_align", "Horizontal aligment of a text")
 	ENUM_ELEM("Left", 0)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Right", 2)
 ENUM_END
-ENUM_PROP(UILabelAsset, textVertAlign, 0, "Prop", "text_vert_align")
+ENUM_PROP(UILabelAsset, textVertAlign, 0, "Prop", "text_vert_align", "Vertical aligment of a text")
 	ENUM_ELEM("Top", 3)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Bottom", 4)
@@ -72,13 +73,6 @@ void UILabelAsset::SetText(string& set_text)
 
 void UILabelAsset::Draw(float dt)
 {
-#ifdef EDITOR
-	if (edited)
-	{
-		//GetMetaData()->UpdateWidgets();
-	}
-#endif
-
 	if (GetState() == Invisible)
 	{
 		return;
@@ -149,14 +143,20 @@ CLASSREG(UIWidgetAsset, UILabelAssetInst, "UILabel")
 META_DATA_DESC(UILabelAssetInst)
 BASE_WIDGET_INST_PROP(UILabelAssetInst)
 COLOR_PROP(UILabelAssetInst, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(UILabelAssetInst, color.a, 1.0f, "Prop", "alpha")
+FLOAT_PROP(UILabelAssetInst, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
 STRING_PROP(UILabelAssetInst, text, "Label", "Prop", "text")
 META_DATA_DESC_END()
 
 void UILabelAssetInst::BindClassToScript()
 {
-	BIND_INST_TYPE_TO_SCRIPT(UILabelAssetInst, UILabelAsset)
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText));
+	const char* brief = "UI Button instance\n"
+		"\n"
+		"UI text label.\n"
+		"\n"
+		"This class ::UILabelAssetInst is a representation on C++ side.\n";
+
+	BIND_INST_TYPE_TO_SCRIPT(UILabelAssetInst, UILabelAsset, brief)
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetText(string&in)", WRAP_MFN(UILabelAssetInst, SetText), "Set text for a label");
 }
 
 #ifdef EDITOR

@@ -118,6 +118,7 @@ public:
 		uint8_t*       value;
 		std::string    catName;
 		std::string    propName;
+		std::string    brief;
 #ifdef EDITOR
 		std::map<EUICategories*, ProperyWidget*> widgets;
 		CallbackWidget::Callback callback;
@@ -171,7 +172,7 @@ void className::MetaDataImpl::Init()\
 
 #define memberOFFSET(s,m) ((size_t)(&reinterpret_cast<s*>(100000)->m)-100000)
 
-#define BASE_PROP(className, classMember, defValue, strCatName, strPropName, tp, defValueName)\
+#define BASE_PROP(className, classMember, defValue, strCatName, strPropName, tp, defValueName, doxy_brief)\
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
@@ -179,17 +180,18 @@ void className::MetaDataImpl::Init()\
 	prop.defvalue.defValueName = defValue;\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
+	prop.brief = doxy_brief;\
 	properties.push_back(prop);\
 }
 
-#define BOOL_PROP(className, classMember, defValue, strCatName, strPropName)\
-BASE_PROP(className, classMember, defValue, strCatName, strPropName, Boolean, boolean)
+#define BOOL_PROP(className, classMember, defValue, strCatName, strPropName, doxy_brief)\
+BASE_PROP(className, classMember, defValue, strCatName, strPropName, Boolean, boolean, doxy_brief)
 
-#define INT_PROP(className, classMember, defValue, strCatName, strPropName)\
-BASE_PROP(className, classMember, defValue, strCatName, strPropName, Integer, integer)
+#define INT_PROP(className, classMember, defValue, strCatName, strPropName, doxy_brief)\
+BASE_PROP(className, classMember, defValue, strCatName, strPropName, Integer, integer, doxy_brief)
 
-#define FLOAT_PROP(className, classMember, defValue, strCatName, strPropName)\
-BASE_PROP(className, classMember, defValue, strCatName, strPropName, Float, flt)
+#define FLOAT_PROP(className, classMember, defValue, strCatName, strPropName, doxy_brief)\
+BASE_PROP(className, classMember, defValue, strCatName, strPropName, Float, flt, doxy_brief)
 
 #define BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, tp)\
 {\
@@ -221,13 +223,14 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	properties.push_back(prop);\
 }
 
-#define ENUM_PROP(className, classMember, defValue, strCatName, strPropName)\
+#define ENUM_PROP(className, classMember, defValue, strCatName, strPropName, doxy_brief)\
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.type = Type::Enum;\
+	prop.brief = doxy_brief;\
 	MetaDataEnum enm;\
 	enm.defIndex = defValue;
 

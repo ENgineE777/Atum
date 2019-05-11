@@ -11,7 +11,7 @@ COMPINCL(SpriteGraphAsset)
 COMPREG_END(Phys2DComp)
 
 META_DATA_DESC(Phys2DComp)
-ENUM_PROP(Phys2DComp, body_type, 0, "Phys2D", "body_type")
+ENUM_PROP(Phys2DComp, body_type, 0, "Phys2D", "body_type", "Type of a body")
 	ENUM_ELEM("StaticBody", 0)
 	ENUM_ELEM("DynamicBody", 1)
 	ENUM_ELEM("DynamicCCDBody", 2)
@@ -19,13 +19,13 @@ ENUM_PROP(Phys2DComp, body_type, 0, "Phys2D", "body_type")
 	ENUM_ELEM("Trigger", 4)
 	ENUM_ELEM("Controller", 5)
 ENUM_END
-FLOAT_PROP(Phys2DComp, density, 1.25f, "Phys2D", "density")
-FLOAT_PROP(Phys2DComp, friction, 0.25f, "Phys2D", "friction")
-BOOL_PROP(Phys2DComp, allow_rotate, true, "Phys2D", "allow_rotate")
-BOOL_PROP(Phys2DComp, use_object_size, true, "Phys2D", "use_object_size")
-FLOAT_PROP(Phys2DComp, width, 64, "Phys2D", "width")
-FLOAT_PROP(Phys2DComp, height, 64, "Phys2D", "height")
-INT_PROP(Phys2DComp, group, 1, "Phys2D", "group")
+FLOAT_PROP(Phys2DComp, density, 1.25f, "Phys2D", "density", "Density of a body")
+FLOAT_PROP(Phys2DComp, friction, 0.25f, "Phys2D", "friction", "Friction of a material of a body")
+BOOL_PROP(Phys2DComp, allow_rotate, true, "Phys2D", "allow_rotate", "Allowing physical objectto be rotateable")
+BOOL_PROP(Phys2DComp, use_object_size, true, "Phys2D", "use_object_size", "Should be used size of affected body")
+FLOAT_PROP(Phys2DComp, width, 64, "Phys2D", "width", "Width of a body")
+FLOAT_PROP(Phys2DComp, height, 64, "Phys2D", "height", "Height of a body")
+INT_PROP(Phys2DComp, group, 1, "Phys2D", "group", "Group of a body")
 META_DATA_DESC_END()
 
 COMPREG(Phys2DCompInst, "Phys2DInst")
@@ -121,13 +121,20 @@ void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy)
 
 void Phys2DCompInst::BindClassToScript()
 {
+	const char* brief = "Representation of 2D physical object component\n"
+		"\n"
+		"This component is adding 2D physical object to each instance of SpriteInst, SpriteGraphInst or SpriteTileInst.\n"
+		"2d physical object can be static or dynamic, can have own dimentions.Belonging to particular group also adjustable.\n"
+		"\n"
+		"This class ::Phys2DCompInst is a representation on C++ side.\n";
+
 	script_class_name = "Phys2D";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), "gr_script_scene_object_components");
-	core.scripts.RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse));
-	core.scripts.RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo));
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetGroup(int group)", WRAP_MFN(Phys2DCompInst::ScriptProxy, SetGroup));
-	core.scripts.RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission));
-	core.scripts.RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(Phys2DCompInst::ScriptProxy), "gr_script_scene_object_components", brief);
+	core.scripts.RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, ApplyLinearImpulse), "Apply Linear Impulse at certain point");
+	core.scripts.RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), "Moving object to certain point");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetGroup(int group)", WRAP_MFN(Phys2DCompInst::ScriptProxy, SetGroup), "Set belonging to a particular physical group");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), "Check if a physical object has a collision contact");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), "Move object on particular delta");
 }
 
 void Phys2DCompInst::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)

@@ -9,13 +9,14 @@ CLASSREG(SceneAsset, UIViewAsset, "UIView")
 
 META_DATA_DESC(UIViewAsset)
 STRING_PROP(UIViewAsset, name, "", "Common", "Name")\
-FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x")
-FLOAT_PROP(UIViewAsset, trans.pos.y, 300.0f, "Prop", "y")
-FLOAT_PROP(UIViewAsset, trans.size.x, 500.0f, "Prop", "width")
-FLOAT_PROP(UIViewAsset, trans.size.y, 500.0f, "Prop", "height")
-BOOL_PROP(UIViewAsset, scaleChilds, false, "Prop", "scale_childs")
-BOOL_PROP(UIViewAsset, clipChilds, false, "Prop", "clip_childs")
+FLOAT_PROP(UIViewAsset, trans.pos.x, 300.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(UIViewAsset, trans.pos.y, 300.0f, "Prop", "y", "Y coordinate of a position")
+FLOAT_PROP(UIViewAsset, trans.size.x, 500.0f, "Prop", "width", "Width of a widget")
+FLOAT_PROP(UIViewAsset, trans.size.y, 500.0f, "Prop", "height", "Height of a widget")
+BOOL_PROP(UIViewAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")
+BOOL_PROP(UIViewAsset, clipChilds, false, "Prop", "clip_childs", "Should be childs sacled in case size of a widget was changed")
 META_DATA_DESC_END()
+
 
 #ifdef EDITOR
 UIWidgetAsset* UIViewAsset::sel_ui_asset = nullptr;
@@ -42,13 +43,6 @@ void UIViewAsset::Draw(float dt)
 	{
 		return;
 	}
-
-#ifdef EDITOR
-	if (edited)
-	{
-		//GetMetaData()->UpdateWidgets();
-	}
-#endif
 
 	trans.offset = 0.0f;
 	trans.BuildMatrices();

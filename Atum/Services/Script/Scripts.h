@@ -33,9 +33,9 @@ public:
 	void Init();
 	void Start();
 
-	void RegisterObjectType(const char* name, int byteSize, const char* help_group);
-	void RegisterObjectMethod(const char* obj, const char* declaration, const asSFuncPtr& funcPointer);
-	void RegisterObjectProperty(const char* obj, const char* declaration, int byteOffset);
+	void RegisterObjectType(const char* name, int byteSize, const char* help_group, const char* brief);
+	void RegisterObjectMethod(const char* obj, const char* declaration, const asSFuncPtr& funcPointer, const char* brief);
+	void RegisterObjectProperty(const char* obj, const char* declaration, int byteOffset, const char* brief);
 
 	void* CreateScriptObject(const asITypeInfo* type);
 	asIScriptModule* GetModule(const char* module, asEGMFlags flag);

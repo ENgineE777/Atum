@@ -9,19 +9,23 @@ CLASSREG(SceneObject, SpriteGraphInst, "SpriteGraph")
 
 META_DATA_DESC(SpriteGraphInst)
 	BASE_SCENE_OBJ_PROP(SpriteGraphInst)
-	FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth")
-	FLOAT_PROP(SpriteGraphInst, hack_height, 0.0f, "Geometry", "hack_height")
-	INT_PROP(SpriteGraphInst, draw_level, 0, "Geometry", "draw_level")
+	FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
+	FLOAT_PROP(SpriteGraphInst, hack_height, 0.0f, "Geometry", "hack_height", "Addition height applyed fr every instance")
+	INT_PROP(SpriteGraphInst, draw_level, 0, "Geometry", "draw_level", "Draw level")
 	ARRAY_PROP_INST(SpriteGraphInst, instances, Instance, "Prop", "inst", SpriteGraphInst, sel_inst)
 META_DATA_DESC_END()
 
 void SpriteGraphInst::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(SpriteGraphInst)
+	const char* brief = "Representation of instance of sprite graph asset\n"
+		"\n"
+		"Instance holds array of sprite graph instances. This array can be binded into a script array.\n"
+		"\n"
+		"This class ::SpriteGraphInst is a representation on C++ side.\n";
 
-	core.scripts.RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), "gr_script_scene_object_components");
-	core.scripts.RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink));
-	core.scripts.RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode));
+	core.scripts.RegisterObjectType("Graph2D", sizeof(SpriteInst::Instance), "gr_script_scene_objects", brief);
+	core.scripts.RegisterObjectMethod("Graph2D", "bool ActivateLink(string&in)", WRAP_MFN(SpriteInst::Instance, ActivateLink), "Activate Link by name");
+	core.scripts.RegisterObjectMethod("Graph2D", "void GotoNode(string&in)", WRAP_MFN(SpriteInst::Instance, GotoNode), "Goto to certein node");
 }
 
 void SpriteGraphInst::Init()

@@ -7,23 +7,23 @@ COMPINCL(SpriteInst)
 COMPREG_END(Track2DComp)
 
 META_DATA_DESC(Track2DComp::Point)
-FLOAT_PROP(Track2DComp::Point, pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(Track2DComp::Point, pos.y, 0.0f, "Prop", "y")
+FLOAT_PROP(Track2DComp::Point, pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(Track2DComp::Point, pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
 META_DATA_DESC_END()
 
 META_DATA_DESC(Track2DComp::Track)
-ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type")
+ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type", "Type of track")
 	ENUM_ELEM("OneWay", 0)
 	ENUM_ELEM("ForwardBack", 1)
 	ENUM_ELEM("Looped", 2)
 ENUM_END
-FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed")
+FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed", "Speed of moving along track")
 ARRAY_PROP_INST(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point)
 META_DATA_DESC_END()
 
 
 META_DATA_DESC(Track2DComp)
-ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode")
+ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode", "Type of flip when instance is moving from right to left")
 	ENUM_ELEM("None", 0)
 	ENUM_ELEM("Normal", 1)
 	ENUM_ELEM("Reversed", 2)
@@ -38,8 +38,14 @@ void Track2DComp::Track::Activate(bool set_active)
 
 void Track2DComp::BindClassToScript()
 {
-	core.scripts.RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), "gr_script_scene_object_components");
-	core.scripts.RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate));
+	const char* brief = "Representation of 2D track component\n"
+		"\n"
+		"This class is adding 2D track to each instance of SpriteInst.\n"
+		"\n"
+		"This class ::Track2DComp is a representation on C++ side.\n";
+
+	core.scripts.RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), "gr_script_scene_object_components", brief);
+	core.scripts.RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate), "Make active or inactive track (instance isn't moving along a inactive track)");
 }
 
 void Track2DComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)

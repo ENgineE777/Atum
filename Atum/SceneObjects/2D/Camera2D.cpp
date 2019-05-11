@@ -7,14 +7,14 @@ CLASSREG(SceneObject, Camera2D, "Camera2D")
 
 META_DATA_DESC(Camera2D)
 BASE_SCENE_OBJ_PROP(Camera2D)
-FLOAT_PROP(Camera2D, trans.pos.x, 100.0f, "Geometry", "x")
-FLOAT_PROP(Camera2D, trans.pos.y, 100.0f, "Geometry", "y")
-FLOAT_PROP(Camera2D, screen_border, 200.0f, "Prop", "ScreenBorder")
-FLOAT_PROP(Camera2D, screen_vert_border, 100.0f, "Prop", "ScreenVertBorder")
+FLOAT_PROP(Camera2D, trans.pos.x, 100.0f, "Geometry", "x", "X coordinate of a camera position")
+FLOAT_PROP(Camera2D, trans.pos.y, 100.0f, "Geometry", "y", "Y coordinate of a camera position")
+FLOAT_PROP(Camera2D, screen_border, 200.0f, "Prop", "ScreenBorder", "Size of border at left and right of the screen where camera is starting to follow object ")
+FLOAT_PROP(Camera2D, screen_vert_border, 100.0f, "Prop", "ScreenVertBorder", "Size of border at top and bottom of the screen where camera is starting to follow object")
 
-BOOL_PROP(Camera2D, use_lr_borders, false, "Prop", "UseLRBorder")
-FLOAT_PROP(Camera2D, left_border, -300.0f, "Prop", "LeftBorder")
-FLOAT_PROP(Camera2D, right_border, 300.0f, "Prop", "RightBorder")
+BOOL_PROP(Camera2D, use_lr_borders, false, "Prop", "UseLRBorder", "This parameter controls useage of left and right border which limits movement of the camera")
+FLOAT_PROP(Camera2D, left_border, -300.0f, "Prop", "LeftBorder", "This parameter set up left border after which camera will not follow a target")
+FLOAT_PROP(Camera2D, right_border, 300.0f, "Prop", "RightBorder", "This parameter set up right border after which camera will not follow a target")
 META_DATA_DESC_END()
 
 Camera2D::Camera2D() : SceneObject()
@@ -27,10 +27,17 @@ Camera2D::~Camera2D()
 
 void Camera2D::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(Camera2D)
-	core.scripts.RegisterObjectProperty(script_class_name, "float target_pos_x", memberOFFSET(Camera2D, target_pos.x));
-	core.scripts.RegisterObjectProperty(script_class_name, "float target_pos_y", memberOFFSET(Camera2D, target_pos.y));
-	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Camera2D, Reset));
+	const char* brief = "Representation of camera in 2D space\n"
+	"\n"
+	"Currently 2D space is a special mode and this class represents a camera in that special 2D mode.\n"
+	"Camera auto follow a target. Position of a target should be set via script.\n"
+	"\n"
+	"This class ::Camera2D is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(Camera2D, brief)
+	core.scripts.RegisterObjectProperty(script_class_name, "float target_pos_x", memberOFFSET(Camera2D, target_pos.x), "X coordite of a target position");
+	core.scripts.RegisterObjectProperty(script_class_name, "float target_pos_y", memberOFFSET(Camera2D, target_pos.y), "Y coordite of a target position");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Camera2D, Reset), "Reseting position of camera to intinal position on scene start");
 }
 
 void Camera2D::Init()

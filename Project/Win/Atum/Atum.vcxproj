@@ -45,7 +45,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\terrain.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorObject.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorWindow.cpp" />
@@ -81,7 +81,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIContainerAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIImageAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UILabelAsset.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIService.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIViewAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIViewInstanceAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIWidgetAsset.cpp" />
@@ -197,7 +196,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\terrain.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorObject.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorWindow.h" />
@@ -234,7 +233,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIContainerAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIImageAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UILabelAsset.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIService.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIViewAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIViewInstanceAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIWidgetAsset.h" />

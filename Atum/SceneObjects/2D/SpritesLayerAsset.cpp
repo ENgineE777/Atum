@@ -7,10 +7,10 @@
 CLASSREG(SceneAsset, SpritesLayerAsset, "SpritesLayer")
 
 META_DATA_DESC(SpritesLayerAsset::LayerSprite)
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.y, 0.0f, "Prop", "y")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.x, 100.0f, "Prop", "width")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.y, 100.0f, "Prop", "height")
+FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.x, 0.0f, "Prop", "x", "X coordinate of a camera position")
+FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.y, 0.0f, "Prop", "y", "Y coordinate of a camera position")
+FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.x, 100.0f, "Prop", "width", "Width of a sprite")
+FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.y, 100.0f, "Prop", "height", "Height of a sprite")
 SPRITE_PROP(SpritesLayerAsset::LayerSprite, sprite, "Prop", "sprite")
 META_DATA_DESC_END()
 

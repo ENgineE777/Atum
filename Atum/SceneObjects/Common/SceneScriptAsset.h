@@ -6,7 +6,53 @@
 /**
 \page scene_assets_common_SceneScriptAsset Asset
 
-Script Asset
+This asset describes how to tie script file with scene via link builder.
+
+![Caption text](../../../Doxygen/images/ScriptAsset.jpg "Image")
+
+This class ::SceneScriptAsset is a representation on C++ side.
+
+Callback node parameters
+----------------------------
+
+Name               | Description
+-------------------|--------------
+Name               | Name of a script parameter
+
+
+Script property node parameters
+----------------------------
+
+Name               | Description
+-------------------|--------------
+Name               | Name of a script parameter
+Prefix             | Prefix for a name of parameter
+
+
+Link to method node parameters
+----------------------------
+
+Name                 | Description
+---------------------| -------------
+Params               | Value of parameter which will be passed in method
+
+
+Script method node parameters
+----------------------------
+
+Name                 | Description
+---------------------| -------------
+name                 | name of a node
+method parametr type | Type of parametr which will be passed in method during call
+call type            | Type of method call
+
+
+Parameters
+----------
+
+Name              | Description
+------------------| -------------
+main_class        | Name of main class which instance should be created
 
 */
 
@@ -15,9 +61,24 @@ Script Asset
 \ingroup gr_code_scene_assets_common
 */
 
+/**
+\brief Representation of a script
+
+This class describes how to tie script file with scene via link builder.
+More detail how to work with link builder can be found at \ref scene_assets_common_SceneScriptAsset "link".
+
+*/
+
 class SceneScriptAsset : public SceneAsset
 {
 public:
+
+	/**
+	\brief Name of a main script class which will be create in instances.
+	*/
+	string main_class;
+
+#ifndef DOXYGEN_SKIP
 
 	enum NodeType
 	{
@@ -96,7 +157,6 @@ public:
 	bool played = false;
 
 	vector<Node*> nodes;
-	string main_class;
 
 	vector<NodeScriptMethod*> on_start_init;
 	vector<NodeScriptMethod*> frame_updates;
@@ -146,5 +206,7 @@ public:
 	void OnLeftMouseUp() override;
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
+#endif
+
 #endif
 };

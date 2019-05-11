@@ -7,21 +7,21 @@
 #include "Services/Core/Core.h"
 
 META_DATA_DESC(SpriteInst::Instance)
-	FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x")
-	FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y")
-	INT_PROP(SpriteInst::Instance, index, -1, "Prop", "index")
-	INT_PROP(SpriteInst::Instance, visible, 1, "Prop", "visible")
+	FLOAT_PROP(SpriteInst::Instance, pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
+	FLOAT_PROP(SpriteInst::Instance, pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
+	INT_PROP(SpriteInst::Instance, index, -1, "Prop", "index", "tile index")
+	INT_PROP(SpriteInst::Instance, visible, 1, "Prop", "visible", "If instance is visible. 1 means visible. 0 means invicible")
 	COLOR_PROP(SpriteInst::Instance, color, COLOR_WHITE, "Prop", "color")
-	FLOAT_PROP(SpriteInst::Instance, alpha, 0.0f, "Prop", "alpha")
+	FLOAT_PROP(SpriteInst::Instance, alpha, 0.0f, "Prop", "alpha", "Transparency of a instance")
 META_DATA_DESC_END()
 
 CLASSREG(SceneObject, SpriteInst, "Sprite")
 
 META_DATA_DESC(SpriteInst)
 	BASE_SCENE_OBJ_PROP(SpriteInst)
-	FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale")
-	FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth")
-	INT_PROP(SpriteInst, draw_level, 0, "Geometry", "draw_level")
+	FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale", "Scale of a axis")
+	FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
+	INT_PROP(SpriteInst, draw_level, 0, "Geometry", "draw_level", "Draw priority")
 	ARRAY_PROP_INST(SpriteInst, instances, Instance, "Prop", "inst", SpriteInst, sel_inst)
 META_DATA_DESC_END()
 
@@ -206,11 +206,42 @@ void  SpriteInst::Instance::SetSizeX(float set_size)
 	size_x = set_size;
 }
 
-float SpriteInst::Instance::GetAngle()
+float SpriteInst::Instance::GetSizeY()
 {
 	if (object)
 	{
 		int prop = mapping[0][6];
+
+		if (prop != -1)
+		{
+			return (*((float*)object->GetAddressOfProperty(prop)));
+		}
+	}
+
+	return size_x;
+}
+
+void  SpriteInst::Instance::SetSizeY(float set_size)
+{
+	if (object)
+	{
+		int prop = mapping[0][6];
+
+		if (prop != -1)
+		{
+			*((float*)object->GetAddressOfProperty(prop)) = set_size;
+			return;
+		}
+	}
+
+	size_x = set_size;
+}
+
+float SpriteInst::Instance::GetAngle()
+{
+	if (object)
+	{
+		int prop = mapping[0][7];
 
 		if (prop != -1)
 		{
@@ -225,7 +256,7 @@ void SpriteInst::Instance::SetAngle(float set_angle)
 {
 	if (object)
 	{
-		int prop = mapping[0][6];
+		int prop = mapping[0][7];
 
 		if (prop != -1)
 		{
@@ -249,16 +280,22 @@ void SpriteInst::Instance::GotoNode(string& node)
 
 void SpriteInst::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(SpriteInst)
-	core.scripts.RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance));
-	core.scripts.RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance));
-	core.scripts.RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances));
+	const char* brief = "Representation of instance of sprite asset\n"
+		"\n"
+		"Instance holds array of sprite instances. This array can be injected into a script array.\n"
+		"\n"
+		"This class ::SpriteInst is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(SpriteInst, brief)
+	core.scripts.RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance), "Add instance. auto_delete conytols if instance should be aito deleted after animation of instance will be finished");
+	core.scripts.RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance), "Remove instance");
+	core.scripts.RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), "Delete all instances");
 
 }
 
 void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 {
-	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "size_x", "angle", "graph" };
+	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "size_x", "size_y", "angle", "graph" };
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);
 
@@ -514,6 +551,10 @@ void SpriteInst::Draw(float dt)
 		trans.pos = inst.GetPos();
 		float wgt = inst.GetSizeX();
 		trans.size.x = wgt < -0.01f ? sprite_asset->trans.size.x : wgt;
+
+		float hgt = inst.GetSizeY();
+		trans.size.y = hgt < -0.01f ? sprite_asset->trans.size.y : hgt;
+
 		trans.rotation = inst.GetAngle();
 		trans.BuildMatrices();
 

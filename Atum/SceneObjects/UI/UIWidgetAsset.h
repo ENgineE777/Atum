@@ -3,57 +3,97 @@
 #include "SceneObjects/2D/Sprite.h"
 
 /**
-\page scene_assets_ui_base Base widget
-
-Physic Box
-
+\ingroup gr_code_scene_assets_ui
 */
 
-
 /**
-\ingroup gr_code_scene_assets_ui
+\brief Base class of UI widget
+
+Base class of UI widget from which derived all UI widgets
+
 */
 
 class UIWidgetAsset : public SceneAsset
 {
-protected:
+public:
 
 	enum Align
 	{
-		align_left = 0,
-		align_center = 1,
-		align_right = 2,
-		align_top = 3,
-		align_bottom = 4
+		align_left = 0 /*!< Aligment to the left */,
+		align_center = 1 /*!< Aligment at the center */,
+		align_right = 2 /*!< Aligment to the right */,
+		align_top = 3 /*!< Aligment to the top */,
+		align_bottom = 4 /*!< Aligment to the bottom */
 	};
 
 	enum Size
 	{
-		fixed = 0,
-		fill_parent = 1,
-		wrap_context = 2
+		fixed = 0 /*!< Size set up directly via properties of a widget */,
+		fill_parent = 1 /*!< Size equals to size of a parent */,
+		wrap_context = 2 /*!< Size depends from a widget context */
 	};
 
-public:
-
+	/**
+	\brief Transformation of a widget
+	*/
 	Transform2D trans;
 
+	/**
+	\brief Horizontal aligment of a widget
+	*/
 	Align horzAlign = align_left;
+
+	/**
+	\brief Vertical aligment of a widget
+	*/
 	Align vertAlign = align_top;
+
+	/**
+	\brief Type of width of a widget
+	*/
 	Size  horzSize = fixed;
+
+	/**
+	\brief Type of height of a widget
+	*/
 	Size  vertSize = fixed;
+
+	/**
+	\brief Rotation a widget
+	*/
 	float rotate = 0.0f;
+
+	/**
+	\brief Color a widget
+	*/
 	Color color = COLOR_WHITE;
+
+	/**
+	\brief Left-Top padding of a widget
+	*/
+	Vector2 left_padding = 0.0f;
+
+	/**
+	\brief Right-Bottom padding of a widget
+	*/
+	Vector2 right_padding = 0.0f;
+
+	/**
+	\brief Should be childs sacled in case size of a widget was changed
+	*/
+	bool scaleChilds = false;
+
+	/**
+	\brief Should be childs clipped by size of a widget
+	*/
+	bool clipChilds = false;
+
+#ifndef DOXYGEN_SKIP
 
 	Vector2 cur_anchor = 0.0f;
 	Color   cur_color = COLOR_WHITE;
 
 	bool focused = false;
-	bool scaleChilds = false;
-	bool clipChilds = false;
-
-	Vector2 left_padding = 0.0f;
-	Vector2 right_padding = 0.0f;
 
 	UIWidgetAsset* source = nullptr;
 	bool           source_is_asset = false;
@@ -88,6 +128,8 @@ public:
 	virtual void StoreProperties();
 	virtual void RestoreProperties();
 #endif
+
+#endif
 };
 
 CLASSFACTORYDEF(UIWidgetAsset)
@@ -102,8 +144,8 @@ BASE_SCENE_OBJ_STATE_PROP(className)
 BASE_SCENE_OBJ_STATE_PROP(className)
 
 
-#define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName)\
-core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects");\
-core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState));\
-core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState));\
+#define BIND_INST_TYPE_TO_SCRIPT(className, classAssetName, brief)\
+core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects", brief);\
+core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), "Setting state of a widget");\
+core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), "Getting state of a widget");\
 classAssetName::meta_data.BindToScript(script_class_name);

@@ -50,6 +50,7 @@
  - \subpage scene_object_common_VirtualJoystick
 
 \page doc_editor_scene_object_components Scene object components
+ - \subpage scene_object_components_track2d
 
 \page doc_editor_scene_assets Scene assets
  - \subpage doc_editor_scene_assets_2D
@@ -75,7 +76,7 @@
  - \subpage scene_assets_2D_SpritesLayerAsset
  - \subpage scene_assets_2D_SpritesLayerInst
 
-\page scene_assets_2D_SpriteTile Script
+\page scene_assets_2D_SpriteTile Nine tile sprite
  - \subpage scene_assets_2D_SpriteTileAsset
  - \subpage scene_assets_2D_SpriteTileInst
 
@@ -92,17 +93,13 @@
 \page doc_editor_scene_asset_components Scene asset components
  - \subpage scene_assets_components_ScriptMetaData
  - \subpage scene_assets_components_phys2d
- - \subpage scene_assets_components_track2d
 
 \page doc_editor_scene_assets_ui UI
- - \subpage scene_assets_ui_base
  - \subpage scene_assets_ui_button
  - \subpage scene_assets_ui_container
  - \subpage scene_assets_ui_image
  - \subpage scene_assets_ui_label
  - \subpage scene_assets_ui_view
-
-\page scene_assets_ui_base Base widget
 
 \page scene_assets_ui_button Button
  - \subpage scene_assets_ui_button_asset

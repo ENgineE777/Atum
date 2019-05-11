@@ -5,9 +5,29 @@
 #include "Services/Script/Libs/scriptarray.h"
 
 /**
-\page scene_assets_common_ScriptMetaDataAsset Script Meta Data
+\page scene_assets_common_ScriptMetaDataAsset Script meta data
 
-Script Meta Data
+This assets holds array of fields which can be used as additional script parameteres of
+a scene object. To apply this asset to a scene object firstly Script Meta Data Component should be
+added a object. After addinng component needed asset should be set in parameters of component.
+After that it will be possible to set up values for each parameter in ScriptMetaDataAsset.
+
+This class ::ScriptMetaDataAsset is a representation on C++ side.
+
+Script property parameters
+--------------------------
+
+Name              | Description
+------------------| -------------
+data_type         | Type of a property
+name              | Name of a property
+
+Parameters
+----------
+
+Name              | Description
+------------------| -------------
+properties        | Array of additional script properties
 
 */
 
@@ -16,9 +36,18 @@ Script Meta Data
 \ingroup gr_code_scene_assets_common
 */
 
+/**
+\brief Representation of a script meta data
+
+This class holds fields and they value that can be injected into script for injected script objects.
+
+*/
+
 class ScriptMetaDataAsset : public SceneAsset
 {
 public:
+
+#ifndef DOXYGEN_SKIP
 	META_DATA_DECL(ScriptMetaDataAsset)
 
 	enum Type
@@ -41,6 +70,7 @@ public:
 	virtual ~ScriptMetaDataAsset() = default;
 
 	void Init() override;
+#endif
 };
 
 

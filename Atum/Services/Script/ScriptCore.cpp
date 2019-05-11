@@ -171,40 +171,40 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	const char* script_class_name = nullptr;
 
 	script_class_name = "ScriptRender";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core");
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText));
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2D));
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth));
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2D), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), script_class_name);
 
 	script_class_name = "ScriptControls";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Controls), "gr_script_core");
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetAliasIndex(string&in alias)", WRAP_MFN(ScriptCore::Controls, GetAliasIndex));
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetState(int alias_index, int action)", WRAP_MFN(ScriptCore::Controls, GetState));
-	core.scripts.RegisterObjectMethod(script_class_name, "float GetValue(int alias_index, int delta)", WRAP_MFN(ScriptCore::Controls, GetValue));
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState));
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Controls), "gr_script_core", script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetAliasIndex(string&in alias)", WRAP_MFN(ScriptCore::Controls, GetAliasIndex), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetState(int alias_index, int action)", WRAP_MFN(ScriptCore::Controls, GetState), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "float GetValue(int alias_index, int delta)", WRAP_MFN(ScriptCore::Controls, GetValue), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), script_class_name);
 
 	script_class_name = "ScriptScene";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core");
-	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in alias, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup));
-	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in alias)", WRAP_MFN(ScriptCore::Scene, Load));
-	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in alias)", WRAP_MFN(ScriptCore::Scene, Unload));
-	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D));
-	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in alias, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in alias)", WRAP_MFN(ScriptCore::Scene, Load), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in alias)", WRAP_MFN(ScriptCore::Scene, Unload), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), script_class_name);
 
 	script_class_name = "ScriptUtils";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), script_class_name);
 
 	script_class_name = "ScriptCore";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core");
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptControls controls", offsetof(ScriptCore, controls));
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptRender render", offsetof(ScriptCore, render));
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptScene scene", offsetof(ScriptCore, scene));
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptUtils utils", offsetof(ScriptCore, utils));
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", script_class_name);
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptControls controls", offsetof(ScriptCore, controls), script_class_name);
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptRender render", offsetof(ScriptCore, render), script_class_name);
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptScene scene", offsetof(ScriptCore, scene), script_class_name);
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptUtils utils", offsetof(ScriptCore, utils), script_class_name);
 
-	core.scripts.RegisterObjectMethod(script_class_name, "void Log(string&in text)", WRAP_MFN(ScriptCore, Log));
+	core.scripts.RegisterObjectMethod(script_class_name, "void Log(string&in text)", WRAP_MFN(ScriptCore, Log), script_class_name);
 
 	engine->RegisterGlobalProperty("ScriptCore core", this);
 }

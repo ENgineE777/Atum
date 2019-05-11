@@ -8,25 +8,26 @@ CLASSREG(UIWidgetAsset, UIViewInstanceAsset, "UIViewInst")
 
 META_DATA_DESC(UIViewInstanceAsset)
 BASE_WIDGET_ASSET_PROP(UIViewInstanceAsset)
-FLOAT_PROP(UIViewInstanceAsset, trans.pos.x, 00.0f, "Prop", "x")
-FLOAT_PROP(UIViewInstanceAsset, trans.pos.y, 00.0f, "Prop", "y")
-FLOAT_PROP(UIViewInstanceAsset, trans.size.x, 500.0f, "Prop", "width")
-FLOAT_PROP(UIViewInstanceAsset, trans.size.y, 500.0f, "Prop", "height")
-ENUM_PROP(UIViewInstanceAsset, horzSize, 0, "Prop", "horz_size")
+FLOAT_PROP(UIViewInstanceAsset, trans.pos.x, 00.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(UIViewInstanceAsset, trans.pos.y, 00.0f, "Prop", "y", "Y coordinate of a position")
+FLOAT_PROP(UIViewInstanceAsset, trans.size.x, 500.0f, "Prop", "width", "Width of a widget")
+FLOAT_PROP(UIViewInstanceAsset, trans.size.y, 500.0f, "Prop", "height", "Height of a widget")
+ENUM_PROP(UIViewInstanceAsset, horzSize, 0, "Prop", "horz_size", "Type of width of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-ENUM_PROP(UIViewInstanceAsset, vertSize, 0, "Prop", "vert_size")
+ENUM_PROP(UIViewInstanceAsset, vertSize, 0, "Prop", "vert_size", "Type of height of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-FLOAT_PROP(UIViewInstanceAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x")
-FLOAT_PROP(UIViewInstanceAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y")
-BOOL_PROP(UIViewInstanceAsset, scaleChilds, false, "Prop", "scale_childs")
-BOOL_PROP(UIViewInstanceAsset, clipChilds, false, "Prop", "clip_childs")
+FLOAT_PROP(UIViewInstanceAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
+FLOAT_PROP(UIViewInstanceAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
+BOOL_PROP(UIViewInstanceAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")
+BOOL_PROP(UIViewInstanceAsset, clipChilds, false, "Prop", "clip_childs", "Should be childs clipped by size of a widget")
 META_DATA_DESC_END()
+
 
 void UIViewInstanceAsset::Init()
 {
@@ -40,7 +41,13 @@ void UIViewInstanceAsset::ApplyProperties()
 
 void UIViewInstanceAsset::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(UIViewInstanceAsset)
+	const char* brief = "UIViewInst\n"
+		"\n"
+		"UI view which is always a root widget.\n"
+		"\n"
+		"This class ::UIViewInstanceAsset is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(UIViewInstanceAsset, brief)
 }
 
 void UIViewInstanceAsset::Draw(float dt)
@@ -49,13 +56,6 @@ void UIViewInstanceAsset::Draw(float dt)
 	{
 		return;
 	}
-
-#ifdef EDITOR
-	if (edited)
-	{
-		//GetMetaData()->UpdateWidgets();
-	}
-#endif
 
 	CalcState();
 
@@ -111,34 +111,34 @@ META_DATA_DESC(UIViewInstance)
 STRING_PROP(UIViewInstance, name, "", "Common", "Name")
 BASE_SCENE_OBJ_STATE_PROP(UIViewInstance)
 STRING_PROP(UIViewInstance, group_name, "", "Common", "Group")
-FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x")
-FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y")
-ENUM_PROP(UIViewInstance, horzAlign, 0, "Prop", "horz_align")
+FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y", "Y coordinate of a position")
+ENUM_PROP(UIViewInstance, horzAlign, 0, "Prop", "horz_align", "Horizontal aligment of a widget")
 	ENUM_ELEM("Left", 0)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Right", 2)
 ENUM_END
-ENUM_PROP(UIViewInstance, vertAlign, 0, "Prop", "vert_align")
+ENUM_PROP(UIViewInstance, vertAlign, 0, "Prop", "vert_align", "Vertical aligment of a widget")
 	ENUM_ELEM("Top", 3)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Bottom", 4)
 ENUM_END
-FLOAT_PROP(UIViewInstance, trans.size.x, 500.0f, "Prop", "width")
-FLOAT_PROP(UIViewInstance, trans.size.y, 500.0f, "Prop", "height")
-ENUM_PROP(UIViewInstance, horzSize, 0, "Prop", "horz_size")
+FLOAT_PROP(UIViewInstance, trans.size.x, 500.0f, "Prop", "width", "Width of a widget")
+FLOAT_PROP(UIViewInstance, trans.size.y, 500.0f, "Prop", "height", "Height of a widget")
+ENUM_PROP(UIViewInstance, horzSize, 0, "Prop", "horz_size", "Horizontal aligment of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-ENUM_PROP(UIViewInstance, vertSize, 0, "Prop", "vert_size")
+ENUM_PROP(UIViewInstance, vertSize, 0, "Prop", "vert_size", "Vertical aligment of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-FLOAT_PROP(UIViewInstance, trans.offset.x, 0.0f, "Prop", "anchorn_x")
-FLOAT_PROP(UIViewInstance, trans.offset.y, 0.0f, "Prop", "anchorn_y")
-BOOL_PROP(UIViewInstance, scaleChilds, false, "Prop", "scale_childs")
-BOOL_PROP(UIViewInstance, clipChilds, false, "Prop", "clip_childs")
+FLOAT_PROP(UIViewInstance, trans.offset.x, 0.0f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
+FLOAT_PROP(UIViewInstance, trans.offset.y, 0.0f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
+BOOL_PROP(UIViewInstance, scaleChilds, false, "Prop", "scale_childs", "Transparancy of a widget")
+BOOL_PROP(UIViewInstance, clipChilds, false, "Prop", "clip_childs", "Should be childs sacled in case size of a widget was changed")
 META_DATA_DESC_END()
 
 void UIViewInstance::Init()
@@ -154,7 +154,13 @@ void UIViewInstance::ApplyProperties()
 
 void UIViewInstance::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(UIViewInstance)
+	const char* brief = "UIView\n"
+		"\n"
+		"UI view which is always a root widget.\n"
+		"\n"
+		"This class ::UIViewInstance is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(UIViewInstance, brief)
 
 	for (const auto& decl : ClassFactoryUIWidgetAsset::Decls())
 	{

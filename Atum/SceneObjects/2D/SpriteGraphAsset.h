@@ -4,10 +4,16 @@
 #include "Services/Scene/SceneAsset.h"
 #include "Sprite.h"
 
+class SpriteAsset;
+
 /**
 \page scene_assets_2D_SpriteGraphAsset Asset
 
 Sprite Anim Graph
+
+![Caption text](../../../Doxygen/images/AnimGraph.jpg "Image")
+
+This class ::SpriteGraphAsset is a representation on C++ side.
 
 */
 
@@ -16,14 +22,22 @@ Sprite Anim Graph
 \ingroup gr_code_scene_assets_2D
 */
 
-class SpriteAsset;
+/**
+\brief Representation of 2D anim graph asset
+
+This class implements 2D anim graph and editor for it. More details how to use the editor can be found at \ref scene_assets_2D_SpriteGraphAsset "link".
+
+*/
 
 class SpriteGraphAsset : public SceneAsset
 {
 public:
 	META_DATA_DECL(SpriteGraphAsset)
 
+#ifndef DOXYGEN_SKIP
+
 	Transform2D trans_anim;
+
 	static Sprite::FrameState state;
 
 	enum DragMode
@@ -126,5 +140,7 @@ public:
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
 	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
+#endif
+
 #endif
 };

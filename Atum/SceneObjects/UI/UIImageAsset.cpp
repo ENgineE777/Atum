@@ -7,41 +7,41 @@ CLASSREG(UIWidgetAsset, UIImageAsset, "Image")
 
 META_DATA_DESC(UIImageAsset)
 BASE_WIDGET_ASSET_PROP(UIImageAsset)
-FLOAT_PROP(UIImageAsset, trans.pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(UIImageAsset, trans.pos.y, 0.0f, "Prop", "y")
-ENUM_PROP(UIImageAsset, horzAlign, 0, "Prop", "horz_align")
+FLOAT_PROP(UIImageAsset, trans.pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
+FLOAT_PROP(UIImageAsset, trans.pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
+ENUM_PROP(UIImageAsset, horzAlign, 0, "Prop", "horz_align", "Horizontal aligment of a widget")
 	ENUM_ELEM("Left", 0)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Right", 2)
 ENUM_END
-ENUM_PROP(UIImageAsset, vertAlign, 0, "Prop", "vert_align")
+ENUM_PROP(UIImageAsset, vertAlign, 0, "Prop", "vert_align", "Vertical aligment of a widget")
 	ENUM_ELEM("Top", 3)
 	ENUM_ELEM("Center", 1)
 	ENUM_ELEM("Bottom", 4)
 ENUM_END
-FLOAT_PROP(UIImageAsset, trans.size.x, 100.0f, "Prop", "width")
-FLOAT_PROP(UIImageAsset, trans.size.y, 100.0f, "Prop", "height")
-ENUM_PROP(UIImageAsset, horzSize, 0, "Prop", "horz_size")
+FLOAT_PROP(UIImageAsset, trans.size.x, 100.0f, "Prop", "width", "Width of a widget")
+FLOAT_PROP(UIImageAsset, trans.size.y, 100.0f, "Prop", "height", "Height of a widget")
+ENUM_PROP(UIImageAsset, horzSize, 0, "Prop", "horz_size", "Type of width of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-ENUM_PROP(UIImageAsset, vertSize, 0, "Prop", "vert_size")
+ENUM_PROP(UIImageAsset, vertSize, 0, "Prop", "vert_size", "Type of height of a widget")
 	ENUM_ELEM("Fixed", 0)
 	ENUM_ELEM("Fill parent", 1)
 	ENUM_ELEM("Wrap content", 2)
 ENUM_END
-FLOAT_PROP(UIImageAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x")
-FLOAT_PROP(UIImageAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y")
-FLOAT_PROP(UIImageAsset, left_padding.x, 0.0f, "Prop", "left_padding")
-FLOAT_PROP(UIImageAsset, left_padding.y, 0.0f, "Prop", "top_padding")
-FLOAT_PROP(UIImageAsset, right_padding.x, 0.0f, "Prop", "right_padding")
-FLOAT_PROP(UIImageAsset, right_padding.y, 0.0f, "Prop", "bottom_padding")
-FLOAT_PROP(UIImageAsset, rotate, 0.0f, "Prop", "rotate")
+FLOAT_PROP(UIImageAsset, trans.offset.x, 0.0f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
+FLOAT_PROP(UIImageAsset, trans.offset.y, 0.0f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
+FLOAT_PROP(UIImageAsset, left_padding.x, 0.0f, "Prop", "left_padding", "Left padding of a widget")
+FLOAT_PROP(UIImageAsset, left_padding.y, 0.0f, "Prop", "top_padding", "Top padding of a widget")
+FLOAT_PROP(UIImageAsset, right_padding.x, 0.0f, "Prop", "right_padding", "Right padding of a widget")
+FLOAT_PROP(UIImageAsset, right_padding.y, 0.0f, "Prop", "bottom_padding", "Bottom padding of a widget")
+FLOAT_PROP(UIImageAsset, rotate, 0.0f, "Prop", "rotate", "Rotation a widget")
 COLOR_PROP(UIImageAsset, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(UIImageAsset, color.a, 1.0f, "Prop", "alpha")
-BOOL_PROP(UIImageAsset, scaleChilds, false, "Prop", "scale_childs")
-BOOL_PROP(UIImageAsset, clipChilds, false, "Prop", "clip_childs")
+FLOAT_PROP(UIImageAsset, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
+BOOL_PROP(UIImageAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")
+BOOL_PROP(UIImageAsset, clipChilds, false, "Prop", "clip_childs", "Should be childs clipped by size of a widget")
 SPRITE_PROP(UIImageAsset, sprite, "Prop", "image")
 META_DATA_DESC_END()
 
@@ -56,13 +56,6 @@ void UIImageAsset::Init()
 
 void UIImageAsset::Draw(float dt)
 {
-#ifdef EDITOR
-	if (edited)
-	{
-		//GetMetaData()->UpdateWidgets();
-	}
-#endif
-
 	if (GetState() == Invisible)
 	{
 		return;
@@ -156,7 +149,7 @@ void StartEditUIImageAssetInst(void* owner)
 META_DATA_DESC(UIImageAssetInst)
 BASE_WIDGET_INST_PROP(UIImageAssetInst)
 COLOR_PROP(UIImageAssetInst, color, COLOR_WHITE, "Prop", "color")
-FLOAT_PROP(UIImageAssetInst, color.a, 1.0f, "Prop", "alpha")
+FLOAT_PROP(UIImageAssetInst, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
 #ifdef EDITOR
 CALLBACK_PROP(UIImageAssetInst, StartEditUIImageAssetInst, "Prop", "EditSprite")
 #endif
@@ -164,8 +157,14 @@ META_DATA_DESC_END()
 
 void UIImageAssetInst::BindClassToScript()
 {
-	BIND_INST_TYPE_TO_SCRIPT(UIImageAssetInst, UIImageAsset)
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset));
+	const char* brief = "UI Button instance\n"
+		"\n"
+		"UI image widget.\n"
+		"\n"
+		"This class ::UIImageAssetInst is a representation on C++ side.\n";
+
+	BIND_INST_TYPE_TO_SCRIPT(UIImageAssetInst, UIImageAsset, brief)
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIImageAssetInst, SetSpriteFromAsset), "Setting sprite from asset by name");
 }
 
 void UIImageAssetInst::SetSpriteFromAsset(string& asset_name)

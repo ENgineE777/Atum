@@ -6,7 +6,7 @@ CLASSREG(SceneObject, AnimatorObject, "AnimatorObject")
 META_DATA_DESC(AnimatorObject)
 BASE_SCENE_OBJ_PROP(AnimatorObject)
 STRING_PROP(AnimatorObject, animator_name, "", "Properties", "Animator")
-BOOL_PROP(AnimatorObject, isLooped, false, "Properties", "Looped")
+BOOL_PROP(AnimatorObject, isLooped, false, "Properties", "Looped", "afsg")
 META_DATA_DESC_END()
 
 AnimatorObject::AnimatorObject() : SceneObject()

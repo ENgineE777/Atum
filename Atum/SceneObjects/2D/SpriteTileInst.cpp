@@ -6,17 +6,11 @@ CLASSREG(SceneObject, SpriteTileInst, "SpriteNT")
 
 META_DATA_DESC(SpriteTileInst)
 	BASE_SCENE_OBJ_PROP(SpriteTileInst)
-	FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale")
-	FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth")
-	INT_PROP(SpriteTileInst, draw_level, 0, "Geometry", "draw_level")
+	FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale", "Scale of a axis")
+	FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
+	INT_PROP(SpriteTileInst, draw_level, 0, "Geometry", "draw_level", "Draw priority")
 	ARRAY_PROP_INST(SpriteTileInst, instances, Instance, "Prop", "inst", SpriteTileInst, sel_inst)
 META_DATA_DESC_END()
-
-void SpriteTileInst::BindClassToScript()
-{
-	BIND_TYPE_TO_SCRIPT(SpriteTileInst)
-	core.scripts.RegisterObjectMethod(script_class_name, "void AddInstance(float x, float y)", WRAP_MFN(SpriteTileInst, AddInstance));
-}
 
 void SpriteTileInst::Init()
 {

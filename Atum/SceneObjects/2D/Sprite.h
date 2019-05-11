@@ -5,6 +5,8 @@
 
 class Texture;
 
+#ifndef DOXYGEN_SKIP
+
 class Sprite
 {
 public:
@@ -74,3 +76,4 @@ public:
 	static void Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped = false);
 	static void Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth, bool ignore_camera);
 };
+#endif

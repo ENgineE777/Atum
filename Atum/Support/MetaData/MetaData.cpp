@@ -363,7 +363,7 @@ void MetaData::BindToScript( const char* script_class_name)
 
 		if (decl[0])
 		{
-			core.scripts.RegisterObjectProperty(script_class_name, decl, (int)prop.offset);
+			core.scripts.RegisterObjectProperty(script_class_name, decl, (int)prop.offset, prop.brief.c_str());
 		}
 		
 	}

@@ -12,13 +12,13 @@
 
 META_DATA_DESC(SpriteGraphAsset::Link)
 	STRING_PROP(SpriteGraphAsset::Link, name, "", "Link", "Name")
-	BOOL_PROP(SpriteGraphAsset::Link, def_link, "", "Link", "DefaultLink")
+	BOOL_PROP(SpriteGraphAsset::Link, def_link, "", "Link", "DefaultLink", "If link is default")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SpriteGraphAsset::Node)
 	STRING_PROP(SpriteGraphAsset::Node, name, "", "Node", "Name")
-	BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped")
-	BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed")
+	BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped", "If animation is looped")
+	BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed", "If node should be fliped horizontally")
 META_DATA_DESC_END()
 
 void SpriteGraphAsset::Instance::GotoNode(int index)

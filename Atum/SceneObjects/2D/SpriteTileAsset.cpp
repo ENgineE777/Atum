@@ -8,12 +8,12 @@ CLASSREG(SceneAsset, SpriteTileAsset, "SpriteNineTile")
 
 META_DATA_DESC(SpriteTileAsset)
 BASE_SCENE_ASSET_PROP(SpriteTileAsset)
-FLOAT_PROP(SpriteTileAsset, trans.pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(SpriteTileAsset, trans.pos.y, 0.0f, "Prop", "y")
-FLOAT_PROP(SpriteTileAsset, trans.size.x, 100.0f, "Prop", "width")
-FLOAT_PROP(SpriteTileAsset, trans.size.y, 100.0f, "Prop", "height")
-FLOAT_PROP(SpriteTileAsset, trans.offset.x, 0.5f, "Prop", "anchorn_x")
-FLOAT_PROP(SpriteTileAsset, trans.offset.y, 0.5f, "Prop", "anchorn_y")
+FLOAT_PROP(SpriteTileAsset, trans.pos.x, 0.0f, "Prop", "x", "X coordinate of a camera position")
+FLOAT_PROP(SpriteTileAsset, trans.pos.y, 0.0f, "Prop", "y", "Y coordinate of a camera position")
+FLOAT_PROP(SpriteTileAsset, trans.size.x, 100.0f, "Prop", "width", "Width of a sprite")
+FLOAT_PROP(SpriteTileAsset, trans.size.y, 100.0f, "Prop", "height", "Height of a sprite")
+FLOAT_PROP(SpriteTileAsset, trans.offset.x, 0.5f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
+FLOAT_PROP(SpriteTileAsset, trans.offset.y, 0.5f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
 SPRITE_PROP(SpriteTileAsset, sprite[0], "Prop", "spriteWN")
 SPRITE_PROP(SpriteTileAsset, sprite[1], "Prop", "spriteN")
 SPRITE_PROP(SpriteTileAsset, sprite[2], "Prop", "spriteEN")
@@ -24,6 +24,7 @@ SPRITE_PROP(SpriteTileAsset, sprite[6], "Prop", "spriteWS")
 SPRITE_PROP(SpriteTileAsset, sprite[7], "Prop", "spriteS")
 SPRITE_PROP(SpriteTileAsset, sprite[8], "Prop", "spriteES")
 META_DATA_DESC_END()
+
 
 Sprite::FrameState SpriteTileAsset::state[9];
 

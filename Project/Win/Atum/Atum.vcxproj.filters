@@ -300,9 +300,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp">
       <Filter>SceneObjects\3D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\terrain.cpp">
-      <Filter>SceneObjects\3D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.cpp">
       <Filter>SceneObjects\Common</Filter>
     </ClCompile>
@@ -382,9 +379,6 @@
       <Filter>SceneObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UILabelAsset.cpp">
-      <Filter>SceneObjects\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIService.cpp">
       <Filter>SceneObjects\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIViewAsset.cpp">
@@ -512,6 +506,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptCore.cpp">
       <Filter>Services\Script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp">
+      <Filter>SceneObjects\3D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -764,9 +761,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h">
       <Filter>SceneObjects\3D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\terrain.h">
-      <Filter>SceneObjects\3D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.h">
       <Filter>SceneObjects\Common</Filter>
     </ClInclude>
@@ -846,9 +840,6 @@
       <Filter>SceneObjects\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UILabelAsset.h">
-      <Filter>SceneObjects\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIService.h">
       <Filter>SceneObjects\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIViewAsset.h">
@@ -982,6 +973,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptCore.h">
       <Filter>Services\Script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h">
+      <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

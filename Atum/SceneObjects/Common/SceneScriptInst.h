@@ -7,7 +7,16 @@
 /**
 \page scene_assets_common_SceneScriptInst Instance
 
-Script Instance
+This asset instance creates instance of script class from script asset and links with scene object
+via link builder.
+
+Via link builder 'Property Node' or 'Callback Node' can be linked with scene object in scene.
+To make linkage firstly select needed node then hold key 'Left Ctrl' and drag needed scene object
+from list to node. In case of 'Callback Node' needed callback can be selected from a list.
+
+![Caption text](../../../Doxygen/images/ScriptInst.jpg "Image")
+
+This class ::SceneScriptInst is a representation on C++ side.
 
 */
 
@@ -16,9 +25,19 @@ Script Instance
 \ingroup gr_code_scene_objects_common
 */
 
+/**
+\brief Representation of a instance of a script
+
+This class creates instance of script class from script asset and links with scene object via link builder.
+More detail how to work with link builder can be found at \ref scene_assets_common_SceneScriptInst "link".
+
+*/
+
 class SceneScriptInst : public SceneObjectInst
 {
 public:
+
+#ifndef DOXYGEN_SKIP
 
 	struct Node
 	{
@@ -73,5 +92,7 @@ public:
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
 	void ShowProperties(bool show);
+#endif
+
 #endif
 };

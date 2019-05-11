@@ -7,23 +7,23 @@ CLASSREG(SceneObject, SimpleCharacter2D, "SimpleCharacter2D")
 
 META_DATA_DESC(SimpleCharacter2D)
 BASE_SCENE_OBJ_PROP(SimpleCharacter2D)
-FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "x")
-FLOAT_PROP(SimpleCharacter2D, trans.pos.y, 100.0f, "Geometry", "y")
-SCENEOBJECT_PROP(SimpleCharacter2D, vjoy_ref, "Prop", "VJoy")
-STRING_PROP(SimpleCharacter2D, asset_name, "", "Prop", "Asset")
-FLOAT_PROP(SimpleCharacter2D, speed, 120.0f, "Prop", "Speed")
-BOOL_PROP(SimpleCharacter2D, is_enemy, true, "Prop", "IsEnemy")
-INT_PROP(SimpleCharacter2D, max_hp, 100, "Prop", "HP")
-FLOAT_PROP(SimpleCharacter2D, floor_width, 500.0f, "Prop", "FloorWidth")
-FLOAT_PROP(SimpleCharacter2D, floor_height, 200.0f, "Prop", "FloorHeight")
+FLOAT_PROP(SimpleCharacter2D, trans.pos.x, 100.0f, "Geometry", "x", "X coordinate of position of a character")
+FLOAT_PROP(SimpleCharacter2D, trans.pos.y, 100.0f, "Geometry", "y", "X coordinate of position of a character")
+SCENEOBJECT_PROP(SimpleCharacter2D, vjoy_ref, "Prop", "Name of Virtual joystick scene object")
+STRING_PROP(SimpleCharacter2D, asset_name, "", "Prop", "Name of asset graph")
+FLOAT_PROP(SimpleCharacter2D, speed, 120.0f, "Prop", "Speed", "Speed of a charater")
+BOOL_PROP(SimpleCharacter2D, is_enemy, true, "Prop", "IsEnemy", "Definig if charcter is a enemy")
+INT_PROP(SimpleCharacter2D, max_hp, 100, "Prop", "HP", "Max Health of a character")
+FLOAT_PROP(SimpleCharacter2D, floor_width, 500.0f, "Prop", "FloorWidth", "Width of a level floor")
+FLOAT_PROP(SimpleCharacter2D, floor_height, 200.0f, "Prop", "FloorHeight", "Higth of a level floor")
 META_DATA_DESC_END()
 
 void SimpleCharacter2D::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(SimpleCharacter2D)
-	core.scripts.RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp));
-	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset));
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph));
+	BIND_TYPE_TO_SCRIPT(SimpleCharacter2D, "SimpleCharacter2D")
+	core.scripts.RegisterObjectProperty(script_class_name, "int cur_hp", memberOFFSET(SimpleCharacter2D, cur_hp), "Health of acharacter");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(SimpleCharacter2D, Reset), "Setting postion to initial position on start scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetAnimGraph(string&in)", WRAP_MFN(SimpleCharacter2D, SetAnimGraph), "Setting anim graph asset by name");
 }
 
 void SimpleCharacter2D::Init()

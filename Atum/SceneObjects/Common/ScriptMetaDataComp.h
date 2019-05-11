@@ -5,9 +5,20 @@
 #include "ScriptMetaDataAsset.h"
 
 /**
-\page scene_assets_components_ScriptMetaData Script Meta Data
+\page scene_assets_components_ScriptMetaData Script meta data component
 
-Script Meta Data component
+This component allows inject additional fields into script for a scene object. Also
+it is possible to set value for each parametrs in Script Meta Data Asset.
+
+This class ::ScriptMetaDataAsset is a representation on C++ side.
+
+Parameters
+----------
+
+Name              | Description
+------------------| -------------
+Asset             | Asset that holds description of additional properties
+
 
 */
 
@@ -16,10 +27,19 @@ Script Meta Data component
 \ingroup gr_code_scene_assets_components
 */
 
+/**
+\brief Representation of script meta data component
+
+This component allows inject additional fields into script for a scene object. Also
+it is possible to set value for each parametrs in Script Meta Data Asset.
+
+*/
+
 class ScriptMetaDataComp : public SceneAssetComp
 {
 public:
 
+#ifndef DOXYGEN_SKIP
 	ScriptMetaDataComp();
 
 	META_DATA_DECL(ScriptMetaDataComp)
@@ -49,6 +69,8 @@ public:
 #ifdef EDITOR
 	EUICategories* saved_objCat = nullptr;
 	void ShowPropWidgets(EUICategories* objCat) override;
+#endif
+
 #endif
 };
 

@@ -5,7 +5,7 @@ CLASSREG(SceneAsset, Animator, "Animator")
 
 META_DATA_DESC(Animator)
 BASE_SCENE_ASSET_PROP(Animator)
-FLOAT_PROP(Animator, timeLenght, 3.0f, "Prop", "TimeLenght")
+FLOAT_PROP(Animator, timeLenght, 3.0f, "Prop", "TimeLenght", "afsg")
 META_DATA_DESC_END()
 
 void Animator::Init()

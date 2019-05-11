@@ -7,11 +7,11 @@ CLASSREG(SceneObject, ShadowCaster2D, "ShadowCaster2D")
 META_DATA_DESC(ShadowCaster2D)
 BASE_SCENE_OBJ_PROP(ShadowCaster2D)
 STRING_ENUM_PROP(ShadowCaster2D, caster_group, FillGroupsList, "Prop", "CasterGroup")
-FLOAT_PROP(ShadowCaster2D, pos.x, 0.0f, "Prop", "x")
-FLOAT_PROP(ShadowCaster2D, pos.y, 0.0f, "Prop", "y")
-FLOAT_PROP(ShadowCaster2D, radius, 100.0f, "Prop", "radius")
-FLOAT_PROP(ShadowCaster2D, alpha, 0.75f, "Prop", "alpha")
-FLOAT_PROP(ShadowCaster2D, depth, 0.5f, "Prop", "Depth")
+FLOAT_PROP(ShadowCaster2D, pos.x, 0.0f, "Prop", "x", "X coordinate of a source of a shadow position")
+FLOAT_PROP(ShadowCaster2D, pos.y, 0.0f, "Prop", "y", "Y coordinate of a source of a shadow position")
+FLOAT_PROP(ShadowCaster2D, radius, 100.0f, "Prop", "radius", "Radius of a shadow")
+FLOAT_PROP(ShadowCaster2D, alpha, 0.75f, "Prop", "alpha", "Transparency of a shadow")
+FLOAT_PROP(ShadowCaster2D, depth, 0.5f, "Prop", "Depth", "Z value of a shadow")
 META_DATA_DESC_END()
 
 void ShadowCaster2D::Init()
@@ -21,9 +21,17 @@ void ShadowCaster2D::Init()
 
 void ShadowCaster2D::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(ShadowCaster2D)
-	core.scripts.RegisterObjectProperty(script_class_name, "float pos_x", memberOFFSET(ShadowCaster2D, pos.x));
-	core.scripts.RegisterObjectProperty(script_class_name, "float pos_y", memberOFFSET(ShadowCaster2D, pos.y));
+	const char* brief = "Representation of omni shadow in 2D space\n"
+		"\n"
+		"Currently 2D space is a special mode and this class represents a omni shadow casted from a particular point in a that\n"
+		"special space. 2D scene objects from particular scene group are playing role of shadow casters.Point of a shadow caster\n"
+		"set via script.\n"
+		"\n"
+		"This class ::ShadowCaster2D is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(ShadowCaster2D, brief)
+	core.scripts.RegisterObjectProperty(script_class_name, "float pos_x", memberOFFSET(ShadowCaster2D, pos.x), "X coordinate of a source of a shadow position");
+	core.scripts.RegisterObjectProperty(script_class_name, "float pos_y", memberOFFSET(ShadowCaster2D, pos.y), "Y coordinate of a source of a shadow position");
 }
 
 void ShadowCaster2D::Draw(float dt)

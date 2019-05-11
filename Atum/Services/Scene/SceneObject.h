@@ -195,7 +195,7 @@ CLASSFACTORYDEF(SceneObject)
 CLASSFACTORYDEF_END()
 
 #define BASE_SCENE_OBJ_STATE_PROP(className)\
-ENUM_PROP(className, state, 2, "Common", "State")\
+ENUM_PROP(className, state, 2, "Common", "State", "State of a object")\
 	ENUM_ELEM("Invisible", 0)\
 	ENUM_ELEM("Inactive", 1)\
 	ENUM_ELEM("Active", 2)\
@@ -223,8 +223,8 @@ STRING_PROP(className, layer_name, "", "Common", "Layer")
 #define BASE_SCENE_ASSET_PROP(className)\
 STRING_PROP(className, name, "", "Common", "Name")
 
-#define BIND_TYPE_TO_SCRIPT(className)\
-core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects");\
-core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState));\
-core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState));\
+#define BIND_TYPE_TO_SCRIPT(className, brief)\
+core.scripts.RegisterObjectType(script_class_name, sizeof(className), "gr_script_scene_objects", brief);\
+core.scripts.RegisterObjectMethod(script_class_name, "void SetState(int)", WRAP_MFN(className, SetState), "Setting state of a object");\
+core.scripts.RegisterObjectMethod(script_class_name, "int GetState()", WRAP_MFN(className, GetState), "Getting state of a object");\
 GetMetaData()->BindToScript(script_class_name);

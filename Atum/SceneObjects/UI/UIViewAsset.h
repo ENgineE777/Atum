@@ -4,7 +4,34 @@
 /**
 \page scene_assets_ui_view_asset Asset
 
-Image
+UI view which is always a root widget
+
+This class ::UIViewAsset is a representation on C++ side.
+
+Parameters
+----------
+
+Name              | Description
+------------------|--------------
+x                 | X coordinate of a position
+y                 | Y coordinate of a position
+horz_align        | Horizontal aligment of a widget
+vert_align        | Vertical aligment of a widget
+width             | Width of a widget
+height            | Height of a widget
+horz_size         | Type of width of a widget
+vert_size         | Type of height of a widget
+anchorn_x         | X coordinate of anchorn in absolute units
+anchorn_y         | Y coordinate of anchorn in absolute units
+left_padding      | Left padding of a widget
+top_padding       | Top padding of a widget
+right_padding     | Right padding of a widget
+bottom_padding    | Bottom padding of a widget
+rotate            | Rotation a widget
+color             | Color of a widget
+alpha             | Transparancy of a widget
+scale_childs      | Should be childs sacled in case size of a widget was changed
+clip_childs       | Should be childs clipped by size of a widget
 
 */
 
@@ -13,11 +40,20 @@ Image
 \ingroup gr_code_scene_assets_ui
 */
 
+/**
+\brief Representation of UI view asset
+
+UI view which is always a root widget
+
+*/
+
 class UIViewAsset : public UIWidgetAsset
 {
 public:
 
 	META_DATA_DECL(UIViewAsset)
+
+#ifndef DOXYGEN_SKIP
 
 	void Init() override;
 	void ApplyProperties() override;
@@ -46,5 +82,7 @@ public:
 	void CheckProperties() override;
 	bool IsInstance(UIWidgetAsset* node, UIWidgetAsset* source);
 	void FillPopupCreateMenu(const char* name, int id);
+#endif
+
 #endif
 };

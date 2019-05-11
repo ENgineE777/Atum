@@ -23,11 +23,18 @@ VirtualJoystick::~VirtualJoystick()
 
 void VirtualJoystick::BindClassToScript()
 {
-	BIND_TYPE_TO_SCRIPT(VirtualJoystick)
-	core.scripts.RegisterObjectProperty(script_class_name, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x));
-	core.scripts.RegisterObjectProperty(script_class_name, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y));
-	core.scripts.RegisterObjectProperty(script_class_name, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed));
-	core.scripts.RegisterObjectProperty(script_class_name, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed));
+	const char* brief = "Representation of on screen virtual joystick\n"
+		"\n"
+		"On screen virtual joystick can be used in script and in another scene object as source of input.\n"
+		"Joystick consist from one virtual stick and two buttons.\n"
+		"\n"
+		"This class ::VirtualJoystick is a representation on C++ side.\n";
+
+	BIND_TYPE_TO_SCRIPT(VirtualJoystick, brief)
+	core.scripts.RegisterObjectProperty(script_class_name, "float stick_delta_x", memberOFFSET(VirtualJoystick, stick_delta.x), "X-axis state of a stick.");
+	core.scripts.RegisterObjectProperty(script_class_name, "float stick_delta_y", memberOFFSET(VirtualJoystick, stick_delta.y), "Y-axis state of a stick.");
+	core.scripts.RegisterObjectProperty(script_class_name, "int button_a_pressed", memberOFFSET(VirtualJoystick, button_a_pressed), "State of a button. 1 means pressed. 0 means unpressed.");
+	core.scripts.RegisterObjectProperty(script_class_name, "int button_b_pressed", memberOFFSET(VirtualJoystick, button_b_pressed), "State of b button. 1 means pressed. 0 means unpressed.");
 }
 
 void VirtualJoystick::Init()

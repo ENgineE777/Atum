@@ -66,7 +66,7 @@ void WriteStr(FILE* file, const char* str)
 	fwrite(str, strlen(str), 1, file);
 }
 
-void Scripts::RegisterObjectType(const char* name, int byteSize, const char* help_group)
+void Scripts::RegisterObjectType(const char* name, int byteSize, const char* help_group, const char* brief)
 {
 	engine->RegisterObjectType(name, byteSize, asOBJ_REF | asOBJ_NOCOUNT);
 
@@ -94,6 +94,13 @@ void Scripts::RegisterObjectType(const char* name, int byteSize, const char* hel
 		WriteStr(help_file, str.c_str());
 		WriteStr(help_file, " */\n");
 
+		WriteStr(help_file, "/**\n");
+
+		str = " \\brief " + string(brief) + "\n";
+
+		WriteStr(help_file, str.c_str());
+		WriteStr(help_file, " */\n");
+
 		WriteStr(help_file, "\n");
 
 		str = "class " + string(name) + "\n";
@@ -105,27 +112,43 @@ void Scripts::RegisterObjectType(const char* name, int byteSize, const char* hel
 #endif
 }
 
-void Scripts::RegisterObjectMethod(const char* obj, const char* declaration, const asSFuncPtr& funcPointer)
+void Scripts::RegisterObjectMethod(const char* obj, const char* declaration, const asSFuncPtr& funcPointer, const char* brief)
 {
 	engine->RegisterObjectMethod(obj, declaration, funcPointer, asCALL_GENERIC);
 
 #ifdef EDITOR
 	if (help_out_dir && help_file)
 	{
-		string str = "   " + string(declaration) + ";\n";
+		WriteStr(help_file, "   /**\n");
+
+		string str = "    \\brief " + string(brief) + "\n";
+
+		WriteStr(help_file, str.c_str());
+		WriteStr(help_file, "   */\n");
+
+		WriteStr(help_file, "\n");
+
+		str = "   " + string(declaration) + ";\n";
 		WriteStr(help_file, str.c_str());
 	}
 #endif
 }
 
-void Scripts::RegisterObjectProperty(const char* obj, const char* declaration, int byteOffset)
+void Scripts::RegisterObjectProperty(const char* obj, const char* declaration, int byteOffset, const char* brief)
 {
 	engine->RegisterObjectProperty(obj, declaration, byteOffset);
 
 #ifdef EDITOR
 	if (help_out_dir && help_file)
 	{
-		string str = "   " + string(declaration) + ";\n";
+		WriteStr(help_file, "   /**\n");
+
+		string str = "    \\brief " + string(brief) + "\n";
+
+		WriteStr(help_file, str.c_str());
+		WriteStr(help_file, "   */\n");
+
+		str = "   " + string(declaration) + ";\n";
 		WriteStr(help_file, str.c_str());
 	}
 #endif

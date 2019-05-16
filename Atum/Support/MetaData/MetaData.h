@@ -31,10 +31,20 @@ struct MetaDataEnum
 	std::vector<int> values;
 };
 
+/**
+\brief Meta data
+
+This class stores meta data about properties of a class. This data allows to auto bind properties
+to UI of the editor and alows searilization/deserialization
+
+*/
+
 class MetaData
 {
+
 public:
 
+#ifndef DOXYGEN_SKIP
 	enum Type
 	{
 		Boolean,
@@ -136,18 +146,51 @@ public:
 
 	MetaData() = default;
 	virtual void Init() = 0;
+
+#endif
+
+	/**
+	\brief Prepare class to work with object
+	*/
 	void Prepare(void* owner, void* root = nullptr);
+
+	/**
+	\brief Set default value for every property
+	*/
 	void SetDefValues();
+
+	/**
+	\brief Deserialize data from JSON
+	*/
 	void Load(JSONReader& reader);
+
+	/**
+	\brief Post load call. Needed for proper set up of properties which type of SceneObject
+	*/
 	void PostLoad();
+
+	/**
+	\brief Serialize data to JSON
+	*/
 	void Save(JSONWriter& writer);
+
+	/**
+	\brief Copy values of all properties from source object to current active object
+	*/
 	void Copy(void* source);
+
+	/**
+	\brief Bind all properties in script class
+	*/
 	void BindToScript(const char* script_class_name);
+
+#ifndef DOXYGEN_SKIP
 #ifdef EDITOR
 	void PrepareWidgets(EUICategories* parent);
 	void UpdateWidgets();
 	bool IsValueWasChanged();
 	void HideWidgets();
+#endif
 #endif
 };
 

@@ -2,10 +2,6 @@
 #include <angelscript.h>
 #include "Libs/aswrappedcall.h"
 
-/**
-\ingroup gr_code_services_script
-*/
-
 class ScriptContext
 {
 public:

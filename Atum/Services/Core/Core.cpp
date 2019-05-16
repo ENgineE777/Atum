@@ -52,13 +52,13 @@ void Core::Init(void* data)
 	CreateDirectory(logs_dir, nullptr);
 
 
-	controls.Init("settings/controls/hardware_pc", true);
-	controls.LoadAliases("settings/controls/user_pc");
+	controls.Init("settings/controls/hardware_win", true);
+	controls.LoadAliases("settings/controls/user_aliases");
 #endif
 
 #if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	controls.Init("settings/controls/hardware_mobile", true);
-	controls.LoadAliases("settings/controls/user_pc");
+	controls.LoadAliases("settings/controls/user_aliases");
 #endif
 
 	fonts.Init();

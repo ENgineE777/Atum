@@ -7,6 +7,13 @@
 \ingroup gr_code_common
 */
 
+/**
+\brief 2 component vector
+
+Implementation of a vector with 2 components.
+
+*/
+
 struct Vector2
 {
 public:

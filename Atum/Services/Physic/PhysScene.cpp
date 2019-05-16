@@ -183,8 +183,8 @@ void PhysScene::onContact(const PxContactPairHeader& pairHeader, const PxContact
 
 	if (udataA && udataB)
 	{
-		udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
-		udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
+		PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContact");
+		PhysScene::HandleSceneObjectContact(udataB->object, udataB->index, udataA->object, udataA->index, "OnContact");
 	}
 }
 
@@ -201,12 +201,12 @@ void PhysScene::onTrigger(PxTriggerPair* pairs, PxU32 count)
 		{
 			if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_FOUND)
 			{
-				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContactStart");
+				PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContactStart");
 			}
 
 			if (pairs[i].status == PxPairFlag::eNOTIFY_TOUCH_LOST)
 			{
-				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContactEnd");
+				PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContactEnd");
 			}
 		}
 	}
@@ -216,4 +216,14 @@ void PhysScene::Release()
 {
 	scene->release();
 	delete this;
+}
+
+void PhysScene::HandleSceneObjectContact(SceneObject* object, int index, SceneObject* contact_object, int contact_index, const char* callback_name)
+{
+	SceneObject::ScriptCallback* callabck = object->FindScriptCallback(callback_name);
+
+	if (callabck)
+	{
+		callabck->Call(object->Script(), index, contact_object->GetName(), contact_index);
+	}
 }

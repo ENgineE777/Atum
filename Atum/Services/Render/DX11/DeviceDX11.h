@@ -4,10 +4,6 @@
 #include "Services/Render/Device.h"
 #include "d3d11.h"
 
-/**
-\ingroup gr_code_services_render_dx11
-*/
-
 class DeviceDX11 : public Device
 {
 	friend class Render;

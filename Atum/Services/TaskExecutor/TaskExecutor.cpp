@@ -295,31 +295,3 @@ TaskExecutor::GroupTaskPool* TaskExecutor::CreateGroupTaskPool()
 {
 	return new GroupTaskPool();
 }
-
-void TaskExecutor::SetTaskPoolExecutionLevel(TaskPool* taskPool, int level)
-{
-	pools.push_back(Pool());
-
-	Pool& pool = pools[pools.size() - 1];
-	pool.level = level;
-	pool.taskPool = taskPool;
-
-	int index = (int)pools.size() - 1;
-
-	while (index>0 && pools[index - 1].level > level)
-	{
-		Pool tmp = pools[index];
-		pools[index] = pools[index - 1];
-		pools[index - 1] = tmp;
-
-		index--;
-	}
-}
-
-void TaskExecutor::Execute(float dt)
-{
-	for (int i = 0; i < pools.size(); i++)
-	{
-		pools[i].taskPool->Execute(dt);
-	}
-}

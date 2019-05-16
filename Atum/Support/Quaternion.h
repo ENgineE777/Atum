@@ -8,6 +8,13 @@
 \ingroup gr_code_common
 */
 
+/**
+\brief Quaternion
+
+Implementation of a quaternion.
+
+*/
+
 class Quaternion
 {
 public:

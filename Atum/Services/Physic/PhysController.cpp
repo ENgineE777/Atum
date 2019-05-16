@@ -37,8 +37,8 @@ void PhysController::onShapeHit(const PxControllerShapeHit& hit)
 
 		if (udataA && udataB)
 		{
-			udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
-			udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
+			PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContact");
+			PhysScene::HandleSceneObjectContact(udataB->object, udataB->index, udataA->object, udataA->index, "OnContact");
 		}
 	}
 
@@ -99,8 +99,8 @@ PxControllerBehaviorFlags PhysController::getBehaviorFlags(const PxShape& shape,
 
 	if (udataA && udataB)
 	{
-		udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
-		udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
+		PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContact");
+		PhysScene::HandleSceneObjectContact(udataB->object, udataB->index, udataA->object, udataA->index, "OnContact");
 	}
 
 	if (udataB)
@@ -140,13 +140,13 @@ PxQueryHitType::Enum PhysController::preFilter(const PxFilterData& filterData, c
 		{
 			if (udataA->body && udataA->body->GetType() == PhysObject::Trigger)
 			{
-				udataB->object->OnContact(udataB->index, udataA->object, udataA->index, "OnContact");
+				PhysScene::HandleSceneObjectContact(udataB->object, udataB->index, udataA->object, udataA->index, "OnContact");
 				return PxQueryHitType::eTOUCH;
 			}
 			else
 			if (udataB->body && udataB->body->GetType() == PhysObject::Trigger)
 			{
-				udataA->object->OnContact(udataA->index, udataB->object, udataB->index, "OnContact");
+				PhysScene::HandleSceneObjectContact(udataA->object, udataA->index, udataB->object, udataB->index, "OnContact");
 				return PxQueryHitType::eTOUCH;
 			}
 		}

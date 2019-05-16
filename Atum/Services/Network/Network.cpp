@@ -157,7 +157,7 @@ void NetworkClient::Update()
 	{
 		if (delegedate)
 		{
-			delegedate->OnDataRecieved(recv_buffer, recv_len);
+			delegedate->OnDataRecieved(id, recv_buffer, recv_len);
 		}
 
 		recv_len = 0;
@@ -172,7 +172,7 @@ void NetworkClient::Update()
 #endif
 }
 
-bool NetworkServer::Start(const char* ip, int port)
+bool NetworkServer::Start(int port)
 {
 #ifdef PLATFORM_PC
 	WSADATA wsaData;

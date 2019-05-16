@@ -3,10 +3,6 @@
 
 #include "Services/Render/Render.h"
 
-/**
-\ingroup gr_code_services_render_debug
-*/
-
 class DebugBoxes : public Object
 {
 	struct Box

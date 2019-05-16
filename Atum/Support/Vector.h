@@ -7,6 +7,13 @@
 \ingroup gr_code_common
 */
 
+/**
+\brief 3 component vector
+
+Implementation of a vector with 3 components.
+
+*/
+
 struct Vector
 {
 public:

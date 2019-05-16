@@ -13,17 +13,28 @@
 \ingroup gr_code_common_json
 */
 
+/**
+\brief JSON Writer
+
+This class helps to write JSON file.
+
+*/
+
 class JSONWriter
 {
+#ifndef DOXYGEN_SKIP
 	FILE* file = nullptr;
 	int offset = 0;
 	int depth = 0;
 	bool block_started[64];
+#endif
 
 public:
 
+#ifndef DOXYGEN_SKIP
 	JSONWriter();
 	~JSONWriter();
+#endif
 
 	bool Start(const char* name);
 
@@ -49,11 +60,13 @@ public:
 
 	void Close();
 
+#ifndef DOXYGEN_SKIP
 protected:
 
 	void AddComma();
 	void WriteFormatedStr(bool addComa, const char* str, ...);
 	void WriteStr(const char* str);
+#endif
 };
 
 

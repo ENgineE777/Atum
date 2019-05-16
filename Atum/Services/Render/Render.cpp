@@ -40,8 +40,6 @@ bool Render::Init(const char* device_name, void* external_device)
 	groupTaskPool = core.taskExecutor.CreateGroupTaskPool();
 	debugTaskPool = groupTaskPool->AddTaskPool();
 
-	core.taskExecutor.SetTaskPoolExecutionLevel(groupTaskPool, 100);
-
 	if (!device->Init(external_device))
 	{
 		return false;

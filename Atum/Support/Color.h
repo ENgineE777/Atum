@@ -7,6 +7,12 @@
 \ingroup gr_code_common
 */
 
+/**
+\brief Color
+
+Implementation of 4 component color.
+
+*/
 
 class Color
 {	

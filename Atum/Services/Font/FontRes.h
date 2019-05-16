@@ -6,12 +6,6 @@ class  Texture;
 #include "Services/Render/Render.h"
 #include "Services/File/FileInMemory.h"
 
-/**
-\ingroup gr_code_services_font
-*/
-
-class Font;
-
 class FontRes
 {
 public:
@@ -65,7 +59,7 @@ public:
 	FontRes(const char* fl_name, int hgt);
 	virtual bool Load();
 	Glyph* GenerateChar(int ch);
-	Font* CreateReference();
+	class Font* CreateReference();
 
 	float GetLineBreak(std::vector<FontRes::LineBreak>& line_breaks, const char* text, int width);
 	void Print(std::vector<FontRes::LineBreak>& line_breaks, Matrix& transform, float font_scale, Color color, const char* text);

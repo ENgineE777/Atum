@@ -3,10 +3,6 @@
 #include "support/StringUtils.h"
 #include "Support/Vector2.h"
 
-/**
-\ingroup gr_code_services_script
-*/
-
 class ScriptCore
 {
 public:

@@ -18,6 +18,14 @@
 \ingroup gr_code_services_scene
 */
 
+/**
+\brief PhysScene
+
+This is representation of a physical scene. Objecte to a scene are adding via proper
+methods of PhysScene.
+
+*/
+
 class SceneObjectComp : public Object
 {
 public:

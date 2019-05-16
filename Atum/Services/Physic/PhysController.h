@@ -30,14 +30,45 @@
 
 using namespace physx;
 
+/**
+\ingroup gr_code_services_physic
+*/
+
+/**
+\brief PhysControllerDesc
+
+Description of a character controller
+
+*/
+
 struct PhysControllerDesc
 {
-	float    height = 1.0f;
-	float    radius = 0.25f;
-	Vector   pos;
+	/** \brief Height of a controller. Overall height euqals radius * 2 + height */
+	float height = 1.0f;
+
+	/** \brief Radius of a controller. Overall height euqals radius * 2 + height */
+	float radius = 0.25f;
+
+	/** \brief Postion of a controller */
+	Vector pos;
+
+	/** \brief Belonging to a physical group */
 	uint32_t group;
-	float    slopeLimit = cosf(RADIAN * 20.0f);
+
+	/** \brief The maximum slope which the character can walk up. */
+	float slopeLimit = cosf(RADIAN * 20.0f);
 };
+
+/**
+\ingroup gr_code_services_physic
+*/
+
+/**
+\brief PhysController
+
+Kinematic character controller which is capsule.
+
+*/
 
 class PhysController : public PxUserControllerHitReport, PxControllerBehaviorCallback, PxQueryFilterCallback
 {
@@ -51,34 +82,100 @@ public:
 
 	enum CollideType
 	{
-		CollideSides = (1 << 0),
-		CollideUp = (1 << 1),
-		CollideDown = (1 << 2)
+		CollideSides = (1 << 0) /*!< Sides is collided */,
+		CollideUp = (1 << 1) /*!< Upper point is collided */,
+		CollideDown = (1 << 2) /*!< Lower point is collided */
 	};
 
-	virtual PxQueryHitType::Enum preFilter(const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags);
-	virtual PxQueryHitType::Enum postFilter(const PxFilterData& filterData, const PxQueryHit& hit);
+#ifndef DOXYGEN_SKIP
+	PxQueryHitType::Enum preFilter(const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags) override;
+	PxQueryHitType::Enum postFilter(const PxFilterData& filterData, const PxQueryHit& hit) override;
 
 	// Implements PxUserControllerHitReport
-	virtual void							onShapeHit(const PxControllerShapeHit& hit);
-	virtual void							onControllerHit(const PxControllersHit& hit) {}
-	virtual void							onObstacleHit(const PxControllerObstacleHit& hit) {}
+	void onShapeHit(const PxControllerShapeHit& hit) override;
+	void onControllerHit(const PxControllersHit& hit)  override {};
+	void onObstacleHit(const PxControllerObstacleHit& hit) override {};
 
 	// Implements PxControllerBehaviorCallback
-	virtual PxControllerBehaviorFlags		getBehaviorFlags(const PxShape& shape, const PxActor& actor);
-	virtual PxControllerBehaviorFlags		getBehaviorFlags(const PxController& controller);
-	virtual PxControllerBehaviorFlags		getBehaviorFlags(const PxObstacle& obstacle);
+	PxControllerBehaviorFlags getBehaviorFlags(const PxShape& shape, const PxActor& actor)  override;
+	PxControllerBehaviorFlags getBehaviorFlags(const PxController& controller)  override;
+	PxControllerBehaviorFlags getBehaviorFlags(const PxObstacle& obstacle)  override;
+#endif
 
+	/**
+	\brief Set active state of a object
+
+	\param[in] set Active state
+	*/
 	void SetActive(bool set);
+
+	/**
+	\brief Check if a object is active
+
+	\return Returns active state
+	*/
 	bool IsActive();
+
+	/**
+	\brief Set pointer to a user data
+
+	\param[in] data Pointer to a user data
+	*/
 	void SetUserData(void* data);
+
+	/**
+	\brief Return pointer to a user data
+
+	\return Pointer to a user data
+	*/
 	void* GetUserData();
+
+	/**
+	\brief Get overall heigh of a controller
+
+	\return overall heigh of a controller
+	*/
 	float GetHeight();
 
+	/**
+	\brief Check if controller is colliding with something
+
+	\param[in] type Type of collision
+
+	\return True if there collision. Otherwise false will be returned.
+	*/
 	bool IsColliding(CollideType type);
+
+	/**
+	\brief Moves the character using a "collide-and-slide" algorithm.
+
+	\param[in] dir Displacement vector
+	*/
 	void Move(Vector dir);
+
+	/**
+	\brief Set belonging to a physical group
+
+	\param[in] group Physical group
+	*/
 	void SetGroup(int group);
+
+	/**
+	\brief Set position of a controller
+
+	\param[in] pos New position of a controller
+	*/
 	void SetPosition(Vector pos);
+
+	/**
+	\brief Get position of a controller
+
+	\param[out] pos Current position of a controller
+	*/
 	void GetPosition(Vector& pos);
+
+	/**
+	\brief PhysController should released only via this mehod
+	*/
 	void Release();
 };

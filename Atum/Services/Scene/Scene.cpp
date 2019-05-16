@@ -8,43 +8,6 @@
 #include "SceneObjects/2D/SpriteInst.h"
 #include "Services/Script/Libs/scriptarray.h"
 
-int index_hack_show_message = 0;
-
-/*void Scene::ContactListener::BeginContact(b2Contact* contact)
-{
-	void* bodyUserDataA = contact->GetFixtu/
-  \bn reA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
-
-	if (bodyUserDataA && bodyUserDataB)
-	{
-		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
-		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
-
-		if (udataA->object->OnContact(udataA->index, udataB->object, udataB->index))
-		{
-			contact->SetEnabled(false);
-		}
-
-		if (udataB->object->OnContact(udataB->index, udataA->object, udataA->index))
-		{
-			contact->SetEnabled(false);
-		}
-	}
-}
-
-void Scene::ContactListener::EndContact(b2Contact* contact)
-{
-	/*void* bodyUserDataA = contact->GetFixtureA()->GetBody()->GetUserData();
-	void* bodyUserDataB = contact->GetFixtureB()->GetBody()->GetUserData();
-
-	if (bodyUserDataA && bodyUserDataB)
-	{
-		Phys2DCompInst::BodyUserData* udataA = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataA);
-		Phys2DCompInst::BodyUserData* udataB = static_cast<Phys2DCompInst::BodyUserData*>(bodyUserDataB);
-	}*/
-//}
-
 void Scene::Init()
 {
 	scene_path[0] = 0;

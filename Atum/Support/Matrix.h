@@ -8,6 +8,13 @@
 \ingroup gr_code_common
 */
 
+/**
+\brief Matrix
+
+Implementation of a matrix.
+
+*/
+
 class Matrix
 {
 public:

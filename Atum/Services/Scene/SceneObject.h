@@ -18,6 +18,14 @@
 \ingroup gr_code_services_scene
 */
 
+/**
+\brief PhysScene
+
+This is representation of a physical scene. Objecte to a scene are adding via proper
+methods of PhysScene.
+
+*/
+
 class SceneObject : public Object
 {
 	friend class Scene;
@@ -102,40 +110,155 @@ public:
 	SceneObject() = default;
 	virtual ~SceneObject() = default;
 
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	const char* GetName();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void SetName(const char* name);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void SetUID(uint32_t uid);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual uint32_t GetUID();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual uint32_t GetParentUID();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void SetState(int state);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual State GetState();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual Matrix& Trans();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual bool UsingCamera2DPos();
 
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual SceneObjectComp* AddComponent(const char* name);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void DelComponent(SceneObjectComp* comp);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void Init() = 0;
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void ApplyProperties();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual MetaData* GetMetaData() = 0;
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void Load(JSONReader& reader);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void Save(JSONWriter& writer);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual TaskExecutor::SingleTaskPool* Tasks(bool edtitor);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual TaskExecutor::SingleTaskPool* RenderTasks(bool editor);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual bool Play();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual bool PostPlay();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void Stop();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	bool Playing();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	Scene* GetScene();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	ScriptContext* Script();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	PhysScene* PScene();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void Release();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual bool Is3DObject();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual SceneObject* GetChild(uint32_t uid);
 
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	virtual void BindClassToScript();
-	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
 
-	virtual void OnContact(int index, SceneObject* contact_object, int contact_index, const char* callback_name);
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
+	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
 
 #ifdef EDITOR
 	void* item = nullptr;

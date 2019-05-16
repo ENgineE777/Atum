@@ -35,7 +35,7 @@ FLOAT_PROP(UIContainerAsset, left_padding.y, 0.0f, "Prop", "top_padding", "Top p
 FLOAT_PROP(UIContainerAsset, right_padding.x, 0.0f, "Prop", "right_padding", "Right padding of a widget")
 FLOAT_PROP(UIContainerAsset, right_padding.y, 0.0f, "Prop", "bottom_padding", "Bottom padding of a widget")
 FLOAT_PROP(UIContainerAsset, rotate, 0.0f, "Prop", "rotate", "Rotation a widget")
-COLOR_PROP(UIContainerAsset, color, COLOR_WHITE, "Prop", "Color of a widget")
+COLOR_PROP(UIContainerAsset, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIContainerAsset, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
 BOOL_PROP(UIContainerAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")
 BOOL_PROP(UIContainerAsset, clipChilds, false, "Prop", "clip_childs", "Should be childs clipped by size of a widget")

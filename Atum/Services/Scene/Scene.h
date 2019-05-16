@@ -17,6 +17,14 @@ class SceneObjectComp;
 \ingroup gr_code_services_scene
 */
 
+/**
+\brief PhysScene
+
+This is representation of a physical scene. Objecte to a scene are adding via proper
+methods of PhysScene.
+
+*/
+
 class Scene
 {
 	friend class SceneObject;
@@ -74,6 +82,8 @@ private:
 	std::vector<Scene*> inc_scenes;
 public:
 
+#ifndef DOXYGEN_SKIP
+
 	Scene() = default;
 	virtual ~Scene() = default;
 
@@ -83,22 +93,55 @@ public:
 	void AddObject(SceneObject* obj, bool is_asset);
 	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 	SceneObject* GetObj(int index, bool is_asset);
-	int          GetObjectIndex(SceneObject* obj, bool is_asset);
-	int          GetObjectsCount(bool is_asset);
-	void         DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
+	int GetObjectIndex(SceneObject* obj, bool is_asset);
+	int GetObjectsCount(bool is_asset);
+	void DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
 
 	const char* GetPath();
 	const char* GetName();
+#endif
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void Clear();
 
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void Load(const char* name);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void Save(const char* name);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void Execute(float dt);
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	bool Play();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void Stop();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	bool Playing();
 
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+	*/
 	void EnableTasks(bool enable);
+
+#ifndef DOXYGEN_SKIP
 
 #ifdef EDITOR
 	bool DependFromScene(Scene* scene);
@@ -114,4 +157,5 @@ public:
 	void DelFromAllGroups(SceneObject* obj, Scene* new_scene = nullptr);
 
 	void Release();
+#endif
 };

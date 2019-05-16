@@ -24,11 +24,18 @@
 
 #include "Support/Support.h"
 
-using namespace physx;
-
 /**
 \ingroup gr_code_services_physic
 */
+
+/**
+\brief PhysHeightmap
+
+Static height map.
+
+*/
+
+using namespace physx;
 
 class PhysHeightmap
 {
@@ -37,15 +44,29 @@ class PhysHeightmap
 	PxRigidActor*  actor = nullptr;
 public:
 
+	/**
+	\brief PhysScene
+
+	This is representation of a physical scene. Objecte to a scene are adding via proper
+	methods of PhysScene.
+
+	*/
+
 	struct Desc
 	{
-		int      width;
-		int      height;
+		/** \brief Width of height map */
+		int width;
+		/** \brief Heighy of height map */
+		int height;
+		/** \brief Verical and horizontal scales */
 		Vector2  scale;
 #ifdef PLATFORM_PC
 		uint8_t* hmap = nullptr;
 #endif
 	};
 
+	/**
+	\brief PhysHeightmap should released only via this mehod
+	*/
 	void Release();
 };

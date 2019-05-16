@@ -567,16 +567,6 @@ bool SceneObject::InjectIntoScript(const char* type, void* property, const char*
 	return true;
 }
 
-void SceneObject::OnContact(int index, SceneObject* contact_object, int contact_index, const char* callback_name)
-{
-	SceneObject::ScriptCallback* callabck = FindScriptCallback(callback_name);
-
-	if (callabck)
-	{
-		callabck->Call(Script(), index, contact_object->GetName(), contact_index);
-	}
-}
-
 #ifdef EDITOR
 void SceneObject::EnableTasks(bool enable)
 {

@@ -3,10 +3,6 @@
 
 #include "Services/Core/Core.h"
 
-/**
-\ingroup gr_code_services_render_debug
-*/
-
 class DebugPrograms
 {
 public:

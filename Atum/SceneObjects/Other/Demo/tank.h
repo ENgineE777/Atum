@@ -112,6 +112,6 @@ public:
 	void SendServerState(float dt);
 	void SendClientState(float dt);
 
-	void OnDataRecieved(void* data, int size) override;
+	void OnDataRecieved(int id, void* data, int size) override;
 	void OnClientConnected(int id) override;
 };

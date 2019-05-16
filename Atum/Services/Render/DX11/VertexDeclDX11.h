@@ -5,10 +5,6 @@
 #include "d3d11.h"
 #include "ShaderDX11.h"
 
-/**
-\ingroup gr_code_services_render_dx11
-*/
-
 class VertexDeclDX11 : public VertexDecl
 {
 public:

@@ -150,7 +150,7 @@ void Tank::OnClientConnected(int id)
 	SendClientState(0.0f);
 }
 
-void Tank::OnDataRecieved(void* data, int size)
+void Tank::OnDataRecieved(int id, void* data, int size)
 {
 	char* ptr = (char*)data;
 

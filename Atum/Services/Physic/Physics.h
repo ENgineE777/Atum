@@ -10,6 +10,13 @@ using namespace physx;
 \ingroup gr_code_services_physic
 */
 
+/**
+\brief Physics
+
+This is a manager of PhysScene objects.
+
+*/
+
 class Physics
 {
 	friend class PhysScene;
@@ -70,12 +77,27 @@ class Physics
 
 public:
 
+#ifndef DOXYGEN_SKIP
 	void Init();
+	void Update(float dt);
+	void Fetch();
+#endif
+
 #ifdef PLATFORM_PC
 	void CookHeightmap(PhysHeightmap::Desc& desc, const char* name);
 #endif
+
+	/**
+	\brief Creates a new physical scene
+
+	\return Pointer to a PhysScene
+	*/
 	PhysScene* CreateScene();
+
+	/**
+	\brief This variable stores position on start and restors it when Reset was clled from script
+
+	\
+	*/
 	void DestroyScene(PhysScene* scene);
-	void Update(float dt);
-	void Fetch();
 };

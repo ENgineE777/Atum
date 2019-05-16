@@ -18,7 +18,7 @@ void SimpleServer::Init()
 
 bool SimpleServer::Play()
 {
-	server.Start(NULL, 6881);
+	server.Start(6881);
 
 	return true;
 }

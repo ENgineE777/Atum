@@ -12,8 +12,16 @@
 \ingroup gr_code_common_json
 */
 
+/**
+\brief JSON Reader
+
+This class helps to read from JSON file.
+
+*/
+
 class JSONReader
 {
+#ifndef DOXYGEN_SKIP
 	block_allocator allocator;
 	json_value* root = nullptr;
 
@@ -22,11 +30,14 @@ class JSONReader
 	int curDepth = 0;
 	json_value* nodes[50];
 	json_value* curNode = nullptr;
+#endif
 
 public:
 
+#ifndef DOXYGEN_SKIP
 	JSONReader();
 	~JSONReader();
+#endif
 
 	bool Parse(const char* name);
 
@@ -50,9 +61,11 @@ public:
 
 	void Close();
 
+#ifndef DOXYGEN_SKIP
 protected:
 
 	json_value* FindValue(const char* name);
+#endif
 };
 
 

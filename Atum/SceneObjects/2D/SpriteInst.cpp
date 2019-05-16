@@ -37,7 +37,7 @@ void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* s
 	SetSizeX(size_x);
 	SetAngle(angle);
 
-	int prop_index = mapping[0][7];
+	int prop_index = mapping[0][8];
 
 	if (prop_index != -1)
 	{

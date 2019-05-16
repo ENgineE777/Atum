@@ -453,9 +453,6 @@
     <ClCompile Include="..\..\..\Atum\Support\json\JSONWriter.cpp">
       <Filter>Support\json</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
-      <Filter>Services\Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Editor\EditorDrawer.cpp">
       <Filter>Editor</Filter>
     </ClCompile>
@@ -509,6 +506,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp">
       <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
+      <Filter>Services\Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

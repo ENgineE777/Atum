@@ -7,10 +7,6 @@
 #include <GLES3/gl3.h>
 #endif
 
-/**
-\ingroup gr_code_services_render_gles3
-*/
-
 class VertexDeclGLES : public VertexDecl
 {
 public:

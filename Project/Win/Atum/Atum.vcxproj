@@ -147,6 +147,35 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptCore.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\bitwise.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\framing.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundBase.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundInstance.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\Sounds.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\DecodedBuffer.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundStream.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\analysis.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\bitrate.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\block.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\codebook.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\envelope.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor0.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor1.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\info.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lookup.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lpc.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lsp.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mapping0.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mdct.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\psy.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\registry.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\res0.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\sharedbook.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\smallft.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\synthesis.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisenc.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisfile.c" />
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\window.c" />
     <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\json.cpp" />
@@ -291,6 +320,11 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptCore.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundBase.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundInstance.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Sound\Sounds.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Sound\DecodedBuffer.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundStream.h" />
     <ClInclude Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.h" />
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\..\Atum\Support\Color.h" />
@@ -376,7 +410,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;F:\Work\Atum\Atum\Services\Sound\ogg\include;F:\Work\Atum\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

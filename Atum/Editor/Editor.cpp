@@ -215,7 +215,7 @@ void Editor::Init()
 	//FIXME
 	AddOutputBox("Script");
 
-	core.Init(EUI::GetRenderDevice());
+	core.Init(mainWnd->GetNative(), EUI::GetRenderDevice());
 
 	core.render.AddExecutedLevelPool(1);
 

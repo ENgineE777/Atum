@@ -100,6 +100,15 @@
     <Filter Include="Platform\Win">
       <UniqueIdentifier>{cb1900ba-6d52-4cea-b7bb-9be4f8bbb2dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services\Sound">
+      <UniqueIdentifier>{1a71726d-e528-4469-8c03-32ebd4d86797}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Sound\vorbis">
+      <UniqueIdentifier>{fe018bd8-4105-46fd-88cb-68cfd00e0bcb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Sound\ogg">
+      <UniqueIdentifier>{aa45cbce-5057-4ced-8604-c0548ccc668e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
@@ -509,6 +518,93 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
       <Filter>Services\Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\bitrate.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\block.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\codebook.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\envelope.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor0.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor1.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\info.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lookup.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lpc.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lsp.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mapping0.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mdct.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\psy.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\registry.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\res0.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\smallft.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\synthesis.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisenc.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisfile.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\window.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\analysis.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\bitwise.c">
+      <Filter>Services\Sound\ogg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\framing.c">
+      <Filter>Services\Sound\ogg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\sharedbook.c">
+      <Filter>Services\Sound\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\Sounds.cpp">
+      <Filter>Services\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundInstance.cpp">
+      <Filter>Services\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\DecodedBuffer.cpp">
+      <Filter>Services\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundStream.cpp">
+      <Filter>Services\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Sound\SoundBase.cpp">
+      <Filter>Services\Sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -976,6 +1072,21 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h">
       <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Sound\Sounds.h">
+      <Filter>Services\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundInstance.h">
+      <Filter>Services\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Sound\DecodedBuffer.h">
+      <Filter>Services\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundStream.h">
+      <Filter>Services\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Sound\SoundBase.h">
+      <Filter>Services\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

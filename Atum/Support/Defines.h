@@ -9,9 +9,9 @@
 #define rnd() ((float)rand()/RAND_MAX)
 #define rnd_range(a, b) (a + (b - a) * (float)rand()/RAND_MAX)
 
-#define RELEASE(p) if (p) { p->Release(); p = NULL; }
-#define FREE_PTR(p) if (p) { free(p); p = NULL; }
-#define DELETE_PTR(p) if (p) { delete p; p = NULL; }
-#define DELETE_ARRAY(p) if (p) { delete[] p; p = NULL; }
+#define RELEASE(p) if (p) { p->Release(); p = nullptr; }
+#define FREE_PTR(p) if (p) { free(p); p = nullptr; }
+#define DELETE_PTR(p) if (p) { delete p; p = nullptr; }
+#define DELETE_ARRAY(p) if (p) { delete[] p; p = nullptr; }
 
 #define _FL_ __FILE__ , __LINE__

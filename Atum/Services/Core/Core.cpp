@@ -25,10 +25,10 @@ Core::~Core()
 
 }
 
-void Core::Init(void* data)
+void Core::Init(void* data, void* render_data)
 {
-    files.Init();
-    
+	files.Init();
+
 	srand((unsigned int)time(nullptr));
 	StringUtils::Init();
 
@@ -61,9 +61,11 @@ void Core::Init(void* data)
 	controls.LoadAliases("settings/controls/user_aliases");
 #endif
 
+	sounds.Init(data);
+
 	fonts.Init();
 
-	render.Init("DX11", data);
+	render.Init("DX11", render_data);
 
 	physics.Init();
 }
@@ -113,6 +115,8 @@ void Core::CountDeltaTime()
 
 void Core::Update()
 {
+	sounds.Update(dt);
+
 	physics.Update(dt);
 
 	render.Execute(dt);

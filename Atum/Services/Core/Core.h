@@ -8,6 +8,7 @@
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneManager.h"
 #include "Services/Script/Scripts.h"
+#include "Services/Sound/Sounds.h"
 #include "Services/TaskExecutor/TaskExecutor.h"
 
 #ifdef PLATFORM_ANDROID
@@ -74,6 +75,11 @@ public:
 	Scripts scripts;
 
 	/**
+	\brief Access to sound service
+	*/
+	Sounds sounds;
+
+	/**
 	\brief Access to task executor service
 	*/
 	TaskExecutor taskExecutor;
@@ -90,7 +96,7 @@ public:
 #ifndef DOXYGEN_SKIP
 	Core();
 	virtual ~Core();
-	void Init(void* data);
+	void Init(void* data, void* render_data);
 
 	void Update();
 	void CountDeltaTime();

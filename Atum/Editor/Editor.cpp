@@ -550,6 +550,8 @@ void Editor::StopScene()
 
 	core.scripts.Stop();
 
+	core.sounds.ClearAllSounds();
+
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(true);

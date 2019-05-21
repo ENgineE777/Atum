@@ -83,6 +83,8 @@ public:
 
 	void Update(float dt);
 
+	void ClearAllSounds();
+
 	void Release();
 #endif
 };

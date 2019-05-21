@@ -75,6 +75,15 @@ float Sounds::GetMasterVolume()
 	return master_volume;
 }
 
+void Sounds::ClearAllSounds()
+{
+	for (int i = 0; i < sounds.size(); i++)
+	{
+		sounds[i]->Release();
+		i--;
+	}
+}
+
 void Sounds::Release()
 {
 }

@@ -36,6 +36,13 @@ public:
 		void CallClassInstancesMethod(string& scene_name, string& class_name, string& method);
 	};
 
+	class Sound
+	{
+	public:
+		class SoundInstance* CreateSound(string& file_name);
+		class SoundStream* CreateStream(string& file_name);
+	};
+
 	class Utils
 	{
 	public:
@@ -45,6 +52,7 @@ public:
 	Controls controls;
 	Render render;
 	Scene scene;
+	Sound sound;
 	Utils utils;
 
 	void Log(string& text);

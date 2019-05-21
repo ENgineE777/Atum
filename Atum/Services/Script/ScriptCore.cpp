@@ -181,62 +181,62 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	const char* script_class_name = nullptr;
 
 	script_class_name = "ScriptRender";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2D), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", "Script render sub system");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), "Print debug text");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2D), "Print debug line in 2D space");
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), "Get width of a screen");
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), "Get height of a screen");
 
 	script_class_name = "ScriptControls";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Controls), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetAliasIndex(string&in alias)", WRAP_MFN(ScriptCore::Controls, GetAliasIndex), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetState(int alias_index, int action)", WRAP_MFN(ScriptCore::Controls, GetState), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "float GetValue(int alias_index, int delta)", WRAP_MFN(ScriptCore::Controls, GetValue), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Controls), "gr_script_core", "Script controls sub system");
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetAliasIndex(string&in alias)", WRAP_MFN(ScriptCore::Controls, GetAliasIndex), "Get index alias by name");
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetState(int alias_index, int action)", WRAP_MFN(ScriptCore::Controls, GetState), "Get state of an alias");
+	core.scripts.RegisterObjectMethod(script_class_name, "float GetValue(int alias_index, int delta)", WRAP_MFN(ScriptCore::Controls, GetValue), "Get value of an alias");
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), "Get state of hardware alias");
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), "Check if gamepad connected");
 
 	script_class_name = "ScriptScene";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in alias, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in alias)", WRAP_MFN(ScriptCore::Scene, Load), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in alias)", WRAP_MFN(ScriptCore::Scene, Unload), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", "Script scene sub system");
+	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in alias, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
+	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in alias)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in alias)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
 
 	script_class_name = "SoundInstance";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "bool Play(int play_type)", WRAP_MFN(SoundInstance, Play), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetVolume(float volume)", WRAP_MFN(SoundInstance, SetVolume), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "float GetVolume()", WRAP_MFN(SoundInstance, GetVolume), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void Stop()", WRAP_MFN(SoundInstance, Stop), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void Release()", WRAP_MFN(SoundInstance, Release), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", "Script sound instance");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool Play(int play_type)", WRAP_MFN(SoundInstance, Play), "Start playing a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetVolume(float volume)", WRAP_MFN(SoundInstance, SetVolume), "Set volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "float GetVolume()", WRAP_MFN(SoundInstance, GetVolume), "Get volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Stop()", WRAP_MFN(SoundInstance, Stop), "Stop playing of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Release()", WRAP_MFN(SoundInstance, Release), "Release sound");
 
 	script_class_name = "SoundStream";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "bool Play(int play_type)", WRAP_MFN(SoundStream, Play), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetVolume(float volume)", WRAP_MFN(SoundStream, SetVolume), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "float GetVolume()", WRAP_MFN(SoundStream, GetVolume), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void Stop()", WRAP_MFN(SoundStream, Stop), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "void Release()", WRAP_MFN(SoundStream, Release), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", "Script sound stream");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool Play(int play_type)", WRAP_MFN(SoundStream, Play), "Start playing a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetVolume(float volume)", WRAP_MFN(SoundStream, SetVolume), "Set volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "float GetVolume()", WRAP_MFN(SoundStream, GetVolume), "Get volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Stop()", WRAP_MFN(SoundStream, Stop), "Stop playing of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Release()", WRAP_MFN(SoundStream, Release), "Release sound");
 
 	script_class_name = "ScriptSound";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Sound), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "SoundInstance@ CreateSound(string&in file_name)", WRAP_MFN(ScriptCore::Sound, CreateSound), script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "SoundStream@ CreateStream(string&in file_name)", WRAP_MFN(ScriptCore::Sound, CreateStream), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Sound), "gr_script_core", "Script sound sub system");
+	core.scripts.RegisterObjectMethod(script_class_name, "SoundInstance@ CreateSound(string&in file_name)", WRAP_MFN(ScriptCore::Sound, CreateSound), "Create a sound instance");
+	core.scripts.RegisterObjectMethod(script_class_name, "SoundStream@ CreateStream(string&in file_name)", WRAP_MFN(ScriptCore::Sound, CreateStream), "Create a sound stream");
 
 	script_class_name = "ScriptUtils";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", "Script utility class");
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), "Check if point inside of a triangle");
 
 	script_class_name = "ScriptCore";
-	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", script_class_name);
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptControls controls", offsetof(ScriptCore, controls), script_class_name);
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptRender render", offsetof(ScriptCore, render), script_class_name);
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptScene scene", offsetof(ScriptCore, scene), script_class_name);
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptSound sound", offsetof(ScriptCore, sound), script_class_name);
-	core.scripts.RegisterObjectProperty(script_class_name, "ScriptUtils utils", offsetof(ScriptCore, utils), script_class_name);
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", "Script core class which have access to engine sub systems");
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptControls controls", offsetof(ScriptCore, controls), "Access to controls sub system");
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptRender render", offsetof(ScriptCore, render), "Access to render sub system");
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptScene scene", offsetof(ScriptCore, scene), "Access to scene sub system");
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptSound sound", offsetof(ScriptCore, sound), "Access to sound sub system");
+	core.scripts.RegisterObjectProperty(script_class_name, "ScriptUtils utils", offsetof(ScriptCore, utils), "Access to utility class");
 
-	core.scripts.RegisterObjectMethod(script_class_name, "void Log(string&in text)", WRAP_MFN(ScriptCore, Log), script_class_name);
+	core.scripts.RegisterObjectMethod(script_class_name, "void Log(string&in text)", WRAP_MFN(ScriptCore, Log), "Log a message into file");
 
 	engine->RegisterGlobalProperty("ScriptCore core", this);
 }

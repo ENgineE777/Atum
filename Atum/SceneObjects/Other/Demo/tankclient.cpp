@@ -12,7 +12,7 @@ META_DATA_DESC_END()
 
 void TankClient::Init()
 {
-	owner->AddToGroup(this, "TankClient");
+	GetScene()->AddToGroup(this, "TankClient");
 
 	angles.y = -HALF_PI;
 
@@ -75,7 +75,7 @@ void TankClient::AddIsntance(int id, bool is_contralable)
 
 void TankClient::Update(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		return;
 	}

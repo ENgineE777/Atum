@@ -25,7 +25,7 @@ bool SimpleServer::Play()
 
 void SimpleServer::Blink(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		return;
 	}
@@ -47,7 +47,7 @@ bool SimpleServer::Is3DObject()
 
 void SimpleServer::Work(float dt)
 {
-	if (Playing())
+	if (GetScene()->Playing())
 	{
 		server.Update();
 	}

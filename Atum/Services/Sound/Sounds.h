@@ -11,6 +11,26 @@
 #include "SoundInstance.h"
 #include "SoundStream.h"
 
+/**
+\ingroup gr_code_services_sound
+*/
+
+/**
+\brief Sounds
+
+This class manages sounds. Sounds can be entrielly loaded into memory or can be streamed.
+First type is usefull for SFX. For music better to use streamed version. Wav and Ogg formats
+are supported.
+
+Example of playing SFX:
+
+\code
+auto sound_inst = CreateSound("sound01.wav");
+test_inst->Play(SoundBase::Autodelete);
+\endcode
+
+*/
+
 class Sounds
 {
 	friend class SoundBase;
@@ -26,16 +46,43 @@ class Sounds
 
 public:
 
-	bool Init(void* data);
+	/**
+	\brief Create SoundInstance
 
+	\param[in] file_name Full path to a file
+
+	\return Pointer to SoundInstance
+	*/
 	SoundInstance* CreateSound(const char* file_name);
+
+	/**
+	\brief Create SoundStream
+
+	\param[in] file_name Full path to a file
+
+	\return Pointer to SoundStream
+	*/
 	SoundStream* CreateStream(const char* file_name);
+
+	/**
+	\brief Set master volume
+
+	\param[in] volume Value of a volume 
+	*/
+	void SetMasterVolume(float volume);
+
+	/**
+	\brief Get master volume
+
+	\return Current master volume
+	*/
+	float GetMasterVolume();
+
+#ifndef DOXYGEN_SKIP
+	bool Init(void* data);
 
 	void Update(float dt);
 
-	void SetMasterVolume(float volume);
-	float GetMasterVolume();
-
-
 	void Release();
+#endif
 };

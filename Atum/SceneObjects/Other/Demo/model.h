@@ -45,7 +45,7 @@ public:
 	{
 		int texture;
 		int num_triangles;
-		GeometryBuffer* buffer;
+		DataBuffer* buffer;
 	};
 
 	VertexDecl* vdecl;

@@ -46,13 +46,13 @@ void DebugTriangles::Draw(float dt)
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
-	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
-	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Shader::Type::Pixel, "lightDir", &vz, 1);
 
 	Matrix trans;
 	Color color = COLOR_WHITE;
-	prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
-	prg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "trans", &trans, 1);
+	prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&color, 1);
 
 	int index = 0;
 	Vertex* vertices = (Vertex*)vbuffer->Lock();

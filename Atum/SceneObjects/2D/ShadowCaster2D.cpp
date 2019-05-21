@@ -42,7 +42,7 @@ void ShadowCaster2D::Draw(float dt)
 	}
 
 	vector<Scene::Group*> out_groups;
-	GetOwner()->GetGroup(out_groups, caster_group.c_str());
+	GetScene()->GetGroup(out_groups, caster_group.c_str());
 
 	for (auto group : out_groups)
 	{

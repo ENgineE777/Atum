@@ -4,9 +4,9 @@
 class Plane : public Object
 {
 public:
-	VertexDecl*     vdecl;
-	GeometryBuffer* buffer;
-	Texture*        texture;
+	VertexDecl* vdecl;
+	DataBuffer* buffer;
+	Texture* texture;
 
 	struct VertexTri
 	{

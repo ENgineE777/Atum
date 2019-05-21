@@ -9,10 +9,11 @@
 */
 
 /**
-\brief PhysScene
+\brief SceneManger
 
-This is representation of a physical scene. Objecte to a scene are adding via proper
-methods of PhysScene.
+This manager handles loading and unloading scenes according data from a project.
+Scenes in a project have different pathes but to load/unload scene a file name without
+extenstion is needed.
 
 */
 
@@ -45,40 +46,33 @@ class SceneManager : public Object
 
 public:
 
+#ifndef DOXYGEN_SKIP
 	void Init();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	void LoadProject(const char* project_name);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	inline PhysScene* PScene() { return pscene; }
+	void Execute(float dt);
+	void UnloadAll();
+#endif
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	/** 
+	\brief Load a scene
+
+	\param[in] name Name of a scene (filename without extension)
 	*/
 	void LoadScene(const char* name);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	void Execute(float dt);
+	\brief Set state for scene objects from scene groups in all loaded scenes
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\param[in] group NAme of a group
+	\param[in] state State which will be set for secene objects
 	*/
 	void SetScenesGroupsState(const char* group, int state);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Unload a scene
+
+	\param[in] name Name of a scene (filename without extension)
 	*/
 	void UnloadScene(const char* name);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	void UnloadAll();
 };

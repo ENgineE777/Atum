@@ -105,7 +105,6 @@ public:
 	bool Is3DObject() override;
 
 	bool Play() override;
-	void Stop() override;
 	void Update(float dt);
 	void AddSplash(Vector& pos, float radius, float force);
 

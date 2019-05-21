@@ -33,7 +33,7 @@ void SimpleCharacter2D::Init()
 	Tasks(false)->AddTask(10, this, (Object::Delegate)&SimpleCharacter2D::Update);
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SimpleCharacter2D::Draw);
 
-	owner->AddToGroup(this, "SimpleCharacter2D");
+	GetScene()->AddToGroup(this, "SimpleCharacter2D");
 }
 
 void SimpleCharacter2D::ApplyProperties()
@@ -55,7 +55,7 @@ void SimpleCharacter2D::Update(float dt)
 		return;
 	}
 
-	if (owner->Playing())
+	if (GetScene()->Playing())
 	{
 		if (arraive > 0.0f)
 		{
@@ -209,7 +209,7 @@ void SimpleCharacter2D::Draw(float dt)
 SimpleCharacter2D* SimpleCharacter2D::FindTarget()
 {
 	vector<Scene::Group*> out_group;
-	GetOwner()->GetGroup(out_group, "SimpleCharacter2D");
+	GetScene()->GetGroup(out_group, "SimpleCharacter2D");
 
 	for (auto group : out_group)
 	{
@@ -388,7 +388,7 @@ void SimpleCharacter2D::ControlEnemy(float dt)
 void SimpleCharacter2D::MakeHit(Vector2 pos, int damage)
 {
 	vector<Scene::Group*> out_group;
-	GetOwner()->GetGroup(out_group, "SimpleCharacter2D");
+	GetScene()->GetGroup(out_group, "SimpleCharacter2D");
 
 	for (auto group : out_group)
 	{
@@ -459,7 +459,7 @@ void SimpleCharacter2D::Reset()
 
 void SimpleCharacter2D::SetAnimGraph(string& graph)
 {
-	asset = (SpriteGraphAsset*)owner->FindInGroup("SpriteGraphAsset", graph.c_str());
+	asset = (SpriteGraphAsset*)GetScene()->FindInGroup("SpriteGraphAsset", graph.c_str());
 
 	if (asset)
 	{
@@ -480,14 +480,6 @@ bool SimpleCharacter2D::Play()
 	Reset();
 
 	return true;
-}
-
-void SimpleCharacter2D::Stop()
-{
-	SceneObject::Stop();
-
-	graph_instance.Reset();
-	allow_move = false;
 }
 
 #ifdef EDITOR

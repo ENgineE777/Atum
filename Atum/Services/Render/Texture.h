@@ -21,35 +21,36 @@ public:
 
 	enum Format
 	{
-		FMT_A8R8G8B8 = 0 /*!< Hardware button in pressed state */,
-		FMT_A8R8 /*!< Hardware button in pressed state */,
-		FMT_A8 /*!< Hardware button in pressed state */,
-		FMT_R16_FLOAT /*!< Hardware button in pressed state */,
-		FMT_D16 /*!< Hardware button in pressed state */
+		FMT_A8R8G8B8 = 0,
+		FMT_A8R8,
+		FMT_A8,
+		FMT_R16_FLOAT,
+		FMT_D16
 	};
 
 	enum FilterType
 	{
-		Point = 0 /*!< Hardware button in pressed state */,
-		Linear /*!< Hardware button in pressed state */
+		Point = 0 /*!< Point filter */,
+		Linear /*!< Linera filtraion */
 	};
 
 	enum TextureAddress
 	{
-		Wrap = 0 /*!< Hardware button in pressed state */,
-		Mirror /*!< Hardware button in pressed state */,
-		Clamp /*!< Hardware button in pressed state */,
-		Border /*!< Hardware button in pressed state */
+		Wrap = 0 /*!< Wrapping */,
+		Mirror /*!< Mirroring */,
+		Clamp /*!< Clamping */,
+		Border /*!< Use border color */
 	};
 
 	enum Type
 	{
-		Tex2D = 0 /*!< Hardware button in pressed state */,
-		Array /*!< Hardware button in pressed state */,
-		Cube /*!< Hardware button in pressed state */,
-		Volume /*!< Hardware button in pressed state */
+		Tex2D = 0 /*!< 2D texture */,
+		Array /*!< Array texture */,
+		Cube /*!< Cube texture */,
+		Volume /*!< Volumetric texture */
 	};
 
+#ifndef DOXYGEN_SKIP
 	Texture(int w, int h, Format f, int l, Type tp)
 	{
 		width = w;
@@ -71,33 +72,52 @@ public:
 
 	virtual ~Texture() {};
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual int GetWidth()  { return width; };
+	virtual void Apply(int slot) = 0;
+	virtual void Update(int level, int layer, uint8_t* data, int stride) = 0;
+
+#endif
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get width of a texture
+
+	\return Width of a texture
+	*/
+	virtual int GetWidth() { return width; };
+
+	/**
+	\brief Get height of a texture
+
+	\return Height of a texture
 	*/
 	virtual int GetHeight() { return height; };
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get format of a texture
+
+	\return Format of a texture
 	*/
 	virtual int GetFormat() { return format; };
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get number of lods of a texture
+
+	\return Number of a lods of a texture
 	*/
-	virtual int GetLods()   { return lods; };
+	virtual int GetLods() { return lods; };
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get type of a texture
+
+	\return Type of a texture
 	*/
-	virtual int GetType()   { return type; };
+	virtual int GetType() { return type; };
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set filtering type
+
+	\param[in] magmin Filtering for magnifying
+	\param[in] mipmap Filtering for mip mapping
+
 	*/
 	virtual void SetFilters(FilterType magmin, FilterType mipmap)
 	{
@@ -106,7 +126,9 @@ public:
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set adress type
+
+	\param[in] adress Adress type
 	*/
 	virtual void SetAdress(TextureAddress adress)
 	{
@@ -116,7 +138,9 @@ public:
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set adress type for u coordinate
+
+	\param[in] adress Adress type
 	*/
 	virtual void SetAdressU(TextureAddress adress)
 	{
@@ -124,7 +148,9 @@ public:
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set adress type for v coordinate
+
+	\param[in] adress Adress type
 	*/
 	virtual void SetAdressV(TextureAddress adress)
 	{
@@ -132,7 +158,9 @@ public:
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set adress type for w coordinate
+
+	\param[in] adress Adress type
 	*/
 	virtual void SetAdressW(TextureAddress adress)
 	{
@@ -140,22 +168,12 @@ public:
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Generate full mip map chain
 	*/
 	virtual void GenerateMips() = 0;
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual void Apply(int slot) = 0;
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual void Update(int level, int layer, uint8_t* data, int stride) = 0;
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Texture should released only via this method
 	*/
 	virtual void Release() = 0;
 

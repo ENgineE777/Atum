@@ -1,10 +1,10 @@
 
-#include "GeometryBufferDX11.h"
+#include "DataBufferDX11.h"
 #include "DeviceDX11.h"
 
 #include "d3d11.h"
 
-GeometryBufferDX11::GeometryBufferDX11(int sz, int strd) : GeometryBuffer(sz, strd)
+DataBufferDX11::DataBufferDX11(int sz, int strd) : DataBuffer(sz, strd)
 {
 	D3D11_BUFFER_DESC bd;
 	ZeroMemory( &bd, sizeof(bd) );
@@ -16,7 +16,7 @@ GeometryBufferDX11::GeometryBufferDX11(int sz, int strd) : GeometryBuffer(sz, st
 	DeviceDX11::instance->pd3dDevice->CreateBuffer( &bd, NULL, &buffer );
 }
 
-void* GeometryBufferDX11::Lock()
+void* DataBufferDX11::Lock()
 {
 	D3D11_MAPPED_SUBRESOURCE res;
 	DeviceDX11::instance->immediateContext->Map(buffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &res);
@@ -24,12 +24,12 @@ void* GeometryBufferDX11::Lock()
 	return res.pData;
 }
 
-void GeometryBufferDX11::Unlock()
+void DataBufferDX11::Unlock()
 {
 	DeviceDX11::instance->immediateContext->Unmap(buffer, 0);
 }
 
-void GeometryBufferDX11::Release()
+void DataBufferDX11::Release()
 {
 	RELEASE(buffer)
 

@@ -33,7 +33,7 @@ bool SimpleClient::Play()
 
 void SimpleClient::Work(float dt)
 {
-	if (Playing())
+	if (GetScene()->Playing())
 	{
 		client.Update();
 	}

@@ -89,8 +89,8 @@ public:
 	void Init() override;
 	void Draw(float dt);
 
-	bool Play();
-	void Stop();
+	bool Play() override;
+	void Release() override;
 
 #endif
 };

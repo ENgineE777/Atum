@@ -100,7 +100,6 @@ public:
 	void Update(float dt);
 
 	bool Play() override;
-	void Stop() override;
 
 	void Reset();
 

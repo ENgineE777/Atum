@@ -1,16 +1,16 @@
 
 #pragma once
 
-#include "Services/Render/GeometryBuffer.h"
+#include "Services/Render/DataBuffer.h"
 #include <vector>
 
-class GeometryBufferDX11 : public GeometryBuffer
+class DataBufferDX11 : public DataBuffer
 {
 public:
 
 	struct ID3D11Buffer* buffer = nullptr;
 
-	GeometryBufferDX11(int sz, int strd);
+	DataBufferDX11(int sz, int strd);
 
 	virtual void* Lock();
 	virtual void Unlock();

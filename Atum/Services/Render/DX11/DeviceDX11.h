@@ -7,7 +7,7 @@
 class DeviceDX11 : public Device
 {
 	friend class Render;
-	friend class GeometryBufferDX11;
+	friend class DataBufferDX11;
 	friend class ShaderDX11;
 	friend class TextureDX11;
 	friend class VertexDeclDX11;
@@ -89,9 +89,9 @@ public:
 	virtual VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems);
 	virtual void SetVertexDecl(VertexDecl* vdecl);
 
-	virtual GeometryBuffer* CreateBuffer(int count, int stride);
-	virtual void SetVertexBuffer(int slot, GeometryBuffer* buffer);
-	virtual void SetIndexBuffer(GeometryBuffer* buffer);
+	virtual DataBuffer* CreateBuffer(int count, int stride);
+	virtual void SetVertexBuffer(int slot, DataBuffer* buffer);
+	virtual void SetIndexBuffer(DataBuffer* buffer);
 
 	virtual Texture* CreateTexture(int w, int h, Texture::Format f, int l, bool rt, Texture::Type tp);
 

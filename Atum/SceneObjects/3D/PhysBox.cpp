@@ -26,7 +26,7 @@ bool PhysBox::Is3DObject()
 void PhysBox::Init()
 {
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&PhysBox::Draw);
-	owner->AddToGroup(this, "PhysBox");
+	GetScene()->AddToGroup(this, "PhysBox");
 }
 
 void PhysBox::Draw(float dt)
@@ -47,8 +47,8 @@ bool PhysBox::Play()
 	return true;
 }
 
-void PhysBox::Stop()
+void PhysBox::Release()
 {
-	SceneObject::Stop();
 	RELEASE(obj);
+	SceneObject::Release();
 }

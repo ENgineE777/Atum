@@ -122,7 +122,7 @@ public:
 #ifdef EDITOR
 	bool IsAsset() override;
 	void SaveAssetData(JSONWriter& writer) override;
-	void SetOwner(Scene* owner) override;
+	void SetScene(Scene* set_scene) override;
 	bool UsingCamera2DPos() override;
 	void SetEditMode(bool ed) override;
 	virtual void StoreProperties();

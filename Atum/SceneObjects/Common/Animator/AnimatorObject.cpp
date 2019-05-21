@@ -24,7 +24,7 @@ void AnimatorObject::Init()
 
 void AnimatorObject::Work(float dt)
 {
-	if (!owner->Playing() || !animator)
+	if (!GetScene()->Playing() || !animator)
 	{
 		return;
 	}
@@ -66,10 +66,4 @@ bool AnimatorObject::Play()
 	}*/
 
 	return true;
-}
-
-void AnimatorObject::Stop()
-{
-	SceneObject::Stop();
-	animator = nullptr;
 }

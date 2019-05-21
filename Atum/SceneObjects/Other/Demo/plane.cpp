@@ -62,10 +62,10 @@ void Plane::Render(Program* prg)
 	core.render.GetTransform(Render::WrldViewProj, trans);
 
 	Matrix mat;
-	prg->SetMatrix(Program::Vertex, "world", &mat, 1);
-	prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
-	prg->SetVector(Program::Pixel, "color", &color, 1);
-	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
+	prg->SetMatrix(Shader::Type::Vertex, "world", &mat, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "trans", &trans, 1);
+	prg->SetVector(Shader::Type::Pixel, "color", &color, 1);
+	prg->SetTexture(Shader::Type::Pixel, "diffuseMap", texture);
 
 	core.render.GetDevice()->Draw(Device::TrianglesList, 0, 2);
 }

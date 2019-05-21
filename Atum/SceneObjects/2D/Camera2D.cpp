@@ -49,7 +49,7 @@ void Camera2D::Update(float dt)
 {
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
-	if (owner->Playing())
+	if (GetScene()->Playing())
 	{
 		if (use_lr_borders)
 		{
@@ -124,16 +124,8 @@ bool Camera2D::Play()
 {
 	init_pos = trans.pos;
 	target_pos = init_pos;
-	Sprite::use_ed_cam = false;
 
 	return true;
-}
-
-void Camera2D::Stop()
-{
-	SceneObject::Stop();
-
-	Sprite::use_ed_cam = true;
 }
 
 void Camera2D::Reset()

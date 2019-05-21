@@ -83,7 +83,7 @@ public:
 		SceneTreeItem() = default;
 		SceneTreeItem(SceneObject* set_object)
 		{
-			scene = set_object->owner;
+			scene = set_object->scene;
 			object = set_object;
 		};
 	};

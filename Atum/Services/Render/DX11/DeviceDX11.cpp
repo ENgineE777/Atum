@@ -1,6 +1,6 @@
 
 #include "DeviceDX11.h"
-#include "GeometryBufferDX11.h"
+#include "DataBufferDX11.h"
 #include "ShaderDX11.h"
 #include "VertexDeclDX11.h"
 #include "TextureDX11.h"
@@ -345,19 +345,19 @@ void DeviceDX11::SetVertexDecl(VertexDecl* vdecl)
 	}
 }
 
-GeometryBuffer* DeviceDX11::CreateBuffer(int count, int stride)
+DataBuffer* DeviceDX11::CreateBuffer(int count, int stride)
 {
-	return new GeometryBufferDX11(count, stride);
+	return new DataBufferDX11(count, stride);
 }
 
-void DeviceDX11::SetVertexBuffer(int slot, GeometryBuffer* buffer)
+void DeviceDX11::SetVertexBuffer(int slot, DataBuffer* buffer)
 {
 	ID3D11Buffer* vb = nullptr;
 	unsigned int stride = 0;
 
 	if (buffer)
 	{
-		vb = ((GeometryBufferDX11*)buffer)->buffer;
+		vb = ((DataBufferDX11*)buffer)->buffer;
 		stride = buffer->GetStride();
 	}
 
@@ -365,14 +365,14 @@ void DeviceDX11::SetVertexBuffer(int slot, GeometryBuffer* buffer)
 	immediateContext->IASetVertexBuffers(slot, 1, &vb, &stride, &offset);
 }
 
-void DeviceDX11::SetIndexBuffer(GeometryBuffer* buffer)
+void DeviceDX11::SetIndexBuffer(DataBuffer* buffer)
 {
 	ID3D11Buffer* ib = nullptr;
 	DXGI_FORMAT fmt = DXGI_FORMAT_R16_UINT;
 
 	if (buffer)
 	{
-		ib = ((GeometryBufferDX11*)buffer)->buffer;
+		ib = ((DataBufferDX11*)buffer)->buffer;
 		if (buffer->GetStride() == 4)
 		{
 			fmt = DXGI_FORMAT_R32_UINT;

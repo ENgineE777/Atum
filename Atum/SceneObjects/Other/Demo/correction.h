@@ -10,12 +10,12 @@ public:
 
 	META_DATA_DECL(ColorCorrection)
 
-	Program*        color_prg = nullptr;
-	Program*        blur_prg = nullptr;
-	Program*        combine_prg = nullptr;
-	VertexDecl*     vdecl = nullptr;
-	GeometryBuffer* buffer = nullptr;
-	Texture*        ring_rt[2];
+	Program*    color_prg = nullptr;
+	Program*    blur_prg = nullptr;
+	Program*    combine_prg = nullptr;
+	VertexDecl* vdecl = nullptr;
+	DataBuffer* buffer = nullptr;
+	Texture*    ring_rt[2];
 
 	Texture* scene_rt = nullptr;
 	Texture* scene_depth = nullptr;

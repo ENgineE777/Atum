@@ -1,7 +1,7 @@
 
 #include "DeviceGLES.h"
 #include "ShaderGLES.h"
-#include "GeometryBufferGLES.h"
+#include "DataBufferGLES.h"
 #include "VertexDeclGLES.h"
 #include "TextureGLES.h"
 #include "Services/Core/Core.h"
@@ -137,19 +137,19 @@ void DeviceGLES::SetVertexDecl(VertexDecl* vdecl)
 
 }
 
-GeometryBuffer* DeviceGLES::CreateBuffer(int count, int stride)
+DataBuffer* DeviceGLES::CreateBuffer(int count, int stride)
 {
-	return new GeometryBufferGLES(count, stride);
+	return new DataBufferGLES(count, stride);
 }
 
-void DeviceGLES::SetVertexBuffer(int slot, GeometryBuffer* buffer)
+void DeviceGLES::SetVertexBuffer(int slot, DataBuffer* buffer)
 {
 	if (cur_buff == buffer)
 	{
 		return;
 	}
 
-	cur_buff = (GeometryBufferGLES*)buffer;
+	cur_buff = (DataBufferGLES*)buffer;
 
 	if (cur_buff)
 	{
@@ -162,14 +162,14 @@ void DeviceGLES::SetVertexBuffer(int slot, GeometryBuffer* buffer)
 	}
 }
 
-void DeviceGLES::SetIndexBuffer(GeometryBuffer* buffer)
+void DeviceGLES::SetIndexBuffer(DataBuffer* buffer)
 {
 	if (cur_ibuff == buffer)
 	{
 		return;
 	}
 
-	cur_ibuff = (GeometryBufferGLES*)buffer;
+	cur_ibuff = (DataBufferGLES*)buffer;
 
 	if (cur_ibuff)
 	{

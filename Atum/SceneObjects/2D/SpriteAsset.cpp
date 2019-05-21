@@ -30,7 +30,7 @@ void SpriteAsset::Init()
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteAsset::Draw);
 #endif
 
-	owner->AddToGroup(this, "SpriteAsset");
+	GetScene()->AddToGroup(this, "SpriteAsset");
 }
 
 void SpriteAsset::Draw(float dt)

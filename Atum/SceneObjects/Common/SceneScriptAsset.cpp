@@ -146,7 +146,7 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 void SceneScriptAsset::GetScriptFileName(string& filename)
 {
 	char str[1024];
-	StringUtils::Printf(str, 1024, "%s%s.sns", owner->GetPath(), GetName());
+	StringUtils::Printf(str, 1024, "%s%s.sns", GetScene()->GetPath(), GetName());
 
 	filename = str;
 }
@@ -158,7 +158,7 @@ void SceneScriptAsset::Init()
 #ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScriptAsset::EditorWork);
 
-	GetOwner()->AddToGroup(this, "AssetScripts");
+	GetScene()->AddToGroup(this, "AssetScripts");
 #endif
 }
 
@@ -286,7 +286,7 @@ bool SceneScriptAsset::Play()
 		memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
 		name[len] = 0;
 
-		SceneScriptAsset* object = (SceneScriptAsset*)GetOwner()->FindInGroup("AssetScripts", name);
+		SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", name);
 
 		if (object)
 		{
@@ -506,7 +506,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 
 			if (!scene_node.object)
 			{
-				scene_node.object = inst->GetOwner()->FindByUID(scene_node.object_uid, scene_node.object_child_uid, false);
+				scene_node.object = inst->GetScene()->FindByUID(scene_node.object_uid, scene_node.object_child_uid, false);
 			}
 
 			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node.object ? scene_node.object->GetName() : "NULL");

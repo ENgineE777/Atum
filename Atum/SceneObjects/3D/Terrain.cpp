@@ -37,7 +37,7 @@ void Terrain::Init()
 
 	RenderTasks(false)->AddTask(ExecuteLevels::Geometry, this, (Object::Delegate)&Terrain::Render);
 
-	owner->AddToGroup(this, "Terrain");
+	GetScene()->AddToGroup(this, "Terrain");
 }
 
 void Terrain::ApplyProperties()
@@ -278,10 +278,10 @@ void Terrain::Render(Program* prg)
 	Matrix mat;
 	Matrix world;
 
-	prg->SetMatrix(Program::Vertex, "trans", &world, 1);
-	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
-	prg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
-	prg->SetTexture(Program::Pixel, "diffuseMap", texture);
+	prg->SetMatrix(Shader::Type::Vertex, "trans", &world, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&color, 1);
+	prg->SetTexture(Shader::Type::Pixel, "diffuseMap", texture);
 
 	core.render.GetDevice()->Draw(Device::TrianglesList, 0, sz);
 }

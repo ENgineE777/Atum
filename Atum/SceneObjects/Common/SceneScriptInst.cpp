@@ -136,7 +136,7 @@ bool SceneScriptInst::PostPlay()
 		return false;
 	}
 
-	core.scripts.RegisterClassInstance(GetOwner()->GetName(), class_inst);
+	core.scripts.RegisterClassInstance(GetScene()->GetName(), class_inst);
 
 	int index = 0;
 
@@ -155,7 +155,7 @@ bool SceneScriptInst::PostPlay()
 
 					if (!node_inst.object)
 					{
-						node_inst.object = owner->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
+						node_inst.object = GetScene()->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
 					}
 					
 					if (node_inst.object)
@@ -192,7 +192,7 @@ bool SceneScriptInst::PostPlay()
 
 					if (!node_inst.object)
 					{
-						node_inst.object = owner->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
+						node_inst.object = GetScene()->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
 					}
 
 					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
@@ -244,7 +244,7 @@ bool SceneScriptInst::PostPlay()
 
 void SceneScriptInst::Work(float dt)
 {
-	if (!Playing() || !class_inst)
+	if (!GetScene()->Playing() || !class_inst)
 	{
 		return;
 	}
@@ -252,38 +252,41 @@ void SceneScriptInst::Work(float dt)
 	CallMethods(Asset()->frame_updates, true);
 }
 
-void SceneScriptInst::Stop()
+void SceneScriptInst::Release()
 {
-	int index = 0;
-
-	for (auto node : Asset()->nodes)
+	if (Asset())
 	{
-		if (node->type == SceneScriptAsset::ScriptMethod)
+		int index = 0;
+
+		for (auto node : Asset()->nodes)
 		{
-			SceneScriptAsset::NodeScriptMethod* node_method = (SceneScriptAsset::NodeScriptMethod*)node;
-
-			if (node_method->param_type != 3)
+			if (node->type == SceneScriptAsset::ScriptMethod)
 			{
-				for (auto link : node_method->links)
+				SceneScriptAsset::NodeScriptMethod* node_method = (SceneScriptAsset::NodeScriptMethod*)node;
+
+				if (node_method->param_type != 3)
 				{
-					Node& node_inst = nodes[link.node];
-
-					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
+					for (auto link : node_method->links)
 					{
-						ScriptCallback* callback = nullptr;
+						Node& node_inst = nodes[link.node];
 
-						if (node_inst.callback_type.size() > 0)
+						if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
 						{
-							callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
-						}
-						else
-						{
-							callback = &node_inst.object->script_callbacks[0];
-						}
+							ScriptCallback* callback = nullptr;
 
-						if (callback)
-						{
-							callback->Unbind(class_inst);
+							if (node_inst.callback_type.size() > 0)
+							{
+								callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
+							}
+							else
+							{
+								callback = &node_inst.object->script_callbacks[0];
+							}
+
+							if (callback)
+							{
+								callback->Unbind(class_inst);
+							}
 						}
 					}
 				}
@@ -291,10 +294,12 @@ void SceneScriptInst::Stop()
 		}
 
 		index++;
+
+		core.scripts.UnregisterClassInstance(class_inst);
+		RELEASE(class_inst);
 	}
 
-	core.scripts.UnregisterClassInstance(class_inst);
-	RELEASE(class_inst);
+	SceneObjectInst::Release();
 }
 
 bool SceneScriptInst::UsingCamera2DPos()
@@ -323,9 +328,9 @@ void SceneScriptInst::CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> me
 }
 
 #ifdef EDITOR
-void SceneScriptInst::SetOwner(Scene* owner)
+void SceneScriptInst::SetScene(Scene* set_scene)
 {
-	SceneObjectInst::SetOwner(owner);
+	SceneObjectInst::SetScene(set_scene);
 
 	int index = 0;
 	for (auto& node : Asset()->nodes)
@@ -334,11 +339,10 @@ void SceneScriptInst::SetOwner(Scene* owner)
 		{
 			Node& nd = nodes[index];
 
-			if (!GetOwner()->FindByUID(nd.object_uid, nd.object_child_uid, nd.object->IsAsset()))
+			if (!GetScene()->FindByUID(nd.object_uid, nd.object_child_uid, nd.object->IsAsset()))
 			{
 				nd = Node();
 			}
-
 		}
 
 		index++;
@@ -395,7 +399,7 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 
 				object->GetUIDs(object_uid, object_child_uid);
 
-				if (GetOwner()->FindByUID(object_uid, object_child_uid, object->IsAsset()))
+				if (GetScene()->FindByUID(object_uid, object_child_uid, object->IsAsset()))
 				{
 					nd.object = object;
 					nd.object_uid = object_uid;

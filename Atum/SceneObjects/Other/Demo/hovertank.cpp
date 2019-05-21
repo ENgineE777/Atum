@@ -84,7 +84,7 @@ void HoverTank::Init()
 bool HoverTank::Play()
 {
 	vector<Scene::Group*> out_group;
-	GetOwner()->GetGroup(out_group, "Terrain");
+	GetScene()->GetGroup(out_group, "Terrain");
 
 	for (auto group : out_group)
 	{
@@ -164,7 +164,7 @@ bool HoverTank::Play()
 	angles = Vector2(0.0f, 0.0f);
 
 	vector<Scene::Group*> out_group_pb;
-	GetOwner()->GetGroup(out_group_pb, "PhysBox");
+	GetScene()->GetGroup(out_group_pb, "PhysBox");
 
 	for (auto group : out_group_pb)
 	{
@@ -211,26 +211,48 @@ bool HoverTank::Play()
 	return true;
 }
 
-void HoverTank::Stop()
+void HoverTank::Release()
 {
-	mScene->release();
+	if (mScene)
+	{
+		mScene->release();
+	}
 
 	boxes.clear();
 
-	heightField->release();
+	if (heightField)
+	{
+		heightField->release();
+	}
 
-	delete[] hsamples;
+	if (hsamples)
+	{
+		delete[] hsamples;
+	}
 
 	projectiles.clear();
 
-	hover_drawer->Show(true);
-	tower_drawer->Show(true);
-	gun_drawer->Show(true);
+	if (hover_drawer)
+	{
+		delete hover_drawer;
+	}
+
+	if (tower_drawer)
+	{
+		delete tower_drawer;
+	}
+
+	if (gun_drawer)
+	{
+		delete gun_drawer;
+	}
+
+	SceneObject::Release();
 }
 
 void HoverTank::Update(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		hover_drawer->SetTransform(transform);
 		tower_drawer->SetTransform(transform);

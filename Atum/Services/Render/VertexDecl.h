@@ -8,10 +8,9 @@
 */
 
 /**
-\brief PhysScene
+\brief VertexDecl
 
-This is representation of a physical scene. Objecte to a scene are adding via proper
-methods of PhysScene.
+This class holds decalration of a vertex.
 
 */
 
@@ -21,37 +20,42 @@ public:
 
 	enum ElemType
 	{
-		Float /*!< Hardware button in pressed state */,
-		Float2 /*!< Hardware button in pressed state */,
-		Float3 /*!< Hardware button in pressed state */,
-		Float4 /*!< Hardware button in pressed state */,
-		Int /*!< Hardware button in pressed state */,
-		Int2 /*!< Hardware button in pressed state */,
-		Int3 /*!< Hardware button in pressed state */,
-		Int4 /*!< Hardware button in pressed state */,
-		UInt /*!< Hardware button in pressed state */,
-		UInt2 /*!< Hardware button in pressed state */,
-		UInt3 /*!< Hardware button in pressed state */,
-		UInt4 /*!< Hardware button in pressed state */,
-		Ubyte4 /*!< Hardware button in pressed state */
+		Float /*!< 1 component float */,
+		Float2 /*!< 2 component float */,
+		Float3 /*!< 3 component float */,
+		Float4 /*!< 4 component float */,
+		Int /*!< 1 component integer */,
+		Int2 /*!< 2 component integer */,
+		Int3 /*!< 3 component integer */,
+		Int4 /*!< 4 component integer */,
+		UInt /*!< 1 component unsigned integer */,
+		UInt2 /*!< 2 component unsigned integer */,
+		UInt3 /*!< 3 component unsigned integer */,
+		UInt4 /*!< 4 component unsigned integer */,
+		Ubyte4 /*!< 4 component unsigned byte */
 	};
 
 	enum ElemSemantic
 	{
-		Position /*!< Hardware button in pressed state */,
-		Texcoord /*!< Hardware button in pressed state */,
-		Color /*!< Hardware button in pressed state */
+		Position /*!< Will be used as position */,
+		Texcoord /*!< Will be used as texture coordinates */,
+		Color /*!< Will be used as color */
 	};
 
 	struct ElemDesc
 	{
-		ElemType     type;
+		/** \brief data type of an element */
+		ElemType type;
+
+		/** \brief semantic of an element */
 		ElemSemantic semantic;
-		int          index;
+
+		/** \brief index of an element*/
+		int index;
 	};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief VertexDecl should released only via this method
 	*/
 	virtual void Release() = 0;
 };

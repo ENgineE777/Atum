@@ -119,7 +119,7 @@ void SpriteGraphAsset::Init()
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SpriteGraphAsset::Draw);
 #endif
 
-	owner->AddToGroup(this, "SpriteGraphAsset");
+	GetScene()->AddToGroup(this, "SpriteGraphAsset");
 }
 
 void SpriteGraphAsset::ApplyProperties()
@@ -128,7 +128,7 @@ void SpriteGraphAsset::ApplyProperties()
 
 	for (auto& node : nodes)
 	{
-		node.asset = (SpriteAsset*)owner->FindByUID(node.object_uid, 0, true);
+		node.asset = (SpriteAsset*)GetScene()->FindByUID(node.object_uid, 0, true);
 
 		if (!node.asset)
 		{

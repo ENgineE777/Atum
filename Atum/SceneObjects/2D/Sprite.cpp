@@ -14,11 +14,11 @@ bool Sprite::use_ed_cam = true;
 Vector2 Sprite::cam_pos = 0.0f;
 Vector2 Sprite::ed_cam_pos = 0.0f;
 
-Program*        Sprite::quad_prg_depth;
-Program*        Sprite::quad_prg_no_depth;
-VertexDecl*     Sprite::vdecl;
-GeometryBuffer* Sprite::buffer;
-Texture*        Sprite::white_tex = nullptr;
+Program*    Sprite::quad_prg_depth;
+Program*    Sprite::quad_prg_no_depth;
+VertexDecl* Sprite::vdecl;
+DataBuffer* Sprite::buffer;
+Texture*    Sprite::white_tex = nullptr;
 
 void Sprite::Load(JSONReader& loader, Sprite::Data* sprite, const char* name)
 {
@@ -253,10 +253,10 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 
 	params[2] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0.5f, 0);
 
-	quad_prg->SetVector(Program::Vertex, "desc", &params[0], 3);
-	quad_prg->SetMatrix(Program::Vertex, "trans", &trans, 1);
-	quad_prg->SetVector(Program::Pixel, "color", (Vector4*)&clr.r, 1);
-	quad_prg->SetTexture(Program::Pixel, "diffuseMap", texture ? texture : white_tex);
+	quad_prg->SetVector(Shader::Type::Vertex, "desc", &params[0], 3);
+	quad_prg->SetMatrix(Shader::Type::Vertex, "trans", &trans, 1);
+	quad_prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&clr.r, 1);
+	quad_prg->SetTexture(Shader::Type::Pixel, "diffuseMap", texture ? texture : white_tex);
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }

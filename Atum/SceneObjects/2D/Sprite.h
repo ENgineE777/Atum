@@ -58,10 +58,10 @@ public:
 		float cur_time = -1.0f;
 	};
 
-	static Program*        quad_prg_depth;
-	static Program*        quad_prg_no_depth;
-	static VertexDecl*     vdecl;
-	static GeometryBuffer* buffer;
+	static Program*    quad_prg_depth;
+	static Program*    quad_prg_no_depth;
+	static VertexDecl* vdecl;
+	static DataBuffer* buffer;
 
 	static bool use_ed_cam;
 	static Vector2 cam_pos;

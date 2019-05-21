@@ -88,15 +88,15 @@ void ColorCorrection::Draw(float dt)
 
 	core.render.GetDevice()->SetProgram(color_prg);
 
-	color_prg->SetVector(Program::Vertex, "treshold", &threshold, 1);
-	color_prg->SetTexture(Program::Pixel, "rt", scene_rt);
+	color_prg->SetVector(Shader::Type::Vertex, "treshold", &threshold, 1);
+	color_prg->SetTexture(Shader::Type::Pixel, "rt", scene_rt);
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 
 	core.render.GetDevice()->SetRenderTarget(0, ring_rt[1]);
 
 	core.render.GetDevice()->SetProgram(blur_prg);
-	blur_prg->SetTexture(Program::Pixel, "rt", ring_rt[0]);
+	blur_prg->SetTexture(Shader::Type::Pixel, "rt", ring_rt[0]);
 
 	Vector4 samples[15];
 
@@ -133,7 +133,7 @@ void ColorCorrection::Draw(float dt)
 		samples[i].z /= totalWeights;
 	}
 
-	blur_prg->SetVector(Program::Pixel, "samples", samples, 15);
+	blur_prg->SetVector(Shader::Type::Pixel, "samples", samples, 15);
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 
@@ -145,16 +145,16 @@ void ColorCorrection::Draw(float dt)
 		samples[i].y = samples[i].w;
 	}
 
-	blur_prg->SetTexture(Program::Pixel, "rt", ring_rt[1]);
-	blur_prg->SetVector(Program::Pixel, "samples", samples, 15);
+	blur_prg->SetTexture(Shader::Type::Pixel, "rt", ring_rt[1]);
+	blur_prg->SetVector(Shader::Type::Pixel, "samples", samples, 15);
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 
 	core.render.GetDevice()->RestoreRenderTarget();
 
 	core.render.GetDevice()->SetProgram(combine_prg);
-	combine_prg->SetTexture(Program::Pixel, "rt", ring_rt[0]);
-	combine_prg->SetTexture(Program::Pixel, "rt1", scene_rt);
+	combine_prg->SetTexture(Shader::Type::Pixel, "rt", ring_rt[0]);
+	combine_prg->SetTexture(Shader::Type::Pixel, "rt1", scene_rt);
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }

@@ -139,7 +139,7 @@ void SceneManager::SetScenesGroupsState(const char* group_name, int state)
 			{
 				for (auto obj : group->objects)
 				{
-					obj->SetState(state);
+					obj->SetState((SceneObject::State)state);
 				}
 			}
 		}
@@ -165,7 +165,6 @@ void SceneManager::UnloadScene(SceneHolder* holder)
 {
 	if (holder->ref_counter == 0)
 	{
-		holder->scene->Stop();
 		RELEASE(holder->scene)
 	}
 
@@ -183,7 +182,6 @@ void SceneManager::UnloadAll()
 	{
 		if (scn.scene)
 		{
-			scn.scene->Stop();
 			RELEASE(scn.scene)
 		}
 	}

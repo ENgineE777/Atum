@@ -27,7 +27,7 @@ class Fonts
 	};
 
 	Program*        fntProg = nullptr;
-	GeometryBuffer* vbuffer = nullptr;
+	DataBuffer* vbuffer = nullptr;
 	VertexDecl*     vdecl = nullptr;
 #endif
 

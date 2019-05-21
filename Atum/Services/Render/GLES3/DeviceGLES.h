@@ -15,15 +15,15 @@
 class DeviceGLES : public Device
 {
 	friend class Render;
-	friend class GeometryBufferGLES;
+	friend class DataBufferGLES;
 	friend class ShaderGLES;
 	friend class TextureGLES;
 	friend class VertexDeclGLES;
 
 	class VertexDeclGLES* cur_vdecl = nullptr;
-	class GeometryBufferGLES* cur_buff = nullptr;
+	class DataBufferGLES* cur_buff = nullptr;
 	GLuint ibuff_type = 0;
-	class GeometryBufferGLES* cur_ibuff = nullptr;
+	class DataBufferGLES* cur_ibuff = nullptr;
 
 	bool need_apply_vdecl = false;
 
@@ -66,9 +66,9 @@ public:
 	virtual VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems);
 	virtual void SetVertexDecl(VertexDecl* vdecl);
 
-	virtual GeometryBuffer* CreateBuffer(int count, int stride);
-	virtual void SetVertexBuffer(int slot, GeometryBuffer* buffer);
-	virtual void SetIndexBuffer(GeometryBuffer* buffer);
+	virtual DataBuffer* CreateBuffer(int count, int stride);
+	virtual void SetVertexBuffer(int slot, DataBuffer* buffer);
+	virtual void SetIndexBuffer(DataBuffer* buffer);
 
 	virtual Texture* CreateTexture(int w, int h, Texture::Format f, int l, bool rt, Texture::Type tp);
 

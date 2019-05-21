@@ -76,7 +76,7 @@ public:
 	void Init() override;
 
 	bool Play() override;
-	void Stop() override;
+	void Release() override;
 	void Update(float dt);
 	void AddHover(Matrix& mat, Vector offset);
 	void AddSplash(Vector& pos, float radius, float force);

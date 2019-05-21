@@ -102,8 +102,8 @@ void DebugSpheres::Draw(float dt)
 	view.Inverse();
 	Vector4 vz = Vector4(-view.Vz());
 
-	prg->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
-	prg->SetVector(Program::Pixel, "lightDir", &vz, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &view_proj, 1);
+	prg->SetVector(Shader::Type::Pixel, "lightDir", &vz, 1);
 
 	core.render.GetDevice()->SetAlphaBlend(true);
 
@@ -116,8 +116,8 @@ void DebugSpheres::Draw(float dt)
 		mat.Scale(scale);
 		mat.Pos() = sphere.pos;
 
-		prg->SetMatrix(Program::Vertex, "trans", &mat, 1);
-		prg->SetVector(Program::Pixel, "color", (Vector4*)&sphere.color, 1);
+		prg->SetMatrix(Shader::Type::Vertex, "trans", &mat, 1);
+		prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&sphere.color, 1);
 
 		core.render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, PrimCount);
 	}

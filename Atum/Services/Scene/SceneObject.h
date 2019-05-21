@@ -19,21 +19,24 @@
 */
 
 /**
-\brief PhysScene
+\brief SceneObject
 
-This is representation of a physical scene. Objecte to a scene are adding via proper
-methods of PhysScene.
+This is scene object which is a base class of every entity in a scene.
 
 */
 
 class SceneObject : public Object
 {
 	friend class Scene;
-	friend class UIViewAsset;
+	friend class UIViewAsset; 
+	friend class UIWidgetAsset;
 
 #ifdef EDITOR
 	friend class Project;
 #endif
+
+private:
+	Scene * scene = nullptr;
 
 public:
 	enum State
@@ -75,7 +78,6 @@ public:
 
 protected:
 
-	Scene* owner = nullptr;
 	std::string name;
 	std::string group_name;
 	std::string layer_name;
@@ -89,10 +91,7 @@ protected:
 
 public:
 
-	inline Scene* GetOwner()
-	{
-		return owner;
-	}
+#ifndef DOXYGEN_SKIP
 
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;
@@ -110,162 +109,182 @@ public:
 	SceneObject() = default;
 	virtual ~SceneObject() = default;
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	const char* GetName();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	virtual void SetName(const char* name);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	virtual void SetUID(uint32_t uid);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual uint32_t GetUID();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual uint32_t GetParentUID();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual void SetState(int state);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual State GetState();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual Matrix& Trans();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual bool UsingCamera2DPos();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	virtual SceneObjectComp* AddComponent(const char* name);
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
 	virtual void DelComponent(SceneObjectComp* comp);
 
+	virtual MetaData* GetMetaData() = 0;
+#endif
+
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Initialization of a scene object. This is a place where all task should be registered
 	*/
 	virtual void Init() = 0;
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get name of a scene object
+
+	\return Name of a scene object
+	*/
+	const char* GetName();
+
+	/**
+	\brief Get UID of a scene object. This UID is unique among all scene objects in a project
+
+	\return UID of a scene object
+	*/
+	virtual uint32_t GetUID();
+
+	/**
+	\brief Get UID of a parent of a scene object
+
+	\return UID of a parent of a scene object
+	*/
+	virtual uint32_t GetParentUID();
+
+	/**
+	\brief Set state of a scene object
+
+	\param[in] state New state of a scene object
+	*/
+	virtual void SetState(State state);
+
+	/**
+	\brief Get current state of a scene object
+
+	\return Current state of a scene object
+	*/
+	virtual State GetState();
+
+	/**
+	\brief Get transformation in 3D space of scene object
+
+	\return Transformation in 3D space of scene object
+	*/
+	virtual Matrix& Trans();
+
+	/**
+	\brief Should 2D space used for a scene object
+
+	\return Should 2D space used for a scene object
+	*/
+	virtual bool UsingCamera2DPos();
+
+	/**
+	\brief This method called after each change of properties of scene object via editor
 	*/
 	virtual void ApplyProperties();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual MetaData* GetMetaData() = 0;
+	\brief Load properties from JSON
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\param[in] reader JSON helper class for reading JSON
 	*/
 	virtual void Load(JSONReader& reader);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Save properties into JSON
+
+	\param[in] writer JSON helper class for writing JSON
 	*/
 	virtual void Save(JSONWriter& writer);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get task pool
+
+	\param[in] editor Should be used scene task pool or created new one which will be used in the editor
 	*/
-	virtual TaskExecutor::SingleTaskPool* Tasks(bool edtitor);
+	virtual TaskExecutor::SingleTaskPool* Tasks(bool editor);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get render task pool
+
+	\param[in] editor Should be used scene render task pool or created new one which will be used in the editor
 	*/
 	virtual TaskExecutor::SingleTaskPool* RenderTasks(bool editor);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief This method called when scene is starting to play
+
+	\return Result of switching a scene object in palyng state.
 	*/
 	virtual bool Play();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief This is second method which called when scene is starting to play
+
+	\return Result of switching a scene object in palyng state.
 	*/
 	virtual bool PostPlay();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get pointer to a scene owner
+
+	\return Pointer to a scene owner
 	*/
-	virtual void Stop();
+	inline Scene* GetScene()
+	{
+		return scene;
+	}
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	bool Playing();
+	\brief Get pointer to a script context. Only available when scene is playing.
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	Scene* GetScene();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\return Pointer to a script context
 	*/
 	ScriptContext* Script();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get pointer to a physical scene. Only available when scene is playing.
+
+	\return Pointer to a physical scene
 	*/
 	PhysScene* PScene();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual void Release();
+	\brief Should 3D space used for a scene object
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\return Should 3D space used for a scene object
 	*/
 	virtual bool Is3DObject();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get child scene object by UID
+
+	\param[in] uid UID of a child scene object
+
+	\return Pointer to a child scene object
 	*/
 	virtual SceneObject* GetChild(uint32_t uid);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Register script class for a scene object
 	*/
 	virtual void BindClassToScript();
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Inject properties into script property
+
+	\param[in] type Type of a script property
+	\param[in] property Pointer to a script property
+	\param[in] prefix Prefix which will be used to names of fileds
+
+	\return True will be returned in case injection was successfully.
 	*/
 	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
+
+	/**
+	\brief SceneObject should released only via this method
+	*/
+	virtual void Release();
 
 #ifdef EDITOR
 	void* item = nullptr;
 	virtual void Set2DPos(Vector2 pos);
 	virtual void SaveAssetData(JSONWriter& writer);
 	virtual void GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid);
-	virtual void SetOwner(Scene* owner);
+	virtual void SetScene(Scene* scene);
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
 	virtual bool IsAsset();
@@ -309,7 +328,7 @@ public:
 
 #ifdef EDITOR
 	void SaveAssetData(JSONWriter& writer) override;
-	void SetOwner(Scene* owner) override;
+	void SetScene(Scene* scene) override;
 	void Copy(SceneObject* src) override;
 #endif
 };

@@ -28,10 +28,10 @@ class DebugSpheres : public Object
 
 	std::vector<Sphere> spheres;
 
-	Program*        prg;
-	VertexDecl*     vdecl;
-	GeometryBuffer* vbuffer;
-	GeometryBuffer* ibuffer;
+	Program* prg;
+	VertexDecl* vdecl;
+	DataBuffer* vbuffer;
+	DataBuffer* ibuffer;
 
 public:
 	

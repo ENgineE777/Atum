@@ -1024,7 +1024,7 @@ void Project::SetScene(EUITreeView* treeview, void* item, Scene* scene)
 
 	if (tree_item->object)
 	{
-		tree_item->object->SetOwner(scene);
+		tree_item->object->SetScene(scene);
 	}
 	else
 	{

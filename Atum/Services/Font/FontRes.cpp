@@ -223,8 +223,8 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 
 	params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0.5f, 0.0f);
 
-	core.fonts.fntProg->SetVector(Program::Vertex, "desc", &params[0], 1);
-	core.fonts.fntProg->SetMatrix(Program::Vertex, "transform", &tmp, 1);
+	core.fonts.fntProg->SetVector(Shader::Type::Vertex, "desc", &params[0], 1);
+	core.fonts.fntProg->SetMatrix(Shader::Type::Vertex, "transform", &tmp, 1);
 
 	if (font_scale > 1.01f)
 	{
@@ -238,8 +238,8 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 	core.render.GetDevice()->SetVertexDecl(core.fonts.vdecl);
 	core.render.GetDevice()->SetVertexBuffer(0, core.fonts.vbuffer);
 
-	core.fonts.fntProg->SetTexture(Program::Pixel, "diffuseMap", tex);
-	core.fonts.fntProg->SetVector(Program::Pixel, "color", (Vector4*)&color, 1);
+	core.fonts.fntProg->SetTexture(Shader::Type::Pixel, "diffuseMap", tex);
+	core.fonts.fntProg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&color, 1);
 
 	float scr_x = 0;
 

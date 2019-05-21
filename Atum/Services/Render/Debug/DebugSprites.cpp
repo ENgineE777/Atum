@@ -71,8 +71,8 @@ void DebugSprites::Draw(float dt)
 
 	for (auto& sprite : sprites)
 	{
-		prg->SetTexture(Program::Pixel, "diffuseMap", sprite.texture ? sprite.texture : whiteTex);
-		prg->SetVector(Program::Pixel, "color", (Vector4*)&sprite.color.r, 1);
+		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", sprite.texture ? sprite.texture : whiteTex);
+		prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&sprite.color.r, 1);
 
 		params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0, 0);
 
@@ -80,7 +80,7 @@ void DebugSprites::Draw(float dt)
 
 		params[2] = Vector4(sprite.offset.x, sprite.offset.y, sprite.angle, 0.0f);
 
-		prg->SetVector(Program::Vertex, "desc", params, 3);
+		prg->SetVector(Shader::Type::Vertex, "desc", params, 3);
 
 		core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 	}

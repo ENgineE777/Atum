@@ -70,14 +70,14 @@ public:
 
 	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
 	bool PostPlay() override;
-	void Stop() override;
+	void Release() override;
 
 	bool UsingCamera2DPos() override;
 
 	void CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> methods, bool use_dt);
 
 #ifdef EDITOR
-	void SetOwner(Scene* owner) override;
+	void SetScene(Scene* scene) override;
 	void Copy(SceneObject* src) override;
 
 	void EditorWork(float dt);

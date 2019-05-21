@@ -6,9 +6,9 @@
 
 SceneAsset::AssetInstance::AssetInstance(SceneObject* set_object)
 {
-	scene_path = set_object->GetOwner()->GetPath();
+	scene_path = set_object->GetScene()->GetPath();
 	scene_path += "/";
-	scene_path += set_object->GetOwner()->GetName();
+	scene_path += set_object->GetScene()->GetName();
 	scene_path += ".sca";
 
 	inst_uid = set_object->GetUID();
@@ -32,9 +32,9 @@ bool SceneAsset::UsingCamera2DPos()
 }
 
 #ifdef EDITOR
-void SceneAsset::SetOwner(Scene* owner)
+void SceneAsset::SetScene(Scene* set_scene)
 {
-	SceneObject::SetOwner(owner);
+	SceneObject::SetScene(set_scene);
 
 	for (auto& inst : instances)
 	{

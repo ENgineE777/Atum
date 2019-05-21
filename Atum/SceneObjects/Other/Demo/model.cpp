@@ -62,9 +62,9 @@ void Model::Drawer::Render(Program* prg)
 
 	core.render.GetDevice()->SetProgram(prg);
 
-	prg->SetMatrix(Program::Vertex, "trans", &world, 1);
-	prg->SetMatrix(Program::Vertex, "view_proj", &trans, 1);
-	prg->SetVector(Program::Pixel, "color", &color, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "trans", &world, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &trans, 1);
+	prg->SetVector(Shader::Type::Pixel, "color", &color, 1);
 
 	core.render.GetDevice()->SetVertexDecl(res->vdecl);
 
@@ -74,7 +74,7 @@ void Model::Drawer::Render(Program* prg)
 		
 		core.render.GetDevice()->SetVertexBuffer(0, mesh.buffer);
 
-		prg->SetTexture(Program::Pixel, "diffuseMap", res->textures[mesh.texture]);
+		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", res->textures[mesh.texture]);
 		core.render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);
 	}
 }

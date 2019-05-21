@@ -20,10 +20,10 @@ class DebugBoxes : public Object
 
 	std::vector<Box> boxes;
 
-	Program*        prg;
-	GeometryBuffer* vbuffer;
-	VertexDecl*     vdecl;
-	GeometryBuffer* ibuffer;
+	Program* prg;
+	DataBuffer* vbuffer;
+	VertexDecl* vdecl;
+	DataBuffer* ibuffer;
 
 public:
 	

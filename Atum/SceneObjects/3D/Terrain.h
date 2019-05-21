@@ -73,9 +73,9 @@ public:
 	Color    color;
 
 #ifndef DOXYGEN_SKIP
-	Texture*        texture = nullptr;
-	VertexDecl*     vdecl;
-	GeometryBuffer* buffer = nullptr;
+	Texture*    texture = nullptr;
+	VertexDecl* vdecl;
+	DataBuffer* buffer = nullptr;
 	int      hwidth;
 	int      hheight;
 	uint8_t* hmap = nullptr;

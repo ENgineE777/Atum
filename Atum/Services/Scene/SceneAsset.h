@@ -11,13 +11,20 @@
 \ingroup gr_code_services_scene
 */
 
+/**
+\brief SceneAsset
+
+This is scene asset which is a base class of asset in a scene.
+
+*/
+
 class SceneAsset : public SceneObject
 {
 	friend class Scene;
 
 public:
 
-
+#ifndef DOXYGEN_SKIP
 	virtual ~SceneAsset() = default;
 
 	bool UsingCamera2DPos() override;
@@ -39,7 +46,7 @@ public:
 	};
 	vector<AssetInstance> instances;
 
-	void SetOwner(Scene* owner) override;
+	void SetScene(Scene* scene) override;
 	bool IsAsset() override;
 	virtual SceneObject* CreateInstance(Scene* scene);
 	virtual void DeleteAsset(SceneObject* obj);
@@ -49,6 +56,8 @@ public:
 	virtual void OnAssetTreeSelChange(SceneAsset* item);
 	virtual void OnAssetTreePopupItem(int id);
 	virtual void OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index);
+#endif
+
 #endif
 };
 

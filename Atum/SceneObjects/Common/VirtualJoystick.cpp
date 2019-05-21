@@ -86,7 +86,7 @@ void VirtualJoystick::Draw(float dt)
 
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
-	if (Playing())
+	if (GetScene()->Playing())
 	{
 		if (stick_pressed)
 		{
@@ -116,7 +116,7 @@ void VirtualJoystick::Draw(float dt)
 		}
 	}
 
-	if (Playing() && GetState() == Active)
+	if (GetScene()->Playing() && GetState() == Active)
 	{
 		for (int i = 0; i < AliasCount; i++)
 		{

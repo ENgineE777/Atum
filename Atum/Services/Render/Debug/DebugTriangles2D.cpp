@@ -37,7 +37,7 @@ void DebugTriangles2D::Draw(float dt)
 	core.render.GetDevice()->SetVertexBuffer(0, vbuffer);
 
 	Vector4 param = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0, 0);
-	prg->SetVector(Program::Vertex, "param", &param, 1);
+	prg->SetVector(Shader::Type::Vertex, "param", &param, 1);
 
 	int index = 0;
 	Vertex* vertices = (Vertex*)vbuffer->Lock();

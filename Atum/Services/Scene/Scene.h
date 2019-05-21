@@ -38,10 +38,14 @@ public:
 
 	struct Group
 	{
+		/** \brief Name of a group */
 		string name;
+
+		/** \brief Array of scene object */
 		std::vector<SceneObject*> objects;
 	};
 
+#ifndef DOXYGEN_SKIP
 	Vector2 camera3d_angles = 0.0f;
 	Vector  camera3d_pos = 0.0f;
 	Vector2 camera2d_pos = 0.0f;
@@ -52,6 +56,8 @@ public:
 #ifdef EDITOR
 	bool load_asset_inst = false;
 	char project_scene_path[512];
+#endif
+
 #endif
 
 private:
@@ -89,57 +95,103 @@ public:
 
 	void Init();
 
-	SceneObject* CreateObject(const char* name, bool is_asset);
 	void AddObject(SceneObject* obj, bool is_asset);
-	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 	SceneObject* GetObj(int index, bool is_asset);
 	int GetObjectIndex(SceneObject* obj, bool is_asset);
 	int GetObjectsCount(bool is_asset);
-	void DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
-
+	
 	const char* GetPath();
 	const char* GetName();
+
+	void Clear();
+	void Load(const char* name);
+	void Save(const char* name);
+	void Execute(float dt);
+
+	bool Play();
+
+	void EnableTasks(bool enable);
 #endif
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Create a scene object
+
+	\param[in] name Name of a type
+	\param[in] is_asset Is scene object is an asset
+
+	\return Pointer to a scene object
 	*/
-	void Clear();
+	SceneObject* CreateObject(const char* name, bool is_asset);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Find a scene object by UID
+
+	\param[in] uid UID of a scene object
+	\param[in] child_uid UID of a child scene object (0 if neede only parent)
+	\param[in] is_asset Is scene object is an asset
+
+	\return Pointer to a scene object
 	*/
-	void Load(const char* name);
+	SceneObject* FindByUID(uint32_t uid, uint32_t child_uid, bool is_asset);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Delete a scene object from a scene
+
+	\param[in] obj Pointer to a scene object
+	\param[in] is_asset Is scene object is an asset
+	\param[in] release_obj Should Release be called during deletion
 	*/
-	void Save(const char* name);
+	void DeleteObject(SceneObject* obj, bool is_asset, bool release_obj);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Find a scene object in group by name
+
+	\param[in] group_name Name of a group
+	\param[in] name Name of a scene object
+
+	\return Pointer to a scene object
 	*/
-	void Execute(float dt);
+	SceneObject* FindInGroup(const char* group_name, const char* name);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Get Find a scene object in group by name
+
+	\param[out] groups Array with all scene groups which are including included scenes
+	\param[in] name Name of a group
+
 	*/
-	bool Play();
+	void GetGroup(vector<Group*>& groups, const char* name);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Adding a scene object to a group
+
+	\param[in] obj Pointer to a scene object
+	\param[in] name Name of a group
 	*/
-	void Stop();
+	void AddToGroup(SceneObject* obj, const char* name);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Deleting a scene object from a group
+
+	\param[in] obj Pointer to a scene object
+	\param[in] name Name of a group
+	*/
+	void DelFromGroup(SceneObject* obj, const char* name);
+
+	/**
+	\brief Deleting a scene object from all groups
+
+	\param[in] obj Pointer to a scene object
+	\param[in] new_scene Moving a scene object to all groups in new scene
+	*/
+	void DelFromAllGroups(SceneObject* obj, Scene* new_scene = nullptr);
+
+	/**
+	\brief Checking if scene is playing
+
+	\return Returns true if a scene is playing. Otherwise false will be returned
 	*/
 	bool Playing();
-
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	void EnableTasks(bool enable);
 
 #ifndef DOXYGEN_SKIP
 
@@ -149,12 +201,6 @@ public:
 
 	void GenerateUID(SceneObject* obj, bool is_asset);
 	void GenerateChildUID(SceneObject* obj);
-
-	SceneObject* FindInGroup(const char* group_name, const char* name);
-	void GetGroup(vector<Group*>& groups, const char* name);
-	void AddToGroup(SceneObject* obj, const char* name);
-	void DelFromGroup(SceneObject* obj, const char* name);
-	void DelFromAllGroups(SceneObject* obj, Scene* new_scene = nullptr);
 
 	void Release();
 #endif

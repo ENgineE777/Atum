@@ -25,17 +25,17 @@ void GenericMarker::Init()
 
 void GenericMarker::ApplyProperties()
 {
-	owner->DelFromAllGroups(this);
+	GetScene()->DelFromAllGroups(this);
 
 	if (scene_group.c_str()[0] != 0)
 	{
-		owner->AddToGroup(this, scene_group.c_str());
+		GetScene()->AddToGroup(this, scene_group.c_str());
 	}
 }
 
 void GenericMarker::Draw(float dt)
 {
-	if (Playing())
+	if (GetScene()->Playing())
 	{
 		return;
 	}

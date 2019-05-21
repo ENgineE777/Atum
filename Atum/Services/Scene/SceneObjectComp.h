@@ -19,16 +19,17 @@
 */
 
 /**
-\brief PhysScene
+\brief SceneObjectComp
 
-This is representation of a physical scene. Objecte to a scene are adding via proper
-methods of PhysScene.
+This class extends functionality of scene objects.
 
 */
 
 class SceneObjectComp : public Object
 {
 public:
+
+#ifndef DOXYGEN_SKIP
 	SceneObject* object = nullptr;
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;
@@ -45,6 +46,7 @@ public:
 
 	virtual void BindClassToScript();
 	virtual void InjectIntoScript(asIScriptObject* object, int index, const char* prefix);
+#endif
 
 #ifdef EDITOR
 	virtual void Copy(SceneObjectComp* src);
@@ -58,17 +60,43 @@ public:
 #endif
 };
 
+/**
+\ingroup gr_code_services_scene
+*/
+
+/**
+\brief SceneObjectInstComp
+
+This is a child of SceneObjectComp and used as components for instances of a asset.
+
+*/
+
 class SceneObjectInstComp : public SceneObjectComp
 {
+#ifndef DOXYGEN_SKIP
 public:
 	SceneObjectComp* asset_comp = nullptr;
 	void Load(JSONReader& reader) override;
+#endif
 };
+
+/**
+\ingroup gr_code_services_scene
+*/
+
+/**
+\brief SceneAssetComp
+
+This is a childs of SceneObjectComp and used as component for a asset.
+
+*/
 
 class SceneAssetComp : public SceneObjectComp
 {
 public:
+#ifndef DOXYGEN_SKIP
 	const char* inst_class_name = nullptr;
+#endif
 };
 
 CLASSFACTORYDEF(SceneObjectComp)

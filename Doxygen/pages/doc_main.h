@@ -186,6 +186,9 @@
       \defgroup gr_code_services_script Script
       \{
       \}
+      \defgroup gr_code_services_sound Sound
+      \{
+      \}
       \defgroup gr_code_services_task_executor Task executor
       \{
       \}

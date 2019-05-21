@@ -54,7 +54,7 @@ SceneObject* Scene::CreateObject(const char* name, bool is_asset)
 			obj->script_class_name = is_asset ? decl_assets->GetShortName() : decl_objects->GetShortName();
 		}
 
-		obj->owner = this;
+		obj->scene = this;
 		obj->class_name = is_asset ? decl_assets->GetName() : decl_objects->GetName();
 		obj->Init();
 
@@ -478,28 +478,6 @@ bool Scene::Play()
 	return true;
 }
 
-void Scene::Stop()
-{
-	if (!playing)
-	{
-		return;
-	}
-
-	playing = false;
-
-	for (auto object : objects)
-	{
-		object->Stop();
-
-		for (auto comp : object->components)
-		{
-			comp->Stop();
-		}
-	}
-
-	RELEASE(script)
-}
-
 bool Scene::Playing()
 {
 	return playing;
@@ -675,6 +653,8 @@ void Scene::DelFromAllGroups(SceneObject* obj, Scene* new_scene)
 void Scene::Release()
 {
 	Clear();
+
+	RELEASE(script)
 
 	delete taskPool;
 	core.render.DelTaskPool(renderTaskPool);

@@ -63,7 +63,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 		inv_view.InverseComplette();
 	}
 
-	prog->SetMatrix(Program::Vertex, "view_proj", &view_proj, 1);
+	prog->SetMatrix(Shader::Type::Vertex, "view_proj", &view_proj, 1);
 
 	Vertex* v = (Vertex*)buffer->Lock();
 

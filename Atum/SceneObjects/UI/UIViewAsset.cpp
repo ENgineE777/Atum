@@ -136,7 +136,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 
 				child->SetSource((UIViewAsset*)item, true);
 
-				child->owner = owner;
+				child->scene = GetScene();
 				child->class_name = decl->GetName();
 				child->Init();
 
@@ -224,7 +224,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			}
 		}
 
-		dest_child->owner = owner;
+		dest_child->scene = GetScene();
 		dest_child->class_name = decl->GetName();
 		dest_child->Init();
 
@@ -259,7 +259,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* dest_child_inst = decl->Create();
 
-			dest_child_inst->owner = owner;
+			dest_child_inst->scene = GetScene();
 			dest_child_inst->class_name = decl->GetName();
 			dest_child_inst->Init();
 
@@ -330,7 +330,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(item_classname);
 
-		child->owner = owner;
+		child->scene = GetScene();
 		child->class_name = item_classname;
 		child->Init();
 
@@ -362,7 +362,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* child_inst = decl->Create();
 
-			child_inst->owner = owner;
+			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
 			child_inst->Init();
 
@@ -392,7 +392,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(popup_item->class_name);
 
-		child->owner = owner;
+		child->scene = GetScene();
 		child->class_name = popup_item->class_name;
 		child->Init();
 
@@ -415,7 +415,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			UIWidgetAsset* child_inst = decl->Create();
 
 
-			child_inst->owner = owner;
+			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
 			child_inst->Init();
 
@@ -445,7 +445,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->class_name);
 
-		child->owner = owner;
+		child->scene = GetScene();
 		child->class_name = asset_to_copy->class_name;
 		child->Init();
 
@@ -467,7 +467,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* child_inst = decl->Create();
 
-			child_inst->owner = owner;
+			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
 			child_inst->Init();
 
@@ -492,7 +492,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->class_name);
 
-		child->owner = owner;
+		child->scene = GetScene();
 		child->class_name = asset_to_copy->class_name;
 		child->Init();
 
@@ -515,7 +515,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 			UIWidgetAsset* child_inst = decl->Create();
 
-			child_inst->owner = owner;
+			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
 			child_inst->Init();
 

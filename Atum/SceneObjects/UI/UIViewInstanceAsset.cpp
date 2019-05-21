@@ -82,7 +82,7 @@ void UIViewInstanceAsset::SaveAssetData(JSONWriter& writer)
 
 	writer.StartBlock(nullptr);
 
-	writer.Write("scene", GetOwner()->project_scene_path);
+	writer.Write("scene", GetScene()->project_scene_path);
 
 	uint32_t inst_uid = 0;
 	uint32_t inst_child_uid = 0;

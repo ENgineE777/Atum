@@ -37,12 +37,11 @@ bool Trigger2D::Play()
 	return true;
 }
 
-void Trigger2D::Stop()
+void Trigger2D::Release()
 {
-	if (body.body)
-	{
-		RELEASE(body.body);
-	}
+	RELEASE(body.body);
+
+	SceneObject::Release();
 }
 
 #ifdef EDITOR
@@ -53,7 +52,7 @@ void Trigger2D::Set2DPos(Vector2 pos)
 
 void Trigger2D::EditorDraw(float dt)
 {
-	if (owner->Playing() || GetState() == State::Invisible)
+	if (GetScene()->Playing() || GetState() == State::Invisible)
 	{
 		return;
 	}

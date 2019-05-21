@@ -396,12 +396,14 @@ bool SpriteInst::Play()
 	return true;
 }
 
-void SpriteInst::Stop()
+void SpriteInst::Release()
 {
 	if (array)
 	{
 		array->listiner = nullptr;
 	}
+
+	SceneObjectInst::Release();
 }
 
 void SpriteInst::Draw(float dt)
@@ -533,7 +535,7 @@ void SpriteInst::Draw(float dt)
 
 		bool is_visible = inst.IsVisible();
 
-		if (owner->Playing() && !is_visible)
+		if (GetScene()->Playing() && !is_visible)
 		{
 			continue;
 		}

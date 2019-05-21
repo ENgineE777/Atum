@@ -165,7 +165,7 @@ public:
 	virtual void Draw(float dt);
 
 	bool Play() override;
-	void Stop() override;
+	void Release() override;
 
 	void OnResize(int at, int delta) override;
 	void OnRemove(int start, asUINT count) override;

@@ -50,7 +50,6 @@ public:
 	void Draw(float dt);
 
 	bool Play() override;
-	void Stop() override;
 
 	SimpleCharacter2D* FindTarget();
 	void ControlPlayer(float dt);

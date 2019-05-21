@@ -341,7 +341,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
-		core.files.SetActivePath(selectedObject->GetOwner());
+		core.files.SetActivePath(selectedObject->GetScene());
 
 		obj->ShowPropWidgets(objCat);
 		obj->EnableTasks(true);
@@ -381,7 +381,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		}
 	}
 
-	MetaData::scene = selectedObject ? selectedObject->GetOwner() : nullptr;
+	MetaData::scene = selectedObject ? selectedObject->GetScene() : nullptr;
 
 	objCmpWgt.Prepare(selectedObject);
 
@@ -482,6 +482,8 @@ void Editor::ShowVieport()
 
 void Editor::StartScene()
 {
+	Sprite::use_ed_cam = false;
+
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(false);
@@ -517,34 +519,22 @@ void Editor::StartScene()
 
 	core.scene_manager.LoadProject(project.project_name.c_str());
 
-	//scene = new Scene();
-	//scene->Init();
-	//scene->Load(project.scenes[project.start_scene]->path.c_str());
+	mainWnd->Enable(false);
 
-	//if (scene->Play())
-	{
-		mainWnd->Enable(false);
-		//hack_scene = scene;
+	Sprite::ed_cam_pos = 0.0f;
 
-		Sprite::ed_cam_pos = 0.0f;
+	gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1920, 1080);
+	gameWnd->SetListener(-1, this, 0);
 
-		gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1920, 1080);
-		gameWnd->SetListener(-1, this, 0);
+	EUILayout* lt = new EUILayout(gameWnd, false);
 
-		EUILayout* lt = new EUILayout(gameWnd, false);
+	game_viewport = new EUIPanel(lt, 0, 0, 1024, 768);
+	game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
 
-		game_viewport = new EUIPanel(lt, 0, 0, 1024, 768);
-		game_viewport->SetListener(-1, this, EUIWidget::OnResize | EUIWidget::OnUpdate);
-
-		game_viewport->SetFocused();
-
-		gameWnd->Show(true);
-		gameWnd->SetAtScreenCenter();
-	}
-	//else
-	//{
-	//	StopScene();
-	//}
+	game_viewport->SetFocused();
+	
+	gameWnd->Show(true);
+	gameWnd->SetAtScreenCenter();
 
 	in_scene_run = true;
 }
@@ -579,6 +569,8 @@ void Editor::StopScene()
 	{
 		Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
 	}
+
+	Sprite::use_ed_cam = true;
 
 	ShowVieport();
 
@@ -1213,7 +1205,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 				{
 					SceneObject* object = inst.GetObject();
 
-					if (!object->GetOwner()->DependFromScene(to->scene))
+					if (!object->GetScene()->DependFromScene(to->scene))
 					{
 						return false;
 					}
@@ -1421,7 +1413,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 					for (auto inst : asset->instances)
 					{
 						scene_treeview->DeleteItem(inst.GetObject()->item);
-						inst.GetObject()->GetOwner()->DeleteObject(inst.GetObject(), false, true);
+						inst.GetObject()->GetScene()->DeleteObject(inst.GetObject(), false, true);
 					}
 				}
 				else

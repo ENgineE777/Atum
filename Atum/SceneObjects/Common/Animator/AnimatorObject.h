@@ -22,5 +22,4 @@ public:
 	void Work(float dt);
 
 	bool Play();
-	void Stop();
 };

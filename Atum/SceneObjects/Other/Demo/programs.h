@@ -43,8 +43,8 @@ public:
 
 		virtual void ApplyStates()
 		{
-			SetMatrix(Vertex, "sh_trans", &(matrixes["sh_trans"]), 1);
-			SetTexture(Pixel, "shdMap", textures["shdMap"]);
+			SetMatrix(Shader::Type::Vertex, "sh_trans", &(matrixes["sh_trans"]), 1);
+			SetTexture(Shader::Type::Pixel, "shdMap", textures["shdMap"]);
 		};
 	};
 

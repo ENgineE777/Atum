@@ -40,7 +40,7 @@ void UIWidgetAsset::Load(JSONReader& reader)
 	{
 		if (reader.Read("source_uid", source_uid))
 		{
-			SetSource((UIWidgetAsset*)owner->FindByUID(source_uid, 0, true), false);
+			SetSource((UIWidgetAsset*)GetScene()->FindByUID(source_uid, 0, true), false);
 		}
 	}
 
@@ -62,7 +62,7 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 		if (obj)
 		{
-			obj->owner = owner;
+			obj->scene = GetScene();
 			obj->class_name = decl->GetName();
 			obj->SetSource(source_child, false);
 			obj->script_class_name = decl->GetShortName();
@@ -75,7 +75,7 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 			if (obj->uid == 0)
 			{
-				owner->GenerateChildUID(obj);
+				GetScene()->GenerateChildUID(obj);
 			}
 
 			obj->Load(reader);
@@ -324,13 +324,13 @@ void UIWidgetAsset::SaveAssetData(JSONWriter& writer)
 	}
 }
 
-void UIWidgetAsset::SetOwner(Scene* owner)
+void UIWidgetAsset::SetScene(Scene* set_scene)
 {
-	SceneObject::SetOwner(owner);
+	SceneObject::SetScene(set_scene);
 
 	for (auto& child : childs)
 	{
-		child->SetOwner(owner);
+		child->SetScene(set_scene);
 	}
 }
 

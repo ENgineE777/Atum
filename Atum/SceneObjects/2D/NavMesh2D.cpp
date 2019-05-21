@@ -764,7 +764,7 @@ void NavMesh2D::BindClassToScript()
 
 void NavMesh2D::Draw(float dt)
 { 
-	if (owner->Playing() || GetState() == Invisible)
+	if (GetScene()->Playing() || GetState() == Invisible)
 	{
 		return;
 	}

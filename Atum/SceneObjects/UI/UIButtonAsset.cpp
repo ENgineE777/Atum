@@ -96,7 +96,7 @@ void UIButtonAssetInst::Draw(float dt)
 		return;
 	}
 
-	if (Playing())
+	if (GetScene()->Playing())
 	{
 		if (core.controls.GetAliasState(alias_fire))
 		{

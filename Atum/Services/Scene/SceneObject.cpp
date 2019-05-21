@@ -263,31 +263,28 @@ void SceneObject::GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid)
 	}
 }
 
-void SceneObject::SetOwner(Scene* set_owner)
+void SceneObject::SetScene(Scene* set_scene)
 {
-	owner->DeleteObject(this, IsAsset(), false);
+	scene->DeleteObject(this, IsAsset(), false);
 
-	owner->taskPool->DelAllTasks(this, set_owner->taskPool);
+	scene->taskPool->DelAllTasks(this, set_scene->taskPool);
 
 	for (auto comp : components)
 	{
-		owner->taskPool->DelAllTasks(comp);
+		scene->taskPool->DelAllTasks(comp);
 	}
 
-	if (owner)
+	scene->renderTaskPool->DelAllTasks(this, set_scene->renderTaskPool);
+
+	for (auto comp : components)
 	{
-		owner->renderTaskPool->DelAllTasks(this, set_owner->renderTaskPool);
-
-		for (auto comp : components)
-		{
-			owner->renderTaskPool->DelAllTasks(comp, set_owner->renderTaskPool);
-		}
+		scene->renderTaskPool->DelAllTasks(comp, set_scene->renderTaskPool);
 	}
 
-	owner->DelFromAllGroups(this, set_owner);
+	scene->DelFromAllGroups(this, set_scene);
 
-	owner = set_owner;
-	owner->AddObject(this, IsAsset());
+	scene = set_scene;
+	scene->AddObject(this, IsAsset());
 }
 #endif
 
@@ -316,15 +313,15 @@ uint32_t SceneObject::GetParentUID()
 	return 0;
 }
 
-void SceneObject::SetState(int set_state)
+void SceneObject::SetState(State set_state)
 {
-	state = (State)set_state;
+	state = set_state;
 }
 
 SceneObject::State SceneObject::GetState()
 {
 #ifdef EDITOR
-	if (!owner->Playing() && project.LayerHiden(layer_name.c_str()))
+	if (!scene->Playing() && project.LayerHiden(layer_name.c_str()))
 	{
 		return State::Invisible;
 	}
@@ -363,11 +360,11 @@ SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 
 void SceneObject::DelComponent(SceneObjectComp* comp)
 {
-	if (owner)
+	if (scene)
 	{
 		for (auto comp : components)
 		{
-			owner->taskPool->DelAllTasks(comp);
+			scene->taskPool->DelAllTasks(comp);
 		}
 	}
 
@@ -381,11 +378,11 @@ void SceneObject::DelComponent(SceneObjectComp* comp)
 	}
 #endif
 
-	if (owner)
+	if (scene)
 	{
 		for (auto comp : components)
 		{
-			owner->renderTaskPool->DelAllTasks(comp);
+			scene->renderTaskPool->DelAllTasks(comp);
 		}
 	}
 
@@ -442,7 +439,7 @@ TaskExecutor::SingleTaskPool* SceneObject::Tasks(bool editor)
 #endif
 	}
 
-	return owner->taskPool;
+	return scene->taskPool;
 }
 
 TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
@@ -462,12 +459,7 @@ TaskExecutor::SingleTaskPool* SceneObject::RenderTasks(bool editor)
 #endif
 	}
 
-	return owner->renderTaskPool;
-}
-
-bool SceneObject::Playing()
-{
-	return owner->playing;
+	return scene->renderTaskPool;
 }
 
 bool SceneObject::Play()
@@ -480,18 +472,9 @@ bool SceneObject::PostPlay()
 	return true;
 }
 
-void SceneObject::Stop()
-{
-}
-
-Scene* SceneObject::GetScene()
-{
-	return owner;
-}
-
 ScriptContext* SceneObject::Script()
 {
-	return owner->script;
+	return scene->script;
 }
 
 PhysScene* SceneObject::PScene()
@@ -501,13 +484,13 @@ PhysScene* SceneObject::PScene()
 
 void SceneObject::Release()
 {
-	if (owner)
+	if (scene)
 	{
-		owner->taskPool->DelAllTasks(this);
+		scene->taskPool->DelAllTasks(this);
 
 		for (auto comp : components)
 		{
-			owner->taskPool->DelAllTasks(comp);
+			scene->taskPool->DelAllTasks(comp);
 		}
 	}
 
@@ -518,13 +501,13 @@ void SceneObject::Release()
 	}
 #endif
 
-	if (owner)
+	if (scene)
 	{
-		owner->renderTaskPool->DelAllTasks(this);
+		scene->renderTaskPool->DelAllTasks(this);
 
 		for (auto comp : components)
 		{
-			owner->renderTaskPool->DelAllTasks(comp);
+			scene->renderTaskPool->DelAllTasks(comp);
 		}
 	}
 
@@ -536,7 +519,7 @@ void SceneObject::Release()
 	}
 #endif
 
-	if (owner) owner->DelFromAllGroups(this);
+	if (scene) scene->DelFromAllGroups(this);
 
 	delete this;
 }
@@ -741,7 +724,7 @@ void SceneObjectInst::Load(JSONReader& loader)
 	SceneObject::Load(loader);
 	loader.Read("asset_uid", asset_uid);
 
-	asset = (SceneAsset*)owner->FindByUID(asset_uid, 0, true);
+	asset = (SceneAsset*)GetScene()->FindByUID(asset_uid, 0, true);
 }
 
 void SceneObjectInst::Save(JSONWriter& saver)
@@ -762,7 +745,7 @@ void SceneObjectInst::SaveAssetData(JSONWriter& writer)
 
 	writer.StartBlock(nullptr);
 
-	writer.Write("scene", GetOwner()->project_scene_path);
+	writer.Write("scene", GetScene()->project_scene_path);
 	writer.Write("inst_uid", GetUID());
 	writer.Write("inst_name", GetName());
 
@@ -773,15 +756,15 @@ void SceneObjectInst::SaveAssetData(JSONWriter& writer)
 	writer.FinishBlock();
 }
 
-void SceneObjectInst::SetOwner(Scene* owner)
+void SceneObjectInst::SetScene(Scene* set_scene)
 {
-	SceneObject::SetOwner(owner);
+	SceneObject::SetScene(set_scene);
 
 	for (auto& inst : asset->instances)
 	{
 		if (inst.GetObject() == this)
 		{
-			inst.scene_path = owner->project_scene_path;
+			inst.scene_path = set_scene->project_scene_path;
 			inst.inst_uid = GetUID();
 		}
 	}

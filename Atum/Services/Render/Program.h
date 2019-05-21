@@ -11,10 +11,9 @@
 */
 
 /**
-\brief PhysScene
+\brief Program
 
-This is representation of a physical scene. Objecte to a scene are adding via proper
-methods of PhysScene.
+Combination of vertex and pixel shaders into program with set up of render states.
 
 */
 
@@ -33,65 +32,91 @@ protected:
 
 public:
 
-	enum Stage
-	{
-		Vertex /*!< Hardware button in pressed state */,
-		Pixel /*!< Hardware button in pressed state */
-	};
-
 #if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	int program = -1;
 #endif
 
+#ifndef DOXYGEN_SKIP
+	virtual bool Init();
+#endif
+
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Store a 4 componet vector in global pool
+
+	\param[in] param Name of a parameter
+	\param[in] v Pointer to a vector
 	*/
 	static void SetVector(const char* param, Vector4* v);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Store a matrix in global pool
+
+	\param[in] param Name of a parameter
+	\param[in] mat Pointer to a matrix
 	*/
 	static void SetMatrix(const char* param, Matrix* mat);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Store texture in global pool
+
+	\param[in] param Name of a parameter
+	\param[in] texture Pointer to a texture
 	*/
 	static void SetTexture(const char* param, Texture* texture);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
-	*/
-	virtual bool Init();
+	\brief Return name of vertex shader
 
-	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\return Name of vertex shader
 	*/
 	virtual const char* GetVsName() = 0;
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Return name of pixel shader
+
+	\return Name of pixel shader
 	*/
 	virtual const char* GetPsName() = 0;
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Apply render states before render
 	*/
 	virtual void ApplyStates() {};
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set 4 component vector for a parameter
+
+	\param[in] shader_type Type of shader
+	\param[in] param Name of a parameter
+	\param[in] v Pointer to vectors
+	\param[in] count Number of vectors needed to be set
+
+	\return Result of an operation
 	*/
-	void SetVector(Stage stage, const char* param, Vector4* v, int count);
+	void SetVector(Shader::Type shader_type, const char* param, Vector4* v, int count);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set matrices for a parameter
+
+	\param[in] shader_type Type of shader
+	\param[in] param Name of a parameter
+	\param[in] mat Pointer to a matrices
+	\param[in] count Number of matrices needed to be set
+
+	\return Result of an operation
 	*/
-	void SetMatrix(Stage stage, const char* param, Matrix* mat, int count);
+	void SetMatrix(Shader::Type shader_type, const char* param, Matrix* mat, int count);
 
 	/**
-	\brief This variable stores position on start and restors it when Reset was clled from script
+	\brief Set texture for a parameter
+
+	\param[in] shader_type Type of shader
+	\param[in] param Name of a parameter
+	\param[in] texture Pointer to a texture
+
+	\return Result of an operation
 	*/
-	void SetTexture(Stage stage, const char* param, Texture* texture);
+	void SetTexture(Shader::Type shader_type, const char* param, Texture* texture);
 };
 
 CLASSFACTORYDEF(Program)

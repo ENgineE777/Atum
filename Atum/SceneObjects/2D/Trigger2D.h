@@ -56,7 +56,7 @@ public:
 	void Init() override;
 
 	bool Play() override;
-	void Stop() override;
+	void Release() override;
 
 #ifdef EDITOR
 	void Set2DPos(Vector2 pos) override;

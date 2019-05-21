@@ -58,7 +58,7 @@ bool Tank::Play()
 	time = 0.0f;
 
 	vector<Scene::Group*> out_groups;
-	GetOwner()->GetGroup(out_groups, "TankClient");
+	GetScene()->GetGroup(out_groups, "TankClient");
 
 	for (auto group : out_groups)
 	{
@@ -88,11 +88,6 @@ bool Tank::Play()
 	}
 
 	return true;
-}
-
-void Tank::Stop()
-{
-	projectiles.clear();
 }
 
 void Tank::OnClientConnected(int id)
@@ -221,7 +216,7 @@ void Tank::OnDataRecieved(int id, void* data, int size)
 
 void Tank::SendServerState(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		return;
 	}
@@ -252,7 +247,7 @@ void Tank::SendServerState(float dt)
 
 void Tank::SendClientState(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		return;
 	}
@@ -288,7 +283,7 @@ void Tank::SendClientState(float dt)
 
 void Tank::Update(float dt)
 {
-	if (!Playing())
+	if (!GetScene()->Playing())
 	{
 		return;
 	}
@@ -296,7 +291,7 @@ void Tank::Update(float dt)
 	if (!bonuses_places)
 	{
 		vector<Scene::Group*> out_group_bot;
-		GetOwner()->GetGroup(out_group_bot, "Bot");
+		GetScene()->GetGroup(out_group_bot, "Bot");
 
 		int index = 100;
 
@@ -311,7 +306,7 @@ void Tank::Update(float dt)
 		}
 
 		vector<Scene::Group*> out_group;
-		GetOwner()->GetGroup(out_group, "Terrain");
+		GetScene()->GetGroup(out_group, "Terrain");
 
 		PhysScene::RaycastDesc rcdesc;
 
@@ -676,7 +671,7 @@ void Tank::Update(float dt)
 void Tank::AddSplash(Vector& pos, float radius, float force)
 {
 	vector<Scene::Group*> out_group;
-	GetOwner()->GetGroup(out_group, "PhysBox");
+	GetScene()->GetGroup(out_group, "PhysBox");
 
 	for (auto group : out_group)
 	{

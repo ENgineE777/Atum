@@ -11,9 +11,9 @@ class DebugSprites : public Object
 		Vector2 Texcoords;
 	};
 
-	Program*        prg;
-	VertexDecl*     vdecl;
-	GeometryBuffer* vbuffer;
+	Program* prg;
+	VertexDecl* vdecl;
+	DataBuffer* vbuffer;
 
 	struct Sprite
 	{

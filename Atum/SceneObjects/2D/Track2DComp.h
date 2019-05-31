@@ -17,7 +17,7 @@ mouse click will select track point. Pressing hot key 'i' will delete selected p
 
 Each track point has own parameters which adjustable when track point is selected.
 
-![Caption text](../../../Doxygen/images/Track2DComp.jpg "Image")
+![Caption text](../images/Track2DComp.jpg "Image")
 
 Track parameters
 --------------------------

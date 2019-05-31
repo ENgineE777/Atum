@@ -14,7 +14,9 @@ Via link builder 'Property Node' or 'Callback Node' can be linked with scene obj
 To make linkage firstly select needed node then hold key 'Left Ctrl' and drag needed scene object
 from list to node. In case of 'Callback Node' needed callback can be selected from a list.
 
-![Caption text](../../../Doxygen/images/ScriptInst.jpg "Image")
+More details how to work with scripts can be found at \ref doc_editor_scripting.
+
+![Caption text](../images/ScriptInst.jpg "Image")
 
 This class ::SceneScriptInst is a representation on C++ side.
 

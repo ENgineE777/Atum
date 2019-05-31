@@ -1,34 +1,26 @@
 
 /**
 
-\page doc_start Overview
- - \subpage doc_overview_why
- - \subpage doc_overview_features 
+\page doc_atum Atum
+
+ - \subpage doc_overview
+ - \subpage doc_editor
+ - \subpage doc_editor_sample_projects
+ - \subpage doc_editor_writing_scene_objects
+ - \subpage doc_editor_compiling_ios_android
  
 \page doc_editor Editor
- - \subpage doc_editor_overview
- - \subpage doc_editor_project
- - \subpage doc_editor_run_test
- - \subpage doc_editor_scene
+ - \subpage doc_editor_basic_work
+ - \subpage doc_editor_sprite_editor
+ - \subpage doc_editor_scene_entities
+ - \subpage doc_editor_scripting
+ - \subpage doc_editor_aim_graph_2D
+ 
+\page doc_editor_scene_entities Scene entities
  - \subpage doc_editor_scene_objects
  - \subpage doc_editor_scene_object_components
  - \subpage doc_editor_scene_assets
  - \subpage doc_editor_scene_asset_components
-
-
-\page doc_editor_project Project
- - \subpage doc_project_adding_scene
- - \subpage doc_project_folders
- - \subpage doc_project_scene_includes
-
-\page doc_editor_scene Scene
- - \subpage doc_scene_overview
- - \subpage doc_scene_treeview
- - \subpage doc_scene_adding_scene
- - \subpage doc_scene_asset_treeview
- - \subpage doc_scene_folders
- - \subpage doc_scene_incuded_scenes
- - \subpage doc_scene_creating_instanses
 
 \page doc_editor_scene_objects Scene objects
  - \subpage doc_editor_scene_objects_2D

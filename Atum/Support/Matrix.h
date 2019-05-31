@@ -56,8 +56,7 @@ public:
 
 	Matrix& Move(Vector pos);
 	Matrix& Scale(Vector scale);
-	Matrix& Inverse();
-	bool InverseComplette();
+	bool Inverse();
 	void Transpose();
 
 	Vector  MulVertex(Vector v) const;
@@ -298,21 +297,7 @@ inline Matrix & Matrix::Scale(Vector scale)
 	return *this;
 }
 
-inline Matrix & Matrix::Inverse()
-{
-	matrix[12] = -(Pos().Dot(Vx()));
-	matrix[13] = -(Pos().Dot(Vy()));
-	matrix[14] = -(Pos().Dot(Vz()));
-	
-	float tmp;
-	tmp = m[0][1]; m[0][1] = m[1][0]; m[1][0] = tmp;
-	tmp = m[0][2]; m[0][2] = m[2][0]; m[2][0] = tmp;
-	tmp = m[1][2]; m[1][2] = m[2][1]; m[2][1] = tmp;
-	
-	return *this;
-}
-
-inline bool Matrix::InverseComplette()
+inline bool Matrix::Inverse()
 {
 	double inv[16], det;
 	int i;

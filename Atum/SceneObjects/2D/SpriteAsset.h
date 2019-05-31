@@ -9,7 +9,7 @@
 
 This asset stores 2D sprite data.
 
-![Caption text](../../../Doxygen/images/Sprites.jpg "Image")
+![Caption text](../images/Sprites.jpg "Image")
 
 This class ::SpriteAsset is a representation on C++ side.
 

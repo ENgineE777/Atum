@@ -7,8 +7,9 @@
 \page scene_assets_common_SceneScriptAsset Asset
 
 This asset describes how to tie script file with scene via link builder.
+More details how to work with scripts can be found at \ref doc_editor_scripting.
 
-![Caption text](../../../Doxygen/images/ScriptAsset.jpg "Image")
+![Caption text](../images/ScriptAsset.jpg "Image")
 
 This class ::SceneScriptAsset is a representation on C++ side.
 

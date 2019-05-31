@@ -138,9 +138,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.cpp">
       <Filter>Services\Render\DX11</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp">
-      <Filter>Services\Render\DX11</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.cpp">
       <Filter>Services\Render\DX11</Filter>
     </ClCompile>
@@ -244,9 +241,6 @@
       <Filter>Services\Render\GLES3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.cpp">
-      <Filter>Services\Render\GLES3</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.cpp">
       <Filter>Services\Render\GLES3</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.cpp">
@@ -606,6 +600,12 @@
     <ClCompile Include="..\..\..\Atum\Services\Sound\SoundBase.cpp">
       <Filter>Services\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\DataBufferGLES.cpp">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.cpp">
+      <Filter>Services\Render\DX11</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -633,9 +633,6 @@
       <Filter>Services\Controls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\Device.h">
-      <Filter>Services\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Render\GeometryBuffer.h">
       <Filter>Services\Render</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\Program.h">
@@ -666,9 +663,6 @@
       <Filter>Services\Render\Debug</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.h">
-      <Filter>Services\Render\DX11</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h">
       <Filter>Services\Render\DX11</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.h">
@@ -795,9 +789,6 @@
       <Filter>Services\Render\GLES3</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.h">
-      <Filter>Services\Render\GLES3</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.h">
       <Filter>Services\Render\GLES3</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.h">
@@ -1087,6 +1078,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Sound\SoundBase.h">
       <Filter>Services\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DataBuffer.h">
+      <Filter>Services\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DataBufferGLES.h">
+      <Filter>Services\Render\GLES3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.h">
+      <Filter>Services\Render\DX11</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

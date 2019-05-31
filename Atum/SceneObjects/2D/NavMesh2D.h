@@ -21,7 +21,7 @@ To add link to node firstly select needed node and then hold key 'C' and then dr
 To test constraction of past hold down key 'V' and click in needed point for set start point. Then hold down key 'B' and click in
 needed point for set end point.
 
-![Caption text](../../../Doxygen/images/NavMesh.jpg "Image")
+![Caption text](../images/NavMesh.jpg "Image")
 
 To find path firstly NavMesh2D::GetPath should be called. If either start point or end point are outside of a navigation mesh then
 closed point to navigation will be found and final path will contain this points as well. This method will return index of finded

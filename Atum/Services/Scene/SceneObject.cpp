@@ -725,6 +725,12 @@ void SceneObjectInst::Load(JSONReader& loader)
 	loader.Read("asset_uid", asset_uid);
 
 	asset = (SceneAsset*)GetScene()->FindByUID(asset_uid, 0, true);
+
+	if (asset == nullptr)
+	{
+		int k;
+		k++;
+	}
 }
 
 void SceneObjectInst::Save(JSONWriter& saver)

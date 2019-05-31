@@ -23,7 +23,7 @@
 		{
 			"name" : "FreeCamera.ROTATE_ACTIVE",
 			"AliasesRef" : [
-				{ "names" : ["MS_BTN1"] }
+				{ "names" : ["MS_BTN2"] }
 			]
 		},
 		{

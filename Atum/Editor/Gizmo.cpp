@@ -503,7 +503,7 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 		delta_move += *trans2D.pos - prev_pos;
 	}
 	else
-	if (selAxis == 9 && core.controls.DebugKeyPressed("KEY_LALT", Controls::Active))
+	if (selAxis == 9 && core.controls.DebugKeyPressed("Z", Controls::Active))
 	{
 		Vector2 p1 = prev_ms + ms - origin;
 		p1.Normalize();
@@ -841,7 +841,7 @@ void Gizmo::OnLeftMouseUp()
 	if (selAxis == 10 && IsTrans2D())
 	{
 		Matrix inv = trans2D.mat_global;
-		inv.InverseComplette();
+		inv.Inverse();
 
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 

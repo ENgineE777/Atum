@@ -60,7 +60,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 		core.render.GetTransform(Render::Projection, proj);
 
 		inv_view = view;
-		inv_view.InverseComplette();
+		inv_view.Inverse();
 	}
 
 	prog->SetMatrix(Shader::Type::Vertex, "view_proj", &view_proj, 1);

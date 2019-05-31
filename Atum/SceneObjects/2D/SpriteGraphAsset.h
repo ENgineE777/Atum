@@ -9,9 +9,9 @@ class SpriteAsset;
 /**
 \page scene_assets_2D_SpriteGraphAsset Asset
 
-Sprite Anim Graph
+Sprite Anim Graph. More details how to work with graph can be found at \ref doc_editor_aim_graph_2D.
 
-![Caption text](../../../Doxygen/images/AnimGraph.jpg "Image")
+![Caption text](../images/AnimGraph.jpg "Image")
 
 This class ::SpriteGraphAsset is a representation on C++ side.
 

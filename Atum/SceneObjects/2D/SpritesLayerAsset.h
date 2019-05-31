@@ -9,7 +9,7 @@
 
 This asset holds array of sprites that later can be used as a layer.
 
-![Caption text](../../../Doxygen/images/SpriteLayer.jpg "Image")
+![Caption text](../images/SpriteLayer.jpg "Image")
 
 This class ::SpritesLayerAsset is a representation on C++ side.
 

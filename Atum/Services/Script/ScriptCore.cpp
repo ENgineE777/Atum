@@ -197,9 +197,9 @@ void ScriptCore::Register(asIScriptEngine* engine)
 
 	script_class_name = "ScriptScene";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", "Script scene sub system");
-	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in alias, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
-	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in alias)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
-	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in alias)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in group_name, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
+	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
 

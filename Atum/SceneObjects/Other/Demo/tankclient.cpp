@@ -123,7 +123,7 @@ void TankClient::Update(float dt)
 			v.z = 1.0f;
 
 			Matrix inv_view = view;
-			inv_view.InverseComplette();
+			inv_view.Inverse();
 
 			Vector camPos = inv_view.Pos();
 

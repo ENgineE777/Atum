@@ -106,7 +106,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.cpp" />
@@ -114,7 +114,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.cpp">
+    <ClCompile Include="..\..\..\Atum\Services\Render\GLES3\DataBufferGLES.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -290,13 +290,13 @@
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugTriangles2D.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Device.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DeviceDX11.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\GeometryBufferDX11.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\ShaderDX11.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\TextureDX11.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\VertexDeclDX11.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Render\GeometryBuffer.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\DataBuffer.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DeviceGLES.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\GeometryBufferGLES.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\DataBufferGLES.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\ShaderGLES.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\TextureGLES.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\GLES3\VertexDeclGLES.h" />

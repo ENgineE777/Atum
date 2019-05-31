@@ -19,7 +19,7 @@ Scene object supporting muliselection. That means holding Left Alt and dragging 
 will select multiple scene instances. Pressing hot key 'I' will fill selection by instance. Pressing
 hot key 'P' will delete evry instances inside rectangular area.
 
-![Caption text](../../../Doxygen/images/NineTiles.jpg "Image")
+![Caption text](../images/NineTiles.jpg "Image")
 
 This class ::SpriteTileInst is a representation on C++ side.
 

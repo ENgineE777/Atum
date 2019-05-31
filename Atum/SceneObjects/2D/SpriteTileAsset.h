@@ -9,7 +9,7 @@
 
 This assest allows to set nine tiles which will be auto used for instances. This allows easelly create tiled blocks.
 
-![Caption text](../../../Doxygen/images/NineTiles.jpg "Image")
+![Caption text](../images/NineTiles.jpg "Image")
 
 Parameters
 ----------

@@ -10,7 +10,7 @@
 Instance automaticaly wraps layer in horizontal direction. Depth and axis scale are
 controlable. Severel layers with differetes axis sclae factor allows to create paralax effect.
 
-![Caption text](../../../Doxygen/images/SpriteLayer.jpg "Image")
+![Caption text](../images/SpriteLayer.jpg "Image")
 
 This class ::SpritesLayerInst is a representation on C++ side.
 

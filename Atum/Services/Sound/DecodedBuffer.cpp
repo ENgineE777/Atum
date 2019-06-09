@@ -45,7 +45,7 @@ bool DecodedBuffer::LoadWav(const char* filename, bool load_all)
 		return false;
 	}
 
-	if (header.audio_format != WAVE_FORMAT_PCM)
+	if (header.audio_format != 1)
 	{
 		return false;
 	}

@@ -1,5 +1,5 @@
 
-#include "terrain.h"
+#include "Terrain.h"
 #include "SceneObjects/Other/Demo/programs.h"
 #include "Services/Render/Render.h"
 #include "Services/File/Files.h"
@@ -298,7 +298,9 @@ bool Terrain::Play()
 	return true;
 }
 
-void Terrain::Stop()
+void Terrain::Release()
 {
 	RELEASE(hm);
+
+	SceneObject::Release();
 }

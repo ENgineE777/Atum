@@ -11,6 +11,8 @@ bool SoundInstance::Load(const char* file_name)
 
 	CreateSoundBuffer(decoded_buffer.decoded_data_size);
 
+#ifdef PLATFORM_PC
+
 	events.resize(1);
 
 	events[0] = CreateEvent(nullptr, false, false, nullptr);
@@ -42,6 +44,7 @@ bool SoundInstance::Load(const char* file_name)
 	{
 		return false;
 	}
+#endif
 
 	return true;
 }
@@ -53,17 +56,19 @@ bool SoundInstance::Play(PlayType type)
 
 void SoundInstance::Update()
 {
+#ifdef PLATFORM_PC
 	switch (WaitForMultipleObjects((DWORD)events.size(), &(events[0]), FALSE, 0))
 	{
-	case WAIT_OBJECT_0:
-	{
-		if (!playing)
+		case WAIT_OBJECT_0:
 		{
-			Stop();
+			if (!playing)
+			{
+				Stop();
+			}
 		}
+		break;
 	}
-	break;
-	}
+#endif
 
 	SoundBase::Update();
 }

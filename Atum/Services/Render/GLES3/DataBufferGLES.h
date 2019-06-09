@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Services/Render/GeometryBuffer.h"
+#include "Services/Render/DataBuffer.h"
 #include <vector>
 
 #ifdef PLATFORM_ANDROID
@@ -13,13 +13,13 @@
 #include <OpenGLES/ES3/glext.h>
 #endif
 
-class GeometryBufferGLES : public GeometryBuffer
+class DataBufferGLES : public DataBuffer
 {
 public:
 
 	GLuint buffer;
 
-	GeometryBufferGLES(int sz, int strd);
+	DataBufferGLES(int sz, int strd);
 
 	virtual void* Lock();
 	virtual void Unlock();

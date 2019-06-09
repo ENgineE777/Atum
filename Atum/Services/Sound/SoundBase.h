@@ -1,9 +1,11 @@
 
 #pragma once
 
+#ifdef PLATFORM_PC
 #include <windows.h>
 #include <mmsystem.h>
 #include <dsound.h>
+#endif
 
 #include "DecodedBuffer.h"
 
@@ -66,11 +68,14 @@ public:
 
 private:
 
-	LPDIRECTSOUNDBUFFER8 sound_buffer = nullptr;
 	DecodedBuffer decoded_buffer;
+
+#ifdef PLATFORM_PC
+	LPDIRECTSOUNDBUFFER8 sound_buffer = nullptr;
 
 	LPDIRECTSOUNDNOTIFY8 play_marker;
 	vector<HANDLE> events;
+#endif
 
 	float volume = 1.0f;
 	bool playing = false;

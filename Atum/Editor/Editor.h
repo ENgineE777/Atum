@@ -29,6 +29,9 @@ class Editor : public Object, public EUIWidget::Listener
 		MenuSaveID = 1002,
 		MenuSaveAsID = 1003,
 		MenuExitID = 1004,
+		MenuProjectSetting = 1100,
+		MenuProjectExport = 1101,
+		MenuDoc = 1200,
 		MenuSceneObjectID = 10000,
 		MenuSceneAssetID = 15000,
 		MenuLastSceneID = 19999

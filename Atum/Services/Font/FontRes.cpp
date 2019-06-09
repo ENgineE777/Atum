@@ -41,9 +41,6 @@ FontRes::Glyph* FontRes::GenerateChar(int ch)
 	stbtt_packedchar packed;
 	stbtt_PackFontRange(context, font_fb.GetData(), 0, STBTT_POINT_SIZE(used_height), ch, 1, &packed);
 
-	float w = packed.xoff2 - packed.xoff;
-	float h = packed.yoff2 - packed.yoff;
-
 	set_glyph.width = (packed.x1 - packed.x0);
 	set_glyph.height = (packed.y1 - packed.y0);
 
@@ -88,8 +85,6 @@ bool FontRes::Load()
 	}
 
 	used_height = height * 1.38f;
-
-	int nums = (int)(1024.0f / height);
 
 	tex_w = 1024;
 	tex_h = 128;// GetPow2((int)((400.0f / nums) * height));
@@ -138,7 +133,6 @@ float FontRes::GetLineBreak(vector<FontRes::LineBreak>& line_breaks, const char*
 	int bytes = 0;
 
 	int line = -1;
-	int x_offset = 0;
 
 	line_breaks.clear();
 

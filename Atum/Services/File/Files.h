@@ -46,18 +46,17 @@ public:
 	*/
 	FILE* FileOpen(const char* name, const char* mode);
 
-	/**
-	\brief Should be childs clipped by size of a widget
-
-	\param[in] name Full path to a file
-
-	\return True will be returned of a file if it exist. Otherwise fals will be returned.
-	*/
-	bool IsFileExist(const char* name);
-
 #ifndef DOXYGEN_SKIP
 
 #ifdef PLATFORM_PC
+	bool IsFileExist(const char* name);
+	void MakePathRelative(string& path, const char* file_name);
+	void CreateFolder(const char* path);
+	void DeleteFolder(const char* path);
+	void CopyFolder(const char* path, const char* dest_path);
+	bool CpyFile(const char* src_path, const char* dest_path);
+#endif
+
 	void* active_path = nullptr;
 	std::map<void*, std::string> pathes;
 
@@ -65,7 +64,7 @@ public:
 	{
 		if (active_path && pathes.count(active_path) > 0)
 		{
-			StringUtils::Printf(path, 1024, "%s\\%s", pathes[active_path].c_str(), name);
+			StringUtils::Printf(path, 1024, "%s%s", pathes[active_path].c_str(), name);
 			return true;
 		}
 
@@ -73,10 +72,11 @@ public:
 	}
 
 	void SetActivePath(void* object);
-	void MakePathRelative(string& path, const char* file_name);
 	void AddRootPath(void* object, const char* path);
 	void DelRootPath(void* object);
-#endif
 
 #endif
+
+private:
+	FILE* FileOpenInner(const char* path, const char* mode);
 };

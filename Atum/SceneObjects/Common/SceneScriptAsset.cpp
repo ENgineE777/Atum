@@ -157,9 +157,9 @@ void SceneScriptAsset::Init()
 
 #ifdef EDITOR
 	RenderTasks(true)->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&SceneScriptAsset::EditorWork);
+#endif
 
 	GetScene()->AddToGroup(this, "AssetScripts");
-#endif
 }
 
 void SceneScriptAsset::Load(JSONReader& loader)

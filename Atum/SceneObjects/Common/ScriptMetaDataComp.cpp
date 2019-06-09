@@ -84,7 +84,7 @@ void ScriptMetaDataComp::ApplyProperties()
 		values.clear();
 	}
 	else
-	if (asset && asset->properties.size() != values.size() || (prev_asset && prev_asset != asset))
+	if ((asset && asset->properties.size() != values.size()) || (prev_asset && prev_asset != asset))
 	{
 		values.resize(asset->properties.size());
 
@@ -103,10 +103,12 @@ void ScriptMetaDataComp::ApplyProperties()
 			index++;
 		}
 
+#ifdef EDITOR
 		if (object->IsEditMode())
 		{
 			ShowPropWidgets(saved_objCat);
 		}
+#endif
 	}
 }
 

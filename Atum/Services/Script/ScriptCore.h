@@ -1,6 +1,6 @@
 #pragma once
 #include "ScriptContext.h"
-#include "support/StringUtils.h"
+#include "Support/StringUtils.h"
 #include "Support/Vector2.h"
 
 class ScriptCore

@@ -1,6 +1,6 @@
 
 #include "VertexDeclGLES.h"
-#include "GeometryBufferGLES.h"
+#include "DataBufferGLES.h"
 #include "DeviceGLES.h"
 
 VertexDeclGLES::VertexDeclGLES(int count, VertexDecl::ElemDesc* elems)

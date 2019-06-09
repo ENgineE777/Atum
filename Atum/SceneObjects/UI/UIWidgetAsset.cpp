@@ -100,7 +100,6 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 	writer.StartArray("Childs");
 
 	int index = 0;
-	UIWidgetAsset* source_child = nullptr;
 
 	for (auto child : childs)
 	{

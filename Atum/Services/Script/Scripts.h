@@ -38,8 +38,9 @@ public:
 	FILE* help_file = nullptr;
 	bool help_out_dir = false;
 	void Init();
-	void Start();
 #endif
+
+	void Start();
 
 	/**
 	\brief Register C++ class as gloabal script type

@@ -66,7 +66,7 @@ public:
 	
 	struct Point
 	{
-		META_DATA_DECL(Point)
+		META_DATA_DECL_BASE(Point)
 		Vector2 pos;
 	};
 
@@ -92,7 +92,7 @@ public:
 		float cur_dist = 0.0f;
 		float point_dist = 0.0f;
 		float speed = 40.0f;
-		META_DATA_DECL(Track)
+		META_DATA_DECL_BASE(Track)
 		bool active = true;
 		vector<Point> points;
 

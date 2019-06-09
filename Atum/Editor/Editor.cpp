@@ -37,6 +37,7 @@ void Editor::Init()
 	menu->SetListener(-1, this, 0);
 
 	menu->StartMenu(false);
+
 	menu->StartSubMenu("File");
 
 	menu->AddItem(MenuNewID, "New...");
@@ -48,9 +49,14 @@ void Editor::Init()
 
 	menu->EndSubMenu();
 
+	menu->StartSubMenu("Project");
+
+	menu->AddItem(MenuProjectSetting, "Settings");
+	menu->AddItem(MenuProjectExport, "Export");
+
 	menu->EndSubMenu();
 
-	menu->AddItem(1301, "About");
+	menu->AddItem(MenuDoc, "Documentation");
 
 	menu->AttachToWidget(mainWnd);
 
@@ -989,6 +995,21 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 		{
 			gameWnd->Close();
 		}
+	}
+
+	if (activated_id == MenuProjectSetting)
+	{
+		project.ShowSettings();
+	}
+
+	if (activated_id == MenuProjectExport)
+	{
+		project.Export();
+	}
+
+	if (activated_id == MenuDoc)
+	{
+		ShellExecute(NULL, NULL, "chrome.exe", "https://atumengine.com/doc_html/html/index.html", NULL, SW_SHOWNORMAL);
 	}
 
 	if (popup_parent == asset_treeview && selectedObject && isSelectedAsset)

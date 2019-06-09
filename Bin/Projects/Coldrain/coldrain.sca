@@ -226,7 +226,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -288,7 +288,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -548,7 +548,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -948,7 +948,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1010,7 +1010,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1072,7 +1072,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Player_PigButcher.png",
+				"texName" : "Sprites/Player_PigButcher.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -1721,7 +1721,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/crosshair.png",
+				"texName" : "Sprites/crosshair.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1783,7 +1783,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1845,7 +1845,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1907,7 +1907,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -2167,7 +2167,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -2259,7 +2259,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2321,7 +2321,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -2383,7 +2383,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Enemy_Soldier.png",
+				"texName" : "Sprites/Enemy_Soldier.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.075000,
@@ -3032,7 +3032,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/bullet.png",
+				"texName" : "Sprites/bullet.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3094,7 +3094,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3156,7 +3156,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3231,7 +3231,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3306,7 +3306,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3368,7 +3368,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3430,7 +3430,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3492,7 +3492,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3554,7 +3554,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3616,7 +3616,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/coldrain/Sprites/Seizure.png",
+				"texName" : "Sprites/Seizure.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -3696,6 +3696,7 @@
 					},
 					"alpha" : 1.000000,
 					"scale_childs" : false,
+					"clip_childs" : false,
 					"font_name" : "settings/helvetica",
 					"font_height" : 25,
 					"text" : "Press fire  to  restart",
@@ -3733,7 +3734,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/Coldrain/Sprites/arrow.png",
+				"texName" : "Sprites/arrow.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -22435,8 +22436,7 @@
 			"x" : -432.000000,
 			"y" : 312.000000,
 			"width" : 518.454529,
-			"height" : 219.966370,
-			"Depth" : 0.010000
+			"height" : 219.966370
 		},
 		{
 			"type" : "SpriteInst",

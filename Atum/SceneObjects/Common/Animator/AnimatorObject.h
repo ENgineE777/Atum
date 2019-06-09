@@ -18,8 +18,8 @@ public:
 	AnimatorObject();
 	virtual ~AnimatorObject();
 
-	virtual void Init();
+	void Init() override;
 	void Work(float dt);
 
-	bool Play();
+	bool Play() override;
 };

@@ -59,7 +59,7 @@ public:
 
 	struct MetaType
 	{
-		META_DATA_DECL(MetaType)
+		META_DATA_DECL_BASE(MetaType)
 
 		Type type;
 		string name;

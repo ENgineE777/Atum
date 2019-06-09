@@ -1,5 +1,6 @@
 ﻿{
 
+	"export_dir" : "F:/Work/Atum/Bin/Projects/SunnyLand/Out",
 	"start_scene" : 3,
 	"scenes_count" : 8,
 	"scenes" : [
@@ -62,7 +63,7 @@
 			]
 		}
 	],
-	"selected_scene" : "Island/Island.sca",
+	"selected_scene" : "Island/Island_Level1.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

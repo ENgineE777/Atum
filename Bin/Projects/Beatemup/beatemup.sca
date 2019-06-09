@@ -464,7 +464,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -724,7 +724,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -956,7 +956,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -1188,7 +1188,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -1856,7 +1856,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39450.png",
+				"texName" : "39450.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1918,7 +1918,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39450.png",
+				"texName" : "39450.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"count" : 1,
@@ -1980,7 +1980,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -2296,7 +2296,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -2556,7 +2556,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -2788,7 +2788,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -3104,7 +3104,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -3280,7 +3280,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -3456,7 +3456,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -3660,7 +3660,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.150000,
@@ -3864,7 +3864,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/39412.png",
+				"texName" : "39412.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.250000,
@@ -3928,7 +3928,7 @@
 					"b" : 1.000000,
 					"a" : 1.000000
 				},
-				"texName" : "Projects/beatemup/44894.png",
+				"texName" : "44894.png",
 				"texMode" : 0,
 				"texFilter" : 0,
 				"frame_time" : 0.250000,
@@ -4374,7 +4374,7 @@
 							"b" : 1.000000,
 							"a" : 1.000000
 						},
-						"texName" : "Projects/beatemup/AtumLogo.png",
+						"texName" : "AtumLogo.png",
 						"texMode" : 0,
 						"texFilter" : 1,
 						"count" : 1,
@@ -5973,13 +5973,13 @@
 			"Layer" : "",
 			"x" : -200.000000,
 			"y" : 800.000000,
-			"Name of Virtual joystick scene object" :
+			"VJoy" :
 			{
-				"uid" : 0,
+				"uid" : -1756629248,
 				"child_uid" : 0,
 				"is_asset" : false
 			},
-			"Name of asset graph" : "SpriteBat_Graph",
+			"Asset" : "SpriteBat_Graph",
 			"Speed" : 300.000000,
 			"IsEnemy" : false,
 			"HP" : 100,
@@ -5995,13 +5995,13 @@
 			"Layer" : "",
 			"x" : 200.000000,
 			"y" : 800.000000,
-			"Name of Virtual joystick scene object" :
+			"VJoy" :
 			{
 				"uid" : 0,
 				"child_uid" : 0,
 				"is_asset" : false
 			},
-			"Name of asset graph" : "SpriteEnemy1_Graph",
+			"Asset" : "SpriteEnemy1_Graph",
 			"Speed" : 200.000000,
 			"IsEnemy" : true,
 			"HP" : 100,
@@ -6030,10 +6030,10 @@
 			"State" : 0,
 			"Group" : "",
 			"Layer" : "",
-			"StickPad" : "Projects/common/stick_pad.png",
-			"Stick" : "Projects/common/stick.png",
-			"ButtonA" : "Projects/common/button.png",
-			"ButtonB" : "Projects/common/button.png"
+			"StickPad" : "stick/stick_pad.png",
+			"Stick" : "stick/stick.png",
+			"ButtonA" : "stick/button.png",
+			"ButtonB" : "stick/button.png"
 		},
 		{
 			"type" : "SpriteInst",
@@ -6851,8 +6851,8 @@
 			"uid" : -90780672,
 			"ed_camera_2d" :
 			{
-				"x" : 0.000000,
-				"y" : 0.000000
+				"x" : 109.000000,
+				"y" : -55.000000
 			},
 			"Name" : "Script",
 			"State" : 2,

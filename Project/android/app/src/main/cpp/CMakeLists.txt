@@ -4,9 +4,11 @@ set( atum_DIR ../../../../../../../Atum/ )
 set( physx_DIR ../../../../../../../Libraries/PhysX )
 set( physx_lib_DIR ../../../../../../../Atum/Libraries/PhysX/Lib/android16 )
 set( as_DIR ../../../../../../../Libraries/Angelscript )
+set( vorbis_DIR ../../../../../../../Atum/Services/Sound/vorbis )
+set( ogg_DIR ../../../../../../../Atum/Services/Sound/ogg )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR}")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR} --include-directory=${vorbis_DIR}/include --include-directory=${vorbis_DIR}/lib --include-directory=${ogg_DIR}/include")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include --include-directory=${vorbis_DIR}/include --include-directory=${ogg_DIR}/include" )
 set(OPENGL_LIB GLESv3)
 
 link_directories( ${physx_lib_DIR} )
@@ -87,7 +89,6 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/UI/UIContainerAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UIImageAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UILabelAsset.cpp
-            ${atum_DIR}/SceneObjects/UI/UIService.cpp
             ${atum_DIR}/SceneObjects/UI/UIViewAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UIViewInstanceAsset.cpp
             ${atum_DIR}/SceneObjects/UI/UIWidgetAsset.cpp
@@ -119,8 +120,9 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/Render/Debug/DebugSpheres.cpp
             ${atum_DIR}/Services/Render/Debug/DebugSprites.cpp
             ${atum_DIR}/Services/Render/Debug/DebugTriangles.cpp
+            ${atum_DIR}/Services/Render/Debug/DebugTriangles2D.cpp
             ${atum_DIR}/Services/Render/GLES3/DeviceGLES.cpp
-            ${atum_DIR}/Services/Render/GLES3/GeometryBufferGLES.cpp
+            ${atum_DIR}/Services/Render/GLES3/DataBufferGLES.cpp
             ${atum_DIR}/Services/Render/GLES3/ShaderGLES.cpp
             ${atum_DIR}/Services/Render/GLES3/TextureGLES.cpp
             ${atum_DIR}/Services/Render/GLES3/VertexDeclGLES.cpp
@@ -129,6 +131,7 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/Render/Texture.cpp
             ${atum_DIR}/Services/Scene/Scene.cpp
             ${atum_DIR}/Services/Scene/SceneAsset.cpp
+            ${atum_DIR}/Services/Scene/SceneManager.cpp
             ${atum_DIR}/Services/Scene/SceneObject.cpp
             ${atum_DIR}/Services/Scene/SceneObjectComp.cpp
             ${atum_DIR}/Services/Script/Libs/scriptarray.cpp
@@ -138,7 +141,37 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/Script/Libs/scriptstdstring.cpp
             ${atum_DIR}/Services/Script/Libs/scriptstdstring_utils.cpp
             ${atum_DIR}/Services/Script/ScriptContext.cpp
+            ${atum_DIR}/Services/Script/ScriptCore.cpp
             ${atum_DIR}/Services/Script/Scripts.cpp
+            ${ogg_DIR}/src/bitwise.c
+            ${ogg_DIR}/src/framing.c
+            ${vorbis_DIR}/lib/analysis.c
+            ${vorbis_DIR}/lib/bitrate.c
+            ${vorbis_DIR}/lib/block.c
+            ${vorbis_DIR}/lib/codebook.c
+            ${vorbis_DIR}/lib/envelope.c
+            ${vorbis_DIR}/lib/floor0.c
+            ${vorbis_DIR}/lib/floor1.c
+            ${vorbis_DIR}/lib/info.c
+            ${vorbis_DIR}/lib/lookup.c
+            ${vorbis_DIR}/lib/lpc.c
+            ${vorbis_DIR}/lib/lsp.c
+            ${vorbis_DIR}/lib/mapping0.c
+            ${vorbis_DIR}/lib/mdct.c
+            ${vorbis_DIR}/lib/psy.c
+            ${vorbis_DIR}/lib/registry.c
+            ${vorbis_DIR}/lib/res0.c
+            ${vorbis_DIR}/lib/sharedbook.c
+            ${vorbis_DIR}/lib/smallft.c
+            ${vorbis_DIR}/lib/synthesis.c
+            ${vorbis_DIR}/lib/vorbisenc.c
+            ${vorbis_DIR}/lib/vorbisfile.c
+            ${vorbis_DIR}/lib/window.c
+            ${atum_DIR}/Services/Sound/DecodedBuffer.cpp
+            ${atum_DIR}/Services/Sound/SoundBase.cpp
+            ${atum_DIR}/Services/Sound/SoundInstance.cpp
+            ${atum_DIR}/Services/Sound/Sounds.cpp
+            ${atum_DIR}/Services/Sound/SoundStream.cpp
             ${atum_DIR}/Services/TaskExecutor/TaskExecutor.cpp)
 
 # Include libraries needed for atumlib lib

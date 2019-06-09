@@ -89,14 +89,14 @@ public:
 
 	int sz;
 
-	PhysHeightmap*  hm;
+	PhysHeightmap* hm = nullptr;
 
 	Terrain();
 	virtual ~Terrain();
 
 	bool Is3DObject() override;
-	virtual void Init();
-	virtual void ApplyProperties();
+	void Init() override;
+	void ApplyProperties() override;
 	float GetHeight(int i, int j);
 	Vector GetVecHeight(int i, int j);
 	void LoadHMap(const char* hgt_name);
@@ -104,7 +104,8 @@ public:
 	void ShRender(float dt);
 	void Render(Program* prg);
 
-	bool Play();
-	void Stop();
+	bool Play() override;
+
+	void Release() override;
 #endif
 };

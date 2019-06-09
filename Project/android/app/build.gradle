@@ -9,7 +9,7 @@ android {
         targetSdkVersion 28
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_STL=c++_shared'
+                arguments '-DANDROID_STL=c++_shared', '-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
             }
         }
         ndk {

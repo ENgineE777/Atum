@@ -126,7 +126,7 @@ public:
 
 	struct Link
 	{
-		META_DATA_DECL(Link)
+		META_DATA_DECL_BASE(Link)
 
 		Link() {};
 		Link(int set_index)
@@ -139,7 +139,7 @@ public:
 
 	struct Node
 	{
-		META_DATA_DECL(Node)
+		META_DATA_DECL_BASE(Node)
 
 		Vector2 pos = 0.0f;
 

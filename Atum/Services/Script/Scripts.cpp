@@ -23,9 +23,11 @@ void MessageCallback(const asSMessageInfo *msg, void *param)
 	core.Log("Script", "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
 }
 
+#ifdef EDITOR
 void Scripts::Init()
 {
 }
+#endif
 
 void Scripts::Start()
 {
@@ -184,6 +186,11 @@ void Scripts::RegisterClassInstance(const char* scene_name, asIScriptObject* ins
 
 void Scripts::CallClassInstancesMethod(const char* scene_name, const char* class_name, const char* method)
 {
+	if (class_instances_ctx->ctx->GetState() == asEXECUTION_ACTIVE)
+	{
+		return;
+	}
+
 	char prototype[256];
 	StringUtils::Printf(prototype, 256, "void %s()", method);
 

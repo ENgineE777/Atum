@@ -1,13 +1,16 @@
 #include "Services/Core/Core.h"
 
+#ifdef PLATFORM_PC
 #pragma comment(lib, "dsound.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "winmm.lib")
+#endif
 
 #include <algorithm>
 
 bool Sounds::Init(void* data)
 {
+#ifdef PLATFORM_PC
 	HRESULT result;
 
 	result = DirectSoundCreate8(nullptr, &direct_sound, nullptr);
@@ -22,6 +25,7 @@ bool Sounds::Init(void* data)
 	{
 		return false;
 	}
+#endif
 
 	return true;
 }

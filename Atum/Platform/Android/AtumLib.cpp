@@ -4,7 +4,6 @@
 #include <string.h>
 #include <time.h>
 #include "Services/Core/Core.h"
-#include "Services/Scene/Scene.h"
 #include "Services/Scene/ExecuteLevels.h"
 #include "SceneObjects/2D/Sprite.h"
 
@@ -122,13 +121,10 @@ void CallJavaMethod(const char* function, const char* format, ...)
 	}
 }
 
-extern Scene* hack_scene;
-
 class Renderer : public Object
 {
 public:
 
-	Scene scene;
 	bool inited = false;
 
 	void Init()
@@ -138,29 +134,25 @@ public:
 			return;
 		}
 
-		hack_scene = &scene;
-
-		scene.Init();
-		scene.Load("Projects/SunnyLand/SunnyLand.sca");
-		scene.Play();
+		core.scene_manager.LoadProject("Project/project.pra");
 
 		inited = true;
 	}
 
 	void Draw(float dt)
 	{
-		render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
+		core.render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
 
-		render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
+		core.render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 
-		render.ExecutePool(ExecuteLevels::Camera, dt);
-		render.ExecutePool(ExecuteLevels::Prepare, dt);
-		render.ExecutePool(ExecuteLevels::Geometry, dt);
-		render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
-		render.ExecutePool(ExecuteLevels::Sprites, dt);
-		render.ExecutePool(ExecuteLevels::PostProcess, dt);
-		render.ExecutePool(ExecuteLevels::GUI, dt);
-		render.ExecutePool(ExecuteLevels::Debug, dt);
+		core.render.ExecutePool(ExecuteLevels::Camera, dt);
+		core.render.ExecutePool(ExecuteLevels::Prepare, dt);
+		core.render.ExecutePool(ExecuteLevels::Geometry, dt);
+		core.render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
+		core.render.ExecutePool(ExecuteLevels::Sprites, dt);
+		core.render.ExecutePool(ExecuteLevels::PostProcess, dt);
+		core.render.ExecutePool(ExecuteLevels::GUI, dt);
+		core.render.ExecutePool(ExecuteLevels::Debug, dt);
 	}
 };
 
@@ -171,15 +163,16 @@ Java_com_atum_engine_AtumLib_Init(JNIEnv* env, jobject obj)
 {
 	UpdateJavaEnv(env, obj);
 
-	core.Init(nullptr);
+	core.Init(nullptr, nullptr);
 
 	Sprite::Init();
 
-	scripts.Start();
+	core.scripts.Start();
+	Sprite::use_ed_cam = false;
 
-	render.AddExecutedLevelPool(1);
+	core.render.AddExecutedLevelPool(1);
 
-	renderTaskPool = render.AddTaskPool();
+	renderTaskPool = core.render.AddTaskPool();
 	renderTaskPool->AddTask(1, &renderer, (Object::Delegate)&Renderer::Draw);
 }
 
@@ -188,7 +181,7 @@ Java_com_atum_engine_AtumLib_Resize(JNIEnv* env, jobject obj, jint width, jint h
 {
 	UpdateJavaEnv(env, obj);
 
-	render.GetDevice()->SetVideoMode(width, height, nullptr);
+	core.render.GetDevice()->SetVideoMode(width, height, nullptr);
 
 	renderer.Init();
 }
@@ -200,7 +193,7 @@ Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj)
 
 	core.CountDeltaTime();
 
-	renderer.scene.Execute(core.GetDeltaTime());
+	core.scene_manager.Execute(core.GetDeltaTime());
 
 	core.Update();
 }
@@ -208,23 +201,23 @@ Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj)
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager)
 {
 	AAssetManager* mgr = AAssetManager_fromJava(env, assetManager);
-	files.android_asset_manager = mgr;
+	core.files.android_asset_manager = mgr;
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y)
 {
-	core.Log("Touch", "Touch %i at (%i, %i) started", index, x, y);
-	controls.TouchStart(index, x, y);
+	//core.Log("Touch", "Touch %i at (%i, %i) started", index, x, y);
+	core.controls.TouchStart(index, x, y);
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y)
 {
-	core.Log("Touch", "Touch %i updated to (%i, %i)", index, x, y);
-	controls.TouchUpdate(index, x, y);
+	//core.Log("Touch", "Touch %i updated to (%i, %i)", index, x, y);
+	core.controls.TouchUpdate(index, x, y);
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchEnd(JNIEnv* env, jobject obj, int index)
 {
-	core.Log("Touch", "Touch %i ended", index);
-	controls.TouchEnd(index);
+	//core.Log("Touch", "Touch %i ended", index);
+	core.controls.TouchEnd(index);
 }

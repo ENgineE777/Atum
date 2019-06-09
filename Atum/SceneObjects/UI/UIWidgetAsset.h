@@ -102,7 +102,7 @@ public:
 
 	virtual ~UIWidgetAsset();
 
-	virtual void Init();
+	void Init() override;
 	
 	void Release() override;
 

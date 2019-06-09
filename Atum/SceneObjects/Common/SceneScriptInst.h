@@ -43,7 +43,7 @@ public:
 
 	struct Node
 	{
-		META_DATA_DECL(Node)
+		META_DATA_DECL_BASE(Node)
 
 		uint32_t object_uid = 0;
 		uint32_t object_child_uid = 0;

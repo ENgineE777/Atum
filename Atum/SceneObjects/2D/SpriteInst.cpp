@@ -505,7 +505,6 @@ void SpriteInst::Draw(float dt)
 	trans.offset = sprite_asset->trans.offset;
 	trans.size = sprite_asset->trans.size;
 
-	Vector2 pos = trans.pos;
 	trans.pos *= axis_scale;
 
 	Vector2 cam_pos = 0.0f;

@@ -10,7 +10,7 @@
 \ingroup gr_code_editor
 */
 
-class Project
+class Project : public EUIWidget::Listener
 {
 public:
 
@@ -91,12 +91,16 @@ public:
 	SceneHolder* select_scene = nullptr;
 
 	string project_name;
+	string export_dir;
 	char project_path[1024];
 	int start_scene = -1;
 	vector<SceneHolder*> scenes;
 	vector<ProjectNode> nodes;
 	vector<string> groups;
 	vector<Layer*> layers;
+
+	EUIWindow* wnd_settings = nullptr;
+	EUIButton* export_btn = nullptr;
 
 	bool CanRun();
 	void Load();
@@ -150,6 +154,13 @@ public:
 	void OnTreeViewSelChange(void* ptr);
 	void DeleteItem(void* ptr);
 	void Reset();
+
+	void Export();
+	void ShowSettings();
+
+	void SelectExportDir();
+	void OnWinClose(EUIWidget* sender) override;
+	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 };
 
 extern Project project;

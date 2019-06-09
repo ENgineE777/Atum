@@ -58,7 +58,7 @@ public:
 	class Link : public Object
 	{
 	public:
-		META_DATA_DECL(Link)
+		META_DATA_DECL_BASE(Link)
 
 		int     index;
 		string  name;
@@ -70,7 +70,7 @@ public:
 	class Node : public Object
 	{
 	public:
-		META_DATA_DECL(Node)
+		META_DATA_DECL_BASE(Node)
 
 		NodeType type = AnimNode;
 		SpriteAsset* asset = nullptr;

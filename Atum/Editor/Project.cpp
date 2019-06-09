@@ -2,6 +2,7 @@
 #include "Editor.h"
 #include "LayerEntryWidget.h"
 #include "SceneObjects/2D/Sprite.h"
+#include "shlobj_core.h"
 
 Project project;
 
@@ -35,6 +36,7 @@ void Project::Load()
 	if (reader.Parse(project_name.c_str()))
 	{
 		reader.Read("start_scene", start_scene);
+		reader.Read("export_dir", export_dir);
 
 		while (reader.EnterBlock("scenes"))
 		{
@@ -269,6 +271,7 @@ void Project::Save()
 	JSONWriter writer;
 	writer.Start(project_name.c_str());
 
+	writer.Write("export_dir", export_dir.c_str());
 	writer.Write("start_scene", start_scene);
 	writer.Write("scenes_count", (int)scenes.size());
 
@@ -1249,8 +1252,127 @@ void Project::Reset()
 	}
 
 	project_name.clear();
+	export_dir.clear();
 	start_scene = -1;
 	nodes.clear();
 	groups.clear();
 	layers.clear();
+}
+
+void Project::SelectExportDir()
+{
+	BROWSEINFO bi = { 0 };
+
+	bi.lpszTitle = "Browse for Folder";
+
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+
+	if (pidl != NULL)
+	{
+		TCHAR tszPath[MAX_PATH] = "\0";
+
+		if (SHGetPathFromIDList(pidl, tszPath) == TRUE)
+		{
+			export_dir = tszPath;
+		}
+
+		CoTaskMemFree(pidl);
+	}
+}
+
+void Project::Export()
+{
+	if (project_name.empty())
+	{
+		return;
+	}
+
+	if (export_dir.empty())
+	{
+		SelectExportDir();
+
+		if (export_dir.empty())
+		{
+			return;
+		}
+	}
+
+	core.files.DeleteFolder(export_dir.c_str());
+
+	{
+		string dest_path = export_dir + "/project";
+		core.files.CopyFolder(project_path, dest_path.c_str());
+	}
+
+	{
+		char project_file_name[512];
+		StringUtils::GetFileName(project_name.c_str(), project_file_name);
+
+		string original_name = export_dir + "/project/" + project_file_name;
+		string new_name = export_dir + "/project/project.pra";
+
+		rename(original_name.c_str(), new_name.c_str());
+	}
+
+	char ApplicationDir[512];
+	GetCurrentDirectory(512, ApplicationDir);
+
+	{
+		string src_path = string(ApplicationDir) + "/Shaders/GLES";
+		string dest_path = export_dir + "/Shaders/GLES";
+		core.files.CopyFolder(src_path.c_str(), dest_path.c_str());
+	}
+
+	{
+		string src_path = string(ApplicationDir) + "/settings";
+		string dest_path = export_dir + "/settings";
+		core.files.CopyFolder(src_path.c_str(), dest_path.c_str());
+	}
+
+	{
+		string dest_path = export_dir + "/settings/editor";
+		core.files.DeleteFolder(dest_path.c_str());
+	}
+
+	{
+		string dest_path = export_dir + "/settings/EUI";
+		core.files.DeleteFolder(dest_path.c_str());
+	}
+}
+
+void Project::ShowSettings()
+{
+	if (project_name.empty())
+	{
+		return;
+	}
+
+	wnd_settings = new EUIWindow("Atum", "settings//editor//icon.ico", EUIWindow::PopupWithCloseBtn, true, 100, 100, 800, 600);
+	wnd_settings->SetListener(-1, this, 0);
+
+	EUIPanel* tool_panel = new EUIPanel(wnd_settings, 0, 0, 800, 600);
+
+	EUILabel* export_label = new EUILabel(tool_panel, "Export Directory", 5, 5, 95, 20);
+	export_btn = new EUIButton(tool_panel, export_dir.c_str(), 100, 5, 200, 20);
+	export_btn->SetListener(-1, this, 0);
+
+	wnd_settings->Show(true);
+}
+
+void Project::OnWinClose(EUIWidget* sender)
+{
+	if (wnd_settings && wnd_settings == sender)
+	{
+		wnd_settings->Close();
+		wnd_settings = nullptr;
+	}
+}
+
+void Project::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
+{
+	if (sender == export_btn)
+	{
+		SelectExportDir();
+		export_btn->SetText(export_dir.c_str());
+	}
 }

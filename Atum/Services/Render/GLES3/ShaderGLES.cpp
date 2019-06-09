@@ -3,7 +3,7 @@
 #include "DeviceGLES.h"
 #include "VertexDeclGLES.h"
 #include "TextureGLES.h"
-#include "GeometryBufferGLES.h"
+#include "DataBufferGLES.h"
 #include "Services/Core/Core.h"
 #include "Services/File/FileInMemory.h"
 

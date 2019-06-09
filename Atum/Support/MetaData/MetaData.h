@@ -201,6 +201,15 @@ public:\
 	virtual void Init();\
 };\
 static MetaDataImpl meta_data;\
+MetaData* GetMetaData() override;
+
+#define META_DATA_DECL_BASE(className)\
+class MetaDataImpl : public MetaData\
+{\
+public:\
+	virtual void Init();\
+};\
+static MetaDataImpl meta_data;\
 virtual MetaData* GetMetaData();
 
 #define META_DATA_DESC(className)\
@@ -261,6 +270,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.offset = memberOFFSET(className, classMember);\
 	prop.type = Type::Color;\
 	::Color tmp = ::defValue;\
+	memcpy(prop.defvalue.color, &tmp.r, sizeof(float) * 4);\
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	properties.push_back(prop);\
@@ -306,6 +316,16 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.catName = strCatName;\
 	prop.propName = strPropName;\
 	prop.enum_callback = set_callback;\
+	properties.push_back(prop);\
+}
+#else
+#define STRING_ENUM_PROP(className, classMember, strCatName, strPropName)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Type::EnumString;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
 	properties.push_back(prop);\
 }
 #endif

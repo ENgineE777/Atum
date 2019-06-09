@@ -13,6 +13,7 @@ bool SoundStream::Load(const char* file_name)
 
 	CreateSoundBuffer(2 * CHUNK_SIZE);
 
+#ifdef PLATFORM_PC
 	events.resize(2);
 
 	events[0] = CreateEvent(nullptr, false, false, nullptr);
@@ -31,12 +32,14 @@ bool SoundStream::Load(const char* file_name)
 	{
 		return false;
 	}
+#endif
 
 	return true;
 }
 
 void SoundStream::Fill()
 {
+#ifdef PLATFORM_PC
 	unsigned char* bufferPtr = nullptr;
 	unsigned long bufferSize = 0;
 
@@ -48,6 +51,7 @@ void SoundStream::Fill()
 	}
 
 	sound_buffer->Unlock((void*)bufferPtr, bufferSize, nullptr, 0);
+#endif
 
 	buffer_index = 1 - buffer_index;
 }
@@ -62,6 +66,7 @@ bool SoundStream::Play(PlayType type)
 
 void SoundStream::Update()
 {
+#ifdef PLATFORM_PC
 	switch (WaitForMultipleObjects((DWORD)events.size(), &(events[0]), FALSE, 0))
 	{
 		case WAIT_OBJECT_0:
@@ -78,6 +83,7 @@ void SoundStream::Update()
 		}
 		break;
 	}
+#endif
 
 	SoundBase::Update();
 }

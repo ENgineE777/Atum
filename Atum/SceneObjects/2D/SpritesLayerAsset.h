@@ -53,7 +53,7 @@ public:
 
 	struct LayerSprite
 	{
-		META_DATA_DECL(Sprite)
+		META_DATA_DECL_BASE(Sprite)
 
 		Vector2 pos;
 		Vector2 size;

@@ -20,7 +20,7 @@ public:
 	Texture* scene_rt = nullptr;
 	Texture* scene_depth = nullptr;
 
-	virtual void Init();
+	void Init() override;
 
 	void ReCreateRT();
 	float ComputeGaussian(float n);
@@ -28,5 +28,5 @@ public:
 	void SetRT(float dt);
 	void Draw(float dt);
 
-	virtual void Release();
+	void Release() override;
 };

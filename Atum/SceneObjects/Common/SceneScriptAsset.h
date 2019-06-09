@@ -120,7 +120,7 @@ public:
 
 	struct LinkToMethod
 	{
-		META_DATA_DECL(LinkToMethod)
+		META_DATA_DECL_BASE(LinkToMethod)
 
 		int node;
 		Vector2 arrow_pos;

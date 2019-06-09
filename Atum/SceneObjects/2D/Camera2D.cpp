@@ -66,7 +66,6 @@ void Camera2D::Update(float dt)
 
 		float half_screen = (float)core.render.GetDevice()->GetWidth() / scale * 0.5f;
 		float margin = 50.0f;
-		float border = half_screen - screen_border;
 
 		if (target_pos.x < trans.pos.x - screen_border)
 		{

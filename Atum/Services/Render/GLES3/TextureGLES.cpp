@@ -1,6 +1,6 @@
 
 #include "TextureGLES.h"
-#include "Services/Render/Render.h"
+#include "Services/Core/Core.h"
 
 TextureGLES::FormatDesc TextureGLES::GetFormat(Format fmt)
 {
@@ -171,7 +171,7 @@ void TextureGLES::Update(int level, int layer, uint8_t* data, int stride)
 
 void TextureGLES::Release()
 {
-	if (!render.TexRefIsEmpty(this))
+	if (!core.render.TexRefIsEmpty(this))
 	{
 		return;
 	}

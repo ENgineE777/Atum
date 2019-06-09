@@ -15,6 +15,6 @@ public:
 	BoxPlayer();
 	virtual ~BoxPlayer();
 
-	virtual void Init();
+	void Init() override;
 	void Draw(float dt);
 };

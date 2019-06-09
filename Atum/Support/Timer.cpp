@@ -57,7 +57,7 @@ float Timer::CountDeltaTime()
 
 #if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	clock_gettime(CLOCK_MONOTONIC, &currTime);
-#endif;
+#endif
 
 	if (lastTime < -0.5)
 	{

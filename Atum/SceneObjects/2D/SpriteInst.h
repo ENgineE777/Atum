@@ -86,7 +86,7 @@ public:
 
 	struct Instance
 	{
-		META_DATA_DECL(Instance)
+		META_DATA_DECL_BASE(Instance)
 
 		int index = 0;
 		Sprite::FrameState frame_state;

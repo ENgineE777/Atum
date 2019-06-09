@@ -9,6 +9,8 @@
 
 #include "Services/Script/Libs/scriptarray.h"
 
+#ifdef EDITOR
+
 void FillCallbackList(EUIComboBox* cbox, void* object)
 {
 	SceneScriptInst::Node* node = (SceneScriptInst::Node*)object;
@@ -22,10 +24,16 @@ void FillCallbackList(EUIComboBox* cbox, void* object)
 	}
 }
 
+#endif
+
 CLASSREG(SceneObject, SceneScriptInst, "Script")
 
 META_DATA_DESC(SceneScriptInst::Node)
+#ifdef EDITOR
 STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, FillCallbackList, "Property", "callback_type")
+#else
+STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, "Property", "callback_type")
+#endif
 META_DATA_DESC_END()
 
 #ifdef EDITOR

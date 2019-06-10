@@ -48,6 +48,8 @@ class Render
 	TaskExecutor::GroupTaskPool* groupTaskPool;
 	TaskExecutor::SingleTaskPool* debugTaskPool;
 
+	Texture* white_tex = nullptr;
+
 public:
 
 	enum Transform
@@ -245,6 +247,16 @@ public:
 
 	*/
 	void DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color color = COLOR_WHITE, Vector2 offset = 0.0f, float angle = 0.0f);
+
+	/**
+	\brief Get pointer to texture filled by white color
+
+	\return Pointer to texture filled by white color
+	*/
+	inline Texture* GetWhiteTexture()
+	{
+		return white_tex;
+	}
 
 	/**
 	\brief Transform pount to a screen

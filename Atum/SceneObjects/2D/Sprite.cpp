@@ -18,7 +18,6 @@ Program*    Sprite::quad_prg_depth;
 Program*    Sprite::quad_prg_no_depth;
 VertexDecl* Sprite::vdecl;
 DataBuffer* Sprite::buffer;
-Texture*    Sprite::white_tex = nullptr;
 
 void Sprite::Load(JSONReader& loader, Sprite::Data* sprite, const char* name)
 {
@@ -227,8 +226,6 @@ void Sprite::Init()
 
 	quad_prg_depth = core.render.GetProgram("QuadProgramDepth");
 	quad_prg_no_depth = core.render.GetProgram("QuadProgramNoDepth");
-
-	white_tex = core.render.LoadTexture("settings/editor/white.png");
 }
 
 void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
@@ -256,7 +253,7 @@ void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector
 	quad_prg->SetVector(Shader::Type::Vertex, "desc", &params[0], 3);
 	quad_prg->SetMatrix(Shader::Type::Vertex, "trans", &trans, 1);
 	quad_prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&clr.r, 1);
-	quad_prg->SetTexture(Shader::Type::Pixel, "diffuseMap", texture ? texture : white_tex);
+	quad_prg->SetTexture(Shader::Type::Pixel, "diffuseMap", texture ? texture : core.render.GetWhiteTexture());
 
 	core.render.GetDevice()->Draw(Device::TriangleStrip, 0, 2);
 }

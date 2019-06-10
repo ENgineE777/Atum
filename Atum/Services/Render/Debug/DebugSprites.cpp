@@ -8,8 +8,6 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugSprites::Draw);
 
-	whiteTex = core.render.LoadTexture("settings/editor/white.png");
-
 	vbuffer = core.render.GetDevice()->CreateBuffer(sizeof(SpriteVertex) * 4, sizeof(SpriteVertex));
 
 	SpriteVertex* Data = (SpriteVertex*)vbuffer->Lock();
@@ -71,7 +69,7 @@ void DebugSprites::Draw(float dt)
 
 	for (auto& sprite : sprites)
 	{
-		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", sprite.texture ? sprite.texture : whiteTex);
+		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", sprite.texture ? sprite.texture : core.render.GetWhiteTexture());
 		prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&sprite.color.r, 1);
 
 		params[0] = Vector4((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight(), 0, 0);

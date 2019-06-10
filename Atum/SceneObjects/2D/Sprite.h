@@ -66,7 +66,6 @@ public:
 	static bool use_ed_cam;
 	static Vector2 cam_pos;
 	static Vector2 ed_cam_pos;
-	static Texture* white_tex;
 
 	static void Load(JSONReader& loader, Sprite::Data* sprite, const char* name);
 	static void Save(JSONWriter& saver, Sprite::Data* sprite, const char* name);

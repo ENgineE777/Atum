@@ -25,7 +25,6 @@ class DebugSprites : public Object
 		float    angle = 0.0f;
 	};
 
-	Texture* whiteTex = nullptr;
 	std::vector<Sprite> sprites; 
 
 public:

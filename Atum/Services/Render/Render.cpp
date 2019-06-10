@@ -67,9 +67,15 @@ bool Render::Init(const char* device_name, void* external_device)
 	triangles2D = new DebugTriangles2D();
 	triangles2D->Init(debugTaskPool);
 
-
 	font = new DebugFont();
 	font->Init(debugTaskPool);
+
+	white_tex = device->CreateTexture(2, 2, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
+
+	uint8_t white_tex_data[4 * 4];
+	memset(white_tex_data, 255, 16);
+
+	white_tex->Update(0, 0, white_tex_data, 2 * 4);
 
 	return true;
 }
@@ -144,7 +150,6 @@ Texture* Render::LoadTexture(const char* name)
 	int width;
 	int height;
 	uint8_t* data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
-
 
 	Texture* texture = device->CreateTexture(width, height, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
 

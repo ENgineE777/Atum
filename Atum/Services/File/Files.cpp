@@ -32,9 +32,7 @@ static int android_close(void* cookie)
 #endif
 
 #ifdef PLATFORM_IOS
-#import <Foundation/NSBundle.h>
-#include "Support/StringUtils.h"
-
+extern FILE* FileOpenIOS(const char* path, const char* mode);
 #endif
 
 void Files::Init()
@@ -53,14 +51,7 @@ FILE* Files::FileOpenInner(const char* path, const char* mode)
 #endif
 
 #ifdef PLATFORM_IOS
-	char file_path[2048];
-
-	NSString* ns_name = [[NSString alloc] initWithFormat:@"Bin/%s", path];
-	NSString* ns_path = [[NSBundle mainBundle] pathForResource:ns_name ofType : @""];
-	StringUtils::Copy(file_path, 2048, [ns_path UTF8String]);
-
-
-	return fopen(file_path, mode);
+	return FileOpenIOS(path, mode);
 #endif
 
 #ifdef PLATFORM_PC

@@ -1,56 +1,7 @@
 
 #import "AtumViewController.h"
 
-#include "Services/Core/Core.h"
-#include "Services/Scene/Scene.h"
-#include "Services/Scene/ExecuteLevels.h"
-#include "SceneObjects/2D/Sprite.h"
-
-extern Scene* hack_scene;
-TaskExecutor::SingleTaskPool* renderTaskPool;
-Scene scene;
-
-class Renderer : public Object
-{
-public:
-    
-    Scene scene;
-    bool inited = false;
-    
-    void Init()
-    {
-        if (inited)
-        {
-            return;
-        }
-        
-        hack_scene = &scene;
-        
-        scene.Init();
-        scene.Load("Projects/SunnyLand/SunnyLand.scn");
-        scene.Play();
-        
-        inited = true;
-    }
-    
-    void Draw(float dt)
-    {
-        render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
-        
-        render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
-        
-        render.ExecutePool(ExecuteLevels::Camera, dt);
-        render.ExecutePool(ExecuteLevels::Prepare, dt);
-        render.ExecutePool(ExecuteLevels::Geometry, dt);
-        render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
-        render.ExecutePool(ExecuteLevels::Sprites, dt);
-        render.ExecutePool(ExecuteLevels::PostProcess, dt);
-        render.ExecutePool(ExecuteLevels::GUI, dt);
-        render.ExecutePool(ExecuteLevels::Debug, dt);
-    }
-};
-
-Renderer renderer;
+#include "Platform/Common/AtumRunner.h"
 
 @interface AtumViewController()
 
@@ -75,31 +26,16 @@ GLKView* view;
     self.preferredFramesPerSecond = 60;
     self.view = view;
 
-    
-    core.Init(nullptr);
-    
-    Sprite::Init();
-    
-    scripts.Start();
-    
-    render.AddExecutedLevelPool(1);
-    
-    renderTaskPool = render.AddTaskPool();
-    renderTaskPool->AddTask(1, &renderer, (Object::Delegate)&Renderer::Draw);
-    
-    renderer.Init();
+    runner.Init();
 }
 
 -(void)glkView:(GLKView*)view drawInRect:(CGRect)rect
 {
     float koef = [UIScreen mainScreen].nativeScale;
-    render.GetDevice()->SetVideoMode(rect.size.width * koef, rect.size.height * koef, nullptr);
-
-    core.CountDeltaTime();
     
-    renderer.scene.Execute(core.GetDeltaTime());
+    runner.Resize(rect.size.width * koef, rect.size.height * koef);
     
-    core.Update();
+    runner.Execute();
 }
 
 #define IOS_MAX_TOUCHES_COUNT 10
@@ -124,9 +60,9 @@ UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
             }
         }
         
-        controls.TouchStart(index,
-                            [touch locationInView: [touch view]].x * koef,
-                            [touch locationInView: [touch view]].y * koef);
+        core.controls.TouchStart(index,
+                                 [touch locationInView: [touch view]].x * koef,
+                                 [touch locationInView: [touch view]].y * koef);
     }
 }
 
@@ -147,9 +83,9 @@ UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
             }
         }
         
-        controls.TouchUpdate(index,
-                             [touch locationInView: [touch view]].x * koef,
-                             [touch locationInView: [touch view]].y * koef);
+        core.controls.TouchUpdate(index,
+                                  [touch locationInView: [touch view]].x * koef,
+                                  [touch locationInView: [touch view]].y * koef);
 
     }
 }
@@ -170,7 +106,7 @@ UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
             }
         }
         
-        controls.TouchEnd(index);
+        core.controls.TouchEnd(index);
     }
 }
 
@@ -190,7 +126,7 @@ UITouch* ids[IOS_MAX_TOUCHES_COUNT] = {0};
             }
         }
         
-        controls.TouchEnd(index);
+        core.controls.TouchEnd(index);
     }
 }
 

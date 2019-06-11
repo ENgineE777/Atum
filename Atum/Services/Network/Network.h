@@ -5,6 +5,7 @@
 #include <ws2tcpip.h>
 #endif
 #include <stdio.h> 
+#include <stdlib.h> 
 #include <vector> 
 
 /**

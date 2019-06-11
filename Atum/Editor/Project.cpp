@@ -1299,6 +1299,8 @@ void Project::Export()
 
 	core.files.DeleteFolder(export_dir.c_str());
 
+	core.files.CreateFolder(export_dir.c_str());
+
 	{
 		string dest_path = export_dir + "/project";
 		core.files.CopyFolder(project_path, dest_path.c_str());

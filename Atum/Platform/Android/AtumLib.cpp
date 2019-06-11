@@ -134,7 +134,7 @@ public:
 			return;
 		}
 
-		core.scene_manager.LoadProject("Project/project.pra");
+		core.scene_manager.LoadProject("project/project.pra");
 
 		inited = true;
 	}

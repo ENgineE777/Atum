@@ -1,5 +1,5 @@
 
-#include "Files.h"
+#include "Services/Core/Core.h"
 #include <sys/stat.h>
 
 #ifdef PLATFORM_PC
@@ -87,6 +87,11 @@ FILE* Files::FileOpen(const char* name, const char* mode)
 	if (!file)
 	{
 		file = FileOpenInner(name, mode);
+	}
+
+	if (!file)
+	{
+		core.Log("Files", "File not found %s", name);
 	}
 
 	return file;

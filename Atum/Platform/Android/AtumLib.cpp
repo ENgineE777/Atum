@@ -3,11 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "Services/Core/Core.h"
-#include "Services/Scene/ExecuteLevels.h"
-#include "SceneObjects/2D/Sprite.h"
-
-TaskExecutor::SingleTaskPool* renderTaskPool;
+#include "Platform/Common/AtumRunner.h"
 
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
@@ -121,59 +117,12 @@ void CallJavaMethod(const char* function, const char* format, ...)
 	}
 }
 
-class Renderer : public Object
-{
-public:
-
-	bool inited = false;
-
-	void Init()
-	{
-		if (inited)
-		{
-			return;
-		}
-
-		core.scene_manager.LoadProject("project/project.pra");
-
-		inited = true;
-	}
-
-	void Draw(float dt)
-	{
-		core.render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
-
-		core.render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
-
-		core.render.ExecutePool(ExecuteLevels::Camera, dt);
-		core.render.ExecutePool(ExecuteLevels::Prepare, dt);
-		core.render.ExecutePool(ExecuteLevels::Geometry, dt);
-		core.render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
-		core.render.ExecutePool(ExecuteLevels::Sprites, dt);
-		core.render.ExecutePool(ExecuteLevels::PostProcess, dt);
-		core.render.ExecutePool(ExecuteLevels::GUI, dt);
-		core.render.ExecutePool(ExecuteLevels::Debug, dt);
-	}
-};
-
-Renderer renderer;
-
 JNIEXPORT void JNICALL
 Java_com_atum_engine_AtumLib_Init(JNIEnv* env, jobject obj)
 {
 	UpdateJavaEnv(env, obj);
 
-	core.Init(nullptr, nullptr);
-
-	Sprite::Init();
-
-	core.scripts.Start();
-	Sprite::use_ed_cam = false;
-
-	core.render.AddExecutedLevelPool(1);
-
-	renderTaskPool = core.render.AddTaskPool();
-	renderTaskPool->AddTask(1, &renderer, (Object::Delegate)&Renderer::Draw);
+	runner.Init();
 }
 
 JNIEXPORT void JNICALL
@@ -181,9 +130,7 @@ Java_com_atum_engine_AtumLib_Resize(JNIEnv* env, jobject obj, jint width, jint h
 {
 	UpdateJavaEnv(env, obj);
 
-	core.render.GetDevice()->SetVideoMode(width, height, nullptr);
-
-	renderer.Init();
+	runner.Resize(width, height);
 }
 
 JNIEXPORT void JNICALL
@@ -191,11 +138,7 @@ Java_com_atum_engine_AtumLib_Update(JNIEnv* env, jobject obj)
 {
 	UpdateJavaEnv(env, obj);
 
-	core.CountDeltaTime();
-
-	core.scene_manager.Execute(core.GetDeltaTime());
-
-	core.Update();
+	runner.Execute();
 }
 
 JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_SetAssetManager(JNIEnv* env, jobject obj, jobject assetManager)

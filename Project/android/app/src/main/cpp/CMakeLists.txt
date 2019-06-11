@@ -46,6 +46,7 @@ add_library(atumlib SHARED
             ${as_DIR}/source/as_typeinfo.cpp
             ${as_DIR}/source/as_variablescope.cpp
             ${atum_DIR}/Platform/Android/AtumLib.cpp
+            ${atum_DIR}/Platform/Common/AtumRunner.cpp
             ${atum_DIR}/SceneObjects/2D/Camera2D.cpp
             ${atum_DIR}/SceneObjects/2D/Phys2DComp.cpp
             ${atum_DIR}/SceneObjects/2D/Sprite.cpp

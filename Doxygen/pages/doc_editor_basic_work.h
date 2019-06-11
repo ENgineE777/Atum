@@ -13,6 +13,11 @@ should be located inside root folder. Also all resources folder of every scene s
 for scene itself. That means all resouces like images, fonts, models, etc should be stored inside
 folder of a scene. 
 
+\section project_settings Project settings
+
+Project settings can be accesed via activation of menu item 'Project->Settings'. Currently only available
+settings is a path to export folder.
+
 \section scene_treeview List of scenes
 
 All scenes in project can be viewed under tab 'Project'.

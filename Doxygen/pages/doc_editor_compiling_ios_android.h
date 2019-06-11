@@ -2,17 +2,19 @@
 
 \page doc_editor_compiling_ios_android Compiling iOS & Android builds
 
-Platrom specific project located in Project folder of source code of Atum.
+Platform specific projects located in Project folder inside folder with sources of Atum.
+Before running Atum project resources and specific resources needed to be copied in proper folder.
 
-To compile project on specifict platform specific project needed to be opened.
+To make life easer editor is supporting exporting resources of a project. To do so just activate
+menu item 'Project->Export'.
 
-To move resorces of a project all content inside folder of you project needed
-to be copied in proper plase. For ios destination is a root folder of iOS project.
-For android destination is assets folder.
+Warning: do not set export folder located inside exported project. This will lead to a bug.
 
-Also folder with shaders needed to be copyed with resorces of project (Shaders/GLES).
+After resources was exported just copy content of a folder to proper folder. In case of Android
+content of a folder needed to be copied to [path_to_sources]/Atum/Project/android/app/src/main/assets.
+In case of iOS destination is [path_to_sources]/Atum/../ExportedData.
 
-Name of loaded also neede to be chages. For andoid AtumLib.cpp needed to be modified (line 144)
-For iOS AtumViewController.m needed to be modified (line 30)
+If resources was exported and content of folder were resources were exported will be copied to proper
+directory then only needed thing is just compile and run project. Every thing should be work as a charm.
 
 */

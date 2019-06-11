@@ -1,5 +1,5 @@
 ﻿{
-
+	"export_dir" : "Projects/Beatemup_Out",
 	"start_scene" : 0,
 	"scenes_count" : 1,
 	"scenes" : [

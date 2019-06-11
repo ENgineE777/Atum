@@ -1298,8 +1298,17 @@ void Project::Export()
 	}
 
 	core.files.DeleteFolder(export_dir.c_str());
+	core.files.CreateFolder((export_dir + "/dummy").c_str());
 
-	core.files.CreateFolder(export_dir.c_str());
+	DWORD dwAttrib = GetFileAttributes(export_dir.c_str());
+
+	if (dwAttrib == INVALID_FILE_ATTRIBUTES || !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY))
+	{
+		string str = string("Failure in exporing resources to folder:\n") + export_dir;
+		MessageBox(nullptr, str.c_str(), "Export failed", MB_ICONERROR);
+
+		return;
+	}
 
 	{
 		string dest_path = export_dir + "/project";
@@ -1340,6 +1349,9 @@ void Project::Export()
 		string dest_path = export_dir + "/settings/EUI";
 		core.files.DeleteFolder(dest_path.c_str());
 	}
+
+	string str = string("Resources of project were exported to folder:\n") + export_dir;
+	MessageBox(nullptr, str.c_str(), "Export finished", 0);
 }
 
 void Project::ShowSettings()

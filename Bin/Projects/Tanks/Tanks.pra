@@ -1,6 +1,5 @@
 ﻿{
-
-	"export_dir" : "F:/JKL",
+	"export_dir" : "Projects/Tanks_Out",
 	"start_scene" : 0,
 	"scenes_count" : 1,
 	"scenes" : [

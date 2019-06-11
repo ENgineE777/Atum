@@ -206,7 +206,7 @@ void Files::DeleteFolder(const char* path)
 	{
 		while (fFile)
 		{
-			if (ffd.dwFileAttributes != FILE_ATTRIBUTE_DIRECTORY)
+			if (!(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 			{
 				char FileName[512];
 
@@ -217,7 +217,7 @@ void Files::DeleteFolder(const char* path)
 				DeleteFile(FileName);
 			}
 			else
-			if (ffd.dwFileAttributes == FILE_ATTRIBUTE_DIRECTORY && strcmp(ffd.cFileName, ".") != 0 && strcmp(ffd.cFileName, "..") != 0)
+			if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(ffd.cFileName, ".") != 0 && strcmp(ffd.cFileName, "..") != 0)
 			{
 				char FileName[512];
 

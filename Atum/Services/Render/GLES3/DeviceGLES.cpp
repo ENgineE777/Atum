@@ -32,7 +32,10 @@ bool DeviceGLES::Init(void* data)
 
 void DeviceGLES::SetVideoMode(int wgt, int hgt, void* data)
 {
-	core.Log("Render", "Set videomode : %i x %i", wgt, hgt);
+    if (scr_w != wgt && scr_h != hgt)
+    {
+        core.Log("Render", "Set videomode : %i x %i", wgt, hgt);
+    }
 
 	scr_w = wgt;
 	scr_h = hgt;

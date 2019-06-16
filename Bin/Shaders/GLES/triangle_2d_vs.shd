@@ -1,0 +1,14 @@
+#version 300 es
+
+layout(location = 0) in vec3 position;
+layout(location = 1) in vec4 color;
+
+uniform vec4 param;
+
+out vec4 vColor;
+
+void main()
+{
+  output.pos = vec4(-1.0f + position.x/param.x * 2.0f, 1.0f - position.y/param.y * 2.0f, 0.0f, 1.0f);
+  vColor = color;
+}

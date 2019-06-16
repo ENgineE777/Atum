@@ -18,9 +18,16 @@ class SoundStream : public SoundBase
 {
 	friend class Sounds;
 
-	int buffer_index = 0;
+	constexpr static int CHUNK_SIZE = 4 * 1024;
 
-	constexpr static int CHUNK_SIZE = 16 * 1024;
+#ifdef PLATFORM_PC
+	int buffer_index = 0;
+#endif
+
+#ifdef PLATFORM_ANDROID
+	static void Callback(SLAndroidSimpleBufferQueueItf bq, void *context);
+	uint8_t buffer[CHUNK_SIZE];
+#endif
 
 	void Fill();
 	bool Load(const char* file_name) override;

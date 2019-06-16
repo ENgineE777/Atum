@@ -7,6 +7,11 @@
 #include <dsound.h>
 #endif
 
+#ifdef PLATFORM_ANDROID
+#include <SLES/OpenSLES.h>
+#include <SLES/OpenSLES_Android.h>
+#endif
+
 #include "DecodedBuffer.h"
 
 /**
@@ -43,6 +48,18 @@ public:
 	virtual bool Play(PlayType type) = 0;
 
 	/**
+	\brief Pause or unpause playing of a sound
+
+	\param[in] pause Define pause ir unpause playing of a sound
+	*/
+	virtual void Pause(bool pause);
+
+	/**
+	\brief Stop playing
+	*/
+	void Stop();
+
+	/**
 	\brief Set a volume
 
 	\param[in] volume Value of a volume
@@ -55,11 +72,6 @@ public:
 	\return Current master volume
 	*/
 	float GetVolume();
-
-	/**
-	\brief Stop playing
-	*/
-	void Stop();
 
 	/**
 	\brief SoundBase should released only via this method
@@ -75,6 +87,13 @@ private:
 
 	LPDIRECTSOUNDNOTIFY8 play_marker;
 	vector<HANDLE> events;
+#endif
+
+#ifdef PLATFORM_ANDROID
+	SLObjectItf bqPlayerObject = nullptr;
+	SLPlayItf bqPlayerPlay;
+	SLAndroidSimpleBufferQueueItf bqPlayerBufferQueue;
+	SLVolumeItf bqPlayerVolume;
 #endif
 
 	float volume = 1.0f;

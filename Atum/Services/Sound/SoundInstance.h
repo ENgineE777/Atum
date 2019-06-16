@@ -21,6 +21,11 @@ class SoundInstance : public SoundBase
 	bool Load(const char* file_name) override;
 	void Update() override;
 
+#ifdef PLATFORM_ANDROID
+	static void Callback(SLAndroidSimpleBufferQueueItf bq, void *context);
+	void Fill();
+#endif
+
 public:
 
 	bool Play(PlayType type) override;

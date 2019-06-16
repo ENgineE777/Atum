@@ -143,6 +143,19 @@ bool DecodedBuffer::LoadOgg(const char* filename, bool load_all)
 	return true;
 }
 
+void DecodedBuffer::RestartDecode()
+{
+	if (type == FileWav)
+	{
+		fseek(stream, sizeof(WavHeaderType), SEEK_SET);
+	}
+	else
+	if (type == FileOgg)
+	{
+		ov_time_seek(&vorbis_file, 0);
+	}
+}
+
 long DecodedBuffer::Decode(uint8_t* buffer, long length, bool looped)
 {
 	long read = 0;
@@ -157,7 +170,7 @@ long DecodedBuffer::Decode(uint8_t* buffer, long length, bool looped)
 			{
 				if (looped)
 				{
-					fseek(stream, sizeof(WavHeaderType), SEEK_SET);
+					RestartDecode();
 				}
 				else
 				{
@@ -181,7 +194,7 @@ long DecodedBuffer::Decode(uint8_t* buffer, long length, bool looped)
 			{
 				if (looped)
 				{
-					ov_time_seek(&vorbis_file, 0);
+					RestartDecode();
 				}
 				else
 				{

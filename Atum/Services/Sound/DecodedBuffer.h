@@ -52,6 +52,7 @@ public:
 	bool LoadWav(const char* filename, bool load_all);
 	bool LoadOgg(const char* filename, bool load_all);
 
+	void RestartDecode();
 	long Decode(uint8_t* buffer, long length, bool looped);
 
 	void Clear();

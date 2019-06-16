@@ -8,6 +8,11 @@
 #include <stdio.h>
 #endif
 
+#ifdef PLATFORM_ANDROID
+#include <SLES/OpenSLES.h>
+#include <SLES/OpenSLES_Android.h>
+#endif
+
 #include "SoundInstance.h"
 #include "SoundStream.h"
 
@@ -40,6 +45,12 @@ class Sounds
 
 #ifdef PLATFORM_PC
 	IDirectSound8* direct_sound = nullptr;
+#endif
+
+#ifdef PLATFORM_ANDROID
+	SLObjectItf engineObject;
+	SLEngineItf engineEngine;
+	SLObjectItf outputMixObject;
 #endif
 
 	std::vector<SoundBase*> sounds;
@@ -85,6 +96,8 @@ public:
 
 	void ClearAllSounds();
 
+	void OnPause();
+	void OnResume();
 	void Release();
 #endif
 };

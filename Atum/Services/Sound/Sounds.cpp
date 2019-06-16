@@ -27,6 +27,16 @@ bool Sounds::Init(void* data)
 	}
 #endif
 
+#ifdef PLATFORM_ANDROID
+	SLresult result;
+
+	result = slCreateEngine(&engineObject, 0, nullptr, 0, nullptr, nullptr);
+	result = (*engineObject)->Realize(engineObject, SL_BOOLEAN_FALSE);
+	result = (*engineObject)->GetInterface(engineObject, SL_IID_ENGINE, &engineEngine);
+	result = (*engineEngine)->CreateOutputMix(engineEngine, &outputMixObject, 0, 0, 0);
+	result = (*outputMixObject)->Realize(outputMixObject, SL_BOOLEAN_FALSE);
+#endif
+
 	return true;
 }
 
@@ -88,6 +98,45 @@ void Sounds::ClearAllSounds()
 	}
 }
 
+void Sounds::OnPause()
+{
+	for (auto* snd : sounds)
+	{
+		if (snd->playing)
+		{
+			snd->Pause(true);
+		}
+	}
+}
+
+void Sounds::OnResume()
+{
+	for (auto* snd : sounds)
+	{
+		if (snd->playing)
+		{
+			snd->Pause(false);
+		}
+	}
+}
+
 void Sounds::Release()
 {
+	ClearAllSounds();
+
+#ifdef PLATFORM_PC
+	RELEASE(direct_sound)
+#endif
+
+#ifdef PLATFORM_ANDROID
+	if (outputMixObject != nullptr)
+	{
+		(*outputMixObject)->Destroy(outputMixObject);
+	}
+
+	if (engineObject != nullptr)
+	{
+		(*engineObject)->Destroy(engineObject);
+	}
+#endif
 }

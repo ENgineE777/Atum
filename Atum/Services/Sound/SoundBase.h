@@ -34,7 +34,7 @@ class SoundBase
 	friend class Sounds;
 	friend class SoundInstance;
 	friend class SoundStream;
-    friend struct AudioQueueHolder;
+    friend class AudioQueueHolder;
 
 public:
 
@@ -99,6 +99,10 @@ private:
 	SLPlayItf bqPlayerPlay;
 	SLAndroidSimpleBufferQueueItf bqPlayerBufferQueue;
 	SLVolumeItf bqPlayerVolume;
+#endif
+
+#ifdef PLATFORM_IOS
+    IAudioQueueHolder* audio_queue = nullptr;
 #endif
 
 	float volume = 1.0f;

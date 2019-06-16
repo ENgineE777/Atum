@@ -187,7 +187,7 @@ bool SoundBase::Play(PlayType type, bool buffer_looped)
 #endif
 
 #ifdef PLATFORM_IOS
-    AudioQueue_Play(this);
+    audio_queue->Play();
 #endif
     
 	return true;
@@ -216,11 +216,11 @@ void SoundBase::Pause(bool pause)
 #ifdef PLATFORM_IOS
     if (pause)
     {
-        AudioQueue_Pause(this);
+        audio_queue->Pause();
     }
     else
     {
-        AudioQueue_Play(this);;
+        audio_queue->Play();
     }
 #endif
 }
@@ -240,7 +240,7 @@ void SoundBase::Stop()
 #endif
 
 #ifdef PLATFORM_IOS
-    AudioQueue_Stop(this);
+    audio_queue->Stop();
 #endif
     
 	decoded_buffer.RestartDecode();
@@ -273,7 +273,7 @@ void SoundBase::Update()
 #endif
         
 #ifdef PLATFORM_IOS
-        AudioQueue_SetVolume(this, volume * core.sounds.master_volume);
+        audio_queue->SetVolume(volume * core.sounds.master_volume);
 #endif
 	}
 }
@@ -300,7 +300,7 @@ void SoundBase::Release()
 #endif
     
 #ifdef PLATFORM_IOS
-    AudioQueue_Delete(this);
+    audio_queue->Release();
 #endif
 
 	decoded_buffer.Clear();

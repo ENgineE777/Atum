@@ -1,21 +1,28 @@
 #include "Services/Core/Core.h"
 #include <AudioToolbox/AudioToolbox.h>
 
-struct AudioQueueHolder
+struct AudioQueueHolder : public IAudioQueueHolder
 {
+public:
+    
     constexpr static int num_buffer = 3;
     constexpr static int buffer_size = 4096;
     bool is_stream;
     uint64_t current_pos = 0;
     AudioQueueRef queue;
     AudioQueueBufferRef buffers[num_buffer];
-    void CreateQueue(SoundBase* sound);
-    void Fill(SoundBase* sound);
-    void FillDecoded(SoundBase* sound, uint8_t* buffer);
+    
     static void AudioQueueCallback(void* data, AudioQueueRef queue, AudioQueueBufferRef buffer);
-};
 
-map<SoundBase*, AudioQueueHolder> audio_queues;
+    void CreateQueue(SoundBase* sound, bool set_is_stream);
+    void Fill(SoundBase* sound) override;
+    void FillDecoded(SoundBase* sound, uint8_t* buffer);
+    void Play() override;
+    void Pause() override;
+    void Stop() override;
+    void SetVolume(float volume)  override;
+    void Release()  override;
+};
 
 void AudioQueueHolder::AudioQueueCallback(void* data, AudioQueueRef queue, AudioQueueBufferRef buffer)
 {
@@ -27,9 +34,9 @@ void AudioQueueHolder::AudioQueueCallback(void* data, AudioQueueRef queue, Audio
     }
     else
     {
-        AudioQueueHolder& holder = audio_queues[sound];
+        AudioQueueHolder* holder = (AudioQueueHolder*)sound->audio_queue;
         
-        if (holder.is_stream)
+        if (holder->is_stream)
         {
             if (sound->decoded_buffer.Decode((uint8_t*)buffer->mAudioData, AudioQueueHolder::buffer_size, sound->play_type == SoundBase::PlayType::Looped) != AudioQueueHolder::buffer_size)
             {
@@ -38,10 +45,10 @@ void AudioQueueHolder::AudioQueueCallback(void* data, AudioQueueRef queue, Audio
         }
         else
         {
-            holder.FillDecoded(sound, (uint8_t*)buffer->mAudioData);
+            holder->FillDecoded(sound, (uint8_t*)buffer->mAudioData);
             
             if (sound->play_type != SoundBase::PlayType::Looped &&
-                holder.current_pos == sound->decoded_buffer.decoded_data_size)
+                holder->current_pos == sound->decoded_buffer.decoded_data_size)
             {
                 sound->playing = false;
             }
@@ -51,8 +58,12 @@ void AudioQueueHolder::AudioQueueCallback(void* data, AudioQueueRef queue, Audio
     }
 }
 
-void AudioQueueHolder::CreateQueue(SoundBase* sound)
+void AudioQueueHolder::CreateQueue(SoundBase* sound, bool set_is_stream)
 {
+    sound->audio_queue = this;
+    
+    is_stream = set_is_stream;
+    
     AudioStreamBasicDescription format;
     
     format.mSampleRate       = sound->decoded_buffer.sample_rate;
@@ -128,54 +139,40 @@ void AudioQueueHolder::Fill(SoundBase* sound)
     }
 }
 
-void AudioQueue_Add(SoundBase* sound, bool is_stream)
+void AudioQueueHolder::Play()
 {
-    AudioQueueHolder& holder = audio_queues[sound];
-    
-    holder.is_stream = is_stream;
-    holder.CreateQueue(sound);
+    AudioQueueStart(queue, nullptr);
 }
 
-void AudioQueue_Delete(SoundBase* sound)
+void AudioQueueHolder::Pause()
 {
-    AudioQueueHolder& holder = audio_queues[sound];
-    
+    AudioQueuePause(queue);
+}
+
+void AudioQueueHolder::Stop()
+{
+    AudioQueueStop(queue, false);
+}
+
+void AudioQueueHolder::SetVolume(float volume)
+{
+    AudioQueueSetParameter(queue, kAudioQueueParam_Volume, volume);
+}
+
+void AudioQueueHolder::Release()
+{
     for (int i = 0; i < AudioQueueHolder::num_buffer; i++)
     {
-        AudioQueueFreeBuffer(holder.queue, holder.buffers[i]);
+        AudioQueueFreeBuffer(queue, buffers[i]);
     }
     
-    AudioQueueDispose(holder.queue, false);
-
-    audio_queues.erase(sound);
+    AudioQueueDispose(queue, false);
+    
+    delete this;
 }
 
-void AudioQueue_Fill(SoundBase* sound)
+void CreateAudioQueueHolder(SoundBase* sound, bool is_stream)
 {
-    AudioQueueHolder& holder = audio_queues[sound];
-    holder.Fill(sound);
-}
-
-void AudioQueue_Play(SoundBase* sound)
-{
-    AudioQueueHolder& holder = audio_queues[sound];
-    AudioQueueStart(holder.queue, nullptr);
-}
-
-void AudioQueue_Pause(SoundBase* sound)
-{
-    AudioQueueHolder& holder = audio_queues[sound];
-    AudioQueuePause(holder.queue);
-}
-
-void AudioQueue_Stop(SoundBase* sound)
-{
-    AudioQueueHolder& holder = audio_queues[sound];
-    AudioQueueStop(holder.queue, false);
-}
-
-void AudioQueue_SetVolume(SoundBase* sound, float volume)
-{
-    AudioQueueHolder& holder = audio_queues[sound];
-    AudioQueueSetParameter(holder.queue, kAudioQueueParam_Volume, volume);
+    AudioQueueHolder* audio_quene = new AudioQueueHolder();
+    audio_quene->CreateQueue(sound, is_stream);
 }

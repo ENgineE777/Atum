@@ -36,7 +36,7 @@ bool Sounds::Init(void* data)
 	result = (*engineEngine)->CreateOutputMix(engineEngine, &outputMixObject, 0, 0, 0);
 	result = (*outputMixObject)->Realize(outputMixObject, SL_BOOLEAN_FALSE);
 #endif
-
+    
 	return true;
 }
 

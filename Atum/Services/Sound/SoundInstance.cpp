@@ -21,7 +21,7 @@ void SoundInstance::Callback(SLAndroidSimpleBufferQueueItf bq, void *context)
 #ifdef PLATFORM_IOS
 void SoundInstance::CreateSoundBuffer(long size)
 {
-    AudioQueue_Add(this, false);
+    CreateAudioQueueHolder(this, false);
 }
 #endif
 
@@ -89,7 +89,7 @@ bool SoundInstance::Play(PlayType type)
 #endif
 
 #ifdef PLATFORM_IOS
-    AudioQueue_Fill(this);
+    audio_queue->Fill(this);
 #endif
 
 	return SoundBase::Play(type, type == PlayType::Looped);

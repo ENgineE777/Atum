@@ -2,10 +2,16 @@
 
 class SoundBase;
 
-void AudioQueue_Add(SoundBase* sound, bool is_stream);
-void AudioQueue_Delete(SoundBase* sound);
-void AudioQueue_Fill(SoundBase* sound);
-void AudioQueue_Play(SoundBase* sound);
-void AudioQueue_Pause(SoundBase* sound);
-void AudioQueue_Stop(SoundBase* sound);
-void AudioQueue_SetVolume(SoundBase* sound, float volume);
+class IAudioQueueHolder
+{
+public:
+
+    virtual void Fill(SoundBase* sound) = 0;
+    virtual void Play() = 0;
+    virtual void Pause() = 0;
+    virtual void Stop() = 0;
+    virtual void SetVolume(float volume) = 0;
+    virtual void Release() = 0;
+};
+
+extern void CreateAudioQueueHolder(SoundBase* sound, bool is_stream);

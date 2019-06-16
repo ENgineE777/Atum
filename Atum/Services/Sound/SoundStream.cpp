@@ -23,7 +23,7 @@ void SoundStream::Callback(SLAndroidSimpleBufferQueueItf bq, void *context)
 #ifdef PLATFORM_IOS
 void SoundStream::CreateSoundBuffer(long size)
 {
-    AudioQueue_Add(this, true);
+    CreateAudioQueueHolder(this, true);
 }
 #endif
 
@@ -72,7 +72,7 @@ bool SoundStream::Load(const char* file_name)
 void SoundStream::Fill()
 {
 #ifdef PLATFORM_IOS
-    AudioQueue_Fill(this);
+    audio_queue->Fill(this);
     return;
 #endif
     

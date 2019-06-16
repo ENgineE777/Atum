@@ -259,7 +259,6 @@ void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)
 	va_list args;
 	va_start(args, text);
 	vsnprintf(buffer, 256, text, args);
-	perror(buffer);
 	va_end(args);
 
 	font->AddText(pos, color, buffer);

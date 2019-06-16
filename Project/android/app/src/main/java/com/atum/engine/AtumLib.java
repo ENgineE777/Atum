@@ -15,4 +15,7 @@ public class AtumLib
      public native void TouchStart(int index, int x, int y);
      public native void TouchUpdate(int index, int x, int y);
      public native void TouchEnd(int index);
+     public native void OnPause();
+     public native void OnResume();
+     public native void OnDestroy();
 }

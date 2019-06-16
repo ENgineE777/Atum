@@ -135,3 +135,18 @@ int Core::GetFPS()
 {
 	return Timer::GetFPS();
 }
+
+void Core::OnPause()
+{
+	sounds.OnPause();
+}
+
+void Core::OnResume()
+{
+	sounds.OnResume();
+}
+
+void Core::Release()
+{
+	sounds.Release();
+}

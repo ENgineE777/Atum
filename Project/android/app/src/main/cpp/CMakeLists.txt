@@ -182,5 +182,6 @@ target_link_libraries(atumlib
             ${PHYSX_LINK_LIBS}
             android
             EGL
+            OpenSLES
             log
             m)

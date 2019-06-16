@@ -35,6 +35,9 @@
     <content url="file://$MODULE_DIR$/../../../Atum/Platform/Android">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Platform/Android" isTestSource="false" />
     </content>
+    <content url="file://$MODULE_DIR$/../../../Atum/Platform/Common">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Platform/Common" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../Atum/SceneObjects/2D">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/SceneObjects/2D" isTestSource="false" />
     </content>
@@ -97,7 +100,6 @@
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Sound">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Sound" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Sound/vorbis/lib" isTestSource="false" />
     </content>
     <content url="file://$MODULE_DIR$/../../../Atum/Services/Sound/ogg/src">
       <sourceFolder url="file://$MODULE_DIR$/../../../Atum/Services/Sound/ogg/src" isTestSource="false" />

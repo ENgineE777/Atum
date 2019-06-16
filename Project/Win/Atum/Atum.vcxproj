@@ -26,6 +26,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Common\AtumRunner.cpp" />
     <ClCompile Include="..\..\..\Atum\Platform\Win\main.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Camera2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp" />
@@ -207,6 +208,7 @@
     <ClInclude Include="..\..\..\Atum\Editor\LayerEntryWidget.h" />
     <ClInclude Include="..\..\..\Atum\Editor\Project.h" />
     <ClInclude Include="..\..\..\Atum\Editor\SceneObjCmpWidget.h" />
+    <ClInclude Include="..\..\..\Atum\Platform\Common\AtumRunner.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Camera2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Phys2DComp.h" />

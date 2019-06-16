@@ -22,6 +22,9 @@ extern "C"
 	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchStart(JNIEnv* env, jobject obj, int index, int x, int y);
 	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchUpdate(JNIEnv* env, jobject obj, int index, int x, int y);
 	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchEnd(JNIEnv* env, jobject obj, int index);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnPause(JNIEnv* env, jobject obj);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnResume(JNIEnv* env, jobject obj);
+	JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnDestroy(JNIEnv* env, jobject obj);
 };
 
 void UpdateJavaEnv(JNIEnv* env, jobject obj)
@@ -163,4 +166,19 @@ JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_TouchEnd(JNIEnv* env, jobjec
 {
 	//core.Log("Touch", "Touch %i ended", index);
 	core.controls.TouchEnd(index);
+}
+
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnPause(JNIEnv* env, jobject obj)
+{
+	core.OnPause();
+}
+
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnResume(JNIEnv* env, jobject obj)
+{
+	core.OnResume();
+}
+
+JNIEXPORT void JNICALL Java_com_atum_engine_AtumLib_OnDestroy(JNIEnv* env, jobject obj)
+{
+	core.Release();
 }

@@ -103,6 +103,10 @@ public:
 	float GetDeltaTime();
 	int GetFPS();
 #endif
+
+	void OnPause();
+	void OnResume();
+	void Release();
 };
 
 extern Core core;

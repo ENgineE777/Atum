@@ -35,15 +35,28 @@ public class AtumActivity extends Activity
         setContentView(main_view);
     }
 
+    @Override public void onBackPressed()
+    {
+        moveTaskToBack(true);
+    }
+
     @Override protected void onPause()
     {
+        AtumLib.inst.OnPause();
         super.onPause();
         main_view.onPause();
     }
 
     @Override protected void onResume()
     {
+        AtumLib.inst.OnResume();
         super.onResume();
         main_view.onResume();
+    }
+
+    @Override protected void onDestroy()
+    {
+        AtumLib.inst.OnDestroy();
+        super.onDestroy();
     }
 }

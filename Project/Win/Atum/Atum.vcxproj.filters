@@ -109,6 +109,9 @@
     <Filter Include="Services\Sound\ogg">
       <UniqueIdentifier>{aa45cbce-5057-4ced-8604-c0548ccc668e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform\Common">
+      <UniqueIdentifier>{df30acd0-3890-4ad0-94fe-2077f023c7a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
@@ -606,6 +609,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.cpp">
       <Filter>Services\Render\DX11</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Platform\Common\AtumRunner.cpp">
+      <Filter>Platform\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1087,6 +1093,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\DX11\DataBufferDX11.h">
       <Filter>Services\Render\DX11</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Platform\Common\AtumRunner.h">
+      <Filter>Platform\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

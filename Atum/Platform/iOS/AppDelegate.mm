@@ -1,6 +1,7 @@
 
 #import "AppDelegate.h"
 #import "AtumViewController.h"
+#include "Services/Core/Core.h"
 
 @interface AppDelegate ()
 
@@ -27,6 +28,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    core.OnPause();
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -35,10 +37,12 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    core.OnResume();
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
+    core.Release();
 }
 
 @end

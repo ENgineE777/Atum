@@ -105,6 +105,10 @@ void Core::Log(const char* name, const char* text, ...)
 #ifdef EDITOR
 	Editor::LogToOutputBox(name, buffer);
 #endif
+    
+#ifdef PLATFORM_IOS
+    printf("%s: %s\n", name, buffer);
+#endif
 }
 
 void Core::CountDeltaTime()

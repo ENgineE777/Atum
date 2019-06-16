@@ -297,7 +297,7 @@ void Controls::ResolveAliases()
 
 				if (ref.aliasIndex == -1)
 				{
-					printf("alias %s has invalid reference %s", alias.name.c_str(), ref.name.c_str());
+                    core.Log("Controls", "alias %s has invalid reference %s", alias.name.c_str(), ref.name.c_str());
 				}
 			}
 		}

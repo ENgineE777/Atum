@@ -18,6 +18,13 @@ void SoundInstance::Callback(SLAndroidSimpleBufferQueueItf bq, void *context)
 }
 #endif
 
+#ifdef PLATFORM_IOS
+void SoundInstance::CreateSoundBuffer(long size)
+{
+    AudioQueue_Add(this, false);
+}
+#endif
+
 bool SoundInstance::Load(const char* file_name)
 {
 	if (!decoded_buffer.Load(file_name, true))
@@ -79,6 +86,10 @@ bool SoundInstance::Play(PlayType type)
 {
 #ifdef PLATFORM_ANDROID
 	Fill();
+#endif
+
+#ifdef PLATFORM_IOS
+    AudioQueue_Fill(this);
 #endif
 
 	return SoundBase::Play(type, type == PlayType::Looped);

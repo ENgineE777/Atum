@@ -170,6 +170,10 @@
 		3431F39E22AF57C0005FFC6E /* analysis.c in Sources */ = {isa = PBXBuildFile; fileRef = 3431F39D22AF57C0005FFC6E /* analysis.c */; };
 		3431F3A022AF57CB005FFC6E /* bitrate.c in Sources */ = {isa = PBXBuildFile; fileRef = 3431F39F22AF57CB005FFC6E /* bitrate.c */; };
 		3431F3A222AF57D0005FFC6E /* block.c in Sources */ = {isa = PBXBuildFile; fileRef = 3431F3A122AF57D0005FFC6E /* block.c */; };
+		34724E3122B5E5030029D31B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34724E3022B5E5030029D31B /* AudioToolbox.framework */; };
+		34724E3322B6084D0029D31B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34724E3222B6084D0029D31B /* AVFoundation.framework */; };
+		34724E3622B60CE20029D31B /* file_example_OOG_1MG.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */; };
+		34724E3722B60CE20029D31B /* sound01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 34724E3522B60CE20029D31B /* sound01.wav */; };
 		34E8E9F022AF5C32001B3397 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9ED22AF5C32001B3397 /* AppDelegate.mm */; };
 		34E8E9F122AF5C32001B3397 /* AtumViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9EE22AF5C32001B3397 /* AtumViewController.mm */; };
 		34E8E9F222AF5C32001B3397 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9EF22AF5C32001B3397 /* main.mm */; };
@@ -199,6 +203,7 @@
 		34E8EA2622AF6703001B3397 /* project in Resources */ = {isa = PBXBuildFile; fileRef = 34E8EA2322AF6703001B3397 /* project */; };
 		34E8EA2722AF6703001B3397 /* settings in Resources */ = {isa = PBXBuildFile; fileRef = 34E8EA2422AF6703001B3397 /* settings */; };
 		34E8EA2822AF6703001B3397 /* Shaders in Resources */ = {isa = PBXBuildFile; fileRef = 34E8EA2522AF6703001B3397 /* Shaders */; };
+		34F716C022B62211000C047E /* AudioQueue.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34F716BF22B62211000C047E /* AudioQueue.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -504,6 +509,10 @@
 		3431F39D22AF57C0005FFC6E /* analysis.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = analysis.c; path = ../../Atum/Services/Sound/vorbis/lib/analysis.c; sourceTree = "<group>"; };
 		3431F39F22AF57CB005FFC6E /* bitrate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitrate.c; path = ../../Atum/Services/Sound/vorbis/lib/bitrate.c; sourceTree = "<group>"; };
 		3431F3A122AF57D0005FFC6E /* block.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = block.c; path = ../../Atum/Services/Sound/vorbis/lib/block.c; sourceTree = "<group>"; };
+		34724E3022B5E5030029D31B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		34724E3222B6084D0029D31B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = file_example_OOG_1MG.ogg; path = ../../../ExportedData/file_example_OOG_1MG.ogg; sourceTree = "<group>"; };
+		34724E3522B60CE20029D31B /* sound01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound01.wav; path = ../../../ExportedData/sound01.wav; sourceTree = "<group>"; };
 		34E8E9ED22AF5C32001B3397 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../../Atum/Platform/iOS/AppDelegate.mm; sourceTree = "<group>"; };
 		34E8E9EE22AF5C32001B3397 /* AtumViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AtumViewController.mm; path = ../../Atum/Platform/iOS/AtumViewController.mm; sourceTree = "<group>"; };
 		34E8E9EF22AF5C32001B3397 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = ../../Atum/Platform/iOS/main.mm; sourceTree = "<group>"; };
@@ -534,6 +543,8 @@
 		34E8EA2322AF6703001B3397 /* project */ = {isa = PBXFileReference; lastKnownFileType = folder; name = project; path = ../../../ExportedData/project; sourceTree = "<group>"; };
 		34E8EA2422AF6703001B3397 /* settings */ = {isa = PBXFileReference; lastKnownFileType = folder; name = settings; path = ../../../ExportedData/settings; sourceTree = "<group>"; };
 		34E8EA2522AF6703001B3397 /* Shaders */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Shaders; path = ../../../ExportedData/Shaders; sourceTree = "<group>"; };
+		34F716BE22B62211000C047E /* AudioQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioQueue.h; path = ../../Atum/Services/Sound/AudioQueue.h; sourceTree = "<group>"; };
+		34F716BF22B62211000C047E /* AudioQueue.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AudioQueue.mm; path = ../../Atum/Services/Sound/AudioQueue.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -541,6 +552,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34724E3322B6084D0029D31B /* AVFoundation.framework in Frameworks */,
+				34724E3122B5E5030029D31B /* AudioToolbox.framework in Frameworks */,
 				3431F363216DAA92005FFC6E /* libLowLevel.a in Frameworks */,
 				3431F364216DAA92005FFC6E /* libLowLevelAABB.a in Frameworks */,
 				3431F365216DAA92005FFC6E /* libLowLevelCloth.a in Frameworks */,
@@ -588,6 +601,8 @@
 		3431F096216BD87F005FFC6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34724E3222B6084D0029D31B /* AVFoundation.framework */,
+				34724E3022B5E5030029D31B /* AudioToolbox.framework */,
 				3431F35C216DAA91005FFC6E /* libLowLevel.a */,
 				3431F35D216DAA91005FFC6E /* libLowLevelAABB.a */,
 				3431F35E216DAA91005FFC6E /* libLowLevelCloth.a */,
@@ -714,16 +729,16 @@
 		3431F107216C0203005FFC6E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				3431F38422AF53B1005FFC6E /* Sound */,
-				3431F36A216DCCF6005FFC6E /* File */,
 				3431F108216C0213005FFC6E /* Controls */,
 				3431F10C216C0233005FFC6E /* Core */,
+				3431F36A216DCCF6005FFC6E /* File */,
 				3431F110216C0258005FFC6E /* Font */,
 				3431F11A216C0271005FFC6E /* Network */,
 				3431F11B216C0437005FFC6E /* Physic */,
 				3431F20C216C0681005FFC6E /* Render */,
 				3431F1FE216C05EE005FFC6E /* Scene */,
 				3431F1E4216C05BC005FFC6E /* Script */,
+				3431F38422AF53B1005FFC6E /* Sound */,
 				3431F1E0216C05AF005FFC6E /* TaskExecutor */,
 			);
 			name = Services;
@@ -1132,6 +1147,8 @@
 		3431F334216C141B005FFC6E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */,
+				34724E3522B60CE20029D31B /* sound01.wav */,
 				34E8EA2322AF6703001B3397 /* project */,
 				34E8EA2422AF6703001B3397 /* settings */,
 				34E8EA2522AF6703001B3397 /* Shaders */,
@@ -1154,6 +1171,8 @@
 		3431F38422AF53B1005FFC6E /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				34F716BE22B62211000C047E /* AudioQueue.h */,
+				34F716BF22B62211000C047E /* AudioQueue.mm */,
 				3431F38522AF53C7005FFC6E /* DecodedBuffer.cpp */,
 				3431F38622AF53C7005FFC6E /* DecodedBuffer.h */,
 				3431F39422AF53CE005FFC6E /* ogg */,
@@ -1276,10 +1295,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34724E3622B60CE20029D31B /* file_example_OOG_1MG.ogg in Resources */,
 				34E8EA2622AF6703001B3397 /* project in Resources */,
 				34E8EA2822AF6703001B3397 /* Shaders in Resources */,
 				3431F0CD216BEA40005FFC6E /* Info.plist in Resources */,
 				34E8EA2722AF6703001B3397 /* settings in Resources */,
+				34724E3722B60CE20029D31B /* sound01.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1338,6 +1359,7 @@
 				3431F0FD216BFA3D005FFC6E /* json.cpp in Sources */,
 				3431F39322AF53C8005FFC6E /* SoundStream.cpp in Sources */,
 				3431F1FB216C05DA005FFC6E /* scriptmath.cpp in Sources */,
+				34F716C022B62211000C047E /* AudioQueue.mm in Sources */,
 				3431F279216C089E005FFC6E /* correction.cpp in Sources */,
 				3431F327216C0B0C005FFC6E /* as_scriptnode.cpp in Sources */,
 				3431F39222AF53C8005FFC6E /* Sounds.cpp in Sources */,

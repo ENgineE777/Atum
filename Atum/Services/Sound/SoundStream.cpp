@@ -20,6 +20,13 @@ void SoundStream::Callback(SLAndroidSimpleBufferQueueItf bq, void *context)
 }
 #endif
 
+#ifdef PLATFORM_IOS
+void SoundStream::CreateSoundBuffer(long size)
+{
+    AudioQueue_Add(this, true);
+}
+#endif
+
 bool SoundStream::Load(const char* file_name)
 {
 	if (!decoded_buffer.Load(file_name, false))
@@ -54,18 +61,25 @@ bool SoundStream::Load(const char* file_name)
 	CreateSoundBuffer(CHUNK_SIZE);
 	(*bqPlayerBufferQueue)->RegisterCallback(bqPlayerBufferQueue, Callback, this);
 #endif
+    
+#ifdef PLATFORM_IOS
+    CreateSoundBuffer(CHUNK_SIZE);
+#endif
 
 	return true;
 }
 
 void SoundStream::Fill()
 {
-#ifdef PLATFORM_PC
-	unsigned char* bufferPtr = nullptr;
+#ifdef PLATFORM_IOS
+    AudioQueue_Fill(this);
+    return;
 #endif
-
+    
+	unsigned char* bufferPtr = nullptr;
+    
 #ifdef PLATFORM_ANDROID
-	unsigned char* bufferPtr = buffer;
+	bufferPtr = buffer;
 #endif
 
 #ifdef PLATFORM_PC

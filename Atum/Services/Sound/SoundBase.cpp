@@ -186,6 +186,10 @@ bool SoundBase::Play(PlayType type, bool buffer_looped)
 	(*bqPlayerPlay)->SetPlayState(bqPlayerPlay, SL_PLAYSTATE_PLAYING);
 #endif
 
+#ifdef PLATFORM_IOS
+    AudioQueue_Play(this);
+#endif
+    
 	return true;
 }
 
@@ -208,6 +212,17 @@ void SoundBase::Pause(bool pause)
 #ifdef PLATFORM_ANDROID
 	(*bqPlayerPlay)->SetPlayState(bqPlayerPlay, pause ? SL_PLAYSTATE_PAUSED : SL_PLAYSTATE_PLAYING);
 #endif
+    
+#ifdef PLATFORM_IOS
+    if (pause)
+    {
+        AudioQueue_Pause(this);
+    }
+    else
+    {
+        AudioQueue_Play(this);;
+    }
+#endif
 }
 
 void SoundBase::Stop()
@@ -224,6 +239,10 @@ void SoundBase::Stop()
 	(*bqPlayerPlay)->SetPlayState(bqPlayerPlay, SL_PLAYSTATE_STOPPED);
 #endif
 
+#ifdef PLATFORM_IOS
+    AudioQueue_Stop(this);
+#endif
+    
 	decoded_buffer.RestartDecode();
 
 	playing = false;
@@ -252,6 +271,10 @@ void SoundBase::Update()
 		float level = (float)(SL_MILLIBEL_MAX - SL_MILLIBEL_MAX) * volume * core.sounds.master_volume;
 		(*bqPlayerVolume)->SetVolumeLevel(bqPlayerVolume, (int)level);
 #endif
+        
+#ifdef PLATFORM_IOS
+        AudioQueue_SetVolume(this, volume * core.sounds.master_volume);
+#endif
 	}
 }
 
@@ -274,6 +297,10 @@ void SoundBase::Release()
 	{
 		(*bqPlayerObject)->Destroy(bqPlayerObject);
 	}
+#endif
+    
+#ifdef PLATFORM_IOS
+    AudioQueue_Delete(this);
 #endif
 
 	decoded_buffer.Clear();

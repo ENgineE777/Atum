@@ -18,18 +18,18 @@ class DecodedBuffer
 	struct WavHeaderType
 	{
 		char chunk_id[4];
-		unsigned long chunk_size;
+		uint32_t chunk_size;
 		char format[4];
 		char sub_chunk_id[4];
-		unsigned long sub_chunk_size;
-		unsigned short audio_format;
-		unsigned short num_channels;
-		unsigned long sample_rate;
-		unsigned long bytes_per_second;
-		unsigned short block_align;
-		unsigned short bits_per_sample;
+		uint32_t sub_chunk_size;
+		uint16_t audio_format;
+		uint16_t num_channels;
+		uint32_t sample_rate;
+		uint32_t bytes_per_second;
+		uint16_t block_align;
+		uint16_t bits_per_sample;
 		char data_chunk_id[4];
-		unsigned long data_size;
+		uint32_t data_size;
 	};
 
 	SourceType type;

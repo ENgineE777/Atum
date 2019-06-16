@@ -30,6 +30,9 @@ class SoundStream : public SoundBase
 #endif
 
 	void Fill();
+#ifdef PLATFORM_IOS
+    void CreateSoundBuffer(long size) override;
+#endif
 	bool Load(const char* file_name) override;
 	void Update() override;
 

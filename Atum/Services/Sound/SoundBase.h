@@ -12,6 +12,10 @@
 #include <SLES/OpenSLES_Android.h>
 #endif
 
+#ifdef PLATFORM_IOS
+#include "AudioQueue.h"
+#endif
+
 #include "DecodedBuffer.h"
 
 /**
@@ -30,6 +34,7 @@ class SoundBase
 	friend class Sounds;
 	friend class SoundInstance;
 	friend class SoundStream;
+    friend struct AudioQueueHolder;
 
 public:
 
@@ -99,7 +104,7 @@ private:
 	float volume = 1.0f;
 	bool playing = false;
 
-	void CreateSoundBuffer(long size);
+	virtual void CreateSoundBuffer(long size);
 	virtual bool Load(const char* file_name) = 0;
 	bool Play(PlayType type, bool buffer_looped);
 	virtual void Update();

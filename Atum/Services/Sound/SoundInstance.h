@@ -19,6 +19,9 @@ class SoundInstance : public SoundBase
 	friend class Sounds;
 
 	bool Load(const char* file_name) override;
+#ifdef PLATFORM_IOS
+    void CreateSoundBuffer(long size) override;
+#endif
 	void Update() override;
 
 #ifdef PLATFORM_ANDROID

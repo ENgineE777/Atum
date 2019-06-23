@@ -692,8 +692,8 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	auto left_offset = trans.offset * trans.size;
 	auto right_offset = (1.0f - trans.offset) * trans.size;
 
-	rect_p1 = (p1 + delta) / scale + left_offset;
-	rect_p2 = (p2 + delta) / scale + right_offset;
+	rect_p1 = (p1 + delta) / scale;
+	rect_p2 = (p2 + delta) / scale;
 
 	rect_p1 = Gizmo::inst->MakeAligned(rect_p1) - left_offset;
 	rect_p2 = Gizmo::inst->MakeAligned(rect_p2) + right_offset;
@@ -705,8 +705,8 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	{
 		Vector2 pos = inst.GetPos();
 
-		if (rect_p1.x - 0.01f < pos.x && pos.x < rect_p2.x + 0.01f &&
-			rect_p1.y - 0.01f < pos.y && pos.y < rect_p2.y + 0.01f)
+		if (rect_p1.x - 0.01f < pos.x - left_offset.x && pos.x + right_offset.x < rect_p2.x + 0.01f &&
+			rect_p1.y - 0.01f < pos.y - left_offset.y && pos.y + right_offset.y < rect_p2.y + 0.01f)
 		{
 			sel_instances.push_back(index);
 		}
@@ -714,9 +714,9 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 		index++;
 	}
 
-	multi_trans.pos = rect_p1 + left_offset;
+	multi_trans.pos = rect_p1;
 	multi_trans.size = rect_p2 - rect_p1;
-	multi_trans.offset = left_offset / multi_trans.size;
+	multi_trans.offset = 0.0f;
 
 	Gizmo::inst->SetTrans2D(Gizmo::Transform2D(multi_trans), Gizmo::trans_2d_move);
 }
@@ -725,14 +725,17 @@ void SpriteInst::ClearRect()
 {
 	sel_instances.clear();
 
+	auto left_offset = trans.offset * trans.size;
+	auto right_offset = (1.0f - trans.offset) * trans.size;
+
 	for (int index = (int)instances.size() - 1; index >= 0; index--)
 	{
 		auto& inst = instances[index];
 
 		Vector2 pos = inst.GetPos();
 
-		if (rect_p1.x - 0.01f < pos.x && pos.x < rect_p2.x + 0.01f &&
-			rect_p1.y - 0.01f < pos.y && pos.y < rect_p2.y + 0.01f)
+		if (rect_p1.x - 0.01f < pos.x - left_offset.x && pos.x + right_offset.x < rect_p2.x + 0.01f &&
+			rect_p1.y - 0.01f < pos.y - left_offset.y && pos.y + right_offset.y < rect_p2.y + 0.01f)
 		{
 			for (auto comp : components)
 			{
@@ -751,13 +754,13 @@ void SpriteInst::FillRect()
 	auto left_offset = trans.offset * trans.size;
 	auto right_offset = (1.0f - trans.offset) * trans.size;
 
-	float y = rect_p1.y + left_offset.y;
+	float y = rect_p1.y - left_offset.y;
 
-	while (y < rect_p2.y - right_offset.y + 0.01f)
+	while (y < rect_p2.y)
 	{
-		float x = rect_p1.x +left_offset.x;
+		float x = rect_p1.x - left_offset.x;
 
-		while (x < rect_p2.x - right_offset.x + 0.01f)
+		while (x < rect_p2.x)
 		{
 			Instance inst;
 

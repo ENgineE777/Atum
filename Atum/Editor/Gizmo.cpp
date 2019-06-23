@@ -64,6 +64,8 @@ void Gizmo::SetTrans2D(Transform2D trans, int actions, bool set_ignore_2d_camera
 	trans2D_actions = actions;
 	ignore_2d_camera = set_ignore_2d_camera;
 	enabled = true;
+
+	delta_move = 0.0f;
 }
 
 void Gizmo::SetTrans3D(Matrix set_transform)

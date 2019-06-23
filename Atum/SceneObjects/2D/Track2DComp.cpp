@@ -36,6 +36,17 @@ void Track2DComp::Track::Activate(bool set_active)
 	active = set_active;
 }
 
+void Track2DComp::Track::Reset(bool from_start)
+{
+	if (points.size() > 1)
+	{
+		cur_point = from_start ? 1 : (int)points.size() - 1;
+		cur_dist = 0.0f;
+		point_dist = (points[cur_point].pos - points[cur_point - 1].pos).Length();
+		dir = from_start ? 1.0f : -1.0f;
+	}
+}
+
 void Track2DComp::BindClassToScript()
 {
 	const char* brief = "Representation of 2D track component\n"
@@ -152,15 +163,12 @@ void Track2DComp::UpdateTrack(int index, float dt)
 			{
 				if (track.tp == OneWay)
 				{
-					track.cur_point = 0;
-					track.point_dist = 0.0f;
+					track.Reset(true);
 				}
 				else
 				if (track.tp == ForwardBack)
 				{
-					track.cur_point = (int)track.points.size() - 1;
-					track.point_dist = 0.0f;
-					track.dir = -1.0f;
+					track.Reset(false);
 				}
 				else
 				{
@@ -170,8 +178,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 					}
 					else
 					{
-						track.cur_point = 0;
-						track.point_dist = 0.0f;
+						track.Reset(true);
 					}
 				}
 			}
@@ -184,15 +191,13 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		{
 			track.cur_point--;
 
-			if (track.cur_point < 0)
+			if (track.cur_point < 1)
 			{
-				track.cur_point = 0;
-				track.point_dist = 0.0f;
-				track.dir = 1.0f;
+				track.Reset(true);
 			}
 			else
 			{
-				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point + 1].pos).Length();
+				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
 			}
 		}
 	}
@@ -207,8 +212,16 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	}
 	else
 	{
-		p1 = track.dir > 0.0f ? track.cur_point - 1 : track.cur_point + 1;
-		p2 = track.cur_point;
+		if (track.dir > 0.0f)
+		{
+			p1 = track.cur_point - 1;
+			p2 = track.cur_point;
+		}
+		else
+		{
+			p1 = track.cur_point;
+			p2 = track.cur_point - 1;
+		}
 	}
 
 	Vector2 dir = track.points[p2].pos - track.points[p1].pos;
@@ -258,16 +271,9 @@ void Track2DComp::Init()
 
 void Track2DComp::ApplyProperties()
 {
-	if (!IsEditMode() && !object->IsEditMode())
-	{
-		return;
-	}
-
 	for (auto& track : tracks)
 	{
-		track.cur_point = 0;
-		track.point_dist = 0.0f;
-		track.dir = 1.0f;
+		track.Reset(true);
 	}
 }
 
@@ -299,6 +305,7 @@ void Track2DComp::EditorDraw(float dt)
 		if (core.controls.DebugKeyPressed("KEY_I") && sel_point != -1)
 		{
 			track.points.erase(sel_point + track.points.begin());
+			track.Reset(true);
 			sel_point = -1;
 			SetGizmo();
 		}
@@ -432,10 +439,7 @@ void Track2DComp::SetGizmo()
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
 		trans.pos = track.points[sel_point].pos;
-	}
 
-	if (sel_point)
-	{
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
 	}
 	else

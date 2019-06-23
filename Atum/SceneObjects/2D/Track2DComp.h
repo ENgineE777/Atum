@@ -97,6 +97,7 @@ public:
 		vector<Point> points;
 
 		void Activate(bool active);
+		void Reset(bool from_start);
 	};
 
 	int sel_point = -1;

@@ -33,6 +33,10 @@
 //#define TRAIN_RES 1
 //#define TRAIN_RESAUX 1
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 #if defined(TRAIN_RES) || defined (TRAIN_RESAUX)
 #include <stdio.h>
 #endif

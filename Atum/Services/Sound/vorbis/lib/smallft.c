@@ -27,6 +27,10 @@
  * FORTRAN version
  */
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>

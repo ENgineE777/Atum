@@ -31,6 +31,10 @@
 #include "misc.h"
 #include <stdio.h>
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 typedef struct {
   int ln;
   int  m;

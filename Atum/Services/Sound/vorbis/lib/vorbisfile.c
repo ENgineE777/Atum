@@ -22,6 +22,11 @@
 
 #include "vorbis/codec.h"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#pragma warning( disable : 4267)
+#endif
+
 /* we don't need or want the static callback symbols here */
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #include "vorbis/vorbisfile.h"

@@ -33,6 +33,11 @@
 #define GENERAL_VENDOR_STRING "Xiph.Org libVorbis 1.3.6"
 #define ENCODE_VENDOR_STRING "Xiph.Org libVorbis I 20180316 (Now 100% fewer shells)"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#pragma warning( disable : 4267)
+#endif
+
 /* helpers */
 static void _v_writestring(oggpack_buffer *o,const char *s, int bytes){
 

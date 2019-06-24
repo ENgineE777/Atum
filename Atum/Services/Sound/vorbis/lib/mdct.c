@@ -45,6 +45,10 @@
 #include "os.h"
 #include "misc.h"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 /* build lookups for trig functions; also pre-figure scaling and
    some window function algebra. */
 

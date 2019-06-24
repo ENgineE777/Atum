@@ -27,6 +27,10 @@
 
 /**** pack/unpack helpers ******************************************/
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 int ov_ilog(ogg_uint32_t v){
   int ret;
   for(ret=0;v;ret++)v>>=1;

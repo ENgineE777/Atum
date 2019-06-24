@@ -51,6 +51,10 @@ Carsten Bormann
 #include "scales.h"
 #include "misc.h"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 /* Autocorrelation LPC coeff generation algorithm invented by
    N. Levinson in 1947, modified by J. Durbin in 1959. */
 

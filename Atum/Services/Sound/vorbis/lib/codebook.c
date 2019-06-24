@@ -24,6 +24,10 @@
 #include "misc.h"
 #include "os.h"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 /* packs the given codebook into the bitstream **************************/
 
 int vorbis_staticbook_pack(const static_codebook *c,oggpack_buffer *opb){

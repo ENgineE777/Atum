@@ -27,6 +27,10 @@
 
 #include <stdio.h>
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 #define floor1_rangedB 140 /* floor 1 fixed at -140dB to 0dB range */
 
 typedef struct lsfit_acc{

@@ -70,6 +70,11 @@
 
 /* block abstraction setup *********************************************/
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
+
 #ifndef WORD_ALIGN
 #define WORD_ALIGN 8
 #endif

@@ -17,6 +17,10 @@
 
 /* preecho trigger settings *****************************************/
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#endif
+
 static const vorbis_info_psy_global _psy_global_44[5]={
 
   {8,   /* lines per eighth octave */

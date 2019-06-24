@@ -26,6 +26,11 @@
 #include "os.h"
 #include "misc.h"
 
+#ifdef PLATFORM_PC
+#pragma warning( disable : 4244)
+#pragma warning( disable : 4305)
+#endif
+
 /* careful with this; it's using static array sizing to make managing
    all the modes a little less annoying.  If we use a residue backend
    with > 12 partition types, or a different division of iteration,

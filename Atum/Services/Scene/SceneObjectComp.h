@@ -52,7 +52,7 @@ public:
 	virtual void Copy(SceneObjectComp* src);
 	virtual void ShowPropWidgets(EUICategories* objCat);
 	virtual void ResizeInst(int count);
-	virtual void InstAdded();
+	virtual void InstAdded(int create_from);
 	virtual void InstDeleted(int index);
 	virtual void SetEditMode(bool ed);
 	virtual bool IsEditMode();

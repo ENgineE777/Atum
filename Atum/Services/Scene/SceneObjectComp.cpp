@@ -93,7 +93,7 @@ void SceneObjectComp::ResizeInst(int count)
 
 }
 
-void SceneObjectComp::InstAdded()
+void SceneObjectComp::InstAdded(int create_from)
 {
 
 }

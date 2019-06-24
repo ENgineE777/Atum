@@ -122,7 +122,8 @@ public:
 	void ApplyProperties() override;
 	void EditorDraw(float dt);
 	void ResizeInst(int count);
-	void InstAdded() override;
+	void SyncPosTrackWithInstPos(int index);
+	void InstAdded(int create_from) override;
 	void InstDeleted(int index) override;
 	void CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;

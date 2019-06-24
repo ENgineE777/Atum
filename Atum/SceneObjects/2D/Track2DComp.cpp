@@ -233,9 +233,16 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		core.render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f, 20.0f, COLOR_BLUE);
 
-		if (track.points.size() > 0)
+		if (sprite_inst->sel_inst == index)
 		{
-			sprite_inst->instances[index].SetPos(track.points[0].pos);
+			if (sel_point == 0)
+			{
+				sprite_inst->instances[sprite_inst->sel_inst].SetPos(track.points[0].pos);
+			}
+			else
+			{
+				SyncPosTrackWithInstPos(sprite_inst->sel_inst);
+			}
 		}
 	}
 	else
@@ -312,12 +319,18 @@ void Track2DComp::EditorDraw(float dt)
 		{
 			track.points.erase(sel_point + track.points.begin());
 			track.Reset(true);
+
+			if (sel_point == 0 && track.points.size() > 0)
+			{
+				sprite_inst->instances[sprite_inst->sel_inst].SetPos(track.points[0].pos);
+			}
+
 			sel_point = -1;
 			SetGizmo();
 		}
 
-		bool add_center = core.controls.DebugKeyPressed("KEY_O");
-		bool add_after = core.controls.DebugKeyPressed("KEY_P");
+		bool add_center = core.controls.DebugKeyPressed("KEY_P");
+		bool add_after = core.controls.DebugKeyPressed("KEY_O");
 
 		if (add_center || add_after)
 		{
@@ -368,9 +381,32 @@ void Track2DComp::ResizeInst(int count)
 	tracks.resize(count);
 }
 
-void Track2DComp::InstAdded()
+void Track2DComp::SyncPosTrackWithInstPos(int index)
+{
+	SpriteInst* sprite_inst = (SpriteInst*)object;
+	Track& track = tracks[index];
+
+	Vector2 delta = sprite_inst->instances[index].GetPos() - track.points[0].pos;
+
+	for (auto& point : track.points)
+	{
+		point.pos += delta;
+	}
+}
+
+void Track2DComp::InstAdded(int create_from)
 {
 	tracks.push_back(Track());
+
+	if (create_from != -1)
+	{
+		tracks.back() = tracks[create_from];
+		tracks.back().Reset(true);
+
+		SyncPosTrackWithInstPos((int)tracks.size() - 1);
+
+		sel_point = -1;
+	}
 }
 
 void Track2DComp::InstDeleted(int index)

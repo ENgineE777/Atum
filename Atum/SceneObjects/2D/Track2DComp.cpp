@@ -232,6 +232,11 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	{
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		core.render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f, 20.0f, COLOR_BLUE);
+
+		if (track.points.size() > 0)
+		{
+			sprite_inst->instances[index].SetPos(track.points[0].pos);
+		}
 	}
 	else
 #endif
@@ -263,6 +268,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		}
 	}
 }
+
 #ifdef EDITOR
 void Track2DComp::Init()
 {

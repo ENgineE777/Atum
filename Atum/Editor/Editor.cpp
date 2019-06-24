@@ -332,11 +332,11 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (isSelectedAsset)
 		{
-			//assets_treeview->SelectItem(nullptr);
+			assets_treeview->SelectItem(nullptr);
 		}
 		else
 		{
-			//scene_treeview->SelectItem(nullptr);
+			scene_treeview->SelectItem(nullptr);
 		}
 	}
 
@@ -363,7 +363,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 		if (isSelectedAsset)
 		{
-			//assets_treeview->SelectItem(obj->item);
+			assets_treeview->SelectItem(obj->item);
 
 			asset_treeview->ClearTree();
 			panel_width = ((SceneAsset*)selectedObject)->UseAseetsTree() ? 200 : 1;
@@ -375,7 +375,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		}
 		else
 		{
-			//scene_treeview->SelectItem(obj->item);
+			scene_treeview->SelectItem(obj->item);
 		}
 
 		if (asset_panel_width != panel_width)

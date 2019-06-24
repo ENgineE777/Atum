@@ -9,10 +9,9 @@
 
 Instance holds array of sprite graph instances. This array can be binded into a script array.
 
-To add new sprite graph instance firstly scene object needed to be selected. After that press hot key 'O'
-to add new sprite graph instance into center of screen. If another sprite graph instace is selected then
-pressing hot key 'P' will add another instance of a sprite graph near previosly selected one. Press hot
-key 'I' to delete selected instance of a sprite graph.
+To add new sprite graph instance firstly scene object needed to be selected. After that press hot key 'P'
+to add new sprite graph instance into center of screen. If another node is selected then pressing hot key
+'O' will add copy of a sprite near previosly selected one. Press hot key 'I' to delete selected instance of a sprite graph.
 
 This class ::SpriteGraphInst is a representation on C++ side.
 

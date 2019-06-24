@@ -332,7 +332,7 @@ void Track2DComp::EditorDraw(float dt)
 		bool add_center = core.controls.DebugKeyPressed("KEY_P");
 		bool add_after = core.controls.DebugKeyPressed("KEY_O");
 
-		if (add_center || add_after)
+		if (add_center || (add_after && sel_point != -1))
 		{
 			Point point;
 

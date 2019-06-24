@@ -832,10 +832,10 @@ void NavMesh2D::Draw(float dt)
 				}
 			}
 
-			bool add_center = core.controls.DebugKeyPressed("KEY_O");
-			bool add_after = core.controls.DebugKeyPressed("KEY_P");
+			bool add_center = core.controls.DebugKeyPressed("KEY_P");
+			bool add_after = core.controls.DebugKeyPressed("KEY_O");
 
-			if (add_center || add_after)
+			if (add_center || (add_after && sel_inst != -1))
 			{
 				Node inst;
 
@@ -851,12 +851,13 @@ void NavMesh2D::Draw(float dt)
 
 				instances.push_back(inst);
 
-				sel_inst = (int)instances.size() - 1;
-
 				for (auto comp : components)
 				{
-					comp->InstAdded();
+					comp->InstAdded(add_after ? sel_inst : -1);
 				}
+
+				sel_inst = (int)instances.size() - 1;
+
 
 				SetGizmo();
 			}

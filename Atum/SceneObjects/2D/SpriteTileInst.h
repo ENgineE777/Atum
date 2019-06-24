@@ -10,10 +10,9 @@
 
 Instance holds array of sprite instances. This array can be binded into a script array.
 
-To add new sprite instance firstly scene object needed to be selected. After that press hot key 'O'
-to add new sprite inctance into center of screen. If another sprite instace is selected then pressing
-hot key 'P' will add another instance of a sprite near previosly selected one. Press hot key 'I' to
-delete selected instamce of a sprite.
+To add new sprite graph instance firstly scene object needed to be selected. After that press hot key 'P'
+to add new sprite graph instance into center of screen. If another node is selected then pressing hot key
+'O' will add copy of a sprite near previosly selected one. Press hot key 'I' to delete selected instance of a sprite graph.
 
 Scene object supporting muliselection. That means holding Left Alt and dragging mouse after left mouse click
 will select multiple scene instances. Pressing hot key 'I' will fill selection by instance. Pressing

@@ -788,6 +788,7 @@ bool SpriteInst::CheckSelection(Vector2 ms)
 
 	rect_select = false;
 	sel_inst = -1;
+
 	for (int i = 0; i < instances.size(); i++)
 	{
 		Instance& inst = instances[i];
@@ -818,6 +819,10 @@ void SpriteInst::SetEditMode(bool ed)
 	if (ed)
 	{
 		SetGizmo();
+	}
+	else
+	{
+		rect_select = false;
 	}
 }
 

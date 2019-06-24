@@ -30,6 +30,6 @@ class MainMenu
     {
 		main_menu.SetState(0);
 
-		core.scene.Load("Island_Level1");
+		core.scene.Load("Island_Level2");
     }
 }

@@ -63,7 +63,7 @@
 			]
 		}
 	],
-	"selected_scene" : "Island/Island_Level1.sca",
+	"selected_scene" : "Island/Island_Level2.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

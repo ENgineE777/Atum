@@ -12,8 +12,53 @@
 			"type" : 0
 		},
 		{
+			"uid" : 32251,
+			"name" : "BushSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 327155,
+			"name" : "HouseSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 556470,
+			"name" : "LeftHangSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 191735,
+			"name" : "RightHangSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 753598,
+			"name" : "SignSprite",
+			"type" : 1
+		},
+		{
 			"uid" : 982262,
 			"name" : "TreeSprite",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 520188,
+			"name" : "CherryItem",
+			"type" : 1
+		},
+		{
+			"uid" : 64951,
+			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
@@ -37,13 +82,48 @@
 			"type" : 2
 		},
 		{
+			"uid" : 621746,
+			"name" : "BridgeBaseSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 323326,
+			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 195835,
+			"name" : "CaveBrush",
+			"type" : 1
+		},
+		{
+			"uid" : 523515,
+			"name" : "CaveInner",
+			"type" : 1
+		},
+		{
 			"uid" : 749309,
 			"name" : "Hero",
 			"type" : 1
 		},
 		{
+			"uid" : 97520,
+			"name" : "LeftCaveEnter",
+			"type" : 1
+		},
+		{
+			"uid" : 356337,
+			"name" : "MovingBlock",
+			"type" : 1
+		},
+		{
 			"uid" : 556286,
 			"name" : "RespawnPoints",
+			"type" : 1
+		},
+		{
+			"uid" : 782260,
+			"name" : "RightCaveEnter",
 			"type" : 1
 		},
 		{
@@ -57,6 +137,16 @@
 			"type" : 0
 		},
 		{
+			"uid" : 978942,
+			"name" : "RespawnPoint1",
+			"type" : 1
+		},
+		{
+			"uid" : 326833,
+			"name" : "RespawnPoint2",
+			"type" : 1
+		},
+		{
 			"uid" : 486900,
 			"name" : "RespawnTrigger1",
 			"type" : 1
@@ -67,9 +157,34 @@
 			"type" : 1
 		},
 		{
+			"uid" : 32504,
+			"name" : "RespawnTrigger3",
+			"type" : 1
+		},
+		{
+			"uid" : 359615,
+			"name" : "RespawnTrigger4",
+			"type" : 1
+		},
+		{
+			"uid" : 60860,
+			"name" : "RespawnTrigger5",
+			"type" : 1
+		},
+		{
+			"uid" : 588982,
+			"name" : "RespawnTrigger6",
+			"type" : 1
+		},
+		{
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : 524283,
+			"name" : "IslandItemsScript",
+			"type" : 1
 		},
 		{
 			"uid" : 978933,

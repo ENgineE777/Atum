@@ -443,11 +443,15 @@
 					"name" : "Jump",
 					"object_uid" : -442886144,
 					"def_link" : -1,
-					"Count" : 1,
+					"Count" : 2,
 					"Link" : [
 						{
 							"index" : 3,
 							"name" : "fall"
+						},
+						{
+							"index" : 0,
+							"name" : "idle"
 						}
 					]
 				},

@@ -2,24 +2,64 @@
 
 	"scene_nodes" : [
 		{
+			"uid" : -1,
+			"name" : "Level",
+			"type" : 0
+		},
+		{
+			"uid" : 589632,
+			"name" : "Forest_BigTree",
+			"type" : 1
+		},
+		{
+			"uid" : 703577,
+			"name" : "Forest_Bush",
+			"type" : 1
+		},
+		{
 			"uid" : 113533,
 			"name" : "Forest_GroundTiles",
 			"type" : 1
 		},
 		{
-			"uid" : 704359,
-			"name" : "Hero",
+			"uid" : 260552,
+			"name" : "Forest_House",
 			"type" : 1
 		},
 		{
-			"uid" : 244048,
-			"name" : "MainScript",
+			"uid" : 195439,
+			"name" : "Forest_MovingBlock",
+			"type" : 1
+		},
+		{
+			"uid" : 130145,
+			"name" : "Forest_Mushroom1",
+			"type" : 1
+		},
+		{
+			"uid" : 309825,
+			"name" : "Forest_Mushroom2",
+			"type" : 1
+		},
+		{
+			"uid" : 131040,
+			"name" : "Forest_Rock",
 			"type" : 1
 		},
 		{
 			"uid" : 638049,
 			"name" : "RespawnPoints",
 			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Triggers",
+			"type" : 0
 		},
 		{
 			"uid" : 113381,
@@ -29,6 +69,21 @@
 		{
 			"uid" : 916707,
 			"name" : "RespawnTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 704359,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
+			"uid" : 244048,
+			"name" : "MainScript",
 			"type" : 1
 		},
 		{

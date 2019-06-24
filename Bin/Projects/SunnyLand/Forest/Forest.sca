@@ -514,7 +514,7 @@
 					{
 						"pos" :
 						{
-							"x" : 144.000000,
+							"x" : 160.000000,
 							"y" : 80.000000
 						},
 						"size" :
@@ -524,7 +524,7 @@
 						},
 						"uv" :
 						{
-							"x" : 0.450000,
+							"x" : 0.500000,
 							"y" : 0.416667
 						},
 						"duv" :
@@ -1032,7 +1032,20 @@
 						}
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 3,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000,
+					"group" : 1
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",

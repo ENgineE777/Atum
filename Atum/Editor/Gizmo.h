@@ -50,10 +50,11 @@ private:
 	bool    mousedPressed = false;
 
 	bool use_trans2D = false;
-	Transform2D trans2D ;
+	Transform2D trans2D;
 	int     trans2D_actions = 0;
 	bool    ignore_2d_camera = true;
 	Vector2 pos2d = 0.0f;
+	Vector2 size2d = 0.0f;
 	Vector2 origin;
 	Vector2 moved_origin;
 	Vector2 ancorns[8];

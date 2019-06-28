@@ -60,6 +60,7 @@ void Gizmo::SetTrans2D(Transform2D trans, int actions, bool set_ignore_2d_camera
 
 	trans2D = trans;
 	pos2d = *trans2D.pos;
+	size2d = *trans2D.size;
 
 	trans2D_actions = actions;
 	ignore_2d_camera = set_ignore_2d_camera;
@@ -575,8 +576,40 @@ void Gizmo::MoveTrans2D(Vector2 ms)
 		dot1 = ms.x * trans2D.mat_global.Vx().x + ms.y * trans2D.mat_global.Vx().y;
 		dot2 = ms.x * trans2D.mat_global.Vy().x + ms.y * trans2D.mat_global.Vy().y;
 
-		trans2D.size->x += dist * k1 * dot1;
-		trans2D.size->y += dist * k2 * dot2;
+		float delta = dist * k1 * dot1;
+
+		size2d.x += delta;
+
+		if (selAxis == 1 || selAxis == 4 || selAxis == 8)
+		{
+			pos2d.x -= (1.0f - trans2D.offset->x) * delta;
+		}
+		else
+		if (selAxis == 2 || selAxis == 3 || selAxis == 6)
+		{
+			pos2d.x += trans2D.offset->x * delta;
+		}
+
+		delta = dist * k2 * dot2;
+
+		size2d.y += delta;
+
+		if (selAxis == 1 || selAxis == 2 || selAxis == 5)
+		{
+			pos2d.y -= delta * (1.0f - trans2D.offset->y);
+		}
+		else
+		if (selAxis == 3 || selAxis == 4 || selAxis == 7)
+		{
+			pos2d.y += delta * trans2D.offset->y;
+		}
+
+		*trans2D.size = size2d;
+
+		Vector2 prev_pos = *trans2D.pos;
+		*trans2D.pos = pos2d;
+
+		delta_move += *trans2D.pos - prev_pos;
 	}
 }
 
@@ -860,5 +893,13 @@ void Gizmo::OnLeftMouseUp()
 		pos2d = *trans2D.pos;
 
 		selAxis = -1;
+	}
+	else
+	if (selAxis > 0 && IsTrans2D())
+	{
+		pos2d = MakeAligned(pos2d);
+		*trans2D.pos = pos2d;
+		size2d = MakeAligned(size2d);
+		*trans2D.size = size2d;
 	}
 }

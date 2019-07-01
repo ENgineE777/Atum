@@ -3,8 +3,123 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
+			"name" : "Enemies",
+			"type" : 0
+		},
+		{
+			"uid" : 1011637,
+			"name" : "EagleFly",
+			"type" : 1
+		},
+		{
+			"uid" : 556275,
+			"name" : "IslandEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 229113,
+			"name" : "OpposumRun",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
+		},
+		{
+			"uid" : -1,
+			"name" : "Boxes",
+			"type" : 0
+		},
+		{
+			"uid" : 360115,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 945848,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"uid" : 225211,
+			"name" : "DynBoxFly",
+			"type" : 1
+		},
+		{
+			"uid" : 589303,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Bridge1",
+			"type" : 0
+		},
+		{
+			"uid" : 715963,
+			"name" : "BridgeFallTrigger1",
+			"type" : 1
+		},
+		{
+			"uid" : 32752,
+			"name" : "BridgeRowSprite1",
+			"type" : 1
+		},
+		{
+			"uid" : 1010865,
+			"name" : "BridgeRowSpriteDyn1",
+			"type" : 1
+		},
+		{
+			"uid" : 31996,
+			"name" : "BridgeScript1",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Bridge2",
+			"type" : 0
+		},
+		{
+			"uid" : 163575,
+			"name" : "BridgeFallTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : 1015286,
+			"name" : "BridgeRowSprite2",
+			"type" : 1
+		},
+		{
+			"uid" : 229053,
+			"name" : "BridgeRowSpriteDyn2",
+			"type" : 1
+		},
+		{
+			"uid" : 749562,
+			"name" : "BridgeScript2",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
 		},
 		{
 			"uid" : -1,

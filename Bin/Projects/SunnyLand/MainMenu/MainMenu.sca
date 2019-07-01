@@ -554,29 +554,89 @@
 			"Count" : 5,
 			"Node" : [
 				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 1403800320,
-					"callback_type" : "OnDown"
+					"callback_type" : "OnDown",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 1403800320,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 11549106,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 11549106,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		}

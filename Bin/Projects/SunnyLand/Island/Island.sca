@@ -2254,9 +2254,9 @@
 					"density" : 1.250000,
 					"friction" : 0.250000,
 					"allow_rotate" : true,
-					"use_object_size" : true,
-					"width" : 64.000000,
-					"height" : 64.000000,
+					"use_object_size" : false,
+					"width" : 62.000000,
+					"height" : 62.000000,
 					"group" : 1
 				}
 			]
@@ -2532,8 +2532,8 @@
 					"name" : "OnActivateTrigger",
 					"pos" :
 					{
-						"x" : 844.000000,
-						"y" : 377.000000
+						"x" : 843.000000,
+						"y" : 375.000000
 					},
 					"param_type" : 0,
 					"call_type" : 0,
@@ -2550,7 +2550,7 @@
 					"name" : "Object",
 					"pos" :
 					{
-						"x" : 630.000000,
+						"x" : 632.000000,
 						"y" : 378.000000
 					}
 				}

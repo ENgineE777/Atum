@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 12230.000000,
-		"y" : -384.000000
+		"x" : 1397.000000,
+		"y" : 750.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -18069,184 +18069,616 @@
 			"Count" : 36,
 			"Node" : [
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1314392192,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1314392192,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1225762432,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1225762432,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -970252032,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -970252032,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 14304,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 14304,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 486900,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 486900,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 748731,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 748731,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 32504,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 32504,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 359615,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 359615,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 60860,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 60860,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 588982,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 588982,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 322805,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 322805,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 978942,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 978942,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 556286,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 556286,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 326833,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 326833,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 749309,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 749309,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1011191,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1011191,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 749309,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 749309,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 556286,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 556286,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 749309,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 749309,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -18279,7 +18711,7 @@
 			"uid" : 356337,
 			"Name" : "MovingBlock",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -18289,8 +18721,8 @@
 				"count" : 8,
 				"Elem" : [
 					{
-						"x" : 2816.000000,
-						"y" : 1088.000000,
+						"x" : 2944.000000,
+						"y" : 448.000000,
 						"index" : 0,
 						"visible" : 1,
 						"color" :
@@ -18422,12 +18854,12 @@
 									"count" : 2,
 									"Elem" : [
 										{
-											"x" : 2816.000000,
-											"y" : 384.000000
+											"x" : 2944.000000,
+											"y" : 448.000000
 										},
 										{
-											"x" : 2816.000000,
-											"y" : 1088.000000
+											"x" : 2944.000000,
+											"y" : 1152.000000
 										}
 									]
 								}
@@ -18742,7 +19174,7 @@
 			"draw_level" : 0,
 			"inst" :
 			{
-				"count" : 70,
+				"count" : 11,
 				"Elem" : [
 					{
 						"x" : 6272.000000,
@@ -18897,832 +19329,6 @@
 							"a" : 1.000000
 						},
 						"alpha" : 1.000000
-					},
-					{
-						"x" : 7680.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 7744.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 7808.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 7872.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 7936.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8000.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8064.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8128.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8192.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8256.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8320.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8384.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8448.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8512.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8576.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8640.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8704.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8768.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8832.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8896.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8960.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 9024.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 9088.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 9152.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 9216.000000,
-						"y" : 2048.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 11776.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 11840.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 11904.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 11968.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12032.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12096.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12160.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12224.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12288.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12352.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12416.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12480.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12544.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12608.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12672.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12736.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12800.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12864.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12928.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 12992.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13056.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13120.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13184.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13248.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13312.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13376.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13440.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13504.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13568.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13632.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13696.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13760.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13824.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 13888.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 1,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
 					}
 				]
 			},
@@ -19840,7 +19446,7 @@
 			"x" : 17856.000000,
 			"y" : -128.000000,
 			"width" : 4240.274414,
-			"height" : 760.235107
+			"height" : 760.235229
 		},
 		{
 			"type" : "SpriteInst",
@@ -20722,29 +20328,2659 @@
 			"Count" : 5,
 			"Node" : [
 				{
-					"object_uid" : 64951,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 64951,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 520188,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 520188,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 749309,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 749309,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 978933,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 978933,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 1015286,
+			"Name" : "BridgeRowSprite2",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 34,
+				"Elem" : [
+					{
+						"x" : 11776.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11840.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11904.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11968.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12032.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12096.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12160.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12224.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12288.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12352.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12416.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12480.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12544.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12608.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12672.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12736.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12800.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12864.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12928.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12992.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13056.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13120.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13184.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13248.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13312.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13376.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13440.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13504.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13568.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13632.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13696.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13760.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13824.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13888.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 606003712,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 32752,
+			"Name" : "BridgeRowSprite1",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 25,
+				"Elem" : [
+					{
+						"x" : 7680.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7744.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7808.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7872.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7936.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8000.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8064.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8128.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8192.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8256.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8320.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8384.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8448.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8512.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8576.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8640.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8704.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8768.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8832.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8896.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8960.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9024.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9088.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9152.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9216.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 606003712,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 229053,
+			"Name" : "BridgeRowSpriteDyn2",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 34,
+				"Elem" : [
+					{
+						"x" : 11776.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11840.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11904.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11968.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12032.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12096.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12160.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12224.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12288.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12352.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12416.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12480.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12544.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12608.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12672.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12736.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12800.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12864.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12928.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 12992.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13056.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13120.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13184.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13248.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13312.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13376.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13440.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13504.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13568.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13632.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13696.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13760.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13824.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 13888.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -794679808,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 1010865,
+			"Name" : "BridgeRowSpriteDyn1",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 25,
+				"Elem" : [
+					{
+						"x" : 7680.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7744.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7808.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7872.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 7936.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8000.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8064.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8128.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8192.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8256.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8320.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8384.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8448.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8512.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8576.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8640.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8704.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8768.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8832.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8896.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8960.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9024.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9088.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9152.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 9216.000000,
+						"y" : 2048.000000,
+						"index" : 0,
+						"visible" : 0,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -794679808,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 715963,
+			"Name" : "BridgeFallTrigger1",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 8512.000000,
+			"y" : 1728.000000,
+			"width" : 704.000000,
+			"height" : 512.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 163575,
+			"Name" : "BridgeFallTrigger2",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 12608.000000,
+			"y" : -1280.000000,
+			"width" : 512.000000,
+			"height" : 576.000000
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 749562,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BridgeScript2",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 1322567424,
+			"Count" : 5,
+			"Node" : [
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1015286,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 229053,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 163575,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 31996,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BridgeScript1",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 1322567424,
+			"Count" : 5,
+			"Node" : [
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 32752,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1010865,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 715963,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 945848,
+			"Name" : "DynBox",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 5,
+				"Elem" : [
+					{
+						"x" : 1024.000000,
+						"y" : 1152.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 5440.000000,
+						"y" : 1856.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 6016.000000,
+						"y" : -64.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11328.000000,
+						"y" : -640.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 14208.000000,
+						"y" : -1152.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 532556576,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 225211,
+			"Name" : "DynBoxFly",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 1373046016,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 589303,
+			"Name" : "FakeBox",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 477276576
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 360115,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "BoxesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 178155,
+			"Count" : 5,
+			"Node" : [
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 945848,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 589303,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 225211,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 978933,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 1011637,
+			"Name" : "EagleFly",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 2,
+				"Elem" : [
+					{
+						"x" : 5440.000000,
+						"y" : 832.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8576.000000,
+						"y" : -192.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : -1084575232,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "Track2DComp",
+					"flip_mode" : 2,
+					"tracks" :
+					{
+						"count" : 2,
+						"Elem" : [
+							{
+								"data_type" : 1,
+								"speed" : 100.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 5440.000000,
+											"y" : 832.000000
+										},
+										{
+											"x" : 4864.000000,
+											"y" : 832.000000
+										}
+									]
+								}
+							},
+							{
+								"data_type" : 1,
+								"speed" : 100.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 8576.000000,
+											"y" : -192.000000
+										},
+										{
+											"x" : 8000.000000,
+											"y" : -192.000000
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 229113,
+			"Name" : "OpposumRun",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 3,
+				"Elem" : [
+					{
+						"x" : 2496.000000,
+						"y" : 1216.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 6976.000000,
+						"y" : 1856.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 15872.000000,
+						"y" : -1024.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 826604608,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "Track2DComp",
+					"flip_mode" : 2,
+					"tracks" :
+					{
+						"count" : 3,
+						"Elem" : [
+							{
+								"data_type" : 1,
+								"speed" : 300.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 2496.000000,
+											"y" : 1216.000000
+										},
+										{
+											"x" : 1728.000000,
+											"y" : 1216.000000
+										}
+									]
+								}
+							},
+							{
+								"data_type" : 1,
+								"speed" : 300.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 6976.000000,
+											"y" : 1856.000000
+										},
+										{
+											"x" : 6208.000000,
+											"y" : 1856.000000
+										}
+									]
+								}
+							},
+							{
+								"data_type" : 1,
+								"speed" : 300.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 15872.000000,
+											"y" : -1024.000000
+										},
+										{
+											"x" : 15168.000000,
+											"y" : -1024.000000
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 556275,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "IslandEnemiesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 753660,
+			"Count" : 7,
+			"Node" : [
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1011637,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 229113,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 749309,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 225211,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 978933,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		}
@@ -20967,6 +23203,149 @@
 					"scene" : "Island/Island_Level2.sca",
 					"inst_uid" : 524283,
 					"inst_name" : "IslandItemsScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 606003712,
+			"asset_name" : "BridgeRowSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1015286,
+					"inst_name" : "BridgeRowSprite2"
+				}
+			]
+		},
+		{
+			"asset_uid" : 606003712,
+			"asset_name" : "BridgeRowSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 32752,
+					"inst_name" : "BridgeRowSprite1"
+				}
+			]
+		},
+		{
+			"asset_uid" : -794679808,
+			"asset_name" : "BridgeRowSpriteDyn",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229053,
+					"inst_name" : "BridgeRowSpriteDyn2"
+				}
+			]
+		},
+		{
+			"asset_uid" : -794679808,
+			"asset_name" : "BridgeRowSpriteDyn",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1010865,
+					"inst_name" : "BridgeRowSpriteDyn1"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1322567424,
+			"asset_name" : "BridgeScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749562,
+					"inst_name" : "BridgeScript2"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1322567424,
+			"asset_name" : "BridgeScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 31996,
+					"inst_name" : "BridgeScript1"
+				}
+			]
+		},
+		{
+			"asset_uid" : 532556576,
+			"asset_name" : "DynBox",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 945848,
+					"inst_name" : "DynBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1373046016,
+			"asset_name" : "DynBoxFly",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 225211,
+					"inst_name" : "DynBoxFly"
+				}
+			]
+		},
+		{
+			"asset_uid" : 477276576,
+			"asset_name" : "FakeBox",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 589303,
+					"inst_name" : "FakeBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 178155,
+			"asset_name" : "BoxesScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 360115,
+					"inst_name" : "BoxesScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1084575232,
+			"asset_name" : "EagleFly",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1011637,
+					"inst_name" : "EagleFly"
+				}
+			]
+		},
+		{
+			"asset_uid" : 826604608,
+			"asset_name" : "OpposumRun",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229113,
+					"inst_name" : "OpposumRun"
+				}
+			]
+		},
+		{
+			"asset_uid" : 753660,
+			"asset_name" : "IslandEnemiesScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556275,
+					"inst_name" : "IslandEnemiesScript"
 				}
 			]
 		}

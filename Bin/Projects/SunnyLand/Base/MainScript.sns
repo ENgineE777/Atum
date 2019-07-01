@@ -391,13 +391,13 @@ class Game
             }
         }
 
-        MoveCharacter(hero_data, dt);
-
         if ((core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
         {
             hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
         }
+
+        MoveCharacter(hero_data, dt);
 
         if (core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
         {

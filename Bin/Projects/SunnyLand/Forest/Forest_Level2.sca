@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 284.000000,
-		"y" : -19.000000
+		"x" : 16840.000000,
+		"y" : -719.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -14844,135 +14844,418 @@
 			"uid" : 244048,
 			"ed_camera_2d" :
 			{
-				"x" : 870.000000,
-				"y" : 180.000000
+				"x" : 857.000000,
+				"y" : 187.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 24,
+			"Count" : 19,
 			"Node" : [
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1314392192,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1314392192,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1225762432,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1225762432,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -970252032,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -970252032,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 14304,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 14304,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 11,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 113381,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 916707,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 703325,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 982880,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 458589,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 196175,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 375678,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 458623,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 851918,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 653890,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 375509,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 704359,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 507622,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 113381,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 638049,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "OnContactStart",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 785476,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 916707,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContactStart"
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 704359,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 638049,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 704359,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 704359,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 704359,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
-				},
-				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -16046,6 +16329,138 @@
 				]
 			},
 			"asset_uid" : 251876
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 703325,
+			"Name" : "RespawnTrigger3",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 2944.000000,
+			"y" : 1152.000000,
+			"width" : 1191.124023,
+			"height" : 368.496368
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 982880,
+			"Name" : "RespawnTrigger4",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 6784.000000,
+			"y" : 1088.000000,
+			"width" : 1984.000000,
+			"height" : 320.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 458589,
+			"Name" : "RespawnTrigger5",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 9600.000000,
+			"y" : 256.000000,
+			"width" : 3648.000000,
+			"height" : 1536.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 196175,
+			"Name" : "RespawnTrigger6",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 12096.000000,
+			"y" : 1920.000000,
+			"width" : 2944.000000,
+			"height" : 320.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 375678,
+			"Name" : "RespawnTrigger7",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 16320.000000,
+			"y" : 1920.000000,
+			"width" : 2944.000000,
+			"height" : 320.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 458623,
+			"Name" : "RespawnTrigger8",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 17344.000000,
+			"y" : 1152.000000,
+			"width" : 896.000000,
+			"height" : 1280.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 851918,
+			"Name" : "RespawnTrigger9",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 21184.000000,
+			"y" : 576.000000,
+			"width" : 3840.000000,
+			"height" : 320.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 653890,
+			"Name" : "RespawnTrigger10",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 24256.000000,
+			"y" : 0.000000,
+			"width" : 2432.000000,
+			"height" : 1344.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 375509,
+			"Name" : "RespawnTrigger11",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 28096.000000,
+			"y" : -640.000000,
+			"width" : 1152.000000,
+			"height" : 704.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 507622,
+			"Name" : "RespawnActivatePoint1",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 11840.000000,
+			"y" : -960.000000,
+			"width" : 768.000000,
+			"height" : 576.000000
+		},
+		{
+			"type" : "Trigger2D",
+			"uid" : 785476,
+			"Name" : "RespawnActivatePoint2",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"x" : 24384.000000,
+			"y" : -1344.000000,
+			"width" : 768.000000,
+			"height" : 768.000000
 		}
 	],
 	"asset_instances" : [

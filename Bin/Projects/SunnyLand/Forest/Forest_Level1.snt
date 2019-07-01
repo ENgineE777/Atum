@@ -62,18 +62,78 @@
 			"type" : 0
 		},
 		{
-			"uid" : 294525,
-			"name" : "Trigger2D",
+			"uid" : 786402,
+			"name" : "TriggerActivateResPoint1",
+			"type" : 1
+		},
+		{
+			"uid" : 884465,
+			"name" : "TriggerActivateResPoint2",
+			"type" : 1
+		},
+		{
+			"uid" : 622181,
+			"name" : "TriggerActivateResPoint3",
 			"type" : 1
 		},
 		{
 			"uid" : 98149,
-			"name" : "Trigger2D_copy",
+			"name" : "TriggerRespawn",
+			"type" : 1
+		},
+		{
+			"uid" : 294525,
+			"name" : "TriggerRespawn1",
+			"type" : 1
+		},
+		{
+			"uid" : 196349,
+			"name" : "TriggerRespawn10",
+			"type" : 1
+		},
+		{
+			"uid" : 687857,
+			"name" : "TriggerRespawn11",
 			"type" : 1
 		},
 		{
 			"uid" : 622572,
-			"name" : "Trigger2D_copy_copy",
+			"name" : "TriggerRespawn2",
+			"type" : 1
+		},
+		{
+			"uid" : 687862,
+			"name" : "TriggerRespawn3",
+			"type" : 1
+		},
+		{
+			"uid" : 360447,
+			"name" : "TriggerRespawn4",
+			"type" : 1
+		},
+		{
+			"uid" : 786153,
+			"name" : "TriggerRespawn5",
+			"type" : 1
+		},
+		{
+			"uid" : 229099,
+			"name" : "TriggerRespawn6",
+			"type" : 1
+		},
+		{
+			"uid" : 720638,
+			"name" : "TriggerRespawn7",
+			"type" : 1
+		},
+		{
+			"uid" : 720504,
+			"name" : "TriggerRespawn8",
+			"type" : 1
+		},
+		{
+			"uid" : 589551,
+			"name" : "TriggerRespawn9",
 			"type" : 1
 		},
 		{

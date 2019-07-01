@@ -746,29 +746,89 @@
 			"Count" : 5,
 			"Node" : [
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1543425280,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1543425280,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -769245696,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -769245696,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 688664128,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 688664128,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -777,195 +837,582 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 615.000000,
-				"y" : -40.000000
+				"x" : 1087.000000,
+				"y" : 9.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 36,
+			"Count" : 31,
 			"Node" : [
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1314392192,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1314392192,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1225762432,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1225762432,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -970252032,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -970252032,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 14304,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 14304,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 140016704,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 6,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 140016704,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : -2003313152,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : -1168143872,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : -282107136,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 466895360,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : -145593856,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -2003313152,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1168143872,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -498944768,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -282107136,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -413818880,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 466895360,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 22708918,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -145593856,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 52814452,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1485033472,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -498944768,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 131060,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -413818880,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 820505600,
+									"child_uid" : -1507998976,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 22708918,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 52814452,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 131060,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 820505600,
+									"child_uid" : 455995040,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : -1507998976,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 820505600,
+									"child_uid" : 42433232,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 820505600,
+									"child_uid" : -1467901952,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 820505600,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : 455995040,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 11549106,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : 42433232,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1773631360,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : -1467901952,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1485033472,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 361006912,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 820505600,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "OnDown",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 221639040,
+									"child_uid" : 1403800320,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 11549106,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1773631360,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 361006912,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 221639040,
-					"object_child_uid" : 1403800320,
-					"callback_type" : "OnDown"
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
-				},
-				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -16863,59 +17310,191 @@
 			"Count" : 11,
 			"Node" : [
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1269363584,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1269363584,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1269363584,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1269363584,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1182418176,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1182418176,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1773631360,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1773631360,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 361006912,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 361006912,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 2133115008,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 2133115008,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1485033472,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -16958,29 +17537,89 @@
 			"Count" : 5,
 			"Node" : [
 				{
-					"object_uid" : -980373760,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -980373760,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -335829760,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -335829760,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 506940,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 506940,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 2133115008,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 2133115008,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -17000,39 +17639,123 @@
 			"Count" : 7,
 			"Node" : [
 				{
-					"object_uid" : -1084704768,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1084704768,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -968305408,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -968305408,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1485033472,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 506940,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 506940,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 2133115008,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 2133115008,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -17052,29 +17775,89 @@
 			"Count" : 5,
 			"Node" : [
 				{
-					"object_uid" : -1321915904,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1321915904,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 596790336,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 596790336,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1485033472,
-					"object_child_uid" : 0,
-					"callback_type" : "OnContact"
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1485033472,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 2133115008,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 2133115008,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		}

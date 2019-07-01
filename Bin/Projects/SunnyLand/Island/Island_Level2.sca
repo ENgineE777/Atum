@@ -18066,7 +18066,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 36,
+			"Count" : 31,
 			"Node" : [
 				{
 					"callback_type" : "",
@@ -18157,12 +18157,52 @@
 					"callback_type" : "OnContactStart",
 					"objects_list" :
 					{
-						"count" : 1,
+						"count" : 6,
 						"Elem" : [
 							{
 								"object" :
 								{
 									"uid" : 486900,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 748731,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 32504,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 359615,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 60860,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							},
+							{
+								"object" :
+								{
+									"uid" : 588982,
 									"child_uid" : 0,
 									"is_asset" : false
 								}
@@ -18180,91 +18220,6 @@
 								"object" :
 								{
 									"uid" : 0,
-									"child_uid" : 0,
-									"is_asset" : false
-								}
-							}
-						]
-					}
-				},
-				{
-					"callback_type" : "OnContactStart",
-					"objects_list" :
-					{
-						"count" : 1,
-						"Elem" : [
-							{
-								"object" :
-								{
-									"uid" : 748731,
-									"child_uid" : 0,
-									"is_asset" : false
-								}
-							}
-						]
-					}
-				},
-				{
-					"callback_type" : "OnContactStart",
-					"objects_list" :
-					{
-						"count" : 1,
-						"Elem" : [
-							{
-								"object" :
-								{
-									"uid" : 32504,
-									"child_uid" : 0,
-									"is_asset" : false
-								}
-							}
-						]
-					}
-				},
-				{
-					"callback_type" : "OnContactStart",
-					"objects_list" :
-					{
-						"count" : 1,
-						"Elem" : [
-							{
-								"object" :
-								{
-									"uid" : 359615,
-									"child_uid" : 0,
-									"is_asset" : false
-								}
-							}
-						]
-					}
-				},
-				{
-					"callback_type" : "OnContactStart",
-					"objects_list" :
-					{
-						"count" : 1,
-						"Elem" : [
-							{
-								"object" :
-								{
-									"uid" : 60860,
-									"child_uid" : 0,
-									"is_asset" : false
-								}
-							}
-						]
-					}
-				},
-				{
-					"callback_type" : "OnContactStart",
-					"objects_list" :
-					{
-						"count" : 1,
-						"Elem" : [
-							{
-								"object" :
-								{
-									"uid" : 588982,
 									"child_uid" : 0,
 									"is_asset" : false
 								}

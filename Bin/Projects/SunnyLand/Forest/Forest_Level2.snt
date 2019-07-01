@@ -62,13 +62,68 @@
 			"type" : 0
 		},
 		{
+			"uid" : 507622,
+			"name" : "RespawnActivatePoint1",
+			"type" : 1
+		},
+		{
+			"uid" : 785476,
+			"name" : "RespawnActivatePoint2",
+			"type" : 1
+		},
+		{
 			"uid" : 113381,
 			"name" : "RespawnTrigger1",
 			"type" : 1
 		},
 		{
+			"uid" : 653890,
+			"name" : "RespawnTrigger10",
+			"type" : 1
+		},
+		{
+			"uid" : 375509,
+			"name" : "RespawnTrigger11",
+			"type" : 1
+		},
+		{
 			"uid" : 916707,
 			"name" : "RespawnTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : 703325,
+			"name" : "RespawnTrigger3",
+			"type" : 1
+		},
+		{
+			"uid" : 982880,
+			"name" : "RespawnTrigger4",
+			"type" : 1
+		},
+		{
+			"uid" : 458589,
+			"name" : "RespawnTrigger5",
+			"type" : 1
+		},
+		{
+			"uid" : 196175,
+			"name" : "RespawnTrigger6",
+			"type" : 1
+		},
+		{
+			"uid" : 375678,
+			"name" : "RespawnTrigger7",
+			"type" : 1
+		},
+		{
+			"uid" : 458623,
+			"name" : "RespawnTrigger8",
+			"type" : 1
+		},
+		{
+			"uid" : 851918,
+			"name" : "RespawnTrigger9",
 			"type" : 1
 		},
 		{

@@ -26,15 +26,15 @@
 			"uid" : 14304,
 			"ed_camera_2d" :
 			{
-				"x" : 927.000000,
-				"y" : 102.000000
+				"x" : 1152.000000,
+				"y" : 175.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 20,
+			"Count" : 15,
 			"Node" : [
 				{
 					"type" : 2,
@@ -92,11 +92,11 @@
 				},
 				{
 					"type" : 0,
-					"name" : "Object",
+					"name" : "Respawn",
 					"pos" :
 					{
-						"x" : 1717.000000,
-						"y" : 27.000000
+						"x" : 1543.000000,
+						"y" : 227.000000
 					}
 				},
 				{
@@ -109,78 +109,13 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
-					"Count" : 6,
+					"Count" : 1,
 					"Link" : [
-						{
-							"node" : 7,
-							"param" : ""
-						},
 						{
 							"node" : 5,
 							"param" : ""
-						},
-						{
-							"node" : 11,
-							"param" : ""
-						},
-						{
-							"node" : 8,
-							"param" : ""
-						},
-						{
-							"node" : 9,
-							"param" : ""
-						},
-						{
-							"node" : 10,
-							"param" : ""
 						}
 					]
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 1526.000000,
-						"y" : 87.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 1459.000000,
-						"y" : 219.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 1486.000000,
-						"y" : 329.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 1622.000000,
-						"y" : 420.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "Object",
-					"pos" :
-					{
-						"x" : 1862.000000,
-						"y" : 409.000000
-					}
 				},
 				{
 					"type" : 2,
@@ -195,26 +130,26 @@
 					"Count" : 3,
 					"Link" : [
 						{
-							"node" : 13,
+							"node" : 8,
 							"param" : "1"
 						},
 						{
-							"node" : 15,
+							"node" : 10,
 							"param" : "2"
 						},
 						{
-							"node" : 16,
+							"node" : 11,
 							"param" : "3"
 						}
 					]
 				},
 				{
 					"type" : 0,
-					"name" : "Object",
+					"name" : "RespawnPoint1",
 					"pos" :
 					{
-						"x" : 1550.000000,
-						"y" : 556.000000
+						"x" : 1547.000000,
+						"y" : 555.000000
 					}
 				},
 				{
@@ -229,16 +164,16 @@
 				},
 				{
 					"type" : 0,
-					"name" : "Object",
+					"name" : "RespawnPoint2",
 					"pos" :
 					{
-						"x" : 1558.000000,
+						"x" : 1559.000000,
 						"y" : 687.000000
 					}
 				},
 				{
 					"type" : 0,
-					"name" : "Object",
+					"name" : "RespawnPoint3",
 					"pos" :
 					{
 						"x" : 1721.000000,

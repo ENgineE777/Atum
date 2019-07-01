@@ -41,15 +41,28 @@ public:
 
 #ifndef DOXYGEN_SKIP
 
+	struct WrapperSceneObjectRef
+	{
+		META_DATA_DECL_BASE(WrapperSceneObjectRef)
+
+		SceneObjectRef ref;
+
+		void Load(JSONReader& loader);
+		void Save(JSONWriter& saver);
+	};
+
 	struct Node
 	{
 		META_DATA_DECL_BASE(Node)
 
-		uint32_t object_uid = 0;
-		uint32_t object_child_uid = 0;
-		string   callback_type;
+		vector<WrapperSceneObjectRef> objects;
 
-		SceneObject* object = nullptr;
+		string callback_type;
+
+		Node()
+		{
+			objects.resize(1);
+		};
 
 		void Load(JSONReader& loader);
 		void Save(JSONWriter& saver);

@@ -15,9 +15,9 @@ void FillCallbackList(EUIComboBox* cbox, void* object)
 {
 	SceneScriptInst::Node* node = (SceneScriptInst::Node*)object;
 
-	if (node->object)
+	if (node->objects[0].ref.object)
 	{
-		for (auto& callback : node->object->script_callbacks)
+		for (auto& callback : node->objects[0].ref.object->script_callbacks)
 		{
 			cbox->AddItem(callback.GetName());
 		}
@@ -25,6 +25,22 @@ void FillCallbackList(EUIComboBox* cbox, void* object)
 }
 
 #endif
+
+META_DATA_DESC(SceneScriptInst::WrapperSceneObjectRef)
+SCENEOBJECT_PROP(SceneScriptInst::WrapperSceneObjectRef, ref, "Property", "object")
+META_DATA_DESC_END()
+
+void SceneScriptInst::WrapperSceneObjectRef::Load(JSONReader& reader)
+{
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Load(reader);
+}
+
+void SceneScriptInst::WrapperSceneObjectRef::Save(JSONWriter& writer)
+{
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Save(writer);
+}
 
 CLASSREG(SceneObject, SceneScriptInst, "Script")
 
@@ -34,6 +50,7 @@ STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, FillCallbackList, "Proper
 #else
 STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, "Property", "callback_type")
 #endif
+ARRAY_PROP(SceneScriptInst::Node, objects, WrapperSceneObjectRef, "Property", "objects_list")
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -46,7 +63,6 @@ void StartScriptInstEdit(void* owner)
 
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
-
 #endif
 
 META_DATA_DESC(SceneScriptInst)
@@ -58,16 +74,28 @@ META_DATA_DESC_END()
 
 void SceneScriptInst::Node::Load(JSONReader& loader)
 {
-	loader.Read("object_uid", object_uid);
-	loader.Read("object_child_uid", object_child_uid);
-	loader.Read("callback_type", callback_type);
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Load(loader);
+
+	uint32_t object_uid = 0;
+	uint32_t object_child_uid = 0;
+
+	if (loader.Read("object_uid", object_uid))
+	{
+		loader.Read("object_child_uid", object_child_uid);
+
+		WrapperSceneObjectRef& ref = objects[0];
+
+		ref.ref.uid = object_uid;
+		ref.ref.child_uid = object_child_uid;
+		ref.ref.is_asset = false;
+	}
 }
 
 void SceneScriptInst::Node::Save(JSONWriter& saver)
 {
-	saver.Write("object_uid", object_uid);
-	saver.Write("object_child_uid", object_child_uid);
-	saver.Write("callback_type", callback_type);
+	GetMetaData()->Prepare(this);
+	GetMetaData()->Save(saver);
 }
 
 void SceneScriptInst::Init()
@@ -89,6 +117,8 @@ void SceneScriptInst::Load(JSONReader& loader)
 
 	int type = 0;
 
+	int index = 0;
+
 	for (auto& node : nodes)
 	{
 		loader.EnterBlock("Node");
@@ -98,6 +128,8 @@ void SceneScriptInst::Load(JSONReader& loader)
 		node.Load(loader);
 
 		loader.LeaveBlock();
+
+		index++;
 	}
 }
 
@@ -161,18 +193,20 @@ bool SceneScriptInst::PostPlay()
 				{
 					Node& node_inst = nodes[index];
 
-					if (!node_inst.object)
+					SceneObjectRef& ref = node_inst.objects[0].ref;
+
+					if (!ref.object)
 					{
-						node_inst.object = GetScene()->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
+						ref.object = GetScene()->FindByUID(ref.uid, ref.child_uid, false);
 					}
-					
-					if (node_inst.object)
+
+					if (ref.object)
 					{
 						auto type = core.scripts.GetTypeInfoById(class_inst->GetPropertyTypeId(i));
 						
-						if (!node_inst.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
+						if (!ref.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{
-							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", node_inst.object->GetName(), node_inst.object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
+							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", ref.object->GetName(), ref.object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
 						}
 
 						injected = true;
@@ -198,45 +232,48 @@ bool SceneScriptInst::PostPlay()
 				{
 					Node& node_inst = nodes[link.node];
 
-					if (!node_inst.object)
+					for (auto& ref : node_inst.objects)
 					{
-						node_inst.object = GetScene()->FindByUID(node_inst.object_uid, node_inst.object_child_uid, false);
-					}
-
-					if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
-					{
-						ScriptCallback* callback = nullptr;
-
-						if (node_inst.callback_type.size() > 0)
+						if (!ref.ref.object)
 						{
-							callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
+							ref.ref.object = GetScene()->FindByUID(ref.ref.uid, ref.ref.child_uid, false);
+						}
+
+						if (ref.ref.object && ref.ref.object->script_callbacks.size() > 0)
+						{
+							ScriptCallback* callback = nullptr;
+
+							if (node_inst.callback_type.size() > 0)
+							{
+								callback = ref.ref.object->FindScriptCallback(node_inst.callback_type.c_str());
+							}
+							else
+							{
+								callback = &ref.ref.object->script_callbacks[0];
+							}
+
+							if (callback)
+							{
+								if (node_method->param_type == 1)
+								{
+									callback->SetIntParam(atoi(link.param.c_str()));
+								}
+								else
+								if (node_method->param_type == 2)
+								{
+									callback->SetStringParam(link.param);
+								}
+
+								if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
+								{
+									//return false;
+								}
+							}
 						}
 						else
 						{
-							callback = &node_inst.object->script_callbacks[0];
+							core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link.node]->name.c_str());
 						}
-
-						if (callback)
-						{
-							if (node_method->param_type == 1)
-							{
-								callback->SetIntParam(atoi(link.param.c_str()));
-							}
-							else
-							if (node_method->param_type == 2)
-							{
-								callback->SetStringParam(link.param);
-							}
-
-							if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
-							{
-								//return false;
-							}
-						}
-					}
-					else
-					{
-						core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link.node]->name.c_str());
 					}
 				}
 			}
@@ -278,22 +315,25 @@ void SceneScriptInst::Release()
 					{
 						Node& node_inst = nodes[link.node];
 
-						if (node_inst.object && node_inst.object->script_callbacks.size() > 0)
+						for (auto& ref : node_inst.objects)
 						{
-							ScriptCallback* callback = nullptr;
+							if (ref.ref.object && ref.ref.object->script_callbacks.size() > 0)
+							{
+								ScriptCallback* callback = nullptr;
 
-							if (node_inst.callback_type.size() > 0)
-							{
-								callback = node_inst.object->FindScriptCallback(node_inst.callback_type.c_str());
-							}
-							else
-							{
-								callback = &node_inst.object->script_callbacks[0];
-							}
+								if (node_inst.callback_type.size() > 0)
+								{
+									callback = ref.ref.object->FindScriptCallback(node_inst.callback_type.c_str());
+								}
+								else
+								{
+									callback = &ref.ref.object->script_callbacks[0];
+								}
 
-							if (callback)
-							{
-								callback->Unbind(class_inst);
+								if (callback)
+								{
+									callback->Unbind(class_inst);
+								}
 							}
 						}
 					}
@@ -345,11 +385,15 @@ void SceneScriptInst::SetScene(Scene* set_scene)
 	{
 		if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
 		{
-			Node& nd = nodes[index];
+			Node& node = nodes[index];
 
-			if (!GetScene()->FindByUID(nd.object_uid, nd.object_child_uid, nd.object->IsAsset()))
+			for (auto& ref : node.objects)
 			{
-				nd = Node();
+				if (!GetScene()->FindByUID(ref.ref.uid, ref.ref.child_uid, ref.ref.is_asset))
+				{
+					ref.ref.uid = 0;
+					ref.ref.child_uid = 0;
+				}
 			}
 		}
 
@@ -400,7 +444,7 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 		{
 			if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
 			{
-				Node& nd = nodes[index];
+				Node& node = nodes[index];
 
 				uint32_t object_uid = 0;
 				uint32_t object_child_uid = 0;
@@ -409,20 +453,23 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 
 				if (GetScene()->FindByUID(object_uid, object_child_uid, object->IsAsset()))
 				{
-					nd.object = object;
-					nd.object_uid = object_uid;
-					nd.object_child_uid = object_child_uid;
+					WrapperSceneObjectRef& ref = node.objects[0];
+
+					ref.ref.object = object;
+					ref.ref.uid = object_uid;
+					ref.ref.child_uid = object_child_uid;
+					ref.ref.is_asset = object->IsAsset();
 
 					if (object->script_callbacks.size() > 0)
 					{
-						nd.callback_type = object->script_callbacks[0].GetName();
+						node.callback_type = object->script_callbacks[0].GetName();
 
-						nd.GetMetaData()->Prepare(&nd);
-						nd.GetMetaData()->PrepareWidgets(ed_obj_cat);
+						node.GetMetaData()->Prepare(&node);
+						node.GetMetaData()->PrepareWidgets(ed_obj_cat);
 					}
 					else
 					{
-						nd.callback_type = "";
+						node.callback_type = "";
 					}
 				}
 			}

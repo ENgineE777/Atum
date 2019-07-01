@@ -504,12 +504,14 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 		{
 			SceneScriptInst::Node& scene_node = inst->nodes[index];
 
-			if (!scene_node.object)
+			SceneObjectRef& ref = scene_node.objects[0].ref;
+
+			if (!ref.object)
 			{
-				scene_node.object = inst->GetScene()->FindByUID(scene_node.object_uid, scene_node.object_child_uid, false);
+				ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
 			}
 
-			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, scene_node.object ? scene_node.object->GetName() : "NULL");
+			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
 		}
 
 		index++;

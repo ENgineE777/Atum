@@ -1,0 +1,62 @@
+#import "MainScript"
+
+class ForestEnemies
+{
+	array<BaseCharacter> bees;
+    array<BaseCharacter> slugs;
+
+	Game@ game;
+
+	void OnRespawnHero()
+	{
+		for (int i = 0; i<bees.length();i++)
+        {
+            bees[i].visible = 1;
+        }
+
+        for (int i = 0; i<slugs.length();i++)
+        {
+            slugs[i].visible = 1;
+        }
+    }
+
+    void OnHeroContact(int self_index, string&in name, int index)
+    {
+        if (name == "ForestBee")
+        {
+            game.HitHero(bees[index].x);
+        }
+        else
+        if (name == "ForestSlug")
+        {
+            game.HitHero(slugs[index].x);
+        }
+    }
+
+    void OnBoxContact(int self_index, string&in name, int index)
+    {
+        if (name == "ForestBee")
+        {
+            bees[index].visible = 0;
+            game.enemy_death.AddInstance(bees[index].x, bees[index].y, true);
+        }
+
+        if (name == "ForestSlug")
+        {
+            slugs[index].visible = 0;
+            game.enemy_death.AddInstance(slugs[index].x, slugs[index].y, true);
+        }
+
+        if (game.hero_inst[0].boxes_pool != -1)
+        {
+            ThrowableBoxesHolder@ holder = game.throwable_boxes[game.hero_inst[0].boxes_pool];
+
+            if (holder.FlyBox().visible == 1)
+            {
+                holder.FlyBox().visible = 0;
+                holder.FlyBox().in_fly = -1.0f;
+                game.enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+            }
+        }
+    }
+}

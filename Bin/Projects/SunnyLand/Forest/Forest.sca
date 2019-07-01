@@ -1055,7 +1055,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Bee",
+			"Name" : "ForestBee",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"width" : 148.000000,
@@ -1305,7 +1305,20 @@
 						"frame_time" : -1.000000
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 3,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000,
+					"group" : 1
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",
@@ -1315,7 +1328,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Slug",
+			"Name" : "ForestSlug",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"width" : 128.000000,
@@ -1453,7 +1466,20 @@
 						"frame_time" : -1.000000
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 3,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000,
+					"group" : 1
+				}
+			]
 		},
 		{
 			"type" : "SpriteAsset",
@@ -1463,7 +1489,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Piranha_Idle",
+			"Name" : "ForestPiranhaIdle",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"width" : 244.000000,
@@ -1639,7 +1665,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Piranha_Attack",
+			"Name" : "ForestPiranhaAttack",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"width" : 244.000000,
@@ -1787,7 +1813,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Piranha",
+			"Name" : "ForestPiranha",
 			"def_node" : 0,
 			"Count" : 2,
 			"Node" : [
@@ -1841,7 +1867,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "Forest_Star",
+			"Name" : "ForestStar",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"width" : 52.000000,
@@ -2035,7 +2061,201 @@
 						"frame_time" : -1.000000
 					}
 				]
-			}
+			},
+			"components" : [
+				{
+					"type" : "ScriptMetaDataComp",
+					"Asset" :
+					{
+						"uid" : 1583784704,
+						"child_uid" : 0,
+						"is_asset" : true
+					},
+					"count" : 1,
+					"value" : [
+						{
+							"type" : 1,
+							"value" : 75
+						}
+					]
+				},
+				{
+					"type" : "Phys2DComp",
+					"body_type" : 4,
+					"density" : 1.250000,
+					"friction" : 0.250000,
+					"allow_rotate" : true,
+					"use_object_size" : true,
+					"width" : 64.000000,
+					"height" : 64.000000,
+					"group" : 1
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 976895,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "ForestItemsScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "ForestItems",
+			"Count" : 4,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 839.000000,
+						"y" : 325.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Hero",
+					"pos" :
+					{
+						"x" : 418.000000,
+						"y" : 414.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 658.000000,
+						"y" : 415.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 1,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "stars",
+					"pos" :
+					{
+						"x" : 537.000000,
+						"y" : 263.000000
+					},
+					"prefix" : ""
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptAsset",
+			"uid" : 849274,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "ForestEnemiesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"main_class" : "ForestEnemies",
+			"Count" : 7,
+			"Node" : [
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 919.000000,
+						"y" : 346.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "bees",
+					"pos" :
+					{
+						"x" : 649.000000,
+						"y" : 198.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "slugs",
+					"pos" :
+					{
+						"x" : 466.000000,
+						"y" : 199.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 0,
+					"name" : "Hero",
+					"pos" :
+					{
+						"x" : 441.000000,
+						"y" : 338.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 687.000000,
+						"y" : 342.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 3,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 0,
+					"name" : "Object",
+					"pos" :
+					{
+						"x" : 441.000000,
+						"y" : 447.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnBoxContact",
+					"pos" :
+					{
+						"x" : 691.000000,
+						"y" : 445.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 5,
+							"param" : ""
+						}
+					]
+				}
+			]
 		}
 	],
 	"SceneObject" : [

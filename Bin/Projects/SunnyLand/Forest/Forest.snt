@@ -60,17 +60,17 @@
 		},
 		{
 			"uid" : 310772,
-			"name" : "Forest_Piranha",
+			"name" : "ForestPiranha",
 			"type" : 1
 		},
 		{
 			"uid" : 954222,
-			"name" : "Forest_Piranha_Attack",
+			"name" : "ForestPiranhaAttack",
 			"type" : 1
 		},
 		{
 			"uid" : 972796,
-			"name" : "Forest_Piranha_Idle",
+			"name" : "ForestPiranhaIdle",
 			"type" : 1
 		},
 		{
@@ -80,12 +80,12 @@
 		},
 		{
 			"uid" : 567162,
-			"name" : "Forest_Bee",
+			"name" : "ForestBee",
 			"type" : 1
 		},
 		{
 			"uid" : 1023339,
-			"name" : "Forest_Slug",
+			"name" : "ForestSlug",
 			"type" : 1
 		},
 		{
@@ -145,7 +145,7 @@
 		},
 		{
 			"uid" : 194534,
-			"name" : "Forest_star",
+			"name" : "ForestStar",
 			"type" : 1
 		},
 		{
@@ -167,6 +167,16 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : 849274,
+			"name" : "ForestEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 976895,
+			"name" : "ForestItemsScript",
+			"type" : 1
 		},
 		{
 			"uid" : -1,

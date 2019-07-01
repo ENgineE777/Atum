@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 18867.000000,
-		"y" : -359.000000
+		"x" : 19616.000000,
+		"y" : -398.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -21471,6 +21471,433 @@
 			"y" : -640.000000,
 			"width" : 512.000000,
 			"height" : 576.000000
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 163451,
+			"Name" : "DynBox",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 532556576,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 622334,
+			"Name" : "DynBoxFly",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 1373046016,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 589421,
+			"Name" : "FakeBox",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 477276576
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 982764,
+			"Name" : "ForestBee",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 0,
+				"Elem" : [
+				]
+			},
+			"asset_uid" : 567162,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 720618,
+			"Name" : "ForestSlug",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.500000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 28864.000000,
+						"y" : -384.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 1023339,
+			"components" : [
+				{
+					"type" : "Phys2DCompInst"
+				},
+				{
+					"type" : "Track2DComp",
+					"flip_mode" : 2,
+					"tracks" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"data_type" : 1,
+								"speed" : 70.000000,
+								"track" :
+								{
+									"count" : 2,
+									"Elem" : [
+										{
+											"x" : 28864.000000,
+											"y" : -384.000000
+										},
+										{
+											"x" : 28416.000000,
+											"y" : -384.000000
+										}
+									]
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 294778,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "ForestEnemiesScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 849274,
+			"Count" : 7,
+			"Node" : [
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 262000,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 982764,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 720618,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 130681,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 622334,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SceneScriptInst",
+			"uid" : 392931,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "ForestItemsScript",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"asset_uid" : 976895,
+			"Count" : 4,
+			"Node" : [
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 262000,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 130681,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 360317,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				}
+			]
+		},
+		{
+			"type" : "SpriteInst",
+			"uid" : 360317,
+			"Name" : "ForestStar",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"axis_scale" : 1.000000,
+			"Depth" : 0.450000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 2,
+				"Elem" : [
+					{
+						"x" : 27520.000000,
+						"y" : -640.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 576.000000,
+						"y" : -128.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 194534,
+			"components" : [
+				{
+					"type" : "ScriptMetaDataCompInst"
+				},
+				{
+					"type" : "Phys2DCompInst"
+				}
+			]
 		}
 	],
 	"asset_instances" : [
@@ -21592,6 +22019,94 @@
 					"scene" : "Forest/Forest_Level1.sca",
 					"inst_uid" : 163826,
 					"inst_name" : "Forest_Rock"
+				}
+			]
+		},
+		{
+			"asset_uid" : 532556576,
+			"asset_name" : "DynBox",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 163451,
+					"inst_name" : "DynBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1373046016,
+			"asset_name" : "DynBoxFly",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 622334,
+					"inst_name" : "DynBoxFly"
+				}
+			]
+		},
+		{
+			"asset_uid" : 477276576,
+			"asset_name" : "FakeBox",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 589421,
+					"inst_name" : "FakeBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 567162,
+			"asset_name" : "ForestBee",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 982764,
+					"inst_name" : "ForestBee"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1023339,
+			"asset_name" : "ForestSlug",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 720618,
+					"inst_name" : "ForestSlug"
+				}
+			]
+		},
+		{
+			"asset_uid" : 849274,
+			"asset_name" : "ForestEnemiesScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 294778,
+					"inst_name" : "ForestEnemiesScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 976895,
+			"asset_name" : "ForestItemsScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 392931,
+					"inst_name" : "ForestItemsScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 194534,
+			"asset_name" : "ForestStar",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 360317,
+					"inst_name" : "ForestStar"
 				}
 			]
 		}

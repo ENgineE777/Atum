@@ -1,0 +1,26 @@
+#import "MainScript"
+
+class ForestItems
+{
+    array<Bonus> stars;
+
+	Game@ game;
+
+    void OnHeroContact(int self_index, string&in name, int index)
+    {
+        if (name == "ForestStar")
+        {
+            game.AddScore(stars[index].score);
+            stars[index].visible = 0;
+            game.item_taken.AddInstance(stars[index].x, stars[index].y, true);
+        }
+    }
+
+    void OnStartGame()
+    {
+        for (int i = 0; i<stars.length();i++)
+        {
+            stars[i].visible = 1;
+        }
+    }
+}

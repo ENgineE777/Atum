@@ -3,8 +3,48 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
+			"name" : "Dynamic",
+			"type" : 0
+		},
+		{
+			"uid" : 899188,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"uid" : 638951,
+			"name" : "DynBoxFly",
+			"type" : 1
+		},
+		{
+			"uid" : 572494,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
+			"uid" : 524241,
+			"name" : "ForestBee",
+			"type" : 1
+		},
+		{
+			"uid" : 965858,
+			"name" : "ForestSlug",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
+		},
+		{
+			"uid" : 457300,
+			"name" : "ForestStar",
+			"type" : 1
 		},
 		{
 			"uid" : 589632,
@@ -130,6 +170,21 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
+		},
+		{
+			"uid" : 506058,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 114384,
+			"name" : "ForestEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 785095,
+			"name" : "ForestItemsScript",
+			"type" : 1
 		},
 		{
 			"uid" : 704359,

@@ -105,14 +105,15 @@ void SpriteTileInst::Draw(float dt)
 			}
 
 			bool add_center = core.controls.DebugKeyPressed("KEY_P");
-			bool add_after = core.controls.DebugKeyPressed("KEY_O");
+			bool add_copy = core.controls.DebugKeyPressed("KEY_O");
 
-			if (add_center || (add_after && sel_inst != -1))
+			if (add_center || (add_copy && sel_inst != -1))
 			{
 				Instance inst;
 
-				if (sel_inst != -1 && add_after)
+				if (add_copy)
 				{
+					inst = instances[sel_inst];
 					inst.SetPos(instances[sel_inst].GetPos() + 20.0f);
 				}
 				else

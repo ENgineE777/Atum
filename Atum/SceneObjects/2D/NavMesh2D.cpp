@@ -833,14 +833,15 @@ void NavMesh2D::Draw(float dt)
 			}
 
 			bool add_center = core.controls.DebugKeyPressed("KEY_P");
-			bool add_after = core.controls.DebugKeyPressed("KEY_O");
+			bool add_copy = core.controls.DebugKeyPressed("KEY_O");
 
-			if (add_center || (add_after && sel_inst != -1))
+			if (add_center || (add_copy && sel_inst != -1))
 			{
 				Node inst;
 
-				if (sel_inst != -1 && add_after)
+				if (add_copy)
 				{
+					inst = instances[sel_inst];
 					inst.pos = instances[sel_inst].pos + 20.0f;
 				}
 				else
@@ -853,7 +854,7 @@ void NavMesh2D::Draw(float dt)
 
 				for (auto comp : components)
 				{
-					comp->InstAdded(add_after ? sel_inst : -1);
+					comp->InstAdded(add_copy ? sel_inst : -1);
 				}
 
 				sel_inst = (int)instances.size() - 1;

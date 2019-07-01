@@ -894,12 +894,4 @@ void Gizmo::OnLeftMouseUp()
 
 		selAxis = -1;
 	}
-	else
-	if (selAxis > 0 && IsTrans2D())
-	{
-		pos2d = MakeAligned(pos2d);
-		*trans2D.pos = pos2d;
-		size2d = MakeAligned(size2d);
-		*trans2D.size = size2d;
-	}
 }

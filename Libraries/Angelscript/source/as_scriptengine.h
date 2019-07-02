@@ -186,6 +186,7 @@ public:
 	virtual void GCEnumCallback(void *reference);
 	virtual void ForwardGCEnumReferences(void *ref, asITypeInfo *type);
 	virtual void ForwardGCReleaseReferences(void *ref, asITypeInfo *type);
+	virtual void SetCircularRefDetectedCallback(asCIRCULARREFFUNC_t callback, void *param = 0);
 
 	// User data
 	virtual void *SetUserData(void *data, asPWORD type);
@@ -319,8 +320,6 @@ public:
 // internal properties
 //===========================================================
 	asCMemoryMgr memoryMgr;
-
-	asUINT initialContextStackSize;
 
 	asCObjectType   *defaultArrayObjectType;
 	asCObjectType    scriptTypeBehaviours;
@@ -474,6 +473,7 @@ public:
 		bool   optimizeByteCode;
 		bool   copyScriptSections;
 		asUINT maximumContextStackSize;
+		asUINT initContextStackSize;
 		bool   useCharacterLiterals;
 		bool   allowMultilineStrings;
 		bool   allowImplicitHandleTypes;
@@ -500,6 +500,8 @@ public:
 		int    heredocTrimMode;
 		asUINT maxNestedCalls;
 		asUINT genericCallMode;
+		asUINT initCallStackSize;
+		asUINT maxCallStackSize;
 	} ep;
 
 	// Callbacks

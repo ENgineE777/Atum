@@ -148,6 +148,11 @@ void SceneManager::SetScenesGroupsState(const char* group_name, int state)
 
 void SceneManager::UnloadScene(const char* name)
 {
+	if (scenes_search.find(name) == scenes_search.end())
+	{
+		return;
+	}
+
 	SceneHolder* holder = scenes_search[name];
 
 	if (holder->ref_counter > 0)

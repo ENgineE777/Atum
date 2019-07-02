@@ -29,7 +29,7 @@ height            | Height of a trigger
 */
 
 /**
-\brief Representation of a triger in 2D sprites
+\brief Representation of a triger in 2D space
 
 Whenever a physical object starts intersection with trigger script callback OnContactStart is called.
 Script callback OnContactEnd called after object leaves area of a trigger.
@@ -53,7 +53,11 @@ public:
 
 	virtual ~Trigger2D() = default;
 
+	void SetState(State state) override;
+
 	void Init() override;
+
+	void BindClassToScript() override;
 
 	bool Play() override;
 	void Release() override;

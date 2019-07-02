@@ -21,6 +21,23 @@ void Trigger2D::Init()
 	script_callbacks.push_back(ScriptCallback("OnContactEnd", "void", "%i%s%i"));
 }
 
+void Trigger2D::SetState(State state)
+{
+	body.body->SetActive(state == State::Active);
+
+	SceneObject::SetState(state);
+}
+
+void Trigger2D::BindClassToScript()
+{
+	const char* brief = "Representation of a triger in 2D space\n"
+	"\n"
+	"Whenever a physical object starts intersection with trigger script callback OnContactStart is called.\n"
+	"Script callback OnContactEnd called after object leaves area of a trigger.\n";
+
+	BIND_TYPE_TO_SCRIPT(Trigger2D, brief)
+}
+
 bool Trigger2D::Play()
 {
 	float scale = 1.0f / 50.0f;

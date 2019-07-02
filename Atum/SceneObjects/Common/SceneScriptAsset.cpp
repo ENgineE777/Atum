@@ -385,6 +385,12 @@ void SceneScriptAsset::Release()
 	{
 		delete node;
 	}
+
+	if (mod)
+	{
+		mod->Discard();
+		mod = nullptr;
+	}
 }
 
 bool SceneScriptAsset::UsingCamera2DPos()

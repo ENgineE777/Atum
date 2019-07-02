@@ -71,21 +71,26 @@ void SceneManager::LoadProject(const char* project_name)
 
 void SceneManager::LoadScene(const char* name)
 {
-	LoadScene(scenes_search[name]);
+	if (scenes_search.find(name) == scenes_search.end())
+	{
+		return;
+	}
+
+	scenes_to_load.push_back(scenes_search[name]);
 }
 
 void SceneManager::LoadScene(SceneHolder* holder)
 {
 	holder->ref_counter++;
 
-	if (holder->scene)
-	{
-		return;
-	}
-
 	for (auto& incl : holder->included)
 	{
 		LoadScene(incl);
+	}
+
+	if (holder->scene)
+	{
+		return;
 	}
 
 	holder->scene = new Scene();
@@ -105,6 +110,13 @@ void SceneManager::LoadScene(SceneHolder* holder)
 
 void SceneManager::Execute(float dt)
 {
+	for (auto* holder : scenes_to_load)
+	{
+		LoadScene(holder);
+	}
+
+	scenes_to_load.clear();
+
 	for (auto* holder : scenes_to_delete)
 	{
 		UnloadScene(holder);

@@ -37,9 +37,11 @@ class SceneManager : public Object
 
 	vector<SceneHolder> scenes;
 
+	vector<SceneHolder*> scenes_to_load;
 	vector<SceneHolder*> scenes_to_delete;
 
 	map<std::string, SceneHolder*> scenes_search;
+	
 
 	void LoadScene(SceneHolder* holder);
 	void UnloadScene(SceneHolder* holder);

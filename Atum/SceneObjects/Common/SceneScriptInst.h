@@ -84,7 +84,9 @@ public:
 	void Work(float dt);
 
 	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
-	bool PostPlay() override;
+	bool Play() override;
+	void InjectIntoScript();
+	void CallOnInitScript();
 	void Release() override;
 
 	bool UsingCamera2DPos() override;

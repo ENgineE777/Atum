@@ -167,8 +167,10 @@ bool SceneScriptInst::InjectIntoScript(const char* type, void* property, const c
 	return true;
 }
 
-bool SceneScriptInst::PostPlay()
+bool SceneScriptInst::Play()
 {
+	Asset()->Play();
+
 	class_inst = (asIScriptObject*)core.scripts.CreateScriptObject(Asset()->class_type);
 
 	if (!class_inst)
@@ -178,6 +180,18 @@ bool SceneScriptInst::PostPlay()
 
 	core.scripts.RegisterClassInstance(GetScene()->GetName(), class_inst);
 
+	GetScene()->AddPostPlay(0, this, (Object::DelegateSimple)&SceneScriptInst::InjectIntoScript);
+
+	if (Asset()->on_start_init.size() > 0)
+	{
+		GetScene()->AddPostPlay(10, this, (Object::DelegateSimple)&SceneScriptInst::CallOnInitScript);
+	}
+
+	return true;
+}
+
+void SceneScriptInst::InjectIntoScript()
+{
 	int index = 0;
 
 	for (auto node : Asset()->nodes)
@@ -278,13 +292,13 @@ bool SceneScriptInst::PostPlay()
 				}
 			}
 		}
-
 		index++;
 	}
+}
 
+void SceneScriptInst::CallOnInitScript()
+{
 	CallMethods(Asset()->on_start_init, false);
-
-	return true;
 }
 
 void SceneScriptInst::Work(float dt)
@@ -315,7 +329,7 @@ void SceneScriptInst::Release()
 					{
 						Node& node_inst = nodes[link.node];
 
-						for (auto& ref : node_inst.objects)
+						/*for (auto& ref : node_inst.objects)
 						{
 							if (ref.ref.object && ref.ref.object->script_callbacks.size() > 0)
 							{
@@ -335,7 +349,7 @@ void SceneScriptInst::Release()
 									callback->Unbind(class_inst);
 								}
 							}
-						}
+						}*/
 					}
 				}
 			}

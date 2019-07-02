@@ -467,15 +467,36 @@ bool Scene::Play()
 		}
 	}
 
-	for (auto object : objects)
+	for (auto& item : post_play_list)
 	{
-		if (!object->PostPlay())
-		{
-			return false;
-		}
+		(item.entity->*item.call)();
 	}
 
+	post_play_list.clear();
+
 	return true;
+}
+
+void Scene::AddPostPlay(int level, Object* entity, Object::DelegateSimple call)
+{
+	post_play_list.push_back(PostPlayDelegate());
+
+	PostPlayDelegate& delegate = post_play_list.back();
+
+	delegate.level = level;
+	delegate.entity = entity;
+	delegate.call = call;
+
+	int index = (int)post_play_list.size() - 2;
+
+	while (index >= 0 && post_play_list[index].level > level)
+	{
+		PostPlayDelegate tmp = post_play_list[index + 1];
+		post_play_list[index + 1] = post_play_list[index];
+		post_play_list[index] = tmp;
+
+		index--;
+	}
 }
 
 bool Scene::Playing()

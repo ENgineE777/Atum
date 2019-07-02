@@ -467,11 +467,6 @@ bool SceneObject::Play()
 	return true;
 }
 
-bool SceneObject::PostPlay()
-{
-	return true;
-}
-
 ScriptContext* SceneObject::Script()
 {
 	return scene->script;

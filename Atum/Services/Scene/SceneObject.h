@@ -212,13 +212,6 @@ public:
 	virtual bool Play();
 
 	/**
-	\brief This is second method which called when scene is starting to play
-
-	\return Result of switching a scene object in palyng state.
-	*/
-	virtual bool PostPlay();
-
-	/**
 	\brief Get pointer to a scene owner
 
 	\return Pointer to a scene owner

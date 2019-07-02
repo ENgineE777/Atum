@@ -51,7 +51,7 @@ TaskExecutor::SingleTaskPool::TaskList* TaskExecutor::SingleTaskPool::FindTaskLi
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void TaskExecutor::SingleTaskPool::AddTask(int level, Object* entity, Object::Delegate call, float freq)
@@ -140,7 +140,7 @@ void TaskExecutor::GroupTaskPool::FillList()
 		{
 			SingleTaskPool::TaskList* taskList = taskPool->lists[j];
 
-			GroupList* groupList = NULL;
+			GroupList* groupList = nullptr;
 
 			for (int l = 0; l < groupLists.size(); l++)
 			{

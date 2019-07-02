@@ -61,6 +61,16 @@ public:
 #endif
 
 private:
+
+	struct PostPlayDelegate
+	{
+		int level = 0;
+		Object* entity;
+		Object::DelegateSimple call;
+	};
+
+	vector<PostPlayDelegate> post_play_list;
+
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;
 	std::vector<SceneObject*> pool_childs;
@@ -109,6 +119,7 @@ public:
 	void Execute(float dt);
 
 	bool Play();
+	void AddPostPlay(int level, Object* entity, Object::DelegateSimple call);
 
 	void EnableTasks(bool enable);
 #endif

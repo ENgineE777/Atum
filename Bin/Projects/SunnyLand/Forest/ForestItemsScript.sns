@@ -18,7 +18,7 @@ class ForestItems
 
     void OnStartGame()
     {
-        for (int i = 0; i<stars.length();i++)
+        for (int i = 0; i<stars.get_length();i++)
         {
             stars[i].visible = 1;
         }

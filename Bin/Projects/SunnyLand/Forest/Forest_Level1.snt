@@ -98,8 +98,43 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "Scripts",
+			"type" : 0
+		},
+		{
+			"uid" : 1015531,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 294778,
+			"name" : "ForestEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 392931,
+			"name" : "ForestItemsScript",
+			"type" : 1
+		},
+		{
+			"uid" : 262000,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Triggers",
 			"type" : 0
+		},
+		{
+			"uid" : 622197,
+			"name" : "NextLevelTrigger",
+			"type" : 1
 		},
 		{
 			"uid" : 786402,
@@ -109,11 +144,6 @@
 		{
 			"uid" : 884465,
 			"name" : "TriggerActivateResPoint2",
-			"type" : 1
-		},
-		{
-			"uid" : 622181,
-			"name" : "TriggerActivateResPoint3",
 			"type" : 1
 		},
 		{
@@ -182,23 +212,13 @@
 			"type" : 2
 		},
 		{
-			"uid" : 294778,
-			"name" : "ForestEnemiesScript",
-			"type" : 1
-		},
-		{
-			"uid" : 392931,
-			"name" : "ForestItemsScript",
+			"uid" : 491123,
+			"name" : "FinishLevel1Script",
 			"type" : 1
 		},
 		{
 			"uid" : 130681,
 			"name" : "Hero",
-			"type" : 1
-		},
-		{
-			"uid" : 262000,
-			"name" : "MainScript",
 			"type" : 1
 		},
 		{
@@ -208,6 +228,11 @@
 		}
 	],
 	"asset_nodes" : [
+		{
+			"uid" : 491511,
+			"name" : "FinishLevel1Script",
+			"type" : 1
+		},
 		{
 			"uid" : -1,
 			"name" : "",

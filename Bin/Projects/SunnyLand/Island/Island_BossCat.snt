@@ -1,0 +1,67 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Cat",
+			"type" : 0
+		},
+		{
+			"uid" : 2017200640,
+			"name" : "CatAttack",
+			"type" : 1
+		},
+		{
+			"uid" : -682692352,
+			"name" : "CatGraph",
+			"type" : 1
+		},
+		{
+			"uid" : -1096384000,
+			"name" : "CatIdle",
+			"type" : 1
+		},
+		{
+			"uid" : 550593920,
+			"name" : "CatRun",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 1157116672,
+			"name" : "DynCard",
+			"type" : 1
+		},
+		{
+			"uid" : -1232377856,
+			"name" : "FakeCard",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

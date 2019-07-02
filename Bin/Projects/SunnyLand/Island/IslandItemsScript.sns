@@ -26,12 +26,12 @@ class IslandItems
 
     void OnStartGame()
     {
-        for (int i = 0; i<diamonds.length();i++)
+        for (int i = 0; i<diamonds.get_length();i++)
         {
             diamonds[i].visible = 1;
         }
 
-        for (int i = 0; i<cherries.length();i++)
+        for (int i = 0; i<cherries.get_length();i++)
         {
             cherries[i].visible = 1;
         }

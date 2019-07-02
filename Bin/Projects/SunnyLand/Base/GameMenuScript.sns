@@ -9,6 +9,8 @@ class GameMenu
     UIView@ level_ui;
     VirtualJoystick@ vjoy;
 
+    string level_name;
+
 	bool is_paused = false;
 
     void UpdateHearts(int hp)
@@ -37,13 +39,18 @@ class GameMenu
         core.scene.SetStateToGroup("Level", (show == 1) ? 1 : 2);
     }
 
+    void SetLevelName(string&in name)
+    {
+        level_name = name;
+    }
+
     void OnReturnToTitle()
     {
-        //main_menu.SetState(2);
-        level_ui.SetState(0);
-        pause_menu.SetState(0);
+        core.scene.Unload(level_name);
+        core.scene.CallClassInstancesMethod("MainMenu", "MainMenu", "ShowMenu");
 
-        //core.scene.Unload("SunnyLand_Level1");
+        /*level_ui.SetState(0);
+        pause_menu.SetState(0);
 
         is_paused = true;
 
@@ -51,6 +58,6 @@ class GameMenu
         vjoy.SetState(0);
         fade.alpha = 0.0f;
         pause_menu.SetState(0);
-        core.scene.SetStateToGroup("Level", 0);
+        core.scene.SetStateToGroup("Level", 0);*/
     }
 }

@@ -98,8 +98,48 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "Scripts",
+			"type" : 0
+		},
+		{
+			"uid" : 506058,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 245702,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
+		{
+			"uid" : 114384,
+			"name" : "ForestEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 785095,
+			"name" : "ForestItemsScript",
+			"type" : 1
+		},
+		{
+			"uid" : 244048,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Triggers",
 			"type" : 0
+		},
+		{
+			"uid" : 180082,
+			"name" : "NextLevelTrigger",
+			"type" : 1
 		},
 		{
 			"uid" : 507622,
@@ -172,28 +212,8 @@
 			"type" : 2
 		},
 		{
-			"uid" : 506058,
-			"name" : "BoxesScript",
-			"type" : 1
-		},
-		{
-			"uid" : 114384,
-			"name" : "ForestEnemiesScript",
-			"type" : 1
-		},
-		{
-			"uid" : 785095,
-			"name" : "ForestItemsScript",
-			"type" : 1
-		},
-		{
 			"uid" : 704359,
 			"name" : "Hero",
-			"type" : 1
-		},
-		{
-			"uid" : 244048,
-			"name" : "MainScript",
 			"type" : 1
 		},
 		{
@@ -203,6 +223,11 @@
 		}
 	],
 	"asset_nodes" : [
+		{
+			"uid" : 194763,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
 		{
 			"uid" : -1,
 			"name" : "",

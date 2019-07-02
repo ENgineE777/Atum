@@ -9,12 +9,12 @@ class ForestEnemies
 
 	void OnRespawnHero()
 	{
-		for (int i = 0; i<bees.length();i++)
+		for (int i = 0; i<bees.get_length();i++)
         {
             bees[i].visible = 1;
         }
 
-        for (int i = 0; i<slugs.length();i++)
+        for (int i = 0; i<slugs.get_length();i++)
         {
             slugs[i].visible = 1;
         }

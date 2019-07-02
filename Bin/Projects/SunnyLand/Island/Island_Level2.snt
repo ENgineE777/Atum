@@ -3,6 +3,46 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
+			"name" : "Boss",
+			"type" : 0
+		},
+		{
+			"uid" : 290738,
+			"name" : "ActivateBossTrigger",
+			"type" : 1
+		},
+		{
+			"uid" : 622257,
+			"name" : "BossCatScript",
+			"type" : 1
+		},
+		{
+			"uid" : 683199,
+			"name" : "BossMarker",
+			"type" : 1
+		},
+		{
+			"uid" : 913080,
+			"name" : "CatBoss",
+			"type" : 1
+		},
+		{
+			"uid" : 814518,
+			"name" : "DynCard",
+			"type" : 1
+		},
+		{
+			"uid" : 654581,
+			"name" : "FakeCard",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Enemies",
 			"type" : 0
 		},
@@ -252,6 +292,11 @@
 			"type" : 0
 		},
 		{
+			"uid" : 126907,
+			"name" : "NextLevelTrigger",
+			"type" : 1
+		},
+		{
 			"uid" : 978942,
 			"name" : "RespawnPoint1",
 			"type" : 1
@@ -297,6 +342,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : 454396,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
+		{
 			"uid" : 524283,
 			"name" : "IslandItemsScript",
 			"type" : 1
@@ -313,6 +363,16 @@
 		}
 	],
 	"asset_nodes" : [
+		{
+			"uid" : 966624,
+			"name" : "BossCatScript",
+			"type" : 1
+		},
+		{
+			"uid" : 392700,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
 		{
 			"uid" : -1,
 			"name" : "",

@@ -34,7 +34,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
-			"Count" : 15,
+			"Count" : 14,
 			"Node" : [
 				{
 					"type" : 2,
@@ -122,12 +122,12 @@
 					"name" : "OnActivateResapwnTrigger",
 					"pos" :
 					{
-						"x" : 1963.000000,
-						"y" : 597.000000
+						"x" : 1903.000000,
+						"y" : 601.000000
 					},
 					"param_type" : 1,
 					"call_type" : 0,
-					"Count" : 3,
+					"Count" : 2,
 					"Link" : [
 						{
 							"node" : 8,
@@ -136,10 +136,6 @@
 						{
 							"node" : 10,
 							"param" : "2"
-						},
-						{
-							"node" : 11,
-							"param" : "3"
 						}
 					]
 				},
@@ -148,8 +144,8 @@
 					"name" : "RespawnPoint1",
 					"pos" :
 					{
-						"x" : 1547.000000,
-						"y" : 555.000000
+						"x" : 1555.000000,
+						"y" : 557.000000
 					}
 				},
 				{
@@ -169,15 +165,6 @@
 					{
 						"x" : 1559.000000,
 						"y" : 687.000000
-					}
-				},
-				{
-					"type" : 0,
-					"name" : "RespawnPoint3",
-					"pos" :
-					{
-						"x" : 1721.000000,
-						"y" : 787.000000
 					}
 				},
 				{
@@ -479,7 +466,7 @@
 				"texName" : "Hero/player-hurt.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.200000,
+				"frame_time" : 0.125000,
 				"count" : 2,
 				"Rect" : [
 					{
@@ -2991,8 +2978,8 @@
 			"uid" : 131060,
 			"ed_camera_2d" :
 			{
-				"x" : -39.000000,
-				"y" : 539.000000
+				"x" : -149.000000,
+				"y" : 560.000000
 			},
 			"Name" : "GameMenuScript",
 			"State" : 2,

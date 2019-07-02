@@ -13,16 +13,21 @@ class FallingBridge
 
     void OnRespawnHero()
     {
+        if (!init)
+        {
+            return;
+        }
+
     	falling_bridge = false;
         falling_bridge_index = 0;
 
-        for (int i = 0; i<bridge.length();i++)
+        for (int i = 0; i<bridge.get_length();i++)
         {
             bridge_dyn[i].visible = 0;
-            bridge_dyn[i].phys.MoveTo(bridge_dyn[i].init_x, bridge_dyn[i].init_y + 1);
+            bridge_dyn[i].phys.MoveTo(bridge_dyn[i].init_x, bridge_dyn[i].init_y);
         }
 
-        for (int i = 0; i<bridge.length();i++)
+        for (int i = 0; i<bridge.get_length();i++)
         {
             bridge[i].visible = 1;
         }
@@ -43,10 +48,12 @@ class FallingBridge
 	{
 		if (!init)
         {
-			for (int i = 0; i<bridge_dyn.length();i++)
+			for (int i = 0; i<bridge_dyn.get_length();i++)
             {
                 bridge_dyn[i].init_x = bridge_dyn[i].x;
                 bridge_dyn[i].init_y = bridge_dyn[i].y;
+
+                bridge_dyn[i].phys.MoveTo(bridge_dyn[i].init_x, bridge_dyn[i].init_y);
             }
 
             init = true;
@@ -64,7 +71,7 @@ class FallingBridge
                 bridge_dyn[falling_bridge_index].visible = 1;
                 falling_bridge_index++;
 
-                if (falling_bridge_index == bridge.length())
+                if (falling_bridge_index == bridge.get_length())
                 {
                     falling_bridge = false;
                 }

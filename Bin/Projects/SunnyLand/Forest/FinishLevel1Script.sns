@@ -1,0 +1,23 @@
+
+#import "GameMenuScript"
+
+class FinishLevel1
+{
+    GameMenu@ game_menu;
+    string level_name = "Forest_Level1";
+    string next_level_name = "Forest_Level2";
+
+    void Init()
+    {
+        game_menu.SetLevelName(level_name);
+    }
+
+    void OnNextLevel(int self_index, string&in name, int index)
+    {
+        if (name == "Hero")
+        {
+            core.scene.Unload(level_name);
+            core.scene.Load(next_level_name);
+        }
+    }
+}

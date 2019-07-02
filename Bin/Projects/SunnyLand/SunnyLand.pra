@@ -2,7 +2,7 @@
 
 	"export_dir" : "Projects/SunnyLand_Out",
 	"start_scene" : 3,
-	"scenes_count" : 8,
+	"scenes_count" : 9,
 	"scenes" : [
 		{
 			"path" : "Island/Island.sca",
@@ -35,6 +35,9 @@
 			"include" : [
 				{
 					"path" : "Island/Island.sca"
+				},
+				{
+					"path" : "Island/Island_BossCat.sca"
 				}
 			]
 		},
@@ -60,6 +63,11 @@
 				{
 					"path" : "Forest/Forest.sca"
 				}
+			]
+		},
+		{
+			"path" : "Island/Island_BossCat.sca",
+			"include" : [
 			]
 		}
 	],
@@ -95,6 +103,10 @@
 		},
 		{
 			"name" : "Island",
+			"type" : 1
+		},
+		{
+			"name" : "Island_BossCat",
 			"type" : 1
 		},
 		{

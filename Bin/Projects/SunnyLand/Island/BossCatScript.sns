@@ -27,6 +27,7 @@ class BossCat
     array<PhysBox> fake_card;
     array<BaseCharacter> boss_markers;
     array<CatBossData> boss_inst;
+    Trigger2D@ next_level;
 
     Game@ game;
 
@@ -63,8 +64,10 @@ class BossCat
 
                 if (boss_inst[0].hp == 0)
                 {
-                    game.return_to_title = 2.0f;
+                    next_level.SetState(2);
+
                     boss_inst[0].active = false;
+                    boss_inst[0].visible = 0;
                     game.enemy_death.AddInstance(boss_inst[0].x, boss_inst[0].y, true);
                 }
             }
@@ -195,6 +198,8 @@ class BossCat
 
     void OnRespawnHero()
     {
+        next_level.SetState(0);
+
         boss_inst[0].active = false;
         boss_inst[0].graph.GotoNode("idle");
         boss_inst[0].hp = 3;

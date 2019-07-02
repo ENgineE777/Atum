@@ -7,41 +7,6 @@
 			"type" : 0
 		},
 		{
-			"uid" : -1,
-			"name" : "Boss",
-			"type" : 0
-		},
-		{
-			"uid" : -641686528,
-			"name" : "ActivateBossTrigger",
-			"type" : 1
-		},
-		{
-			"uid" : 1773631360,
-			"name" : "BossMarkers",
-			"type" : 1
-		},
-		{
-			"uid" : 361006912,
-			"name" : "CatBoss",
-			"type" : 1
-		},
-		{
-			"uid" : 1269363584,
-			"name" : "DynCard",
-			"type" : 1
-		},
-		{
-			"uid" : -1182418176,
-			"name" : "FakeCard",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
 			"uid" : -1084704768,
 			"name" : "EagleFly",
 			"type" : 1
@@ -242,6 +207,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 52814452,
+			"name" : "NextLevelTrigger",
+			"type" : 1
+		},
+		{
 			"uid" : -498944768,
 			"name" : "RespawnActTrigger2",
 			"type" : 1
@@ -249,11 +219,6 @@
 		{
 			"uid" : 22708918,
 			"name" : "RespawnActTrigger3",
-			"type" : 1
-		},
-		{
-			"uid" : 52814452,
-			"name" : "RespawnActTrigger4",
 			"type" : 1
 		},
 		{
@@ -307,11 +272,6 @@
 			"type" : 0
 		},
 		{
-			"uid" : 243959,
-			"name" : "BossCatScript",
-			"type" : 1
-		},
-		{
 			"uid" : 638463,
 			"name" : "BoxesScript",
 			"type" : 1
@@ -324,6 +284,11 @@
 		{
 			"uid" : 835253,
 			"name" : "EnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 49017,
+			"name" : "FinishLevel1Script",
 			"type" : 1
 		},
 		{
@@ -349,58 +314,8 @@
 	],
 	"asset_nodes" : [
 		{
-			"uid" : -1,
-			"name" : "Cat",
-			"type" : 0
-		},
-		{
-			"uid" : 2017200640,
-			"name" : "CatAttack",
-			"type" : 1
-		},
-		{
-			"uid" : -682692352,
-			"name" : "CatGraph",
-			"type" : 1
-		},
-		{
-			"uid" : -1096384000,
-			"name" : "CatIdle",
-			"type" : 1
-		},
-		{
-			"uid" : 550593920,
-			"name" : "CatRun",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Items",
-			"type" : 0
-		},
-		{
-			"uid" : 1157116672,
-			"name" : "DynCard",
-			"type" : 1
-		},
-		{
-			"uid" : -1232377856,
-			"name" : "FakeCard",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : 966624,
-			"name" : "BossCatScript",
+			"uid" : 1048446,
+			"name" : "FinishLevel1Script",
 			"type" : 1
 		},
 		{

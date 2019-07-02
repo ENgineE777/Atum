@@ -9,12 +9,12 @@ class IslandEnemies
 
 	void OnRespawnHero()
 	{
-		for (int i = 0; i<eagles.length();i++)
+		for (int i = 0; i<eagles.get_length();i++)
         {
             eagles[i].visible = 1;
         }
 
-        for (int i = 0; i<opposums.length();i++)
+        for (int i = 0; i<opposums.get_length();i++)
         {
             opposums[i].visible = 1;
         }

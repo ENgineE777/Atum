@@ -147,6 +147,7 @@ public:
 
 	void Play() override;
 	void CreateBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate);
-	void Stop() override;
 	void UpdateInstances(float dt);
+
+	void Release() override;
 };

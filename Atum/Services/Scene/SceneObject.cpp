@@ -521,6 +521,11 @@ void SceneObject::Release()
 
 	if (scene) scene->DelFromAllGroups(this);
 
+	for (auto comp : components)
+	{
+		comp->Release();
+	}
+
 	delete this;
 }
 

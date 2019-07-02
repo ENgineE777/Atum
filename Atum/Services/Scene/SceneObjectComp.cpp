@@ -28,11 +28,6 @@ void SceneObjectComp::Play()
 
 }
 
-void SceneObjectComp::Stop()
-{
-
-}
-
 void SceneObjectComp::Release()
 {
 	delete this;

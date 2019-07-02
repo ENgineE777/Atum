@@ -41,7 +41,6 @@ public:
 	virtual void ApplyProperties();
 	virtual MetaData* GetMetaData() = 0;
 	virtual void Play();
-	virtual void Stop();
 	virtual void Release();
 
 	virtual void BindClassToScript();

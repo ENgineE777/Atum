@@ -252,7 +252,7 @@ void Phys2DCompInst::Play()
 	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
 }
 
-void Phys2DCompInst::Stop()
+void Phys2DCompInst::Release()
 {
 	for (auto& body : bodies)
 	{
@@ -269,6 +269,8 @@ void Phys2DCompInst::Stop()
 
 	bodies.clear();
 	script_bodies.clear();
+
+	SceneObjectInstComp::Release();
 }
 
 void Phys2DCompInst::CreateBody(int index, bool visible, Vector2 pos, Vector2 size, Vector2 center, bool allow_rotate)

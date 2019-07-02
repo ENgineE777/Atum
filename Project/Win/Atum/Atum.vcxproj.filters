@@ -612,6 +612,9 @@
     <ClCompile Include="..\..\..\Atum\Platform\Common\AtumRunner.cpp">
       <Filter>Platform\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObjectBase.cpp">
+      <Filter>Services\Physic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1096,6 +1099,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Platform\Common\AtumRunner.h">
       <Filter>Platform\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObjectBase.h">
+      <Filter>Services\Physic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

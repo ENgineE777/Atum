@@ -22,6 +22,7 @@
 
 #endif
 
+#include "PhysObjectBase.h"
 #include "Support/Support.h"
 
 /**
@@ -37,7 +38,7 @@ Static height map.
 
 using namespace physx;
 
-class PhysHeightmap
+class PhysHeightmap : public PhysObjectBase
 {
 	friend class PhysScene;
 	PxHeightField* heightField = nullptr;
@@ -68,5 +69,8 @@ public:
 	/**
 	\brief PhysHeightmap should released only via this mehod
 	*/
-	void Release();
+	void Release() override;
+
+protected:
+	void ActualRelease();
 };

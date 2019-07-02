@@ -97,6 +97,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObject.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObjectBase.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysScene.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Render\Debug\DebugFont.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObject.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObjectBase.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysScene.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\Debug.h" />
     <ClInclude Include="..\..\..\Atum\Services\Render\Debug\DebugBoxes.h" />

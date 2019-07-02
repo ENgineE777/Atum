@@ -97,6 +97,16 @@ void PhysObject::AddForceAt(Vector pos, Vector force)
 
 void PhysObject::Release()
 {
+	actor->userData = nullptr;
+	PhysObjectBase::Release();
+}
+
+void PhysObject::ActualRelease()
+{
+	PxShape* shape;
+	actor->getShapes(&shape, 1);
+	actor->detachShape(*shape);
+
 	actor->release();
 	delete this;
 }

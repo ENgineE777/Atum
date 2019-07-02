@@ -20,6 +20,7 @@ This is a manager of PhysScene objects.
 class Physics
 {
 	friend class PhysScene;
+	friend class PhysObjectBase;
 
 	PxDefaultErrorCallback   defaultErrorCallback;
 	PxDefaultAllocator       defaultAllocatorCallback;
@@ -74,6 +75,8 @@ class Physics
 			return count;
 		}
 	};
+
+	vector<PhysObjectBase*> needed_to_delete;
 
 public:
 

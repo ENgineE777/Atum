@@ -188,4 +188,11 @@ void Physics::Fetch()
 		scene->FetchResults();
 		scene->needFetch = false;
 	}
+
+	for (auto object : needed_to_delete)
+	{
+		object->ActualRelease();
+	}
+
+	needed_to_delete.clear();
 }

@@ -26,6 +26,7 @@
 
 #endif
 
+#include "PhysObjectBase.h"
 #include "Support/Support.h"
 
 using namespace physx;
@@ -70,7 +71,7 @@ Kinematic character controller which is capsule.
 
 */
 
-class PhysController : public PxUserControllerHitReport, PxControllerBehaviorCallback, PxQueryFilterCallback
+class PhysController : public PxUserControllerHitReport, public PxControllerBehaviorCallback, public PxQueryFilterCallback, public PhysObjectBase
 {
 	friend class PhysScene;
 	PxController* controller = nullptr;
@@ -177,5 +178,9 @@ public:
 	/**
 	\brief PhysController should released only via this mehod
 	*/
-	void Release();
+	void Release() override;
+
+protected:
+
+	void ActualRelease() override;
 };

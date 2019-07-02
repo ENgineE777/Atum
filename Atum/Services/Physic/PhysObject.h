@@ -11,7 +11,6 @@
 #endif
 
 #include "PxPhysicsAPI.h"
-
 #ifdef PLATFORM_IOS
 
 #ifdef DEBUG_WAS_DEFINED
@@ -22,7 +21,8 @@
 
 #endif
 
-#include "Support/Support.h"
+#include "PxPhysicsAPI.h"
+#include "PhysObjectBase.h"
 
 /**
 \ingroup gr_code_services_physic
@@ -37,7 +37,7 @@ Just a physical box.
 
 using namespace physx;
 
-class PhysObject
+class PhysObject : public PhysObjectBase
 {
 	friend class PhysScene;
 
@@ -132,4 +132,5 @@ protected:
 	BodyType body_type;
 	PxRigidActor* actor = nullptr;
 	bool is_active = true;
+	void ActualRelease() override;
 };

@@ -230,7 +230,7 @@
 	"asset_nodes" : [
 		{
 			"uid" : 491511,
-			"name" : "FinishLevel1Script",
+			"name" : "ForestFinishLevel1Script",
 			"type" : 1
 		},
 		{

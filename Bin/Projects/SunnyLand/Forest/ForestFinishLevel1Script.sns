@@ -1,7 +1,7 @@
 
 #import "GameMenuScript"
 
-class FinishLevel1
+class ForestFinishLevel1
 {
     GameMenu@ game_menu;
     string level_name = "Forest_Level1";

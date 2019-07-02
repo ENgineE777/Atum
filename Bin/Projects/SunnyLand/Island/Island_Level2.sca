@@ -188,11 +188,11 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "FinishLevel2Script",
+			"Name" : "IslandFinishLevel2Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"main_class" : "FinishLevel2",
+			"main_class" : "IslandFinishLevel2",
 			"Count" : 4,
 			"Node" : [
 				{
@@ -24235,7 +24235,7 @@
 		},
 		{
 			"asset_uid" : 392700,
-			"asset_name" : "FinishLevel2Script",
+			"asset_name" : "IslandFinishLevel2Script",
 			"instances" : [
 				{
 					"scene" : "Island/Island_Level2.sca",

@@ -29,11 +29,11 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "FinishLevel1Script",
+			"Name" : "ForestFinishLevel1Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"main_class" : "FinishLevel1",
+			"main_class" : "ForestFinishLevel1",
 			"Count" : 4,
 			"Node" : [
 				{
@@ -22855,7 +22855,7 @@
 		},
 		{
 			"asset_uid" : 491511,
-			"asset_name" : "FinishLevel1Script",
+			"asset_name" : "ForestFinishLevel1Script",
 			"instances" : [
 				{
 					"scene" : "Forest/Forest_Level1.sca",

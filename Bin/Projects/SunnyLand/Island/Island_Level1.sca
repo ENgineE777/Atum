@@ -29,11 +29,11 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
-			"Name" : "FinishLevel1Script",
+			"Name" : "IslandFinishLevel1Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"main_class" : "FinishLevel1",
+			"main_class" : "IslandFinishLevel1",
 			"Count" : 4,
 			"Node" : [
 				{
@@ -13339,7 +13339,7 @@
 		},
 		{
 			"asset_uid" : 1048446,
-			"asset_name" : "FinishLevel1Script",
+			"asset_name" : "IslandFinishLevel1Script",
 			"instances" : [
 				{
 					"scene" : "Island/Island_Level1.sca",

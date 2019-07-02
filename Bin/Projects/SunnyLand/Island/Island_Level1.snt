@@ -315,7 +315,7 @@
 	"asset_nodes" : [
 		{
 			"uid" : 1048446,
-			"name" : "FinishLevel1Script",
+			"name" : "IslandFinishLevel1Script",
 			"type" : 1
 		},
 		{

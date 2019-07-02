@@ -258,65 +258,70 @@ bool SceneScriptAsset::Play()
 		return false;
 	}
 
-	mod = core.scripts.GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
+	mod = core.scripts.GetModule(filename.c_str(), asGM_ONLY_IF_EXISTS);
 
-	string src = (const char*)file.GetData();
-
-	const char* incl = strstr(src.c_str(), "#import \"");
-
-	string external_decl;
-
-	while (incl)
+	if (!mod)
 	{
-		int64_t index_from = incl - src.c_str();
-		int64_t index_to = index_from + 9;
+		mod = core.scripts.GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 
-		while (src[index_to] != '"' || src[index_to] == 0)
+		string src = (const char*)file.GetData();
+
+		const char* incl = strstr(src.c_str(), "#import \"");
+
+		string external_decl;
+
+		while (incl)
 		{
-			index_to++;
-		}
+			int64_t index_from = incl - src.c_str();
+			int64_t index_to = index_from + 9;
 
-		if (src[index_to] == 0)
-		{
-			break;
-		}
-
-		char name[256];
-		int64_t len = index_to - index_from - 9;
-		memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
-		name[len] = 0;
-
-		SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", name);
-
-		if (object)
-		{
-			object->Play();
-
-			if (object->mod)
+			while (src[index_to] != '"' || src[index_to] == 0)
 			{
-				for (uint32_t i = 0; i < object->mod->GetObjectTypeCount(); i++)
+				index_to++;
+			}
+
+			if (src[index_to] == 0)
+			{
+				break;
+			}
+
+			char name[256];
+			int64_t len = index_to - index_from - 9;
+			memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
+			name[len] = 0;
+
+			SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", name);
+
+			if (object)
+			{
+				object->Play();
+
+				if (object->mod)
 				{
-					asITypeInfo* tp = object->mod->GetObjectTypeByIndex(i);
-					external_decl += string("external shared class ") + tp->GetName() + ";\r\n";
+					for (uint32_t i = 0; i < object->mod->GetObjectTypeCount(); i++)
+					{
+						asITypeInfo* tp = object->mod->GetObjectTypeByIndex(i);
+						external_decl += string("external shared class ") + tp->GetName() + ";\r\n";
+					}
 				}
 			}
+
+			src.erase(index_from, index_to - index_from + 1);
+
+			incl = strstr(src.c_str(), "#import \"");
 		}
 
-		src.erase(index_from, index_to - index_from + 1);
+		StringUtils::Replace(src, "class ", "shared class ");
 
-		incl = strstr(src.c_str(), "#import \"");
+		if (external_decl.size() > 0)
+		{
+			src = external_decl + src;
+		}
+
+		mod->AddScriptSection(GetName(), src.c_str(), src.size());
+
+		mod->Build();
 	}
-
-	StringUtils::Replace(src, "class ", "shared class ");
-
-	if (external_decl.size() > 0)
-	{
-		src = external_decl + src;
-	}
-
-	mod->AddScriptSection(GetName(), src.c_str(), src.size());
-
-	mod->Build();
 
 	if (main_class.c_str()[0])
 	{
@@ -386,11 +391,11 @@ void SceneScriptAsset::Release()
 		delete node;
 	}
 
-	if (mod)
+	/*if (mod)
 	{
 		mod->Discard();
 		mod = nullptr;
-	}
+	}*/
 }
 
 bool SceneScriptAsset::UsingCamera2DPos()

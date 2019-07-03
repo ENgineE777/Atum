@@ -159,7 +159,7 @@ class Game
         return -1;
     }
 
-    void HitHero(float x)
+    void HitHero()
     {
         HeroData@ hero_data = hero_inst[0];
 
@@ -185,19 +185,17 @@ class Game
             }
 
             hero_data.graph.GotoNode("Hit");
-            hero_data.in_hit = 1.0f;
+            hero_data.in_hit = 0.75f;
 
-            //hero_velocity_x = 
-            //hero_velocity_y = 200.0f;
-            //jump_impulse
-
-            //hero.ApplyLinearImpulse(20.0f * (x < hero.x ? 1.0f : -1.0f), -7);
+            hero_data.velocity_x = 0.0f;
+            hero_data.velocity_y = -300.0f;
+            hero_data.dir_x = 0.0f;
         }
     }
 
     void RespawnHero(HeroData@ hero_data)
     {
-        hero_data.cur_respawn_point = 2;
+        hero_data.cur_respawn_point = 0;
         
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
@@ -209,6 +207,7 @@ class Game
 
         hero_data.velocity_x = 0.0f;
         hero_data.velocity_y = 0.0f;
+        hero_data.dir_x = 0.0f;
 
         hero_data.box_grabbed = false;
 
@@ -326,37 +325,40 @@ class Game
     {
         bool allow_jump = hero_data.phys.CheckColission(true);
 
-        if (!allow_jump && hero_data.velocity_y > 20.5f)
+        if (hero_data.in_hit < 0.01f && hero_data.hp > 0)
         {
-            hero_data.graph.ActivateLink("fall");
-        }
+            if (!allow_jump && hero_data.velocity_y > 20.5f)
+            {
+                hero_data.graph.ActivateLink("fall");
+            }
         
-        if (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
-        {
-            if (allow_jump)
+            if (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
             {
-                hero_data.graph.ActivateLink("run");
+                if (allow_jump)
+                {
+                    hero_data.graph.ActivateLink("run");
+                }
+
+                hero_data.dir_x = -1.0f;
             }
-
-            hero_data.dir_x = -1.0f;
-        }
-        else
-        if (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
-        {
-            if (allow_jump)
+            else
+            if (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
             {
-                hero_data.graph.ActivateLink("run");
+                if (allow_jump)
+                {
+                    hero_data.graph.ActivateLink("run");
+                }
+
+                hero_data.dir_x = 1.0f;
             }
-
-            hero_data.dir_x = 1.0f;
-        }
-        else
-        {
-            hero_data.dir_x = 0.0f;
-
-            if (allow_jump)
+            else
             {
-                hero_data.graph.ActivateLink("idle");
+                hero_data.dir_x = 0.0f;
+
+                if (allow_jump)
+                {
+                    hero_data.graph.ActivateLink("idle");
+                }
             }
         }
 
@@ -382,13 +384,18 @@ class Game
             }
         }
 
-        if ((core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
+        if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
         {
             hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
         }
 
         MoveCharacter(hero_data, dt);
+
+        if (hero_data.in_hit > 0.01f || hero_data.hp == 0)
+        {
+            return;
+        }
 
         if (core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
         {
@@ -472,15 +479,13 @@ class Game
             return;
         }
 
-        if (hero_inst[0].in_hit < -0.01f && hero_inst[0].hp > 0)
-        {
-            ControlPlayer(hero_inst[0], dt);
-        }
-        else
+        ControlPlayer(hero_inst[0], dt);
+
+        if (hero_inst[0].in_hit > 0.01f)
         {
             hero_inst[0].in_hit -= dt;
 
-            if (hero_inst[0].in_hit < 0.0f)
+            if (hero_inst[0].in_hit <= 0.01f)
             {
                 hero_inst[0].in_hit = -1.0f;
                 hero_inst[0].graph.ActivateLink("idle");

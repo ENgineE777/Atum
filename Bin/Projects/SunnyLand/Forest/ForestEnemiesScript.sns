@@ -24,12 +24,12 @@ class ForestEnemies
     {
         if (name == "ForestBee")
         {
-            game.HitHero(bees[index].x);
+            game.HitHero();
         }
         else
         if (name == "ForestSlug")
         {
-            game.HitHero(slugs[index].x);
+            game.HitHero();
         }
     }
 

@@ -24,12 +24,12 @@ class IslandEnemies
     {
         if (name == "EagleFly")
         {
-            game.HitHero(eagles[index].x);
+            game.HitHero();
         }
         else
         if (name == "OpposumRun")
         {
-            game.HitHero(opposums[index].x);
+            game.HitHero();
         }
     }
 

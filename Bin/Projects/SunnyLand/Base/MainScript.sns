@@ -61,7 +61,7 @@ class ThrowableBox
     float x, y;
     float init_x, init_y;
     int visible;
-    int contact_nums = 0;
+    int data = 0;
     float in_fly = -1.0f;
     Phys2D@ phys;
 }
@@ -177,10 +177,9 @@ class Game
             {
                 ThrowableBoxesHolder@ holder = throwable_boxes[hero_data.boxes_pool];
 
-                holder.FlyBox().visible = 0;
-                holder.FlyBox().in_fly = -1.0f;
+                holder.FakeBox().visible = 0;
 
-                enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+                enemy_death.AddInstance(holder.FakeBox().x, holder.FakeBox().y, true);
 
                 hero_data.box_grabbed = false;
             }
@@ -198,7 +197,7 @@ class Game
 
     void RespawnHero(HeroData@ hero_data)
     {
-        //hero_data.cur_respawn_point = 2;
+        hero_data.cur_respawn_point = 2;
         
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
         hero_data.hp = 3;
@@ -441,7 +440,7 @@ class Game
                 holder.FlyBox().visible = 1;
                 holder.FlyBox().x = holder.FakeBox().x;
                 holder.FlyBox().y = holder.FakeBox().y;
-                holder.FlyBox().contact_nums = 0;
+                holder.FlyBox().data = 0;
                 holder.FlyBox().in_fly = 2.0f;
 
                 holder.FakeBox().visible = 0;

@@ -51,14 +51,19 @@ class BossCat
 
     void OnCardContact(int self_index, string&in name, int index)
     {
-        if (boss_cards[self_index].contact_nums < 1 && (name == "Hero" || name == "CatBoss"))
+        if (boss_cards[self_index].visible == 0)
         {
-            if (name == "Hero")
+            return;
+        }
+
+        if ((name == "Hero" || name == "CatBoss") && boss_cards[self_index].data != 2)
+        {
+            if (name == "Hero" && boss_cards[self_index].data == 1)
             {
                 game.HitHero(boss_cards[self_index].x);
             }
 
-            if (name == "CatBoss")
+            if (name == "CatBoss" && boss_cards[self_index].data == 0)
             {
                 boss_inst[0].hp--;
 
@@ -75,11 +80,11 @@ class BossCat
             boss_cards[self_index].visible = 0;
             boss_cards[self_index].in_fly = -1.0f;
             game.enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y, true);
-            
-            return;
         }
-
-        boss_cards[self_index].contact_nums++;
+        else
+        {
+            boss_cards[self_index].data = 2;
+        }
     }
 
     void ControllCatBoss(CatBossData@ cat_data, float dt)
@@ -134,7 +139,7 @@ class BossCat
                     boss_cards[cat_data.card_index].x = boss_inst[0].x + 160 * (cat_data.cur_stage == 3 ? 1.0f : -1.0f);
                     boss_cards[cat_data.card_index].y = boss_inst[0].y - 96;
                     boss_cards[cat_data.card_index].in_fly = 3.0f;
-                    boss_cards[cat_data.card_index].contact_nums = 0;
+                    boss_cards[cat_data.card_index].data = 1;
 
                     float vec_x = game.hero_inst[0].x - boss_cards[cat_data.card_index].x;
                     float vec_y = game.hero_inst[0].y - boss_cards[cat_data.card_index].y;
@@ -143,7 +148,7 @@ class BossCat
                     vec_x /= len;
                     vec_y /= len;
 
-                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 55.0f, vec_y * 55.0f);
+                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 45.0f, vec_y * 45.0f);
 
                     cat_data.next_throw = 0.45f;
                 }

@@ -110,7 +110,15 @@ CLASSREG(SceneObject, UIViewInstance, "UIView")
 META_DATA_DESC(UIViewInstance)
 STRING_PROP(UIViewInstance, name, "", "Common", "Name")
 BASE_SCENE_OBJ_STATE_PROP(UIViewInstance)
+#ifdef EDITOR
+STRING_ENUM_PROP(UIViewInstance, group_name, FillGroupsList, "Common", "Group")
+STRING_ENUM_PROP(UIViewInstance, layer_name, FillLayersList, "Common", "Layer")
+#else
 STRING_PROP(UIViewInstance, group_name, "", "Common", "Group")
+STRING_PROP(UIViewInstance, layer_name, "", "Common", "Layer")
+#endif
+
+
 FLOAT_PROP(UIViewInstance, trans.pos.x, 00.0f, "Prop", "x", "X coordinate of a position")
 FLOAT_PROP(UIViewInstance, trans.pos.y, 00.0f, "Prop", "y", "Y coordinate of a position")
 ENUM_PROP(UIViewInstance, horzAlign, 0, "Prop", "horz_align", "Horizontal aligment of a widget")

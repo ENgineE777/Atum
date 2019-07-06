@@ -120,6 +120,8 @@ public:
 
 		SpriteGraphAsset::Instance graph_instance;
 		Vector2 dir = 0.0f;
+		uint32_t collide_group = 1;
+		uint32_t ignore_group = 0;
 
 	private:
 		vector<int>* mapping = nullptr;

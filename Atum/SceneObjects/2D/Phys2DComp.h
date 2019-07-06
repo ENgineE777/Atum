@@ -132,7 +132,7 @@ public:
 		void MoveTo(float x, float y);
 		void SetGroup(int group);
 		bool CheckColission(bool under);
-		void MoveController(float dx, float dy);
+		void MoveController(float dx, float dy, uint32_t group, uint32_t ignore_group);
 	};
 
 	int prop_index = -1;

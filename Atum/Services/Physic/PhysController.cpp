@@ -129,6 +129,16 @@ PxQueryHitType::Enum PhysController::preFilter(const PxFilterData& filterData, c
 	PhysScene::BodyUserData* udataA = static_cast<PhysScene::BodyUserData*>(GetUserData());
 	PhysScene::BodyUserData* udataB = static_cast<PhysScene::BodyUserData*>(actor->userData);
 
+	if (ignore_group != 0 && (ignore_group & shape->getQueryFilterData().word0))
+	{
+		return PxQueryHitType::eNONE;
+	}
+
+	if (!(collide_group & shape->getQueryFilterData().word0))
+	{
+		return PxQueryHitType::eNONE;
+	}
+
 	if (udataA && udataB)
 	{
 		if ((udataA->body && !udataA->body->IsActive()) ||
@@ -225,13 +235,16 @@ bool PhysController::IsColliding(CollideType type)
 
 }
 
-void PhysController::Move(Vector dir)
+void PhysController::Move(Vector dir, uint32_t group, uint32_t set_ignore_group)
 {
 	if (!active)
 	{
 		deactive_pos += dir;
 		return;
 	}
+
+	collide_group = group;
+	ignore_group = set_ignore_group;
 
 	PxControllerFilters filters = PxControllerFilters();
 	filters.mFilterCallback = this;

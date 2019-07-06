@@ -53,9 +53,6 @@ struct PhysControllerDesc
 	/** \brief Postion of a controller */
 	Vector pos;
 
-	/** \brief Belonging to a physical group */
-	uint32_t group;
-
 	/** \brief The maximum slope which the character can walk up. */
 	float slopeLimit = cosf(RADIAN * 20.0f);
 };
@@ -78,6 +75,8 @@ class PhysController : public PxUserControllerHitReport, public PxControllerBeha
 	float height = 1.0f;
 	bool active = true;
 	Vector deactive_pos;
+	uint32_t collide_group;
+	uint32_t ignore_group;
 
 public:
 
@@ -151,8 +150,10 @@ public:
 	\brief Moves the character using a "collide-and-slide" algorithm.
 
 	\param[in] dir Displacement vector
+	\param[in] group With which collision group should be collided
+	\param[in] group Which collision group should be ignored
 	*/
-	void Move(Vector dir);
+	void Move(Vector dir, uint32_t group, uint32_t ignore_group);
 
 	/**
 	\brief Set belonging to a physical group

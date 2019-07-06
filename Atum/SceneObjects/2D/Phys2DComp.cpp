@@ -110,12 +110,14 @@ bool Phys2DCompInst::ScriptProxy::CheckColission(bool under)
 	return false;
 }
 
-void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy)
+void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy, uint32_t group, uint32_t ignore_group)
 {
 	if (inst)
 	{
 		inst->dir.x += dx;
 		inst->dir.y += dy;
+		inst->collide_group = group;
+		inst->ignore_group = ignore_group;
 	}
 }
 
@@ -134,7 +136,7 @@ void Phys2DCompInst::BindClassToScript()
 	core.scripts.RegisterObjectMethod(script_class_name, "void MoveTo(float x, float y)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveTo), "Moving object to certain point");
 	core.scripts.RegisterObjectMethod(script_class_name, "void SetGroup(int group)", WRAP_MFN(Phys2DCompInst::ScriptProxy, SetGroup), "Set belonging to a particular physical group");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys2DCompInst::ScriptProxy, CheckColission), "Check if a physical object has a collision contact");
-	core.scripts.RegisterObjectMethod(script_class_name, "void Move(float dx, float dy)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), "Move object on particular delta");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Move(float dx, float dy, uint group, uint ignore_group)", WRAP_MFN(Phys2DCompInst::ScriptProxy, MoveController), "Move object on particular delta");
 }
 
 void Phys2DCompInst::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)
@@ -292,7 +294,7 @@ void Phys2DCompInst::CreateBody(int index, bool visible, Vector2 pos, Vector2 si
 		desc.radius = size.x * 0.5f;
 		desc.height = size.y - size.x;
 		desc.pos = { pos.x, -pos.y, 0.0f };
-		desc.group = group;
+
 		bodies[index].controller = object->PScene()->CreateController(desc, group);
 		bodies[index].controller->SetUserData(&bodies[index]);
 
@@ -331,15 +333,17 @@ void Phys2DCompInst::UpdateInstances(float dt)
 
 	for (int index = 0; index < bodies.size(); index++)
 	{
+		auto& inst = sprite_inst->instances[index];
+
 		if (bodies[index].body)
 		{
-			if (bodies[index].body->IsActive() != (sprite_inst->instances[index].IsVisible() && is_active))
+			if (bodies[index].body->IsActive() != (inst.IsVisible() && is_active))
 			{
-				bodies[index].body->SetActive(sprite_inst->instances[index].IsVisible() && is_active);
+				bodies[index].body->SetActive(inst.IsVisible() && is_active);
 
-				if (body_type != Phys2DComp::BodyType::StaticBody && sprite_inst->instances[index].IsVisible())
+				if (body_type != Phys2DComp::BodyType::StaticBody && inst.IsVisible())
 				{
-					mat.Pos() = { sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f };
+					mat.Pos() = { inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f };
 					bodies[index].body->SetTransform(mat);
 				}
 			}
@@ -348,27 +352,27 @@ void Phys2DCompInst::UpdateInstances(float dt)
 			{
 				if (body_type == Phys2DComp::BodyType::KineticBody)
 				{
-					mat.Pos() = { sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f };
+					mat.Pos() = { inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f };
 					bodies[index].body->SetTransform(mat);
 				}
 				else
 				if (body_type == Phys2DComp::BodyType::DynamicBody)
 				{
 					bodies[index].body->GetTransform(mat);
-					sprite_inst->instances[index].SetPos({ mat.Pos().x * 50.0f, -mat.Pos().y * 50.0f });
+					inst.SetPos({ mat.Pos().x * 50.0f, -mat.Pos().y * 50.0f });
 				}
 			}
 		}
 		else
 		if (bodies[index].controller)
 		{
-			if (bodies[index].controller->IsActive() != (sprite_inst->instances[index].IsVisible() && is_active))
+			if (bodies[index].controller->IsActive() != (inst.IsVisible() && is_active))
 			{
-				bodies[index].controller->SetActive(sprite_inst->instances[index].IsVisible() && is_active);
+				bodies[index].controller->SetActive(inst.IsVisible() && is_active);
 
-				if (sprite_inst->instances[index].IsVisible())
+				if (inst.IsVisible())
 				{
-					bodies[index].controller->SetPosition({ sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f });
+					bodies[index].controller->SetPosition({ inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f });
 				}
 			}
 
@@ -376,22 +380,23 @@ void Phys2DCompInst::UpdateInstances(float dt)
 			{
 				if (bodies[index].controller)
 				{
-					if (sprite_inst->instances[index].dir.Length() > 0.001f)
+
+					if (inst.dir.Length() > 0.001f)
 					{
-						bodies[index].controller->Move({ sprite_inst->instances[index].dir.x / 50.0f, -sprite_inst->instances[index].dir.y / 50.0f, 0.0f });
+						bodies[index].controller->Move({ inst.dir.x / 50.0f, -inst.dir.y / 50.0f, 0.0f }, inst.collide_group, inst.ignore_group);
 
 						Vector pos;
 						bodies[index].controller->GetPosition(pos);
 
-						sprite_inst->instances[index].SetPos({ pos.x * 50.0f, -pos.y * 50.0f });
+						inst.SetPos({ pos.x * 50.0f, -pos.y * 50.0f });
 
-						sprite_inst->instances[index].dir = 0.0f;
+						inst.dir = 0.0f;
 					}
 					else
-					if (sprite_inst->instances[index].hack_marker)
+					if (inst.hack_marker)
 					{
-						bodies[index].controller->SetPosition({ sprite_inst->instances[index].GetPos().x / 50.0f, -sprite_inst->instances[index].GetPos().y / 50.0f, 0.0f });
-						sprite_inst->instances[index].hack_marker = false;
+						bodies[index].controller->SetPosition({ inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f });
+						inst.hack_marker = false;
 					}
 				}
 			}

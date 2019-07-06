@@ -34,7 +34,6 @@ void Tank::AddInstance(int id, Vector pos, bool is_bot)
 	cdesc.radius = 1.0f;
 	cdesc.pos = pos;
 	cdesc.slopeLimit = cosf(RADIAN * 60.0f);
-	cdesc.group = 1;
 
 	ServerState& state = client->instances[client->instances.size() - 1].serverState;
 
@@ -504,7 +503,7 @@ void Tank::Update(float dt)
 		dir.y = -9.8f;
 		dir *= dt;
 
-		inst.serverState.controller->Move(dir);
+		inst.serverState.controller->Move(dir, 1, 0);
 
 		if (inst.serverState.shoot_cooldown > 0.0f)
 		{

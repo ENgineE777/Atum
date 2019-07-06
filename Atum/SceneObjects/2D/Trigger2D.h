@@ -47,6 +47,12 @@ public:
 
 	Transform2D trans;
 
+	/**
+	\brief Belonging to a physical group
+	*/
+
+	uint32_t collision_group;
+
 #ifndef DOXYGEN_SKIP
 
 	PhysScene::BodyUserData body;

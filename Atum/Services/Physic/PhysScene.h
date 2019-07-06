@@ -137,6 +137,7 @@ public:
 	{
 		PxFilterData data;
 		data.word0 = group;
+		shape->setSimulationFilterData(data);
 		shape->setQueryFilterData(data);
 	}
 

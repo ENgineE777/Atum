@@ -9,6 +9,7 @@ FLOAT_PROP(Trigger2D, trans.pos.x, 0.0f, "Prop", "x", "X coordinate of position 
 FLOAT_PROP(Trigger2D, trans.pos.y, 0.0f, "Prop", "y", "Y coordinate of position of a trigger")
 FLOAT_PROP(Trigger2D, trans.size.x, 100.0f, "Prop", "width", "Width of a trigger")
 FLOAT_PROP(Trigger2D, trans.size.y, 100.0f, "Prop", "height", "Height of a trigger")
+INT_PROP(Trigger2D, collision_group, 1, "Phys2D", "collision_group", "Group of a body")
 META_DATA_DESC_END()
 
 void Trigger2D::Init()
@@ -48,7 +49,7 @@ bool Trigger2D::Play()
 	Matrix offset;
 
 	body.object = this;
-	body.body = PScene()->CreateBox({ trans.size.x * scale, trans.size.y * scale, 1.0f }, body_trans, offset, PhysObject::Trigger, 0);
+	body.body = PScene()->CreateBox({ trans.size.x * scale, trans.size.y * scale, 1.0f }, body_trans, offset, PhysObject::Trigger, collision_group);
 	body.body->SetUserData(&body);
 
 	return true;

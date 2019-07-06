@@ -54,10 +54,7 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 		obj->actor = actor;
 	}
 
-	if (type != PhysObject::Trigger)
-	{
-		SetShapeGroup(shape, group);
-	}
+	SetShapeGroup(shape, group);
 
 	scene->addActor(*obj->actor);
 

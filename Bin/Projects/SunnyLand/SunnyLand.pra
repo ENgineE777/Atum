@@ -71,7 +71,7 @@
 			]
 		}
 	],
-	"selected_scene" : "Island/Island_Level2.sca",
+	"selected_scene" : "MainMenu/MainMenu.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",
@@ -135,6 +135,9 @@
 	"groups" : [
 		{
 			"name" : "Level"
+		},
+		{
+			"name" : "MainMenu"
 		}
 	]
 }

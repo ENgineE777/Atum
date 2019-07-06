@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 0.000000,
-		"y" : 0.000000
+		"x" : 233.000000,
+		"y" : 56.000000
 	},
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
@@ -37,58 +37,6 @@
 			"scale_childs" : false,
 			"clip_childs" : false,
 			"Childs" : [
-				{
-					"type" : "UIImageAsset",
-					"uid" : 589180,
-					"Name" : "back",
-					"State" : 2,
-					"x" : 0.000000,
-					"y" : 0.000000,
-					"horz_align" : 0,
-					"vert_align" : 3,
-					"width" : 717.536011,
-					"height" : 1011.300049,
-					"horz_size" : 1,
-					"vert_size" : 1,
-					"anchorn_x" : 0.000000,
-					"anchorn_y" : 0.000000,
-					"left_padding" : 0.000000,
-					"top_padding" : 0.000000,
-					"right_padding" : 0.000000,
-					"bottom_padding" : 0.000000,
-					"rotate" : 0.000000,
-					"color" :
-					{
-						"r" : -107374176.000000,
-						"g" : -107374176.000000,
-						"b" : -107374176.000000,
-						"a" : 1.000000
-					},
-					"alpha" : 1.000000,
-					"scale_childs" : false,
-					"clip_childs" : false,
-					"image" :
-					{
-						"width" : 0,
-						"height" : 0,
-						"type" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"texName" : "",
-						"texMode" : 0,
-						"texFilter" : 1,
-						"count" : 0,
-						"Rect" : [
-						]
-					},
-					"Childs" : [
-					]
-				},
 				{
 					"type" : "UIImageAsset",
 					"uid" : 1713420288,
@@ -374,7 +322,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "",
-			"Count" : 5,
+			"Count" : 6,
 			"Node" : [
 				{
 					"type" : 0,
@@ -436,8 +384,222 @@
 					"Count" : 0,
 					"Link" : [
 					]
+				},
+				{
+					"type" : 1,
+					"name" : "menu_camera",
+					"pos" :
+					{
+						"x" : 518.000000,
+						"y" : 528.000000
+					},
+					"prefix" : ""
 				}
 			]
+		},
+		{
+			"type" : "SpritesLayerAsset",
+			"uid" : 785919,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "SkiesLyaer",
+			"sprites" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 0.000000,
+						"y" : 0.000000,
+						"width" : 960.000000,
+						"height" : 1248.000000,
+						"sprite" :
+						{
+							"width" : 160,
+							"height" : 208,
+							"type" : 0,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"texName" : "background/bg-clouds.png",
+							"texMode" : 0,
+							"texFilter" : 0,
+							"count" : 1,
+							"Rect" : [
+								{
+									"pos" :
+									{
+										"x" : 0.000000,
+										"y" : 208.000000
+									},
+									"size" :
+									{
+										"x" : 160.000000,
+										"y" : 208.000000
+									},
+									"uv" :
+									{
+										"x" : 0.000000,
+										"y" : 1.000000
+									},
+									"duv" :
+									{
+										"x" : 1.000000,
+										"y" : 1.000000
+									},
+									"offset" :
+									{
+										"x" : 0.000000,
+										"y" : 0.000000
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"type" : "SpritesLayerAsset",
+			"uid" : 458225,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "TriesLyaer",
+			"sprites" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : -58.555080,
+						"y" : 2.856320,
+						"width" : 960.000000,
+						"height" : 1248.000000,
+						"sprite" :
+						{
+							"width" : 160,
+							"height" : 208,
+							"type" : 0,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"texName" : "background/bg-trees.png",
+							"texMode" : 0,
+							"texFilter" : 0,
+							"count" : 1,
+							"Rect" : [
+								{
+									"pos" :
+									{
+										"x" : 0.000000,
+										"y" : 208.000000
+									},
+									"size" :
+									{
+										"x" : 160.000000,
+										"y" : 208.000000
+									},
+									"uv" :
+									{
+										"x" : 0.000000,
+										"y" : 1.000000
+									},
+									"duv" :
+									{
+										"x" : 1.000000,
+										"y" : 1.000000
+									},
+									"offset" :
+									{
+										"x" : 0.000000,
+										"y" : 0.000000
+									}
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"type" : "SpritesLayerAsset",
+			"uid" : 638970,
+			"ed_camera_2d" :
+			{
+				"x" : 0.000000,
+				"y" : 0.000000
+			},
+			"Name" : "MountinesLyaer",
+			"sprites" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : -9.997204,
+						"y" : -35.704334,
+						"width" : 960.000000,
+						"height" : 1248.000000,
+						"sprite" :
+						{
+							"width" : 160,
+							"height" : 208,
+							"type" : 0,
+							"color" :
+							{
+								"r" : 1.000000,
+								"g" : 1.000000,
+								"b" : 1.000000,
+								"a" : 1.000000
+							},
+							"texName" : "background/bg-mountains.png",
+							"texMode" : 0,
+							"texFilter" : 0,
+							"count" : 1,
+							"Rect" : [
+								{
+									"pos" :
+									{
+										"x" : 0.000000,
+										"y" : 208.000000
+									},
+									"size" :
+									{
+										"x" : 160.000000,
+										"y" : 208.000000
+									},
+									"uv" :
+									{
+										"x" : 0.000000,
+										"y" : 1.000000
+									},
+									"duv" :
+									{
+										"x" : 1.000000,
+										"y" : 1.000000
+									},
+									"offset" :
+									{
+										"x" : 0.000000,
+										"y" : 0.000000
+									}
+								}
+							]
+						}
+					}
+				]
+			}
 		}
 	],
 	"SceneObject" : [
@@ -446,7 +608,8 @@
 			"uid" : 221639040,
 			"Name" : "TitleMenu",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "MainMenu",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 1,
@@ -461,21 +624,6 @@
 			"clip_childs" : false,
 			"source_uid" : 1166329984,
 			"Childs" : [
-				{
-					"type" : "UIImageAssetInst",
-					"uid" : 507889,
-					"State" : 2,
-					"color" :
-					{
-						"r" : -107374176.000000,
-						"g" : -107374176.000000,
-						"b" : -107374176.000000,
-						"a" : 1.000000
-					},
-					"alpha" : 1.000000,
-					"Childs" : [
-					]
-				},
 				{
 					"type" : "UIImageAssetInst",
 					"uid" : 1335414144,
@@ -548,10 +696,10 @@
 			},
 			"Name" : "MenuScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "MainMenu",
 			"Layer" : "",
 			"asset_uid" : 983036,
-			"Count" : 5,
+			"Count" : 6,
 			"Node" : [
 				{
 					"callback_type" : "OnDown",
@@ -637,8 +785,79 @@
 							}
 						]
 					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 966128,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
+		},
+		{
+			"type" : "SpritesLayerInst",
+			"uid" : 589169,
+			"Name" : "SkiesLyaer",
+			"State" : 2,
+			"Group" : "MainMenu",
+			"Layer" : "",
+			"x_axis_scale" : 0.200000,
+			"y_axis_scale" : 0.200000,
+			"Depth" : 0.700000,
+			"y" : -1000.000000,
+			"asset_uid" : 785919
+		},
+		{
+			"type" : "SpritesLayerInst",
+			"uid" : 917492,
+			"Name" : "TriesLyaer",
+			"State" : 2,
+			"Group" : "MainMenu",
+			"Layer" : "",
+			"x_axis_scale" : 0.800000,
+			"y_axis_scale" : 0.010000,
+			"Depth" : 0.500000,
+			"y" : 0.000000,
+			"asset_uid" : 458225
+		},
+		{
+			"type" : "SpritesLayerInst",
+			"uid" : 437619,
+			"Name" : "MountinesLyaer",
+			"State" : 2,
+			"Group" : "MainMenu",
+			"Layer" : "",
+			"x_axis_scale" : 0.600000,
+			"y_axis_scale" : 0.010000,
+			"Depth" : 0.600000,
+			"y" : 0.000000,
+			"asset_uid" : 638970
+		},
+		{
+			"type" : "Camera2D",
+			"uid" : 966128,
+			"Name" : "MenuCamera",
+			"State" : 2,
+			"Group" : "MainMenu",
+			"Layer" : "",
+			"x" : 332.764282,
+			"y" : 79.977684,
+			"ScreenBorder" : 200.000000,
+			"ScreenVertBorder" : 100.000000,
+			"UseLRBorder" : false,
+			"LeftBorder" : -300.000000,
+			"RightBorder" : 300.000000
 		}
 	],
 	"asset_instances" : [
@@ -663,6 +882,39 @@
 					"scene" : "MainMenu/MainMenu.sca",
 					"inst_uid" : 507761,
 					"inst_name" : "MenuScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 785919,
+			"asset_name" : "SkiesLyaer",
+			"instances" : [
+				{
+					"scene" : "MainMenu/MainMenu.sca",
+					"inst_uid" : 589169,
+					"inst_name" : "SkiesLyaer"
+				}
+			]
+		},
+		{
+			"asset_uid" : 458225,
+			"asset_name" : "TriesLyaer",
+			"instances" : [
+				{
+					"scene" : "MainMenu/MainMenu.sca",
+					"inst_uid" : 917492,
+					"inst_name" : "TriesLyaer"
+				}
+			]
+		},
+		{
+			"asset_uid" : 638970,
+			"asset_name" : "MountinesLyaer",
+			"instances" : [
+				{
+					"scene" : "MainMenu/MainMenu.sca",
+					"inst_uid" : 437619,
+					"inst_name" : "MountinesLyaer"
 				}
 			]
 		}

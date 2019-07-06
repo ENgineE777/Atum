@@ -3,6 +3,31 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
+			"name" : "Background",
+			"type" : 0
+		},
+		{
+			"uid" : 437619,
+			"name" : "MountinesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : 589169,
+			"name" : "SkiesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : 917492,
+			"name" : "TriesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "UI",
 			"type" : 0
 		},
@@ -17,6 +42,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : 966128,
+			"name" : "MenuCamera",
+			"type" : 1
+		},
+		{
 			"uid" : 507761,
 			"name" : "MenuScript",
 			"type" : 1
@@ -28,6 +58,31 @@
 		}
 	],
 	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "Background",
+			"type" : 0
+		},
+		{
+			"uid" : 638970,
+			"name" : "MountinesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : 785919,
+			"name" : "SkiesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : 458225,
+			"name" : "TriesLyaer",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
 		{
 			"uid" : -1,
 			"name" : "UI",

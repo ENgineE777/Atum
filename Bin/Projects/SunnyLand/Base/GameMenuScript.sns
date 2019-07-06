@@ -48,16 +48,5 @@ class GameMenu
     {
         core.scene.Unload(level_name);
         core.scene.CallClassInstancesMethod("MainMenu", "MainMenu", "ShowMenu");
-
-        /*level_ui.SetState(0);
-        pause_menu.SetState(0);
-
-        is_paused = true;
-
-        level_ui.SetState(0);
-        vjoy.SetState(0);
-        fade.alpha = 0.0f;
-        pause_menu.SetState(0);
-        core.scene.SetStateToGroup("Level", 0);*/
     }
 }

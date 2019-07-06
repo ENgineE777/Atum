@@ -331,7 +331,7 @@
 					"reverse" : false,
 					"pos" :
 					{
-						"x" : 723.000000,
+						"x" : 725.000000,
 						"y" : 294.000000
 					},
 					"name" : "Run",
@@ -432,7 +432,7 @@
 					"use_object_size" : false,
 					"width" : 64.000000,
 					"height" : 80.000000,
-					"group" : 1
+					"group" : 2
 				}
 			]
 		},
@@ -1440,7 +1440,7 @@
 					"use_object_size" : true,
 					"width" : 64.000000,
 					"height" : 64.000000,
-					"group" : 1
+					"group" : 13
 				}
 			]
 		},

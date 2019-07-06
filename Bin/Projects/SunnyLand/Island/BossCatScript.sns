@@ -31,21 +31,19 @@ class BossCat
 
     Game@ game;
 
+    void OnActivateTrigger(int self_index, string&in name, int index)
+    {
+        if (boss_inst[0].hp > 0)
+        {
+            boss_inst[0].active = true;
+        }
+    }
+
     void OnHeroContact(int self_index, string&in name, int index)
     {
         if (name == "CatBoss")
         {
             game.HitHero();
-        }
-        else
-        if (name == "ActivateBossTrigger")
-        {
-            boss_inst[0].active = true;
-
-            if (boss_inst[0].hp > 0)
-            {
-                boss_inst[0].active = true;
-            }
         }
     }
 
@@ -55,6 +53,8 @@ class BossCat
         {
             return;
         }
+
+        bool need_dicard = false;
 
         if ((name == "Hero" || name == "CatBoss") && boss_cards[self_index].data != 2)
         {
@@ -77,13 +77,23 @@ class BossCat
                 }
             }
 
-            boss_cards[self_index].visible = 0;
-            boss_cards[self_index].in_fly = -1.0f;
-            game.enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y, true);
+            need_dicard = true;
+        }
+        if (boss_cards[self_index].data == 0)
+        {
+            need_dicard = true;
         }
         else
         {
             boss_cards[self_index].data = 2;
+        }
+
+        if (need_dicard)
+        {
+            boss_cards[self_index].visible = 0;
+            boss_cards[self_index].in_fly = -1.0f;
+            game.enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y, true);
+
         }
     }
 
@@ -148,6 +158,7 @@ class BossCat
                     vec_x /= len;
                     vec_y /= len;
 
+                    boss_cards[cat_data.card_index].phys.SetGroup(3);
                     boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 45.0f, vec_y * 45.0f);
 
                     cat_data.next_throw = 0.45f;

@@ -1320,7 +1320,9 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		}
 		else
 		{
-			SceneObject* inst = asset->CreateInstance(target_tree_item->scene);
+			Scene* scene = target_tree_item ? target_tree_item->scene : asset->GetScene();
+
+			SceneObject* inst = asset->CreateInstance(scene);
 
 			if (inst)
 			{
@@ -1332,7 +1334,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 				Project::SceneTreeItem* inst_item = new Project::SceneTreeItem();
 
-				inst_item->scene = target_tree_item->scene;
+				inst_item->scene = scene;
 				inst_item->object = inst;
 				inst_item->item = scene_treeview->AddItem(inst->GetName(), 1, inst_item, parent, -1, false);
 

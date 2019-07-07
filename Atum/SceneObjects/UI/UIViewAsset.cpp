@@ -77,6 +77,7 @@ void UIViewAsset::Release()
 SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 {
 	UIViewInstanceAsset* child = (UIViewInstanceAsset*)scene->CreateObject("UIViewInstance", false);
+	scene->GenerateUID(child, false);
 
 	child->SetSource(this, true);
 	child->ApplyProperties();

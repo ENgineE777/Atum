@@ -117,6 +117,8 @@ void UIButtonAssetInst::Draw(float dt)
 			if (pos.x < mx && mx < pos.x + size.x &&
 				pos.y < my && my < pos.y + size.y)
 			{
+				core.controls.SupressAlias(alias_fire);
+
 				SceneObject::ScriptCallback* callabck = FindScriptCallback("OnDown");
 
 				if (callabck)

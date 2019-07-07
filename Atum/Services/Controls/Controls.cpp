@@ -335,6 +335,11 @@ void Controls::CheckDeadEnds(Alias& alias)
 	alias.visited = false;
 }
 
+void Controls::SupressAlias(int alias_index)
+{
+	supressed_aliases.push_back(alias_index);
+}
+
 void Controls::SetFocused(bool set_focused)
 {
 	focused = set_focused;
@@ -467,9 +472,17 @@ bool Controls::GetHardwareAliasState(int index, AliasAction action, int device_i
 
 bool Controls::GetAliasState(int index, AliasAction action)
 {
+	for (auto alias : supressed_aliases)
+	{
+		if (alias == index)
+		{
+			return false;
+		}
+	}
+
 	if (index == -1 || index >= (int)aliases.size())
 	{
-		return 0.0f;
+		return false;
 	}
 
 	Alias& alias = aliases[index];
@@ -748,6 +761,14 @@ float Controls::GetHardwareAliasValue(int index, bool delta, int device_index, b
 
 float Controls::GetAliasValue(int index, bool delta)
 {
+	for (auto alias : supressed_aliases)
+	{
+		if (alias == index)
+		{
+			return false;
+		}
+	}
+
 	if (index == -1 || index >= (int)aliases.size())
 	{
 		return 0.0f;
@@ -926,6 +947,8 @@ void Controls::Update(float dt)
 			touches[i].state = 2;
 		}
 	}
+
+	supressed_aliases.clear();
 
 #ifdef PLATFORM_PC
 	static byte tmp_diks[256];

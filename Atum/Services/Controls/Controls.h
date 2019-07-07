@@ -83,6 +83,8 @@ private:
 
 	bool focused = true;
 
+	std::vector<int> supressed_aliases;
+
 #ifdef PLATFORM_PC
 	uint8_t                 btns[256];
 
@@ -274,7 +276,9 @@ public:
 
 #ifndef DOXYGEN_SKIP
 
-	void  SetFocused(bool set_focused);
+	void SupressAlias(int alias_index);
+
+	void SetFocused(bool set_focused);
 
 #ifdef PLATFORM_PC
 	void OverrideMousePos(int mx, int my);

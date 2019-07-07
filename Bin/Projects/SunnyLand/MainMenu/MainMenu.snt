@@ -32,6 +32,16 @@
 			"type" : 0
 		},
 		{
+			"uid" : 180213,
+			"name" : "AtumInfo",
+			"type" : 1
+		},
+		{
+			"uid" : 568827,
+			"name" : "SelectLevel",
+			"type" : 1
+		},
+		{
 			"uid" : 221639040,
 			"name" : "TitleMenu",
 			"type" : 1
@@ -87,6 +97,16 @@
 			"uid" : -1,
 			"name" : "UI",
 			"type" : 0
+		},
+		{
+			"uid" : 114046,
+			"name" : "AtumInfo",
+			"type" : 1
+		},
+		{
+			"uid" : 327667,
+			"name" : "SelectLevel",
+			"type" : 1
 		},
 		{
 			"uid" : 1166329984,

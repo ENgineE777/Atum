@@ -2,8 +2,12 @@
 class MainMenu
 {
 	UIView@ main_menu;
-	UIView@ level_ui;
     UIImage@ start_label;
+
+    UIView@ atum_info;
+
+    UIView@ level_select;
+
     Camera2D@ menu_camera;
 
     float title_menu_pos_x = 0.0f;
@@ -28,16 +32,29 @@ class MainMenu
         }
     }
 
-    void OnStart()
+    void ShowAtumInfo()
+    {
+        main_menu.SetState(0);
+        atum_info.SetState(2);
+    }
+
+    void ShowLevelSelect()
+    {
+        atum_info.SetState(0);
+        level_select.SetState(2);
+    }
+
+    void OnStart(string&in param)
     {
         core.scene.SetStateToGroup("MainMenu", 0);
-
-		//core.scene.Load("Forest_Level2");
-        core.scene.Load("Island_Level2");
+        core.scene.Load(param);
     }
 
     void ShowMenu()
     {
         core.scene.SetStateToGroup("MainMenu", 2);
+
+        atum_info.SetState(0);
+        level_select.SetState(0);
     }
 }

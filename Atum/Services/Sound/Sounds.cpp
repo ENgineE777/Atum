@@ -43,7 +43,12 @@ bool Sounds::Init(void* data)
 SoundInstance* Sounds::CreateSound(const char* file_name)
 {
 	auto* inst = new SoundInstance();
-	inst->Load(file_name);
+	if (!inst->Load(file_name))
+	{
+		core.Log("Sounds", "Error in loading sound instance %s", file_name);
+		delete inst;
+		return false;
+	}
 
 	sounds.push_back(inst);
 	std::sort(sounds.begin(), sounds.end());
@@ -54,7 +59,12 @@ SoundInstance* Sounds::CreateSound(const char* file_name)
 SoundStream* Sounds::CreateStream(const char* file_name)
 {
 	auto* stream = new SoundStream();
-	stream->Load(file_name);
+	if (!stream->Load(file_name))
+	{
+		core.Log("Sounds", "Error in loading sound stream %s", file_name);
+		delete stream;
+		return false;
+	}
 
 	sounds.push_back(stream);
 	std::sort(sounds.begin(), sounds.end());

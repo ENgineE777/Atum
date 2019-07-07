@@ -303,6 +303,12 @@ bool SceneScriptAsset::Play()
 						asITypeInfo* tp = object->mod->GetObjectTypeByIndex(i);
 						external_decl += string("external shared class ") + tp->GetName() + ";\r\n";
 					}
+
+					for (uint32_t i = 0; i < object->mod->GetEnumCount(); i++)
+					{
+						asITypeInfo* tp = object->mod->GetEnumByIndex(i);
+						external_decl += string("external shared enum ") + tp->GetName() + ";\r\n";
+					}
 				}
 			}
 
@@ -312,6 +318,8 @@ bool SceneScriptAsset::Play()
 		}
 
 		StringUtils::Replace(src, "class ", "shared class ");
+
+		StringUtils::Replace(src, "enum ", "shared enum ");
 
 		if (external_decl.size() > 0)
 		{

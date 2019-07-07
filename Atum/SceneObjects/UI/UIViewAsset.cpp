@@ -212,6 +212,9 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 
 		UIWidgetAsset* dest_child = decl->Create();
 
+		dest_child->scene = GetScene();
+		dest_child->class_name = decl->GetName();
+
 		if (childs_as_inst)
 		{
 			if (src_child->source)
@@ -224,8 +227,6 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			}
 		}
 
-		dest_child->scene = GetScene();
-		dest_child->class_name = decl->GetName();
 		dest_child->Init();
 
 		if (src_child->source)

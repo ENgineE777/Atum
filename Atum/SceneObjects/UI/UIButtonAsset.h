@@ -16,6 +16,7 @@ Parameters
 
 Name              | Description
 ------------------|--------------
+sound_name        | File name of a sound whic should be played on button click
 x                 | X coordinate of a position
 y                 | Y coordinate of a position
 horz_align        | Horizontal aligment of a widget
@@ -57,9 +58,22 @@ public:
 
 	META_DATA_DECL(UIButtonAsset)
 
+	/**
+	\brief Filename of a sound file.
+	*/
+
+	std::string sound_name;
+
+	/**
+	\brief Pointer to SoundInstance
+	*/
+	SoundInstance* sound_click = nullptr;
+
 #ifndef DOXYGEN_SKIP
 
 	void Init() override;
+
+	void Release() override;
 
 	void Draw(float dt) override;
 

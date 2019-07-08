@@ -4,6 +4,7 @@ CLASSREG(UIWidgetAsset, UIButtonAsset, "Button")
 
 META_DATA_DESC(UIButtonAsset)
 BASE_WIDGET_ASSET_PROP(UIButtonAsset)
+FILENAME_PROP(UIButtonAsset, sound_name, "", "Prop", "SoundName")
 FLOAT_PROP(UIButtonAsset, trans.pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
 FLOAT_PROP(UIButtonAsset, trans.pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
 ENUM_PROP(UIButtonAsset, horzAlign, 0, "Prop", "horz_align", "Horizontal aligment of a widget")
@@ -43,6 +44,13 @@ META_DATA_DESC_END()
 
 void UIButtonAsset::Init()
 {
+}
+
+void UIButtonAsset::Release()
+{
+	RELEASE(sound_click)
+
+	UIWidgetAsset::Release();
 }
 
 void UIButtonAsset::Draw(float dt)
@@ -117,6 +125,16 @@ void UIButtonAssetInst::Draw(float dt)
 			if (pos.x < mx && mx < pos.x + size.x &&
 				pos.y < my && my < pos.y + size.y)
 			{
+				if (!sound_name.empty() && !sound_click)
+				{
+					sound_click = core.sounds.CreateSound(sound_name.c_str());
+				}
+
+				if (sound_click)
+				{
+					sound_click->Play(SoundBase::Once);
+				}
+
 				core.controls.SupressAlias(alias_fire);
 
 				SceneObject::ScriptCallback* callabck = FindScriptCallback("OnDown");

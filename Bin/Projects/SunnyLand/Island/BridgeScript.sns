@@ -11,6 +11,8 @@ class FallingBridge
 
 	bool init = false;
 
+    SoundInstance@ sfx_bridge;
+
     void OnRespawnHero()
     {
         if (!init)
@@ -39,6 +41,8 @@ class FallingBridge
         {
             if (falling_bridge_index == 0)
             {
+                sfx_bridge.Play(1);
+
                 falling_bridge = true;
             }
         }
@@ -48,6 +52,8 @@ class FallingBridge
 	{
 		if (!init)
         {
+            @sfx_bridge = core.sound.CreateSound("SFX/FallingBridge.ogg");
+
 			for (int i = 0; i<bridge_dyn.get_length();i++)
             {
                 bridge_dyn[i].init_x = bridge_dyn[i].x;
@@ -73,6 +79,7 @@ class FallingBridge
 
                 if (falling_bridge_index == bridge.get_length())
                 {
+                    sfx_bridge.Stop();
                     falling_bridge = false;
                 }
             }

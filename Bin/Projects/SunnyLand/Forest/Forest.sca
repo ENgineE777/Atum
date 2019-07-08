@@ -2284,6 +2284,16 @@
 			"Depth" : 0.750000,
 			"y" : 0.000000,
 			"asset_uid" : 302968
+		},
+		{
+			"type" : "MusicPlayer",
+			"uid" : 636924,
+			"Name" : "MusicPlayer",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"SoundName" : "Music/Forest_music.ogg",
+			"PlayOnStart" : true
 		}
 	],
 	"asset_instances" : [

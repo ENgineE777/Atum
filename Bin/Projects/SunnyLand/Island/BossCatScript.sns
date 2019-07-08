@@ -94,6 +94,7 @@ class BossCat
             boss_cards[self_index].in_fly = -1.0f;
             game.enemy_death.AddInstance(boss_cards[self_index].x, boss_cards[self_index].y, true);
 
+            game.PlaySound(SoundType::HeroHitted);
         }
     }
 
@@ -160,6 +161,8 @@ class BossCat
 
                     boss_cards[cat_data.card_index].phys.SetGroup(3);
                     boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 45.0f, vec_y * 45.0f);
+
+                    game.PlaySound(SoundType::ThrowBox);
 
                     cat_data.next_throw = 0.45f;
                 }

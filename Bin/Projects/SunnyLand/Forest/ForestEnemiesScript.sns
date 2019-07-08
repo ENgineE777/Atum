@@ -39,12 +39,14 @@ class ForestEnemies
         {
             bees[index].visible = 0;
             game.enemy_death.AddInstance(bees[index].x, bees[index].y, true);
+            game.PlaySound(SoundType::HeroHitted);
         }
 
         if (name == "ForestSlug")
         {
             slugs[index].visible = 0;
             game.enemy_death.AddInstance(slugs[index].x, slugs[index].y, true);
+            game.PlaySound(SoundType::HeroHitted);
         }
 
         if (game.hero_inst[0].boxes_pool != -1)
@@ -56,6 +58,8 @@ class ForestEnemies
                 holder.FlyBox().visible = 0;
                 holder.FlyBox().in_fly = -1.0f;
                 game.enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+
+                game.PlaySound(SoundType::BoxCollided);
             }
         }
     }

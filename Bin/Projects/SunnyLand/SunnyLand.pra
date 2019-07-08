@@ -71,7 +71,7 @@
 			]
 		}
 	],
-	"selected_scene" : "MainMenu/MainMenu.sca",
+	"selected_scene" : "Island/Island.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

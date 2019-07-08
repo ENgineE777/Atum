@@ -3252,6 +3252,16 @@
 			"Depth" : 0.700000,
 			"y" : 3000.000000,
 			"asset_uid" : -786504704
+		},
+		{
+			"type" : "MusicPlayer",
+			"uid" : 751354,
+			"Name" : "MusicPlayer",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"SoundName" : "Music/Island_music.ogg",
+			"PlayOnStart" : true
 		}
 	],
 	"asset_instances" : [

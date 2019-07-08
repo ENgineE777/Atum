@@ -86,8 +86,20 @@ class ThrowableBoxesHolder
     }
 }
 
+enum SoundType
+{
+    Jump,
+    TakeBox,
+    ThrowBox,
+    BoxCollided,
+    TakeBonus,
+    HeroKilled,
+    HeroHitted
+};
+
 class Game
 {
+
     array<PhysBox> respawn_points;
 
     array<ThrowableBoxesHolder> throwable_boxes;
@@ -172,6 +184,8 @@ class Game
             {
                 fade_out = 2.0f;
             }
+
+            PlaySound(hero_data.hp == 0 ? SoundType::HeroKilled : SoundType::HeroHitted);
 
             if (hero_data.box_grabbed)
             {
@@ -259,6 +273,7 @@ class Game
     {
         if (name == "Hero" && fade_out < 0.01f)
         {
+            PlaySound(SoundType::HeroKilled);
             fade_out = 2.0f;
         }
     }
@@ -386,6 +401,8 @@ class Game
 
         if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
         {
+            PlaySound(SoundType::Jump);
+
             hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
         }
@@ -427,6 +444,8 @@ class Game
                         hero_data.box_grabbed = true;
                         holder.FakeBox().visible = 1;
 
+                        PlaySound(SoundType::TakeBox);
+
                         if (boxes)
                         {
                             holder.boxes[box_grabbed].visible = 0;
@@ -455,6 +474,8 @@ class Game
                 holder.FlyBox().phys.SetGroup(13);
                 holder.FlyBox().phys.ApplyLinearImpulse((hero_data.horz_flipped > 0 ? -1 : 1) * 110, 0);
                 hero_data.box_grabbed = false;
+
+                PlaySound(SoundType::ThrowBox);
             }
         }
 
@@ -548,5 +569,38 @@ class Game
             camera.target_pos_x = hero_inst[0].x;
             camera.target_pos_y = hero_inst[0].y;
         }
+    }
+
+    void PlaySound(SoundType sound_type)
+    {
+        string sound_name;
+
+        switch (sound_type)
+        {
+            case Jump:
+                sound_name = "SFX/jump.wav";
+            break;
+            case TakeBox:
+                sound_name = "SFX/throw_box.wav";
+            break;
+            case ThrowBox:
+                sound_name = "SFX/take_box.wav";
+            break;
+            case BoxCollided:
+                sound_name = "SFX/box_collide.wav";
+            break;
+            case TakeBonus:
+                sound_name = "SFX/take_bonus.wav";
+            break;
+            case HeroKilled:
+                sound_name = "SFX/hero_killed.wav";
+            break;
+            case HeroHitted:
+                sound_name = "SFX/hero_hitted.wav";
+            break;
+        }
+
+        SoundInstance@ sound = core.sound.CreateSound(sound_name);
+        sound.Play(2);
     }
 }

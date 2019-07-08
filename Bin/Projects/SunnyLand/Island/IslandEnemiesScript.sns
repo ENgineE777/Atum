@@ -39,12 +39,14 @@ class IslandEnemies
         {
             eagles[index].visible = 0;
             game.enemy_death.AddInstance(eagles[index].x, eagles[index].y, true);
+            game.PlaySound(SoundType::HeroHitted);
         }
 
         if (name == "OpposumRun")
         {
             opposums[index].visible = 0;
             game.enemy_death.AddInstance(opposums[index].x, opposums[index].y, true);
+            game.PlaySound(SoundType::HeroHitted);
         }
 
         if (game.hero_inst[0].boxes_pool != -1)
@@ -56,6 +58,8 @@ class IslandEnemies
                 holder.FlyBox().visible = 0;
                 holder.FlyBox().in_fly = -1.0f;
                 game.enemy_death.AddInstance(holder.FlyBox().x, holder.FlyBox().y, true);
+
+                game.PlaySound(SoundType::BoxCollided);
             }
         }
     }

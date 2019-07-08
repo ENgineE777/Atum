@@ -13,6 +13,7 @@ class ForestItems
             game.AddScore(stars[index].score);
             stars[index].visible = 0;
             game.item_taken.AddInstance(stars[index].x, stars[index].y, true);
+            game.PlaySound(SoundType::TakeBonus);
         }
     }
 

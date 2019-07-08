@@ -279,6 +279,7 @@
 					"uid" : -470785792,
 					"Name" : "start_btn",
 					"State" : 2,
+					"SoundName" : "SFX/menu_click.ogg",
 					"x" : 0.000000,
 					"y" : 0.000000,
 					"horz_align" : 0,
@@ -661,7 +662,7 @@
 				"Elem" : [
 					{
 						"x" : -9.997204,
-						"y" : -35.704399,
+						"y" : -35.704441,
 						"width" : 960.000000,
 						"height" : 1248.000000,
 						"sprite" :
@@ -893,6 +894,7 @@
 					"uid" : 372597,
 					"Name" : "SkipButton",
 					"State" : 2,
+					"SoundName" : "SFX/menu_click.ogg",
 					"x" : 0.000000,
 					"y" : 0.000000,
 					"horz_align" : 0,
@@ -1100,6 +1102,7 @@
 							"uid" : 175996,
 							"Name" : "BLevel1Btn",
 							"State" : 2,
+							"SoundName" : "SFX/menu_click.ogg",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -1212,6 +1215,7 @@
 							"uid" : 978808,
 							"Name" : "Level2Btn",
 							"State" : 2,
+							"SoundName" : "SFX/menu_click.ogg",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -1324,6 +1328,7 @@
 							"uid" : 191857,
 							"Name" : "Level3Btn",
 							"State" : 2,
+							"SoundName" : "SFX/menu_click.ogg",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -1436,6 +1441,7 @@
 							"uid" : 585086,
 							"Name" : "Level4Btn",
 							"State" : 2,
+							"SoundName" : "SFX/menu_click.ogg",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -1481,7 +1487,7 @@
 			"y" : 0.000000,
 			"horz_align" : 1,
 			"vert_align" : 3,
-			"width" : 2055.140869,
+			"width" : 1770.934448,
 			"height" : 1024.000000,
 			"horz_size" : 1,
 			"vert_size" : 0,
@@ -1890,7 +1896,7 @@
 			"y" : 0.000000,
 			"horz_align" : 1,
 			"vert_align" : 1,
-			"width" : 649.846313,
+			"width" : 649.845947,
 			"height" : 698.515747,
 			"horz_size" : 1,
 			"vert_size" : 0,
@@ -1959,7 +1965,7 @@
 			"horz_align" : 1,
 			"vert_align" : 1,
 			"width" : 846.905579,
-			"height" : 672.669495,
+			"height" : 672.668945,
 			"horz_size" : 0,
 			"vert_size" : 0,
 			"anchorn_x" : 0.500000,
@@ -2104,6 +2110,16 @@
 					]
 				}
 			]
+		},
+		{
+			"type" : "MusicPlayer",
+			"uid" : 699760,
+			"Name" : "MusicPlayer",
+			"State" : 2,
+			"Group" : "MainMenu",
+			"Layer" : "",
+			"SoundName" : "Music/menu_music.ogg",
+			"PlayOnStart" : true
 		}
 	],
 	"asset_instances" : [

@@ -14,6 +14,7 @@ class IslandItems
             game.AddScore(cherries[index].score);
             cherries[index].visible = 0;
             game.item_taken.AddInstance(cherries[index].x, cherries[index].y, true);
+            game.PlaySound(SoundType::TakeBonus);
         }
         else
         if (name == "DiamondItem")
@@ -21,6 +22,7 @@ class IslandItems
             game.AddScore(diamonds[index].score);
             diamonds[index].visible = 0;
             game.item_taken.AddInstance(diamonds[index].x, diamonds[index].y, true);
+            game.PlaySound(SoundType::TakeBonus);
         }
     }
 

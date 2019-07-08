@@ -47,7 +47,7 @@ SoundInstance* Sounds::CreateSound(const char* file_name)
 	{
 		core.Log("Sounds", "Error in loading sound instance %s", file_name);
 		delete inst;
-		return false;
+		return nullptr;
 	}
 
 	sounds.push_back(inst);
@@ -63,7 +63,7 @@ SoundStream* Sounds::CreateStream(const char* file_name)
 	{
 		core.Log("Sounds", "Error in loading sound stream %s", file_name);
 		delete stream;
-		return false;
+		return nullptr;
 	}
 
 	sounds.push_back(stream);

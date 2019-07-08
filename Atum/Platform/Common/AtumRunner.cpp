@@ -54,6 +54,7 @@ void AtumRunner::Draw(float dt)
 	core.render.ExecutePool(ExecuteLevels::Geometry, dt);
 	core.render.ExecutePool(ExecuteLevels::DebugGeometry, dt);
 	core.render.ExecutePool(ExecuteLevels::Sprites, dt);
+	core.render.ExecutePool(ExecuteLevels::Sprites + 1, dt);
 	core.render.ExecutePool(ExecuteLevels::PostProcess, dt);
 	core.render.ExecutePool(ExecuteLevels::GUI, dt);
 	core.render.ExecutePool(ExecuteLevels::Debug, dt);

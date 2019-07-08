@@ -77,6 +77,7 @@ add_library(atumlib SHARED
             ${atum_DIR}/SceneObjects/Common/ScriptMetaDataAsset.cpp
             ${atum_DIR}/SceneObjects/Common/ScriptMetaDataComp.cpp
             ${atum_DIR}/SceneObjects/Common/VirtualJoystick.cpp
+            ${atum_DIR}/SceneObjects/Common/MusicPlayer.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/correction.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/model.cpp
             ${atum_DIR}/SceneObjects/Other/Demo/plane.cpp
@@ -112,6 +113,7 @@ add_library(atumlib SHARED
             ${atum_DIR}/Services/Physic/PhysController.cpp
             ${atum_DIR}/Services/Physic/PhysHeightmap.cpp
             ${atum_DIR}/Services/Physic/Physics.cpp
+            ${atum_DIR}/Services/Physic/PhysObjectBase.cpp
             ${atum_DIR}/Services/Physic/PhysObject.cpp
             ${atum_DIR}/Services/Physic/PhysScene.cpp
             ${atum_DIR}/Services/Render/Debug/DebugBoxes.cpp

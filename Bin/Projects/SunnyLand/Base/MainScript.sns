@@ -630,8 +630,6 @@ class Game
             }
         }
 
-        core.render.DebugText(10, 10, "khkhk " + dusts.get_length());
-
         if (fade_out > 0.0f)
         {
             float prev_fade_out = fade_out;

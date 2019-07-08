@@ -77,6 +77,24 @@ FILE* Files::FileOpen(const char* name, const char* mode)
 
 	if (!file)
 	{
+		for (auto& item : pathes)
+		{
+			if (item.first != active_path)
+			{
+				StringUtils::Printf(path, 1024, "%s%s", item.second.c_str(), name);
+
+				file = FileOpenInner(path, mode);
+
+				if (file)
+				{
+					break;
+				}
+			}
+		}
+	}
+
+	if (!file)
+	{
 		file = FileOpenInner(name, mode);
 	}
 
@@ -100,6 +118,19 @@ bool Files::IsFileExist(const char*  name)
 		if (stat(path, &buffer) == 0)
 		{
 			return true;
+		}
+	}
+
+	for (auto& item : pathes)
+	{
+		if (item.first != active_path)
+		{
+			StringUtils::Printf(path, 1024, "%s%s", item.second.c_str(), name);
+
+			if ((stat(name, &buffer) == 0))
+			{
+				return true;
+			}
 		}
 	}
 

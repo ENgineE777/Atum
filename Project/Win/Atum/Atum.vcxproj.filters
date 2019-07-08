@@ -615,6 +615,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObjectBase.cpp">
       <Filter>Services\Physic</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.cpp">
+      <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1102,6 +1105,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObjectBase.h">
       <Filter>Services\Physic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.h">
+      <Filter>SceneObjects\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

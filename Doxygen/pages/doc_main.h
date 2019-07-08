@@ -39,6 +39,7 @@
  - \subpage scene_object_3D_Terrain
 
 \page doc_editor_scene_objects_common Common
+ - \scene_object_common_MusicPlayer
  - \subpage scene_object_common_VirtualJoystick
 
 \page doc_editor_scene_object_components Scene object components

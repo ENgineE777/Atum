@@ -27,15 +27,20 @@ META_DATA_DESC_END()
 
 void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* set_mapping)
 {
+	bool need_set = object == nullptr;
+
 	object = set_object;
 	mapping = set_mapping;
 
-	SetPos(pos);
-	SetFlipped(frame_state.horz_flipped);
-	SetVisible(visible);
-	SetAlpha(alpha);
-	SetSizeX(size_x);
-	SetAngle(angle);
+	if (need_set)
+	{
+		SetPos(pos);
+		SetFlipped(frame_state.horz_flipped);
+		SetVisible(visible);
+		SetAlpha(alpha);
+		SetSizeX(size_x);
+		SetAngle(angle);
+	}
 
 	int prop_index = mapping[0][8];
 
@@ -218,7 +223,7 @@ float SpriteInst::Instance::GetSizeY()
 		}
 	}
 
-	return size_x;
+	return size_y;
 }
 
 void  SpriteInst::Instance::SetSizeY(float set_size)
@@ -234,7 +239,7 @@ void  SpriteInst::Instance::SetSizeY(float set_size)
 		}
 	}
 
-	size_x = set_size;
+	size_y = set_size;
 }
 
 float SpriteInst::Instance::GetAngle()
@@ -295,7 +300,7 @@ void SpriteInst::BindClassToScript()
 
 void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 {
-	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "size_x", "size_y", "angle", "graph" };
+	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "width", "height", "angle", "graph" };
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);
 

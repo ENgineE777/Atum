@@ -7,6 +7,11 @@
 			"type" : 0
 		},
 		{
+			"uid" : 32744,
+			"name" : "Dust",
+			"type" : 1
+		},
+		{
 			"uid" : -970252032,
 			"name" : "EnemyDeath",
 			"type" : 1
@@ -107,6 +112,11 @@
 			"uid" : -1,
 			"name" : "FX",
 			"type" : 0
+		},
+		{
+			"uid" : 112635,
+			"name" : "Dust",
+			"type" : 1
 		},
 		{
 			"uid" : -1558477824,

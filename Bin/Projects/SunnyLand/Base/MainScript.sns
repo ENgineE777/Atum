@@ -22,6 +22,18 @@ class PhysBox
     Phys2D@ phys;
 }
 
+class Particle
+{
+    float x,y;
+    float width, height;
+    float final_size;
+    float speed;
+    float timelife;
+    float life;
+    float alpha;
+    float angle;
+}
+
 class ChracterData : BaseCharacter
 {
     Phys2D@ phys;
@@ -38,6 +50,8 @@ class ChracterData : BaseCharacter
     float max_gravity = 900.0f;
 
     float dir_x = 0.0f;
+
+    float dust_timer = 0.0f;
 
     int hp = 3;
     bool horz_flipped_inv = false;
@@ -108,6 +122,7 @@ class Game
     Camera2D@ camera;
     Sprite@ item_taken;
     Sprite@ enemy_death;
+    array<Particle> dusts;
     VirtualJoystick@ vjoy;
 
     GameMenu@ game_menu;
@@ -205,6 +220,24 @@ class Game
             hero_data.velocity_y = -300.0f;
             hero_data.dir_x = 0.0f;
         }
+    }
+
+    void AddDust(ChracterData@ data, float dir)
+    {
+        int index = dusts.get_length();
+        dusts.resize(index+1);
+
+        Particle@ dust = dusts[index];
+
+        dust.x = data.x;
+        dust.y = data.y;
+        dust.final_size = 16.0f + rand() * 16.0f;
+        dust.height = dust.width = 0.0f;
+        dust.alpha = 0.0f;
+        dust.speed = (15.0f  + rand() * 25.0f) * dir; 
+        dust.timelife = 0.5f + rand() * 0.5f;
+        dust.life = dust.timelife;
+        dust.angle = 0.0f;
     }
 
     void RespawnHero(HeroData@ hero_data)
@@ -326,6 +359,28 @@ class Game
             }
         }
 
+        if (data.phys.CheckColission(true))
+        {
+            if (data.dir_x > 0.01f || data.dir_x < -0.01f)
+            {
+                data.dust_timer -= dt;
+
+                if (data.dust_timer < 0.0f)
+                {
+                    data.dust_timer += (0.1f + rand() * 0.1f);
+
+                    for (int i =0; i <2; i++)
+                    {
+                        AddDust(data, -data.dir_x);
+                    }
+                }
+            }
+        }
+        else
+        {
+            data.dust_timer = 0.3f;
+        }
+
         data.velocity_y += dt * data.accel_gravity;
 
         if (data.velocity_y > data.max_gravity)
@@ -405,6 +460,12 @@ class Game
 
             hero_data.graph.ActivateLink("jump");
             hero_data.velocity_y = hero_data.jump_impulse;
+
+            for (int i = 0; i < 3; i++)
+            {
+                AddDust(hero_data, 1.5f);
+                AddDust(hero_data, -1.5f);
+            }
         }
 
         MoveCharacter(hero_data, dt);
@@ -534,6 +595,42 @@ class Game
             }
 
         }
+
+        for (int i = 0; i<dusts.get_length(); i++)
+        {
+            Particle@ dust = dusts[i];
+
+            dust.life -= dt;
+
+            if (dust.life < 0.0f)
+            {
+                dusts.removeAt(i);
+                i--;
+            }
+            else
+            {
+                dust.width = dust.height = dust.final_size * (1.0f - dust.life / dust.timelife * 0.5f);
+
+                dust.x += dust.speed * dt;
+                dust.angle += dust.speed * dt * 0.1f;
+
+                if (dust.life < 0.25f)
+                {
+                    dust.alpha = dust.life * 4.0f;
+                }
+                else
+                {
+                    dust.alpha += dt * 4.0f;
+
+                    if (dust.alpha > 1.0f)
+                    {
+                        dust.alpha = 1.0f;
+                    }
+                }
+            }
+        }
+
+        core.render.DebugText(10, 10, "khkhk " + dusts.get_length());
 
         if (fade_out > 0.0f)
         {

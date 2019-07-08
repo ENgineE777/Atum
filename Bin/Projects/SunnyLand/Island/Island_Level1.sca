@@ -198,15 +198,15 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 968.000000,
-				"y" : 157.000000
+				"x" : 624.000000,
+				"y" : -79.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 14304,
-			"Count" : 30,
+			"Count" : 31,
 			"Node" : [
 				{
 					"callback_type" : "",
@@ -487,7 +487,7 @@
 					}
 				},
 				{
-					"callback_type" : "",
+					"callback_type" : "OnContact",
 					"objects_list" :
 					{
 						"count" : 1,
@@ -495,7 +495,7 @@
 							{
 								"object" :
 								{
-									"uid" : 0,
+									"uid" : 32744,
 									"child_uid" : 0,
 									"is_asset" : false
 								}
@@ -757,6 +757,23 @@
 							}
 						]
 					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -769,6 +786,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -921,6 +939,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1073,6 +1092,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1180,6 +1200,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1309,6 +1330,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.425000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1364,6 +1386,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1525,6 +1548,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1654,6 +1678,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.470000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1686,6 +1711,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.510000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1830,6 +1856,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1848,6 +1875,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1880,6 +1908,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -1912,6 +1941,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.490000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -2074,6 +2104,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -2120,6 +2151,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -2507,6 +2539,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -2894,6 +2927,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12212,6 +12246,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12258,6 +12293,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12295,6 +12331,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12355,6 +12392,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.400000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12420,6 +12458,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12452,6 +12491,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -12554,6 +12594,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{

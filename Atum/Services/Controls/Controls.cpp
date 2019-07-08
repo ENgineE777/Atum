@@ -910,41 +910,52 @@ void Controls::OverrideMousePos(int mx, int my)
 
 void Controls::TouchStart(int index, int x, int y)
 {
-	touches[index].state = 1;
-	touches[index].x = x;
-	touches[index].y = y;
-
-	touches[index].prev_x = x;
-	touches[index].prev_y = y;
+	buffered_touches[index].state = 1;
+	buffered_touches[index].x = x;
+	buffered_touches[index].y = y;
 }
 
 void Controls::TouchUpdate(int index, int x, int y)
 {
-	touches[index].prev_x = touches[index].x;
-	touches[index].prev_y = touches[index].y;
-
-	touches[index].x = x;
-	touches[index].y = y;
+	buffered_touches[index].x = x;
+	buffered_touches[index].y = y;
 }
 
 void Controls::TouchEnd(int index)
 {
-	touches[index].state = 0;
-
-	touches[index].x = 0;
-	touches[index].y = 0;
-
-	touches[index].prev_x = 0;
-	touches[index].prev_y = 0;
+	buffered_touches[index].state = 0;
 }
 
 void Controls::Update(float dt)
 {
 	for (int i = 0; i < TouchCount; i++)
 	{
-		if (touches[i].state == 1)
+		if (buffered_touches[i].state == 1)
 		{
-			touches[i].state = 2;
+			if (touches[i].state == 0)
+			{
+				touches[i].state = 1;
+				touches[i].x = touches[i].prev_x = buffered_touches[i].x;
+				touches[i].y = touches[i].prev_y = buffered_touches[i].y;
+			}
+			else
+			{
+				touches[i].state = 2;
+
+				touches[i].prev_x = touches[i].x;
+				touches[i].prev_y = touches[i].y;
+
+				touches[i].x = buffered_touches[i].x;
+				touches[i].y = buffered_touches[i].y;
+			}
+		}
+		else
+		{
+			if (touches[i].state != 0)
+			{
+				touches[i].state = 0;
+				touches[i].x = touches[i].y = touches[i].prev_x = touches[i].prev_y = 0;
+			}
 		}
 	}
 

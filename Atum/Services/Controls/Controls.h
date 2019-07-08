@@ -168,6 +168,7 @@ private:
 		int prev_y = 0;
 	};
 
+	TouchState buffered_touches[TouchCount];
 	TouchState touches[TouchCount];
 
 #endif

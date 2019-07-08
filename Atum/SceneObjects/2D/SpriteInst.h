@@ -78,6 +78,12 @@ public:
 
 	int draw_level = 0;
 
+	/**
+	\brief Use depth
+	*/
+
+	bool use_depth = 0;
+
 #ifndef DOXYGEN_SKIP
 
 	Transform2D trans;

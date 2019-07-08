@@ -21,6 +21,7 @@ META_DATA_DESC(SpriteInst)
 	BASE_SCENE_OBJ_PROP(SpriteInst)
 	FLOAT_PROP(SpriteInst, axis_scale, 1.0f, "Geometry", "axis_scale", "Scale of a axis")
 	FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
+	BOOL_PROP(SpriteInst, use_depth, true, "Geometry", "UseDepth", "Should depth used")
 	INT_PROP(SpriteInst, draw_level, 0, "Geometry", "draw_level", "Draw priority")
 	ARRAY_PROP_INST(SpriteInst, instances, Instance, "Prop", "inst", SpriteInst, sel_inst)
 META_DATA_DESC_END()
@@ -568,7 +569,7 @@ void SpriteInst::Draw(float dt)
 		inst.frame_state.horz_flipped = inst.GetFlipped();
 		inst.color.a = inst.GetAlpha();
 
-		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &sprite_asset->sprite, &inst.frame_state, true, false);
+		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &sprite_asset->sprite, &inst.frame_state, use_depth, false);
 	}
 
 #ifdef EDITOR

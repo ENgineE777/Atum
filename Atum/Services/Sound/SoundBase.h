@@ -53,6 +53,12 @@ public:
 	virtual bool Play(PlayType type) = 0;
 
 	/**
+	\brief Check is souns is playing
+
+	*/
+	virtual bool IsPlaying();
+
+	/**
 	\brief Pause or unpause playing of a sound
 
 	\param[in] pause Define pause ir unpause playing of a sound

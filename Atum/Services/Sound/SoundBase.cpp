@@ -193,6 +193,11 @@ bool SoundBase::Play(PlayType type, bool buffer_looped)
 	return true;
 }
 
+bool SoundBase::IsPlaying()
+{
+	return playing;
+}
+
 void SoundBase::Pause(bool pause)
 {
 #ifdef PLATFORM_PC

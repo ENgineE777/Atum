@@ -416,14 +416,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;F:\Work\Atum\Atum\Services\Sound\ogg\include;F:\Work\Atum\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3DEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CommonDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3ExtensionsDEBUG.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CookingDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundationDEBUG_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematicDEBUG_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysX_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCommon_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXFoundation_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCharacterKinematic_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXExtensions_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCooking_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>
@@ -436,7 +436,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -444,7 +444,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Common_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Extensions.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3Cooking_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PxFoundation_x64.lib;..\..\..\Libraries\PhysX\Lib\vc14win64\PhysX3CharacterKinematic_x64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_x64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysX_64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysXCommon_64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysXFoundation_64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysXCharacterKinematic_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysXExtensions_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\release\PhysXCooking_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Link>
   </ItemDefinitionGroup>

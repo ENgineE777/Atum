@@ -17,7 +17,7 @@ void Physics::Init()
 {
 	PxTolerancesScale tolerancesScale;
 
-	foundation = PxCreateFoundation(PX_FOUNDATION_VERSION, defaultAllocatorCallback, defaultErrorCallback);
+	foundation = PxCreateFoundation(PX_PHYSICS_VERSION, defaultAllocatorCallback, defaultErrorCallback);
 	physics = PxCreatePhysics(PX_PHYSICS_VERSION, *foundation, tolerancesScale, true);
 
 #ifdef PLATFORM_PC
@@ -79,6 +79,7 @@ PhysScene* Physics::CreateScene()
 	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
 	sceneDesc.simulationEventCallback = scene;
 	sceneDesc.filterShader = CollisionFilterShader;
+	sceneDesc.flags |= physx::PxSceneFlag::eENABLE_CCD;
 
 	if (!sceneDesc.cpuDispatcher)
 	{
@@ -89,7 +90,6 @@ PhysScene* Physics::CreateScene()
 
 	scene->scene = physics->createScene(sceneDesc);
 	scene->manager = PxCreateControllerManager(*scene->scene);
-	scene->scene->setFlag(physx::PxSceneFlag::eENABLE_CCD, true);
 
 	scenes.push_back(scene);
 

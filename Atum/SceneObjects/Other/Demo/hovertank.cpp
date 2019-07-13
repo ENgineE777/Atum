@@ -42,7 +42,7 @@ bool HoverTank::Is3DObject()
 
 void HoverTank::Init()
 {
-	mFoundation = PxCreateFoundation(PX_FOUNDATION_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+	mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, tolerancesScale, true);
 
 #ifdef PLATFORM_PC
@@ -158,7 +158,7 @@ bool HoverTank::Play()
 	const PxMaterial* mMat = mPhysics->createMaterial(0.9f, 0.9f, 0.001f);
 
 	PxHeightFieldGeometry hfGeom(heightField, PxMeshGeometryFlags(), terrain->scalev, terrain->scaleh, terrain->scaleh);
-	PxShape* hfShape = hf->createShape(hfGeom, *mMat);
+	PxShape* hfShape = mPhysics->createShape(hfGeom, *mMat);
 	mScene->addActor(*hf);
 
 	angles = Vector2(0.0f, 0.0f);
@@ -188,7 +188,7 @@ bool HoverTank::Play()
 			if (box.obj->isStatic)
 			{
 				PxRigidStatic* plane = mPhysics->createRigidStatic(transform);
-				PxShape* shape = plane->createShape(geometry, *mMaterial);
+				PxShape* shape = mPhysics->createShape(geometry, *mMaterial);
 				mScene->addActor(*plane);
 
 				box.box = nullptr;

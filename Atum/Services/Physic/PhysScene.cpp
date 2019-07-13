@@ -23,7 +23,9 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 	if (type == PhysObject::Static || type == PhysObject::Trigger)
 	{
 		obj->actor = core.physics.physics->createRigidStatic(transform);
-		shape = obj->actor->createShape(geometry, *core.physics.defMaterial);
+		shape = core.physics.physics->createShape(geometry, *core.physics.defMaterial, true);
+
+		obj->actor->attachShape(*shape);
 
 		if (type == PhysObject::Trigger)
 		{
@@ -54,9 +56,8 @@ PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysO
 		obj->actor = actor;
 	}
 
-	SetShapeGroup(shape, group);
-
 	scene->addActor(*obj->actor);
+	SetShapeGroup(shape, group);
 
 	return obj;
 }
@@ -86,8 +87,6 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc, uint32_t g
 	PxShape* shape;
 	actor->getShapes(&shape, 1);
 
-	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, true);
-
 	SetShapeGroup(shape, group);
 
 	return controller;
@@ -109,7 +108,9 @@ PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char*
 			hm->actor = core.physics.physics->createRigidStatic(pose);
 
 			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
-			SetShapeGroup(hm->actor->createShape(hfGeom, *core.physics.defMaterial), group);
+			PxShape* shape = core.physics.physics->createShape(hfGeom, *core.physics.defMaterial, true);
+			SetShapeGroup(shape, group);
+			hm->actor->attachShape(*shape);
 
 			scene->addActor(*hm->actor);
 		}

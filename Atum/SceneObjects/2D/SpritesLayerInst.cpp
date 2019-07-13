@@ -77,7 +77,7 @@ void SpritesLayerInst::Draw(float dt)
 		to = (int)(((Sprite::cam_pos.x + core.render.GetDevice()->GetWidth() * 0.5f)) / size.x);
 	}
 
-	for (int x = from - 1; x < to + 1; x++)
+	for (int x = from - 1; x <= to + 1; x++)
 	{
 		for (auto sprite : layer_asset->sprites)
 		{

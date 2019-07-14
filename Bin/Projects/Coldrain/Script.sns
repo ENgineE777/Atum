@@ -184,7 +184,7 @@ class Main
 		core.render.DebugText(10, 30, "OnRestartTrigger");
 		if (name == "HeroGraph_Legs")
 		{
-			for (int j = 0; j<enemies.length();j++)
+			for (int j = 0; j<enemies.get_length();j++)
 			{
 				if (enemies[j].hp > 0)
 				{
@@ -214,7 +214,7 @@ class Main
 		blood_splash_obj.ClearInstances();
 		bullet_wall_hit.ClearInstances();
 
-		for (int j = 0; j<enemies.length();j++)
+		for (int j = 0; j<enemies.get_length();j++)
 		{
 			Character@ enemy = enemies[j];
 
@@ -261,7 +261,7 @@ class Main
 				dir_x /= len;
 				dir_y /= len;
 
-				hero[0].phys.Move(dir_x * dt * speed, dir_y * dt * speed);
+				hero[0].phys.Move(dir_x * dt * speed, dir_y * dt * speed, 1, 0);
 
 				hero[0].angle = atan2(dir_y, dir_x);
 
@@ -308,7 +308,7 @@ class Main
 
 			bool enemis_died = true;
 
-			for (int j = 0; j<enemies.length();j++)
+			for (int j = 0; j<enemies.get_length();j++)
 			{
 				if (enemies[j].hp > 0)
 				{
@@ -343,7 +343,7 @@ class Main
 				{
 					for (int i = 0; i < 3; i++)
 					{
-						int index = bullets.length();
+						int index = bullets.get_length();
 						bullets.resize(index+1);
 
 						bullets[index].x = hero[0].x + crosshair_dir_x * crosshair_fire_dist;
@@ -358,7 +358,7 @@ class Main
 						bullets[index].size_x = 0.0f;
 					}
 
-					for (int j = 0; j<enemies.length();j++)
+					for (int j = 0; j<enemies.get_length();j++)
 					{
 						Character@ enemy = enemies[j];
 
@@ -393,7 +393,7 @@ class Main
 			}
 		}
 
-		for (int j = 0; j<enemies.length();j++)
+		for (int j = 0; j<enemies.get_length();j++)
 		{
 			Character@ enemy = enemies[j];
 
@@ -468,7 +468,7 @@ class Main
 						{
 							if (enemy.body_graph.ActivateLink("shoot"))
 							{
-								int index = bullets.length();
+								int index = bullets.get_length();
 								bullets.resize(index+1);
 
 								bullets[index].x = enemy.x + dir_x * crosshair_fire_dist;
@@ -534,7 +534,7 @@ class Main
 			}
 		}
 
-		for (int index = 0; index<bullets.length(); index++)
+		for (int index = 0; index<bullets.get_length(); index++)
 		{
 			Bullet@ bullet = bullets[index];
 

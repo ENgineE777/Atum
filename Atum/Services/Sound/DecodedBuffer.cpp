@@ -71,6 +71,8 @@ bool DecodedBuffer::LoadWav(const char* filename, bool load_all)
 		fread(decoded_data, decoded_data_size, 1, stream);
 
 		fclose(stream);
+
+		stream = nullptr;
 	}
 
 	return true;
@@ -137,6 +139,8 @@ bool DecodedBuffer::LoadOgg(const char* filename, bool load_all)
 
 		fclose(stream);
 
+		stream = nullptr;
+
 		ov_clear(&vorbis_file);
 	}
 
@@ -145,6 +149,11 @@ bool DecodedBuffer::LoadOgg(const char* filename, bool load_all)
 
 void DecodedBuffer::RestartDecode()
 {
+	if (!stream)
+	{
+		return;
+	}
+
 	if (type == FileWav)
 	{
 		fseek(stream, sizeof(WavHeaderType), SEEK_SET);

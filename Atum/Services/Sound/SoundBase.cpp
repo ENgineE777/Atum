@@ -245,9 +245,9 @@ void SoundBase::Stop()
 #endif
 
 #ifdef PLATFORM_IOS
-    audio_queue->Stop();
+	audio_queue->Stop();
 #endif
-    
+
 	decoded_buffer.RestartDecode();
 
 	playing = false;

@@ -16,7 +16,7 @@ static int android_read(void* cookie, char* buf, int size)
 
 static int android_write(void* cookie, const char* buf, int size)
 {
-	return EACCES; // can't provide write access to the apk
+	return 0; // can't provide write access to the apk
 }
 
 static fpos_t android_seek(void* cookie, fpos_t offset, int whence)

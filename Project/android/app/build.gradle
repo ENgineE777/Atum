@@ -4,16 +4,18 @@ android {
     compileSdkVersion 28
 
     defaultConfig {
-        applicationId 'com.android.gles3jni'
+        versionCode 2
+        versionName "1.0"
+        applicationId 'com.atum.engine'
         minSdkVersion 19
         targetSdkVersion 28
         externalNativeBuild {
             cmake {
-                arguments '-DANDROID_STL=c++_shared', '-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
+                arguments '-DCMAKE_BUILD_TYPE=Release', '-DANDROID_STL=c++_shared', '-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON'
             }
         }
         ndk {
-            abiFilters 'armeabi-v7a'
+            abiFilters 'arm64-v8a'
         }
     }
     buildTypes {
@@ -21,10 +23,22 @@ android {
             minifyEnabled = false
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                           'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            multiDexEnabled = false
+            zipAlignEnabled = true
+            debuggable = false
+            jniDebuggable = false
+            renderscriptDebuggable = false
+        }
+        debug {
+            jniDebuggable = true
+            debuggable = true
+            signingConfig signingConfigs.debug
         }
     }
     externalNativeBuild {
-        cmake {
+        cmake
+        {
             path 'src/main/cpp/CMakeLists.txt'
         }
     }

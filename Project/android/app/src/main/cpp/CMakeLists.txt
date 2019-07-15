@@ -2,17 +2,17 @@ cmake_minimum_required(VERSION 3.4.1)
 
 set( atum_DIR ../../../../../../../Atum/ )
 set( physx_DIR ../../../../../../../Libraries/PhysX )
-set( physx_lib_DIR ../../../../../../../Atum/Libraries/PhysX/Lib/android16 )
+set( physx_lib_DIR ../../../../../../../Atum/Libraries/PhysX/Lib/android64/release )
 set( as_DIR ../../../../../../../Libraries/Angelscript )
 set( vorbis_DIR ../../../../../../../Atum/Services/Sound/vorbis )
 set( ogg_DIR ../../../../../../../Atum/Services/Sound/ogg )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR} --include-directory=${vorbis_DIR}/include --include-directory=${vorbis_DIR}/lib --include-directory=${ogg_DIR}/include")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_MAX_PORTABILITY -DNDEBUG=1 -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include --include-directory=${vorbis_DIR}/include --include-directory=${ogg_DIR}/include" )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_NO_EXCEPTIONS -DAS_MAX_PORTABILITY -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include --include-directory=${vorbis_DIR}/include --include-directory=${ogg_DIR}/include" )
 set(OPENGL_LIB GLESv3)
 
 link_directories( ${physx_lib_DIR} )
-set(PHYSX_LINK_LIBS libPhysX3.a libPhysX3CharacterKinematic.a libPhysX3Common.a libPhysX3Extensions.a libPxFoundation.a libPxTask.a libSceneQuery.a libSimulationController.a)
+set(PHYSX_LINK_LIBS libphysx.so)
 
 add_library(atumlib SHARED
             ${as_DIR}/source/as_atomic.cpp

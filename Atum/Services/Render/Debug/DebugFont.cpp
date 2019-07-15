@@ -15,7 +15,14 @@ bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugFont::Draw);
 
-	font = core.fonts.LoadFont("settings/helvetica", false, false, 11);
+	int font_size = 11;
+
+#if PLATFORM_ANDROID
+	font_size = 20;
+#endif
+
+
+	font = core.fonts.LoadFont("settings/helvetica", false, false, font_size);
 
 	return true;
 }

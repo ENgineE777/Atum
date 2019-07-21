@@ -90,7 +90,7 @@ void SpriteGraphAsset::Instance::Update(float dt)
 	{
 		if (cur_node->def_link != -1)
 		{
-			GotoNode(cur_node->def_link);
+			GotoNode(cur_node->links[cur_node->def_link].index);
 			Sprite::UpdateFrame(&cur_node->asset->sprite, &state, 0.0f);
 		}
 	}

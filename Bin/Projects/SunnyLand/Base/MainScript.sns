@@ -22,6 +22,13 @@ class PhysBox
     Phys2D@ phys;
 }
 
+class RespawnPoint
+{
+    float x, y;
+    bool activated = false;
+    Graph2D@ graph;
+}
+
 class Particle
 {
     float x,y;
@@ -108,13 +115,13 @@ enum SoundType
     BoxCollided,
     TakeBonus,
     HeroKilled,
-    HeroHitted
+    HeroHitted,
+    Checkpoint
 };
 
 class Game
 {
-
-    array<PhysBox> respawn_points;
+    array<RespawnPoint> respawn_points;
 
     array<ThrowableBoxesHolder> throwable_boxes;
 
@@ -164,6 +171,9 @@ class Game
 
         fade_out = -1.0f;
         hero_inst[0].cur_respawn_point = 0;
+
+        respawn_points[0].graph.GotoNode("Active");
+
         AddScore(-1);
         RespawnHero(hero_inst[0]);
     }
@@ -299,6 +309,13 @@ class Game
         if (name == "Hero")
         {
             hero_inst[0].cur_respawn_point = param;
+
+            if (!respawn_points[hero_inst[0].cur_respawn_point].activated)
+            {
+                respawn_points[hero_inst[0].cur_respawn_point].activated = true;
+                respawn_points[hero_inst[0].cur_respawn_point].graph.ActivateLink("Activate");
+                PlaySound(SoundType::Checkpoint);
+            }
         }
     }
 
@@ -692,6 +709,9 @@ class Game
             break;
             case HeroHitted:
                 sound_name = "SFX/hero_hitted.wav";
+            break;
+            case Checkpoint:
+                sound_name = "SFX/checkpoint.wav";
             break;
         }
 

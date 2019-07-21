@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 6536.000000,
-		"y" : -564.000000
+		"x" : 6407.000000,
+		"y" : -545.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -198,8 +198,8 @@
 			"uid" : 2133115008,
 			"ed_camera_2d" :
 			{
-				"x" : 624.000000,
-				"y" : -79.000000
+				"x" : 451.000000,
+				"y" : -28.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
@@ -402,7 +402,7 @@
 					}
 				},
 				{
-					"callback_type" : "",
+					"callback_type" : "OnContact",
 					"objects_list" :
 					{
 						"count" : 1,
@@ -410,7 +410,7 @@
 							{
 								"object" :
 								{
-									"uid" : -413818880,
+									"uid" : 179568,
 									"child_uid" : 0,
 									"is_asset" : false
 								}
@@ -1985,10 +1985,10 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"x" : 4736.000000,
-			"y" : -448.000000,
-			"width" : 624.000000,
-			"height" : 299.000000,
+			"x" : 4763.133301,
+			"y" : -536.546753,
+			"width" : 569.729553,
+			"height" : 476.093384,
 			"collision_group" : 2
 		},
 		{
@@ -1998,9 +1998,9 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"x" : 8576.000000,
+			"x" : 8675.964844,
 			"y" : -960.000000,
-			"width" : 624.000000,
+			"width" : 424.055786,
 			"height" : 610.000000,
 			"collision_group" : 2
 		},
@@ -12324,67 +12324,6 @@
 		},
 		{
 			"type" : "SpriteInst",
-			"uid" : -413818880,
-			"Name" : "RespawnPoints",
-			"State" : 2,
-			"Group" : "Level",
-			"Layer" : "",
-			"axis_scale" : 1.000000,
-			"Depth" : 0.450000,
-			"UseDepth" : true,
-			"draw_level" : 0,
-			"inst" :
-			{
-				"count" : 3,
-				"Elem" : [
-					{
-						"x" : 1344.000000,
-						"y" : 256.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 4544.000000,
-						"y" : -384.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 8512.000000,
-						"y" : -704.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					}
-				]
-			},
-			"asset_uid" : 1511894784
-		},
-		{
-			"type" : "SpriteInst",
 			"uid" : 1345146496,
 			"Name" : "RightHangSprite",
 			"State" : 2,
@@ -13033,6 +12972,66 @@
 					}
 				}
 			]
+		},
+		{
+			"type" : "SpriteGraphInst",
+			"uid" : 179568,
+			"Name" : "RespawnPoints",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"Depth" : 0.450000,
+			"hack_height" : 0.000000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 3,
+				"Elem" : [
+					{
+						"x" : 1024.000000,
+						"y" : 256.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 4544.000000,
+						"y" : -384.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 8512.000000,
+						"y" : -704.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 440289
 		}
 	],
 	"asset_instances" : [
@@ -13301,17 +13300,6 @@
 			]
 		},
 		{
-			"asset_uid" : 1511894784,
-			"asset_name" : "Hero_Hit",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level1.sca",
-					"inst_uid" : -413818880,
-					"inst_name" : "RespawnPoints"
-				}
-			]
-		},
-		{
 			"asset_uid" : 217616304,
 			"asset_name" : "RightHangSprite",
 			"instances" : [
@@ -13396,6 +13384,17 @@
 					"scene" : "Island/Island_Level1.sca",
 					"inst_uid" : 49017,
 					"inst_name" : "FinishLevel1Script"
+				}
+			]
+		},
+		{
+			"asset_uid" : 440289,
+			"asset_name" : "Respawn_Graph",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 179568,
+					"inst_name" : "RespawnPoints"
 				}
 			]
 		}

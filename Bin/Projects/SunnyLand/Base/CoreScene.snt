@@ -200,6 +200,36 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "Respawn",
+			"type" : 0
+		},
+		{
+			"uid" : 983038,
+			"name" : "Respawn_Acivation",
+			"type" : 1
+		},
+		{
+			"uid" : 704497,
+			"name" : "Respawn_Active",
+			"type" : 1
+		},
+		{
+			"uid" : 440289,
+			"name" : "Respawn_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 129009,
+			"name" : "Respawn_Inactive",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "",
 			"type" : 2
 		},

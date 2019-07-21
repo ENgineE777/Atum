@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 18308.000000,
-		"y" : -782.000000
+		"x" : 8.000000,
+		"y" : -20.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -98,7 +98,7 @@
 			"State" : 2,
 			"Group" : "Level",
 			"Layer" : "",
-			"Depth" : 0.500000,
+			"Depth" : 0.400000,
 			"hack_height" : 0.000000,
 			"draw_level" : 0,
 			"inst" :
@@ -14912,8 +14912,8 @@
 			"uid" : 244048,
 			"ed_camera_2d" :
 			{
-				"x" : 857.000000,
-				"y" : 187.000000
+				"x" : 656.000000,
+				"y" : -76.000000
 			},
 			"Name" : "MainScript",
 			"State" : 2,
@@ -15164,7 +15164,7 @@
 							{
 								"object" :
 								{
-									"uid" : 638049,
+									"uid" : 325838,
 									"child_uid" : 0,
 									"is_asset" : false
 								}
@@ -15326,67 +15326,6 @@
 					}
 				}
 			]
-		},
-		{
-			"type" : "SpriteInst",
-			"uid" : 638049,
-			"Name" : "RespawnPoints",
-			"State" : 2,
-			"Group" : "",
-			"Layer" : "",
-			"axis_scale" : 1.000000,
-			"Depth" : 0.500000,
-			"UseDepth" : true,
-			"draw_level" : 0,
-			"inst" :
-			{
-				"count" : 3,
-				"Elem" : [
-					{
-						"x" : -64.000000,
-						"y" : 64.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 11648.000000,
-						"y" : -768.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					},
-					{
-						"x" : 24576.000000,
-						"y" : -960.000000,
-						"index" : 0,
-						"visible" : 0,
-						"color" :
-						{
-							"r" : 1.000000,
-							"g" : 1.000000,
-							"b" : 1.000000,
-							"a" : 1.000000
-						},
-						"alpha" : 1.000000
-					}
-				]
-			},
-			"asset_uid" : 1511894784
 		},
 		{
 			"type" : "Trigger2D",
@@ -16644,9 +16583,9 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"x" : 11840.000000,
+			"x" : 11914.263672,
 			"y" : -960.000000,
-			"width" : 768.000000,
+			"width" : 619.470093,
 			"height" : 576.000000,
 			"collision_group" : 2
 		},
@@ -16657,9 +16596,9 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"x" : 24384.000000,
+			"x" : 24491.111328,
 			"y" : -1344.000000,
-			"width" : 768.000000,
+			"width" : 553.773987,
 			"height" : 768.000000,
 			"collision_group" : 2
 		},
@@ -17733,10 +17672,70 @@
 			"Group" : "",
 			"Layer" : "",
 			"x" : 26112.000000,
-			"y" : -1088.000000,
+			"y" : -1216.000000,
 			"width" : 671.269165,
 			"height" : 695.547974,
 			"collision_group" : 2
+		},
+		{
+			"type" : "SpriteGraphInst",
+			"uid" : 325838,
+			"Name" : "RespawnPoints",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"Depth" : 0.450000,
+			"hack_height" : 0.000000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 3,
+				"Elem" : [
+					{
+						"x" : -256.000000,
+						"y" : 64.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 11648.000000,
+						"y" : -768.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					},
+					{
+						"x" : 24256.000000,
+						"y" : -960.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 440289
 		}
 	],
 	"asset_instances" : [
@@ -17770,17 +17769,6 @@
 					"scene" : "Forest/Forest_Level2.sca",
 					"inst_uid" : 244048,
 					"inst_name" : "MainScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1511894784,
-			"asset_name" : "Hero_Hit",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 638049,
-					"inst_name" : "RespawnPoints"
 				}
 			]
 		},
@@ -17968,6 +17956,17 @@
 					"scene" : "Forest/Forest_Level2.sca",
 					"inst_uid" : 245702,
 					"inst_name" : "FinishLevel2Script"
+				}
+			]
+		},
+		{
+			"asset_uid" : 440289,
+			"asset_name" : "Respawn_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 325838,
+					"inst_name" : "RespawnPoints"
 				}
 			]
 		}

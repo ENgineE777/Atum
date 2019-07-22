@@ -217,6 +217,12 @@ class BossCat
 
     void OnRespawnHero()
     {
+        for (int i = 0; i < boss_cards.get_length(); i++)
+        {
+            boss_cards[i].in_fly = -1.0f;
+            boss_cards[i].visible = 0;
+        }
+
         next_level.SetState(0);
 
         boss_inst[0].active = false;

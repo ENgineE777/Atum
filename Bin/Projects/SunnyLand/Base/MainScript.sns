@@ -289,6 +289,8 @@ class Game
         {
             ThrowableBoxesHolder@ holder = throwable_boxes[i];
 
+            holder.FakeBox().visible = 0;
+
             holder.FlyBox().visible = 0;
             holder.FlyBox().in_fly = -1.0f;
 

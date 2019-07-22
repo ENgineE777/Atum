@@ -1,23 +1,43 @@
 
-#import "GameMenuScript"
+#import "MainScript"
 
 class ForestFinishLevel1
 {
+    array<RespawnPoint> finish_sign;
     GameMenu@ game_menu;
+    Game@ game;
     string level_name = "Forest_Level1";
     string next_level_name = "Forest_Level2";
+    float time_to_next_level = -1.0f;
 
     void Init()
     {
         game_menu.SetLevelName(level_name);
     }
 
+    void Update(float dt)
+    {
+        if (time_to_next_level > 0.0f)
+        {
+            time_to_next_level -= dt;
+
+            if (time_to_next_level <= 0.0f)
+            {
+                core.scene.Unload(level_name);
+                core.scene.Load(next_level_name);
+            }
+        }
+    }
+
     void OnNextLevel(int self_index, string&in name, int index)
     {
         if (name == "Hero")
         {
-            core.scene.Unload(level_name);
-            core.scene.Load(next_level_name);
+            game.MakeHeroUncontrolable();
+
+            finish_sign[0].graph.ActivateLink("Activate");
+            game.PlaySound(SoundType::LevelCompleted);
+            time_to_next_level = 2.0f;
         }
     }
 }

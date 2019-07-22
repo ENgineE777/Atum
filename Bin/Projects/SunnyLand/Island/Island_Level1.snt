@@ -257,6 +257,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : 915702,
+			"name" : "FinishSign",
+			"type" : 1
+		},
+		{
 			"uid" : 179568,
 			"name" : "RespawnPoints",
 			"type" : 1

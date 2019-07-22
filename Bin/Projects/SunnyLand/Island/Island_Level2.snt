@@ -257,6 +257,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 491517,
+			"name" : "FinishSign",
+			"type" : 1
+		},
+		{
 			"uid" : 749309,
 			"name" : "Hero",
 			"type" : 1

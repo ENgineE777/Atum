@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 8.000000,
-		"y" : -20.000000
+		"x" : 18868.000000,
+		"y" : -851.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -34,15 +34,15 @@
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestFinishLevel2",
-			"Count" : 4,
+			"Count" : 7,
 			"Node" : [
 				{
 					"type" : 1,
 					"name" : "game_menu",
 					"pos" :
 					{
-						"x" : 595.000000,
-						"y" : 221.000000
+						"x" : 472.000000,
+						"y" : 130.000000
 					},
 					"prefix" : ""
 				},
@@ -78,7 +78,7 @@
 					"name" : "Init",
 					"pos" :
 					{
-						"x" : 611.000000,
+						"x" : 464.000000,
 						"y" : 479.000000
 					},
 					"param_type" : 0,
@@ -86,6 +86,40 @@
 					"Count" : 0,
 					"Link" : [
 					]
+				},
+				{
+					"type" : 2,
+					"name" : "Update",
+					"pos" :
+					{
+						"x" : 691.000000,
+						"y" : 478.000000
+					},
+					"param_type" : 0,
+					"call_type" : 2,
+					"Count" : 0,
+					"Link" : [
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "game",
+					"pos" :
+					{
+						"x" : 665.000000,
+						"y" : 132.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "finish_sign",
+					"pos" :
+					{
+						"x" : 580.000000,
+						"y" : 250.000000
+					},
+					"prefix" : ""
 				}
 			]
 		}
@@ -17592,7 +17626,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 194763,
-			"Count" : 4,
+			"Count" : 7,
 			"Node" : [
 				{
 					"callback_type" : "",
@@ -17661,6 +17695,57 @@
 							}
 						]
 					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 244048,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 901100,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -17671,9 +17756,9 @@
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"x" : 26112.000000,
-			"y" : -1216.000000,
-			"width" : 671.269165,
+			"x" : 27059.134766,
+			"y" : -1392.290039,
+			"width" : 699.832520,
 			"height" : 695.547974,
 			"collision_group" : 2
 		},
@@ -17736,6 +17821,38 @@
 				]
 			},
 			"asset_uid" : 440289
+		},
+		{
+			"type" : "SpriteGraphInst",
+			"uid" : 901100,
+			"Name" : "FinishSign",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"Depth" : 0.450000,
+			"hack_height" : 0.000000,
+			"draw_level" : 0,
+			"inst" :
+			{
+				"count" : 1,
+				"Elem" : [
+					{
+						"x" : 26752.000000,
+						"y" : -1088.000000,
+						"index" : 0,
+						"visible" : 1,
+						"color" :
+						{
+							"r" : 1.000000,
+							"g" : 1.000000,
+							"b" : 1.000000,
+							"a" : 1.000000
+						},
+						"alpha" : 1.000000
+					}
+				]
+			},
+			"asset_uid" : 79865
 		}
 	],
 	"asset_instances" : [
@@ -17967,6 +18084,17 @@
 					"scene" : "Forest/Forest_Level2.sca",
 					"inst_uid" : 325838,
 					"inst_name" : "RespawnPoints"
+				}
+			]
+		},
+		{
+			"asset_uid" : 79865,
+			"asset_name" : "FinishSign_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 901100,
+					"inst_name" : "FinishSign"
 				}
 			]
 		}

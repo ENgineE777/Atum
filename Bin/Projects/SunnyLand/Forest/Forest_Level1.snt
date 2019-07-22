@@ -37,6 +37,11 @@
 			"type" : 1
 		},
 		{
+			"uid" : 130681,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
@@ -45,6 +50,11 @@
 			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
+		},
+		{
+			"uid" : 524287,
+			"name" : "FinishSign",
+			"type" : 1
 		},
 		{
 			"uid" : 458616,
@@ -104,6 +114,11 @@
 		{
 			"uid" : 1015531,
 			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 491123,
+			"name" : "FinishLevel1Script",
 			"type" : 1
 		},
 		{
@@ -210,16 +225,6 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
-		},
-		{
-			"uid" : 491123,
-			"name" : "FinishLevel1Script",
-			"type" : 1
-		},
-		{
-			"uid" : 130681,
-			"name" : "Hero",
-			"type" : 1
 		},
 		{
 			"uid" : -1,

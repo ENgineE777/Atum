@@ -135,6 +135,36 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "FinishSign",
+			"type" : 0
+		},
+		{
+			"uid" : 688119,
+			"name" : "FinishSign_Activation",
+			"type" : 1
+		},
+		{
+			"uid" : 866277,
+			"name" : "FinishSign_Active",
+			"type" : 1
+		},
+		{
+			"uid" : 79865,
+			"name" : "FinishSign_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 997357,
+			"name" : "FinishSign_Inactive",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Hero",
 			"type" : 0
 		},

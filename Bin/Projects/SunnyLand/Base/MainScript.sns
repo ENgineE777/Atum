@@ -62,6 +62,7 @@ class ChracterData : BaseCharacter
 
     int hp = 3;
     bool horz_flipped_inv = false;
+    bool allow_control = true;
 
     void Init()
     {
@@ -116,7 +117,8 @@ enum SoundType
     TakeBonus,
     HeroKilled,
     HeroHitted,
-    Checkpoint
+    Checkpoint,
+    LevelCompleted
 };
 
 class Game
@@ -196,6 +198,16 @@ class Game
         return -1;
     }
 
+    void MakeHeroUncontrolable()
+    {
+        HeroData@ hero_data = hero_inst[0];
+
+        hero_data.allow_control = false;
+        hero_data.dir_x = 0;
+        hero_data.velocity_x = 0.0f;
+        //hero_data.graph.ActivateLink()
+    }
+
     void HitHero()
     {
         HeroData@ hero_data = hero_inst[0];
@@ -252,9 +264,11 @@ class Game
 
     void RespawnHero(HeroData@ hero_data)
     {
-        //hero_data.cur_respawn_point = 2;
+        hero_data.cur_respawn_point = 2;
         
+        //hero_data.phys.MoveTo(27584, -400);
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);
+        
         hero_data.hp = 3;
         hero_data.in_hit = -1.0f;
 
@@ -419,7 +433,7 @@ class Game
                 hero_data.graph.ActivateLink("fall");
             }
         
-            if (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f)
+            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f))
             {
                 if (allow_jump)
                 {
@@ -429,7 +443,7 @@ class Game
                 hero_data.dir_x = -1.0f;
             }
             else
-            if (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f)
+            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f))
             {
                 if (allow_jump)
                 {
@@ -471,7 +485,7 @@ class Game
             }
         }
 
-        if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump)
+        if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump && hero_data.allow_control)
         {
             PlaySound(SoundType::Jump);
 
@@ -492,7 +506,7 @@ class Game
             return;
         }
 
-        if (core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2)
+        if ((core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2) && hero_data.allow_control)
         {
             if (!hero_data.box_grabbed)
             {
@@ -712,6 +726,9 @@ class Game
             break;
             case Checkpoint:
                 sound_name = "SFX/checkpoint.wav";
+            break;
+            case LevelCompleted:
+                sound_name = "SFX/level_completed.wav";
             break;
         }
 

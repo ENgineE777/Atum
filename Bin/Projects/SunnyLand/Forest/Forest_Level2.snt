@@ -47,6 +47,11 @@
 			"type" : 0
 		},
 		{
+			"uid" : 901100,
+			"name" : "FinishSign",
+			"type" : 1
+		},
+		{
 			"uid" : 457300,
 			"name" : "ForestStar",
 			"type" : 1

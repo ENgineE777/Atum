@@ -286,7 +286,7 @@ void PhysController::GetPosition(Vector& pos)
 
 void PhysController::Release()
 {
-	controller->setUserData(nullptr);
+	SetUserData(nullptr);
 	PhysObjectBase::Release();
 }
 

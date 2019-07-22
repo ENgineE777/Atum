@@ -128,6 +128,10 @@ void Core::Update()
 	controls.Update(dt);
 
 	physics.Fetch();
+
+	core.scene_manager.Execute(dt);
+
+	physics.DeleteObjects();
 }
 
 float Core::GetDeltaTime()

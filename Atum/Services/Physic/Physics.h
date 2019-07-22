@@ -84,6 +84,7 @@ public:
 	void Init();
 	void Update(float dt);
 	void Fetch();
+	void DeleteObjects();
 #endif
 
 #ifdef PLATFORM_PC

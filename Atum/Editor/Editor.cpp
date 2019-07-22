@@ -1107,11 +1107,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 	core.Update();
 
-	if (in_scene_run)
-	{
-		core.scene_manager.Execute(dt);
-	}
-	else
+	if (!in_scene_run)
 	{
 		if (selectedObject)
 		{

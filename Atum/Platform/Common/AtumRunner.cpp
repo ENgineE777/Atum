@@ -38,8 +38,6 @@ void AtumRunner::Execute()
 {
 	core.CountDeltaTime();
 
-	core.scene_manager.Execute(core.GetDeltaTime());
-
 	core.Update();
 }
 

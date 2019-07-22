@@ -529,7 +529,7 @@ void Editor::StartScene()
 
 	Sprite::ed_cam_pos = 0.0f;
 
-	gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1920, 1080);
+	gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1378, 720);
 	gameWnd->SetListener(-1, this, 0);
 
 	EUILayout* lt = new EUILayout(gameWnd, false);
@@ -1103,7 +1103,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 
 	core.controls.SetFocused(in_scene_run ? game_viewport->IsFocused() : viewport->IsFocused());
 
-	core.render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
+	//core.render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
 
 	core.Update();
 

@@ -382,7 +382,7 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property, const char* 
 
 void SpriteInst::Init()
 {
-	script_callbacks.push_back(ScriptCallback("OnContact", "void", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContact", "void", "%i%s%i"));
 }
 
 void SpriteInst::ApplyProperties()

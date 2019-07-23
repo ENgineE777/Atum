@@ -176,10 +176,10 @@ asITypeInfo* Scripts::GetTypeInfoById(int typeId) const
 	return engine->GetTypeInfoById(typeId);
 }
 
-void Scripts::RegisterClassInstance(const char* scene_name, asIScriptObject* inst)
+void Scripts::RegisterClassInstance(Scene* scene, asIScriptObject* inst)
 {
 	ClassInst class_inst;
-	class_inst.scene_name = scene_name;
+	class_inst.scene = scene;
 	class_inst.inst = inst;
 	class_instances.push_back(class_inst);
 }
@@ -191,12 +191,14 @@ void Scripts::CallClassInstancesMethod(const char* scene_name, const char* class
 		return;
 	}
 
+	void* current_script_caller = script_caller;
+
 	char prototype[256];
 	StringUtils::Printf(prototype, 256, "void %s()", method);
 
 	for (auto& class_inst : class_instances)
 	{
-		if ((scene_name[0] && !StringUtils::IsEqual(scene_name, scene_name)) ||
+		if ((scene_name[0] && !StringUtils::IsEqual(scene_name, class_inst.scene->GetName())) ||
 			(class_name[0] && !StringUtils::IsEqual(class_name, class_inst.inst->GetObjectType()->GetName())))
 		{
 			continue;
@@ -206,6 +208,8 @@ void Scripts::CallClassInstancesMethod(const char* scene_name, const char* class
 
 		if (method)
 		{
+			script_caller = class_inst.scene;
+
 			class_instances_ctx->ctx->Prepare(method);
 			class_instances_ctx->ctx->SetObject(class_inst.inst);
 
@@ -215,6 +219,8 @@ void Scripts::CallClassInstancesMethod(const char* scene_name, const char* class
 			}
 		}
 	}
+
+	script_caller = current_script_caller;
 }
 
 void Scripts::UnregisterClassInstance(asIScriptObject* inst)

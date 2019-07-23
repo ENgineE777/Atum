@@ -13,11 +13,12 @@ EUIMenu*       SceneObject::ed_popup_menu = nullptr;
 EUIPanel*      SceneObject::ed_vieport;
 #endif
 
-SceneObject::ScriptCallback::ScriptCallback(const char* set_name, const char* set_ret, const char* set_decl)
+SceneObject::ScriptCallback::ScriptCallback(Scene* set_scene,const char* set_name, const char* set_ret, const char* set_decl)
 {
 	name = set_name;
 	ret = set_ret;
 	decl = set_decl;
+	scene = set_scene;
 }
 
 void SceneObject::ScriptCallback::SetIntParam(int param)
@@ -205,6 +206,8 @@ bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 			{
 				context->ctx->SetArgObject(cur_arg, str_param);
 			}
+
+			core.scripts.script_caller = scene;
 
 			if (context->ctx->Execute() != 0)
 			{

@@ -178,7 +178,7 @@ bool SceneScriptInst::Play()
 		return false;
 	}
 
-	core.scripts.RegisterClassInstance(GetScene()->GetName(), class_inst);
+	core.scripts.RegisterClassInstance(GetScene(), class_inst);
 
 	GetScene()->AddPostPlay(0, this, (Object::DelegateSimple)&SceneScriptInst::InjectIntoScript);
 
@@ -373,6 +373,8 @@ void SceneScriptInst::CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> me
 {
 	for (auto* node : methods)
 	{
+		core.scripts.script_caller = GetScene();
+
 		Script()->ctx->Prepare(node->method);
 
 		if (use_dt)

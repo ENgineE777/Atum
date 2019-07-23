@@ -17,13 +17,17 @@ This service manages loading and execution of scripts.
 
 class Scripts
 {
+	friend class SceneObject;
+	friend class SceneScriptInst;
+	friend class ScriptCore;
+
 #ifndef DOXYGEN_SKIP
 	asIScriptEngine* engine = nullptr;
 	ScriptContext* class_instances_ctx = nullptr;
 
 	struct ClassInst
 	{
-		const char* scene_name = nullptr;
+		class Scene* scene = nullptr;
 		asIScriptObject* inst = nullptr;
 	};
 
@@ -31,6 +35,8 @@ class Scripts
 
 	ScriptCore scrip_core;
 #endif
+
+	void* script_caller = nullptr;
 
 public:
 
@@ -112,7 +118,7 @@ public:
 	ScriptContext* CreateContext();
 
 #ifndef DOXYGEN_SKIP
-	void RegisterClassInstance(const char* scene_name, asIScriptObject* inst);
+	void RegisterClassInstance(Scene* scene, asIScriptObject* inst);
 	void CallClassInstancesMethod(const char* scene_name, const char* class_name, const char* method);
 	void UnregisterClassInstance(asIScriptObject* inst);
 

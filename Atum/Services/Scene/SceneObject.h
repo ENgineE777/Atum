@@ -62,9 +62,10 @@ public:
 		int param_type = 0;
 		int int_param = 0;
 		string* str_param = nullptr;
+		Scene* scene = nullptr;
 
 	public:
-		ScriptCallback(const char* name, const char* ret, const char* decl);
+		ScriptCallback(Scene* scene, const char* name, const char* ret, const char* decl);
 		inline const char* GetName() { return name; };
 		void SetIntParam(int param);
 		void SetStringParam(string& param);

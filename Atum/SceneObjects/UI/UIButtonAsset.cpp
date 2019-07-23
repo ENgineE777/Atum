@@ -94,7 +94,7 @@ void UIButtonAssetInst::Init()
 	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
 	alias_fire = core.controls.GetAlias("Tank.FIRE");
 
-	script_callbacks.push_back(ScriptCallback("OnDown", "void", ""));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnDown", "void", ""));
 }
 
 void UIButtonAssetInst::Draw(float dt)

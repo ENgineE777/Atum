@@ -18,8 +18,8 @@ void Trigger2D::Init()
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + 2, this, (Object::Delegate)&Trigger2D::EditorDraw);
 #endif
 
-	script_callbacks.push_back(ScriptCallback("OnContactStart", "void", "%i%s%i"));
-	script_callbacks.push_back(ScriptCallback("OnContactEnd", "void", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContactStart", "void", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContactEnd", "void", "%i%s%i"));
 }
 
 void Trigger2D::SetState(State state)

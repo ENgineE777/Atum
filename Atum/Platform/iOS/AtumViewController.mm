@@ -25,6 +25,7 @@ GLKView* view;
     
     self.preferredFramesPerSecond = 60;
     self.view = view;
+    self.view.multipleTouchEnabled = YES;
 
     runner.Init();
 }

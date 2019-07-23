@@ -34,7 +34,7 @@ class SoundBase
 	friend class Sounds;
 	friend class SoundInstance;
 	friend class SoundStream;
-    friend class AudioQueueHolder;
+	friend class AudioQueueHolder;
 
 public:
 
@@ -110,6 +110,8 @@ private:
 #ifdef PLATFORM_IOS
     IAudioQueueHolder* audio_queue = nullptr;
 #endif
+
+	void* scene = nullptr;
 
 	float volume = 1.0f;
 	bool playing = false;

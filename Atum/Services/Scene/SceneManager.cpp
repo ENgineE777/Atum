@@ -183,6 +183,7 @@ void SceneManager::UnloadScene(SceneHolder* holder)
 	if (holder->ref_counter == 0)
 	{
 		RELEASE(holder->scene)
+		core.sounds.DeleteSceneSounds(holder->scene);
 	}
 
 	for (auto& incl : holder->included)

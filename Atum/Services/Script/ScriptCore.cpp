@@ -40,12 +40,12 @@ int ScriptCore::Render::GetHeight()
 
 SoundInstance * ScriptCore::Sound::CreateSound(string& file_name)
 {
-	return core.sounds.CreateSound(file_name.c_str());
+	return core.sounds.CreateSound(core.scripts.script_caller, file_name.c_str());
 }
 
 SoundStream* ScriptCore::Sound::CreateStream(string& file_name)
 {
-	return core.sounds.CreateStream(file_name.c_str());
+	return core.sounds.CreateStream(core.scripts.script_caller, file_name.c_str());
 }
 
 int ScriptCore::Controls::GetAliasIndex(string& alias)

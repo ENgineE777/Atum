@@ -40,7 +40,7 @@ bool Sounds::Init(void* data)
 	return true;
 }
 
-SoundInstance* Sounds::CreateSound(const char* file_name)
+SoundInstance* Sounds::CreateSound(void* scene, const char* file_name)
 {
 	auto* inst = new SoundInstance();
 	if (!inst->Load(file_name))
@@ -50,13 +50,15 @@ SoundInstance* Sounds::CreateSound(const char* file_name)
 		return nullptr;
 	}
 
+	inst->scene = scene;
+
 	sounds.push_back(inst);
 	std::sort(sounds.begin(), sounds.end());
 
 	return inst;
 }
 
-SoundStream* Sounds::CreateStream(const char* file_name)
+SoundStream* Sounds::CreateStream(void* scene, const char* file_name)
 {
 	auto* stream = new SoundStream();
 	if (!stream->Load(file_name))
@@ -66,10 +68,26 @@ SoundStream* Sounds::CreateStream(const char* file_name)
 		return nullptr;
 	}
 
+	stream->scene = scene;
+
 	sounds.push_back(stream);
 	std::sort(sounds.begin(), sounds.end());
 
 	return stream;
+}
+
+void Sounds::DeleteSceneSounds(void* scene)
+{
+	for (int i = 0; i < sounds.size(); i++)
+	{
+		auto* sound = sounds[i];
+
+		if (sound->scene == scene)
+		{
+			sounds[i]->Release();
+			i--;
+		}
+	}
 }
 
 void Sounds::Update(float dt)

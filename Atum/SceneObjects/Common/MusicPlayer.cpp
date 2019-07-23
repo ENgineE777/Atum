@@ -35,7 +35,7 @@ void MusicPlayer::BindClassToScript()
 
 bool MusicPlayer::Play()
 {
-	stream = core.sounds.CreateStream(sound_name.c_str());
+	stream = core.sounds.CreateStream(GetScene(), sound_name.c_str());
 
 	if (play_on_start)
 	{

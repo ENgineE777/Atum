@@ -60,20 +60,22 @@ public:
 	/**
 	\brief Create SoundInstance
 
+	\param[in] scene Pointer to a parent scene
 	\param[in] file_name Full path to a file
 
 	\return Pointer to SoundInstance
 	*/
-	SoundInstance* CreateSound(const char* file_name);
+	SoundInstance* CreateSound(void* scene, const char* file_name);
 
 	/**
 	\brief Create SoundStream
 
+	\param[in] scene Pointer to a parent scene
 	\param[in] file_name Full path to a file
 
 	\return Pointer to SoundStream
 	*/
-	SoundStream* CreateStream(const char* file_name);
+	SoundStream* CreateStream(void* scene, const char* file_name);
 
 	/**
 	\brief Set master volume
@@ -93,6 +95,8 @@ public:
 	bool Init(void* data);
 
 	void Update(float dt);
+
+	void DeleteSceneSounds(void* scene);
 
 	void ClearAllSounds();
 

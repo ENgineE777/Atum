@@ -127,7 +127,7 @@ void UIButtonAssetInst::Draw(float dt)
 			{
 				if (!sound_name.empty() && !sound_click)
 				{
-					sound_click = core.sounds.CreateSound(sound_name.c_str());
+					sound_click = core.sounds.CreateSound(GetScene(), sound_name.c_str());
 				}
 
 				if (sound_click)

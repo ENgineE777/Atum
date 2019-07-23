@@ -138,21 +138,6 @@
 		3431F333216C13EC005FFC6E /* as_globalproperty.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F332216C13EC005FFC6E /* as_globalproperty.cpp */; };
 		3431F33A216C5688005FFC6E /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F339216C5688005FFC6E /* GLKit.framework */; };
 		3431F33C216C5697005FFC6E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F33B216C5697005FFC6E /* UIKit.framework */; };
-		3431F354216DAA91005FFC6E /* libPhysX3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F33D216DA937005FFC6E /* libPhysX3.a */; };
-		3431F355216DAA91005FFC6E /* libPhysX3CharacterKinematic.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F33F216DA95B005FFC6E /* libPhysX3CharacterKinematic.a */; };
-		3431F356216DAA91005FFC6E /* libPhysX3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F341216DA96C005FFC6E /* libPhysX3Common.a */; };
-		3431F357216DAA91005FFC6E /* libPhysX3Extensions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F343216DA980005FFC6E /* libPhysX3Extensions.a */; };
-		3431F358216DAA91005FFC6E /* libPxFoundation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F352216DAA10005FFC6E /* libPxFoundation.a */; };
-		3431F359216DAA91005FFC6E /* libPxTask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F34B216DA9CB005FFC6E /* libPxTask.a */; };
-		3431F35A216DAA91005FFC6E /* libSceneQuery.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F34C216DA9CB005FFC6E /* libSceneQuery.a */; };
-		3431F35B216DAA91005FFC6E /* libSimulationController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F34D216DA9CB005FFC6E /* libSimulationController.a */; };
-		3431F363216DAA92005FFC6E /* libLowLevel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F35C216DAA91005FFC6E /* libLowLevel.a */; };
-		3431F364216DAA92005FFC6E /* libLowLevelAABB.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F35D216DAA91005FFC6E /* libLowLevelAABB.a */; };
-		3431F365216DAA92005FFC6E /* libLowLevelCloth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F35E216DAA91005FFC6E /* libLowLevelCloth.a */; };
-		3431F366216DAA92005FFC6E /* libLowLevelDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F35F216DAA91005FFC6E /* libLowLevelDynamics.a */; };
-		3431F367216DAA92005FFC6E /* libLowLevelParticles.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F360216DAA91005FFC6E /* libLowLevelParticles.a */; };
-		3431F368216DAA92005FFC6E /* libPsFastXml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F361216DAA92005FFC6E /* libPsFastXml.a */; };
-		3431F369216DAA92005FFC6E /* libPxPvdSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3431F362216DAA92005FFC6E /* libPxPvdSDK.a */; };
 		3431F36F216DCD08005FFC6E /* FileInMemory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36B216DCD08005FFC6E /* FileInMemory.cpp */; };
 		3431F370216DCD08005FFC6E /* Files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F36D216DCD08005FFC6E /* Files.cpp */; };
 		3431F373216E944E005FFC6E /* Trigger2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3431F371216E944E005FFC6E /* Trigger2D.cpp */; };
@@ -172,8 +157,13 @@
 		3431F3A222AF57D0005FFC6E /* block.c in Sources */ = {isa = PBXBuildFile; fileRef = 3431F3A122AF57D0005FFC6E /* block.c */; };
 		34724E3122B5E5030029D31B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34724E3022B5E5030029D31B /* AudioToolbox.framework */; };
 		34724E3322B6084D0029D31B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34724E3222B6084D0029D31B /* AVFoundation.framework */; };
-		34724E3622B60CE20029D31B /* file_example_OOG_1MG.ogg in Resources */ = {isa = PBXBuildFile; fileRef = 34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */; };
-		34724E3722B60CE20029D31B /* sound01.wav in Resources */ = {isa = PBXBuildFile; fileRef = 34724E3522B60CE20029D31B /* sound01.wav */; };
+		34861CD922E59755000288C0 /* PhysObjectBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34861CD722E59755000288C0 /* PhysObjectBase.cpp */; };
+		34861CE022E597DD000288C0 /* libPhysX_static_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34861CDA22E597DD000288C0 /* libPhysX_static_64.a */; };
+		34861CE122E597DD000288C0 /* libPhysXCharacterKinematic_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34861CDB22E597DD000288C0 /* libPhysXCharacterKinematic_64.a */; };
+		34861CE222E597DD000288C0 /* libPhysXCommon_static_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34861CDC22E597DD000288C0 /* libPhysXCommon_static_64.a */; };
+		34861CE422E597DD000288C0 /* libPhysXExtensions_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34861CDE22E597DD000288C0 /* libPhysXExtensions_64.a */; };
+		34861CE522E597DD000288C0 /* libPhysXFoundation_static_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 34861CDF22E597DD000288C0 /* libPhysXFoundation_static_64.a */; };
+		34861CE822E59A58000288C0 /* MusicPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 34861CE622E59A58000288C0 /* MusicPlayer.cpp */; };
 		34E8E9F022AF5C32001B3397 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9ED22AF5C32001B3397 /* AppDelegate.mm */; };
 		34E8E9F122AF5C32001B3397 /* AtumViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9EE22AF5C32001B3397 /* AtumViewController.mm */; };
 		34E8E9F222AF5C32001B3397 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 34E8E9EF22AF5C32001B3397 /* main.mm */; };
@@ -459,24 +449,9 @@
 		3431F337216C5657005FFC6E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		3431F339216C5688005FFC6E /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		3431F33B216C5697005FFC6E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		3431F33D216DA937005FFC6E /* libPhysX3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysX3.a; path = ../../Libraries/PhysX/Lib/ios64/libPhysX3.a; sourceTree = "<group>"; };
-		3431F33F216DA95B005FFC6E /* libPhysX3CharacterKinematic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysX3CharacterKinematic.a; path = ../../Libraries/PhysX/Lib/ios64/libPhysX3CharacterKinematic.a; sourceTree = "<group>"; };
-		3431F341216DA96C005FFC6E /* libPhysX3Common.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysX3Common.a; path = ../../Libraries/PhysX/Lib/ios64/libPhysX3Common.a; sourceTree = "<group>"; };
-		3431F343216DA980005FFC6E /* libPhysX3Extensions.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysX3Extensions.a; path = ../../Libraries/PhysX/Lib/ios64/libPhysX3Extensions.a; sourceTree = "<group>"; };
 		3431F345216DA991005FFC6E /* PhysX */ = {isa = PBXFileReference; lastKnownFileType = folder; name = PhysX; path = ../../Libraries/PhysX; sourceTree = "<group>"; };
 		3431F347216DA9A2005FFC6E /* ios64 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ios64; path = ../../Libraries/PhysX/Lib/ios64; sourceTree = "<group>"; };
 		3431F349216DA9B0005FFC6E /* Lib */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Lib; path = ../../Libraries/PhysX/Lib; sourceTree = "<group>"; };
-		3431F34B216DA9CB005FFC6E /* libPxTask.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPxTask.a; path = ../../Libraries/PhysX/Lib/ios64/libPxTask.a; sourceTree = "<group>"; };
-		3431F34C216DA9CB005FFC6E /* libSceneQuery.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSceneQuery.a; path = ../../Libraries/PhysX/Lib/ios64/libSceneQuery.a; sourceTree = "<group>"; };
-		3431F34D216DA9CB005FFC6E /* libSimulationController.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSimulationController.a; path = ../../Libraries/PhysX/Lib/ios64/libSimulationController.a; sourceTree = "<group>"; };
-		3431F352216DAA10005FFC6E /* libPxFoundation.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPxFoundation.a; path = ../../Libraries/PhysX/Lib/ios64/libPxFoundation.a; sourceTree = "<group>"; };
-		3431F35C216DAA91005FFC6E /* libLowLevel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevel.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevel.a; sourceTree = "<group>"; };
-		3431F35D216DAA91005FFC6E /* libLowLevelAABB.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevelAABB.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevelAABB.a; sourceTree = "<group>"; };
-		3431F35E216DAA91005FFC6E /* libLowLevelCloth.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevelCloth.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevelCloth.a; sourceTree = "<group>"; };
-		3431F35F216DAA91005FFC6E /* libLowLevelDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevelDynamics.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevelDynamics.a; sourceTree = "<group>"; };
-		3431F360216DAA91005FFC6E /* libLowLevelParticles.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLowLevelParticles.a; path = ../../Libraries/PhysX/Lib/ios64/libLowLevelParticles.a; sourceTree = "<group>"; };
-		3431F361216DAA92005FFC6E /* libPsFastXml.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPsFastXml.a; path = ../../Libraries/PhysX/Lib/ios64/libPsFastXml.a; sourceTree = "<group>"; };
-		3431F362216DAA92005FFC6E /* libPxPvdSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPxPvdSDK.a; path = ../../Libraries/PhysX/Lib/ios64/libPxPvdSDK.a; sourceTree = "<group>"; };
 		3431F36B216DCD08005FFC6E /* FileInMemory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FileInMemory.cpp; path = ../../Atum/Services/File/FileInMemory.cpp; sourceTree = "<group>"; };
 		3431F36C216DCD08005FFC6E /* FileInMemory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileInMemory.h; path = ../../Atum/Services/File/FileInMemory.h; sourceTree = "<group>"; };
 		3431F36D216DCD08005FFC6E /* Files.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Files.cpp; path = ../../Atum/Services/File/Files.cpp; sourceTree = "<group>"; };
@@ -511,8 +486,15 @@
 		3431F3A122AF57D0005FFC6E /* block.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = block.c; path = ../../Atum/Services/Sound/vorbis/lib/block.c; sourceTree = "<group>"; };
 		34724E3022B5E5030029D31B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		34724E3222B6084D0029D31B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */ = {isa = PBXFileReference; lastKnownFileType = file; name = file_example_OOG_1MG.ogg; path = ../../../ExportedData/file_example_OOG_1MG.ogg; sourceTree = "<group>"; };
-		34724E3522B60CE20029D31B /* sound01.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = sound01.wav; path = ../../../ExportedData/sound01.wav; sourceTree = "<group>"; };
+		34861CD722E59755000288C0 /* PhysObjectBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysObjectBase.cpp; path = ../../Atum/Services/Physic/PhysObjectBase.cpp; sourceTree = "<group>"; };
+		34861CD822E59755000288C0 /* PhysObjectBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysObjectBase.h; path = ../../Atum/Services/Physic/PhysObjectBase.h; sourceTree = "<group>"; };
+		34861CDA22E597DD000288C0 /* libPhysX_static_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysX_static_64.a; path = ../../Libraries/PhysX/Lib/ios64/release/libPhysX_static_64.a; sourceTree = "<group>"; };
+		34861CDB22E597DD000288C0 /* libPhysXCharacterKinematic_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysXCharacterKinematic_64.a; path = ../../Libraries/PhysX/Lib/ios64/release/libPhysXCharacterKinematic_64.a; sourceTree = "<group>"; };
+		34861CDC22E597DD000288C0 /* libPhysXCommon_static_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysXCommon_static_64.a; path = ../../Libraries/PhysX/Lib/ios64/release/libPhysXCommon_static_64.a; sourceTree = "<group>"; };
+		34861CDE22E597DD000288C0 /* libPhysXExtensions_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysXExtensions_64.a; path = ../../Libraries/PhysX/Lib/ios64/release/libPhysXExtensions_64.a; sourceTree = "<group>"; };
+		34861CDF22E597DD000288C0 /* libPhysXFoundation_static_64.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPhysXFoundation_static_64.a; path = ../../Libraries/PhysX/Lib/ios64/release/libPhysXFoundation_static_64.a; sourceTree = "<group>"; };
+		34861CE622E59A58000288C0 /* MusicPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MusicPlayer.cpp; path = ../../Atum/SceneObjects/Common/MusicPlayer.cpp; sourceTree = "<group>"; };
+		34861CE722E59A58000288C0 /* MusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MusicPlayer.h; path = ../../Atum/SceneObjects/Common/MusicPlayer.h; sourceTree = "<group>"; };
 		34E8E9ED22AF5C32001B3397 /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = ../../Atum/Platform/iOS/AppDelegate.mm; sourceTree = "<group>"; };
 		34E8E9EE22AF5C32001B3397 /* AtumViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AtumViewController.mm; path = ../../Atum/Platform/iOS/AtumViewController.mm; sourceTree = "<group>"; };
 		34E8E9EF22AF5C32001B3397 /* main.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = main.mm; path = ../../Atum/Platform/iOS/main.mm; sourceTree = "<group>"; };
@@ -552,23 +534,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34861CE022E597DD000288C0 /* libPhysX_static_64.a in Frameworks */,
+				34861CE122E597DD000288C0 /* libPhysXCharacterKinematic_64.a in Frameworks */,
+				34861CE222E597DD000288C0 /* libPhysXCommon_static_64.a in Frameworks */,
+				34861CE422E597DD000288C0 /* libPhysXExtensions_64.a in Frameworks */,
+				34861CE522E597DD000288C0 /* libPhysXFoundation_static_64.a in Frameworks */,
 				34724E3322B6084D0029D31B /* AVFoundation.framework in Frameworks */,
 				34724E3122B5E5030029D31B /* AudioToolbox.framework in Frameworks */,
-				3431F363216DAA92005FFC6E /* libLowLevel.a in Frameworks */,
-				3431F364216DAA92005FFC6E /* libLowLevelAABB.a in Frameworks */,
-				3431F365216DAA92005FFC6E /* libLowLevelCloth.a in Frameworks */,
-				3431F366216DAA92005FFC6E /* libLowLevelDynamics.a in Frameworks */,
-				3431F367216DAA92005FFC6E /* libLowLevelParticles.a in Frameworks */,
-				3431F368216DAA92005FFC6E /* libPsFastXml.a in Frameworks */,
-				3431F369216DAA92005FFC6E /* libPxPvdSDK.a in Frameworks */,
-				3431F354216DAA91005FFC6E /* libPhysX3.a in Frameworks */,
-				3431F355216DAA91005FFC6E /* libPhysX3CharacterKinematic.a in Frameworks */,
-				3431F356216DAA91005FFC6E /* libPhysX3Common.a in Frameworks */,
-				3431F357216DAA91005FFC6E /* libPhysX3Extensions.a in Frameworks */,
-				3431F358216DAA91005FFC6E /* libPxFoundation.a in Frameworks */,
-				3431F359216DAA91005FFC6E /* libPxTask.a in Frameworks */,
-				3431F35A216DAA91005FFC6E /* libSceneQuery.a in Frameworks */,
-				3431F35B216DAA91005FFC6E /* libSimulationController.a in Frameworks */,
 				3431F33C216C5697005FFC6E /* UIKit.framework in Frameworks */,
 				3431F33A216C5688005FFC6E /* GLKit.framework in Frameworks */,
 				3431F0DA216BF37E005FFC6E /* OpenGLES.framework in Frameworks */,
@@ -601,26 +573,16 @@
 		3431F096216BD87F005FFC6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				34861CDA22E597DD000288C0 /* libPhysX_static_64.a */,
+				34861CDB22E597DD000288C0 /* libPhysXCharacterKinematic_64.a */,
+				34861CDC22E597DD000288C0 /* libPhysXCommon_static_64.a */,
+				34861CDE22E597DD000288C0 /* libPhysXExtensions_64.a */,
+				34861CDF22E597DD000288C0 /* libPhysXFoundation_static_64.a */,
 				34724E3222B6084D0029D31B /* AVFoundation.framework */,
 				34724E3022B5E5030029D31B /* AudioToolbox.framework */,
-				3431F35C216DAA91005FFC6E /* libLowLevel.a */,
-				3431F35D216DAA91005FFC6E /* libLowLevelAABB.a */,
-				3431F35E216DAA91005FFC6E /* libLowLevelCloth.a */,
-				3431F35F216DAA91005FFC6E /* libLowLevelDynamics.a */,
-				3431F360216DAA91005FFC6E /* libLowLevelParticles.a */,
-				3431F361216DAA92005FFC6E /* libPsFastXml.a */,
-				3431F362216DAA92005FFC6E /* libPxPvdSDK.a */,
-				3431F352216DAA10005FFC6E /* libPxFoundation.a */,
-				3431F34B216DA9CB005FFC6E /* libPxTask.a */,
-				3431F34C216DA9CB005FFC6E /* libSceneQuery.a */,
-				3431F34D216DA9CB005FFC6E /* libSimulationController.a */,
 				3431F349216DA9B0005FFC6E /* Lib */,
 				3431F347216DA9A2005FFC6E /* ios64 */,
 				3431F345216DA991005FFC6E /* PhysX */,
-				3431F343216DA980005FFC6E /* libPhysX3Extensions.a */,
-				3431F341216DA96C005FFC6E /* libPhysX3Common.a */,
-				3431F33F216DA95B005FFC6E /* libPhysX3CharacterKinematic.a */,
-				3431F33D216DA937005FFC6E /* libPhysX3.a */,
 				3431F33B216C5697005FFC6E /* UIKit.framework */,
 				3431F339216C5688005FFC6E /* GLKit.framework */,
 				3431F337216C5657005FFC6E /* Foundation.framework */,
@@ -795,6 +757,8 @@
 				3431F121216C044A005FFC6E /* Physics.h */,
 				3431F122216C044A005FFC6E /* PhysObject.cpp */,
 				3431F123216C044A005FFC6E /* PhysObject.h */,
+				34861CD722E59755000288C0 /* PhysObjectBase.cpp */,
+				34861CD822E59755000288C0 /* PhysObjectBase.h */,
 				3431F124216C044A005FFC6E /* PhysScene.cpp */,
 				3431F125216C044A005FFC6E /* PhysScene.h */,
 			);
@@ -1009,6 +973,8 @@
 		3431F290216C08BE005FFC6E /* Animator */ = {
 			isa = PBXGroup;
 			children = (
+				34861CE622E59A58000288C0 /* MusicPlayer.cpp */,
+				34861CE722E59A58000288C0 /* MusicPlayer.h */,
 				3431F291216C08CA005FFC6E /* Animator.cpp */,
 				3431F292216C08CA005FFC6E /* Animator.h */,
 				3431F293216C08CA005FFC6E /* AnimatorObject.cpp */,
@@ -1147,8 +1113,6 @@
 		3431F334216C141B005FFC6E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				34724E3422B60CE20029D31B /* file_example_OOG_1MG.ogg */,
-				34724E3522B60CE20029D31B /* sound01.wav */,
 				34E8EA2322AF6703001B3397 /* project */,
 				34E8EA2422AF6703001B3397 /* settings */,
 				34E8EA2522AF6703001B3397 /* Shaders */,
@@ -1295,12 +1259,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				34724E3622B60CE20029D31B /* file_example_OOG_1MG.ogg in Resources */,
 				34E8EA2622AF6703001B3397 /* project in Resources */,
 				34E8EA2822AF6703001B3397 /* Shaders in Resources */,
 				3431F0CD216BEA40005FFC6E /* Info.plist in Resources */,
 				34E8EA2722AF6703001B3397 /* settings in Resources */,
-				34724E3722B60CE20029D31B /* sound01.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,6 +1302,7 @@
 				3431F323216C0B0C005FFC6E /* as_restore.cpp in Sources */,
 				3431F32E216C0B0C005FFC6E /* as_variablescope.cpp in Sources */,
 				3431F209216C05F8005FFC6E /* SceneAsset.cpp in Sources */,
+				34861CD922E59755000288C0 /* PhysObjectBase.cpp in Sources */,
 				3431F1FD216C05DA005FFC6E /* scriptstdstring.cpp in Sources */,
 				3431F25A216C0868005FFC6E /* UIWidgetAsset.cpp in Sources */,
 				3431F254216C0868005FFC6E /* UIContainerAsset.cpp in Sources */,
@@ -1458,6 +1421,7 @@
 				3431F31B216C0B0C005FFC6E /* as_datatype.cpp in Sources */,
 				3431F32A216C0B0C005FFC6E /* as_string.cpp in Sources */,
 				34E8E9F622AF5C65001B3397 /* framing.c in Sources */,
+				34861CE822E59A58000288C0 /* MusicPlayer.cpp in Sources */,
 				3431F2C1216C08F6005FFC6E /* Transform2DDataTrackWidgets.cpp in Sources */,
 				34E8EA1E22AF5E2E001B3397 /* Files.mm in Sources */,
 				34E8EA1622AF5CF9001B3397 /* sharedbook.c in Sources */,
@@ -1608,7 +1572,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../../Atum/Platform/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../Libraries/PhysX/Lib/ios64";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../Libraries/PhysX/Lib/ios64/release";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.atum.engine.Atum;
@@ -1642,7 +1606,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/../../Atum/Platform/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../Libraries/PhysX/Lib/ios64";
+				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/../../Libraries/PhysX/Lib/ios64/release";
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.atum.engine.Atum;

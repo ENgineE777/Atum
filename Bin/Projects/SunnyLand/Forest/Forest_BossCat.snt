@@ -1,0 +1,62 @@
+﻿{
+
+	"scene_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	],
+	"asset_nodes" : [
+		{
+			"uid" : -1,
+			"name" : "CatBossõú",
+			"type" : 0
+		},
+		{
+			"uid" : 258811,
+			"name" : "CatBoss_Fly",
+			"type" : 1
+		},
+		{
+			"uid" : 386794,
+			"name" : "CatBoss_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 242676,
+			"name" : "CatBoss_Slide",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "CatBossBox",
+			"type" : 0
+		},
+		{
+			"uid" : 107493,
+			"name" : "CatBossBox",
+			"type" : 1
+		},
+		{
+			"uid" : 655101,
+			"name" : "CatBossFakeBox",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		}
+	]
+}

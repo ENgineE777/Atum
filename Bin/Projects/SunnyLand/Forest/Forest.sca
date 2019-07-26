@@ -2288,12 +2288,12 @@
 		{
 			"type" : "MusicPlayer",
 			"uid" : 636924,
-			"Name" : "MusicPlayer",
+			"Name" : "LevelMusic",
 			"State" : 2,
 			"Group" : "Level",
 			"Layer" : "",
 			"SoundName" : "Music/Forest_music.ogg",
-			"PlayOnStart" : true
+			"Faded" : false
 		}
 	],
 	"asset_instances" : [

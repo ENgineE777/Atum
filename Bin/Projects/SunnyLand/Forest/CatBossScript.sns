@@ -35,6 +35,9 @@ class ForestCatBoss
     array<ForestCatBossData> cat_boss;
     Trigger2D@ next_level;
 
+    MusicPlayer@ level_music;
+    MusicPlayer@ boss_music;
+
     Game@ game;
 
     float EaseInOutCubic(float x)
@@ -44,9 +47,21 @@ class ForestCatBoss
 
 	void OnActivateTrigger(int self_index, string&in name, int index)
     {
-        if (cat_boss[0].hp > 0)
+    	core.render.DebugText(20, 20, "asdfdasf");
+        if (cat_boss[0].hp > 0 && !cat_boss[0].active)
         {
             cat_boss[0].active = true;
+
+            level_music.FadeOut(1.5f);
+            boss_music.FadeIn(1.5f);
+        }
+    }
+
+    void OnHeroContact(int self_index, string&in name, int index)
+    {
+        if (name == "CatBoss")
+        {
+            game.HitHero();
         }
     }
 
@@ -72,6 +87,9 @@ class ForestCatBoss
 
                 if (cat_boss[0].hp == 0)
                 {
+                	level_music.FadeIn(1.5f);
+                    boss_music.FadeOut(1.5f);
+
                     next_level.SetState(2);
 
                     cat_boss[0].active = false;
@@ -110,6 +128,9 @@ class ForestCatBoss
         }
 
         next_level.SetState(0);
+
+        level_music.FadeIn(0.0f);
+        boss_music.FadeOut(0.0f);
 
         cat_boss[0].active = false;
         cat_boss[0].graph.GotoNode("Fly");

@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 12828.000000,
-		"y" : -652.000000
+		"x" : 12641.000000,
+		"y" : -586.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -26,15 +26,15 @@
 			"uid" : 966624,
 			"ed_camera_2d" :
 			{
-				"x" : 160.000000,
-				"y" : -18.000000
+				"x" : 192.000000,
+				"y" : -32.000000
 			},
 			"Name" : "BossCatScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "BossCat",
-			"Count" : 14,
+			"Count" : 16,
 			"Node" : [
 				{
 					"type" : 2,
@@ -122,8 +122,8 @@
 					"name" : "game",
 					"pos" :
 					{
-						"x" : 481.000000,
-						"y" : 235.000000
+						"x" : 515.000000,
+						"y" : 140.000000
 					},
 					"prefix" : ""
 				},
@@ -173,8 +173,8 @@
 					"name" : "next_level",
 					"pos" :
 					{
-						"x" : 489.000000,
-						"y" : 387.000000
+						"x" : 506.000000,
+						"y" : 257.000000
 					},
 					"prefix" : ""
 				},
@@ -204,6 +204,26 @@
 							"param" : ""
 						}
 					]
+				},
+				{
+					"type" : 1,
+					"name" : "level_music",
+					"pos" :
+					{
+						"x" : 518.000000,
+						"y" : 384.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_music",
+					"pos" :
+					{
+						"x" : 525.000000,
+						"y" : 497.000000
+					},
+					"prefix" : ""
 				}
 			]
 		},
@@ -23396,7 +23416,7 @@
 			"Group" : "",
 			"Layer" : "",
 			"asset_uid" : 966624,
-			"Count" : 14,
+			"Count" : 16,
 			"Node" : [
 				{
 					"callback_type" : "",
@@ -23629,6 +23649,40 @@
 								"object" :
 								{
 									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 751354,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 372718,
 									"child_uid" : 0,
 									"is_asset" : false
 								}

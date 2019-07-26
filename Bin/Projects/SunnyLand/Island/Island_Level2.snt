@@ -68,6 +68,31 @@
 		},
 		{
 			"uid" : -1,
+			"name" : "Scripts",
+			"type" : 0
+		},
+		{
+			"uid" : 454396,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
+		{
+			"uid" : 524283,
+			"name" : "IslandItemsScript",
+			"type" : 1
+		},
+		{
+			"uid" : 978933,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
 		},
@@ -345,21 +370,6 @@
 			"uid" : -1,
 			"name" : "",
 			"type" : 2
-		},
-		{
-			"uid" : 454396,
-			"name" : "FinishLevel2Script",
-			"type" : 1
-		},
-		{
-			"uid" : 524283,
-			"name" : "IslandItemsScript",
-			"type" : 1
-		},
-		{
-			"uid" : 978933,
-			"name" : "MainScript",
-			"type" : 1
 		},
 		{
 			"uid" : -1,

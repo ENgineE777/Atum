@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 18985.000000,
-		"y" : -754.000000
+		"x" : 17540.000000,
+		"y" : -873.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -128,15 +128,15 @@
 			"uid" : 389089,
 			"ed_camera_2d" :
 			{
-				"x" : 15.000000,
-				"y" : -63.000000
+				"x" : 306.000000,
+				"y" : -190.000000
 			},
 			"Name" : "CatBossScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestCatBoss",
-			"Count" : 12,
+			"Count" : 16,
 			"Node" : [
 				{
 					"type" : 1,
@@ -279,6 +279,53 @@
 							"param" : ""
 						}
 					]
+				},
+				{
+					"type" : 0,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 915.000000,
+						"y" : 122.000000
+					}
+				},
+				{
+					"type" : 2,
+					"name" : "OnHeroContact",
+					"pos" :
+					{
+						"x" : 1115.000000,
+						"y" : 123.000000
+					},
+					"param_type" : 0,
+					"call_type" : 0,
+					"Count" : 1,
+					"Link" : [
+						{
+							"node" : 12,
+							"param" : ""
+						}
+					]
+				},
+				{
+					"type" : 1,
+					"name" : "level_music",
+					"pos" :
+					{
+						"x" : 915.000000,
+						"y" : 7.000000
+					},
+					"prefix" : ""
+				},
+				{
+					"type" : 1,
+					"name" : "boss_music",
+					"pos" :
+					{
+						"x" : 1117.000000,
+						"y" : 3.000000
+					},
+					"prefix" : ""
 				}
 			]
 		}
@@ -326,7 +373,7 @@
 			"uid" : 113533,
 			"Name" : "Forest_GroundTiles",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.650000,
@@ -16174,7 +16221,7 @@
 			},
 			"Name" : "MainScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 14304,
 			"Count" : 19,
@@ -16589,7 +16636,7 @@
 			"uid" : 916707,
 			"Name" : "RespawnTrigger2",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 768.000000,
 			"y" : 704.000000,
@@ -16602,7 +16649,7 @@
 			"uid" : 113381,
 			"Name" : "RespawnTrigger1",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : -1024.000000,
 			"y" : 384.000000,
@@ -17117,7 +17164,7 @@
 			"uid" : 589632,
 			"Name" : "Forest_BigTree",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.600000,
@@ -17192,7 +17239,7 @@
 			"uid" : 260552,
 			"Name" : "Forest_House",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -17239,7 +17286,7 @@
 			"uid" : 130145,
 			"Name" : "Forest_Mushroom1",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -17356,7 +17403,7 @@
 			"uid" : 309825,
 			"Name" : "Forest_Mushroom2",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -17515,7 +17562,7 @@
 			"uid" : 131040,
 			"Name" : "Forest_Rock",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -17590,7 +17637,7 @@
 			"uid" : 703577,
 			"Name" : "Forest_Bush",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.500000,
@@ -17707,7 +17754,7 @@
 			"uid" : 703325,
 			"Name" : "RespawnTrigger3",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 2944.000000,
 			"y" : 1152.000000,
@@ -17720,7 +17767,7 @@
 			"uid" : 982880,
 			"Name" : "RespawnTrigger4",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 6784.000000,
 			"y" : 1088.000000,
@@ -17733,7 +17780,7 @@
 			"uid" : 458589,
 			"Name" : "RespawnTrigger5",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 9600.000000,
 			"y" : 512.000000,
@@ -17746,7 +17793,7 @@
 			"uid" : 196175,
 			"Name" : "RespawnTrigger6",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 12096.000000,
 			"y" : 1920.000000,
@@ -17759,7 +17806,7 @@
 			"uid" : 375678,
 			"Name" : "RespawnTrigger7",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 16320.000000,
 			"y" : 1920.000000,
@@ -17772,7 +17819,7 @@
 			"uid" : 458623,
 			"Name" : "RespawnTrigger8",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 17344.000000,
 			"y" : 1152.000000,
@@ -17785,7 +17832,7 @@
 			"uid" : 851918,
 			"Name" : "RespawnTrigger9",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 21184.000000,
 			"y" : 576.000000,
@@ -17798,7 +17845,7 @@
 			"uid" : 653890,
 			"Name" : "RespawnTrigger10",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 24256.000000,
 			"y" : 0.000000,
@@ -17811,7 +17858,7 @@
 			"uid" : 375509,
 			"Name" : "RespawnTrigger11",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 28982.181641,
 			"y" : -430.058624,
@@ -17824,7 +17871,7 @@
 			"uid" : 507622,
 			"Name" : "RespawnActivatePoint1",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 11914.263672,
 			"y" : -960.000000,
@@ -17837,7 +17884,7 @@
 			"uid" : 785476,
 			"Name" : "RespawnActivatePoint2",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 24491.111328,
 			"y" : -1344.000000,
@@ -17855,7 +17902,7 @@
 			},
 			"Name" : "ForestItemsScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 976895,
 			"Count" : 4,
@@ -18121,7 +18168,7 @@
 			},
 			"Name" : "ForestEnemiesScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 849274,
 			"Count" : 7,
@@ -18730,7 +18777,7 @@
 			},
 			"Name" : "BoxesScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 178155,
 			"Count" : 5,
@@ -18832,7 +18879,7 @@
 			},
 			"Name" : "FinishLevel2Script",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 194763,
 			"Count" : 7,
@@ -18963,7 +19010,7 @@
 			"uid" : 180082,
 			"Name" : "NextLevelTrigger",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 27744.312500,
 			"y" : -1139.146118,
@@ -19036,7 +19083,7 @@
 			"uid" : 901100,
 			"Name" : "FinishSign",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"Depth" : 0.450000,
 			"hack_height" : 0.000000,
@@ -19068,15 +19115,15 @@
 			"uid" : 588259,
 			"ed_camera_2d" :
 			{
-				"x" : 0.000000,
-				"y" : 0.000000
+				"x" : 68.000000,
+				"y" : -77.000000
 			},
 			"Name" : "CatBossScript",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"asset_uid" : 389089,
-			"Count" : 12,
+			"Count" : 16,
 			"Node" : [
 				{
 					"callback_type" : "OnContact",
@@ -19181,7 +19228,7 @@
 					}
 				},
 				{
-					"callback_type" : "OnContact",
+					"callback_type" : "OnContactStart",
 					"objects_list" :
 					{
 						"count" : 1,
@@ -19189,7 +19236,7 @@
 							{
 								"object" :
 								{
-									"uid" : 704359,
+									"uid" : 900456,
 									"child_uid" : 0,
 									"is_asset" : false
 								}
@@ -19281,6 +19328,74 @@
 							}
 						]
 					}
+				},
+				{
+					"callback_type" : "OnContact",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 704359,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 636924,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
+				},
+				{
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 851949,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		},
@@ -19289,20 +19404,20 @@
 			"uid" : 900456,
 			"Name" : "BossActivation",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"x" : 25600.000000,
 			"y" : -1088.000000,
 			"width" : 494.175842,
 			"height" : 611.285706,
-			"collision_group" : 1
+			"collision_group" : 2
 		},
 		{
 			"type" : "SpriteGraphInst",
 			"uid" : 981083,
 			"Name" : "CatBoss",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"Depth" : 0.425000,
 			"hack_height" : 0.000000,
@@ -19339,7 +19454,7 @@
 			"uid" : 638824,
 			"Name" : "BossMarkers",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
@@ -19428,7 +19543,7 @@
 			"uid" : 178288,
 			"Name" : "CatBossBox",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,
@@ -19452,7 +19567,7 @@
 			"uid" : 653817,
 			"Name" : "CatBossFakeBox",
 			"State" : 2,
-			"Group" : "",
+			"Group" : "Level",
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.450000,

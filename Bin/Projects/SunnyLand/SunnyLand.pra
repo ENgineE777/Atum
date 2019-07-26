@@ -79,7 +79,7 @@
 			]
 		}
 	],
-	"selected_scene" : "Forest/Forest_BossCat.sca",
+	"selected_scene" : "Forest/Forest_Level2.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

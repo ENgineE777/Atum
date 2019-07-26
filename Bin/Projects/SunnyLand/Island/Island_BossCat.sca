@@ -581,6 +581,16 @@
 		}
 	],
 	"SceneObject" : [
+		{
+			"type" : "MusicPlayer",
+			"uid" : 372718,
+			"Name" : "BossMusic",
+			"State" : 2,
+			"Group" : "Level",
+			"Layer" : "",
+			"SoundName" : "Music/CattBoss_music.ogg",
+			"Faded" : true
+		}
 	],
 	"asset_instances" : [
 	]

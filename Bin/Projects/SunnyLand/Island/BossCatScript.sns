@@ -28,14 +28,18 @@ class BossCat
     array<BaseCharacter> boss_markers;
     array<CatBossData> boss_inst;
     Trigger2D@ next_level;
-
+    MusicPlayer@ level_music;
+    MusicPlayer@ boss_music;
     Game@ game;
 
     void OnActivateTrigger(int self_index, string&in name, int index)
     {
-        if (boss_inst[0].hp > 0)
+        if (boss_inst[0].hp > 0 && !boss_inst[0].active)
         {
             boss_inst[0].active = true;
+
+            level_music.FadeOut(1.5f);
+            boss_music.FadeIn(1.5f);
         }
     }
 
@@ -54,7 +58,7 @@ class BossCat
             return;
         }
 
-        bool need_dicard = false;
+        bool need_discard = false;
 
         if ((name == "Hero" || name == "CatBoss") && boss_cards[self_index].data != 2)
         {
@@ -69,6 +73,9 @@ class BossCat
 
                 if (boss_inst[0].hp == 0)
                 {
+                    level_music.FadeIn(1.5f);
+                    boss_music.FadeOut(1.5f);
+
                     next_level.SetState(2);
 
                     boss_inst[0].active = false;
@@ -77,18 +84,18 @@ class BossCat
                 }
             }
 
-            need_dicard = true;
+            need_discard = true;
         }
         if (boss_cards[self_index].data == 0)
         {
-            need_dicard = true;
+            need_discard = true;
         }
         else
         {
             boss_cards[self_index].data = 2;
         }
 
-        if (need_dicard)
+        if (need_discard)
         {
             boss_cards[self_index].visible = 0;
             boss_cards[self_index].in_fly = -1.0f;
@@ -160,7 +167,7 @@ class BossCat
                     vec_y /= len;
 
                     boss_cards[cat_data.card_index].phys.SetGroup(3);
-                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 45.0f, vec_y * 45.0f);
+                    boss_cards[cat_data.card_index].phys.ApplyLinearImpulse(vec_x * 45.0f, vec_y * 35.0f);
 
                     game.PlaySound(SoundType::ThrowBox);
 
@@ -224,6 +231,9 @@ class BossCat
         }
 
         next_level.SetState(0);
+
+        level_music.FadeIn(0.0f);
+        boss_music.FadeOut(0.0f);
 
         boss_inst[0].active = false;
         boss_inst[0].graph.GotoNode("idle");

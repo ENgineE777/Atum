@@ -51,7 +51,7 @@
 				"texName" : "Enemies/eagle-attack.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.200000,
+				"frame_time" : 0.135000,
 				"count" : 4,
 				"Rect" : [
 					{
@@ -2291,7 +2291,7 @@
 				"texName" : "Enemies/oposum.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.175000,
+				"frame_time" : 0.135000,
 				"count" : 6,
 				"Rect" : [
 					{

@@ -210,6 +210,8 @@ class Game
 
     void HitHero()
     {
+        return;
+        
         HeroData@ hero_data = hero_inst[0];
 
         if (hero_data.in_hit < -0.01f)
@@ -264,7 +266,7 @@ class Game
 
     void RespawnHero(HeroData@ hero_data)
     {
-        hero_data.cur_respawn_point = 2;
+        //hero_data.cur_respawn_point = 2;
         
         //hero_data.phys.MoveTo(27584, -400);
         hero_data.phys.MoveTo(respawn_points[hero_data.cur_respawn_point].x, respawn_points[hero_data.cur_respawn_point].y);

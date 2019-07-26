@@ -295,6 +295,13 @@ class ForestCatBoss
     void Init()
     {
         boss_boxes.resize(3);
+
+        for (int i = 0; i < boss_boxes.get_length(); i++)
+        {
+            boss_boxes[i].in_fly = -1.0f;
+            boss_boxes[i].visible = 0;
+        }
+        
         game.RegisterThrowableBoxes(empty_boxes, fake_box, boss_boxes, 0);
         cat_boss[0].Init();
     }

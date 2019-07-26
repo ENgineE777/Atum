@@ -1077,7 +1077,7 @@
 				"texName" : "enemies/bee.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.150000,
+				"frame_time" : 0.120000,
 				"count" : 8,
 				"Rect" : [
 					{
@@ -1350,7 +1350,7 @@
 				"texName" : "enemies/slug.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.150000,
+				"frame_time" : 0.125000,
 				"count" : 4,
 				"Rect" : [
 					{

@@ -324,7 +324,7 @@
 				"texName" : "Enemies/cat.png",
 				"texMode" : 0,
 				"texFilter" : 0,
-				"frame_time" : 0.175000,
+				"frame_time" : 0.150000,
 				"count" : 4,
 				"Rect" : [
 					{

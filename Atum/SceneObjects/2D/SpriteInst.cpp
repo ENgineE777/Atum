@@ -558,10 +558,10 @@ void SpriteInst::Draw(float dt)
 
 		trans.pos = inst.GetPos();
 		float wgt = inst.GetSizeX();
-		trans.size.x = wgt < -0.01f ? sprite_asset->trans.size.x : wgt;
+		trans.size.x = (wgt < -0.01f ? sprite_asset->trans.size.x : wgt) + 0.5f;
 
 		float hgt = inst.GetSizeY();
-		trans.size.y = hgt < -0.01f ? sprite_asset->trans.size.y : hgt;
+		trans.size.y = (hgt < -0.01f ? sprite_asset->trans.size.y : hgt) + 0.5f;
 
 		trans.rotation = inst.GetAngle();
 		trans.BuildMatrices();

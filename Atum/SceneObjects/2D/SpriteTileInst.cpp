@@ -140,7 +140,7 @@ void SpriteTileInst::Draw(float dt)
 #endif
 
 	trans.offset = sprite_asset->trans.offset;
-	trans.size = sprite_asset->trans.size;
+	trans.size = sprite_asset->trans.size + 0.5f;
 
 	Vector2 pos = trans.pos;
 	trans.pos *= axis_scale;

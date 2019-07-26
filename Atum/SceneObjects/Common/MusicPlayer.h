@@ -47,16 +47,19 @@ public:
 	std::string sound_name;
 
 	/**
-	\brief Should sound play on start
-	*/
-	bool play_on_start = false;
-
-	/**
 	\brief Pointer to SoundStream
 	*/
 
 	SoundStream* stream;
 
+	/**
+	\brief Is music faded
+	*/
+	bool faded = false;
+
+	int fade_mode = 0;
+	float fade_time = 0.0f;
+	float cur_fade_time = 0.0f;
 
 #ifndef DOXYGEN_SKIP
 
@@ -67,6 +70,9 @@ public:
 	void Init() override;
 
 	void BindClassToScript() override;
+
+	void FadeIn(float time);
+	void FadeOut(float time);
 
 	void Work(float dt);
 

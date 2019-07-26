@@ -3469,8 +3469,8 @@
 			"Layer" : "",
 			"StickPad" : "UI/stick_pad.png",
 			"Stick" : "UI/stick.png",
-			"ButtonA" : "UI/button.png",
-			"ButtonB" : "UI/button.png"
+			"ButtonA" : "UI/button_jump.png",
+			"ButtonB" : "UI/button_box.png"
 		},
 		{
 			"type" : "Camera2D",

@@ -273,7 +273,7 @@ void SoundBase::Update()
 #endif
 
 #ifdef PLATFORM_ANDROID
-		float level = (float)(SL_MILLIBEL_MAX - SL_MILLIBEL_MAX) * volume * core.sounds.master_volume;
+		float level = (float)(SL_MILLIBEL_MIN) + (float)(SL_MILLIBEL_MAX - SL_MILLIBEL_MIN) * volume * core.sounds.master_volume;
 		(*bqPlayerVolume)->SetVolumeLevel(bqPlayerVolume, (int)level);
 #endif
         

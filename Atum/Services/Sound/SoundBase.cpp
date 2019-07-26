@@ -268,7 +268,7 @@ void SoundBase::Update()
 	if (playing)
 	{
 #ifdef PLATFORM_PC
-		float vol = DSBVOLUME_MAX * volume * core.sounds.master_volume;
+		float vol = DSBVOLUME_MIN + (DSBVOLUME_MAX - DSBVOLUME_MIN) * volume * core.sounds.master_volume;
 		sound_buffer->SetVolume((long)vol);
 #endif
 

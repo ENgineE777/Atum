@@ -268,6 +268,11 @@ void SceneScriptAsset::SetName(const char* set_name)
 
 bool SceneScriptAsset::CompileScript()
 {
+	if (compiled)
+	{
+		return true;
+	}
+
 	compiled = true;
 
 	string filename;
@@ -380,6 +385,13 @@ bool SceneScriptAsset::CompileScript()
 
 bool SceneScriptAsset::Play()
 {
+	if (played)
+	{
+		return true;
+	}
+
+	played = true;
+
 	if (!CompileScript())
 	{
 		return false;

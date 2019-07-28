@@ -156,6 +156,7 @@ public:
 	};
 
 	bool compiled = false;
+	bool played = false;
 
 	vector<Node*> nodes;
 

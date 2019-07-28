@@ -59,7 +59,7 @@ void StartScriptInstEdit(void* owner)
 	SceneScriptInst* script = (SceneScriptInst*)owner;
 
 	string filename;
-	script->Asset()->GetScriptFileName(filename);
+	script->Asset()->GetScriptFileName(filename, false);
 
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }

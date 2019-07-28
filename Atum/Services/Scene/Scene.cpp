@@ -499,6 +499,21 @@ void Scene::AddPostPlay(int level, Object* entity, Object::DelegateSimple call)
 	}
 }
 
+#ifdef EDITOR
+void Scene::Export()
+{
+	for (auto* asset : assets)
+	{
+		asset->Export();
+	}
+
+	for (auto* object : objects)
+	{
+		object->Export();
+	}
+}
+#endif
+
 bool Scene::Playing()
 {
 	return playing;

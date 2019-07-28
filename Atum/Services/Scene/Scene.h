@@ -121,6 +121,10 @@ public:
 	bool Play();
 	void AddPostPlay(int level, Object* entity, Object::DelegateSimple call);
 
+#ifdef EDITOR
+	void Export();
+#endif
+
 	void EnableTasks(bool enable);
 #endif
 

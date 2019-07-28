@@ -1297,6 +1297,29 @@ void Project::Export()
 		}
 	}
 
+	core.scripts.Start();
+
+	for (auto* holder : scenes)
+	{
+		if (!holder->scene)
+		{
+			LoadScene(holder);
+		}
+
+		holder->scene->Export();
+
+		EnableScene(holder, false);
+	}
+
+	if (select_scene)
+	{
+		EnableScene(select_scene, true);
+	}
+
+	core.scripts.Stop();
+
+	Save();
+
 	core.files.DeleteFolder(export_dir.c_str());
 	core.files.CreateFolder((export_dir + "/dummy").c_str());
 

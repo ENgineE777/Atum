@@ -36,6 +36,46 @@ class Scripts
 	ScriptCore scrip_core;
 #endif
 
+	class BytecodeStream : public asIBinaryStream
+	{
+	public:
+		BytecodeStream(FILE *file)
+		{
+			f = file;
+		}
+
+		~BytecodeStream()
+		{
+			if (f)
+			{
+				fclose(f);
+			}
+		}
+
+		int Write(const void* ptr, asUINT size) override
+		{
+			if (size != 0)
+			{
+				fwrite(ptr, size, 1, f);
+			}
+
+			return size;
+		}
+
+		int Read(void* read_ptr, asUINT size) override
+		{
+			if (size != 0)
+			{
+				fread(read_ptr, size, 1, f);
+			}
+
+			return size;
+		}
+
+	protected:
+		FILE * f = nullptr;
+	};
+
 	void* script_caller = nullptr;
 
 public:
@@ -100,6 +140,23 @@ public:
 	/return Pointer to a module
 	*/
 	asIScriptModule* GetModule(const char* module, asEGMFlags flag);
+
+	/**
+	\brief Load byte code into a module
+
+	/param[in] module pointer to aa module
+	/param[in] file_name Path to a file which contains byte code 
+	*/
+	void LoadModuleByteCode(asIScriptModule* module, const char* file_name);
+
+	/**
+	\brief Save byte code of a module
+
+	/param[in] module pointer to aa module
+	/param[in] file_name Path to a file which contains byte code
+	*/
+	void SaveModuleByteCode(asIScriptModule* module, const char* file_name);
+
 
 	/**
 	\brief Get TypeInfo by Id

@@ -171,6 +171,28 @@ asIScriptModule* Scripts::GetModule(const char* module, asEGMFlags flag)
 	return engine->GetModule(module, flag);
 }
 
+void Scripts::LoadModuleByteCode(asIScriptModule* module, const char* file_name)
+{
+	auto* file = core.files.FileOpen(file_name, "rb");
+
+	if (file)
+	{
+		BytecodeStream stream(file);
+		module->LoadByteCode(&stream);
+	}
+}
+
+void Scripts::SaveModuleByteCode(asIScriptModule* module, const char* file_name)
+{
+	auto* file = core.files.FileOpen(file_name, "wb");
+
+	if (file)
+	{
+		BytecodeStream stream(file);
+		module->SaveByteCode(&stream);
+	}
+}
+
 asITypeInfo* Scripts::GetTypeInfoById(int typeId) const
 {
 	return engine->GetTypeInfoById(typeId);

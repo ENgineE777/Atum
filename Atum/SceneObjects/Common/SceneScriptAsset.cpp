@@ -45,7 +45,7 @@ void StartScriptEdit(void* owner)
 	SceneScriptAsset* script = (SceneScriptAsset*)owner;
 
 	string filename;
-	script->GetScriptFileName(filename);
+	script->GetScriptFileName(filename, false);
 
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
@@ -143,10 +143,10 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void SceneScriptAsset::GetScriptFileName(string& filename)
+void SceneScriptAsset::GetScriptFileName(string& filename, bool binary)
 {
 	char str[1024];
-	StringUtils::Printf(str, 1024, "%s%s.sns", GetScene()->GetPath(), GetName());
+	StringUtils::Printf(str, 1024, "%s%s.%s", GetScene()->GetPath(), GetName(), (binary ? "snb" : "sns"));
 
 	filename = str;
 }
@@ -200,8 +200,19 @@ void SceneScriptAsset::Load(JSONReader& loader)
 		loader.LeaveBlock();
 	}
 
+	loader.Read("dep_count", count);
+	dependency.resize(count);
+
+	for (auto& dep : dependency)
+	{
+		loader.EnterBlock("Dep");
+
+		loader.Read("name", dep);
+		loader.LeaveBlock();
+	}
+
 #ifdef EDITOR
-	GetScriptFileName(prev_filename);
+	GetScriptFileName(prev_filename, false);
 #endif
 }
 
@@ -225,6 +236,22 @@ void SceneScriptAsset::Save(JSONWriter& saver)
 	}
 
 	saver.FinishArray();
+
+	count = (int)dependency.size();
+	saver.Write("dep_count", count);
+
+	saver.StartArray("Dep");
+
+	for (auto& dep : dependency)
+	{
+		saver.StartBlock(nullptr);
+
+		saver.Write("name", dep);
+
+		saver.FinishBlock();
+	}
+
+	saver.FinishArray();
 }
 
 void SceneScriptAsset::SetName(const char* set_name)
@@ -239,17 +266,12 @@ void SceneScriptAsset::SetName(const char* set_name)
 #endif
 }
 
-bool SceneScriptAsset::Play()
+bool SceneScriptAsset::CompileScript()
 {
-	if (played)
-	{
-		return true;
-	}
-
-	played = true;
+	compiled = true;
 
 	string filename;
-	GetScriptFileName(filename);
+	GetScriptFileName(filename, false);
 
 	FileInMemory file;
 
@@ -264,11 +286,14 @@ bool SceneScriptAsset::Play()
 	{
 		mod = core.scripts.GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
 
+#ifdef EDITOR
 		string src = (const char*)file.GetData();
 
 		const char* incl = strstr(src.c_str(), "#import \"");
 
 		string external_decl;
+
+		dependency.clear();
 
 		while (incl)
 		{
@@ -294,7 +319,9 @@ bool SceneScriptAsset::Play()
 
 			if (object)
 			{
-				object->Play();
+				dependency.push_back(name);
+
+				object->CompileScript();
 
 				if (object->mod)
 				{
@@ -323,12 +350,39 @@ bool SceneScriptAsset::Play()
 
 		if (external_decl.size() > 0)
 		{
-			src = external_decl + src;
+			mod->AddScriptSection("external", external_decl.c_str(), external_decl.size());
 		}
 
 		mod->AddScriptSection(GetName(), src.c_str(), src.size());
 
-		mod->Build();
+		if (mod->Build() != asSUCCESS)
+		{
+			return false;
+		}
+#else
+		for (auto& depend : dependency)
+		{
+			SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", depend.c_str());
+
+			if (object)
+			{
+				object->CompileScript();
+			}
+		}
+
+		GetScriptFileName(filename, true);
+		core.scripts.LoadModuleByteCode(mod, filename.c_str());
+#endif
+	}
+
+	return true;
+}
+
+bool SceneScriptAsset::Play()
+{
+	if (!CompileScript())
+	{
+		return false;
 	}
 
 	if (main_class.c_str()[0])
@@ -392,6 +446,24 @@ bool SceneScriptAsset::Play()
 	return true;
 }
 
+void SceneScriptAsset::Export()
+{
+#ifdef EDITOR
+	CompileScript();
+
+	if (mod)
+	{
+		string filename;
+		GetScriptFileName(filename, true);
+		core.scripts.SaveModuleByteCode(mod, filename.c_str());
+
+		mod = nullptr;
+	}
+
+	compiled = false;
+#endif
+}
+
 void SceneScriptAsset::Release()
 {
 	for (auto node : nodes)
@@ -424,7 +496,7 @@ void SceneScriptAsset::RenameScriptFile()
 	}
 
 	string filename;
-	GetScriptFileName(filename);
+	GetScriptFileName(filename, false);
 
 	if (need_rename)
 	{

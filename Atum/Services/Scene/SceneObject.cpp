@@ -470,6 +470,13 @@ bool SceneObject::Play()
 	return true;
 }
 
+#ifdef EDITOR
+void SceneObject::Export()
+{
+
+}
+#endif
+
 ScriptContext* SceneObject::Script()
 {
 	return scene->script;

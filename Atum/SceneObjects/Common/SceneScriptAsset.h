@@ -155,7 +155,7 @@ public:
 		void Save(JSONWriter& saver) override;
 	};
 
-	bool played = false;
+	bool compiled = false;
 
 	vector<Node*> nodes;
 
@@ -164,6 +164,8 @@ public:
 
 	asIScriptModule* mod = nullptr;
 	asITypeInfo* class_type = nullptr;
+
+	vector<string> dependency;
 
 	META_DATA_DECL(SceneScriptAsset)
 
@@ -174,11 +176,15 @@ public:
 
 	bool Play() override;
 
+	void Export() override;
+
 	void Release() override;
 
 	bool UsingCamera2DPos() override;
 
-	void GetScriptFileName(string& filename);
+	void GetScriptFileName(string& filename, bool binary);
+
+	bool CompileScript();
 
 #ifdef EDITOR
 	class SceneScriptInst* script_inst = nullptr;

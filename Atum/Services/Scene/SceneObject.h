@@ -212,6 +212,13 @@ public:
 	*/
 	virtual bool Play();
 
+#ifdef EDITOR
+	/**
+	\brief This method called when scene resiources are exporting
+	*/
+	virtual void Export();
+#endif
+
 	/**
 	\brief Get pointer to a scene owner
 

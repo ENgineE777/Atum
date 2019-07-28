@@ -2154,6 +2154,12 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
+				}
 			]
 		},
 		{
@@ -2254,6 +2260,12 @@
 							"param" : ""
 						}
 					]
+				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
 				}
 			]
 		}

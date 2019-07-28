@@ -245,6 +245,13 @@ class BossCat
     void OnInit()
     {
         boss_cards.resize(3);
+
+        for (int i = 0; i < boss_cards.get_length(); i++)
+        {
+            boss_cards[i].in_fly = -1.0f;
+            boss_cards[i].visible = 0;
+        }
+
         game.RegisterThrowableBoxes(empty_cards, fake_card, boss_cards, 0);
         boss_inst[0].Init();
     }

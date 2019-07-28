@@ -211,6 +211,12 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "GameMenuScript"
+				}
 			]
 		},
 		{
@@ -2521,6 +2527,9 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 0,
+			"Dep" : [
 			]
 		},
 		{
@@ -2653,6 +2662,12 @@
 						"y" : 335.000000
 					},
 					"prefix" : ""
+				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
 				}
 			]
 		},

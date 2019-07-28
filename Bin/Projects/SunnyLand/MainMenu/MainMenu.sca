@@ -509,6 +509,9 @@
 						}
 					]
 				}
+			],
+			"dep_count" : 0,
+			"Dep" : [
 			]
 		},
 		{
@@ -2119,7 +2122,7 @@
 			"Group" : "MainMenu",
 			"Layer" : "",
 			"SoundName" : "Music/menu_music.ogg",
-			"PlayOnStart" : true
+			"Faded" : false
 		}
 	],
 	"asset_instances" : [

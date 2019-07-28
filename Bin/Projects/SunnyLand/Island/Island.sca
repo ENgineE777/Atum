@@ -2554,6 +2554,12 @@
 						"y" : 371.000000
 					}
 				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
+				}
 			]
 		},
 		{
@@ -2655,6 +2661,12 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
+				}
 			]
 		},
 		{
@@ -2728,6 +2740,12 @@
 						"y" : 316.000000
 					},
 					"prefix" : ""
+				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
 				}
 			]
 		},

@@ -210,8 +210,6 @@ class Game
 
     void HitHero()
     {
-        return;
-        
         HeroData@ hero_data = hero_inst[0];
 
         if (hero_data.in_hit < -0.01f)

@@ -121,6 +121,12 @@
 					"Link" : [
 					]
 				}
+			],
+			"dep_count" : 1,
+			"Dep" : [
+				{
+					"name" : "MainScript"
+				}
 			]
 		}
 	],

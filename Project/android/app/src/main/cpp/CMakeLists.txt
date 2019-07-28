@@ -8,7 +8,7 @@ set( vorbis_DIR ../../../../../../../Atum/Services/Sound/vorbis )
 set( ogg_DIR ../../../../../../../Atum/Services/Sound/ogg )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall --include-directory=${atum_DIR} --include-directory=${vorbis_DIR}/include --include-directory=${vorbis_DIR}/lib --include-directory=${ogg_DIR}/include")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_NO_EXCEPTIONS -DAS_MAX_PORTABILITY -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include --include-directory=${vorbis_DIR}/include --include-directory=${ogg_DIR}/include" )
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fexceptions -fno-pack-struct -std=c++11 -DPLATFORM_ANDROID=1 -DAS_NO_COMPILER -DAS_NO_EXCEPTIONS -DAS_MAX_PORTABILITY -fno-rtti -fno-exceptions -Wall --include-directory=${atum_DIR} --include-directory=${physx_DIR}/Include --include-directory=${as_DIR}/Include --include-directory=${vorbis_DIR}/include --include-directory=${ogg_DIR}/include" )
 set(OPENGL_LIB GLESv3)
 
 link_directories( ${physx_lib_DIR} )

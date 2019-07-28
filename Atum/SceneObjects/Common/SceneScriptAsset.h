@@ -176,9 +176,45 @@ public:
 
 	bool Play() override;
 
+#ifdef EDITOR
 	void Export() override;
+#endif
 
 	void Release() override;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 
 	bool UsingCamera2DPos() override;
 

@@ -446,9 +446,9 @@ bool SceneScriptAsset::Play()
 	return true;
 }
 
+#ifdef EDITOR
 void SceneScriptAsset::Export()
 {
-#ifdef EDITOR
 	CompileScript();
 
 	if (mod)
@@ -461,8 +461,8 @@ void SceneScriptAsset::Export()
 	}
 
 	compiled = false;
-#endif
 }
+#endif
 
 void SceneScriptAsset::Release()
 {

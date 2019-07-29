@@ -81,11 +81,21 @@ void SceneManager::LoadScene(const char* name)
 
 void SceneManager::LoadScene(SceneHolder* holder)
 {
+	if (failure_on_scene_play)
+	{
+		return;
+	}
+
 	holder->ref_counter++;
 
 	for (auto& incl : holder->included)
 	{
 		LoadScene(incl);
+
+		if (failure_on_scene_play)
+		{
+			return;
+		}
 	}
 
 	if (holder->scene)
@@ -105,7 +115,11 @@ void SceneManager::LoadScene(SceneHolder* holder)
 	StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
 
 	holder->scene->Load(path);
-	holder->scene->Play();
+
+	if (!holder->scene->Play())
+	{
+		failure_on_scene_play = true;
+	}
 }
 
 void SceneManager::Execute(float dt)
@@ -196,6 +210,9 @@ void SceneManager::UnloadScene(SceneHolder* holder)
 
 void SceneManager::UnloadAll()
 {
+	failure_on_scene_play = false;
+	failure_on_scene_play_message.clear();
+
 	for (auto& scn : scenes)
 	{
 		if (scn.scene)

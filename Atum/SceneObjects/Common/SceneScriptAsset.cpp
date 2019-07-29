@@ -326,7 +326,10 @@ bool SceneScriptAsset::CompileScript()
 			{
 				dependency.push_back(name);
 
-				object->CompileScript();
+				if (!object->CompileScript())
+				{
+					return false;
+				}
 
 				if (object->mod)
 				{

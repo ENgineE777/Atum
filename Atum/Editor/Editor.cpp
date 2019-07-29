@@ -1161,6 +1161,18 @@ void Editor::OnUpdate(EUIWidget* sender)
 			}
 		}
 	}
+	else
+	{
+		if (core.scene_manager.failure_on_scene_play)
+		{
+			MessageBox(nullptr, core.scene_manager.failure_on_scene_play_message.c_str(), "Error on scene play", MB_ICONERROR);
+			gameWnd->Close();
+			StopScene();
+
+			mainWnd->Show(true);
+			mainWnd->Maximaze();
+		}
+	}
 }
 
 void Editor::OnResize(EUIWidget* sender)

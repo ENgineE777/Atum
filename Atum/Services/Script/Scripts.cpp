@@ -14,13 +14,27 @@
 
 void MessageCallback(const asSMessageInfo *msg, void *param)
 {
-	const char *type = "ERR ";
-	if (msg->type == asMSGTYPE_WARNING)
-		type = "WARN";
-	else if (msg->type == asMSGTYPE_INFORMATION)
-		type = "INFO";
+	const char* type = "ERR ";
 
-	core.Log("Script", "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+	if (msg->type == asMSGTYPE_WARNING)
+	{
+		type = "WARN";
+	}
+	else
+	if (msg->type == asMSGTYPE_INFORMATION)
+	{
+		type = "INFO";
+	}
+
+	char str[1024];
+	StringUtils::Printf(str, 1024, "%s (%d, %d) : %s : %s\n", msg->section, msg->row, msg->col, type, msg->message);
+
+	if (type[0] == 'E')
+	{
+		core.scene_manager.failure_on_scene_play_message += str;
+	}
+
+	core.Log("Script", str);
 }
 
 #ifdef EDITOR

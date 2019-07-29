@@ -41,7 +41,6 @@ class SceneManager : public Object
 	vector<SceneHolder*> scenes_to_delete;
 
 	map<std::string, SceneHolder*> scenes_search;
-	
 
 	void LoadScene(SceneHolder* holder);
 	void UnloadScene(SceneHolder* holder);
@@ -49,6 +48,9 @@ class SceneManager : public Object
 public:
 
 #ifndef DOXYGEN_SKIP
+	bool failure_on_scene_play = false;
+	string failure_on_scene_play_message;
+
 	void Init();
 	void LoadProject(const char* project_name);
 	inline PhysScene* PScene() { return pscene; }

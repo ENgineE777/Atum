@@ -8,6 +8,8 @@ public:
 	friend class Scripts;
 	asIScriptContext* ctx;
 	ScriptContext(asIScriptContext* ctx);
+	static void ScriptExceptionCallback(asIScriptContext* context, void* obj);
+
 public:
 	void Release();
 };

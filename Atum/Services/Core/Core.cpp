@@ -129,7 +129,9 @@ void Core::Update()
 
 	physics.Fetch();
 
-	core.scene_manager.Execute(dt);
+	scene_manager.Execute(dt);
+
+	scripts.Update(dt);
 
 	physics.DeleteObjects();
 }

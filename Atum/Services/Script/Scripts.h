@@ -20,6 +20,7 @@ class Scripts
 	friend class SceneObject;
 	friend class SceneScriptInst;
 	friend class ScriptCore;
+	friend class ScriptContext;
 
 #ifndef DOXYGEN_SKIP
 	asIScriptEngine* engine = nullptr;
@@ -77,6 +78,9 @@ class Scripts
 	};
 
 	void* script_caller = nullptr;
+
+	float time_to_fade_exception = -1.0f;
+	vector<string> exception_stack;
 
 public:
 
@@ -175,6 +179,7 @@ public:
 	ScriptContext* CreateContext();
 
 #ifndef DOXYGEN_SKIP
+	void Update(float dt);
 	void RegisterClassInstance(Scene* scene, asIScriptObject* inst);
 	void CallClassInstancesMethod(const char* scene_name, const char* class_name, const char* method);
 	void UnregisterClassInstance(asIScriptObject* inst);

@@ -198,6 +198,27 @@ asITypeInfo* Scripts::GetTypeInfoById(int typeId) const
 	return engine->GetTypeInfoById(typeId);
 }
 
+void Scripts::Update(float dt)
+{
+	if (time_to_fade_exception > 0.0f)
+	{
+		time_to_fade_exception -= dt;
+
+		if (time_to_fade_exception <= 0.0f)
+		{
+			exception_stack.clear();
+			time_to_fade_exception = -1.0f;
+		}
+		else
+		{
+			for (int i = 0; i < (int)exception_stack.size(); i++)
+			{
+				core.render.DebugPrintText(Vector2(10.0f, 50.0f + i * 40.0f), COLOR_YELLOW, exception_stack[i].c_str());
+			}
+		}
+	}
+}
+
 void Scripts::RegisterClassInstance(Scene* scene, asIScriptObject* inst)
 {
 	ClassInst class_inst;
@@ -259,6 +280,9 @@ void Scripts::UnregisterClassInstance(asIScriptObject* inst)
 
 void Scripts::Stop()
 {
+	exception_stack.clear();
+	time_to_fade_exception = -1.0f;
+
 #ifdef EDITOR
 	if (help_out_dir && help_file)
 	{

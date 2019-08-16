@@ -20,11 +20,6 @@ Core::Core()
 	logs_dir[0] = 0;
 }
 
-Core::~Core()
-{
-
-}
-
 void Core::Init(void* data, void* render_data)
 {
 	files.Init();
@@ -105,9 +100,9 @@ void Core::Log(const char* name, const char* text, ...)
 #ifdef EDITOR
 	Editor::LogToOutputBox(name, buffer);
 #endif
-    
+
 #ifdef PLATFORM_IOS
-    printf("%s: %s\n", name, buffer);
+	printf("%s: %s\n", name, buffer);
 #endif
 }
 
@@ -123,8 +118,6 @@ void Core::Update()
 
 	physics.Update(dt);
 
-	render.Execute(dt);
-
 	controls.Update(dt);
 
 	physics.Fetch();
@@ -134,6 +127,8 @@ void Core::Update()
 	scripts.Update(dt);
 
 	physics.DeleteObjects();
+
+	render.Execute(dt);
 }
 
 float Core::GetDeltaTime()

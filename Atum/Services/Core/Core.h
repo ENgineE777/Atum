@@ -95,7 +95,7 @@ public:
 
 #ifndef DOXYGEN_SKIP
 	Core();
-	virtual ~Core();
+	~Core() = default;
 	void Init(void* data, void* render_data);
 
 	void Update();

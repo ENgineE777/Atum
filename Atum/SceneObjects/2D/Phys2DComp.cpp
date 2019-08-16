@@ -251,7 +251,7 @@ void Phys2DCompInst::Play()
 
 	SyncInstances();
 
-	object->Tasks(false)->AddTask(-150, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
+	object->Tasks(false)->AddTask(-50, this, (Object::Delegate)&Phys2DCompInst::UpdateInstances);
 }
 
 void Phys2DCompInst::Release()

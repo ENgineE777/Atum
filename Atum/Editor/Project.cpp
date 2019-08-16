@@ -47,6 +47,9 @@ void Project::Load()
 			reader.Read("path", str);
 			scn->SetPath(str.c_str());
 
+			reader.Read("selected_object", scn->selected_object);
+			reader.Read("selected_object_asset", scn->selected_object_asset);
+
 			while (reader.EnterBlock("include"))
 			{
 				string str;
@@ -79,22 +82,27 @@ void Project::Load()
 		string ed_scene;
 		reader.Read("selected_scene", ed_scene);
 
-		int index = FindSceneIndex(ed_scene.c_str());
-
-		if (index != -1)
-		{
-			SelectScene(scenes[index]);
-		}
-
 		while (reader.EnterBlock("nodes"))
 		{
 			nodes.push_back(ProjectNode());
 			ProjectNode& node = nodes.back();
 
 			reader.Read("name", node.name);
-			reader.Read("type", node.type);
+			reader.Read("type", (int&)node.type);
 
 			reader.LeaveBlock();
+		}
+
+		RestoreProjectNodes(nodes);
+
+		{
+			int index = FindSceneIndex(ed_scene.c_str());
+
+			if (index != -1)
+			{
+				SelectScene(scenes[index]);
+				editor.project_treeview->SelectItem(scenes[index]->item);
+			}
 		}
 
 		while (reader.EnterBlock("layers"))
@@ -123,8 +131,6 @@ void Project::Load()
 			reader.LeaveBlock();
 		}
 	}
-
-	RestoreProjectNodes(nodes);
 }
 
 void Project::LoadSceneNodes(JSONReader* reader, vector<SceneNode>& nodes, const char* group)
@@ -136,7 +142,7 @@ void Project::LoadSceneNodes(JSONReader* reader, vector<SceneNode>& nodes, const
 
 		reader->Read("uid", node.uid);
 		reader->Read("name", node.name);
-		reader->Read("type", node.type);
+		reader->Read("type", (int&)node.type);
 
 		reader->LeaveBlock();
 	}
@@ -187,7 +193,7 @@ void Project::LoadScene(SceneHolder* holder)
 		{
 			SceneNode node;
 
-			node.type = 1;
+			node.type = ItemType::Item;
 			node.uid = holder->scene->GetObj(i, false)->GetUID();
 			node.name = holder->scene->GetObj(i, false)->GetName();
 
@@ -196,7 +202,7 @@ void Project::LoadScene(SceneHolder* holder)
 
 		SceneNode node;
 
-		node.type = 2;
+		node.type = ItemType::EndOfGroup;
 		node.uid = -1;
 
 		holder->scene_nodes.push_back(node);
@@ -205,7 +211,7 @@ void Project::LoadScene(SceneHolder* holder)
 		{
 			SceneNode node;
 
-			node.type = 1;
+			node.type = ItemType::Item;
 			node.uid = holder->scene->GetObj(i, false)->GetUID();
 			node.name = holder->scene->GetObj(i, true)->GetName();
 
@@ -238,6 +244,8 @@ void Project::Save()
 {
 	if (select_scene)
 	{
+		FillSelectedObject(select_scene);
+
 		GrabSceneNodes(select_scene);
 	}
 
@@ -282,6 +290,9 @@ void Project::Save()
 		writer.StartBlock(nullptr);
 
 		writer.Write("path", scn->path.c_str());
+
+		writer.Write("selected_object", scn->selected_object);
+		writer.Write("selected_object_asset", scn->selected_object_asset);
 
 		writer.StartArray("include");
 
@@ -373,6 +384,8 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool
 		tree_item->scene = incl->scene;
 		tree_item->item = treeview->AddItem(name, 0, tree_item, item, -1, true);
 
+		treeview->SetItemOpen(tree_item->item, true);
+
 		RestoreSceneNodes(treeview, incl, is_asset, tree_item->item);
 	}
 
@@ -384,6 +397,8 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, SceneHolder* holder, bool
 		tree_item->root = true;
 		tree_item->scene = holder->scene;
 		tree_item->item = treeview->AddItem(holder->name.c_str(), 0, tree_item, item, -1, true);
+
+		treeview->SetItemOpen(tree_item->item, true);
 
 		item = tree_item->item;
 	}
@@ -415,7 +430,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 	SceneNode node = nodes[index];
 	index++;
 
-	while (node.type != 2)
+	while (node.type != ItemType::EndOfGroup)
 	{
 		SceneObject* obj = (node.uid != -1) ? scene->FindByUID(node.uid, 0, is_asset) : nullptr;
 		
@@ -425,7 +440,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 			tree_item->scene = scene;
 			tree_item->object = obj;
 
-			tree_item->item = treeview->AddItem(node.name.c_str(), node.type, tree_item, item, -1, (node.type == 0));
+			tree_item->item = treeview->AddItem(node.name.c_str(), (node.type == ItemType::Item) ? 1 : 0, tree_item, item, -1, (node.type != ItemType::Item));
 
 			if (node.uid != -1)
 			{
@@ -434,6 +449,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 			}
 			else
 			{
+				treeview->SetItemOpen(tree_item->item, node.type == ItemType::OpenedFolder);
 				RestoreSceneNodes(treeview, scene, nodes, index, tree_item->item, is_asset);
 			}
 		}
@@ -513,18 +529,19 @@ void Project::GrabSceneNodes(EUITreeView* treeview, vector<SceneNode>& nodes, vo
 
 		if (tree_item->object)
 		{
-			node.type = 1;
+			node.type = ItemType::Item;
 			node.uid = tree_item->object->GetUID();
 		}
 		else
 		{
+			node.type = treeview->IsItemOpened(child) ? ItemType::OpenedFolder : ItemType::Folder;
 			GrabSceneNodes(treeview, nodes, child, is_asset);
 		}
 	}
 
 	nodes.push_back(SceneNode());
 	SceneNode& node = nodes.back();
-	node.type = 2;
+	node.type = ItemType::EndOfGroup;
 }
 
 void Project::RestoreProjectNodes(vector<ProjectNode>& nodes)
@@ -539,16 +556,16 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 	ProjectNode& node = nodes[index];
 	index++;
 
-	while (node.type != 2)
+	while (node.type != ItemType::EndOfGroup)
 	{
 		char name[256];
 		StringUtils::Printf(name, 256, "%s.sca", node.name.c_str());
 
-		int index_node = (node.type == 1) ? FindSceneIndex(name) : -1;
+		int index_node = (node.type == ItemType::Item) ? FindSceneIndex(name) : -1;
 
-		int image = node.type;
+		int image = (node.type == ItemType::Item) ? 1 : 0;
 
-		if (node.type == 1 && index_node == start_scene)
+		if (node.type == ItemType::Item && index_node == start_scene)
 		{
 			image = 2;
 		}
@@ -578,8 +595,9 @@ void Project::RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* 
 			}
 		}
 
-		if (node.type != 1)
+		if (node.type != ItemType::Item)
 		{
+			editor.project_treeview->SetItemOpen(child, node.type == ItemType::OpenedFolder);
 			RestoreProjectNodes(nodes, index, child);
 		}
 
@@ -604,17 +622,31 @@ void Project::GrabProjectNodes(vector<ProjectNode>& nodes, void* item)
 
 		if (obj)
 		{
-			node.type = 1;
+			node.type = ItemType::Item;
 		}
 		else
 		{
+			node.type = editor.project_treeview->IsItemOpened(child) ? ItemType::OpenedFolder : ItemType::Folder;
 			GrabProjectNodes(nodes, child);
 		}
 	}
 
 	nodes.push_back(ProjectNode());
 	ProjectNode& node = nodes.back();
-	node.type = 2;
+	node.type = ItemType::EndOfGroup;
+}
+
+void Project::FillSelectedObject(SceneHolder* holder)
+{
+	if (editor.selectedObject)
+	{
+		holder->selected_object = editor.selectedObject->GetUID();
+		holder->selected_object_asset = editor.isSelectedAsset;
+	}
+	else
+	{
+		holder->selected_object = -1;
+	}
 }
 
 void Project::SetStartScene(const char* path)
@@ -641,8 +673,6 @@ void Project::SelectScene(SceneHolder* holder)
 		return;
 	}
 
-	editor.SelectObject(nullptr, false);
-
 	SceneHolder* prev_select_scene = select_scene;
 	select_scene = holder;
 
@@ -656,6 +686,9 @@ void Project::SelectScene(SceneHolder* holder)
 		{
 			prev_select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
 		}
+
+		FillSelectedObject(prev_select_scene);
+		editor.SelectObject(nullptr, false);
 
 		prev_select_scene->scene->camera3d_angles = editor.freecamera.angles;
 		prev_select_scene->scene->camera3d_pos = editor.freecamera.pos;
@@ -686,6 +719,11 @@ void Project::SelectScene(SceneHolder* holder)
 		editor.gizmo.align2d = Vector2((float)select_scene->scene->gizmo2d_align_x, (float)select_scene->scene->gizmo2d_align_x);
 
 		EnableScene(select_scene, true);
+
+		if (select_scene->selected_object != -1)
+		{
+			editor.SelectObject(select_scene->scene->FindByUID(select_scene->selected_object, 0, select_scene->selected_object_asset), select_scene->selected_object_asset);
+		}
 	}
 
 	editor.scene_sheet->Enable(select_scene != nullptr);

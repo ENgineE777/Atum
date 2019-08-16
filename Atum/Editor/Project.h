@@ -14,9 +14,17 @@ class Project : public EUIWidget::Listener
 {
 public:
 
+	enum ItemType
+	{
+		Folder,
+		Item,
+		EndOfGroup,
+		OpenedFolder
+	};
+
 	struct ProjectNode
 	{
-		int type = 0;
+		ItemType type = ItemType::Folder;
 		string name;
 	};
 
@@ -36,7 +44,7 @@ public:
 
 	struct SceneNode
 	{
-		int type = 0;
+		ItemType type = ItemType::Folder;
 		string name;
 		uint32_t uid = -1;
 	};
@@ -47,6 +55,8 @@ public:
 		string name;
 		uint16_t uid = 0;
 		Scene* scene = nullptr;
+		uint32_t selected_object = -1;
+		bool  selected_object_asset = false;
 		void* item = nullptr;
 
 		vector<SceneHolder*> included;
@@ -120,6 +130,8 @@ public:
 	void RestoreProjectNodes(vector<ProjectNode>& nodes);
 	void RestoreProjectNodes(vector<ProjectNode>& nodes, int& index, void* item);
 	void GrabProjectNodes(vector<ProjectNode>& nodes, void* item);
+
+	void FillSelectedObject(SceneHolder* holder);
 
 	void SetStartScene(const char* path);
 	void SelectScene(SceneHolder* holder);

@@ -113,9 +113,6 @@ public:
 
 	bool UsingCamera2DPos() override;
 
-	Vector2 GetDefaultSize();
-	Vector2 GetDefaultOffset();
-
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);
 	Vector2 linkSize = Vector2(15.0f, 15.0f);

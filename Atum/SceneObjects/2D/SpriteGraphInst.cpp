@@ -51,14 +51,6 @@ void SpriteGraphInst::ApplyProperties()
 	}
 }
 
-bool SpriteGraphInst::Play()
-{
-	trans.size = ((SpriteGraphAsset*)asset)->GetDefaultSize();
-	trans.offset = ((SpriteGraphAsset*)asset)->GetDefaultOffset();
-
-	return true;
-}
-
 void SpriteGraphInst::Draw(float dt)
 {
 	if (GetState() == Invisible)
@@ -70,9 +62,6 @@ void SpriteGraphInst::Draw(float dt)
 	{
 		return;
 	}
-
-	trans.size = ((SpriteGraphAsset*)asset)->GetDefaultSize();
-	trans.offset = ((SpriteGraphAsset*)asset)->GetDefaultOffset();
 
 #ifdef EDITOR
 	if (edited)
@@ -152,6 +141,10 @@ void SpriteGraphInst::Draw(float dt)
 		trans.pos.y += hack_height;
 		trans.offset = inst.graph_instance.cur_node->asset->trans.offset;
 		trans.rotation = inst.GetAngle();
+
+		trans.size = inst.graph_instance.cur_node->asset->trans.size;
+		trans.offset = inst.graph_instance.cur_node->asset->trans.offset;
+
 		trans.BuildMatrices();
 
 		inst.graph_instance.state.horz_flipped = inst.GetFlipped();

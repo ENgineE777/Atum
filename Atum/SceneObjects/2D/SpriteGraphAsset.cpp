@@ -444,26 +444,6 @@ bool SpriteGraphAsset::UsingCamera2DPos()
 	return true;
 }
 
-Vector2 SpriteGraphAsset::GetDefaultSize()
-{
-	if (nodes.size() > 0)
-	{
-		return nodes[def_node].asset->trans.size;
-	}
-
-	return 64.0f;
-}
-
-Vector2 SpriteGraphAsset::GetDefaultOffset()
-{
-	if (nodes.size() > 0)
-	{
-		return nodes[def_node].asset->trans.offset;
-	}
-
-	return 0.5f;
-}
-
 void SpriteGraphAsset::PrepareInstance(Instance* inst)
 {
 	if (def_node == -1 || !valid)

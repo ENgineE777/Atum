@@ -1,10 +1,13 @@
 ﻿{
+
 	"export_dir" : "Projects/Beatemup_Out",
 	"start_scene" : 0,
 	"scenes_count" : 1,
 	"scenes" : [
 		{
 			"path" : "beatemup.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		}

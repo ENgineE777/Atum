@@ -445,7 +445,7 @@
 			"Group" : "Level",
 			"Layer" : "",
 			"SoundName" : "Music/CattBoss.ogg",
-			"Faded" : true
+			"Faded" : false
 		}
 	],
 	"asset_instances" : [

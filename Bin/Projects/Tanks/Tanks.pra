@@ -1,10 +1,13 @@
 ﻿{
+
 	"export_dir" : "Projects/Tanks_Out",
 	"start_scene" : 0,
 	"scenes_count" : 1,
 	"scenes" : [
 		{
 			"path" : "Tanks.sca",
+			"selected_object" : 832314240,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		}

@@ -48,13 +48,13 @@ void Core::Init(void* data, void* render_data)
 
 
 	controls.Init("settings/controls/hardware_win", true);
-	controls.LoadAliases("settings/controls/user_aliases");
 #endif
 
 #if defined(PLATFORM_ANDROID) || defined(PLATFORM_IOS)
 	controls.Init("settings/controls/hardware_mobile", true);
-	controls.LoadAliases("settings/controls/user_aliases");
 #endif
+
+	controls.LoadAliases("settings/controls/engine_aliases");
 
 	sounds.Init(data);
 

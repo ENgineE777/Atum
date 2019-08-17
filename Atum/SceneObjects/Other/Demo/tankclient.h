@@ -35,6 +35,8 @@ public:
 	string tower_model_name;
 	string gun_model_name;
 
+	string aliases_name;
+
 	Model base_model;
 	Model tower_model;
 	Model gun_model;

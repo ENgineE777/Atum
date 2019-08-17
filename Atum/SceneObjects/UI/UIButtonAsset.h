@@ -121,9 +121,9 @@ public:
 
 #ifndef DOXYGEN_SKIP
 
-	int alias_rotate_x;
-	int alias_rotate_y;
-	int alias_fire;
+	int alias_move_x;
+	int alias_move_y;
+	int alias_click;
 
 	META_DATA_DECL(UIButtonAssetInst)
 

@@ -6,6 +6,8 @@
 	"scenes" : [
 		{
 			"path" : "Island/Island.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Base/CoreScene.sca"
@@ -14,11 +16,15 @@
 		},
 		{
 			"path" : "Base/CoreScene.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		},
 		{
 			"path" : "Island/Island_Level1.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Island/Island.sca"
@@ -27,11 +33,15 @@
 		},
 		{
 			"path" : "MainMenu/MainMenu.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		},
 		{
 			"path" : "Island/Island_Level2.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Island/Island.sca"
@@ -43,6 +53,8 @@
 		},
 		{
 			"path" : "Forest/Forest.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Base/CoreScene.sca"
@@ -51,6 +63,8 @@
 		},
 		{
 			"path" : "Forest/Forest_Level1.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Forest/Forest.sca"
@@ -59,6 +73,8 @@
 		},
 		{
 			"path" : "Forest/Forest_Level2.sca",
+			"selected_object" : 910692,
+			"selected_object_asset" : false,
 			"include" : [
 				{
 					"path" : "Forest/Forest.sca"
@@ -70,11 +86,15 @@
 		},
 		{
 			"path" : "Island/Island_BossCat.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		},
 		{
 			"path" : "Forest/Forest_BossCat.sca",
+			"selected_object" : -1,
+			"selected_object_asset" : false,
 			"include" : [
 			]
 		}
@@ -87,7 +107,7 @@
 		},
 		{
 			"name" : "Forest",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"name" : "Forest",
@@ -111,7 +131,7 @@
 		},
 		{
 			"name" : "Island",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"name" : "Island",

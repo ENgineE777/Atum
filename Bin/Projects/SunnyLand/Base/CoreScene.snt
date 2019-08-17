@@ -111,7 +111,7 @@
 		{
 			"uid" : -1,
 			"name" : "FX",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 112635,
@@ -136,7 +136,7 @@
 		{
 			"uid" : -1,
 			"name" : "FinishSign",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 688119,
@@ -166,7 +166,7 @@
 		{
 			"uid" : -1,
 			"name" : "Hero",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 1917411200,
@@ -206,7 +206,7 @@
 		{
 			"uid" : -1,
 			"name" : "Items",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 532556576,
@@ -231,7 +231,7 @@
 		{
 			"uid" : -1,
 			"name" : "Respawn",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 983038,

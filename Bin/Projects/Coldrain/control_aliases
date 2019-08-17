@@ -1,0 +1,70 @@
+{
+	"Aliases" : [
+		{
+			"name" : "Hero.MOVE_VERT",
+			"AliasesRef" : [
+				{ "names" : ["KEY_W"], "modifier" : 1.0 },
+				{ "names" : ["KEY_S"], "modifier" : -1.0 },
+				{ "names" : ["JOY_LEFT_STICK_V"] }
+			]
+		},
+		{
+			"name" : "Hero.MOVE_HORZ",
+			"AliasesRef" : [
+				{ "names" : ["KEY_A"], "modifier" : -1.0 },
+				{ "names" : ["KEY_D"], "modifier" : 1.0 },
+				{ "names" : ["JOY_LEFT_STICK_H"] }
+			]
+		},
+		{
+			"name" : "Hero.AIM_VERT",
+			"AliasesRef" : [
+				{ "names" : ["JOY_RIGHT_STICK_V"] }
+			]
+		},
+		{
+			"name" : "Hero.AIM_HORZ",
+			"AliasesRef" : [
+				{ "names" : ["JOY_RIGHT_STICK_H"] }
+			]
+		},
+		{
+			"name" : "Hero.CURSOR_X",
+			"AliasesRef" : [
+				{ "names" : ["MS_X"] }
+			]
+		},
+		{
+			"name" : "Hero.CURSOR_Y",
+			"AliasesRef" : [
+				{ "names" : ["MS_Y"] }
+			]
+		},
+		{
+			"name" : "Hero.Fire",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN0"] },
+				{ "names" : ["JOY_RIGHT_TRIGER"] }
+			]
+		},
+		{
+			"name" : "Hero.Cover",
+			"AliasesRef" : [
+				{ "names" : ["MS_BTN1"] },
+				{ "names" : ["JOY_LEFT_TRIGER"] }
+			]
+		},
+		{
+			"name" : "Hero.EnterLeaveTunel",
+			"AliasesRef" : [
+				{ "names" : ["KEY_F"] }
+			]
+		},
+		{
+			"name" : "Hero.Kick",
+			"AliasesRef" : [
+				{ "names" : ["KEY_E"] }
+			]
+		}
+	]
+} 

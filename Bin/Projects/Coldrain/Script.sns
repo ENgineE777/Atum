@@ -237,13 +237,13 @@ class Main
 	{
 		if (!inited)
 		{
-			alias_move_vert = core.controls.GetAliasIndex("Frog.MOVE_VERT");
-			alias_move_horz = core.controls.GetAliasIndex("Frog.MOVE_HORZ");
-			alias_aim_vert = core.controls.GetAliasIndex("Frog.AIM_VERT");
-			alias_aim_horz = core.controls.GetAliasIndex("Frog.AIM_HORZ");
-			alias_cursor_x = core.controls.GetAliasIndex("Frog.CURSOR_X");
-			alias_cursor_y = core.controls.GetAliasIndex("Frog.CURSOR_Y");
-			alias_fire = core.controls.GetAliasIndex("Frog.Fire");
+			alias_move_vert = core.controls.GetAliasIndex("Hero.MOVE_VERT");
+			alias_move_horz = core.controls.GetAliasIndex("Hero.MOVE_HORZ");
+			alias_aim_vert = core.controls.GetAliasIndex("Hero.AIM_VERT");
+			alias_aim_horz = core.controls.GetAliasIndex("Hero.AIM_HORZ");
+			alias_cursor_x = core.controls.GetAliasIndex("Hero.CURSOR_X");
+			alias_cursor_y = core.controls.GetAliasIndex("Hero.CURSOR_Y");
+			alias_fire = core.controls.GetAliasIndex("Hero.Fire");
 
 			RestartLevel();
 

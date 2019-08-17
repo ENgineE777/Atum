@@ -7,6 +7,7 @@ BASE_SCENE_OBJ_PROP(TankClient)
 FILENAME_PROP(TankClient, base_model_name, "", "Prop", "BaseModel")
 FILENAME_PROP(TankClient, tower_model_name, "", "Prop", "TowerModel")
 FILENAME_PROP(TankClient, gun_model_name, "", "Prop", "GunModel")
+FILENAME_PROP(TankClient, aliases_name, "", "Property", "Aliases")
 SCENEOBJECT_PROP(TankClient, vjoy_ref, "Prop", "VJoy")
 META_DATA_DESC_END()
 
@@ -15,13 +16,6 @@ void TankClient::Init()
 	GetScene()->AddToGroup(this, "TankClient");
 
 	angles.y = -HALF_PI;
-
-	alias_forward = core.controls.GetAlias("Tank.MOVE_FORWARD");
-	alias_strafe = core.controls.GetAlias("Tank.MOVE_STRAFE");
-	alias_rotate_active = core.controls.GetAlias("Tank.ROTATE_ACTIVE");
-	alias_rotate_x = core.controls.GetAlias("Tank.ROTATE_X");
-	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
-	alias_fire = core.controls.GetAlias("Tank.FIRE");
 
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&TankClient::Update);
 }
@@ -42,6 +36,15 @@ void TankClient::ApplyProperties()
 
 bool TankClient::Play()
 {
+	core.controls.LoadAliases(aliases_name.c_str());
+
+	alias_forward = core.controls.GetAlias("Tank.MOVE_FORWARD");
+	alias_strafe = core.controls.GetAlias("Tank.MOVE_STRAFE");
+	alias_rotate_active = core.controls.GetAlias("Tank.ROTATE_ACTIVE");
+	alias_rotate_x = core.controls.GetAlias("Tank.ROTATE_X");
+	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
+	alias_fire = core.controls.GetAlias("Tank.FIRE");
+
 	return true;
 }
 

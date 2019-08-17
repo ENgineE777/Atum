@@ -435,6 +435,111 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 34,
+			"Dep" : [
+				{
+					"name" : "Script"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				}
 			]
 		},
 		{
@@ -4132,6 +4237,7 @@
 									"uid" : -1117535488,
 									"Name" : "btn_About",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -4203,6 +4309,7 @@
 									"uid" : 2094411008,
 									"Name" : "btn_start",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -4452,6 +4559,7 @@
 							"uid" : 1630500352,
 							"Name" : "BackBtn",
 							"State" : 2,
+							"SoundName" : "",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -4903,6 +5011,7 @@
 									"uid" : -767039744,
 									"Name" : "b_exit",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -4974,6 +5083,7 @@
 									"uid" : 1044999488,
 									"Name" : "b_resume",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -5175,6 +5285,7 @@
 									"uid" : 430301568,
 									"Name" : "b_NextPlayer",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -5246,6 +5357,7 @@
 									"uid" : -94206976,
 									"Name" : "b_NextEnemy",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -5317,6 +5429,7 @@
 									"uid" : -2060929024,
 									"Name" : "b_start_game",
 									"State" : 2,
+									"SoundName" : "",
 									"x" : 0.000000,
 									"y" : 0.000000,
 									"horz_align" : 0,
@@ -5800,6 +5913,7 @@
 							"uid" : -1056545792,
 							"Name" : "b_pause",
 							"State" : 2,
+							"SoundName" : "",
 							"x" : 0.000000,
 							"y" : 0.000000,
 							"horz_align" : 0,
@@ -6044,6 +6158,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.800000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -6076,6 +6191,7 @@
 			"Layer" : "",
 			"axis_scale" : 1.000000,
 			"Depth" : 0.800000,
+			"UseDepth" : true,
 			"draw_level" : 0,
 			"inst" :
 			{
@@ -6105,6 +6221,7 @@
 			"Name" : "MainMenu",
 			"State" : 2,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 0,
@@ -6219,6 +6336,7 @@
 			"Name" : "AboutMenu",
 			"State" : 0,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 0,
@@ -6318,6 +6436,7 @@
 			"Name" : "HPBSelectCharacter",
 			"State" : 0,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 0,
@@ -6555,6 +6674,7 @@
 			"Name" : "PauseMenu",
 			"State" : 0,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 0,
@@ -6669,6 +6789,7 @@
 			"Name" : "HUD",
 			"State" : 0,
 			"Group" : "",
+			"Layer" : "",
 			"x" : 0.000000,
 			"y" : 0.000000,
 			"horz_align" : 0,
@@ -6862,174 +6983,582 @@
 			"Count" : 34,
 			"Node" : [
 				{
-					"object_uid" : 587187712,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 587187712,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -2065470720,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -2065470720,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1664628480,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1664628480,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 585760320,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 585760320,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1756629248,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1756629248,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1084967168,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1084967168,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 902647040,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 902647040,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 902647040,
-					"object_child_uid" : 1995400192,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 902647040,
+									"child_uid" : 1995400192,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1084967168,
-					"object_child_uid" : 509458336,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1084967168,
+									"child_uid" : 509458336,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 1084967168,
-					"object_child_uid" : 13755116,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 1084967168,
+									"child_uid" : 13755116,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -809602560,
-					"object_child_uid" : 305726912,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -809602560,
+									"child_uid" : 305726912,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : 308192448,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : 308192448,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -809602560,
-					"object_child_uid" : 1134407680,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -809602560,
+									"child_uid" : 1134407680,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -809602560,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -809602560,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -129243392,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -129243392,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : 116918488,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : 116918488,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1000360256,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : 1000360256,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1038900480,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : 1038900480,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : 1280263808,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : 1280263808,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1179303936,
-					"object_child_uid" : -462351104,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1179303936,
+									"child_uid" : -462351104,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : 24395866,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : 24395866,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : -1050057728,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : -1050057728,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : 0,
-					"object_child_uid" : 0,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : 0,
+									"child_uid" : 0,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : 1396922752,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : 1396922752,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				},
 				{
-					"object_uid" : -1031631104,
-					"object_child_uid" : -1168922624,
-					"callback_type" : ""
+					"callback_type" : "",
+					"objects_list" :
+					{
+						"count" : 1,
+						"Elem" : [
+							{
+								"object" :
+								{
+									"uid" : -1031631104,
+									"child_uid" : -1168922624,
+									"is_asset" : false
+								}
+							}
+						]
+					}
 				}
 			]
 		}

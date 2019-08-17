@@ -212,10 +212,52 @@
 					"prefix" : ""
 				}
 			],
-			"dep_count" : 1,
+			"dep_count" : 15,
 			"Dep" : [
 				{
-					"name" : "GameMenuScript"
+					"name" : "MainScript"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
 				}
 			]
 		},
@@ -2528,8 +2570,47 @@
 					"prefix" : ""
 				}
 			],
-			"dep_count" : 0,
+			"dep_count" : 13,
 			"Dep" : [
+				{
+					"name" : "GameMenuScript"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				}
 			]
 		},
 		{
@@ -2664,10 +2745,22 @@
 					"prefix" : ""
 				}
 			],
-			"dep_count" : 1,
+			"dep_count" : 5,
 			"Dep" : [
 				{
-					"name" : "MainScript"
+					"name" : "BoxesScript"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
 				}
 			]
 		},
@@ -3441,7 +3534,7 @@
 					"reverse" : false,
 					"pos" :
 					{
-						"x" : 600.000000,
+						"x" : 602.000000,
 						"y" : 185.000000
 					},
 					"name" : "Activation",

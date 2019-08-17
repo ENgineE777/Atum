@@ -51,47 +51,6 @@
 			]
 		},
 		{
-			"name" : "Tank.MOVE_FORWARD",
-			"AliasesRef" : [
-				{ "names" : ["KEY_W"], "modifier" : 1.0 },
-				{ "names" : ["KEY_S"], "modifier" : -1.0 }
-			]
-		},
-		{
-			"name" : "Tank.MOVE_STRAFE",
-			"AliasesRef" : [
-				{ "names" : ["KEY_A"], "modifier" : -1.0 },
-				{ "names" : ["KEY_D"], "modifier" : 1.0 }
-			]
-		},
-		{
-			"name" : "Tank.ROTATE_ACTIVE",
-			"AliasesRef" : [
-				{ "names" : ["MS_BTN1"] }
-			]
-		},
-		{
-			"name" : "Tank.ROTATE_X",
-			"AliasesRef" : [
-				{ "names" : ["MS_X"] },
-                { "names" : ["TOUCH_DELTA_X0"] }
-			]
-		},
-		{
-			"name" : "Tank.ROTATE_Y",
-			"AliasesRef" : [
-				{ "names" : ["MS_Y"] },
-                { "names" : ["TOUCH_DELTA_Y0"] }
-			]
-		},
-		{
-			"name" : "Tank.FIRE",
-			"AliasesRef" : [
-				{ "names" : ["MS_BTN0"] },
-				{ "names" : ["TOUCH_TAP0"] }
-			]
-		},
-		{
 			"name" : "VJoystick.Touch0",
 			"AliasesRef" : [
 				{ "names" : ["MS_BTN0"] },
@@ -167,69 +126,24 @@
 			]
 		},
 		{
-			"name" : "Frog.MOVE_VERT",
+			"name" : "UIButton.Move_X",
 			"AliasesRef" : [
-				{ "names" : ["KEY_W"], "modifier" : 1.0 },
-				{ "names" : ["KEY_S"], "modifier" : -1.0 },
-				{ "names" : ["JOY_LEFT_STICK_V"] }
+				{ "names" : ["MS_X"] },
+                { "names" : ["TOUCH_DELTA_X0"] }
 			]
 		},
 		{
-			"name" : "Frog.MOVE_HORZ",
+			"name" : "UIButton.Move_Y",
 			"AliasesRef" : [
-				{ "names" : ["KEY_A"], "modifier" : -1.0 },
-				{ "names" : ["KEY_D"], "modifier" : 1.0 },
-				{ "names" : ["JOY_LEFT_STICK_H"] }
+				{ "names" : ["MS_Y"] },
+                { "names" : ["TOUCH_DELTA_Y0"] }
 			]
 		},
 		{
-			"name" : "Frog.AIM_VERT",
-			"AliasesRef" : [
-				{ "names" : ["JOY_RIGHT_STICK_V"] }
-			]
-		},
-		{
-			"name" : "Frog.AIM_HORZ",
-			"AliasesRef" : [
-				{ "names" : ["JOY_RIGHT_STICK_H"] }
-			]
-		},
-		{
-			"name" : "Frog.CURSOR_X",
-			"AliasesRef" : [
-				{ "names" : ["MS_X"] }
-			]
-		},
-		{
-			"name" : "Frog.CURSOR_Y",
-			"AliasesRef" : [
-				{ "names" : ["MS_Y"] }
-			]
-		},
-		{
-			"name" : "Frog.Fire",
+			"name" : "UIButton.Click",
 			"AliasesRef" : [
 				{ "names" : ["MS_BTN0"] },
-				{ "names" : ["JOY_RIGHT_TRIGER"] }
-			]
-		},
-		{
-			"name" : "Frog.Cover",
-			"AliasesRef" : [
-				{ "names" : ["MS_BTN1"] },
-				{ "names" : ["JOY_LEFT_TRIGER"] }
-			]
-		},
-		{
-			"name" : "Frog.EnterLeaveTunel",
-			"AliasesRef" : [
-				{ "names" : ["KEY_F"] }
-			]
-		},
-		{
-			"name" : "Frog.Kick",
-			"AliasesRef" : [
-				{ "names" : ["KEY_E"] }
+				{ "names" : ["TOUCH_TAP0"] }
 			]
 		}
 	]

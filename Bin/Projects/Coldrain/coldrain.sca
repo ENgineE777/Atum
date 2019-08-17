@@ -197,6 +197,54 @@
 					},
 					"prefix" : ""
 				}
+			],
+			"dep_count" : 15,
+			"Dep" : [
+				{
+					"name" : "Script"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				}
 			]
 		},
 		{
@@ -22756,6 +22804,15 @@
 					}
 				}
 			]
+		},
+		{
+			"type" : "ControlsAliases",
+			"uid" : 520317,
+			"Name" : "ControlsAliases",
+			"State" : 2,
+			"Group" : "",
+			"Layer" : "",
+			"Aliases" : "control_aliases"
 		}
 	],
 	"asset_instances" : [

@@ -4,7 +4,7 @@
 		{
 			"uid" : -1,
 			"name" : "Boss",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 900456,
@@ -184,7 +184,7 @@
 		{
 			"uid" : -1,
 			"name" : "Triggers",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 180082,

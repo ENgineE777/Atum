@@ -63,6 +63,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\CameraPlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\SpritePlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\TrackPlayer.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\CameraPlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\SpritePlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\TrackPlayers\TrackPlayer.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.h" />

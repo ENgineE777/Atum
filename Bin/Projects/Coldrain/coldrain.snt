@@ -142,6 +142,11 @@
 			"type" : 2
 		},
 		{
+			"uid" : 520317,
+			"name" : "ControlsAliases",
+			"type" : 1
+		},
+		{
 			"uid" : -1994090496,
 			"name" : "NavMesh2D",
 			"type" : 1

@@ -4,7 +4,7 @@
 		{
 			"uid" : -1,
 			"name" : "Background",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 953703,
@@ -61,7 +61,7 @@
 		{
 			"uid" : -1,
 			"name" : "Piranha",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 310772,
@@ -101,7 +101,7 @@
 		{
 			"uid" : -1,
 			"name" : "Decor",
-			"type" : 0
+			"type" : 3
 		},
 		{
 			"uid" : 317297,

@@ -14,8 +14,8 @@
 	},
 	"camera_pos" :
 	{
-		"x" : 5489.000000,
-		"y" : 949.000000
+		"x" : 5543.000000,
+		"y" : 945.000000
 	},
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
@@ -122,10 +122,28 @@
 					]
 				}
 			],
-			"dep_count" : 1,
+			"dep_count" : 7,
 			"Dep" : [
 				{
-					"name" : "MainScript"
+					"name" : "ForestFinishLevel1Script"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
 				}
 			]
 		}

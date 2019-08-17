@@ -90,9 +90,9 @@ void UIButtonAssetInst::BindClassToScript()
 
 void UIButtonAssetInst::Init()
 {
-	alias_rotate_x = core.controls.GetAlias("Tank.ROTATE_X");
-	alias_rotate_y = core.controls.GetAlias("Tank.ROTATE_Y");
-	alias_fire = core.controls.GetAlias("Tank.FIRE");
+	alias_move_x = core.controls.GetAlias("UIButton.Move_X");
+	alias_move_y = core.controls.GetAlias("UIButton.Move_Y");
+	alias_click = core.controls.GetAlias("UIButton.Click");
 
 	script_callbacks.push_back(ScriptCallback(GetScene(), "OnDown", "void", ""));
 }
@@ -106,7 +106,7 @@ void UIButtonAssetInst::Draw(float dt)
 
 	if (GetScene()->Playing())
 	{
-		if (core.controls.GetAliasState(alias_fire))
+		if (core.controls.GetAliasState(alias_click))
 		{
 			float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 			Matrix mat = trans.mat_global;
@@ -119,8 +119,8 @@ void UIButtonAssetInst::Draw(float dt)
 
 			Vector2 size = trans.size * scale;
 
-			float mx = core.controls.GetAliasValue(alias_rotate_x, false);
-			float my = core.controls.GetAliasValue(alias_rotate_y, false);
+			float mx = core.controls.GetAliasValue(alias_move_x, false);
+			float my = core.controls.GetAliasValue(alias_move_y, false);
 
 			if (pos.x < mx && mx < pos.x + size.x &&
 				pos.y < my && my < pos.y + size.y)
@@ -135,7 +135,7 @@ void UIButtonAssetInst::Draw(float dt)
 					sound_click->Play(SoundBase::Once);
 				}
 
-				core.controls.SupressAlias(alias_fire);
+				core.controls.SupressAlias(alias_click);
 
 				SceneObject::ScriptCallback* callabck = FindScriptCallback("OnDown");
 

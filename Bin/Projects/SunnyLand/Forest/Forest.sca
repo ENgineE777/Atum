@@ -2155,10 +2155,19 @@
 					"prefix" : ""
 				}
 			],
-			"dep_count" : 1,
+			"dep_count" : 4,
 			"Dep" : [
 				{
-					"name" : "MainScript"
+					"name" : "ForestItemsScript"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
 				}
 			]
 		},
@@ -2262,10 +2271,28 @@
 					]
 				}
 			],
-			"dep_count" : 1,
+			"dep_count" : 7,
 			"Dep" : [
 				{
-					"name" : "MainScript"
+					"name" : "ForestEnemiesScript"
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
+				},
+				{
+					"name" : ""
 				}
 			]
 		}

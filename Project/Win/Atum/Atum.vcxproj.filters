@@ -618,6 +618,9 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.cpp">
       <Filter>SceneObjects\Common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.cpp">
+      <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1107,6 +1110,9 @@
       <Filter>Services\Physic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.h">
+      <Filter>SceneObjects\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.h">
       <Filter>SceneObjects\Common</Filter>
     </ClInclude>
   </ItemGroup>

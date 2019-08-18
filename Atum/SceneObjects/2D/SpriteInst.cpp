@@ -830,6 +830,7 @@ void SpriteInst::SetEditMode(bool ed)
 	else
 	{
 		rect_select = false;
+		sel_inst = -1;
 	}
 }
 

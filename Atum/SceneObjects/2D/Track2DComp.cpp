@@ -233,15 +233,15 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		core.render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f, 20.0f, COLOR_BLUE);
 
-		if (sprite_inst->sel_inst == index)
+		if (sel_track == index)
 		{
 			if (sel_point == 0)
 			{
-				sprite_inst->instances[sprite_inst->sel_inst].SetPos(track.points[0].pos);
+				sprite_inst->instances[sel_track].SetPos(track.points[0].pos);
 			}
 			else
 			{
-				SyncPosTrackWithInstPos(sprite_inst->sel_inst);
+				SyncPosTrackWithInstPos(sel_track);
 			}
 		}
 	}
@@ -299,12 +299,12 @@ void Track2DComp::EditorDraw(float dt)
 
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
-	if (sprite_inst->sel_inst == -1)
+	if (sel_track == -1)
 	{
 		return;
 	}
 
-	Track& track = tracks[sprite_inst->sel_inst];
+	Track& track = tracks[sel_track];
 
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
@@ -322,7 +322,7 @@ void Track2DComp::EditorDraw(float dt)
 
 			if (sel_point == 0 && track.points.size() > 0)
 			{
-				sprite_inst->instances[sprite_inst->sel_inst].SetPos(track.points[0].pos);
+				sprite_inst->instances[sel_track].SetPos(track.points[0].pos);
 			}
 
 			sel_point = -1;
@@ -374,7 +374,7 @@ void Track2DComp::EditorDraw(float dt)
 		}
 	}
 
-	UpdateTrack(sprite_inst->sel_inst, dt);
+	UpdateTrack(sel_track, dt);
 }
 
 void Track2DComp::ResizeInst(int count)
@@ -419,12 +419,12 @@ void Track2DComp::CheckSelection(Vector2 ms)
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
-	if (sprite_inst->sel_inst == -1)
+	if (sel_track == -1)
 	{
 		return;
 	}
 
-	Track& track = tracks[sprite_inst->sel_inst];
+	Track& track = tracks[sel_track];
 
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 
@@ -470,12 +470,12 @@ void Track2DComp::SetGizmo()
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
-	if (sprite_inst->sel_inst == -1)
+	if (sel_track == -1)
 	{
 		return;
 	}
 
-	Track& track = tracks[sprite_inst->sel_inst];
+	Track& track = tracks[sel_track];
 
 	if (sel_point != -1)
 	{

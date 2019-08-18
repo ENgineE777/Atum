@@ -84,8 +84,8 @@ void SceneObjCmpWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	if (sender == edBtn)
 	{
 		bool ed = obj->IsEditMode();
-		obj->SetEditMode(!ed);
 		comp->SetEditMode(ed);
+		obj->SetEditMode(!ed);
 	}
 	else
 	if (sender == delBtn)

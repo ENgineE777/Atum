@@ -446,7 +446,7 @@ bool SpriteGraphAsset::UsingCamera2DPos()
 
 void SpriteGraphAsset::PrepareInstance(Instance* inst)
 {
-	if (def_node == -1 || !valid)
+	if (def_node == -1 || !valid || inst->asset)
 	{
 		return;
 	}

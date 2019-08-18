@@ -353,7 +353,7 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property, const char* 
 		if (instances.size() > 0)
 		{
 			array->Resize((uint32_t)instances.size());
-			
+
 			asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
 			MakeMapping(objects[0], prefix);
@@ -370,6 +370,11 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property, const char* 
 
 				index++;
 			}
+		}
+		else
+		if (array->GetSize())
+		{
+			OnResize(0, array->GetSize());
 		}
 
 		array->listiner = this;

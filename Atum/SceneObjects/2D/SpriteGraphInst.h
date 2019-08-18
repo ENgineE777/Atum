@@ -71,6 +71,9 @@ public:
 	void ApplyProperties() override;
 	void Draw(float dt) override;
 
+	void OnResize(int at, int delta) override;
+
+	void PrepereInstaces();
 #ifdef EDITOR
 	void ShowProperties(bool show);
 #endif

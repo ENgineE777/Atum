@@ -33,6 +33,14 @@ void SpriteGraphInst::Init()
 	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContact", "void ", "%i%s%i"));
 }
 
+void SpriteGraphInst::PrepereInstaces()
+{
+	for (auto& inst : instances)
+	{
+		((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
+	}
+}
+
 void SpriteGraphInst::ApplyProperties()
 {
 #ifdef EDITOR
@@ -41,24 +49,19 @@ void SpriteGraphInst::ApplyProperties()
 
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + draw_level, this, (Object::Delegate)&SpriteGraphInst::Draw);
 
-	if (asset)
-	{
-		for (auto& inst : instances)
-		{
-			((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
-			inst.graph_instance.Reset();
-		}
-	}
+	PrepereInstaces();
+}
+
+void SpriteGraphInst::OnResize(int at, int delta)
+{
+	SpriteInst::OnResize(at, delta);
+
+	PrepereInstaces();
 }
 
 void SpriteGraphInst::Draw(float dt)
 {
 	if (GetState() == Invisible)
-	{
-		return;
-	}
-
-	if (!asset)
 	{
 		return;
 	}

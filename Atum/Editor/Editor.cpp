@@ -1282,7 +1282,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 	if (sender == assets_treeview && target == scene_treeview && GetSceneObjectFromItem(assets_treeview, item))
 	{
 		Project::SceneTreeItem* tree_item = (Project::SceneTreeItem*)assets_treeview->GetItemPtr(item);
-		Project::SceneTreeItem* target_tree_item = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
+		Project::SceneTreeItem* target_tree_item = (Project::SceneTreeItem*)sender->GetItemPtr(sender->GetItemChild(parent, child_index > 0 ? child_index - 1 : child_index));
 
 		SceneAsset* asset = (SceneAsset*)tree_item->object;
 

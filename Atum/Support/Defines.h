@@ -14,4 +14,8 @@
 #define DELETE_PTR(p) if (p) { delete p; p = nullptr; }
 #define DELETE_ARRAY(p) if (p) { delete[] p; p = nullptr; }
 
+#ifdef PLATFORM_PC
+#define DEBUG_BREAK __debugbreak();
+#endif
+
 #define _FL_ __FILE__ , __LINE__

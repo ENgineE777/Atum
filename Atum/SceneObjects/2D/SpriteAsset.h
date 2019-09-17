@@ -45,6 +45,9 @@ class SpriteAsset : public SceneAsset
 public:
 	META_DATA_DECL(SpriteAsset)
 
+	bool use_source_size = false;
+	Vector2 source_scale;
+
 	/**
 	\brief Transform data of a sprite. This data will be used in instances of a sprite.
 	*/
@@ -63,6 +66,7 @@ public:
 	virtual ~SpriteAsset() = default;
 
 	void Init() override;
+	void ApplyProperties() override;
 	void Draw(float dt);
 
 #ifdef EDITOR

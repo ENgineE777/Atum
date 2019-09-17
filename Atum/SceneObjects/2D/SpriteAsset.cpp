@@ -14,6 +14,9 @@ META_DATA_DESC(SpriteAsset)
 	FLOAT_PROP(SpriteAsset, trans.size.y, 100.0f, "Prop", "height", "Height of a sprite")
 	FLOAT_PROP(SpriteAsset, trans.offset.x, 0.5f, "Prop", "anchorn_x", "X coordinate of anchorn in absolute units")
 	FLOAT_PROP(SpriteAsset, trans.offset.y, 0.5f, "Prop", "anchorn_y", "Y coordinate of anchorn in absolute units")
+	BOOL_PROP(SpriteAsset, use_source_size, false, "Prop", "use_source_size", "Use size of a source")
+	FLOAT_PROP(SpriteAsset, source_scale.x, 1.0f, "Prop", "source_scaleX", "Horizontal scale of a source")
+	FLOAT_PROP(SpriteAsset, source_scale.y, 1.0f, "Prop", "source_scaleY", "Vertical scale of a source")
 	SPRITE_PROP(SpriteAsset, sprite, "Prop", "sprite")
 META_DATA_DESC_END()
 
@@ -33,12 +36,25 @@ void SpriteAsset::Init()
 	GetScene()->AddToGroup(this, "SpriteAsset");
 }
 
+void SpriteAsset::ApplyProperties()
+{
+	if (use_source_size && sprite.texture)
+	{
+		trans.size = sprite.rects[0].size * source_scale;
+	}
+}
+
 void SpriteAsset::Draw(float dt)
 {
 	trans.BuildMatrices();
 	Sprite::UpdateFrame(&sprite, &state, dt);
 
 #ifdef EDITOR
+	if (edited && use_source_size && sprite.texture)
+	{
+		trans.size = sprite.rects[0].size * source_scale;
+	}
+
 	if (edited && SpriteWindow::instance && !SpriteWindow::instance->show_anim)
 	{
 		state.cur_frame = SpriteWindow::instance->cur_frame;

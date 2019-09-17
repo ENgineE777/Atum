@@ -59,12 +59,16 @@ void UIViewAsset::Release()
 	for (auto inst : instances)
 	{
 		UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
-		ui_inst->DeleteChilds();
-		if (ui_inst->parent)
+
+		if (ui_inst)
 		{
-			ui_inst->parent->DeleteChild(ui_inst);
+			ui_inst->DeleteChilds();
+			if (ui_inst->parent)
+			{
+				ui_inst->parent->DeleteChild(ui_inst);
+			}
+			delete ui_inst;
 		}
-		delete ui_inst;
 	}
 #endif
 

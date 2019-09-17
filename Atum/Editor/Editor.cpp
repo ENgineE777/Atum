@@ -578,6 +578,8 @@ void Editor::StopScene()
 		Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
 	}
 
+	RestoreSelectedObjectWidgets();
+
 	Sprite::use_ed_cam = true;
 
 	ShowVieport();
@@ -623,6 +625,14 @@ void Editor::Draw(float dt)
 	core.render.ExecutePool(ExecuteLevels::Debug, dt);
 
 	core.render.GetDevice()->Present();
+}
+
+void Editor::RestoreSelectedObjectWidgets()
+{
+	if (selectedObject)
+	{
+		selectedObject->ShowPropWidgets(objCat);
+	}
 }
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
@@ -961,6 +971,8 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 	if (activated_id == MenuSaveID && project.project_name.size() != 0)
 	{
 		project.Save();
+
+		RestoreSelectedObjectWidgets();
 	}
 
 	if ((activated_id == MenuSaveID && project.project_name.size() == 0) || activated_id == MenuSaveAsID)
@@ -972,6 +984,8 @@ void Editor::OnMenuItem(EUIMenu* sender, int activated_id)
 			//TODO: pathes for all scenes should be corected in case project dir was changed
 			project.project_name = fileName;
 			project.Save();
+
+			RestoreSelectedObjectWidgets();
 		}
 	}
 

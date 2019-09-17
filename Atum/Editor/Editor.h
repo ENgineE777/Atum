@@ -129,6 +129,7 @@ public:
 	void StartScene();
 	void StopScene();
 	void Draw(float dt);
+	void RestoreSelectedObjectWidgets();
 	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
 	void ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 	SceneObject* GetSceneObjectFromItem(EUITreeView* tree_view, void* item);

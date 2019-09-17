@@ -83,7 +83,7 @@ SceneObject* Scene::FindByUID(uint32_t uid, uint32_t child_uid, std::vector<Scen
 {
 	for (auto obj : objects)
 	{
-		if (obj->GetUID() == uid)
+		if (obj && obj->GetUID() == uid)
 		{
 			return (child_uid == 0) ? obj : obj->GetChild(child_uid);
 		}
@@ -163,7 +163,7 @@ void Scene::DeleteObjects(std::vector<SceneObject*>& objects)
 {
 	for (auto& obj : objects)
 	{
-		obj->Release();
+		RELEASE(obj);
 	}
 
 	objects.clear();

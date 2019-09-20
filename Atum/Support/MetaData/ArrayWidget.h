@@ -18,6 +18,7 @@ public:
 	};
 	std::vector<ElemCat> elem_cats;
 
+	uint8_t* value;
 	void* prop;
 	void* root;
 	int32_t* sel_item = nullptr;

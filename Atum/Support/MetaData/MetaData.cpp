@@ -34,11 +34,6 @@ void MetaData::Prepare(void* set_owner, void* set_root)
 		if (prop.adapter)
 		{
 			prop.adapter->value = prop.value;
-
-			if (prop.adapter->sel_item_offset != -1)
-			{
-				prop.adapter->sel_item = (int32_t*)((uint8_t*)root + prop.adapter->sel_item_offset);
-			}
 		}
 	}
 }
@@ -430,8 +425,6 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 			if (prop.type == Type::Array)
 			{
 				widget = new ArrayWidget();
-				((ArrayWidget*)widget)->prop = prop.adapter;
-				((ArrayWidget*)widget)->root = root;
 			}
 			else
 			if (prop.type == Type::Sprite)
@@ -446,6 +439,18 @@ void MetaData::PrepareWidgets(EUICategories* parent)
 
 			widget->Init(parent, prop.catName.c_str(), prop.propName.c_str());
 			prop.widgets[parent] = widget;
+		}
+
+		if (prop.type == Type::Array)
+		{
+			if (prop.adapter->sel_item_offset != -1)
+			{
+				prop.adapter->sel_item = (int32_t*)((uint8_t*)root + prop.adapter->sel_item_offset);
+			}
+
+			((ArrayWidget*)widget)->value = prop.adapter->value;
+			((ArrayWidget*)widget)->prop = prop.adapter;
+			((ArrayWidget*)widget)->root = root;
 		}
 
 		widget->SetData(owner, prop.value);

@@ -28,6 +28,7 @@ void ArrayWidget::Show(bool show)
 void ArrayWidget::SetData(void* owner, void* set_data)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
+	adapter->value = value;
 
 	if (adapter->sel_item)
 	{
@@ -90,6 +91,7 @@ void ArrayWidget::SetData(void* owner, void* set_data)
 void ArrayWidget::OnUpdate(EUIWidget* sender)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
+	adapter->value = value;
 
 	if (sel_item && *(sel_item) != pre_sel_item)
 	{
@@ -113,6 +115,7 @@ void ArrayWidget::OnUpdate(EUIWidget* sender)
 void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 {
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
+	adapter->value = value;
 
 	if (sender == addBtn)
 	{

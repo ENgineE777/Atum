@@ -518,7 +518,7 @@ int NavMesh2DBase::MoveAlongPath(int index, float dist)
 {
 	Path& path = pathes[index];
 
-	if (!path.used || path.finished)
+	if (!path.used || path.finished || path.points.size() == 0)
 	{
 		return 0;
 	}

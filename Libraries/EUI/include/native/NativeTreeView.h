@@ -18,6 +18,8 @@ public:
 	virtual void  SelectItem(void* item) = 0;
 	virtual void  SetItemImage(void* item, int image) = 0;
 	virtual void  GetItemText(void* item, std::string& text) = 0;
+	virtual bool  IsItemOpened(void* item) = 0;
+	virtual void  SetItemOpen(void* item, bool opened) = 0;
 	virtual void* GetItemPtr(void* item) = 0;
 	virtual void* GetItemParent(void* item) = 0;
 	virtual int   GetItemChildCount(void* item) = 0;

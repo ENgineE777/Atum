@@ -22,6 +22,7 @@ class EUI
 
 public:
 	static std::vector<EUIWindow*> wnds;
+	static std::vector<EUIWindow*> to_delete_wnds;
 	static const char* GetName();
 	static void Init(const char* theme_path, const char* theme_name);
 	static void* GetRenderDevice();

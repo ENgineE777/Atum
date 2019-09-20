@@ -28,6 +28,8 @@ public:
 	virtual void* GetSelectedItem();
 	virtual void  SelectItem(void* item);
 	virtual void  GetItemText(void* item, std::string& text);
+	virtual bool  IsItemOpened(void* item);
+	virtual void  SetItemOpen(void* item, bool opened);
 	virtual void* GetItemPtr(void* item);
 	virtual void* GetItemParent(void* item);
 	virtual int   GetItemChildCount(void* item);

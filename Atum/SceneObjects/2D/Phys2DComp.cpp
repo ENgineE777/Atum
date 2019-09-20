@@ -121,6 +121,11 @@ void Phys2DCompInst::ScriptProxy::MoveController(float dx, float dy, uint32_t gr
 	}
 }
 
+void Phys2DCompInst::Init()
+{
+	object->GetScene()->AddToGroup(object, "Phys2DComp");
+}
+
 void Phys2DCompInst::BindClassToScript()
 {
 	const char* brief = "Representation of 2D physical object component\n"
@@ -256,6 +261,11 @@ void Phys2DCompInst::Play()
 
 void Phys2DCompInst::Release()
 {
+	if (object)
+	{
+		object->GetScene()->DelFromGroup(object, "Phys2DComp");
+	}
+
 	for (auto& body : bodies)
 	{
 		if (body.body)

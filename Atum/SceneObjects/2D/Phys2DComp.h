@@ -140,6 +140,8 @@ public:
 
 	META_DATA_DECL(Phys2DCompInst)
 
+	void Init() override;
+
 	void BindClassToScript() override;
 	void InjectIntoScript(asIScriptObject* object, int index, const char* prefix) override;
 

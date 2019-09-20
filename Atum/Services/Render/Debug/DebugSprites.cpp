@@ -44,7 +44,10 @@ void DebugSprites::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Vector2 offset, float angle, Color color)
 {
-	if (sprites.size()>1000) return;
+	if (sprites.size() > 2000)
+	{
+		return;
+	}
 
 	sprites.push_back(Sprite());
 	Sprite* spr = &sprites[sprites.size()-1];
@@ -59,7 +62,10 @@ void DebugSprites::AddSprite(Texture* texture, Vector2 pos, Vector2 size, Vector
 
 void DebugSprites::Draw(float dt)
 {
-	if (sprites.size() == 0) return;
+	if (sprites.size() == 0)
+	{
+		return;
+	}
 
 	core.render.GetDevice()->SetVertexDecl(vdecl);
 	core.render.GetDevice()->SetVertexBuffer( 0, vbuffer);

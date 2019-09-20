@@ -80,7 +80,6 @@ public:
 protected:
 
 	std::string name;
-	std::string group_name;
 	std::string layer_name;
 	uint32_t uid = 0;
 	State state = Active;
@@ -93,6 +92,8 @@ protected:
 public:
 
 #ifndef DOXYGEN_SKIP
+
+	std::string group_name;
 
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;

@@ -112,6 +112,12 @@
     <Filter Include="Platform\Common">
       <UniqueIdentifier>{df30acd0-3890-4ad0-94fe-2077f023c7a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Support\libtess">
+      <UniqueIdentifier>{9f9439ee-789c-47a1-8c11-8e6fd0d9e72c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SceneObjects\2D\NavMesh">
+      <UniqueIdentifier>{6f280694-a4aa-4a9a-84d9-89afc4838f79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
@@ -468,9 +474,6 @@
     <ClCompile Include="..\..\..\Atum\Platform\Android\AtumLib.cpp">
       <Filter>Platform\Android</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.cpp">
-      <Filter>SceneObjects\2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.cpp">
       <Filter>Support\MetaData</Filter>
     </ClCompile>
@@ -620,6 +623,36 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.cpp">
       <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\bucketalloc.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\dict.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\geom.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\mesh.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\priorityq.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\sweep.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\libtess2\tess.c">
+      <Filter>Support\libtess</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2D.cpp">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DGen.cpp">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DBase.cpp">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1037,9 +1070,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h">
       <Filter>SceneObjects\2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh2D.h">
-      <Filter>SceneObjects\2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MetaData\EnumStringWidget.h">
       <Filter>Support\MetaData</Filter>
     </ClInclude>
@@ -1114,6 +1144,39 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.h">
       <Filter>SceneObjects\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\bucketalloc.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\dict.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\geom.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\mesh.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\priorityq.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\sweep.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\tess.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\tesselator.h">
+      <Filter>Support\libtess</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2D.h">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DGen.h">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DBase.h">
+      <Filter>SceneObjects\2D\NavMesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

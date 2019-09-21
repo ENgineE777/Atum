@@ -403,10 +403,8 @@ void Phys2DCompInst::UpdateInstances(float dt)
 						inst.dir = 0.0f;
 					}
 					else
-					if (inst.hack_marker)
 					{
 						bodies[index].controller->SetPosition({ inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f });
-						inst.hack_marker = false;
 					}
 				}
 			}

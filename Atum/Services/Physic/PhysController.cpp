@@ -263,6 +263,14 @@ void PhysController::SetGroup(int group)
 
 void PhysController::SetPosition(Vector pos)
 {
+	Vector cur_pos;
+	GetPosition(cur_pos);
+
+	if (pos.Equals(cur_pos, 0.01f))
+	{
+		return;
+	}
+
 	if (!active)
 	{
 		deactive_pos = pos;

@@ -45,7 +45,7 @@ void NavMesh2DGen::ConstructNavMesh()
 
 	TESStesselator* tess = 0;
 	TESSalloc ma;
-	const int nvp = 3;
+	const int nvp = 7;
 
 	memset(&ma, 0, sizeof(ma));
 	ma.memalloc = stdAlloc;

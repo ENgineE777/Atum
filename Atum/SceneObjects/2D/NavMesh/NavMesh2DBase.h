@@ -22,9 +22,9 @@ public:
 
 		int FindEdge(int index_a, int index_b)
 		{
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < edges.size(); i++)
 			{
-				int next_index = i == 2 ? 0 : i + 1;
+				int next_index = (i + 1) % edges.size();
 
 				if ((edges[i].index == index_a && edges[next_index].index == index_b) ||
 					(edges[i].index == index_b && edges[next_index].index == index_a))

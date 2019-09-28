@@ -91,6 +91,22 @@ public:
 
 	struct Instance
 	{
+		enum MapIndices
+		{
+			IndexX = 0,
+			IndexY,
+			IndexHorzFlip,
+			IndexVisible,
+			IndexR,
+			IndexG,
+			IndexB,
+			IndexAlpha,
+			IndexWidth,
+			IndexHeight,
+			IndexAngle,
+			IndexGraph
+		};
+
 		META_DATA_DECL_BASE(Instance)
 
 		int index = 0;
@@ -103,6 +119,15 @@ public:
 		int  GetFlipped();
 		void SetVisible(int visible);
 		bool IsVisible();
+
+		float GetR();
+		void  SetR(float set_r);
+
+		float GetG();
+		void  SetG(float set_g);
+
+		float GetB();
+		void  SetB(float set_b);
 
 		float GetAlpha();
 		void  SetAlpha(float set_alpha);
@@ -135,7 +160,6 @@ public:
 		float   size_x = -1.0f;
 		float   size_y = -1.0f;
 		int     visible = 1;
-		float   alpha = 1.0f;
 		float   angle = 0.0f;
 	};
 

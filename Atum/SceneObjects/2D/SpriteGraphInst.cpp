@@ -151,6 +151,9 @@ void SpriteGraphInst::Draw(float dt)
 		trans.BuildMatrices();
 
 		inst.graph_instance.state.horz_flipped = inst.GetFlipped();
+		inst.color.r = inst.GetR();
+		inst.color.g = inst.GetG();
+		inst.color.b = inst.GetB();
 		inst.color.a = inst.GetAlpha();
 
 		Sprite::Draw(&trans, inst.color, &inst.graph_instance.cur_node->asset->sprite, &inst.graph_instance.state, true, false);

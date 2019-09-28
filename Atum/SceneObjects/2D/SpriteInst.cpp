@@ -12,7 +12,7 @@ META_DATA_DESC(SpriteInst::Instance)
 	INT_PROP(SpriteInst::Instance, index, -1, "Prop", "index", "tile index")
 	INT_PROP(SpriteInst::Instance, visible, 1, "Prop", "visible", "If instance is visible. 1 means visible. 0 means invicible")
 	COLOR_PROP(SpriteInst::Instance, color, COLOR_WHITE, "Prop", "color")
-	FLOAT_PROP(SpriteInst::Instance, alpha, 0.0f, "Prop", "alpha", "Transparency of a instance")
+	FLOAT_PROP(SpriteInst::Instance, color.a, 0.0f, "Prop", "alpha", "Transparency of a instance")
 META_DATA_DESC_END()
 
 CLASSREG(SceneObject, SpriteInst, "Sprite")
@@ -38,12 +38,12 @@ void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* s
 		SetPos(pos);
 		SetFlipped(frame_state.horz_flipped);
 		SetVisible(visible);
-		SetAlpha(alpha);
+		SetAlpha(color.a);
 		SetSizeX(size_x);
 		SetAngle(angle);
 	}
 
-	int prop_index = mapping[0][8];
+	int prop_index = mapping[0][IndexGraph];
 
 	if (prop_index != -1)
 	{
@@ -55,8 +55,8 @@ void SpriteInst::Instance::SetPos(Vector2 set_pos)
 {
 	if (object)
 	{
-		int prop_x = mapping[0][0];
-		int prop_y = mapping[0][1];
+		int prop_x = mapping[0][IndexX];
+		int prop_y = mapping[0][IndexY];
 
 		if (prop_x != -1 && prop_y != -1)
 		{
@@ -74,8 +74,8 @@ Vector2 SpriteInst::Instance::GetPos()
 {
 	if (object)
 	{
-		int prop_x = mapping[0][0];
-		int prop_y = mapping[0][1];
+		int prop_x = mapping[0][IndexX];
+		int prop_y = mapping[0][IndexY];
 
 		if (prop_x != -1 && prop_y != -1)
 		{
@@ -90,7 +90,7 @@ void SpriteInst::Instance::SetFlipped(int set_horz_flipped)
 {
 	if (object)
 	{
-		int prop = mapping[0][2];
+		int prop = mapping[0][IndexHorzFlip];
 
 		if (prop != -1)
 		{
@@ -107,7 +107,7 @@ int SpriteInst::Instance::GetFlipped()
 {
 	if (object)
 	{
-		int prop = mapping[0][2];
+		int prop = mapping[0][IndexHorzFlip];
 
 		if (prop != -1)
 		{
@@ -122,7 +122,7 @@ void SpriteInst::Instance::SetVisible(int set_visible)
 {
 	if (object)
 	{
-		int prop = mapping[0][3];
+		int prop = mapping[0][IndexVisible];
 
 		if (prop != -1)
 		{
@@ -139,7 +139,7 @@ bool SpriteInst::Instance::IsVisible()
 {
 	if (object)
 	{
-		int prop = mapping[0][3];
+		int prop = mapping[0][IndexVisible];
 
 		if (prop != -1)
 		{
@@ -150,11 +150,11 @@ bool SpriteInst::Instance::IsVisible()
 	return (visible != 0);
 }
 
-float SpriteInst::Instance::GetAlpha()
+float SpriteInst::Instance::GetR()
 {
 	if (object)
 	{
-		int prop = mapping[0][4];
+		int prop = mapping[0][IndexR];
 
 		if (prop != -1)
 		{
@@ -162,14 +162,106 @@ float SpriteInst::Instance::GetAlpha()
 		}
 	}
 
-	return alpha;
+	return color.r;
+}
+
+void SpriteInst::Instance::SetR(float set_r)
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexR];
+
+		if (prop != -1)
+		{
+			*((float*)object->GetAddressOfProperty(prop)) = set_r;
+			return;
+		}
+	}
+
+	color.r = set_r;
+}
+
+float SpriteInst::Instance::GetG()
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexG];
+
+		if (prop != -1)
+		{
+			return (*((float*)object->GetAddressOfProperty(prop)));
+		}
+	}
+
+	return color.g;
+}
+
+void SpriteInst::Instance::SetG(float set_g)
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexG];
+
+		if (prop != -1)
+		{
+			*((float*)object->GetAddressOfProperty(prop)) = set_g;
+			return;
+		}
+	}
+
+	color.g = set_g;
+}
+
+float SpriteInst::Instance::GetB()
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexB];
+
+		if (prop != -1)
+		{
+			return (*((float*)object->GetAddressOfProperty(prop)));
+		}
+	}
+
+	return color.b;
+}
+
+void SpriteInst::Instance::SetB(float set_b)
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexB];
+
+		if (prop != -1)
+		{
+			*((float*)object->GetAddressOfProperty(prop)) = set_b;
+			return;
+		}
+	}
+
+	color.b = set_b;
+}
+float SpriteInst::Instance::GetAlpha()
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexAlpha];
+
+		if (prop != -1)
+		{
+			return (*((float*)object->GetAddressOfProperty(prop)));
+		}
+	}
+
+	return color.a;
 }
 
 void SpriteInst::Instance::SetAlpha(float set_alpha)
 {
 	if (object)
 	{
-		int prop = mapping[0][4];
+		int prop = mapping[0][IndexAlpha];
 
 		if (prop != -1)
 		{
@@ -178,14 +270,14 @@ void SpriteInst::Instance::SetAlpha(float set_alpha)
 		}
 	}
 
-	alpha = set_alpha;
+	color.a = set_alpha;
 }
 
 float SpriteInst::Instance::GetSizeX()
 {
 	if (object)
 	{
-		int prop = mapping[0][5];
+		int prop = mapping[0][IndexWidth];
 
 		if (prop != -1)
 		{
@@ -200,7 +292,7 @@ void  SpriteInst::Instance::SetSizeX(float set_size)
 {
 	if (object)
 	{
-		int prop = mapping[0][5];
+		int prop = mapping[0][IndexWidth];
 
 		if (prop != -1)
 		{
@@ -216,7 +308,7 @@ float SpriteInst::Instance::GetSizeY()
 {
 	if (object)
 	{
-		int prop = mapping[0][6];
+		int prop = mapping[0][IndexHeight];
 
 		if (prop != -1)
 		{
@@ -231,7 +323,7 @@ void  SpriteInst::Instance::SetSizeY(float set_size)
 {
 	if (object)
 	{
-		int prop = mapping[0][6];
+		int prop = mapping[0][IndexHeight];
 
 		if (prop != -1)
 		{
@@ -247,7 +339,7 @@ float SpriteInst::Instance::GetAngle()
 {
 	if (object)
 	{
-		int prop = mapping[0][7];
+		int prop = mapping[0][IndexAngle];
 
 		if (prop != -1)
 		{
@@ -262,7 +354,7 @@ void SpriteInst::Instance::SetAngle(float set_angle)
 {
 	if (object)
 	{
-		int prop = mapping[0][7];
+		int prop = mapping[0][IndexAngle];
 
 		if (prop != -1)
 		{
@@ -301,7 +393,7 @@ void SpriteInst::BindClassToScript()
 
 void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 {
-	const char* names[] = { "x", "y", "horz_flipped", "visible", "alpha", "width", "height", "angle", "graph" };
+	const char* names[] = { "x", "y", "horz_flipped", "visible", "r", "g", "b", "alpha", "width", "height", "angle", "graph" };
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);
 
@@ -572,6 +664,9 @@ void SpriteInst::Draw(float dt)
 		trans.BuildMatrices();
 
 		inst.frame_state.horz_flipped = inst.GetFlipped();
+		inst.color.r = inst.GetR();
+		inst.color.g = inst.GetG();
+		inst.color.b = inst.GetB();
 		inst.color.a = inst.GetAlpha();
 
 		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &sprite_asset->sprite, &inst.frame_state, use_depth, false);

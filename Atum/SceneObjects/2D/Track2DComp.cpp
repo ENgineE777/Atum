@@ -290,12 +290,13 @@ void Track2DComp::ApplyProperties()
 
 void Track2DComp::EditorDraw(float dt)
 {
+	SpriteInst* sprite_inst = (SpriteInst*)object;
+	sel_track = ((SpriteInst*)object)->sel_inst;
+
 	if (!IsEditMode() && !object->IsEditMode())
 	{
 		return;
 	}
-
-	SpriteInst* sprite_inst = (SpriteInst*)object;
 
 	if (sel_track == -1)
 	{
@@ -454,12 +455,10 @@ void Track2DComp::SetEditMode(bool ed)
 
 	if (ed)
 	{
-		sel_track = ((SpriteInst*)object)->sel_inst;
 		SetGizmo();
 	}
 	else
 	{
-		sel_track = -1;
 		sel_point = -1;
 	}
 }

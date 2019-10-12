@@ -493,6 +493,7 @@ void Editor::StartScene()
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(false);
+		selectedObject->ShowPropWidgets(nullptr);
 	}
 
 	if (project.select_scene)
@@ -561,6 +562,7 @@ void Editor::StopScene()
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(true);
+		selectedObject->ShowPropWidgets(objCat);
 	}
 
 	if (project.select_scene)

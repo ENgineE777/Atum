@@ -117,15 +117,15 @@ void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 {
 	saved_objCat = objCat;
 
+	auto meta = GetMetaData();
+
+	if (meta->properties.size() > 1)
+	{
+		meta->properties.erase(meta->properties.begin() + 1, meta->properties.end());
+	}
+
 	if (objCat)
 	{
-		auto meta = GetMetaData();
-
-		if (meta->properties.size() > 1)
-		{
-			meta->properties.erase(meta->properties.begin() + 1, meta->properties.end());
-		}
-
 		int index = 0;
 
 		for (auto& val : values)

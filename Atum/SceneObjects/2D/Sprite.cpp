@@ -201,7 +201,7 @@ void Sprite::UpdateFrame(Sprite::Data* data, FrameState* state, float dt)
 			}
 		}
 
-		frame_tm = (data->rects[state->cur_frame].frame_time == -1) ? data->frame_time : data->rects[state->cur_frame].frame_time;
+		frame_tm = (data->rects[state->cur_frame].frame_time < 0.01f) ? data->frame_time : data->rects[state->cur_frame].frame_time;
 	}
 
 	//render.DebugPrintText(Vector2(10, 50), COLOR_YELLOW, "Stat state->cur_frame %i %4.3f", state->cur_frame, state->cur_time);

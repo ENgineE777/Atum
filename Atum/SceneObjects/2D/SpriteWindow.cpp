@@ -876,6 +876,11 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 		sprite->frame_time = fmax(0.025f, frame_time_ebox->GetAsFloat());
 	}
 
+	if (sender == cur_frame_time_ebox)
+	{
+		sprite->rects[cur_frame].frame_time = cur_frame_time_ebox->GetAsFloat();
+	}
+
 	if (sender == pivot_x_ebox)
 	{
 		sprite->rects[cur_frame].offset.x = pivot_x_ebox->GetAsFloat();

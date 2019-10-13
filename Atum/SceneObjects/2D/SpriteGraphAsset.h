@@ -67,6 +67,16 @@ public:
 		float   angle = 0.0f;
 	};
 
+	class Event : public Object
+	{
+	public:
+		META_DATA_DECL_BASE(Event)
+
+		float time = 0.0f;
+		string name;
+		string param;
+	};
+
 	class Node : public Object
 	{
 	public:
@@ -81,6 +91,7 @@ public:
 		uint32_t object_uid = 0;
 		int def_link = -1;
 		vector<Link> links;
+		vector<Event> events;
 	};
 
 	bool valid = false;
@@ -96,7 +107,7 @@ public:
 
 		void Reset();
 		bool ActivateLink(const char* link);
-		void Update(float dt);
+		void Update(const char* entity_name, int index, ScriptContext* context, SceneObject::ScriptCallback* callback, float dt);
 		void GotoNode(int index);
 		bool GotoNode(const char* node);
 	};

@@ -56,6 +56,7 @@ public:
 		bool  horz_flipped = false;
 		int   cur_frame = 0;
 		float cur_time = -1.0f;
+		float frame_start_time = 0.0f;
 	};
 
 	static Program*    quad_prg_depth;
@@ -70,7 +71,95 @@ public:
 	static void Load(JSONReader& loader, Sprite::Data* sprite, const char* name);
 	static void Save(JSONWriter& saver, Sprite::Data* sprite, const char* name);
 	static void Copy(Sprite::Data* src, Sprite::Data* dest);
-	static void UpdateFrame(Sprite::Data* data, FrameState* state, float dt);
+
+	template<typename Func>
+	static void UpdateFrame(Sprite::Data* data, FrameState* state, float dt, Func callback)
+	{
+		if (data->type != Frames || state->finished)
+		{
+			return;
+		}
+
+		if (state->cur_time < -0.5f)
+		{
+			state->cur_time = 0.0f;
+			state->frame_start_time = 0.0f;
+
+			if (state->reversed)
+			{
+				state->cur_frame = (int)(data->rects.size() - 1);
+			}
+			else
+			{
+				state->cur_frame = 0;
+			}
+		}
+
+		float frame_tm = (data->rects[state->cur_frame].frame_time < 0.01f) ? data->frame_time : data->rects[state->cur_frame].frame_time;
+
+		while (state->cur_time + dt > state->frame_start_time + frame_tm)
+		{
+			state->frame_start_time += frame_tm;
+
+			dt -= (state->frame_start_time - state->cur_time);
+
+			callback(state->cur_time, state->frame_start_time);
+
+			state->cur_time = state->frame_start_time;
+
+			if (state->reversed)
+			{
+				state->cur_frame--;
+
+				if (state->cur_frame < 0)
+				{
+					if (state->looped)
+					{
+						state->cur_frame = (int)(data->rects.size() - 1);
+						state->cur_time = 0.0f;
+						state->frame_start_time = 0.0f;
+					}
+					else
+					{
+						state->finished = true;
+						state->cur_frame++;
+						return;
+					}
+				}
+			}
+			else
+			{
+				state->cur_frame++;
+				if (state->cur_frame >= data->rects.size())
+				{
+					if (state->looped)
+					{
+						state->cur_frame = 0;
+						state->cur_time = 0.0f;
+						state->frame_start_time = 0.0f;
+					}
+					else
+					{
+						state->finished = true;
+						state->cur_frame--;
+						return;
+					}
+				}
+			}
+
+			frame_tm = (data->rects[state->cur_frame].frame_time < 0.01f) ? data->frame_time : data->rects[state->cur_frame].frame_time;
+		}
+
+		callback(state->cur_time, state->cur_time + dt);
+
+		state->cur_time += dt;
+	}
+
+	static void UpdateFrame(Sprite::Data* data, FrameState* state, float dt)
+	{
+		UpdateFrame(data, state, dt, [](float from, float to) {});
+	}
+
 	static void Init();
 	static void Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped = false);
 	static void Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth, bool ignore_camera);

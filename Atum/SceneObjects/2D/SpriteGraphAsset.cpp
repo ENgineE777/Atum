@@ -15,10 +15,17 @@ META_DATA_DESC(SpriteGraphAsset::Link)
 	BOOL_PROP(SpriteGraphAsset::Link, def_link, "", "Link", "DefaultLink", "If link is default")
 META_DATA_DESC_END()
 
+META_DATA_DESC(SpriteGraphAsset::Event)
+	FLOAT_PROP(SpriteGraphAsset::Event, time, 0.0f, "Event", "time", "Time on timeline when event should be fired")
+	STRING_PROP(SpriteGraphAsset::Event, name, "", "Event", "Name")
+	STRING_PROP(SpriteGraphAsset::Event, param, "", "Event", "param")
+META_DATA_DESC_END()
+
 META_DATA_DESC(SpriteGraphAsset::Node)
 	STRING_PROP(SpriteGraphAsset::Node, name, "", "Node", "Name")
 	BOOL_PROP(SpriteGraphAsset::Node, looped, true, "Node", "Looped", "If animation is looped")
 	BOOL_PROP(SpriteGraphAsset::Node, reversed, false, "Node", "Reversed", "If node should be fliped horizontally")
+	ARRAY_PROP(SpriteGraphAsset::Node, events, Event, "Node", "event")
 META_DATA_DESC_END()
 
 void SpriteGraphAsset::Instance::GotoNode(int index)
@@ -77,14 +84,28 @@ bool SpriteGraphAsset::Instance::ActivateLink(const char* link_name)
 	return false;
 }
 
-void SpriteGraphAsset::Instance::Update(float dt)
+void SpriteGraphAsset::Instance::Update(const char* entity_name, int index, ScriptContext* context, SceneObject::ScriptCallback* callback, float dt)
 {
 	if (!asset)
 	{
 		return;
 	}
 
-	Sprite::UpdateFrame(&cur_node->asset->sprite, &state, dt);
+	auto fire_events = [this, callback, index, context, entity_name](float from, float to)
+	{
+		if (callback)
+		{
+			for (auto& event : cur_node->events)
+			{
+				if (from < event.time && event.time < to)
+				{
+					callback->Call(context, entity_name, index, event.name.c_str(), event.param.c_str());
+				}
+			}
+		}
+	};
+
+	Sprite::UpdateFrame(&cur_node->asset->sprite, &state, dt, fire_events);
 
 	if (!cur_node->looped && state.finished)
 	{
@@ -177,6 +198,23 @@ void SpriteGraphAsset::Load(JSONReader& loader)
 			loader.LeaveBlock();
 		}
 
+		int event_count = 0;
+		loader.Read("CountEvent", event_count);
+		node.events.resize(event_count);
+
+		for (int j = 0; j<event_count; j++)
+		{
+			if (!loader.EnterBlock("Event")) break;
+
+			Event& event = node.events[j];
+
+			loader.Read("time", event.time);
+			loader.Read("name", event.name);
+			loader.Read("param", event.param);
+
+			loader.LeaveBlock();
+		}
+
 		if (node.def_link != -1)
 		{
 			node.links[node.def_link].def_link = true;
@@ -224,6 +262,26 @@ void SpriteGraphAsset::Save(JSONWriter& saver)
 
 			saver.Write("index", link.index);
 			saver.Write("name", link.name.c_str());
+
+			saver.FinishBlock();
+		}
+
+		saver.FinishArray();
+
+		int event_count = (int)node.events.size();
+		saver.Write("CountEvent", event_count);
+
+		saver.StartArray("Event");
+
+		for (int j = 0; j < event_count; j++)
+		{
+			saver.StartBlock(nullptr);
+
+			Event& event = node.events[j];
+
+			saver.Write("time", event.time);
+			saver.Write("name", event.name.c_str());
+			saver.Write("param", event.param.c_str());
 
 			saver.FinishBlock();
 		}

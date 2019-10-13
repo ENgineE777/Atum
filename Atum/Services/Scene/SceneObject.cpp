@@ -154,7 +154,8 @@ bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 		va_list args;
 		va_start(args, context);
 
-		string param;
+		static string param[7];
+		int str_index = 0;
 		int cur_arg = 0;
 
 		for (int index = 0; cur_arg < count; cur_arg++, index +=2)
@@ -179,8 +180,9 @@ bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 				}
 				case 's':
 				{
-					param = va_arg(args, const char*);
-					context->ctx->SetArgObject(cur_arg, &param);
+					param[str_index] = va_arg(args, const char*);
+					context->ctx->SetArgObject(cur_arg, &param[str_index]);
+					str_index++;
 					break;
 				}
 				default:

@@ -200,7 +200,7 @@ void SimpleCharacter2D::Draw(float dt)
 
 	if (GetState() == Active)
 	{
-		graph_instance.Update(dt);
+		graph_instance.Update(GetName(), 0, Script(), nullptr, dt);
 	}
 
 	Sprite::Draw(&trans, COLOR_WHITE, &graph_instance.cur_node->asset->sprite, &graph_instance.state, true, false);

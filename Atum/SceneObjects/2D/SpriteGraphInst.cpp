@@ -31,6 +31,7 @@ void SpriteGraphInst::BindClassToScript()
 void SpriteGraphInst::Init()
 {
 	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContact", "void ", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "AnimEvent", "void ", "%s%i%s%s"));
 }
 
 void SpriteGraphInst::PrepereInstaces()
@@ -123,6 +124,8 @@ void SpriteGraphInst::Draw(float dt)
 
 	int index = 0;
 
+	auto* callback = GetScene()->Playing() ? FindScriptCallback("AnimEvent") : nullptr;
+
 	for (auto& inst : instances)
 	{
 		if (!inst.IsVisible())
@@ -132,7 +135,7 @@ void SpriteGraphInst::Draw(float dt)
 
 		if (GetState() == Active)
 		{
-			inst.graph_instance.Update(dt);
+			inst.graph_instance.Update(GetName(), index, Script(), callback, dt);
 		}
 
 		if (inst.GetAlpha() < 0.01f)
@@ -157,6 +160,8 @@ void SpriteGraphInst::Draw(float dt)
 		inst.color.a = inst.GetAlpha();
 
 		Sprite::Draw(&trans, inst.color, &inst.graph_instance.cur_node->asset->sprite, &inst.graph_instance.state, true, false);
+
+		index++;
 	}
 
 #ifdef EDITOR

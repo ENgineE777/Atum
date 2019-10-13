@@ -75,7 +75,7 @@ public:
 	template<typename Func>
 	static void UpdateFrame(Sprite::Data* data, FrameState* state, float dt, Func callback)
 	{
-		if (data->type != Frames || state->finished)
+		if (data->type != Frames)
 		{
 			return;
 		}
@@ -83,6 +83,7 @@ public:
 		if (state->cur_time < -0.5f)
 		{
 			state->cur_time = 0.0f;
+			state->finished = false;
 			state->frame_start_time = 0.0f;
 
 			if (state->reversed)
@@ -93,6 +94,11 @@ public:
 			{
 				state->cur_frame = 0;
 			}
+		}
+
+		if (state->finished)
+		{
+			return;
 		}
 
 		float frame_tm = (data->rects[state->cur_frame].frame_time < 0.01f) ? data->frame_time : data->rects[state->cur_frame].frame_time;

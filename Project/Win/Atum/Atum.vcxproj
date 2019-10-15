@@ -150,6 +150,8 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptmath.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptCore.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp" />
@@ -194,6 +196,7 @@
     <ClCompile Include="..\..\..\Atum\Support\libtess2\priorityq.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\sweep.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\tess.c" />
+    <ClCompile Include="..\..\..\Atum\Support\MathUtils.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ArrayWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
@@ -336,6 +339,8 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scripthandle.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptContext.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\ScriptCore.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Scripts.h" />
@@ -360,6 +365,7 @@
     <ClInclude Include="..\..\..\Atum\Support\libtess2\sweep.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tess.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tesselator.h" />
+    <ClInclude Include="..\..\..\Atum\Support\MathUtils.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />

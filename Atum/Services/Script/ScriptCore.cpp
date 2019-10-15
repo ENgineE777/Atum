@@ -1,11 +1,6 @@
 
 #include "ScriptCore.h"
 #include "Services/Core/Core.h"
-#include "Libs/scriptarray.h"
-#include "Libs/scriptdictionary.h"
-#include "Libs/scripthandle.h"
-#include "Libs/scriptmath.h"
-#include "Libs/scriptstdstring.h"
 #include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneManager.h"
 #include "Services/Scene/SceneObject.h"
@@ -148,27 +143,79 @@ void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
 	gen->SetReturnDWord(0);
 }
 
-int ScriptCore::Utils::IsPointInTriangle(Vector2 pt, Vector2 p1, Vector2 p2, Vector2 p3)
+int ScriptCore::Utils::IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3)
 {
-	Vector2 an = p1 - pt;
-	Vector2 bn = p2 - pt;
-	Vector2 cn = p3 - pt;
+	polygon.clear();
+	polygon.push_back(p1);
+	polygon.push_back(p2);
+	polygon.push_back(p3);
 
-	bool orientation = an.Cross(bn) > 0;
+	return MathUtils::IsPointInPolygon(pt, polygon);
+}
 
-	if ((bn.Cross(cn) > 0) != orientation)
+int ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2& offset, Vector2& size, float angle)
+{
+	polygon = { { 0.0f, size.y * 0.5f },{ size.x, size.y * 0.5f }, { size.x, -size.y * 0.5f }, { 0.0f, -size.y * 0.5f } };
+	vector<Vector2> tmp_polygon(4);
+
+	float cs = cosf(angle);
+	float sn = sinf(angle);
+
+	Vector2 local_offset = offset * size * 0.5f;
+
+	for (int i = 0; i < 4; i++)
 	{
-		return 0;
+		polygon[i] = polygon[i] - local_offset;
+		polygon[i] = Vector2{ polygon[i].x * cs - polygon[i].y * sn, polygon[i].x * sn + polygon[i].y * cs};
+		tmp_polygon[i] = polygon[i] + center;
 	}
 
-	return (cn.Cross(an) > 0) == orientation ? 1 : 0;
+	return MathUtils::IsPointInPolygon(pt, tmp_polygon);
+}
+
+int ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle)
+{
+	float side_angle = orientation - angle * 0.5f;
+	Vector2 p2(cosf(side_angle) * distance + center.x, sinf(side_angle) * distance + center.y);
+
+	side_angle = orientation + angle * 0.5f;
+	Vector2 p3(cosf(side_angle) * distance + center.x, sinf(side_angle) * distance + center.y);
+
+	return IsPointInTriangle(pt, center, p2, p3);
 }
 
 void ScriptCore_Utils_IsPointInTriangle(asIScriptGeneric *gen)
 {
 	ScriptCore::Utils* utils = (ScriptCore::Utils*)gen->GetObject();
 
-	gen->SetReturnDWord(utils->IsPointInTriangle({ gen->GetArgFloat(0), gen->GetArgFloat(1) }, { gen->GetArgFloat(2), gen->GetArgFloat(3) }, { gen->GetArgFloat(4), gen->GetArgFloat(5) }, { gen->GetArgFloat(6), gen->GetArgFloat(7) }));
+	Vector2* pt = (Vector2*)gen->GetArgObject(0);
+	Vector2* p1 = (Vector2*)gen->GetArgObject(1);
+	Vector2* p2 = (Vector2*)gen->GetArgObject(2);
+	Vector2* p3 = (Vector2*)gen->GetArgObject(3);
+
+	gen->SetReturnDWord(utils->IsPointInTriangle(*pt, *p1, *p2, *p3));
+}
+
+void ScriptCore_Utils_IsPointInRectangle(asIScriptGeneric *gen)
+{
+	ScriptCore::Utils* utils = (ScriptCore::Utils*)gen->GetObject();
+
+	Vector2* pt = (Vector2*)gen->GetArgObject(0);
+	Vector2* start = (Vector2*)gen->GetArgObject(1);
+	Vector2* offset = (Vector2*)gen->GetArgObject(2);
+	Vector2* size = (Vector2*)gen->GetArgObject(3);
+
+	gen->SetReturnDWord(utils->IsPointInRectangle(*pt, *start, *offset, *size, gen->GetArgFloat(4)));
+}
+
+void ScriptCore_Utils_IsPointInSector(asIScriptGeneric *gen)
+{
+	ScriptCore::Utils* utils = (ScriptCore::Utils*)gen->GetObject();
+
+	Vector2* pt = (Vector2*)gen->GetArgObject(0);
+	Vector2* center = (Vector2*)gen->GetArgObject(1);
+
+	gen->SetReturnDWord(utils->IsPointInSector(*pt, *center, gen->GetArgFloat(2), gen->GetArgFloat(3), gen->GetArgFloat(4)));
 }
 
 void ScriptCore::Log(string& text)
@@ -228,7 +275,9 @@ void ScriptCore::Register(asIScriptEngine* engine)
 
 	script_class_name = "ScriptUtils";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", "Script utility class");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(float pos_x, float pos_y, float p1_x, float p1_y, float p2_x, float p2_y, float p3_x, float p3_y)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), "Check if point inside of a triangle");
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(Vector2&in pt, Vector2&in p1, Vector2&in p2, Vector2&in p3)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), "Check if point inside of a triangle");
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInRectangle(Vector2&in pt, Vector2&in center, Vector2&in offset, Vector2&in size, float angle)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
+	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a sector");
 
 	script_class_name = "ScriptCore";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", "Script core class which have access to engine sub systems");

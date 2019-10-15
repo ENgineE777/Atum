@@ -2,6 +2,7 @@
 #include "ScriptContext.h"
 #include "Support/StringUtils.h"
 #include "Support/Vector2.h"
+#include <vector>
 
 class ScriptCore
 {
@@ -46,7 +47,16 @@ public:
 	class Utils
 	{
 	public:
-		int IsPointInTriangle(Vector2 pt, Vector2 p1, Vector2 p2, Vector2 p3);
+		std::vector<Vector2> polygon;
+		
+		Utils()
+		{
+			polygon.reserve(4);
+		}
+
+		int IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3);
+		int IsPointInRectangle(Vector2& pt, Vector2& start, Vector2& offset, Vector2& size, float angle);
+		int IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle);
 	};
 
 	Controls controls;

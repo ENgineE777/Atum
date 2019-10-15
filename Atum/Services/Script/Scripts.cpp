@@ -5,6 +5,8 @@
 #include "Libs/scriptdictionary.h"
 #include "Libs/scripthandle.h"
 #include "Libs/scriptmath.h"
+#include "Libs/scriptvector2.h"
+#include "Libs/scriptvector3.h"
 #include "Libs/scriptstdstring.h"
 #include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneManager.h"
@@ -55,6 +57,8 @@ void Scripts::Start()
 	RegisterScriptDictionary(engine);
 	RegisterScriptHandle(engine);
 	RegisterScriptMath(engine);
+	RegisterScriptVector2(engine);
+	RegisterScriptVector3(engine);
 
 	scrip_core.Register(engine);
 

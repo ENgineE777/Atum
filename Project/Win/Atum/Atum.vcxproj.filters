@@ -654,6 +654,15 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DBase.cpp">
       <Filter>SceneObjects\2D\NavMesh</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\MathUtils.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1154,9 +1163,6 @@
     <ClInclude Include="..\..\..\Atum\Support\libtess2\geom.h">
       <Filter>Support\libtess</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\libtess2\mesh.h">
-      <Filter>Support\libtess</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\libtess2\priorityq.h">
       <Filter>Support\libtess</Filter>
     </ClInclude>
@@ -1177,6 +1183,18 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\NavMesh\NavMesh2DBase.h">
       <Filter>SceneObjects\2D\NavMesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\libtess2\mesh.h">
+      <Filter>Support\MetaData</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\MathUtils.h">
+      <Filter>Support</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

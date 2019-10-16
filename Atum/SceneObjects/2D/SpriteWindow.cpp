@@ -1132,6 +1132,27 @@ void SpriteWindow::OnKey(EUIWidget* sender, int key)
 			{
 				num_frames++;
 				num_frame_ebox->SetText(num_frames);
+				frames.insert(frames.begin() + (cur_frame) * 4, 4, Vector2());
+				ResizeSpriteRect();
+
+				for (int j = 0; j < 4; j++)
+				{
+					frames[cur_frame * 4 + j] = frames[(cur_frame + 1) * 4 + j];
+				}
+
+				SetCurFrame(cur_frame);
+
+				UpdateSpriteRect();
+			}
+
+			break;
+		}
+		case 'P':
+		{
+			if (cur_frame != -1)
+			{
+				num_frames++;
+				num_frame_ebox->SetText(num_frames);
 				frames.insert(frames.begin() + (cur_frame + 1) * 4, 4, Vector2());
 				ResizeSpriteRect();
 

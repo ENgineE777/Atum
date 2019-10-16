@@ -14,13 +14,18 @@ void ScriptCore::Render::DebugText(float x, float y, string& text)
 	core.render.DebugPrintText({ x, y}, COLOR_WHITE, text.c_str());
 }
 
-void ScriptCore::Render::DebugLine2D(float x1, float y1, float x2, float y2)
+void ScriptCore::Render::DebugLine2D(Vector2 p1, Vector2 p2)
 {
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-	Vector2 p1 = Vector2(x1, y1) * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-	Vector2 p2 = Vector2(x2, y2) * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+	p1 = p1 * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+	p2 = p2 * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 	core.render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
+}
+
+void ScriptCore::Render::DebugLine2DScr(float x1, float y1, float x2, float y2)
+{
+	DebugLine2D(Vector2(x1, y1), Vector2(x2, y2));
 }
 
 int ScriptCore::Render::GetWidth()
@@ -150,13 +155,14 @@ int ScriptCore::Utils::IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, 
 	polygon.push_back(p2);
 	polygon.push_back(p3);
 
+	DrawPolygon(polygon);
+
 	return MathUtils::IsPointInPolygon(pt, polygon);
 }
 
 int ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2& offset, Vector2& size, float angle)
 {
 	polygon = { { 0.0f, size.y * 0.5f },{ size.x, size.y * 0.5f }, { size.x, -size.y * 0.5f }, { 0.0f, -size.y * 0.5f } };
-	vector<Vector2> tmp_polygon(4);
 
 	float cs = cosf(angle);
 	float sn = sinf(angle);
@@ -166,11 +172,12 @@ int ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2&
 	for (int i = 0; i < 4; i++)
 	{
 		polygon[i] = polygon[i] - local_offset;
-		polygon[i] = Vector2{ polygon[i].x * cs - polygon[i].y * sn, polygon[i].x * sn + polygon[i].y * cs};
-		tmp_polygon[i] = polygon[i] + center;
+		polygon[i] = Vector2{ polygon[i].x * cs - polygon[i].y * sn, polygon[i].x * sn + polygon[i].y * cs} + center;
 	}
 
-	return MathUtils::IsPointInPolygon(pt, tmp_polygon);
+	DrawPolygon(polygon);
+
+	return MathUtils::IsPointInPolygon(pt, polygon);
 }
 
 int ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle)
@@ -230,7 +237,7 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	script_class_name = "ScriptRender";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", "Script render sub system");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), "Print debug text");
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2D), "Print debug line in 2D space");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2DScr), "Print debug line in 2D space");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), "Get width of a screen");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), "Get height of a screen");
 

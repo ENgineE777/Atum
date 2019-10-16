@@ -748,8 +748,9 @@ void SpriteGraphAsset::OnLeftMouseDown(Vector2 ms)
 					link_index++;
 				}
 
-				index++;
 			}
+
+			index++;
 		}
 	}
 

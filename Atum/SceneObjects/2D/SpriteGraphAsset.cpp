@@ -97,7 +97,7 @@ void SpriteGraphAsset::Instance::Update(const char* entity_name, int index, Scri
 		{
 			for (auto& event : cur_node->events)
 			{
-				if (from < event.time && event.time < to)
+				if (from <= event.time && event.time < to)
 				{
 					callback->Call(context, entity_name, index, event.name.c_str(), event.param.c_str());
 				}

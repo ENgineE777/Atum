@@ -80,7 +80,7 @@ public:
 			return;
 		}
 
-		if (state->cur_time < -0.5f)
+		if (state->cur_time < -0.5f || state->cur_frame >= data->rects.size())
 		{
 			state->cur_time = 0.0f;
 			state->finished = false;

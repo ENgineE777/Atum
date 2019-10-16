@@ -63,12 +63,12 @@ float ScriptCore::Controls::GetValue(int alias, int delta)
 	return core.controls.GetAliasValue(alias, delta);
 }
 
-int ScriptCore::Controls::GetDebugState(string& alias, int action)
+bool ScriptCore::Controls::GetDebugState(string& alias, int action)
 {
 	return core.controls.DebugKeyPressed(alias.c_str(), (::Controls::AliasAction)action);
 }
 
-int ScriptCore::Controls::IsGamepadConnected()
+bool ScriptCore::Controls::IsGamepadConnected()
 {
 	return core.controls.IsGamepadConnected() ? 1 : 0;
 }
@@ -88,7 +88,7 @@ void ScriptCore::Scene::Unload(string& scene_name)
 	core.scene_manager.UnloadScene(scene_name.c_str());
 }
 
-int ScriptCore::Scene::Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index)
+bool ScriptCore::Scene::Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index)
 {
 	PhysScene::RaycastDesc rcdesc;
 
@@ -109,10 +109,10 @@ int ScriptCore::Scene::Raycast2D(float origin_x, float origin_y, float dir_x, fl
 		object = rcdesc.userdata->object->GetName();
 		index = rcdesc.userdata->index;
 
-		return 1;
+		return true;
 	}
 
-	return 0;
+	return false;
 }
 
 void ScriptCore::Scene::CallClassInstancesMethod(string& scene_name, string& class_name, string& method_name)
@@ -140,27 +140,30 @@ void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
 		*((string*)(gen->GetArgAddress(10))) = object;
 		*((int*)(gen->GetArgAddress(11))) = index;
 
-		gen->SetReturnDWord(1);
+		gen->SetReturnByte(1);
 
 		return;
 	}
 
-	gen->SetReturnDWord(0);
+	gen->SetReturnByte(0);
 }
 
-int ScriptCore::Utils::IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3)
+bool ScriptCore::Utils::IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3, bool debug)
 {
 	polygon.clear();
 	polygon.push_back(p1);
 	polygon.push_back(p2);
 	polygon.push_back(p3);
 
-	DrawPolygon(polygon);
+	if (debug)
+	{
+		DrawPolygon(polygon);
+	}
 
 	return MathUtils::IsPointInPolygon(pt, polygon);
 }
 
-int ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2& offset, Vector2& size, float angle)
+bool ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2& offset, Vector2& size, float angle, bool debug)
 {
 	polygon = { { 0.0f, size.y * 0.5f },{ size.x, size.y * 0.5f }, { size.x, -size.y * 0.5f }, { 0.0f, -size.y * 0.5f } };
 
@@ -175,12 +178,15 @@ int ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2&
 		polygon[i] = Vector2{ polygon[i].x * cs - polygon[i].y * sn, polygon[i].x * sn + polygon[i].y * cs} + center;
 	}
 
-	DrawPolygon(polygon);
+	if (debug)
+	{
+		DrawPolygon(polygon);
+	}
 
 	return MathUtils::IsPointInPolygon(pt, polygon);
 }
 
-int ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle)
+bool ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle, bool debug)
 {
 	float side_angle = orientation - angle * 0.5f;
 	Vector2 p2(cosf(side_angle) * distance + center.x, sinf(side_angle) * distance + center.y);
@@ -188,7 +194,7 @@ int ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orien
 	side_angle = orientation + angle * 0.5f;
 	Vector2 p3(cosf(side_angle) * distance + center.x, sinf(side_angle) * distance + center.y);
 
-	return IsPointInTriangle(pt, center, p2, p3);
+	return IsPointInTriangle(pt, center, p2, p3, debug);
 }
 
 void ScriptCore_Utils_IsPointInTriangle(asIScriptGeneric *gen)
@@ -200,7 +206,7 @@ void ScriptCore_Utils_IsPointInTriangle(asIScriptGeneric *gen)
 	Vector2* p2 = (Vector2*)gen->GetArgObject(2);
 	Vector2* p3 = (Vector2*)gen->GetArgObject(3);
 
-	gen->SetReturnDWord(utils->IsPointInTriangle(*pt, *p1, *p2, *p3));
+	gen->SetReturnByte(utils->IsPointInTriangle(*pt, *p1, *p2, *p3, gen->GetArgByte(4)));
 }
 
 void ScriptCore_Utils_IsPointInRectangle(asIScriptGeneric *gen)
@@ -212,7 +218,7 @@ void ScriptCore_Utils_IsPointInRectangle(asIScriptGeneric *gen)
 	Vector2* offset = (Vector2*)gen->GetArgObject(2);
 	Vector2* size = (Vector2*)gen->GetArgObject(3);
 
-	gen->SetReturnDWord(utils->IsPointInRectangle(*pt, *start, *offset, *size, gen->GetArgFloat(4)));
+	gen->SetReturnByte(utils->IsPointInRectangle(*pt, *start, *offset, *size, gen->GetArgFloat(4), gen->GetArgByte(5)));
 }
 
 void ScriptCore_Utils_IsPointInSector(asIScriptGeneric *gen)
@@ -222,7 +228,7 @@ void ScriptCore_Utils_IsPointInSector(asIScriptGeneric *gen)
 	Vector2* pt = (Vector2*)gen->GetArgObject(0);
 	Vector2* center = (Vector2*)gen->GetArgObject(1);
 
-	gen->SetReturnDWord(utils->IsPointInSector(*pt, *center, gen->GetArgFloat(2), gen->GetArgFloat(3), gen->GetArgFloat(4)));
+	gen->SetReturnByte(utils->IsPointInSector(*pt, *center, gen->GetArgFloat(2), gen->GetArgFloat(3), gen->GetArgFloat(4), gen->GetArgByte(5)));
 }
 
 void ScriptCore::Log(string& text)
@@ -246,15 +252,15 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetAliasIndex(string&in alias)", WRAP_MFN(ScriptCore::Controls, GetAliasIndex), "Get index alias by name");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetState(int alias_index, int action)", WRAP_MFN(ScriptCore::Controls, GetState), "Get state of an alias");
 	core.scripts.RegisterObjectMethod(script_class_name, "float GetValue(int alias_index, int delta)", WRAP_MFN(ScriptCore::Controls, GetValue), "Get value of an alias");
-	core.scripts.RegisterObjectMethod(script_class_name, "int GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), "Get state of hardware alias");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), "Check if gamepad connected");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), "Get state of hardware alias");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), "Check if gamepad connected");
 
 	script_class_name = "ScriptScene";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", "Script scene sub system");
-	core.scripts.RegisterObjectMethod(script_class_name, "int SetStateToGroup(string&in group_name, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
-	core.scripts.RegisterObjectMethod(script_class_name, "int Load(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetStateToGroup(string&in group_name, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Load(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
-	core.scripts.RegisterObjectMethod(script_class_name, "int Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
 
 	script_class_name = "SoundInstance";
@@ -282,9 +288,9 @@ void ScriptCore::Register(asIScriptEngine* engine)
 
 	script_class_name = "ScriptUtils";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", "Script utility class");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInTriangle(Vector2&in pt, Vector2&in p1, Vector2&in p2, Vector2&in p3)", asFUNCTION(ScriptCore_Utils_IsPointInTriangle), "Check if point inside of a triangle");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInRectangle(Vector2&in pt, Vector2&in center, Vector2&in offset, Vector2&in size, float angle)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
-	core.scripts.RegisterObjectMethod(script_class_name, "int IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a sector");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInTriangle(Vector2&in pt, Vector2&in p1, Vector2&in p2, Vector2&in p3, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInRectangle(Vector2&in pt, Vector2&in center, Vector2&in offset, Vector2&in size, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a sector");
 
 	script_class_name = "ScriptCore";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", "Script core class which have access to engine sub systems");

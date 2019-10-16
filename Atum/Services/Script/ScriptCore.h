@@ -24,8 +24,8 @@ public:
 		int GetAliasIndex(string& alias);
 		int GetState(int alias, int action);
 		float GetValue(int alias, int delta);
-		int GetDebugState(string& alias, int action);
-		int IsGamepadConnected();
+		bool GetDebugState(string& alias, int action);
+		bool IsGamepadConnected();
 	};
 
 	class Scene
@@ -34,7 +34,7 @@ public:
 		void SetStateToGroup(string& group_name, int state);
 		void Load(string& scene_name);
 		void Unload(string& scene_name);
-		int  Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index);
+		bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index);
 		void CallClassInstancesMethod(string& scene_name, string& class_name, string& method);
 	};
 
@@ -55,9 +55,9 @@ public:
 			polygon.reserve(4);
 		}
 
-		int IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3);
-		int IsPointInRectangle(Vector2& pt, Vector2& start, Vector2& offset, Vector2& size, float angle);
-		int IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle);
+		bool IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2, Vector2& p3, bool debug);
+		bool IsPointInRectangle(Vector2& pt, Vector2& start, Vector2& offset, Vector2& size, float angle, bool debug);
+		bool IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle, bool debug);
 
 		inline void DrawPolygon(vector<Vector2>& polygon)
 		{

@@ -550,6 +550,16 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density), color,
 			                        Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density), color);
 		}
+
+		color = COLOR_GREEN;
+
+		for (int i = 0; i<num_frames - 1; i++)
+		{
+			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 0].x + (frames[i * 4 + 1].x - frames[i * 4 + 0].x) * 0.5f) * pixel_density,
+			                                (origin.y - frames[i * 4 + 1].y - (frames[i * 4 + 2].y - frames[i * 4 + 1].y) * 0.5f) * pixel_density), color,
+			                        Vector2((origin.x + frames[(i + 1) * 4 + 0].x + (frames[(i + 1) * 4 + 1].x - frames[(i + 1) * 4 + 0].x) * 0.5f) * pixel_density,
+			                                (origin.y - frames[(i + 1) * 4 + 1].y - (frames[(i + 1) * 4 + 2].y - frames[(i + 1) * 4 + 1].y) * 0.5f) * pixel_density), color);
+		}
 	}
 
 	for (int i = 0; i<rect_height; i++)
@@ -831,7 +841,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 
 	if (sender == num_frame_ebox)
 	{
-		int prev_cur_frames = cur_frame;
 		int prev_num_frames = num_frames;
 		num_frames = (int)fmax(atoi(num_frame_ebox->GetText()), 1);
 		num_frame_ebox->SetText(num_frames);
@@ -841,19 +850,11 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 
 		if (prev_num_frames < num_frames)
 		{
-			for (int i = prev_num_frames - 1; i >= prev_cur_frames; i--)
-			{
-				for (int j = 0; j < 4; j++)
-				{
-					frames[(i + 1) * 4 + j] = frames[i * 4 + j];
-				}
-			}
-
 			for (int i = prev_num_frames + 1; i < num_frames; i++)
 			{
 				for (int j = 0; j < 4; j++)
 				{
-					frames[i * 4 + j] = frames[(prev_num_frames) * 4 + j];
+					frames[i * 4 + j] = frames[(prev_num_frames - 1) * 4 + j];
 				}
 			}
 		}
@@ -861,11 +862,6 @@ void SpriteWindow::OnEditBoxStopEditing(EUIEditBox* sender)
 		if (cur_frame >= num_frames)
 		{
 			SetCurFrame(num_frames - 1);
-		}
-		else
-		if (prev_num_frames < num_frames)
-		{
-			SetCurFrame(prev_cur_frames + 1);
 		}
 
 		UpdateSpriteRect();
@@ -1090,6 +1086,11 @@ void SpriteWindow::OnMiddleMouseUp(EUIWidget* sender, int mx, int my)
 	img_wgt->ReleaseMouse();
 }
 
+/*void SpriteWindow::OnCharDown(EUIWidget* sender, int key)
+{
+
+}*/
+
 void SpriteWindow::OnKey(EUIWidget* sender, int key)
 {
 	Vector2 delta = 0.0f;
@@ -1105,6 +1106,47 @@ void SpriteWindow::OnKey(EUIWidget* sender, int key)
 		case VK_DOWN: delta.y = -0.5f; break;
 		case VK_LEFT: delta.x = 0.5f; break;
 		case VK_RIGHT: delta.x = -0.5f; break;
+		case 'I':
+		{
+			if (cur_frame != -1 && num_frames > 1)
+			{
+				num_frames--;
+				num_frame_ebox->SetText(num_frames);
+				frames.erase(frames.begin() + cur_frame * 4, frames.begin() + (cur_frame + 1) * 4);
+				ResizeSpriteRect();
+
+				if (cur_frame >= num_frames)
+				{
+					cur_frame = num_frames - 1;
+				}
+
+				SetCurFrame(cur_frame);
+
+				UpdateSpriteRect();
+			}
+			break;
+		}
+		case 'O':
+		{
+			if (cur_frame != -1)
+			{
+				num_frames++;
+				num_frame_ebox->SetText(num_frames);
+				frames.insert(frames.begin() + (cur_frame + 1) * 4, 4, Vector2());
+				ResizeSpriteRect();
+
+				for (int j = 0; j < 4; j++)
+				{
+					frames[(cur_frame + 1) * 4 + j] = frames[cur_frame * 4 + j];
+				}
+
+				SetCurFrame(cur_frame + 1);
+
+				UpdateSpriteRect();
+			}
+
+			break;
+		}
 	}
 
 	if (fabs(delta.x) > 0.0f || fabs(delta.y) > 0.0f)

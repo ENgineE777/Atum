@@ -13,3 +13,13 @@ void ProperyWidget::Show(bool show)
 {
 	panel->Show(show);
 }
+
+void ProperyWidget::Release()
+{
+	if (panel)
+	{
+		delete panel;
+	}
+
+	delete this;
+}

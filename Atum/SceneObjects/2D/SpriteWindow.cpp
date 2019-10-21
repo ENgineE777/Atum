@@ -170,7 +170,7 @@ void SpriteWindow::FillPoints(int index, int stride, float val, bool vert)
 	}
 }
 
-void SpriteWindow::SetImage(const char* img, bool need_refill)
+void SpriteWindow::SetImage(const char* img)
 {
 	sprite->tex_name = img;
 	sprite->LoadTexture();
@@ -182,10 +182,7 @@ void SpriteWindow::SetImage(const char* img, bool need_refill)
 	{
 		sprite->width = 32;
 		sprite->height = 32;
-	}
 
-	if (need_refill || !sprite->texture)
-	{
 		sprite_pos = Vector2(0, (float)sprite->height);
 		sprite_size = Vector2((float)sprite->width, (float)sprite->height);
 		sprite_offset_x = 10.0f;
@@ -289,7 +286,7 @@ void SpriteWindow::Prepare()
 	cur_frame = 0;
 	frames.resize(num_frames * 4);
 
-	SetImage(sprite->tex_name.c_str(), false);
+	SetImage(sprite->tex_name.c_str());
 	Show(true);
 	ShowFrameWidgets();
 
@@ -1000,13 +997,13 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 			string name;
 			core.files.MakePathRelative(name, file_name);
 
-			SetImage(name.c_str(), true);
+			SetImage(name.c_str());
 		}
 	}
 
 	if (sender == del_image)
 	{
-		SetImage("", false);
+		SetImage("");
 	}
 
 	if (sender == btn_zoom_in)

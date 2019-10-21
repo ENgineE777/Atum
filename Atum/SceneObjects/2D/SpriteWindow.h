@@ -95,7 +95,7 @@ public:
 	void FillPoints(int index, int stride, float val, bool vert);
 	void ResizeSpriteRect();
 	void UpdateSpriteRect();
-	void SetImage(const char* img, bool need_refill);
+	void SetImage(const char* img);
 	void Prepare();
 	void ShowFrameWidgets();
 	void SetCurFrame(int frame);

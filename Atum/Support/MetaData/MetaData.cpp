@@ -320,6 +320,11 @@ void MetaData::Copy(void* source)
 			}
 		}
 		else
+		if (prop.type == Type::SceneObject)
+		{
+			memcpy(prop.value, src, sizeof(SceneObjectRef));
+		}
+		else
 		if (prop.type == Type::Sprite)
 		{
 			Sprite::Copy((Sprite::Data*)src, (Sprite::Data*)prop.value);

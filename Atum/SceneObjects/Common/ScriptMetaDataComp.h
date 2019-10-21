@@ -68,7 +68,10 @@ public:
 
 #ifdef EDITOR
 	EUICategories* saved_objCat = nullptr;
+	std::vector<MetaData::Property> created_properties;
+
 	void ShowPropWidgets(EUICategories* objCat) override;
+	void Copy(SceneObjectComp* src) override;
 #endif
 
 #endif

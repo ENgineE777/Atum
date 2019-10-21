@@ -104,7 +104,7 @@ void ScriptMetaDataComp::ApplyProperties()
 		}
 
 #ifdef EDITOR
-		if (object->IsEditMode())
+		if (saved_objCat && object->IsEditMode())
 		{
 			ShowPropWidgets(saved_objCat);
 		}
@@ -119,10 +119,15 @@ void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 
 	auto meta = GetMetaData();
 
-	if (meta->properties.size() > 1)
+	for (auto prop : created_properties)
 	{
-		meta->properties.erase(meta->properties.begin() + 1, meta->properties.end());
+		for (auto widget : prop.widgets)
+		{
+			widget.second->Release();
+		}
 	}
+
+	created_properties.clear();
 
 	if (objCat)
 	{
@@ -153,11 +158,36 @@ void ScriptMetaDataComp::ShowPropWidgets(EUICategories* objCat)
 			}
 
 			meta->properties.push_back(prop);
+
 			index++;
 		}
-	}
 
-	SceneAssetComp::ShowPropWidgets(objCat);
+		GetMetaData()->Prepare(this);
+		GetMetaData()->PrepareWidgets(objCat);
+
+		if (meta->properties.size() > 1)
+		{
+			for (int index = 1; index < meta->properties.size(); index++)
+			{
+				created_properties.push_back(meta->properties[index]);
+			}
+
+			meta->properties.erase(meta->properties.begin() + 1, meta->properties.end());
+		}
+	}
+	else
+	{
+		GetMetaData()->HideWidgets();
+	}
+}
+
+void ScriptMetaDataComp::Copy(SceneObjectComp* src)
+{
+	ScriptMetaDataComp* comp = (ScriptMetaDataComp*)src;
+
+	values = comp->values;
+
+	SceneAssetComp::Copy(src);
 }
 #endif
 

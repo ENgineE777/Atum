@@ -641,28 +641,7 @@ void SpriteGraphAsset::Copy(SceneObject* src)
 	cam2d_pos = src_graph->cam2d_pos;
 	def_node = src_graph->def_node;
 
-	int count = (int)src_graph->nodes.size();
-	nodes.resize(count);
-
-	for (int i = 0; i < count; i++)
-	{
-		Node& node = nodes[i];
-		node.type = src_graph->nodes[i].type;
-		node.looped = src_graph->nodes[i].looped;
-		node.reversed = src_graph->nodes[i].reversed;
-		node.pos = src_graph->nodes[i].pos;
-		node.name = src_graph->nodes[i].name;
-		node.object_uid = src_graph->nodes[i].object_uid;
-		node.def_link = src_graph->nodes[i].def_link;
-
-		int link_count = (int)src_graph->nodes[i].links.size();
-		node.links.resize(link_count);
-
-		for (int j = 0; j < link_count; j++)
-		{
-			node.links[j] = src_graph->nodes[i].links[j];
-		}
-	}
+	nodes = src_graph->nodes;
 
 	SceneAsset::Copy(src);
 }

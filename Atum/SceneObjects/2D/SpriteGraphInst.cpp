@@ -70,11 +70,6 @@ void SpriteGraphInst::Draw(float dt)
 #ifdef EDITOR
 	if (edited)
 	{
-		if (sel_inst != -1)
-		{
-			instances[sel_inst].SetPos(trans.pos);
-		}
-
 		if (core.controls.DebugKeyPressed("KEY_I") && sel_inst != -1)
 		{
 			for (auto comp : components)
@@ -163,16 +158,4 @@ void SpriteGraphInst::Draw(float dt)
 
 		index++;
 	}
-
-#ifdef EDITOR
-	if (edited)
-	{
-		if (sel_inst != -1)
-		{
-			trans.pos = instances[sel_inst].GetPos();
-			trans.rotation = instances[sel_inst].GetAngle();
-			trans.BuildMatrices();
-		}
-	}
-#endif
 }

@@ -91,6 +91,8 @@ public:
 
 	struct Instance
 	{
+		friend class SpriteInst;
+
 		enum MapIndices
 		{
 			IndexX = 0,

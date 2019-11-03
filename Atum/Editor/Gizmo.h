@@ -39,7 +39,8 @@ public:
 		Matrix   mat_parent;
 		Matrix   mat_global;
 
-		Transform2D(Vector2* set_pos = nullptr, Vector2* set_size = nullptr, Vector2* set_offset = nullptr, float* set_depth = nullptr, float* set_rotation = nullptr, Vector2* set_axis = nullptr, Matrix mat_parent = Matrix());
+		Transform2D() = default;
+		Transform2D(Vector2* set_pos, Vector2* set_size, Vector2* set_offset = nullptr, float* set_depth = nullptr, float* set_rotation = nullptr, Vector2* set_axis = nullptr, Matrix mat_parent = Matrix());
 		Transform2D(::Transform2D& trans);
 		void BuildMatrices();
 	};

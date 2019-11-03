@@ -162,8 +162,6 @@ void NavMesh2D::Draw(float dt)
 		{
 			if (sel_inst != -1)
 			{
-				instances[sel_inst].pos = trans.pos;
-
 				bool need_delete_links = core.controls.DebugKeyPressed("KEY_U");
 				bool need_delete_node = core.controls.DebugKeyPressed("KEY_I");
 
@@ -326,17 +324,6 @@ void NavMesh2D::Draw(float dt)
 
 		core.render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
 	}
-
-#ifdef EDITOR
-	if (edited)
-	{
-		if (sel_inst != -1)
-		{
-			trans.pos = instances[sel_inst].pos;
-			trans.BuildMatrices();
-		}
-	}
-#endif
 }
 
 #ifdef EDITOR
@@ -493,9 +480,8 @@ void NavMesh2D::SetGizmo()
 	{
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
-		trans.pos = instances[sel_inst].pos;
 
-		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size), Gizmo::trans_2d_move);
 	}
 	else
 	{

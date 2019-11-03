@@ -556,11 +556,6 @@ void SpriteInst::Draw(float dt)
 		}
 		else
 		{
-			if (sel_inst != -1)
-			{
-				instances[sel_inst].SetPos(trans.pos);
-			}
-
 			if (core.controls.DebugKeyPressed("KEY_I") && sel_inst !=-1)
 			{
 				for (auto comp : components)
@@ -684,16 +679,6 @@ void SpriteInst::Draw(float dt)
 			auto& inst = instances[index];
 			Vector2 pos = (inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size) * scale - delta;
 			core.render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
-		}
-	}
-
-	if (edited)
-	{
-		if (sel_inst != -1)
-		{
-			trans.pos = instances[sel_inst].GetPos();
-			trans.rotation = instances[sel_inst].GetAngle();
-			trans.BuildMatrices();
 		}
 	}
 #endif
@@ -943,7 +928,7 @@ void SpriteInst::SetGizmo()
 
 	if (sel_inst != -1)
 	{
-		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size), Gizmo::trans_2d_move);
 	}
 	else
 	{

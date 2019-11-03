@@ -313,11 +313,6 @@ void Track2DComp::EditorDraw(float dt)
 
 	if (IsEditMode())
 	{
-		if (sel_point != -1)
-		{
-			track.points[sel_point].pos = trans.pos;
-		}
-
 		if (core.controls.DebugKeyPressed("KEY_I") && sel_point != -1)
 		{
 			track.points.erase(sel_point + track.points.begin());
@@ -484,9 +479,8 @@ void Track2DComp::SetGizmo()
 	{
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
-		trans.pos = track.points[sel_point].pos;
 
-		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), Gizmo::trans_2d_move);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&track.points[sel_point].pos, &trans.size), Gizmo::trans_2d_move);
 	}
 	else
 	{

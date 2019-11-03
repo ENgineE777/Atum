@@ -88,6 +88,7 @@ void SpritesLayerAsset::SetGizmo()
 {
 	if (sel_sprite != -1)
 	{
+
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&sprites[sel_sprite].pos, &sprites[sel_sprite].size), Gizmo::trans_2d_move | Gizmo::trans_2d_scale);
 	}
 	else

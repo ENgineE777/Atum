@@ -1289,12 +1289,13 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 	if (sender == assets_treeview && target == scene_treeview && GetSceneObjectFromItem(assets_treeview, item))
 	{
 		Project::SceneTreeItem* tree_item = (Project::SceneTreeItem*)assets_treeview->GetItemPtr(item);
-		Project::SceneTreeItem* target_tree_item = (Project::SceneTreeItem*)sender->GetItemPtr(sender->GetItemChild(parent, child_index > 0 ? child_index - 1 : child_index));
 
 		SceneAsset* asset = (SceneAsset*)tree_item->object;
 
 		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active, true))
 		{
+			Project::SceneTreeItem* target_tree_item = (Project::SceneTreeItem*)sender->GetItemPtr(sender->GetItemChild(parent, child_index > 0 ? child_index - 1 : child_index));
+
 			if (target_tree_item->object && StringUtils::IsEqual(asset->inst_class_name, target_tree_item->object->class_name))
 			{
 				SceneObjectInst* inst = (SceneObjectInst*)target_tree_item->object;
@@ -1335,6 +1336,8 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		}
 		else
 		{
+			Project::SceneTreeItem* target_tree_item = (Project::SceneTreeItem*)sender->GetItemPtr(parent);
+
 			Scene* scene = target_tree_item ? target_tree_item->scene : asset->GetScene();
 
 			SceneObject* inst = asset->CreateInstance(scene);

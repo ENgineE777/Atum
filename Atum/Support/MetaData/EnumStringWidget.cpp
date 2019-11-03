@@ -10,7 +10,7 @@ void EnumStringWidget::Init(EUICategories* parent, const char* catName, const ch
 {
 	ProperyWidget::Init(parent, catName, labelName);
 
-	cbox = new EUIComboBox(panel, 90, 5, 95, 20, 100);
+	cbox = new EUIComboBox(panel, 90, 5, 95, 20,200);
 	cbox->SetListener(-1, this, 0);
 }
 

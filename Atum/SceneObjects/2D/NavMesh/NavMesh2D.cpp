@@ -481,7 +481,7 @@ void NavMesh2D::SetGizmo()
 		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 		trans.size = 60.0f / scale;
 
-		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size), Gizmo::trans_2d_move);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size, &trans.offset), Gizmo::trans_2d_move);
 	}
 	else
 	{

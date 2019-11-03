@@ -928,7 +928,7 @@ void SpriteInst::SetGizmo()
 
 	if (sel_inst != -1)
 	{
-		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size), Gizmo::trans_2d_move);
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size, &trans.offset), Gizmo::trans_2d_move);
 	}
 	else
 	{

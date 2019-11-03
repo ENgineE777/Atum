@@ -494,11 +494,18 @@ void Editor::StartScene()
 	{
 		selectedObject->EnableTasks(false);
 		selectedObject->ShowPropWidgets(nullptr);
+
+		if (selectedObject && selectedObject->UsingCamera2DPos())
+		{
+			selectedObject->cam2d_pos = Sprite::ed_cam_pos;
+		}
 	}
 
 	if (project.select_scene)
 	{
 		project.EnableScene(project.select_scene, false);
+
+		project.select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
 	}
 
 	if (!project.CanRun())

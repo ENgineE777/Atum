@@ -247,6 +247,18 @@ void Project::Save()
 		FillSelectedObject(select_scene);
 
 		GrabSceneNodes(select_scene);
+
+		editor.freecamera.angles = select_scene->scene->camera3d_angles;
+		editor.freecamera.pos = select_scene->scene->camera3d_pos;
+
+		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
+		{
+			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
+		}
+		else
+		{
+			select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
+		}
 	}
 
 	for (auto& holder : scenes)
@@ -713,6 +725,7 @@ void Project::SelectScene(SceneHolder* holder)
 		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
 		editor.freecamera.angles = select_scene->scene->camera3d_angles;
 		editor.freecamera.pos = select_scene->scene->camera3d_pos;
+		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
 		editor.moveModeBtn->SetPushed(select_scene->scene->move_mode == 1);
 		editor.x_align->SetText(select_scene->scene->gizmo2d_align_x);
 		editor.y_align->SetText(select_scene->scene->gizmo2d_align_y);

@@ -559,12 +559,6 @@ void Editor::StopScene()
 
 	core.sounds.ClearAllSounds();
 
-	if (selectedObject)
-	{
-		selectedObject->EnableTasks(true);
-		selectedObject->ShowPropWidgets(objCat);
-	}
-
 	if (project.select_scene)
 	{
 		project.EnableScene(project.select_scene, true);
@@ -578,6 +572,17 @@ void Editor::StopScene()
 	if (project.select_scene)
 	{
 		Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
+	}
+
+	if (selectedObject)
+	{
+		selectedObject->EnableTasks(true);
+		selectedObject->ShowPropWidgets(objCat);
+
+		if (selectedObject->UsingCamera2DPos())
+		{
+			Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
+		}
 	}
 
 	Sprite::use_ed_cam = true;

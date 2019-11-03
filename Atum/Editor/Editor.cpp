@@ -1273,7 +1273,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			return false;
 		}
 
-		if (with->scene != to->scene)
+		if (to && with->scene != to->scene)
 		{
 			project.SetScene(sender, item, to->scene);
 		}

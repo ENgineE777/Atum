@@ -45,13 +45,14 @@ public:
 		void BuildMatrices();
 	};
 
+	Transform2D trans2D;
+
 private:
 
 	Matrix  transform;
 	bool    mousedPressed = false;
 
 	bool use_trans2D = false;
-	Transform2D trans2D;
 	int     trans2D_actions = 0;
 	bool    ignore_2d_camera = true;
 	Vector2 pos2d = 0.0f;

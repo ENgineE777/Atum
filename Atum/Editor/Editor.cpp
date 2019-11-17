@@ -99,6 +99,11 @@ void Editor::Init()
 	y_align = new EUIEditBox(trans2d_gizmo, "0", 120, 5, 30, 20, EUIEditBox::InputUInteger);
 	y_align->SetListener(-1, this, 0);
 
+	object2camera = new EUIButton(trans2d_gizmo, "O=>Cam", 155, 5, 50, 20);
+	object2camera->SetListener(-1, this, 0);
+
+	camera2object = new EUIButton(trans2d_gizmo, "Cam=>O", 210, 5, 50, 20);
+	camera2object->SetListener(-1, this, 0);
 
 	EUIPanel* main_panel = new EUIPanel(lt_main, 10, 10, 100, 30);
 
@@ -917,6 +922,20 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	if (sender == groups_del_btn)
 	{
 		project.DeleteGroup(groups_list->GetSelectedItemText());
+	}
+
+	if (sender == object2camera && gizmo.IsEnabled())
+	{
+		float scale = 1024.0f / core.render.GetDevice()->GetHeight();
+
+		Vector2 pos2d = Sprite::ed_cam_pos * scale;
+		*(gizmo.trans2D.pos) = gizmo.MakeAligned(pos2d);
+	}
+
+	if (sender == camera2object && gizmo.IsEnabled())
+	{
+		float scale = 1024.0f / core.render.GetDevice()->GetHeight();
+		Sprite::ed_cam_pos = *gizmo.trans2D.pos / scale;
 	}
 }
 

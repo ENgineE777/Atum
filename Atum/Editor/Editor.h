@@ -68,6 +68,8 @@ class Editor : public Object, public EUIWidget::Listener
 
 	EUIEditBox* x_align = nullptr;
 	EUIEditBox* y_align = nullptr;
+	EUIButton* object2camera = nullptr;
+	EUIButton* camera2object = nullptr;
 
 	EUIButton* playBtn = nullptr;
 	EUICategories* objCat = nullptr;

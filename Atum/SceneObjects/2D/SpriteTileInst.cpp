@@ -9,7 +9,7 @@ META_DATA_DESC(SpriteTileInst)
 	FLOAT_PROP(SpriteTileInst, axis_scale, 1.0f, "Geometry", "axis_scale", "Scale of a axis")
 	FLOAT_PROP(SpriteTileInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
 	INT_PROP(SpriteTileInst, draw_level, 0, "Geometry", "draw_level", "Draw priority")
-	ARRAY_PROP_INST(SpriteTileInst, instances, Instance, "Prop", "inst", SpriteTileInst, sel_inst, SetGizmo)
+	ARRAY_PROP_INST_CALLGIZMO(SpriteTileInst, instances, Instance, "Prop", "inst", SpriteTileInst, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
 void SpriteTileInst::Init()

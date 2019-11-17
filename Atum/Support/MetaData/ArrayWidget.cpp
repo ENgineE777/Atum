@@ -36,8 +36,8 @@ void ArrayWidget::SetData(void* set_owner, void* set_data)
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
 	adapter->value = value;
 
-	prevBtn->Enable(adapter->sel_item);
-	nextBtn->Enable(adapter->sel_item);
+	prevBtn->Enable(adapter->sel_item && adapter->gizmoCallback);
+	nextBtn->Enable(adapter->sel_item && adapter->gizmoCallback);
 
 	if (adapter->sel_item)
 	{
@@ -135,32 +135,35 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		SetData(nullptr, nullptr);
 	}
 	else
-	if (sender == prevBtn && adapter->GetSize() > 0)
+	if ((sender == prevBtn || sender == nextBtn) && adapter->GetSize() > 0)
 	{
 		auto value = *(sel_item);
-		value--;
 
-		if (value < 0)
+		if (sender == prevBtn)
 		{
-			value = adapter->GetSize() - 1;
+			value--;
+
+			if (value < 0)
+			{
+				value = adapter->GetSize() - 1;
+			}
+		}
+		else
+		if (sender == nextBtn)
+		{
+			value++;
+
+			if (value >= adapter->GetSize())
+			{
+				value = 0;
+			}
 		}
 
 		*(sel_item) = value;
-		(((Object*)owner)->*adapter->gizmoCallback)();
-	}
-	else
-	if (sender == nextBtn && adapter->GetSize() > 0)
-	{
-		auto value = *(sel_item);
-		value++;
-
-		if (value >= adapter->GetSize())
+		if (adapter->gizmoCallback)
 		{
-			value = 0;
+			(((Object*)owner)->*adapter->gizmoCallback)();
 		}
-
-		*(sel_item) = value;
-		(((Object*)owner)->*adapter->gizmoCallback)();
 	}
 	else
 	{

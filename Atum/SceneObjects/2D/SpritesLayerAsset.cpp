@@ -7,16 +7,16 @@
 CLASSREG(SceneAsset, SpritesLayerAsset, "SpritesLayer")
 
 META_DATA_DESC(SpritesLayerAsset::LayerSprite)
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.x, 0.0f, "Prop", "x", "X coordinate of a camera position")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.y, 0.0f, "Prop", "y", "Y coordinate of a camera position")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.x, 100.0f, "Prop", "width", "Width of a sprite")
-FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.y, 100.0f, "Prop", "height", "Height of a sprite")
-SPRITE_PROP(SpritesLayerAsset::LayerSprite, sprite, "Prop", "sprite")
+	FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.x, 0.0f, "Prop", "x", "X coordinate of a camera position")
+	FLOAT_PROP(SpritesLayerAsset::LayerSprite, pos.y, 0.0f, "Prop", "y", "Y coordinate of a camera position")
+	FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.x, 100.0f, "Prop", "width", "Width of a sprite")
+	FLOAT_PROP(SpritesLayerAsset::LayerSprite, size.y, 100.0f, "Prop", "height", "Height of a sprite")
+	SPRITE_PROP(SpritesLayerAsset::LayerSprite, sprite, "Prop", "sprite")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SpritesLayerAsset)
-BASE_SCENE_ASSET_PROP(SpritesLayerAsset)
-ARRAY_PROP_INST(SpritesLayerAsset, sprites, LayerSprite, "Prop", "sprites", SpritesLayerAsset, sel_sprite, SetGizmo)
+	BASE_SCENE_ASSET_PROP(SpritesLayerAsset)
+	ARRAY_PROP_INST_CALLGIZMO(SpritesLayerAsset, sprites, LayerSprite, "Prop", "sprites", SpritesLayerAsset, sel_sprite, SetGizmo)
 META_DATA_DESC_END()
 
 SpritesLayerAsset::SpritesLayerAsset() : SceneAsset()

@@ -16,7 +16,7 @@ CLASSREG(SceneObject, NavMesh2D, "NavMesh2D")
 
 META_DATA_DESC(NavMesh2D)
 	BASE_SCENE_OBJ_PROP(NavMesh2D)
-	ARRAY_PROP_INST(NavMesh2D, instances, Node, "Prop", "inst", NavMesh2D, sel_inst, SetGizmo)
+	ARRAY_PROP_INST_CALLGIZMO(NavMesh2D, instances, Node, "Prop", "inst", NavMesh2D, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
 void NavMesh2D::ConstructNavMesh()

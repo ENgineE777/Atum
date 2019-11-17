@@ -46,6 +46,7 @@ public:
 	};
 
 	Transform2D trans2D;
+	Vector2 pos2d = 0.0f;
 
 private:
 
@@ -55,7 +56,6 @@ private:
 	bool use_trans2D = false;
 	int     trans2D_actions = 0;
 	bool    ignore_2d_camera = true;
-	Vector2 pos2d = 0.0f;
 	Vector2 size2d = 0.0f;
 	Vector2 origin;
 	Vector2 moved_origin;

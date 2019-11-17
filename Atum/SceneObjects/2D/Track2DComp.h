@@ -86,6 +86,10 @@ public:
 
 	struct Track
 	{
+#ifdef EDITOR
+		int* sel_point = nullptr;
+		Vector2 trans_size;
+#endif
 		TrackType tp = OneWay;
 		float dir = 1.0f;
 		int cur_point = 0;

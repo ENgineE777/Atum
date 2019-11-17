@@ -81,7 +81,7 @@ public:
 #ifdef EDITOR
 		int64_t sel_item_offset = -1;
 		int32_t* sel_item = nullptr;
-		Object::DelegateSimple gizmoCallback;
+		Object::DelegateSimple gizmoCallback = nullptr;
 #endif
 		virtual void Resize(int length) {};
 		virtual int GetSize() { return 0; };
@@ -346,7 +346,19 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 }
 #endif
 
-#define ARRAY_PROP_INST(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember, setGizmoCallback)\
+#define ARRAY_PROP_INST(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember)\
+{\
+	Property prop;\
+	prop.offset = memberOFFSET(className, classMember);\
+	prop.type = Type::Array;\
+	prop.catName = strCatName;\
+	prop.propName = strPropName;\
+	prop.adapter = new ArrayAdapterImpl<structType>;\
+	prop.adapter->sel_item_offset = memberOFFSET(selItemClassName, selItemClassMember);\
+	properties.push_back(prop);\
+}
+
+#define ARRAY_PROP_INST_CALLGIZMO(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember, setGizmoCallback)\
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\

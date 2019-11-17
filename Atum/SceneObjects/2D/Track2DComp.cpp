@@ -12,23 +12,23 @@ FLOAT_PROP(Track2DComp::Point, pos.y, 0.0f, "Prop", "y", "Y coordinate of a posi
 META_DATA_DESC_END()
 
 META_DATA_DESC(Track2DComp::Track)
-ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type", "Type of track")
-	ENUM_ELEM("OneWay", 0)
-	ENUM_ELEM("ForwardBack", 1)
-	ENUM_ELEM("Looped", 2)
-ENUM_END
-FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed", "Speed of moving along track")
-ARRAY_PROP_INST(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point, SetGizmo)
+	ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type", "Type of track")
+		ENUM_ELEM("OneWay", 0)
+		ENUM_ELEM("ForwardBack", 1)
+		ENUM_ELEM("Looped", 2)
+	ENUM_END
+	FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed", "Speed of moving along track")
+	ARRAY_PROP_INST_CALLGIZMO(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point, SetGizmo)
 META_DATA_DESC_END()
 
 
 META_DATA_DESC(Track2DComp)
-ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode", "Type of flip when instance is moving from right to left")
-	ENUM_ELEM("None", 0)
-	ENUM_ELEM("Normal", 1)
-	ENUM_ELEM("Reversed", 2)
-ENUM_END
-ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track, SetGizmo)
+	ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode", "Type of flip when instance is moving from right to left")
+		ENUM_ELEM("None", 0)
+		ENUM_ELEM("Normal", 1)
+		ENUM_ELEM("Reversed", 2)
+	ENUM_END
+	ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track)
 META_DATA_DESC_END()
 
 void Track2DComp::Track::Activate(bool set_active)
@@ -49,7 +49,13 @@ void Track2DComp::Track::Reset(bool from_start)
 
 void Track2DComp::Track::SetGizmo()
 {
+	if (sel_point)
+	{
+		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+		trans_size = 60.0f / scale;
 
+		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&points[(*sel_point)].pos, &trans_size), Gizmo::trans_2d_move);
+	}
 }
 
 void Track2DComp::BindClassToScript()
@@ -313,6 +319,7 @@ void Track2DComp::EditorDraw(float dt)
 	}
 
 	Track& track = tracks[sel_track];
+	track.sel_point = IsEditMode() ? &sel_point : nullptr;
 
 	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
 

@@ -7,6 +7,8 @@ class ArrayWidget : public ProperyWidget, public EUIWidget::Listener
 {
 public:
 	EUIButton* addBtn;
+	EUIButton* nextBtn;
+	EUIButton* prevBtn;
 	EUICategories* elements;
 
 	int32_t pre_sel_item = -1;

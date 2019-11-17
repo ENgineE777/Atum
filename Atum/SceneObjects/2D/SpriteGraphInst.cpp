@@ -12,7 +12,7 @@ META_DATA_DESC(SpriteGraphInst)
 	FLOAT_PROP(SpriteGraphInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
 	FLOAT_PROP(SpriteGraphInst, hack_height, 0.0f, "Geometry", "hack_height", "Addition height applyed fr every instance")
 	INT_PROP(SpriteGraphInst, draw_level, 0, "Geometry", "draw_level", "Draw level")
-	ARRAY_PROP_INST(SpriteGraphInst, instances, Instance, "Prop", "inst", SpriteGraphInst, sel_inst)
+	ARRAY_PROP_INST(SpriteGraphInst, instances, Instance, "Prop", "inst", SpriteGraphInst, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
 void SpriteGraphInst::BindClassToScript()

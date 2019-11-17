@@ -7,13 +7,17 @@ void ArrayWidget::Init(EUICategories* parent, const char* catName, const char* l
 	ProperyWidget::Init(parent, catName, labelName);
 	panel->SetListener(-1, this, EUIWidget::OnUpdate);
 
-	label = new EUILabel(panel, labelName, 5, 5, 85, 20);
+	label = new EUILabel(panel, labelName, 5, 5, 75, 20);
 	label->Show(false);
 
-	label = new EUILabel(panel, labelName, 5, 5, 85, 20);
-
-	addBtn = new EUIButton(panel, "Add", 90, 5, 95, 20);
+	addBtn = new EUIButton(panel, "Add", 80, 5, 35, 20);
 	addBtn->SetListener(-1, this, 0);
+
+	prevBtn = new EUIButton(panel, "Prev", 120, 5, 35, 20);
+	prevBtn->SetListener(-1, this, 0);
+
+	nextBtn = new EUIButton(panel, "Next", 160, 5, 35, 20);
+	nextBtn->SetListener(-1, this, 0);
 
 	elements = new EUICategories(parent, 10, 30, 190, -1);
 	parent->RegisterChildInCategory(catName, elements, false);
@@ -25,10 +29,15 @@ void ArrayWidget::Show(bool show)
 	elements->Show(show);
 }
 
-void ArrayWidget::SetData(void* owner, void* set_data)
+void ArrayWidget::SetData(void* set_owner, void* set_data)
 {
+	owner = set_owner;
+
 	MetaData::ArrayAdapter* adapter = (MetaData::ArrayAdapter*)prop;
 	adapter->value = value;
+
+	prevBtn->Enable(adapter->sel_item);
+	nextBtn->Enable(adapter->sel_item);
 
 	if (adapter->sel_item)
 	{
@@ -124,6 +133,34 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		adapter->GetMetaData()->SetDefValues();
 
 		SetData(nullptr, nullptr);
+	}
+	else
+	if (sender == prevBtn && adapter->GetSize() > 0)
+	{
+		auto value = *(sel_item);
+		value--;
+
+		if (value < 0)
+		{
+			value = adapter->GetSize() - 1;
+		}
+
+		*(sel_item) = value;
+		(((Object*)owner)->*adapter->gizmoCallback)();
+	}
+	else
+	if (sender == nextBtn && adapter->GetSize() > 0)
+	{
+		auto value = *(sel_item);
+		value++;
+
+		if (value >= adapter->GetSize())
+		{
+			value = 0;
+		}
+
+		*(sel_item) = value;
+		(((Object*)owner)->*adapter->gizmoCallback)();
 	}
 	else
 	{

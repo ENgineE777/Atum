@@ -98,6 +98,7 @@ public:
 
 		void Activate(bool active);
 		void Reset(bool from_start);
+		void SetGizmo();
 	};
 
 	int sel_point = -1;

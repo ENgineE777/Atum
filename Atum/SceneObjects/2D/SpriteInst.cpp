@@ -23,7 +23,7 @@ META_DATA_DESC(SpriteInst)
 	FLOAT_PROP(SpriteInst, trans.depth, 0.5f, "Geometry", "Depth", "Z depth")
 	BOOL_PROP(SpriteInst, use_depth, true, "Geometry", "UseDepth", "Should depth used")
 	INT_PROP(SpriteInst, draw_level, 0, "Geometry", "draw_level", "Draw priority")
-	ARRAY_PROP_INST(SpriteInst, instances, Instance, "Prop", "inst", SpriteInst, sel_inst)
+	ARRAY_PROP_INST(SpriteInst, instances, Instance, "Prop", "inst", SpriteInst, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
 void SpriteInst::Instance::SetObject(asIScriptObject* set_object, vector<int>* set_mapping)

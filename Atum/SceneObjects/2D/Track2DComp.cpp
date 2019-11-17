@@ -18,7 +18,7 @@ ENUM_PROP(Track2DComp::Track, tp, 0, "Prop", "data_type", "Type of track")
 	ENUM_ELEM("Looped", 2)
 ENUM_END
 FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed", "Speed of moving along track")
-ARRAY_PROP_INST(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point)
+ARRAY_PROP_INST(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point, SetGizmo)
 META_DATA_DESC_END()
 
 
@@ -28,7 +28,7 @@ ENUM_PROP(Track2DComp, flip_mode, 0, "Prop", "flip_mode", "Type of flip when ins
 	ENUM_ELEM("Normal", 1)
 	ENUM_ELEM("Reversed", 2)
 ENUM_END
-ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track)
+ARRAY_PROP_INST(Track2DComp, tracks, Track, "Tracks", "tracks", Track2DComp, sel_track, SetGizmo)
 META_DATA_DESC_END()
 
 void Track2DComp::Track::Activate(bool set_active)
@@ -45,6 +45,11 @@ void Track2DComp::Track::Reset(bool from_start)
 		point_dist = (points[cur_point].pos - points[cur_point - 1].pos).Length();
 		dir = from_start ? 1.0f : -1.0f;
 	}
+}
+
+void Track2DComp::Track::SetGizmo()
+{
+
 }
 
 void Track2DComp::BindClassToScript()

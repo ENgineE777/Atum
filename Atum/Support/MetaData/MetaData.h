@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Support/Support.h"
+#include "Support/Delegate.h"
 #include "Support/json/JSONReader.h"
 #include "Support/json/JSONWriter.h"
 
@@ -77,8 +78,11 @@ public:
 	struct ArrayAdapter
 	{
 		uint8_t* value = nullptr;
+#ifdef EDITOR
 		int64_t sel_item_offset = -1;
 		int32_t* sel_item = nullptr;
+		Object::DelegateSimple gizmoCallback;
+#endif
 		virtual void Resize(int length) {};
 		virtual int GetSize() { return 0; };
 		virtual void PushBack() {};
@@ -342,7 +346,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 }
 #endif
 
-#define ARRAY_PROP_INST(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember)\
+#define ARRAY_PROP_INST(className, classMember, structType, strCatName, strPropName, selItemClassName, selItemClassMember, setGizmoCallback)\
 {\
 	Property prop;\
 	prop.offset = memberOFFSET(className, classMember);\
@@ -351,6 +355,7 @@ BASE_STRING_PROP(className, classMember, defValue, strCatName, strPropName, File
 	prop.propName = strPropName;\
 	prop.adapter = new ArrayAdapterImpl<structType>;\
 	prop.adapter->sel_item_offset = memberOFFSET(selItemClassName, selItemClassMember);\
+	prop.adapter->gizmoCallback = (Object::DelegateSimple)&className::setGizmoCallback;\
 	properties.push_back(prop);\
 }
 

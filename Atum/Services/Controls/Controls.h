@@ -97,8 +97,8 @@ private:
 	DIMOUSESTATE2           dims2;
 	uint32_t                dwMsElements;
 	byte                    ms_bts[10];
-	int                     ms_x, ms_y;
-	int                     prev_ms_x, prev_ms_y;
+	int                     ms_x, ms_y, ms_z;
+	int                     prev_ms_x, prev_ms_y, prev_ms_z;
 	XINPUT_STATE            joy_prev_states[XUSER_MAX_COUNT];
 	XINPUT_STATE            joy_states[XUSER_MAX_COUNT];
 	bool                    joy_active[XUSER_MAX_COUNT];

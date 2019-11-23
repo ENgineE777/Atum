@@ -127,8 +127,8 @@ bool Controls::Init(const char* name_haliases, bool allowDebugKeys)
 
 	pMouse->Acquire();
 
-	ms_x = ms_y = 0;
-	prev_ms_x = prev_ms_y = -1000;
+	ms_x = ms_y = ms_z = 0 ;
+	prev_ms_x = prev_ms_y = prev_ms_z = -1000;
 #endif
 
 	JSONReader reader;
@@ -297,7 +297,7 @@ void Controls::ResolveAliases()
 
 				if (ref.aliasIndex == -1)
 				{
-                    core.Log("Controls", "alias %s has invalid reference %s", alias.name.c_str(), ref.name.c_str());
+					core.Log("Controls", "alias %s has invalid reference %s", alias.name.c_str(), ref.name.c_str());
 				}
 			}
 		}
@@ -720,6 +720,21 @@ float Controls::GetHardwareAliasValue(int index, bool delta, int device_index, b
 
 				return (float)ms_y;
 			}
+			else
+			if (halias.index == 12)
+			{
+				if (delta)
+				{
+					if (prev_ms_z == -1000)
+					{
+						return 0;
+					}
+
+					return (float)(ms_z - prev_ms_z);
+				}
+
+				return (float)ms_z;
+			}
 			break;
 		}
 #endif
@@ -1019,6 +1034,9 @@ void Controls::Update(float dt)
 
 	prev_ms_x = ms_x;
 	prev_ms_y = ms_y;
+
+	prev_ms_z = ms_z;
+	ms_z += dims2.lZ;
 
 	for (DWORD i = 0; i < XUSER_MAX_COUNT; i++)
 	{

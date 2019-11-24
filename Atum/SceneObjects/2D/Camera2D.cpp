@@ -109,13 +109,18 @@ void Camera2D::Update(float dt)
 	}
 	else
 	{
-		Vector2 half_screen = Vector2(Sprite::ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f, Sprite::ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f);
+		Vector2 half_screen = Sprite::ed_cam_pos * Sprite::ed_cam_zoom - Sprite::half_screen;
 
-		core.render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		core.render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
-		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale - half_screen, COLOR_GREEN);
-		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN, Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x, trans.pos.y - 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN,
+		                        Vector2(trans.pos.x, trans.pos.y + 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN,
+		                        Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN,
+		                        Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y - 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN,
+		                        Vector2(trans.pos.x + screen_border, trans.pos.y - 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN);
+		core.render.DebugLine2D(Vector2(trans.pos.x - screen_border, trans.pos.y + 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN,
+		                        Vector2(trans.pos.x + screen_border, trans.pos.y + 512.0f) * scale * Sprite::ed_cam_zoom - half_screen, COLOR_GREEN);
 	}
 }
 

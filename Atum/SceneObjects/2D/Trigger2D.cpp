@@ -86,12 +86,12 @@ void Trigger2D::EditorDraw(float dt)
 
 bool Trigger2D::CheckSelection(Vector2 ms)
 {
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+	ms = Sprite::MoveFromCamera(ms);
 
-	Vector2 pos = (trans.pos + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+	Vector2 pos = (trans.pos - trans.offset * trans.size);
 
-	if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
-		pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
+	if (pos.x < ms.x && ms.x < pos.x + trans.size.x &&
+		pos.y < ms.y && ms.y < pos.y + trans.size.y)
 	{
 		return true;
 	}

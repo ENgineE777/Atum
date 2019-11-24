@@ -17,11 +17,8 @@
 \ingroup gr_code_editor
 */
 
-class Editor : public Object, public EUIWidget::Listener
+struct Editor : public Object, public EUIWidget::Listener
 {
-	friend class Project;
-	friend class LayerEntryWidget;
-
 	enum Const
 	{
 		MenuNewID = 1000,
@@ -63,6 +60,10 @@ class Editor : public Object, public EUIWidget::Listener
 	EUIButton* rotateBtn = nullptr;
 	EUIButton* globalBtn = nullptr;
 	EUIButton* localBtn = nullptr;
+
+	EUIPanel* trans2d_control = nullptr;
+
+	EUIEditBox* zoom_ed = nullptr;
 
 	EUIPanel* trans2d_gizmo = nullptr;
 
@@ -111,8 +112,6 @@ class Editor : public Object, public EUIWidget::Listener
 	TaskExecutor::SingleTaskPool* renderTaskPool;
 
 	bool in_select_object = false;
-
-public:
 
 	~Editor() = default;
 

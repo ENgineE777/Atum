@@ -149,8 +149,6 @@ void NavMesh2D::Draw(float dt)
 		return;
 	}
 
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
 #ifdef EDITOR
 	if (core.controls.DebugKeyPressed("KEY_M", Controls::Activated))
 	{
@@ -246,20 +244,11 @@ void NavMesh2D::Draw(float dt)
 	if (link_mode)
 	{
 		Node& inst = instances[source_inst];
-
-		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-		core.render.DebugLine2D(p1, COLOR_WHITE, target_pos, COLOR_WHITE);
+ 		core.render.DebugLine2D(Sprite::MoveToCamera(inst.pos), COLOR_WHITE, target_pos, COLOR_WHITE);
 	}
 
-	{
-		Vector2 p1 = start_pt * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-		core.render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_MAGNETA);
-	}
-
-	{
-		Vector2 p1 = end_pt * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-		core.render.DebugSprite(nullptr, p1 - 10.0f, 20.0f, COLOR_RED);
-	}
+	core.render.DebugSprite(nullptr, Sprite::MoveToCamera(start_pt) - 10.0f, 20.0f, COLOR_MAGNETA);
+	core.render.DebugSprite(nullptr, Sprite::MoveToCamera(end_pt) - 10.0f, 20.0f, COLOR_RED);
 
 #endif
 
@@ -267,13 +256,12 @@ void NavMesh2D::Draw(float dt)
 	{
 		Node& inst = instances[i];
 
-		Vector2 p1 = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 p1 = Sprite::MoveToCamera(inst.pos);
 		core.render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, (i == source_inst || i == target_inst) ? COLOR_YELLOW : COLOR_GREEN);
 
 		for (int j = 0; j < inst.links.size(); j++)
 		{
-			Vector2 p2 = instances[inst.links[j].index].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-
+			Vector2 p2 = Sprite::MoveToCamera(instances[inst.links[j].index].pos);
 			core.render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
 		}
 	}
@@ -304,15 +292,12 @@ void NavMesh2D::Draw(float dt)
 
 	MoveAlongPath(0, 150.0f * dt);
 
-	{
-		Vector2 p1 = pathes[0].cur_pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-		core.render.DebugSprite(nullptr, p1 - 5.0f, 10.0f, COLOR_RED);
-	}
+	core.render.DebugSprite(nullptr, Sprite::MoveToCamera(pathes[0].cur_pos) - 5.0f, 10.0f, COLOR_RED);
 
 	for (int i = 0; i < (int)pathes[0].points.size() - 1; i++)
 	{
-		Vector2 p1 = pathes[0].points[i].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-		Vector2 p2 = pathes[0].points[i + 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 p1 = Sprite::MoveToCamera(pathes[0].points[i].pos);
+		Vector2 p2 = Sprite::MoveToCamera(pathes[0].points[i + 1].pos);
 
 		core.render.DebugSprite(nullptr, p2 - 5.0f, 10.0f, COLOR_MAGNETA);
 
@@ -333,18 +318,14 @@ void NavMesh2D::OnMouseMove(Vector2 delta_ms)
 	{
 		target_pos += delta_ms;
 
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
 		target_inst = -1;
 
 		for (int i = 0; i < instances.size(); i++)
 		{
 			Node& inst = instances[i];
 
-			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-
-			if (pos.x - 10.0f< target_pos.x && target_pos.x < pos.x + 10.0f &&
-				pos.y - 10.0f< target_pos.y && target_pos.y < pos.y + 10.0f)
+			if (inst.pos.x - 10.0f < target_pos.x && target_pos.x < inst.pos.x + 10.0f &&
+				inst.pos.y - 10.0f < target_pos.y && target_pos.y < inst.pos.y + 10.0f)
 			{
 				target_inst = i;
 
@@ -357,16 +338,16 @@ void NavMesh2D::OnMouseMove(Vector2 delta_ms)
 
 void NavMesh2D::OnLeftMouseDown(Vector2 ms)
 {
+	ms = Sprite::MoveFromCamera(ms);
+
 	if (core.controls.DebugKeyPressed("KEY_V", Controls::Active))
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		start_pt = (ms + Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f) / scale;
+		start_pt = ms;
 	}
 
 	if (core.controls.DebugKeyPressed("KEY_B", Controls::Active))
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		end_pt = (ms + Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f) / scale;
+		end_pt = ms;
 
 		pathes[0].used = false;
 		GetPath(start_pt.x, start_pt.y, end_pt.x, end_pt.y);
@@ -374,15 +355,13 @@ void NavMesh2D::OnLeftMouseDown(Vector2 ms)
 
 	if (core.controls.DebugKeyPressed("KEY_C", Controls::Active))
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
 		source_inst = -1;
 
 		for (int i = 0; i < instances.size(); i++)
 		{
 			Node& inst = instances[i];
 
-			Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 pos = inst.pos;
 
 			if (pos.x - 10.0f< ms.x && ms.x < pos.x + 10.0f &&
 				pos.y - 10.0f< ms.y && ms.y < pos.y + 10.0f)
@@ -438,17 +417,18 @@ void NavMesh2D::OnLeftMouseUp()
 
 bool NavMesh2D::CheckSelection(Vector2 ms)
 {
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+	ms = Sprite::MoveFromCamera(ms);
+	float sz = Sprite::ScaleToAbs(10.0f);
 
 	sel_inst = -1;
 	for (int i = 0; i < instances.size(); i++)
 	{
 		Node& inst = instances[i];
 
-		Vector2 pos = inst.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = inst.pos;
 
-			if (pos.x - 10.0f< ms.x && ms.x < pos.x + 10.0f &&
-				pos.y - 10.0f< ms.y && ms.y < pos.y + 10.0f)
+			if (pos.x - sz < ms.x && ms.x < pos.x + sz &&
+				pos.y - sz < ms.y && ms.y < pos.y + sz)
 		{
 			sel_inst = i;
 
@@ -478,8 +458,7 @@ void NavMesh2D::SetGizmo()
 {
 	if (sel_inst != -1)
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		trans.size = 60.0f / scale;
+		trans.size = 60.0f / Sprite::screen_mul;
 
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size, &trans.offset), Gizmo::trans_2d_move);
 	}

@@ -254,10 +254,12 @@ void Project::Save()
 		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
 		{
 			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
+			editor.selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
 		}
 		else
 		{
 			select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
+			select_scene->scene->camera2d_zoom = Sprite::ed_cam_zoom;
 		}
 	}
 
@@ -693,11 +695,14 @@ void Project::SelectScene(SceneHolder* holder)
 		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
 		{
 			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
+			editor.selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
 		}
 		else
 		{
 			prev_select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
 		}
+
+		editor.zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 
 		FillSelectedObject(prev_select_scene);
 		editor.SelectObject(nullptr, false);
@@ -722,10 +727,10 @@ void Project::SelectScene(SceneHolder* holder)
 
 		RestoreSceneNodes(select_scene);
 
-		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
 		editor.freecamera.angles = select_scene->scene->camera3d_angles;
 		editor.freecamera.pos = select_scene->scene->camera3d_pos;
 		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
+		Sprite::ed_cam_zoom = select_scene->scene->camera2d_zoom;
 		editor.moveModeBtn->SetPushed(select_scene->scene->move_mode == 1);
 		editor.x_align->SetText(select_scene->scene->gizmo2d_align_x);
 		editor.y_align->SetText(select_scene->scene->gizmo2d_align_y);

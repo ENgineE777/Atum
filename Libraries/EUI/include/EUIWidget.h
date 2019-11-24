@@ -186,4 +186,6 @@ public:
 
 	virtual void SetFocused();
 	virtual bool IsFocused();
+
+	virtual bool IsHowered();
 };

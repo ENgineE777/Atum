@@ -299,7 +299,7 @@ void SpriteGraphAsset::Draw(float dt)
 {
 	if (drag == AddLink)
 	{
-		editor_drawer.DrawLine(nodes[sel_node].pos + nodeSize * 0.5f - Sprite::ed_cam_pos, mouse_pos, COLOR_WHITE);
+		editor_drawer.DrawLine(nodes[sel_node].pos + nodeSize * 0.5f, mouse_pos, COLOR_WHITE);
 	}
 
 	if (sel_link != -1 && sel_node != -1)
@@ -347,8 +347,8 @@ void SpriteGraphAsset::Draw(float dt)
 				}
 			}
 
-			Vector2 p1 = node.pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
-			Vector2 p2 = nodes[link.index].pos + nodeSize * 0.5f - Sprite::ed_cam_pos;
+			Vector2 p1 = node.pos + nodeSize * 0.5f;
+			Vector2 p2 = nodes[link.index].pos + nodeSize * 0.5f;
 
 			Vector2 dir = (p2 - p1);
 			float len = dir.Normalize();
@@ -464,15 +464,15 @@ void SpriteGraphAsset::Draw(float dt)
 			color.b = 1.0f;
 		}*/
 
-		editor_drawer.DrawSprite(editor_drawer.node_tex, node.pos - Sprite::ed_cam_pos, nodeSize, 0.0f, 0.0f, color);
+		editor_drawer.DrawSprite(editor_drawer.node_tex, node.pos, nodeSize, 0.0f, 0.0f, color);
 
-		editor_drawer.PrintText(node.pos + Vector2(5.0f, 3.0f) - Sprite::ed_cam_pos, COLOR_WHITE,node.name.c_str());
+		editor_drawer.PrintText(node.pos + Vector2(5.0f, 3.0f), COLOR_WHITE,node.name.c_str());
 
-		editor_drawer.PrintText(node.pos + Vector2(5.0f, 25.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node.asset ? node.asset->GetName() : "null");
+		editor_drawer.PrintText(node.pos + Vector2(5.0f, 25.0f), COLOR_WHITE, node.asset ? node.asset->GetName() : "null");
 
 		if (index == def_node)
 		{
-			editor_drawer.PrintText(node.pos + Vector2(5.0f, 55.0f) - Sprite::ed_cam_pos, COLOR_WHITE, "Start node");
+			editor_drawer.PrintText(node.pos + Vector2(5.0f, 55.0f), COLOR_WHITE, "Start node");
 		}
 
 		index++;
@@ -521,8 +521,8 @@ int SpriteGraphAsset::GetNodeIndex(Vector2& ms)
 	int index = 0;
 	for (auto& node : nodes)
 	{
-		if (node.pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-			node.pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+		if (node.pos.x < ms.x && ms.x < node.pos.x + nodeSize.x &&
+			node.pos.y < ms.y && ms.y < node.pos.y + nodeSize.y)
 		{
 			selected = index;
 		}
@@ -660,6 +660,7 @@ void SpriteGraphAsset::SetEditMode(bool ed)
 
 void SpriteGraphAsset::OnMouseMove(Vector2 delta_ms)
 {
+	delta_ms /= Sprite::ed_cam_zoom;
 	mouse_pos += delta_ms;
 
 	if (drag == None)
@@ -680,8 +681,8 @@ void SpriteGraphAsset::OnMouseMove(Vector2 delta_ms)
 		{
 			Node& node = nodes[target_node];
 
-			if (node.pos.x - Sprite::ed_cam_pos.x > mouse_pos.x || mouse_pos.x > node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x ||
-				node.pos.y - Sprite::ed_cam_pos.y > mouse_pos.y || mouse_pos.y > node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+			if (node.pos.x > mouse_pos.x || mouse_pos.x > node.pos.x + nodeSize.x ||
+				node.pos.y > mouse_pos.y || mouse_pos.y > node.pos.y + nodeSize.y)
 			{
 				target_node = -1;
 			}
@@ -696,7 +697,7 @@ void SpriteGraphAsset::OnMouseMove(Vector2 delta_ms)
 
 void SpriteGraphAsset::OnLeftMouseDown(Vector2 ms)
 {
-	mouse_pos = ms;
+	mouse_pos = Sprite::MoveFromCamera(ms, false);
 
 	int prev_sel_node = sel_node;
 	int prev_sel_link = sel_link;
@@ -717,8 +718,8 @@ void SpriteGraphAsset::OnLeftMouseDown(Vector2 ms)
 
 				for (auto& link : node.links)
 				{
-					if (link.arrow_pos.x - linkSize.x < ms.x && ms.x < link.arrow_pos.x + linkSize.x &&
-						link.arrow_pos.y - linkSize.y < ms.y && ms.y < link.arrow_pos.y + linkSize.y)
+					if (link.arrow_pos.x - linkSize.x < mouse_pos.x && mouse_pos.x < link.arrow_pos.x + linkSize.x &&
+						link.arrow_pos.y - linkSize.y < mouse_pos.y && mouse_pos.y < link.arrow_pos.y + linkSize.y)
 					{
 						sel_node = index;
 						sel_link = link_index;
@@ -841,10 +842,12 @@ void SpriteGraphAsset::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject*
 		return;
 	}
 
+	ms = Sprite::MoveFromCamera(ms, false);
+
 	for (auto& node : nodes)
 	{
-		if (node.pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node.pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-			node.pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node.pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+		if (node.pos.x < ms.x && ms.x < node.pos.x + nodeSize.x &&
+			node.pos.y < ms.y && ms.y < node.pos.y + nodeSize.y)
 		{
 			node.asset = asset;
 			node.object_uid = asset->GetUID();

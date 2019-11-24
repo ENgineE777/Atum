@@ -13,6 +13,9 @@ void Sprite::Data::LoadTexture()
 bool Sprite::use_ed_cam = true;
 Vector2 Sprite::cam_pos = 0.0f;
 Vector2 Sprite::ed_cam_pos = 0.0f;
+float Sprite::ed_cam_zoom = 1.0f;
+Vector2 Sprite::half_screen = 0.0f;
+float Sprite::screen_mul = 1.0f;
 
 Program*    Sprite::quad_prg_depth;
 Program*    Sprite::quad_prg_no_depth;
@@ -151,6 +154,53 @@ void Sprite::Init()
 	quad_prg_no_depth = core.render.GetProgram("QuadProgramNoDepth");
 }
 
+void Sprite::Update()
+{
+	half_screen = Vector2(core.render.GetDevice()->GetWidth() * 0.5f, core.render.GetDevice()->GetHeight() * 0.5f);
+	screen_mul = core.render.GetDevice()->GetHeight() / 1024.0f;
+}
+
+Vector2 Sprite::MoveToCamera(Vector2 pos, bool abs_units)
+{
+	if (abs_units)
+	{
+		pos *= screen_mul;
+	}
+
+	if (use_ed_cam)
+	{
+		pos -= ed_cam_pos;
+		pos *= ed_cam_zoom;
+	}
+	else
+	{
+		pos -= cam_pos * screen_mul;
+	}
+
+	pos += half_screen;
+
+	return pos;
+}
+
+float Sprite::ScaleToAbs(float size)
+{
+	return size / screen_mul;
+}
+
+Vector2 Sprite::MoveFromCamera(Vector2 pos, bool abs_units)
+{
+	pos -= half_screen;
+	pos /= ed_cam_zoom;
+	pos += ed_cam_pos;
+
+	if (abs_units)
+	{
+		pos /= screen_mul;
+	}
+
+	return pos;
+}
+
 void Sprite::Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped)
 {
 	core.render.GetDevice()->SetVertexBuffer(0, buffer);
@@ -191,29 +241,38 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 	Matrix local_trans = trans->mat_global;
 
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
-	local_trans.Pos().x *= scale;
-	local_trans.Pos().y *= scale;
+	local_trans.Pos().x *= screen_mul;
+	local_trans.Pos().y *= screen_mul;
 
 	Vector2 pos = trans->offset * trans->size * -1.0f;
-	pos *= scale;
+	pos *= screen_mul;
 
 	if (!ignore_camera)
 	{
 		if (use_ed_cam)
 		{
-			local_trans.Pos().x -= ed_cam_pos.x - core.render.GetDevice()->GetWidth() * 0.5f;
-			local_trans.Pos().y -= ed_cam_pos.y - core.render.GetDevice()->GetHeight() * 0.5f;
+			local_trans.Pos().x -= ed_cam_pos.x;
+			local_trans.Pos().y -= ed_cam_pos.y;
 		}
 		else
 		{
-			local_trans.Pos().x -= cam_pos.x * scale - core.render.GetDevice()->GetWidth() * 0.5f;
-			local_trans.Pos().y -= cam_pos.y * scale - core.render.GetDevice()->GetHeight() * 0.5f;
+			local_trans.Pos().x -= cam_pos.x * screen_mul - half_screen.x;
+			local_trans.Pos().y -= cam_pos.y * screen_mul - half_screen.y;
 		}
 	}
 
-	Vector2 size = trans->size * scale;
+	Vector2 size = trans->size * screen_mul;
+
+	if (!ignore_camera && use_ed_cam)
+	{
+		pos *= ed_cam_zoom;
+		local_trans.Pos() *= ed_cam_zoom;
+
+		local_trans.Pos().x -= -half_screen.x;
+		local_trans.Pos().y -= -half_screen.y;
+
+		size *= ed_cam_zoom;
+	}
 
 	Vector min_pos(10000000.0f);
 	Vector max_pos(-10000000.0f);
@@ -253,7 +312,7 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 
 		Vector2 rect_scale = size / start_rect.size;
 		Vector2 sz = rect_scale * rect.size;
-		Vector2 dpos = rect_scale * rect.offset * scale;
+		Vector2 dpos = rect_scale * rect.offset * screen_mul;
 
 		if (state->horz_flipped)
 		{

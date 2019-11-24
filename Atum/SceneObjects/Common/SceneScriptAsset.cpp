@@ -559,12 +559,12 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 			int link_index = 0;
 			for (auto& link : ((NodeScriptMethod*)node)->links)
 			{
-				Vector2 p1 = nodes[link.node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos;
-				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f) - Sprite::ed_cam_pos;
+				Vector2 p1 = nodes[link.node]->pos + Vector2(nodeSize.x, 37.0f);
+				Vector2 p2 = node->pos + Vector2(0.0f, 37.0f);
 
 				editor_drawer.DrawCurve(p1, p2, (index == sel_node && link_index == sel_link) ? COLOR_GREEN : COLOR_WHITE);
 
-				link.arrow_pos = nodes[link.node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos;
+				link.arrow_pos = nodes[link.node]->pos + Vector2(nodeSize.x - 15.0f, 30.0f);
 				link_index++;
 			}
 		}
@@ -582,8 +582,8 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 			color = COLOR_GREEN;
 		}
 
-		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos - Sprite::ed_cam_pos, nodeSize, 0.0f, 0.0f, color);
-		editor_drawer.PrintText(node->pos + Vector2(5.0f + (node->type == ScriptMethod ? 15.0f : 0.0f), 30.0f) - Sprite::ed_cam_pos, COLOR_WHITE, node->name.c_str());
+		editor_drawer.DrawSprite(editor_drawer.node_tex, node->pos, nodeSize, 0.0f, 0.0f, color);
+		editor_drawer.PrintText(node->pos + Vector2(5.0f + (node->type == ScriptMethod ? 15.0f : 0.0f), 30.0f), COLOR_WHITE, node->name.c_str());
 
 		if (node->type == NodeType::SceneCallback)
 		{
@@ -594,17 +594,17 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 				color = COLOR_GREEN;
 			}
 
-			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(nodeSize.x - 15.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, 0.0f, 0.0f, color);
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(nodeSize.x - 15.0f, 30.0f), linkSize, 0.0f, 0.0f, color);
 		}
 		else
 		if (node->type == ScriptMethod)
 		{
 			Color color = (link_drag && target_link == index) ? COLOR_GREEN : COLOR_WHITE;
-			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f) - Sprite::ed_cam_pos, linkSize, 0.0f, 0.0f, color);
+			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f), linkSize, 0.0f, 0.0f, color);
 		}
 
 		const char* names[] = {"Callback", "Property", "Method"};
-		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f) - Sprite::ed_cam_pos, COLOR_WHITE, names[node->type]);
+		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f), COLOR_WHITE, names[node->type]);
 
 		if (inst && (node->type == NodeType::SceneCallback || node->type == NodeType::ScriptProperty))
 		{
@@ -617,7 +617,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 				ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
 			}
 
-			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f) - Sprite::ed_cam_pos, COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
+			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f), COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
 		}
 
 		index++;
@@ -625,12 +625,13 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 
 	if (sel_node != -1 && link_drag)
 	{
-		editor_drawer.DrawCurve(nodes[sel_node]->pos + Vector2(nodeSize.x, 37.0f) - Sprite::ed_cam_pos, ms_pos, COLOR_WHITE);
+		editor_drawer.DrawCurve(nodes[sel_node]->pos + Vector2(nodeSize.x, 37.0f), ms_pos, COLOR_WHITE);
 	}
 }
 
 void SceneScriptAsset::OnMouseMove(Vector2 delta_ms)
 {
+	delta_ms /= Sprite::ed_cam_zoom;
 	ms_pos += delta_ms;
 
 	if (in_drag)
@@ -653,8 +654,8 @@ void SceneScriptAsset::OnMouseMove(Vector2 delta_ms)
 				continue;
 			}
 
-			if (node->pos.x - Sprite::ed_cam_pos.x < ms_pos.x && ms_pos.x < node->pos.x + 15.0f - Sprite::ed_cam_pos.x &&
-				node->pos.y + 30.0f - Sprite::ed_cam_pos.y < ms_pos.y && ms_pos.y < node->pos.y + 45.0f - Sprite::ed_cam_pos.y)
+			if (node->pos.x < ms_pos.x && ms_pos.x < node->pos.x + 15.0f &&
+				node->pos.y + 30.0f < ms_pos.y && ms_pos.y < node->pos.y + 45.0f)
 			{
 				target_link = index;
 			}
@@ -666,6 +667,8 @@ void SceneScriptAsset::OnMouseMove(Vector2 delta_ms)
 
 void SceneScriptAsset::OnLeftMouseDown(Vector2 ms)
 {
+	ms = Sprite::MoveFromCamera(ms, false);
+
 	ShowProperties(false);
 
 	sel_node = -1;
@@ -676,8 +679,8 @@ void SceneScriptAsset::OnLeftMouseDown(Vector2 ms)
 	int index = 0;
 	for (auto& node : nodes)
 	{
-		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + nodeSize.y - Sprite::ed_cam_pos.y)
+		if (node->pos.x < ms.x && ms.x < node->pos.x + nodeSize.x &&
+			node->pos.y < ms.y && ms.y < node->pos.y + nodeSize.y)
 		{
 			sel_node = index;
 			sel_link = -1;
@@ -717,8 +720,8 @@ void SceneScriptAsset::OnLeftMouseDown(Vector2 ms)
 
 		if (node->type == NodeType::SceneCallback)
 		{
-			if (node->pos.x + nodeSize.x - 15.0f - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + nodeSize.x - Sprite::ed_cam_pos.x &&
-				node->pos.y + 30.0f - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + 45.0f - Sprite::ed_cam_pos.y)
+			if (node->pos.x + nodeSize.x - 15.0f < ms.x && ms.x < node->pos.x + nodeSize.x &&
+				node->pos.y + 30.0f < ms.y && ms.y < node->pos.y + 45.0f)
 			{
 				link_drag = true;
 				in_drag = false;

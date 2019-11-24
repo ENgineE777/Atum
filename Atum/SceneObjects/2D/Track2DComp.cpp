@@ -51,8 +51,7 @@ void Track2DComp::Track::SetGizmo()
 {
 	if (sel_point)
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		trans_size = 60.0f / scale;
+		trans_size = 60.0f / Sprite::ed_cam_zoom;
 
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&points[(*sel_point)].pos, &trans_size), Gizmo::trans_2d_move);
 	}
@@ -241,8 +240,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 #ifdef EDITOR
 	if (IsEditMode() || object->IsEditMode())
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		core.render.DebugSprite(nullptr, pos * scale - Sprite::ed_cam_pos - 10.0f + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f, 20.0f, COLOR_BLUE);
+		core.render.DebugSprite(nullptr, Sprite::MoveToCamera(pos) - 10.0f, 20.0f, COLOR_BLUE);
 
 		if (sel_track == index)
 		{
@@ -321,8 +319,6 @@ void Track2DComp::EditorDraw(float dt)
 	Track& track = tracks[sel_track];
 	track.sel_point = IsEditMode() ? &sel_point : nullptr;
 
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
 	if (IsEditMode())
 	{
 		if (core.controls.DebugKeyPressed("KEY_I") && sel_point != -1)
@@ -368,18 +364,19 @@ void Track2DComp::EditorDraw(float dt)
 
 	for (int i = 0; i < track.points.size(); i++)
 	{
-		Vector2 p1 = track.points[i].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 p1 = Sprite::MoveToCamera(track.points[i].pos);
+
 		core.render.DebugSprite(nullptr, p1 - 15.0f, 30.0f, COLOR_GREEN);
 
 		if (i != 0)
 		{
-			Vector2 p2 = track.points[i - 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 p2 = Sprite::MoveToCamera(track.points[i - 1].pos);
 			core.render.DebugLine2D(p1, COLOR_GREEN, p2, COLOR_GREEN);
 		}
 		else
 		if (track.tp == Looped)
 		{
-			Vector2 p2 = track.points[track.points.size() - 1].pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+			Vector2 p2 = Sprite::MoveToCamera(track.points[track.points.size() - 1].pos);
 			core.render.DebugLine2D(p1, COLOR_GREEN, p2, COLOR_CYAN);
 		}
 	}
@@ -436,17 +433,18 @@ void Track2DComp::CheckSelection(Vector2 ms)
 
 	Track& track = tracks[sel_track];
 
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+	ms = Sprite::MoveFromCamera(ms);
+	float sz = Sprite::ScaleToAbs(15.0f);
 
 	sel_point = -1;
 	for (int i = 0; i < track.points.size(); i++)
 	{
 		Point& point = track.points[i];
 
-		Vector2 pos = point.pos * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
+		Vector2 pos = point.pos;
 
-		if (pos.x - 15.0f< ms.x && ms.x < pos.x + 15.0f &&
-			pos.y - 15.0f< ms.y && ms.y < pos.y + 15.0f)
+		if (pos.x - sz < ms.x && ms.x < pos.x + sz &&
+			pos.y - sz < ms.y && ms.y < pos.y + sz)
 		{
 			sel_point = i;
 
@@ -489,8 +487,7 @@ void Track2DComp::SetGizmo()
 
 	if (sel_point != -1)
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-		trans.size = 60.0f / scale;
+		trans.size = 60.0f / Sprite::ed_cam_zoom;
 
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&track.points[sel_point].pos, &trans.size), Gizmo::trans_2d_move);
 	}

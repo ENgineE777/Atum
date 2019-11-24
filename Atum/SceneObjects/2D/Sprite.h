@@ -67,6 +67,9 @@ public:
 	static bool use_ed_cam;
 	static Vector2 cam_pos;
 	static Vector2 ed_cam_pos;
+	static float ed_cam_zoom;
+	static Vector2 half_screen;
+	static float screen_mul;
 
 	static void Load(JSONReader& loader, Sprite::Data* sprite, const char* name);
 	static void Save(JSONWriter& saver, Sprite::Data* sprite, const char* name);
@@ -167,6 +170,10 @@ public:
 	}
 
 	static void Init();
+	static void Update();
+	static Vector2 MoveToCamera(Vector2 pos, bool abs_units = true);
+	static float ScaleToAbs(float size);
+	static Vector2 MoveFromCamera(Vector2 pos, bool abs_units = true);
 	static void Draw(Texture* texture, Color clr, Matrix trans, Vector2 pos, Vector2 size, Vector2 uv, Vector2 duv, bool use_depth, bool flipped = false);
 	static void Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameState* state, bool use_depth, bool ignore_camera);
 };

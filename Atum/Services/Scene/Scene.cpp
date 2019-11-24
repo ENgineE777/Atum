@@ -245,6 +245,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 			if (obj->UsingCamera2DPos())
 			{
 				reader.Read("ed_camera_2d", obj->cam2d_pos);
+				reader.Read("ed_camera_2d_zoom", obj->cam2d_zoom);
 			}
 
 			obj->Load(reader);
@@ -303,6 +304,7 @@ void Scene::Load(const char* name)
 		reader.Read("camera3d_angles", camera3d_angles);
 		reader.Read("camera3d_pos", camera3d_pos);
 		reader.Read("camera_pos", camera2d_pos);
+		reader.Read("camera_zoom", camera2d_zoom);
 		reader.Read("move_mode", move_mode);
 		reader.Read("gizmo2d_align_x", gizmo2d_align_x);
 		reader.Read("gizmo2d_align_y", gizmo2d_align_y);
@@ -363,6 +365,7 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 		if (obj->UsingCamera2DPos())
 		{
 			writer.Write("ed_camera_2d", obj->cam2d_pos);
+			writer.Write("ed_camera_2d_zoom", obj->cam2d_zoom);
 		}
 
 		obj->Save(writer);
@@ -400,6 +403,7 @@ void Scene::Save(const char* name)
 		writer.Write("camera3d_angles", camera3d_angles);
 		writer.Write("camera3d_pos", camera3d_pos);
 		writer.Write("camera_pos", camera2d_pos);
+		writer.Write("camera_zoom", camera2d_zoom);
 		writer.Write("move_mode", move_mode);
 		writer.Write("gizmo2d_align_x", gizmo2d_align_x);
 		writer.Write("gizmo2d_align_y", gizmo2d_align_y);

@@ -26,4 +26,9 @@ namespace MathUtils
 
 		return 1;
 	}
+
+	float Clamp(float value, float a, float b)
+	{
+		return fmin(fmax(value, a), b);
+	}
 }

@@ -49,6 +49,7 @@ public:
 	Vector2 camera3d_angles = 0.0f;
 	Vector  camera3d_pos = 0.0f;
 	Vector2 camera2d_pos = 0.0f;
+	float camera2d_zoom = 1.0f;
 	int move_mode = 0;
 	int gizmo2d_align_x = 0;
 	int gizmo2d_align_y = 0;

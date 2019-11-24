@@ -2,19 +2,13 @@
 #include "Editor.h"
 #include "Services/Scene/SceneManager.h"
 
-char appdir[1024];
-
 EUITabPanel* Editor::outputPanels = nullptr;
 map<string, EUIListBox*> Editor::output_boxes;
-
-extern Scene* hack_scene;
 
 Editor editor;
 
 void Editor::Init()
 {
-	GetCurrentDirectory(1024, appdir);
-
 	if (StringUtils::IsEqual(EUI::GetName(), "EUI_DX11"))
 	{
 		EUI::Init("settings/EUI/", "theme_dx11.dat");
@@ -90,9 +84,15 @@ void Editor::Init()
 	localBtn->SetPushable(true);
 	localBtn->SetListener(-1, this, 0);
 
-	trans2d_gizmo = new EUIPanel(tool_panel, 80, 0, 150, 30);
+	trans2d_control = new EUIPanel(tool_panel, 80, 0, 150, 30);
 
-	EUILabel* label = new EUILabel(trans2d_gizmo, "AlignX", 5, 7, 40, 20);
+	EUILabel* label = new EUILabel(trans2d_control, "Zoom", 5, 7, 40, 20);
+	zoom_ed = new EUIEditBox(trans2d_control, "100.0", 45, 5, 40, 20, EUIEditBox::InputUInteger);
+	zoom_ed->SetListener(-1, this, 0);
+
+	trans2d_gizmo = new EUIPanel(tool_panel, 230, 0, 150, 30);
+
+	label = new EUILabel(trans2d_gizmo, "AlignX", 5, 7, 40, 20);
 	x_align = new EUIEditBox(trans2d_gizmo, "0", 45, 5, 30, 20, EUIEditBox::InputUInteger);
 	x_align->SetListener(-1, this, 0);
 	label = new EUILabel(trans2d_gizmo, "AlignY", 82, 7, 40, 20);
@@ -235,8 +235,6 @@ void Editor::Init()
 
 	freecamera.Init();
 
-	Sprite::Init();
-
 	gizmo.Init();
 	editor_drawer.Init();
 
@@ -323,7 +321,10 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		if (selectedObject->UsingCamera2DPos())
 		{
 			selectedObject->cam2d_pos = Sprite::ed_cam_pos;
+			selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
+
 			Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
+			Sprite::ed_cam_zoom = project.select_scene->scene->camera2d_zoom;
 		}
 
 		selectedObject->ShowPropWidgets(nullptr);
@@ -361,7 +362,10 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		if (selectedObject->UsingCamera2DPos())
 		{
 			project.select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
+			project.select_scene->scene->camera2d_zoom = Sprite::ed_cam_zoom;
+
 			Sprite::ed_cam_pos = selectedObject->cam2d_pos;
+			Sprite::ed_cam_zoom = selectedObject->cam2d_zoom;
 		}
 
 		int panel_width = 1;
@@ -391,6 +395,8 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 			ShowVieport();
 		}
 	}
+
+	editor.zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 
 	MetaData::scene = selectedObject ? selectedObject->GetScene() : nullptr;
 
@@ -499,18 +505,11 @@ void Editor::StartScene()
 	{
 		selectedObject->EnableTasks(false);
 		selectedObject->ShowPropWidgets(nullptr);
-
-		if (selectedObject && selectedObject->UsingCamera2DPos())
-		{
-			selectedObject->cam2d_pos = Sprite::ed_cam_pos;
-		}
 	}
 
 	if (project.select_scene)
 	{
 		project.EnableScene(project.select_scene, false);
-
-		project.select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
 	}
 
 	if (!project.CanRun())
@@ -901,7 +900,12 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 	if (sender == moveModeBtn)
 	{
-		project.select_scene->scene->move_mode = moveModeBtn->IsPushed() ? 1 : 0;
+		if (project.select_scene)
+		{
+			project.select_scene->scene->move_mode = moveModeBtn->IsPushed() ? 1 : 0;
+		}
+
+		trans2d_control->Show(moveModeBtn->IsPushed() == 1);
 	}
 
 	if (sender == playBtn)
@@ -981,6 +985,14 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 	{
 		project.select_scene->scene->gizmo2d_align_y = y_align->GetAsInt();
 		gizmo.align2d.y = (float)project.select_scene->scene->gizmo2d_align_y;
+	}
+
+	if (sender == zoom_ed)
+	{
+		Sprite::ed_cam_zoom = 0.01f * zoom_ed->GetAsFloat();
+		Sprite::ed_cam_zoom = MathUtils::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
+		freecamera.prev_ed_zoom = Sprite::ed_cam_zoom;
+		zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 	}
 }
 
@@ -1107,6 +1119,11 @@ void Editor::OnUpdate(EUIWidget* sender)
 		}
 
 		freecamera.Update(dt);
+
+		if (freecamera.mode_2d && fabs(Sprite::ed_cam_zoom - freecamera.prev_ed_zoom) > 0.01f)
+		{
+			zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
+		}
 
 		if (gizmo.IsEnabled() == !(trans3d_gizmo->IsVisible() || trans2d_gizmo->IsVisible()))
 		{

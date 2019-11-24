@@ -14,8 +14,6 @@ void AtumRunner::Init()
 
 	core.Init(nullptr, nullptr);
 
-	Sprite::Init();
-
 	core.scripts.Start();
 	Sprite::use_ed_cam = false;
 

@@ -26,21 +26,27 @@ void EditorDrawer::Init()
 
 void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Vector2 offset, float rotate, Color color)
 {
+	Matrix mat;
+	mat.RotateZ(rotate);
+
+	pos = Sprite::MoveToCamera(pos, false);
+	mat.Pos() = Vector(pos.x, pos.y, 0.01f);
+
+	size *= Sprite::ed_cam_zoom;
+
 	if (pos.x + size.x < 0 || core.render.GetDevice()->GetWidth() < pos.x ||
 		pos.y + size.y < 0 || core.render.GetDevice()->GetHeight() < pos.y)
 	{
 		return;
 	}
 
-	Matrix mat;
-	mat.RotateZ(rotate);
-	mat.Pos() = Vector(pos.x, pos.y, 0.01f);
-
-	Sprite::Draw(tex, color, mat, offset, size, 0.0f, 1.0f, false);
+	Sprite::Draw(tex, color, mat, offset * Sprite::ed_cam_zoom, size, 0.0f, 1.0f, false);
 }
 
 void EditorDrawer::PrintText(Vector2 pos, Color color, const char* text)
 {
+	pos = Sprite::MoveToCamera(pos, false);
+
 	if (pos.x + 250 < 0 || core.render.GetDevice()->GetWidth() < pos.x ||
 		pos.y + 15 < 0 || core.render.GetDevice()->GetHeight() < pos.y)
 	{
@@ -64,6 +70,9 @@ void EditorDrawer::PrintText(Vector2 pos, Color color, const char* text)
 
 void EditorDrawer::DrawLine(Vector2 from, Vector2 to, Color color)
 {
+	from = Sprite::MoveToCamera(from, false);
+	to = Sprite::MoveToCamera(to, false);
+
 	Vector2 dir = to - from;
 	Vector2 size(dir.Length(), 2.0f);
 

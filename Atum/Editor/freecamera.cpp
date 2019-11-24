@@ -3,6 +3,7 @@
 #include "Services/Render/Render.h"
 #include "SceneObjects/2D/Sprite.h"
 #include "Services/Core/Core.h"
+#include "Editor.h"
 
 void FreeCamera::Init()
 {
@@ -15,6 +16,7 @@ void FreeCamera::Init()
 	alias_strafe = core.controls.GetAlias("FreeCamera.MOVE_STRAFE");
 	alias_fast = core.controls.GetAlias("FreeCamera.MOVE_FAST");
 	alias_move2d_active = core.controls.GetAlias("FreeCamera.MOVE2D_ACTIVE");
+	alias_move2d_zoom = core.controls.GetAlias("FreeCamera.MOVE2D_ZOOM");
 	alias_rotate_active = core.controls.GetAlias("FreeCamera.ROTATE_ACTIVE");
 	alias_rotate_x = core.controls.GetAlias("FreeCamera.ROTATE_X");
 	alias_rotate_y = core.controls.GetAlias("FreeCamera.ROTATE_Y");
@@ -27,8 +29,16 @@ void FreeCamera::Update(float dt)
 	{
 		if (core.controls.GetAliasState(alias_move2d_active, Controls::Active))
 		{
-			Sprite::ed_cam_pos.x -= core.controls.GetAliasValue(alias_rotate_x, true);
-			Sprite::ed_cam_pos.y -= core.controls.GetAliasValue(alias_rotate_y, true);
+			auto scale = 1.0f / Sprite::ed_cam_zoom;
+			Sprite::ed_cam_pos.x -= core.controls.GetAliasValue(alias_rotate_x, true) * scale;
+			Sprite::ed_cam_pos.y -= core.controls.GetAliasValue(alias_rotate_y, true) * scale;
+		}
+
+		if (editor.viewport->IsHowered())
+		{
+			prev_ed_zoom = Sprite::ed_cam_zoom;
+			Sprite::ed_cam_zoom += core.controls.GetAliasValue(alias_move2d_zoom, true) * 0.025f;
+			Sprite::ed_cam_zoom = MathUtils::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
 		}
 
 		return;

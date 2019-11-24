@@ -99,6 +99,8 @@ public:
 	const char* script_class_name = nullptr;
 
 	Vector2 cam2d_pos = 0.0f;
+	float cam2d_zoom = 1.0f;
+
 #ifdef EDITOR
 	static EUITreeView*   ed_asset_treeview;
 	static EUICategories* ed_obj_cat;

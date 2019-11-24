@@ -670,15 +670,13 @@ void SpriteInst::Draw(float dt)
 #ifdef EDITOR
 	if (rect_select)
 	{
-		float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
-		Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-
 		for (auto& index : sel_instances)
 		{
 			auto& inst = instances[index];
-			Vector2 pos = (inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size) * scale - delta;
-			core.render.DebugRect2D(pos, pos + sprite_asset->trans.size * scale, COLOR_WHITE);
+			Vector2 pos = Sprite::MoveToCamera(inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size);
+			Vector2 pos2 = Sprite::MoveToCamera(inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size + sprite_asset->trans.size);
+
+			core.render.DebugRect2D(pos, pos2, COLOR_WHITE);
 		}
 	}
 #endif
@@ -777,15 +775,13 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	sel_inst = -1;
 	rect_select = true;
 
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-
 	Vector2 delta = Sprite::ed_cam_pos - Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
 
 	auto left_offset = trans.offset * trans.size;
 	auto right_offset = (1.0f - trans.offset) * trans.size;
 
-	rect_p1 = (p1 + delta) / scale;
-	rect_p2 = (p2 + delta) / scale;
+	rect_p1 = Sprite::MoveFromCamera(p1);
+	rect_p2 = Sprite::MoveFromCamera(p2);
 
 	rect_p1 = Gizmo::inst->MakeAligned(rect_p1) - left_offset;
 	rect_p2 = Gizmo::inst->MakeAligned(rect_p2) + right_offset;
@@ -876,7 +872,7 @@ void SpriteInst::FillRect()
 
 bool SpriteInst::CheckSelection(Vector2 ms)
 {
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
+	ms = Sprite::MoveFromCamera(ms);
 
 	rect_select = false;
 	sel_inst = -1;
@@ -884,11 +880,10 @@ bool SpriteInst::CheckSelection(Vector2 ms)
 	for (int i = 0; i < instances.size(); i++)
 	{
 		Instance& inst = instances[i];
+		Vector2 pos = inst.GetPos() - trans.size * trans.offset;
 
-		Vector2 pos = (inst.GetPos() + trans.offset * trans.size * -1.0f) * scale - Sprite::ed_cam_pos + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-
-		if (pos.x < ms.x && ms.x < pos.x + trans.size.x * scale &&
-			pos.y < ms.y && ms.y < pos.y + trans.size.y * scale)
+		if (pos.x < ms.x && ms.x < pos.x + trans.size.x &&
+			pos.y < ms.y && ms.y < pos.y + trans.size.y)
 		{
 			sel_inst = i;
 

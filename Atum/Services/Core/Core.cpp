@@ -63,6 +63,8 @@ void Core::Init(void* data, void* render_data)
 	render.Init("DX11", render_data);
 
 	physics.Init();
+
+	Sprite::Init();
 }
 
 void Core::Log(const char* name, const char* text, ...)
@@ -114,6 +116,8 @@ void Core::CountDeltaTime()
 
 void Core::Update()
 {
+	Sprite::Update();
+
 	sounds.Update(dt);
 
 	physics.Update(dt);

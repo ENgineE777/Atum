@@ -652,6 +652,7 @@ void SceneObject::CheckProperties()
 void SceneObject::Copy(SceneObject* src)
 {
 	cam2d_pos = src->cam2d_pos;
+	cam2d_zoom = src->cam2d_zoom;
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();
@@ -787,6 +788,7 @@ void SceneObjectInst::Copy(SceneObject* src)
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;
 
 	cam2d_pos = src->cam2d_pos;
+	cam2d_zoom = src->cam2d_zoom;
 	Trans() = src->Trans();
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();

@@ -33,6 +33,12 @@
 			]
 		},
 		{
+			"name" : "FreeCamera.MOVE2D_ZOOM",
+			"AliasesRef" : [
+				{ "names" : ["MS_Z"], "modifier" : 0.02 }
+			]
+		},
+		{
 			"name" : "FreeCamera.ROTATE_X",
 			"AliasesRef" : [
 				{ "names" : ["MS_X"] }

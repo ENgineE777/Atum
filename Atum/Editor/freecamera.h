@@ -22,10 +22,13 @@ public:
 	int alias_strafe;
 	int alias_fast;
 	int alias_move2d_active;
+	int alias_move2d_zoom;
 	int alias_rotate_active;
 	int alias_rotate_x;
 	int alias_rotate_y;
 	int alias_reset_view;
+
+	float prev_ed_zoom = 1.0f;
 
 	void Init();
 

@@ -470,6 +470,7 @@ bool SpriteInst::InjectIntoScript(const char* type, void* property, const char* 
 		}
 
 		array->listiner = this;
+		array->ownerName = GetName();
 
 		return true;
 	}

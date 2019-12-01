@@ -6,6 +6,9 @@
 #include <string>
 
 #include "scriptarray.h"
+#include "support/StringUtils.h"
+
+#include "aswrappedcall.h"
 
 using namespace std;
 
@@ -324,6 +327,9 @@ static void RegisterScriptArray_Native(asIScriptEngine *engine)
 	// Register virtual properties
 	r = engine->RegisterObjectMethod("array<T>", "uint get_length() const", asMETHOD(CScriptArray, GetSize), asCALL_THISCALL); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("array<T>", "void set_length(uint)", asMETHODPR(CScriptArray, Resize, (asUINT), void), asCALL_THISCALL); assert( r >= 0 );
+
+	r = engine->RegisterObjectMethod("array<T>", "void get_owner(string&in name)", asMETHOD(CScriptArray, GetOwnerName), asCALL_THISCALL); assert(r >= 0);
+	r = engine->RegisterObjectMethod("array<T>", "bool is_owner(string&in name)", asMETHOD(CScriptArray, IsOwner), asCALL_THISCALL); assert(r >= 0);
 
 	// Register GC behaviours in case the array needs to be garbage collected
 	r = engine->RegisterObjectBehaviour("array<T>", asBEHAVE_GETREFCOUNT, "int f()", asMETHOD(CScriptArray, GetRefCount), asCALL_THISCALL); assert( r >= 0 );
@@ -1828,6 +1834,16 @@ void CScriptArray::ReleaseAllHandles(asIScriptEngine *)
 	Resize(0);
 }
 
+void CScriptArray::GetOwnerName(std::string& name)
+{
+	name = ownerName;
+}
+
+bool CScriptArray::IsOwner(std::string& name)
+{
+	return StringUtils::IsEqual(ownerName.c_str(), name.c_str());
+}
+
 void CScriptArray::AddRef() const
 {
 	// Clear the GC flag then increase the counter
@@ -2164,6 +2180,8 @@ static void RegisterScriptArray_Generic(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("array<T>", "void sort(const less &in, uint startAt = 0, uint count = uint(-1))", asFUNCTION(ScriptArraySortCallback_Generic), asCALL_GENERIC); assert(r >= 0);
 	r = engine->RegisterObjectMethod("array<T>", "uint get_length() const", asFUNCTION(ScriptArrayLength_Generic), asCALL_GENERIC); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("array<T>", "void set_length(uint)", asFUNCTION(ScriptArrayResize_Generic), asCALL_GENERIC); assert( r >= 0 );
+	r = engine->RegisterObjectMethod("array<T>", "void get_owner(string&in name)", WRAP_MFN(CScriptArray, GetOwnerName), asCALL_GENERIC); assert(r >= 0);
+	r = engine->RegisterObjectMethod("array<T>", "bool is_owner(string&in name)", WRAP_MFN(CScriptArray, IsOwner), asCALL_GENERIC); assert(r >= 0);
 	r = engine->RegisterObjectBehaviour("array<T>", asBEHAVE_GETREFCOUNT, "int f()", asFUNCTION(ScriptArrayGetRefCount_Generic), asCALL_GENERIC); assert( r >= 0 );
 	r = engine->RegisterObjectBehaviour("array<T>", asBEHAVE_SETGCFLAG, "void f()", asFUNCTION(ScriptArraySetFlag_Generic), asCALL_GENERIC); assert( r >= 0 );
 	r = engine->RegisterObjectBehaviour("array<T>", asBEHAVE_GETGCFLAG, "bool f()", asFUNCTION(ScriptArrayGetFlag_Generic), asCALL_GENERIC); assert( r >= 0 );

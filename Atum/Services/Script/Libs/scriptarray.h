@@ -6,6 +6,8 @@
 #include <angelscript.h>
 #endif
 
+#include <string>
+
 // Sometimes it may be desired to use the same method names as used by C++ STL.
 // This may for example reduce time when converting code from script to C++ or
 // back.
@@ -44,6 +46,7 @@ public:
 	static CScriptArray *Create(asITypeInfo *ot, void *listBuffer);
 
 	Listiner* listiner = nullptr;
+	std::string ownerName;
 
 	// Memory management
 	void AddRef() const;
@@ -110,6 +113,9 @@ public:
 	bool GetFlag();
 	void EnumReferences(asIScriptEngine *engine);
 	void ReleaseAllHandles(asIScriptEngine *engine);
+
+	void GetOwnerName(std::string& name);
+	bool IsOwner(std::string& name);
 
 protected:
 	mutable int     refCount;

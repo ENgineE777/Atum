@@ -462,7 +462,7 @@ void NavMesh2DBase::Init()
 
 bool NavMesh2DBase::Play()
 {
-	ConstructNavMesh();
+	GetScene()->AddPostPlay(0, this, (Object::DelegateSimple)&NavMesh2DBase::ConstructNavMesh);
 
 	return true;
 }

@@ -539,8 +539,6 @@ void Editor::StartScene()
 
 	mainWnd->Enable(false);
 
-	Sprite::ed_cam_pos = 0.0f;
-
 	gameWnd = new EUIWindow("Game", "", EUIWindow::PopupWithCloseBtn, true, 0, 0, 1378, 720);
 	gameWnd->SetListener(-1, this, 0);
 
@@ -589,11 +587,6 @@ void Editor::StopScene()
 	{
 		selectedObject->EnableTasks(true);
 		selectedObject->ShowPropWidgets(objCat);
-
-		if (selectedObject->UsingCamera2DPos())
-		{
-			Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
-		}
 	}
 
 	Sprite::use_ed_cam = true;

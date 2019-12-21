@@ -463,10 +463,12 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 
 	int index = 0;
 
+	ms = Sprite::MoveFromCamera(ms, false);
+
 	for (auto& node : Asset()->nodes)
 	{
-		if (node->pos.x - Sprite::ed_cam_pos.x < ms.x && ms.x < node->pos.x + Asset()->nodeSize.x - Sprite::ed_cam_pos.x &&
-			node->pos.y - Sprite::ed_cam_pos.y < ms.y && ms.y < node->pos.y + Asset()->nodeSize.y - Sprite::ed_cam_pos.y)
+		if (node->pos.x < ms.x && ms.x < node->pos.x + Asset()->nodeSize.x &&
+			node->pos.y < ms.y && ms.y < node->pos.y + Asset()->nodeSize.y)
 		{
 			if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
 			{

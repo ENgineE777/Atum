@@ -834,7 +834,7 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 
 	if (node)
 	{
-		node->pos = ms_pos + Sprite::ed_cam_pos;
+		node->pos = Sprite::MoveFromCamera(ms_pos, false);
 		nodes.push_back(node);
 
 		for (auto& inst : instances)

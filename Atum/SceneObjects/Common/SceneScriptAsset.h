@@ -125,13 +125,17 @@ public:
 		int node;
 		Vector2 arrow_pos;
 		string param;
+		string param2;
+		string param3;
 	};
 
 	enum ParamType
 	{
 		None,
 		Int,
-		Float,
+		String,
+		Int2,
+		Int3
 	};
 
 	enum CallType

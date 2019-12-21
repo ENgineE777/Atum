@@ -61,6 +61,8 @@ public:
 		const char* decl = nullptr;
 		int param_type = 0;
 		int int_param = 0;
+		int int_param2 = 0;
+		int int_param3 = 0;
 		string* str_param = nullptr;
 		Scene* scene = nullptr;
 
@@ -69,6 +71,8 @@ public:
 		inline const char* GetName() { return name; };
 		void SetIntParam(int param);
 		void SetStringParam(string& param);
+		void SetIntParam(int param, int param2);
+		void SetIntParam(int param, int param2, int param3);
 		bool Prepare(asITypeInfo* class_type, asIScriptObject* class_inst, const char* method_name);
 		void Unbind(asIScriptObject* class_inst);
 		bool Call(ScriptContext* context, ...);

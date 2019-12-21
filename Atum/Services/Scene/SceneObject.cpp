@@ -33,6 +33,21 @@ void SceneObject::ScriptCallback::SetStringParam(string& param)
 	str_param = &param;
 }
 
+void SceneObject::ScriptCallback::SetIntParam(int param, int param2)
+{
+	param_type = 3;
+	int_param = param;
+	int_param2 = param2;
+}
+
+void SceneObject::ScriptCallback::SetIntParam(int param, int param2, int param3)
+{
+	param_type = 4;
+	int_param = param;
+	int_param2 = param2;
+	int_param3 = param3;
+}
+
 bool SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObject* set_class_inst, const char* method_name)
 {
 	ClassInst inst;
@@ -107,6 +122,16 @@ bool SceneObject::ScriptCallback::Prepare(asITypeInfo* class_type, asIScriptObje
 		if (param_type == 2)
 		{
 			StringUtils::Cat(prototype, 256, "string&in");
+		}
+		else
+		if (param_type == 3)
+		{
+			StringUtils::Cat(prototype, 256, "int, int");
+		}
+		else
+		if (param_type == 4)
+		{
+			StringUtils::Cat(prototype, 256, "int, int, int");
 		}
 	}
 
@@ -207,6 +232,18 @@ bool SceneObject::ScriptCallback::Call(ScriptContext* context, ...)
 			if (param_type == 2)
 			{
 				context->ctx->SetArgObject(cur_arg, str_param);
+			}
+			if (param_type == 3)
+			{
+				context->ctx->SetArgDWord(cur_arg, int_param);
+				context->ctx->SetArgDWord(cur_arg + 1, int_param2);
+			}
+			else
+			if (param_type == 4)
+			{
+				context->ctx->SetArgDWord(cur_arg, int_param);
+				context->ctx->SetArgDWord(cur_arg + 1, int_param2);
+				context->ctx->SetArgDWord(cur_arg + 2, int_param3);
 			}
 
 			core.scripts.script_caller = scene;

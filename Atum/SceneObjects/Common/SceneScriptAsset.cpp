@@ -22,7 +22,9 @@ STRING_PROP(SceneScriptAsset::NodeScriptProperty, prefix, "", "Property", "Prefi
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScriptAsset::LinkToMethod)
-STRING_PROP(SceneScriptAsset::LinkToMethod, param, "", "Property", "Params")
+STRING_PROP(SceneScriptAsset::LinkToMethod, param, "", "Property", "Param")
+STRING_PROP(SceneScriptAsset::LinkToMethod, param2, "", "Property", "Param2")
+STRING_PROP(SceneScriptAsset::LinkToMethod, param3, "", "Property", "Param3")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScriptAsset::NodeScriptMethod)
@@ -31,6 +33,8 @@ ENUM_PROP(SceneScriptAsset::NodeScriptMethod, param_type, 0, "Property", "ParamT
 	ENUM_ELEM("None", 0)
 	ENUM_ELEM("Int", 1)
 	ENUM_ELEM("String", 2)
+	ENUM_ELEM("Int2", 3)
+	ENUM_ELEM("Int3", 4)
 ENUM_END
 ENUM_PROP(SceneScriptAsset::NodeScriptMethod, call_type, 0, "Property", "CallType", "Type of method call")
 	ENUM_ELEM("OnCallback", 0)
@@ -113,6 +117,8 @@ void SceneScriptAsset::NodeScriptMethod::Load(JSONReader& loader)
 
 		loader.Read("node", link.node);
 		loader.Read("param", link.param);
+		loader.Read("param2", link.param2);
+		loader.Read("param3", link.param3);
 
 		loader.LeaveBlock();
 	}
@@ -136,6 +142,8 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 
 		saver.Write("node", link.node);
 		saver.Write("param", link.param.c_str());
+		saver.Write("param2", link.param2.c_str());
+		saver.Write("param3", link.param3.c_str());
 
 		saver.FinishBlock();
 	}

@@ -277,6 +277,16 @@ void SceneScriptInst::InjectIntoScript()
 								{
 									callback->SetStringParam(link.param);
 								}
+								else
+								if (node_method->param_type == 3)
+								{
+									callback->SetIntParam(atoi(link.param.c_str()), atoi(link.param2.c_str()));
+								}
+								else
+								if (node_method->param_type == 4)
+								{
+									callback->SetIntParam(atoi(link.param.c_str()), atoi(link.param2.c_str()), atoi(link.param3.c_str()));
+								}
 
 								if (!callback->Prepare(Asset()->class_type, class_inst, node_method->name.c_str()))
 								{

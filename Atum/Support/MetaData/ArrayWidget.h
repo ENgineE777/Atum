@@ -9,6 +9,7 @@ public:
 	EUIButton* addBtn;
 	EUIButton* nextBtn;
 	EUIButton* prevBtn;
+	EUILabel* elem_index;
 	EUICategories* elements;
 
 	int32_t pre_sel_item = -1;

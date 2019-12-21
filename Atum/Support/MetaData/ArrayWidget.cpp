@@ -53,6 +53,9 @@ void ArrayWidget::SetData(void* set_owner, void* set_data)
 			elem.cat = new EUICategories(elements, 10, 0, 190, -1);
 			elements->RegisterChildInCategory("Selected Element", elem.cat, false);
 			elem_cats.push_back(elem);
+
+			elem_index = new EUILabel(elem.cat, "Index", 0, 0, 100, 20);
+			elem.cat->RegisterChildInCategory("Index", elem_index, false);
 		}
 
 		elem_cats[0].cat->Show(false);
@@ -113,6 +116,10 @@ void ArrayWidget::OnUpdate(EUIWidget* sender)
 			cat->Show(true);
 			adapter->GetMetaData()->Prepare(adapter->GetItem(pre_sel_item), root);
 			adapter->GetMetaData()->PrepareWidgets(cat);
+
+			char str[128];
+			StringUtils::Printf(str, 128, "Index %i", pre_sel_item);
+			elem_index->SetText(str);
 		}
 		else
 		{

@@ -182,45 +182,9 @@ public:
 #endif
 
 	void Release() override;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
 	bool UsingCamera2DPos() override;
 
 	void GetScriptFileName(string& filename, bool binary);
-
 	bool CompileScript();
 
 #ifdef EDITOR

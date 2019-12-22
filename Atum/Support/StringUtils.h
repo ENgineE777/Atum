@@ -23,6 +23,8 @@ class StringUtils
 	static map<wchar_t, int> lower2upper;
 #endif
 
+	static char temp_str[1024];
+
 public:
 
 	/**
@@ -64,6 +66,8 @@ public:
 	\brief Constract string from formated string
 	*/
 	static void Printf(char* str, int len, const char* format, ...);
+
+	static const char* PrintTemp(const char* format, ...);
 
 	/**
 	\brief remove all salhes in a string

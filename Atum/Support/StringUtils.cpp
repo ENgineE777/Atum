@@ -6,6 +6,7 @@
 
 map<wchar_t, int> StringUtils::upper2lower;
 map<wchar_t, int> StringUtils::lower2upper;
+char StringUtils::temp_str[1024];
 
 void StringUtils::Init()
 {
@@ -80,15 +81,24 @@ void StringUtils::Cat(char* str1, int len, const char* str2)
 
 void StringUtils::Printf(char* str, int len, const char* format, ...)
 {
-	static char buffer[4096];
 	va_list args;
 	va_start(args, format);
 
-	vsnprintf(buffer, sizeof(buffer) - 4, format, args);
+	vsnprintf(str, len - 1, format, args);
+
+	va_end(args);
+}
+
+const char* StringUtils::PrintTemp(const char* format, ...)
+{
+	va_list args;
+	va_start(args, format);
+
+	vsnprintf(temp_str, 1023, format, args);
 
 	va_end(args);
 
-	Copy(str, len, buffer);
+	return temp_str;
 }
 
 void StringUtils::RemoveSlashes(char* fullPath)

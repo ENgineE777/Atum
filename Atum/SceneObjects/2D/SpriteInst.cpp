@@ -394,6 +394,9 @@ void SpriteInst::BindClassToScript()
 void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 {
 	const char* names[] = { "x", "y", "horz_flipped", "visible", "r", "g", "b", "alpha", "width", "height", "angle", "graph" };
+	int types[] = { /*x*/ asTYPEID_FLOAT, /*y*/ asTYPEID_FLOAT, /*horz_flipped*/ asTYPEID_INT32, /*visible*/ asTYPEID_INT32, /*r*/ asTYPEID_FLOAT, /*g*/ asTYPEID_FLOAT, /*b*/ asTYPEID_FLOAT,
+	                /*alpha*/ asTYPEID_FLOAT, /*width*/ asTYPEID_FLOAT, /*height*/ asTYPEID_FLOAT, /*angle*/ asTYPEID_FLOAT, /*graph*/ asTYPEID_FLOAT };
+
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);
 
@@ -406,11 +409,19 @@ void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 			char str[256];
 			StringUtils::Printf(str, 256, "%s_%s", prefix, names[value_index]);
 
-			for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+			for (int index = 0; index < (int)object->GetPropertyCount(); index++)
 			{
-				if (StringUtils::IsEqual(str, object->GetPropertyName(prop)))
+				if (StringUtils::IsEqual(str, object->GetPropertyName(index)))
 				{
-					mapping[value_index] = prop;
+					if (value_index != Instance::MapIndices::IndexGraph && object->GetPropertyTypeId(index) != types[value_index])
+					{
+						MESSAGE_BOX("Error on an injection into script", StringUtils::PrintTemp("Property %s_%s not set as %s for %s", prefix, names[value_index], types[value_index] == asTYPEID_FLOAT ? "float" : "int", GetName()))
+					}
+					else
+					{
+						mapping[value_index] = index;
+					}
+
 					break;
 				}
 			}
@@ -421,11 +432,19 @@ void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)
 			continue;
 		}
 
-		for (int prop = 0; prop < (int)object->GetPropertyCount(); prop++)
+		for (int index = 0; index < (int)object->GetPropertyCount(); index++)
 		{
-			if (StringUtils::IsEqual(names[value_index], object->GetPropertyName(prop)))
+			if (StringUtils::IsEqual(names[value_index], object->GetPropertyName(index)))
 			{
-				mapping[value_index] = prop;
+				if (value_index != Instance::MapIndices::IndexGraph && object->GetPropertyTypeId(index) != types[value_index])
+				{
+					MESSAGE_BOX("Error on an injection into script", StringUtils::PrintTemp("Property %s not set as %s for %s", names[value_index], types[value_index] == asTYPEID_FLOAT ? "float" : "int", GetName()))
+				}
+				else
+				{
+					mapping[value_index] = index;
+				}
+
 				break;
 			}
 		}

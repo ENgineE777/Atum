@@ -18,4 +18,10 @@
 #define DEBUG_BREAK __debugbreak();
 #endif
 
+#ifdef EDITOR
+#define MESSAGE_BOX(caption, text) MessageBox(nullptr, text, caption, MB_ICONERROR);
+#else
+#define MESSAGE_BOX(caption, text)
+#endif
+
 #define _FL_ __FILE__ , __LINE__

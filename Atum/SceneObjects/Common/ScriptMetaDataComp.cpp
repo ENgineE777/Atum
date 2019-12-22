@@ -235,36 +235,30 @@ void ScriptMetaDataCompInst::InjectIntoScript(asIScriptObject* script_object, in
 				{
 					*((bool*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.boolean;
 				}
-#ifdef EDITOR
 				else
 				{
-					MessageBox(nullptr, StringUtils::PrintTemp("Property %s not set as bool for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()), "Error on script inhection", MB_ICONERROR);
+					MESSAGE_BOX("Error on an injection into script", StringUtils::PrintTemp("Property %s not set as bool for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()))
 				}
-#endif
 				break;
 			case ScriptMetaDataAsset::Int:
 				if (script_object->GetPropertyTypeId(prop) == asTYPEID_INT32)
 				{
 					*((int*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.integer;
 				}
-#ifdef EDITOR
 				else
 				{
-					MessageBox(nullptr, StringUtils::PrintTemp("Property %s not set as int for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()), "Error on script inhection", MB_ICONERROR);
+					MESSAGE_BOX("Error on an injection into script", StringUtils::PrintTemp("Property %s not set as int for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()))
 				}
-#endif
 				break;
 			case ScriptMetaDataAsset::Float:
 				if (script_object->GetPropertyTypeId(prop) == asTYPEID_FLOAT)
 				{
 					*((float*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.flt;
 				}
-#ifdef EDITOR
 				else
 				{
-					MessageBox(nullptr, StringUtils::PrintTemp("Property %s not set as float for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()), "Error on script inhection", MB_ICONERROR);
+					MESSAGE_BOX("Error on an injection into script", StringUtils::PrintTemp("Property %s not set as float for %s", meta_data->asset->properties[value_index].name.c_str(), object->GetName()))
 				}
-#endif
 				break;
 		}
 	}

@@ -52,10 +52,10 @@ public:
 	virtual void DeleteAsset(SceneObject* obj);
 
 	virtual void PreapreAssetTree();
-	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index);
-	virtual void OnAssetTreeSelChange(SceneAsset* item);
+	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index);
+	virtual void OnAssetTreeSelChange(SceneObject* item);
 	virtual void OnAssetTreePopupItem(int id);
-	virtual void OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index);
+	virtual void OnAssetTreeRightClick(int x, int y, SceneObject* item, int child_index);
 #endif
 
 #endif

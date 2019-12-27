@@ -126,7 +126,7 @@ void UIViewAsset::PreapreAssetTree()
 	AddWidgetToTreeView(this, nullptr);
 }
 
-bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneAsset* item, int prev_child_index, SceneObject* target, int child_index)
+bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index)
 {
 	if (item_from_assets)
 	{
@@ -217,6 +217,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 
 		UIWidgetAsset* dest_child = decl->Create();
 
+		dest_child->uid = src_child->uid;
 		dest_child->scene = GetScene();
 		dest_child->class_name = decl->GetName();
 
@@ -265,6 +266,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* dest_child_inst = decl->Create();
 
+			dest_child_inst->uid = src_child->uid;
 			dest_child_inst->scene = GetScene();
 			dest_child_inst->class_name = decl->GetName();
 			dest_child_inst->Init();
@@ -286,7 +288,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 	}
 }
 
-void UIViewAsset::OnAssetTreeSelChange(SceneAsset* item)
+void UIViewAsset::OnAssetTreeSelChange(SceneObject* item)
 {
 	if (sel_ui_asset)
 	{
@@ -335,6 +337,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		int child_index = (id >= 2600) ? popup_child_index + 1 : -1;
 
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(item_classname);
+		scene->GenerateUID(child, true);
 
 		child->scene = GetScene();
 		child->class_name = item_classname;
@@ -367,6 +370,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		{
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* child_inst = decl->Create();
+			child_inst->uid = child->uid;
 
 			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
@@ -397,6 +401,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	if (id == 2400)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(popup_item->class_name);
+		scene->GenerateUID(child, true);
 
 		child->scene = GetScene();
 		child->class_name = popup_item->class_name;
@@ -419,7 +424,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		{
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* child_inst = decl->Create();
-
+			child_inst->uid = child->uid;
 
 			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
@@ -450,6 +455,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	if (id == 2402 && asset_to_copy)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->class_name);
+		scene->GenerateUID(child, true);
 
 		child->scene = GetScene();
 		child->class_name = asset_to_copy->class_name;
@@ -472,6 +478,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		{
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* child_inst = decl->Create();
+			child_inst->uid = child->uid;
 
 			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
@@ -497,6 +504,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 	if (id == 2403 && asset_to_copy)
 	{
 		UIWidgetAsset* child = ClassFactoryUIWidgetAsset::Create(asset_to_copy->class_name);
+		scene->GenerateUID(child, true);
 
 		child->scene = GetScene();
 		child->class_name = asset_to_copy->class_name;
@@ -520,6 +528,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 
 			UIWidgetAsset* child_inst = decl->Create();
+			child_inst->uid = child->uid;
 
 			child_inst->scene = GetScene();
 			child_inst->class_name = decl->GetName();
@@ -576,7 +585,7 @@ void UIViewAsset::FillPopupCreateMenu(const char* name, int id)
 	ed_popup_menu->EndSubMenu();
 }
 
-void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneAsset* item, int child_index)
+void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneObject* item, int child_index)
 {
 	if (item == nullptr)
 	{

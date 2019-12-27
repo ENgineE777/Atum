@@ -1260,7 +1260,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 	if ((sender == assets_treeview || sender == asset_treeview ) && target == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		return ((SceneAsset*)selectedObject)->OnAssetTreeViewItemDragged((sender == assets_treeview), (SceneAsset*)GetSceneObjectFromItem(sender, item),
+		return ((SceneAsset*)selectedObject)->OnAssetTreeViewItemDragged((sender == assets_treeview), GetSceneObjectFromItem(sender, item),
 		                                                                 prev_child_index, GetSceneObjectFromItem(asset_treeview, parent), child_index);
 	}
 
@@ -1420,7 +1420,7 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 	else
 	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		((SceneAsset*)selectedObject)->OnAssetTreeSelChange((SceneAsset*)GetSceneObjectFromItem(asset_treeview, item));
+		((SceneAsset*)selectedObject)->OnAssetTreeSelChange(GetSceneObjectFromItem(asset_treeview, item));
 	}
 	else
 	if (sender == scene_treeview)
@@ -1518,7 +1518,7 @@ void Editor::OnTreeViewRightClick(EUITreeView* sender, int x, int y, void* item,
 	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
 		popup_parent = sender;
-		((SceneAsset*)selectedObject)->OnAssetTreeRightClick(x, y, (SceneAsset*)GetSceneObjectFromItem(sender, item), child_index);
+		((SceneAsset*)selectedObject)->OnAssetTreeRightClick(x, y, GetSceneObjectFromItem(sender, item), child_index);
 	}
 
 	if (sender == project_treeview)

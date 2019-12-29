@@ -130,6 +130,7 @@ struct Editor : public Object, public EUIWidget::Listener
 	void StartScene();
 	void StopScene();
 	void Draw(float dt);
+	void MoveTrans2DToCamera();
 	void CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset);
 	void ProcessTreeviewPopup(EUITreeView* treeview, int id, bool is_asset);
 	SceneObject* GetSceneObjectFromItem(EUITreeView* tree_view, void* item);

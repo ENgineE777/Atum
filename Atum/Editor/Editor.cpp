@@ -476,6 +476,9 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 
 	obj->item = inst_item->item;
 	treeview->SelectItem(obj->item);
+
+	obj->SetEditMode(true);
+	MoveTrans2DToCamera();
 }
 
 void Editor::ShowVieport()
@@ -628,6 +631,15 @@ void Editor::Draw(float dt)
 	core.render.ExecutePool(ExecuteLevels::Debug, dt);
 
 	core.render.GetDevice()->Present();
+}
+
+void Editor::MoveTrans2DToCamera()
+{
+	float scale = 1024.0f / core.render.GetDevice()->GetHeight();
+
+	Vector2 pos2d = Sprite::ed_cam_pos * scale;
+	*(gizmo.trans2D.pos) = gizmo.MakeAligned(pos2d);
+	gizmo.pos2d = *(gizmo.trans2D.pos);
 }
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
@@ -917,10 +929,7 @@ void Editor::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 	if (sender == object2camera && gizmo.IsEnabled())
 	{
-		float scale = 1024.0f / core.render.GetDevice()->GetHeight();
-
-		Vector2 pos2d = Sprite::ed_cam_pos * scale;
-		*(gizmo.trans2D.pos) = gizmo.MakeAligned(pos2d);
+		MoveTrans2DToCamera();
 	}
 
 	if (sender == camera2object && gizmo.IsEnabled())
@@ -1389,6 +1398,8 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 				inst->item = inst_item->item;
 				inst->AddChildsToTree(scene_treeview);
 				SelectObject(inst, false);
+
+				MoveTrans2DToCamera();
 			}
 		}
 	}

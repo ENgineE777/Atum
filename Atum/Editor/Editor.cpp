@@ -638,8 +638,8 @@ void Editor::MoveTrans2DToCamera()
 	float scale = 1024.0f / core.render.GetDevice()->GetHeight();
 
 	Vector2 pos2d = Sprite::ed_cam_pos * scale;
-	*(gizmo.trans2D.pos) = gizmo.MakeAligned(pos2d);
-	gizmo.pos2d = *(gizmo.trans2D.pos);
+
+	gizmo.SetTrans2D(pos2d);
 }
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)

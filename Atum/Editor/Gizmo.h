@@ -93,6 +93,7 @@ public:
 	void Init();
 
 	void SetTrans2D(Transform2D trans, int actions = 0xffff, bool ignore_2d_camera = false);
+	void SetTrans2D(Vector2 pos);
 	void SetTrans3D(Matrix transform);
 	Matrix& GetTrans3D();
 	bool IsTrans2D();

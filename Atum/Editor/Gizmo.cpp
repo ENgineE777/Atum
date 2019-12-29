@@ -69,6 +69,18 @@ void Gizmo::SetTrans2D(Transform2D trans, int actions, bool set_ignore_2d_camera
 	delta_move = 0.0f;
 }
 
+void Gizmo::SetTrans2D(Vector2 set_pos)
+{
+	if (!trans2D.pos)
+	{
+		return;
+	}
+
+	set_pos = MakeAligned(set_pos);
+	*(trans2D.pos) = set_pos;
+	pos2d = set_pos;
+}
+
 void Gizmo::SetTrans3D(Matrix set_transform)
 {
 	use_trans2D = false;

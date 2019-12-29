@@ -932,15 +932,13 @@ void SpriteInst::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);
 
-	if (ed)
-	{
-		SetGizmo();
-	}
-	else
+	if (!ed)
 	{
 		rect_select = false;
 		sel_inst = -1;
 	}
+
+	SetGizmo();
 }
 
 void SpriteInst::SetGizmo()

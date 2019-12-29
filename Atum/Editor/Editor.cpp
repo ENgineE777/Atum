@@ -477,9 +477,8 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	inst_item->item = treeview->AddItem(obj->GetName(), 1, inst_item, parent, -1, false);
 
 	obj->item = inst_item->item;
-	treeview->SelectItem(obj->item);
 
-	obj->SetEditMode(true);
+	SelectObject(obj, obj->IsAsset());
 	MoveTrans2DToCamera();
 }
 

@@ -71,7 +71,7 @@ void Gizmo::SetTrans2D(Transform2D trans, int actions, bool set_ignore_2d_camera
 
 void Gizmo::SetTrans2D(Vector2 set_pos)
 {
-	if (!trans2D.pos)
+	if (!trans2D.pos || !enabled)
 	{
 		return;
 	}

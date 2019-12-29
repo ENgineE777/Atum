@@ -621,10 +621,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 
 			SceneObjectRef& ref = scene_node.objects[0].ref;
 
-			if (!ref.object)
-			{
-				ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
-			}
+			ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
 
 			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f), COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
 		}

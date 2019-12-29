@@ -147,7 +147,7 @@ public:
 	void OnLeftMouseUp() override;
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
-	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
+	void OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms) override;
 #endif
 
 #endif

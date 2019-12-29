@@ -213,13 +213,9 @@ void Editor::Init()
 
 	EUILayout* object_lt = new EUILayout(toolsPanel3, true);
 
-	objCat = new EUICategories(object_lt, 0, 0, 100, 100);
+	obj_cat = new EUICategories(object_lt, 0, 0, 100, 100);
 
-	objCmpWgt.Init(objCat);
-
-	SceneObject::ed_asset_treeview = asset_treeview;
-	SceneObject::ed_obj_cat = objCat;
-	SceneObject::ed_popup_menu = popup_menu;
+	obj_cmp_wgt.Init(obj_cat);
 
 	AddOutputBox("Output");
 
@@ -355,7 +351,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 	{
 		core.files.SetActivePath(selectedObject->GetScene());
 
-		obj->ShowPropWidgets(objCat);
+		obj->ShowPropWidgets(obj_cat);
 		obj->EnableTasks(true);
 		obj->SetEditMode(true);
 
@@ -400,7 +396,7 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	MetaData::scene = selectedObject ? selectedObject->GetScene() : nullptr;
 
-	objCmpWgt.Prepare(selectedObject);
+	obj_cmp_wgt.Prepare(selectedObject);
 
 	in_select_object = false;
 }
@@ -485,8 +481,6 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 void Editor::ShowVieport()
 {
 	EUIPanel* vp = viewport;
-
-	SceneObject::ed_vieport = vp;
 
 	if (in_scene_run)
 	{
@@ -586,7 +580,7 @@ void Editor::StopScene()
 	if (selectedObject)
 	{
 		selectedObject->EnableTasks(true);
-		selectedObject->ShowPropWidgets(objCat);
+		selectedObject->ShowPropWidgets(obj_cat);
 	}
 
 	Sprite::use_ed_cam = true;
@@ -1244,7 +1238,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 		return project.OnTreeViewItemDragged(item, parent);
 	}
 
-	if ((sender == assets_treeview || sender == scene_treeview) && target == viewport)
+	if ((sender == assets_treeview || sender == scene_treeview || sender == asset_treeview) && target == viewport)
 	{
 		if (selectedObject)
 		{
@@ -1252,7 +1246,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 			viewport->GetMousePos(x, y);
 			Vector2 ms((float)x, (float)y);
 
-			selectedObject->OnDragObjectFromTreeView(sender == scene_treeview, GetSceneObjectFromItem(sender, item), ms);
+			selectedObject->OnDragObjectFromTreeView(sender == assets_treeview, GetSceneObjectFromItem(sender, item), ms);
 		}
 
 		return false;
@@ -1413,6 +1407,8 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 
 void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 {
+	SceneObject* object = GetSceneObjectFromItem(sender, item);
+
 	if (sender == project_treeview)
 	{
 		project.OnTreeViewSelChange(asset_treeview->GetItemPtr(item));
@@ -1420,34 +1416,33 @@ void Editor::OnTreeViewSelChange(EUITreeView* sender, void* item)
 	else
 	if (sender == asset_treeview && selectedObject && isSelectedAsset)
 	{
-		((SceneAsset*)selectedObject)->OnAssetTreeSelChange(GetSceneObjectFromItem(asset_treeview, item));
+		if (!asset_drag_as_inst && object)
+		{
+			((SceneAsset*)selectedObject)->OnAssetTreeSelChange(GetSceneObjectFromItem(asset_treeview, item));
+		}
 	}
 	else
 	if (sender == scene_treeview)
 	{
-		SceneObject* asset = GetSceneObjectFromItem(sender, item);
-
-		if (!asset_drag_as_inst && asset)
+		if (!asset_drag_as_inst && object)
 		{
 			in_select_object = true;
 			assets_treeview->SelectItem(nullptr);
 			in_select_object = false;
 
-			SelectObject(asset, (sender == assets_treeview));
+			SelectObject(object, false);
 		}
 	}
 	else
 	if (sender == assets_treeview)
 	{
-		SceneObject* asset = GetSceneObjectFromItem(sender, item);
-
-		if (!asset_drag_as_inst && asset)
+		if (!asset_drag_as_inst && object)
 		{
 			in_select_object = true;
 			scene_treeview->SelectItem(nullptr);
 			in_select_object = false;
 
-			SelectObject(asset, (sender == assets_treeview));
+			SelectObject(object, true);
 		}
 	}
 }

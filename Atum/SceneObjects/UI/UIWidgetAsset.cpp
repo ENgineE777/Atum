@@ -73,11 +73,6 @@ void UIWidgetAsset::Load(JSONReader& reader)
 
 			reader.Read("uid", obj->uid);
 
-			if (obj->uid == 0)
-			{
-				GetScene()->GenerateChildUID(obj);
-			}
-
 			obj->Load(reader);
 			obj->ApplyProperties();
 		}
@@ -99,8 +94,6 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 
 	writer.StartArray("Childs");
 
-	int index = 0;
-
 	for (auto child : childs)
 	{
 		writer.StartBlock(nullptr);
@@ -111,8 +104,6 @@ void UIWidgetAsset::Save(JSONWriter& writer)
 		child->Save(writer);
 
 		writer.FinishBlock();
-
-		index++;
 	}
 
 	writer.FinishArray();

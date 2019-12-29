@@ -59,6 +59,8 @@ public:
 	char project_scene_path[512];
 #endif
 
+	std::vector<Scene*> inc_scenes;
+
 #endif
 
 private:
@@ -74,7 +76,6 @@ private:
 
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;
-	std::vector<SceneObject*> pool_childs;
 	TaskExecutor::SingleTaskPool* taskPool = nullptr;
 	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
 	bool playing = false;
@@ -96,7 +97,6 @@ private:
 	char scene_path[512];
 	char scene_name[512];
 
-	std::vector<Scene*> inc_scenes;
 public:
 
 #ifndef DOXYGEN_SKIP
@@ -216,7 +216,6 @@ public:
 #endif
 
 	void GenerateUID(SceneObject* obj, bool is_asset);
-	void GenerateChildUID(SceneObject* obj);
 
 	void Release();
 #endif

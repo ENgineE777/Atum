@@ -73,8 +73,8 @@ struct Editor : public Object, public EUIWidget::Listener
 	EUIButton* camera2object = nullptr;
 
 	EUIButton* playBtn = nullptr;
-	EUICategories* objCat = nullptr;
-	SceneObjCmpWidget objCmpWgt;
+	EUICategories* obj_cat = nullptr;
+	SceneObjCmpWidget obj_cmp_wgt;
 	EUIPanel* viewport = nullptr;
 	EUIPanel* asset_treeview_panel = nullptr;
 	EUITreeView* asset_treeview = nullptr;

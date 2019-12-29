@@ -101,7 +101,7 @@ public:
 
 	void SetEditMode(bool ed) override;
 
-	void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms) override;
+	void OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms) override;
 
 	void OnMouseMove(Vector2 delta_ms) override;
 	void OnLeftMouseDown(Vector2 ms) override;
@@ -109,6 +109,8 @@ public:
 	void OnRightMouseDown(Vector2 ms) override;
 	void OnPopupMenuItem(int id) override;
 	void ShowProperties(bool show);
+
+	void CorrectRefToParent() override;
 #endif
 
 #endif

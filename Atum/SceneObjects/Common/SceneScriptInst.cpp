@@ -4,6 +4,7 @@
 #ifdef EDITOR
 
 #include "Editor/EditorDrawer.h"
+#include "Editor/Editor.h"
 
 #endif
 
@@ -337,9 +338,9 @@ void SceneScriptInst::Release()
 				{
 					for (auto link : node_method->links)
 					{
-						Node& node_inst = nodes[link.node];
+						/*Node& node_inst = nodes[link.node];
 
-						/*for (auto& ref : node_inst.objects)
+						for (auto& ref : node_inst.objects)
 						{
 							if (ref.ref.object && ref.ref.object->script_callbacks.size() > 0)
 							{
@@ -454,9 +455,9 @@ void SceneScriptInst::SetEditMode(bool ed)
 	}
 }
 
-void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
+void SceneScriptInst::OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms)
 {
-	if (!is_scene_tree)
+	if (is_assets_tree)
 	{
 		return;
 	}
@@ -479,21 +480,28 @@ void SceneScriptInst::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* 
 
 				object->GetUIDs(object_uid, object_child_uid);
 
-				if (GetScene()->FindByUID(object_uid, object_child_uid, object->IsAsset()))
+				bool is_asset = false;
+
+				if (GetScene()->FindByUID(object_uid, object_child_uid, true))
+				{
+					is_asset = true;
+				}
+
+				if (GetScene()->FindByUID(object_uid, object_child_uid, is_asset))
 				{
 					WrapperSceneObjectRef& ref = node.objects[0];
 
 					ref.ref.object = object;
 					ref.ref.uid = object_uid;
 					ref.ref.child_uid = object_child_uid;
-					ref.ref.is_asset = object->IsAsset();
+					ref.ref.is_asset = is_asset;
 
 					if (object->script_callbacks.size() > 0)
 					{
 						node.callback_type = object->script_callbacks[0].GetName();
 
 						node.GetMetaData()->Prepare(&node);
-						node.GetMetaData()->PrepareWidgets(ed_obj_cat);
+						node.GetMetaData()->PrepareWidgets(editor.obj_cat);
 					}
 					else
 					{
@@ -542,12 +550,36 @@ void SceneScriptInst::ShowProperties(bool show)
 		{
 			Node& node = nodes[Asset()->sel_node];
 			node.GetMetaData()->Prepare(&node);
-			node.GetMetaData()->PrepareWidgets(ed_obj_cat);
+			node.GetMetaData()->PrepareWidgets(editor.obj_cat);
 		}
 		else
 		{
 			nodes[Asset()->sel_node].GetMetaData()->HideWidgets();
 		}
+	}
+}
+
+void SceneScriptInst::CorrectRefToParent()
+{
+	int index = 0;
+
+	for (auto& node : Asset()->nodes)
+	{
+		if (node->type == SceneScriptAsset::NodeType::SceneCallback || node->type == SceneScriptAsset::NodeType::ScriptProperty)
+		{
+			Node& node = nodes[index];
+
+			for (auto& obj : node.objects)
+			{
+				if (obj.ref.uid !=0 && obj.ref.child_uid != 0)
+				{
+					obj.ref.uid = parent_uid;
+					obj.ref.is_asset = false;
+				}
+			}
+		}
+
+		index++;
 	}
 }
 #endif

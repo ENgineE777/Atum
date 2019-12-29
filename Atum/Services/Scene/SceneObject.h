@@ -30,6 +30,8 @@ class SceneObject : public Object
 	friend class Scene;
 	friend class UIViewAsset; 
 	friend class UIWidgetAsset;
+	friend class BlueprintAsset;
+	friend class BlueprintInst;
 
 #ifdef EDITOR
 	friend class Project;
@@ -86,6 +88,7 @@ protected:
 	std::string name;
 	std::string layer_name;
 	uint32_t uid = 0;
+	uint32_t parent_uid = 0;
 	State state = Active;
 #ifdef EDITOR
 	bool edited = false;
@@ -97,6 +100,7 @@ public:
 
 #ifndef DOXYGEN_SKIP
 
+	Transform2D* parent_trans = nullptr;
 	std::string group_name;
 
 	const char* class_name = nullptr;
@@ -104,13 +108,6 @@ public:
 
 	Vector2 cam2d_pos = 0.0f;
 	float cam2d_zoom = 1.0f;
-
-#ifdef EDITOR
-	static EUITreeView*   ed_asset_treeview;
-	static EUICategories* ed_obj_cat;
-	static EUIMenu*       ed_popup_menu;
-	static EUIPanel*      ed_vieport;
-#endif
 
 	vector<SceneObjectComp*> components;
 
@@ -289,6 +286,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	void* asset_item = nullptr;
 	virtual void Set2DPos(Vector2 pos);
 	virtual void SaveAssetData(JSONWriter& writer);
 	virtual void GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid);
@@ -300,7 +298,7 @@ public:
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();
-	virtual void OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms);
+	virtual void OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms);
 	virtual void ShowPropWidgets(EUICategories* objCat);
 	virtual void CheckProperties();
 	virtual void Copy(SceneObject* src);
@@ -314,6 +312,7 @@ public:
 	virtual void OnRightMouseDown(Vector2 ms);
 	virtual void OnRightMouseUp();
 	virtual void OnPopupMenuItem(int id);
+	virtual void CorrectRefToParent();
 #endif
 };
 

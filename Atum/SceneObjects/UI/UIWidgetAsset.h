@@ -103,7 +103,7 @@ public:
 	virtual ~UIWidgetAsset();
 
 	void Init() override;
-	
+
 	void Release() override;
 
 	void ApplyProperties() override;
@@ -120,8 +120,6 @@ public:
 	uint32_t GetParentUID() override;
 	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
-	void* asset_item = nullptr;
-
 	bool IsAsset() override;
 	void SaveAssetData(JSONWriter& writer) override;
 	void SetScene(Scene* set_scene) override;

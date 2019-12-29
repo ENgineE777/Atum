@@ -2,7 +2,8 @@
 #include "UIViewInstanceAsset.h"
 
 #ifdef EDITOR
-#include "Editor/project.h"
+#include "Editor/Project.h"
+#include "Editor/Editor.h"
 #endif
 
 CLASSREG(SceneAsset, UIViewAsset, "UIView")
@@ -153,7 +154,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				child->SetName("View");
 
 				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
-				tree_item->item = ed_asset_treeview->AddItem("View", 1, tree_item, parent->asset_item, child_index, true, "UIViewInstanceAsset");
+				tree_item->item = editor.asset_treeview->AddItem("View", 1, tree_item, parent->asset_item, child_index, true, "UIViewInstanceAsset");
 				child->asset_item = tree_item->item;
 
 				ReCreteChilds((UIWidgetAsset*)item, child, true, true);
@@ -250,7 +251,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 		if (create_item)
 		{
 			Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(dest_child);
-			tree_item->item = ed_asset_treeview->AddItem(dest_child->GetName(), 1, tree_item, dest->asset_item, -1, true, src_child->class_name);
+			tree_item->item = editor.asset_treeview->AddItem(dest_child->GetName(), 1, tree_item, dest->asset_item, -1, true, src_child->class_name);
 			dest_child->asset_item = tree_item->item;
 		}
 
@@ -301,7 +302,7 @@ void UIViewAsset::OnAssetTreeSelChange(SceneObject* item)
 	if (sel_ui_asset)
 	{
 		sel_ui_asset->GetMetaData()->Prepare(sel_ui_asset);
-		sel_ui_asset->GetMetaData()->PrepareWidgets(ed_obj_cat);
+		sel_ui_asset->GetMetaData()->PrepareWidgets(editor.obj_cat);
 		sel_ui_asset->SetEditMode(true);
 	}
 }
@@ -309,7 +310,7 @@ void UIViewAsset::OnAssetTreeSelChange(SceneObject* item)
 void UIViewAsset::AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item)
 {
 	Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(widget);
-	tree_item->item = ed_asset_treeview->AddItem(widget->GetName(), 1, tree_item, parent_item, -1, true, widget->class_name);
+	tree_item->item = editor.asset_treeview->AddItem(widget->GetName(), 1, tree_item, parent_item, -1, true, widget->class_name);
 	widget->asset_item = tree_item->item;
 
 	for (auto child : widget->childs)
@@ -361,7 +362,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		child->SetName(name);
 
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
-		tree_item->item = ed_asset_treeview->AddItem(name, 1, tree_item, (child_index == -1) ? popup_item->asset_item : popup_item->parent->asset_item, child_index, true, item_classname);
+		tree_item->item = editor.asset_treeview->AddItem(name, 1, tree_item, (child_index == -1) ? popup_item->asset_item : popup_item->parent->asset_item, child_index, true, item_classname);
 		child->asset_item = tree_item->item;
 
 		string inst_className = item_classname + string("Inst");
@@ -415,7 +416,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		child->SetName(popup_item->GetName());
 
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
-		tree_item->item = ed_asset_treeview->AddItem(popup_item->GetName(), 1, tree_item, popup_item->parent->asset_item, popup_child_index + 1, true, child->class_name);
+		tree_item->item = editor.asset_treeview->AddItem(popup_item->GetName(), 1, tree_item, popup_item->parent->asset_item, popup_child_index + 1, true, child->class_name);
 		child->asset_item = tree_item->item;
 
 		string inst_className = popup_item->class_name + string("Inst");
@@ -469,7 +470,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		child->SetName(asset_to_copy->GetName());
 
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
-		tree_item->item = ed_asset_treeview->AddItem(child->GetName(), 1, tree_item, popup_item->asset_item, -1, true, child->class_name);
+		tree_item->item = editor.asset_treeview->AddItem(child->GetName(), 1, tree_item, popup_item->asset_item, -1, true, child->class_name);
 		child->asset_item = tree_item->item;
 
 		string inst_className = asset_to_copy->class_name + string("Inst");
@@ -518,7 +519,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		child->SetName(asset_to_copy->GetName());
 
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
-		tree_item->item = ed_asset_treeview->AddItem(asset_to_copy->GetName(), 1, tree_item, popup_item->parent->asset_item, popup_child_index + 1, true, child->class_name);
+		tree_item->item = editor.asset_treeview->AddItem(asset_to_copy->GetName(), 1, tree_item, popup_item->parent->asset_item, popup_child_index + 1, true, child->class_name);
 		child->asset_item = tree_item->item;
 
 		string inst_className = asset_to_copy->class_name + string("Inst");
@@ -564,25 +565,25 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		popup_item->SetSource(nullptr, true);
 		popup_item->DeleteChilds();
 		popup_item->parent->DeleteChild(popup_item);
-		ed_asset_treeview->DeleteItem(popup_item->asset_item);
+		editor.asset_treeview->DeleteItem(popup_item->asset_item);
 		delete popup_item;
 	}
 }
 
 void UIViewAsset::FillPopupCreateMenu(const char* name, int id)
 {
-	ed_popup_menu->StartSubMenu(name);
+	editor.popup_menu->StartSubMenu(name);
 
 	for (auto decl : ClassFactoryUIWidgetAsset::Decls())
 	{
 		if (!strstr(decl->GetName(), "Inst"))
 		{
-			ed_popup_menu->AddItem(id, decl->GetShortName());
+			editor.popup_menu->AddItem(id, decl->GetShortName());
 		}
 		id++;
 	}
 
-	ed_popup_menu->EndSubMenu();
+	editor.popup_menu->EndSubMenu();
 }
 
 void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneObject* item, int child_index)
@@ -600,7 +601,7 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneObject* item, int chi
 		return;
 	}
 
-	ed_popup_menu->StartMenu(true);
+	editor.popup_menu->StartMenu(true);
 
 	if (popup_item != this)
 	{
@@ -614,20 +615,20 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneObject* item, int chi
 
 	if (popup_item != this)
 	{
-		ed_popup_menu->AddSeparator();
-		ed_popup_menu->AddItem(2400, "Duplicate");
-		ed_popup_menu->AddItem(2401, "Copy");
+		editor.popup_menu->AddSeparator();
+		editor.popup_menu->AddItem(2400, "Duplicate");
+		editor.popup_menu->AddItem(2401, "Copy");
 
 		if (asset_to_copy)
 		{
-			ed_popup_menu->AddItem(2403, "Paste");
-			ed_popup_menu->AddItem(2402, "Paste as child");
+			editor.popup_menu->AddItem(2403, "Paste");
+			editor.popup_menu->AddItem(2402, "Paste as child");
 		}
 
-		ed_popup_menu->AddItem(2404, "Delete");
+		editor.popup_menu->AddItem(2404, "Delete");
 	}
 
-	ed_popup_menu->ShowAsPopup(ed_asset_treeview, x, y);
+	editor.popup_menu->ShowAsPopup(editor.asset_treeview, x, y);
 }
 
 void UIViewAsset::CheckProperties()

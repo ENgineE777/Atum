@@ -220,12 +220,18 @@ void Phys2DCompInst::SyncInstances()
 
 			Vector2 size = (comp->use_object_size ? sprite_inst->trans.size : Vector2(comp->width, comp->height));
 			Vector2 center = { size.x * (0.5f - sprite_inst->trans.offset.x) * scale,
-			size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
+			                   size.y * (0.5f - sprite_inst->trans.offset.y) * scale };
+			Vector2 parent = 0.0f;
+			if (sprite_inst->parent_trans)
+			{
+				parent = sprite_inst->parent_trans->pos;
+			}
+
 			size *= scale;
 
 			for (int index = (int)bodies.size() - dif; index < (int)bodies.size(); index++)
 			{
-				CreateBody(index, sprite_inst->instances[index].IsVisible(), sprite_inst->instances[index].GetPos() * scale, size, center, comp->allow_rotate);
+				CreateBody(index, sprite_inst->instances[index].IsVisible(), (sprite_inst->instances[index].GetPos() + parent) * scale, size, center, comp->allow_rotate);
 			}
 		}
 
@@ -337,6 +343,12 @@ void Phys2DCompInst::UpdateInstances(float dt)
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 
+	Vector2 parent = 0.0f;
+	if (sprite_inst->parent_trans)
+	{
+		parent = sprite_inst->parent_trans->pos;
+	}
+
 	bool is_active = (sprite_inst->GetState() == SceneObject::State::Active);
 
 	Matrix mat;
@@ -353,7 +365,7 @@ void Phys2DCompInst::UpdateInstances(float dt)
 
 				if (body_type != Phys2DComp::BodyType::StaticBody && inst.IsVisible())
 				{
-					mat.Pos() = { inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f };
+					mat.Pos() = { (inst.GetPos().x + parent.x) / 50.0f, -(inst.GetPos().y + parent.y) / 50.0f, 0.0f };
 					bodies[index].body->SetTransform(mat);
 				}
 			}
@@ -362,7 +374,7 @@ void Phys2DCompInst::UpdateInstances(float dt)
 			{
 				if (body_type == Phys2DComp::BodyType::KineticBody)
 				{
-					mat.Pos() = { inst.GetPos().x / 50.0f, -inst.GetPos().y / 50.0f, 0.0f };
+					mat.Pos() = { (inst.GetPos().x + parent.x) / 50.0f, -(inst.GetPos().y + parent.y) / 50.0f, 0.0f };
 					bodies[index].body->SetTransform(mat);
 				}
 				else

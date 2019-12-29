@@ -46,6 +46,11 @@ bool Trigger2D::Play()
 	Matrix body_trans;
 	body_trans.Pos() = { trans.pos.x * scale, -trans.pos.y * scale, 0.0f };
 
+	if (parent_trans)
+	{
+		body_trans.Pos() = { (parent_trans->pos.x + trans.pos.x) * scale, -(parent_trans->pos.y + trans.pos.y) * scale, 0.0f };
+	}
+
 	Matrix offset;
 
 	body.object = this;
@@ -73,6 +78,13 @@ void Trigger2D::EditorDraw(float dt)
 	if (GetScene()->Playing() || GetState() == State::Invisible)
 	{
 		return;
+	}
+
+	if (parent_trans)
+	{
+		parent_trans->depth = 0.0f;
+		parent_trans->BuildMatrices();
+		trans.mat_parent = parent_trans->mat_global;
 	}
 
 	trans.BuildMatrices();

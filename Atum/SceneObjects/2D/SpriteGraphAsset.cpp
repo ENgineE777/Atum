@@ -7,6 +7,7 @@
 #ifdef EDITOR
 
 #include "Editor/EditorDrawer.h"
+#include "Editor/Editor.h"
 
 #endif
 
@@ -608,14 +609,14 @@ void SpriteGraphAsset::ShowProperties(bool show)
 		{
 			Link* link = &nodes[sel_node].links[sel_link];
 			link->GetMetaData()->Prepare(link);
-			link->GetMetaData()->PrepareWidgets(ed_obj_cat);
+			link->GetMetaData()->PrepareWidgets(editor.obj_cat);
 		}
 		else
 		if (sel_node != -1)
 		{
 			Node* node = &nodes[sel_node];
 			node->GetMetaData()->Prepare(node);
-			node->GetMetaData()->PrepareWidgets(ed_obj_cat);
+			node->GetMetaData()->PrepareWidgets(editor.obj_cat);
 		}
 	}
 	else
@@ -785,19 +786,18 @@ void SpriteGraphAsset::OnRightMouseDown(Vector2 ms)
 {
 	mouse_pos = ms;
 
-	ed_popup_menu->StartMenu(true);
+	editor.popup_menu->StartMenu(true);
 
-	ed_popup_menu->StartSubMenu("Create");
-	ed_popup_menu->AddItem(5000, "Anim Node");
+	editor.popup_menu->StartSubMenu("Create");
+	editor.popup_menu->AddItem(5000, "Anim Node");
 	//popup_menu->AddItem(5001, "Logic Node");
 	//popup_menu->AddItem(5002, "Group Node");
-	ed_popup_menu->EndSubMenu();
+	editor.popup_menu->EndSubMenu();
 
-	ed_popup_menu->AddItem(5004, "Make Node as Default");
-	ed_popup_menu->AddItem(5005, "Delete", (sel_node != -1));
+	editor.popup_menu->AddItem(5004, "Make Node as Default");
+	editor.popup_menu->AddItem(5005, "Delete", (sel_node != -1));
 
-	ed_popup_menu->ShowAsPopup(ed_vieport, (int)ms.x, (int)ms.y);
-
+	editor.popup_menu->ShowAsPopup(editor.viewport, (int)ms.x, (int)ms.y);
 }
 
 void SpriteGraphAsset::OnPopupMenuItem(int id)
@@ -828,9 +828,9 @@ void SpriteGraphAsset::OnPopupMenuItem(int id)
 	}
 }
 
-void SpriteGraphAsset::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
+void SpriteGraphAsset::OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms)
 {
-	if (is_scene_tree)
+	if (!is_assets_tree)
 	{
 		return;
 	}

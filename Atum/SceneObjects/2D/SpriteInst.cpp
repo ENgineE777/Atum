@@ -641,7 +641,14 @@ void SpriteInst::Draw(float dt)
 	}
 
 	bool update_frames = (GetState() == Active);
-	
+
+	if (parent_trans)
+	{
+		parent_trans->depth = 0.0f;
+		parent_trans->BuildMatrices();
+		trans.mat_parent = parent_trans->mat_global;
+	}
+
 	for (int i = 0; i<instances.size(); i++)
 	{
 		Instance& inst = instances[i];

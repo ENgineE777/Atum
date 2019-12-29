@@ -6,11 +6,6 @@
 
 #ifdef EDITOR
 #include "Editor/Project.h"
-
-EUITreeView *  SceneObject::ed_asset_treeview = nullptr;
-EUICategories* SceneObject::ed_obj_cat = nullptr;
-EUIMenu*       SceneObject::ed_popup_menu = nullptr;
-EUIPanel*      SceneObject::ed_vieport;
 #endif
 
 SceneObject::ScriptCallback::ScriptCallback(Scene* set_scene,const char* set_name, const char* set_ret, const char* set_decl)
@@ -352,7 +347,7 @@ uint32_t SceneObject::GetUID()
 
 uint32_t SceneObject::GetParentUID()
 {
-	return 0;
+	return parent_uid;
 }
 
 void SceneObject::SetState(State set_state)
@@ -604,7 +599,7 @@ void SceneObject::EnableTasks(bool enable)
 {
 	if (taskPool)
 	{
-		taskPool->SetActive(enable);;
+		taskPool->SetActive(enable);
 	}
 
 	if (renderTaskPool)
@@ -642,7 +637,7 @@ bool SceneObject::UseAseetsTree()
 	return false;
 }
 
-void SceneObject::OnDragObjectFromTreeView(bool is_scene_tree, SceneObject* object, Vector2 ms)
+void SceneObject::OnDragObjectFromTreeView(bool is_assets_tree, SceneObject* object, Vector2 ms)
 {
 
 }
@@ -764,6 +759,11 @@ void SceneObject::OnRightMouseUp()
 }
 
 void SceneObject::OnPopupMenuItem(int id)
+{
+
+}
+
+void SceneObject::CorrectRefToParent()
 {
 
 }

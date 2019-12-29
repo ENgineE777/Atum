@@ -663,6 +663,12 @@
     <ClCompile Include="..\..\..\Atum\Support\MathUtils.cpp">
       <Filter>Support</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\BlueprintAsset.cpp">
+      <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.cpp">
+      <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1195,6 +1201,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\MathUtils.h">
       <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\BlueprintAsset.h">
+      <Filter>SceneObjects\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.h">
+      <Filter>SceneObjects\Common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

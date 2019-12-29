@@ -45,7 +45,7 @@ SceneObject* Scene::CreateObject(const char* name, bool is_asset)
 		}
 	}
 
-	SceneObject* obj = is_asset ? decl_assets->Create(name) : decl_objects->Create(name);
+	SceneObject* obj = is_asset ? decl_assets->Create() : decl_objects->Create();
 
 	if (obj)
 	{
@@ -570,47 +570,6 @@ void Scene::GenerateUID(SceneObject* obj, bool is_asset)
 		obj_uid.id = (uint32_t)(koef * 1048576);
 		obj_uid.id1 |= uid;
 		obj_uid.id = FindByUID(obj_uid.id, 0, is_asset) ? 0 : obj_uid.id;
-	}
-
-	obj->SetUID(obj_uid.id);
-}
-
-void Scene::GenerateChildUID(SceneObject* obj)
-{
-	bool need_add = true;
-
-	for (auto child : pool_childs)
-	{
-		if (child == obj)
-		{
-			need_add = false;
-		}
-	}
-
-	if (need_add)
-	{
-		pool_childs.push_back(obj);
-	}
-
-	union UID32
-	{
-		uint32_t id;
-		struct
-		{
-			uint16_t id1;
-			uint16_t id2;
-		};
-	};
-
-	UID32 obj_uid;
-	obj_uid.id = 0;
-
-	while (!obj_uid.id)
-	{
-		float koef = rnd() * 0.99f;
-		obj_uid.id = (uint32_t)(koef * 1048576);
-		obj_uid.id1 |= uid;
-		obj_uid.id = FindByUID(obj_uid.id, 0, pool_childs) ? 0 : obj_uid.id;
 	}
 
 	obj->SetUID(obj_uid.id);

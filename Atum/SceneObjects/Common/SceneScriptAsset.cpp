@@ -5,6 +5,7 @@
 #ifdef EDITOR
 
 #include "Editor/EditorDrawer.h"
+#include "Editor/Editor.h"
 
 #endif
 
@@ -791,17 +792,17 @@ void SceneScriptAsset::OnRightMouseDown(Vector2 ms)
 {
 	ms_pos = ms;
 
-	ed_popup_menu->StartMenu(true);
+	editor.popup_menu->StartMenu(true);
 
-	ed_popup_menu->StartSubMenu("Create Link to");
-	ed_popup_menu->AddItem(5001, "Callback");
-	ed_popup_menu->AddItem(5002, "Property");
-	ed_popup_menu->AddItem(5003, "Method");
-	ed_popup_menu->EndSubMenu();
+	editor.popup_menu->StartSubMenu("Create Link to");
+	editor.popup_menu->AddItem(5001, "Callback");
+	editor.popup_menu->AddItem(5002, "Property");
+	editor.popup_menu->AddItem(5003, "Method");
+	editor.popup_menu->EndSubMenu();
 
-	ed_popup_menu->AddItem(5005, "Delete", (sel_node != -1));
+	editor.popup_menu->AddItem(5005, "Delete", (sel_node != -1));
 
-	ed_popup_menu->ShowAsPopup(ed_vieport, (int)ms.x, (int)ms.y);
+	editor.popup_menu->ShowAsPopup(editor.viewport, (int)ms.x, (int)ms.y);
 }
 
 void SceneScriptAsset::OnPopupMenuItem(int id)
@@ -954,7 +955,7 @@ void SceneScriptAsset::ShowProperties(bool show)
 			if (link.GetMetaData())
 			{
 				link.GetMetaData()->Prepare(&link);
-				link.GetMetaData()->PrepareWidgets(ed_obj_cat);
+				link.GetMetaData()->PrepareWidgets(editor.obj_cat);
 			}
 		}
 		else
@@ -962,7 +963,7 @@ void SceneScriptAsset::ShowProperties(bool show)
 		{
 			Node* node = nodes[sel_node];
 			node->GetMetaData()->Prepare(node);
-			node->GetMetaData()->PrepareWidgets(ed_obj_cat);
+			node->GetMetaData()->PrepareWidgets(editor.obj_cat);
 		}
 	}
 	else

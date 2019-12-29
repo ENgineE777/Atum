@@ -296,6 +296,8 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 
 	if (id == 2401)
 	{
+		OnAssetTreeSelChange(nullptr);
+
 		for (int i = 0; i < childs.size(); i++)
 		{
 			if ((SceneAsset*)childs[i] == popup_item)
@@ -305,7 +307,7 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 		}
 
 		editor.asset_treeview->DeleteItem(popup_item->asset_item);
-		popup_item->Release();
+		sub_scene.DeleteObject(popup_item, false, true);
 	}
 
 	popup_item = nullptr;

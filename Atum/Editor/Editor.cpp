@@ -433,6 +433,8 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 
 	copy->item = inst_item->item;
 	treeview->SelectItem(copy->item);
+
+	copy->AddChildsToTree(treeview);
 }
 
 void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)

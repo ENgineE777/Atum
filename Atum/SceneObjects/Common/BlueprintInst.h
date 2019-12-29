@@ -24,6 +24,7 @@ public:
 	SceneObject* GetChild(uint32_t uid) override;
 
 #ifdef EDITOR
+	void Copy(SceneObject* src) override;
 	void SetEditMode(bool ed) override;
 	void AddChildsToTree(EUITreeView* treeview) override;
 #endif

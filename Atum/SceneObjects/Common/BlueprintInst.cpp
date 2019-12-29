@@ -162,6 +162,34 @@ bool BlueprintInst::Play()
 }
 
 #ifdef EDITOR
+void BlueprintInst::Copy(SceneObject* src)
+{
+	SceneObjectInst::Copy(src);
+
+	BlueprintInst* src_asset = (BlueprintInst*)src;
+
+	for (auto child : src_asset->childs)
+	{
+		auto* childs_inst = GetScene()->CreateObject(child->class_name, false);
+		GetScene()->DeleteObject(childs_inst, false, false);
+
+		childs_inst->parent_trans = &trans;
+
+		childs_inst->SetName(child->GetName());
+		childs_inst->parent_uid = uid;
+		childs_inst->uid = child->uid;
+
+		childs_inst->Copy(child);
+
+		childs.push_back(childs_inst);
+	}
+
+	for (auto child : childs)
+	{
+		child->CorrectRefToParent();
+	}
+}
+
 void BlueprintInst::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);

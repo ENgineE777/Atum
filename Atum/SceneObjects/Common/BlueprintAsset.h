@@ -23,6 +23,7 @@ public:
 	SceneObject* popup_item = nullptr;
 	static SceneObject* sel_inst;
 	SceneObject* CreateInstance(Scene* scene) override;
+	void Copy(SceneObject* src) override;
 
 	bool UseAseetsTree() override;
 	void SetEditMode(bool ed) override;

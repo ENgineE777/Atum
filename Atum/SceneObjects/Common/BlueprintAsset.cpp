@@ -132,6 +132,28 @@ SceneObject* BlueprintAsset::GetChild(uint32_t uid)
 }
 
 #ifdef EDITOR
+void BlueprintAsset::Copy(SceneObject* src)
+{
+	SceneAsset::Copy(src);
+
+	BlueprintAsset* src_asset = (BlueprintAsset*)src;
+
+	for (auto child : src_asset->childs)
+	{
+		auto* childs_inst = CreateObject(child->class_name);
+
+		childs_inst->SetName(child->GetName());
+		childs_inst->uid = child->uid;
+
+		childs_inst->Copy(child);
+	}
+
+	for (auto child : childs)
+	{
+		child->CorrectRefToParent();
+	}
+}
+
 SceneObject* BlueprintAsset::CreateInstance(Scene* scene)
 {
 	BlueprintInst* inst = (BlueprintInst*)SceneAsset::CreateInstance(scene);
@@ -150,9 +172,12 @@ SceneObject* BlueprintAsset::CreateInstance(Scene* scene)
 
 		childs_inst->parent_uid = inst->uid;
 
-		childs_inst->CorrectRefToParent();
-
 		inst->childs.push_back(childs_inst);
+	}
+
+	for (auto child : inst->childs)
+	{
+		child->CorrectRefToParent();
 	}
 
 	return inst;

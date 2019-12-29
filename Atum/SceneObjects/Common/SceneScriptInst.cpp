@@ -575,6 +575,11 @@ void SceneScriptInst::CorrectRefToParent()
 				{
 					obj.ref.uid = parent_uid;
 					obj.ref.is_asset = false;
+
+					if (GetScene()->FindByUID(obj.ref.uid, obj.ref.child_uid, true))
+					{
+						obj.ref.is_asset = true;
+					}
 				}
 			}
 		}

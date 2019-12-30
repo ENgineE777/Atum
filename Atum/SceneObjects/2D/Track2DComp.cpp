@@ -36,6 +36,11 @@ void Track2DComp::Track::Activate(bool set_active)
 	active = set_active;
 }
 
+void Track2DComp::Track::ResetScript()
+{
+	Reset(true);
+}
+
 void Track2DComp::Track::Reset(bool from_start)
 {
 	if (points.size() > 1)
@@ -67,6 +72,8 @@ void Track2DComp::BindClassToScript()
 
 	core.scripts.RegisterObjectType(script_class_name, sizeof(Track2DComp::Track), "gr_script_scene_object_components", brief);
 	core.scripts.RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track2DComp::Track, Activate), "Make active or inactive track (instance isn't moving along a inactive track)");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Track2DComp::Track, ResetScript), "Reset track");
+
 }
 
 void Track2DComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)

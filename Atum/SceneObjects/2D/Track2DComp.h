@@ -102,6 +102,7 @@ public:
 
 		void Activate(bool active);
 		void Reset(bool from_start);
+		void ResetScript();
 		void SetGizmo();
 	};
 

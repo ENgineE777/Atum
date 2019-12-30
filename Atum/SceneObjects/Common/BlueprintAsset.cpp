@@ -312,7 +312,6 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 		auto* inst = CreateObject(name);
 		inst->SetName(name);
 		scene->GenerateUID(inst, false);
-		inst->Copy(popup_item);
 
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(inst);
 		tree_item->item = editor.asset_treeview->AddItem(inst->GetName(), 1, tree_item, asset_item, -1, true, inst->class_name);

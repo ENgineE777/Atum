@@ -173,8 +173,8 @@ void Project::LoadScene(SceneHolder* holder)
 	char path[1024];
 	StringUtils::Printf(path, 1024, "%s%s", project_path, holder->path.c_str());
 
-	holder->scene->Load(path);
 	StringUtils::Copy(holder->scene->project_scene_path, 512, holder->path.c_str());
+	holder->scene->Load(path);
 
 	int len = (int)strlen(path);
 

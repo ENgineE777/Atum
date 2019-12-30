@@ -25,6 +25,7 @@ void BlueprintAsset::Init()
 {
 	sub_scene.inc_scenes.push_back(GetScene());
 	sub_scene.Init();
+	StringUtils::Copy(sub_scene.project_scene_path, 512, GetScene()->project_scene_path);
 	sub_scene.EnableTasks(false);
 
 #ifdef EDITOR
@@ -160,7 +161,7 @@ SceneObject* BlueprintAsset::CreateInstance(Scene* scene)
 
 	for (auto child : childs)
 	{
-		SceneObjectInst* childs_inst = (SceneObjectInst*)(scene->CreateObject(child->class_name, false));
+		auto* childs_inst = scene->CreateObject(child->class_name, false);
 		scene->DeleteObject(childs_inst, false, false);
 
 		childs_inst->parent_trans = &inst->trans;
@@ -423,6 +424,70 @@ SceneObject* BlueprintAsset::CreateObject(const char* type)
 	childs.push_back(inst);
 
 	return inst;
+}
+
+void BlueprintAsset::SaveInstData(JSONWriter& writer, SceneObject* object)
+{
+	SceneObjectInst* inst = dynamic_cast<SceneObjectInst*>(object);
+
+	if (!inst)
+	{
+		return;
+	}
+
+	writer.StartBlock(nullptr);
+
+	writer.Write("asset_uid", inst->asset->GetUID());
+	writer.Write("asset_name", inst->asset->GetName());
+
+	writer.StartArray("instances");
+
+	writer.StartBlock(nullptr);
+
+	writer.Write("scene", inst->GetScene()->project_scene_path);
+
+	uint32_t inst_uid = 0;
+	uint32_t inst_child_uid = 0;
+
+	inst->GetUIDs(inst_uid, inst_child_uid);
+
+	writer.Write("inst_uid", inst_uid);
+	writer.Write("inst_child_uid", inst_child_uid);
+
+	bool is_asset = false;
+
+	if (GetScene()->FindByUID(inst_uid, inst_child_uid, true))
+	{
+		is_asset = true;
+	}
+
+	writer.Write("is_asset", is_asset);
+
+	writer.Write("inst_name", inst->GetName());
+
+	writer.FinishBlock();
+
+	writer.FinishArray();
+
+	writer.FinishBlock();
+}
+
+void BlueprintAsset::SaveAssetData(JSONWriter& writer)
+{
+	for (auto child : childs)
+	{
+		SaveInstData(writer, child);
+	}
+
+	for (auto inst : instances)
+	{
+		BlueprintInst* bp_inst = (BlueprintInst*)inst.GetObject();
+
+		for (auto child : bp_inst->childs)
+		{
+			SaveInstData(writer, child);
+		}
+	}
 }
 
 #endif

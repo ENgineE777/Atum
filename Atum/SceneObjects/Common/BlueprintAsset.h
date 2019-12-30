@@ -39,6 +39,8 @@ public:
 	void OnLeftMouseUp() override;
 
 	SceneObject* CreateObject(const char* type);
+	void SaveInstData(JSONWriter& writer, SceneObject* inst);
+	void SaveAssetData(JSONWriter& writer) override;
 #endif
 
 	void Work(float dt);

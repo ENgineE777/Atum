@@ -10,7 +10,6 @@ public:
 #ifndef DOXYGEN_SKIP
 	META_DATA_DECL(NavMesh2DGen)
 
-	string obstacles_group;
 	float collider_radius = 1.0f;
 
 	virtual ~NavMesh2DGen() = default;

@@ -21,7 +21,6 @@ META_DATA_DESC(NavMesh2DGen)
 #ifdef EDITOR
 	CALLBACK_PROP(NavMesh2DGen, RegenNavMesh, "Prop", "Regen")
 #endif
-	STRING_ENUM_PROP(NavMesh2DGen, obstacles_group, FillGroupsList, "Prop", "CasterGroup")
 	FLOAT_PROP(NavMesh2DGen, collider_radius, 1.0f, "Prop", "collider_radius", "Radius of a colider")
 META_DATA_DESC_END()
 
@@ -69,7 +68,7 @@ void NavMesh2DGen::ConstructNavMesh()
 		{
 			SpriteInst* sprite_inst = (SpriteInst*)entry;
 
-			if (!StringUtils::IsEqual(sprite_inst->group_name.c_str(), obstacles_group.c_str()))
+			if (!StringUtils::IsEqual(sprite_inst->group_name.c_str(), group_name.c_str()))
 			{
 				continue;
 			}

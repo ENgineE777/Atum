@@ -81,6 +81,7 @@ class Scripts
 
 	float time_to_fade_exception = -1.0f;
 	vector<string> exception_stack;
+	int string_type_id = -1;
 
 public:
 
@@ -177,6 +178,13 @@ public:
 	/return Script context 
 	*/
 	ScriptContext* CreateContext();
+
+	/**
+	\brief Get id of string type
+
+	/return Id of type
+	*/
+	int GetStringTypeId();
 
 #ifndef DOXYGEN_SKIP
 	void Update(float dt);

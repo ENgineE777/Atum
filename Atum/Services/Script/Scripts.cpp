@@ -52,6 +52,11 @@ void Scripts::Start()
 	engine->SetMessageCallback(asFUNCTION(MessageCallback), 0, asCALL_CDECL);
 
 	RegisterStdString(engine);
+
+	auto* type_info = engine->GetTypeInfoByName("string");
+	string_type_id = type_info->GetTypeId();
+
+
 	RegisterScriptArray(engine, true);
 	RegisterStdStringUtils(engine);
 	RegisterScriptDictionary(engine);
@@ -177,6 +182,11 @@ void Scripts::RegisterObjectProperty(const char* obj, const char* declaration, i
 ScriptContext* Scripts::CreateContext()
 {
 	return new ScriptContext(engine->CreateContext());
+}
+
+int Scripts::GetStringTypeId()
+{
+	return string_type_id;
 }
 
 void* Scripts::CreateScriptObject(const asITypeInfo* type)

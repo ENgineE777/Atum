@@ -228,10 +228,12 @@ void ScriptMetaDataCompInst::InjectIntoScript(asIScriptObject* script_object, in
 			continue;
 		}
 
+		auto type = script_object->GetPropertyTypeId(prop);
+
 		switch (meta_data->values[value_index].type)
 		{
 			case ScriptMetaDataAsset::Bool:
-				if (script_object->GetPropertyTypeId(prop) == asTYPEID_BOOL)
+				if (type == asTYPEID_BOOL)
 				{
 					*((bool*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.boolean;
 				}
@@ -241,7 +243,7 @@ void ScriptMetaDataCompInst::InjectIntoScript(asIScriptObject* script_object, in
 				}
 				break;
 			case ScriptMetaDataAsset::Int:
-				if (script_object->GetPropertyTypeId(prop) == asTYPEID_INT32)
+				if (type == asTYPEID_INT32)
 				{
 					*((int*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.integer;
 				}
@@ -251,7 +253,7 @@ void ScriptMetaDataCompInst::InjectIntoScript(asIScriptObject* script_object, in
 				}
 				break;
 			case ScriptMetaDataAsset::Float:
-				if (script_object->GetPropertyTypeId(prop) == asTYPEID_FLOAT)
+				if (type == asTYPEID_FLOAT)
 				{
 					*((float*)script_object->GetAddressOfProperty(prop)) = meta_data->values[value_index].value.flt;
 				}

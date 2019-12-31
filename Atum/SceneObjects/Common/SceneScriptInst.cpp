@@ -47,11 +47,15 @@ CLASSREG(SceneObject, SceneScriptInst, "Script")
 
 META_DATA_DESC(SceneScriptInst::Node)
 #ifdef EDITOR
-STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, FillCallbackList, "Property", "callback_type")
+	STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, FillCallbackList, "Property", "callback_type")
 #else
-STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, "Property", "callback_type")
+	STRING_ENUM_PROP(SceneScriptInst::Node, callback_type, "Property", "callback_type")
 #endif
-ARRAY_PROP(SceneScriptInst::Node, objects, WrapperSceneObjectRef, "Property", "objects_list")
+	ARRAY_PROP(SceneScriptInst::Node, objects, WrapperSceneObjectRef, "Property", "objects_list")
+META_DATA_DESC_END()
+
+META_DATA_DESC(SceneScriptInst::NodeConst)
+	STRING_PROP(SceneScriptInst::NodeConst, callback_type, "", "Property", "Value")
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -67,9 +71,9 @@ void StartScriptInstEdit(void* owner)
 #endif
 
 META_DATA_DESC(SceneScriptInst)
-BASE_SCENE_OBJ_PROP(SceneScriptInst)
+	BASE_SCENE_OBJ_PROP(SceneScriptInst)
 #ifdef EDITOR
-CALLBACK_PROP(SpriteAsset, StartScriptInstEdit, "Prop", "EditScript")
+	CALLBACK_PROP(SpriteAsset, StartScriptInstEdit, "Prop", "EditScript")
 #endif
 META_DATA_DESC_END()
 
@@ -197,6 +201,40 @@ void SceneScriptInst::InjectIntoScript()
 
 	for (auto node : Asset()->nodes)
 	{
+		Node& node_inst = nodes[index];
+
+		if (node->type == SceneScriptAsset::ScriptConst)
+		{
+			bool injected = false;
+			for (int i = 0; i < (int)class_inst->GetPropertyCount(); i++)
+			{
+				if (StringUtils::IsEqual(class_inst->GetPropertyName(i), node->name.c_str()))
+				{
+					uint32_t type = class_inst->GetPropertyTypeId(i);
+
+					if (type == asTYPEID_BOOL)
+					{
+						*((bool*)class_inst->GetAddressOfProperty(i)) = StringUtils::IsEqual(node_inst.callback_type.c_str(), "1") ? true : false;
+					}
+					else
+					if (type == asTYPEID_INT32)
+					{
+						*((int*)class_inst->GetAddressOfProperty(i)) = atoi(node_inst.callback_type.c_str());
+					}
+					else
+					if (type == asTYPEID_FLOAT)
+					{
+						*((float*)class_inst->GetAddressOfProperty(i)) = (float)atof(node_inst.callback_type.c_str());
+					}
+					else
+					if (type == core.scripts.GetStringTypeId())
+					{
+						*((string*)class_inst->GetAddressOfProperty(i)) = node_inst.callback_type;
+					}
+				}
+			}
+		}
+		else
 		if (node->type == SceneScriptAsset::ScriptProperty)
 		{
 			SceneScriptAsset::NodeScriptProperty* node_prop = (SceneScriptAsset::NodeScriptProperty*)node;
@@ -206,8 +244,6 @@ void SceneScriptInst::InjectIntoScript()
 			{
 				if (StringUtils::IsEqual(class_inst->GetPropertyName(i), node_prop->name.c_str()))
 				{
-					Node& node_inst = nodes[index];
-
 					SceneObjectRef& ref = node_inst.objects[0].ref;
 
 					if (!ref.object)
@@ -303,6 +339,7 @@ void SceneScriptInst::InjectIntoScript()
 				}
 			}
 		}
+
 		index++;
 	}
 }
@@ -451,6 +488,7 @@ void SceneScriptInst::SetEditMode(bool ed)
 	else
 	{
 		Asset()->ShowProperties(false);
+		Asset()->sel_node = -1;
 		Asset()->script_inst = nullptr;
 	}
 }
@@ -544,17 +582,36 @@ void SceneScriptInst::OnPopupMenuItem(int id)
 
 void SceneScriptInst::ShowProperties(bool show)
 {
-	if (Asset()->sel_node != -1 && Asset()->sel_link == -1 && Asset()->nodes[Asset()->sel_node]->type == SceneScriptAsset::NodeType::SceneCallback)
+	if (Asset()->sel_node != -1 && Asset()->sel_link == -1)
 	{
-		if (show)
+		auto type = Asset()->nodes[Asset()->sel_node]->type;
+
+		if (type == SceneScriptAsset::NodeType::SceneCallback)
 		{
-			Node& node = nodes[Asset()->sel_node];
-			node.GetMetaData()->Prepare(&node);
-			node.GetMetaData()->PrepareWidgets(editor.obj_cat);
+			if (show)
+			{
+				Node& node = nodes[Asset()->sel_node];
+				node.GetMetaData()->Prepare(&node);
+				node.GetMetaData()->PrepareWidgets(editor.obj_cat);
+			}
+			else
+			{
+				nodes[Asset()->sel_node].GetMetaData()->HideWidgets();
+			}
 		}
 		else
+		if (type == SceneScriptAsset::NodeType::ScriptConst)
 		{
-			nodes[Asset()->sel_node].GetMetaData()->HideWidgets();
+			if (show)
+			{
+				Node& node = nodes[Asset()->sel_node];
+				temp_node.GetMetaData()->Prepare(&node);
+				temp_node.GetMetaData()->PrepareWidgets(editor.obj_cat);
+			}
+			else
+			{
+				temp_node.GetMetaData()->HideWidgets();
+			}
 		}
 	}
 }

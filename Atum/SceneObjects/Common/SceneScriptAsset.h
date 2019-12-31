@@ -85,7 +85,8 @@ public:
 	{
 		SceneCallback,
 		ScriptProperty,
-		ScriptMethod
+		ScriptMethod,
+		ScriptConst
 	};
 
 	struct Node
@@ -103,9 +104,11 @@ public:
 	struct NodeSceneObject : Node
 	{
 		META_DATA_DECL(NodeSceneObject)
+	};
 
-		void Load(JSONReader& loader) override;
-		void Save(JSONWriter& saver) override;
+	struct NodeScriptConst : NodeSceneObject
+	{
+		META_DATA_DECL(NodeScriptConst)
 	};
 
 	struct NodeScriptProperty : NodeSceneObject

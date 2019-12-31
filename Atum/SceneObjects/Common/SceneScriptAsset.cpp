@@ -14,34 +14,38 @@
 CLASSREG(SceneAsset, SceneScriptAsset, "Script")
 
 META_DATA_DESC(SceneScriptAsset::NodeSceneObject)
-STRING_PROP(SceneScriptAsset::NodeSceneObject, name, "", "Property", "Name")
+	STRING_PROP(SceneScriptAsset::NodeSceneObject, name, "", "Property", "Name")
+META_DATA_DESC_END()
+
+META_DATA_DESC(SceneScriptAsset::NodeScriptConst)
+	STRING_PROP(SceneScriptAsset::NodeScriptConst, name, "", "Property", "Name")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScriptAsset::NodeScriptProperty)
-STRING_PROP(SceneScriptAsset::NodeScriptProperty, name, "", "Property", "Name")
-STRING_PROP(SceneScriptAsset::NodeScriptProperty, prefix, "", "Property", "Prefix")
+	STRING_PROP(SceneScriptAsset::NodeScriptProperty, name, "", "Property", "Name")
+	STRING_PROP(SceneScriptAsset::NodeScriptProperty, prefix, "", "Property", "Prefix")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScriptAsset::LinkToMethod)
-STRING_PROP(SceneScriptAsset::LinkToMethod, param, "", "Property", "Param")
-STRING_PROP(SceneScriptAsset::LinkToMethod, param2, "", "Property", "Param2")
-STRING_PROP(SceneScriptAsset::LinkToMethod, param3, "", "Property", "Param3")
+	STRING_PROP(SceneScriptAsset::LinkToMethod, param, "", "Property", "Param")
+	STRING_PROP(SceneScriptAsset::LinkToMethod, param2, "", "Property", "Param2")
+	STRING_PROP(SceneScriptAsset::LinkToMethod, param3, "", "Property", "Param3")
 META_DATA_DESC_END()
 
 META_DATA_DESC(SceneScriptAsset::NodeScriptMethod)
-STRING_PROP(SceneScriptAsset::NodeScriptMethod, name, "", "Property", "Name")
-ENUM_PROP(SceneScriptAsset::NodeScriptMethod, param_type, 0, "Property", "ParamType", "Type of parameter which will be passed in method during call")
-	ENUM_ELEM("None", 0)
-	ENUM_ELEM("Int", 1)
-	ENUM_ELEM("String", 2)
-	ENUM_ELEM("Int2", 3)
-	ENUM_ELEM("Int3", 4)
-ENUM_END
-ENUM_PROP(SceneScriptAsset::NodeScriptMethod, call_type, 0, "Property", "CallType", "Type of method call")
-	ENUM_ELEM("OnCallback", 0)
-	ENUM_ELEM("OnInit", 1)
-	ENUM_ELEM("EveryFrame", 2)
-ENUM_END
+	STRING_PROP(SceneScriptAsset::NodeScriptMethod, name, "", "Property", "Name")
+	ENUM_PROP(SceneScriptAsset::NodeScriptMethod, param_type, 0, "Property", "ParamType", "Type of parameter which will be passed in method during call")
+		ENUM_ELEM("None", 0)
+		ENUM_ELEM("Int", 1)
+		ENUM_ELEM("String", 2)
+		ENUM_ELEM("Int2", 3)
+		ENUM_ELEM("Int3", 4)
+	ENUM_END
+	ENUM_PROP(SceneScriptAsset::NodeScriptMethod, call_type, 0, "Property", "CallType", "Type of method call")
+		ENUM_ELEM("OnCallback", 0)
+		ENUM_ELEM("OnInit", 1)
+		ENUM_ELEM("EveryFrame", 2)
+	ENUM_END
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -57,10 +61,10 @@ void StartScriptEdit(void* owner)
 #endif
 
 META_DATA_DESC(SceneScriptAsset)
-BASE_SCENE_OBJ_PROP(SceneScriptAsset)
-STRING_PROP(SceneScriptAsset, main_class, "", "Prop", "main_class")
+	BASE_SCENE_OBJ_PROP(SceneScriptAsset)
+	STRING_PROP(SceneScriptAsset, main_class, "", "Prop", "main_class")
 #ifdef EDITOR
-CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
+	CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
 #endif
 META_DATA_DESC_END()
 
@@ -75,16 +79,6 @@ void SceneScriptAsset::Node::Save(JSONWriter& saver)
 	saver.Write("type", (int&)type);
 	saver.Write("name", name.c_str());
 	saver.Write("pos", pos);
-}
-
-void SceneScriptAsset::NodeSceneObject::Load(JSONReader& loader)
-{
-	Node::Load(loader);
-}
-
-void SceneScriptAsset::NodeSceneObject::Save(JSONWriter& saver)
-{
-	Node::Save(saver);
 }
 
 void SceneScriptAsset::NodeScriptProperty::Load(JSONReader& loader)
@@ -191,6 +185,11 @@ void SceneScriptAsset::Load(JSONReader& loader)
 		if (type == NodeType::SceneCallback)
 		{
 			node = new NodeSceneObject();
+		}
+
+		if (type == NodeType::ScriptConst)
+		{
+			node = new NodeScriptConst();
 		}
 
 		if (type == NodeType::ScriptProperty)
@@ -612,7 +611,7 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 			editor_drawer.DrawSprite(editor_drawer.arrow_tex, node->pos + Vector2(5.0f, 30.0f), linkSize, 0.0f, 0.0f, color);
 		}
 
-		const char* names[] = {"Callback", "Property", "Method"};
+		const char* names[] = {"Callback", "Property", "Method", "Const"};
 		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f), COLOR_WHITE, names[node->type]);
 
 		if (inst && (node->type == NodeType::SceneCallback || node->type == NodeType::ScriptProperty))
@@ -792,8 +791,9 @@ void SceneScriptAsset::OnRightMouseDown(Vector2 ms)
 	editor.popup_menu->StartMenu(true);
 
 	editor.popup_menu->StartSubMenu("Create Link to");
-	editor.popup_menu->AddItem(5001, "Callback");
+	editor.popup_menu->AddItem(5004, "Const");
 	editor.popup_menu->AddItem(5002, "Property");
+	editor.popup_menu->AddItem(5001, "Callback");
 	editor.popup_menu->AddItem(5003, "Method");
 	editor.popup_menu->EndSubMenu();
 
@@ -827,6 +827,14 @@ void SceneScriptAsset::OnPopupMenuItem(int id)
 		NodeScriptMethod* method_node = new NodeScriptMethod();
 		method_node->type = NodeType::ScriptMethod;
 		method_node->name = "method";
+		node = method_node;
+	}
+
+	if (id == 5004)
+	{
+		NodeScriptConst* method_node = new NodeScriptConst();
+		method_node->type = NodeType::ScriptConst;
+		method_node->name = "const";
 		node = method_node;
 	}
 
@@ -915,6 +923,12 @@ void SceneScriptAsset::Copy(SceneObject* src)
 			{
 				node = new NodeSceneObject();
 				*((NodeSceneObject*)node) = *((NodeSceneObject*)src_asset->nodes[i]);
+				break;
+			}
+			case NodeType::ScriptConst:
+			{
+				node = new NodeScriptConst();
+				*((NodeScriptConst*)node) = *((NodeScriptConst*)src_asset->nodes[i]);
 				break;
 			}
 			case NodeType::ScriptProperty:

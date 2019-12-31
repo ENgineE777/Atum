@@ -68,6 +68,11 @@ public:
 		void Save(JSONWriter& saver);
 	};
 
+	struct NodeConst : Node
+	{
+		META_DATA_DECL_BASE(NodeConst)
+	};
+
 	inline SceneScriptAsset* Asset()
 	{
 		return static_cast<SceneScriptAsset*>(asset);
@@ -94,6 +99,8 @@ public:
 	void CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> methods, bool use_dt);
 
 #ifdef EDITOR
+	NodeConst temp_node;
+
 	void SetScene(Scene* scene) override;
 	void Copy(SceneObject* src) override;
 

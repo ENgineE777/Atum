@@ -46,6 +46,7 @@ META_DATA_DESC(SceneScriptAsset::NodeScriptMethod)
 		ENUM_ELEM("OnInit", 1)
 		ENUM_ELEM("EveryFrame", 2)
 	ENUM_END
+	INT_PROP(SceneScriptAsset::NodeScriptMethod, priority, 0, "Property", "Priority", "Priority of execution")
 META_DATA_DESC_END()
 
 #ifdef EDITOR
@@ -101,6 +102,7 @@ void SceneScriptAsset::NodeScriptMethod::Load(JSONReader& loader)
 
 	loader.Read("param_type", (int&)param_type);
 	loader.Read("call_type", (int&)call_type);
+	loader.Read("priority", priority);
 
 	int link_count = 0;
 	loader.Read("Count", link_count);
@@ -125,6 +127,7 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 
 	saver.Write("param_type", param_type);
 	saver.Write("call_type", call_type);
+	saver.Write("priority", priority);
 
 	int link_count = (int)links.size();
 	saver.Write("Count", link_count);

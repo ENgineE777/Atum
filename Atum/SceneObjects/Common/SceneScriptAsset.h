@@ -154,6 +154,7 @@ public:
 
 		ParamType param_type;
 		CallType call_type;
+		int priority = 0;
 
 		asIScriptFunction* method = nullptr;
 		vector<LinkToMethod> links;

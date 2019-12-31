@@ -189,7 +189,7 @@ bool SceneScriptInst::Play()
 
 	if (Asset()->on_start_init.size() > 0)
 	{
-		GetScene()->AddPostPlay(10, this, (Object::DelegateSimple)&SceneScriptInst::CallOnInitScript);
+		GetScene()->AddPostPlay(10 + Asset()->on_start_init[0]->priority, this, (Object::DelegateSimple)&SceneScriptInst::CallOnInitScript);
 	}
 
 	return true;
@@ -232,6 +232,11 @@ void SceneScriptInst::InjectIntoScript()
 						*((string*)class_inst->GetAddressOfProperty(i)) = node_inst.callback_type;
 					}
 				}
+			}
+
+			if (!injected)
+			{
+				core.Log("ScriptErr", "Object for const %s was not set", node->name.c_str());
 			}
 		}
 		else

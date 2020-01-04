@@ -209,6 +209,7 @@ public:
 #ifdef EDITOR
 	void ClearRect();
 	void FillRect();
+	Vector2 AlignBySize(Vector2 pos);
 	void OnRectSelect(Vector2 p1, Vector2 p2) override;
 	bool CheckSelection(Vector2 ms) override;
 	void SetEditMode(bool ed) override;

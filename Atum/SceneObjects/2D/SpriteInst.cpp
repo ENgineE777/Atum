@@ -697,6 +697,9 @@ void SpriteInst::Draw(float dt)
 	}
 
 #ifdef EDITOR
+
+	trans.size = sprite_asset->trans.size;
+
 	if (rect_select)
 	{
 		for (auto& index : sel_instances)
@@ -799,6 +802,22 @@ void SpriteInst::ClearInstances()
 }
 
 #ifdef EDITOR
+Vector2 SpriteInst::AlignBySize(Vector2 pos)
+{
+	if (pos.x < 0.0f)
+	{
+		pos.x -= trans.size.x;
+	}
+
+	if (pos.y < 0.0f)
+	{
+		pos.y -= trans.size.y;
+	}
+
+	auto res = Vector2(((int)(pos.x / trans.size.x)), ((int)(pos.y / trans.size.y)));
+	return res * trans.size;
+}
+
 void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 {
 	sel_inst = -1;
@@ -812,8 +831,8 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 	rect_p1 = Sprite::MoveFromCamera(p1);
 	rect_p2 = Sprite::MoveFromCamera(p2);
 
-	rect_p1 = Gizmo::inst->MakeAligned(rect_p1) - left_offset;
-	rect_p2 = Gizmo::inst->MakeAligned(rect_p2) + right_offset;
+	rect_p1 = AlignBySize(rect_p1 + left_offset) - left_offset;
+	rect_p2 = AlignBySize(rect_p2 + left_offset) + right_offset;
 
 	sel_instances.clear();
 
@@ -831,9 +850,9 @@ void SpriteInst::OnRectSelect(Vector2 p1, Vector2 p2)
 		index++;
 	}
 
-	multi_trans.pos = rect_p1;
+	multi_trans.pos = rect_p1 + left_offset;
 	multi_trans.size = rect_p2 - rect_p1;
-	multi_trans.offset = 0.0f;
+	multi_trans.offset = left_offset / multi_trans.size;
 
 	Gizmo::inst->SetTrans2D(Gizmo::Transform2D(multi_trans), Gizmo::trans_2d_move);
 }

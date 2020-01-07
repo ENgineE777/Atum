@@ -890,13 +890,13 @@ void SpriteInst::FillRect()
 	auto left_offset = trans.offset * trans.size;
 	auto right_offset = (1.0f - trans.offset) * trans.size;
 
-	float y = rect_p1.y - left_offset.y;
+	float y = rect_p1.y + left_offset.y;
 
-	while (y < rect_p2.y)
+	while (y < rect_p2.y - right_offset.y + 0.01f)
 	{
-		float x = rect_p1.x - left_offset.x;
+		float x = rect_p1.x + left_offset.x;
 
-		while (x < rect_p2.x)
+		while (x < rect_p2.x - right_offset.x + 0.01f)
 		{
 			Instance inst;
 

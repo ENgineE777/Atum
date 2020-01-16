@@ -296,7 +296,7 @@ void Phys2DCompInst::CreateBody(int index, bool visible, Vector2 pos, Vector2 si
 	Matrix body_trans;
 	body_trans.Pos() = { pos.x, -pos.y, 0.0f };
 
-	if (body_type == Phys2DComp::BodyType::StaticBody)
+	if (body_type == Phys2DComp::BodyType::StaticBody || body_type == Phys2DComp::BodyType::TrigerBody)
 	{
 		body_trans.Pos() += { center.x, -center.y, 0.0f };
 	}

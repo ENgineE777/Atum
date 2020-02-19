@@ -68,6 +68,7 @@ public:
 	float Normalize();
 	float Length();
 	float Length(Vector2 v);
+	float Length2();
 	float Length2(Vector2 v);
 
 	bool InSquare(Vector2 min, Vector2 max);
@@ -156,6 +157,11 @@ inline float Vector2::Length(Vector2 v)
 	float dx = x - v.x;
 	float dy = y - v.y;
 	return ::sqrtf(dx * dx + dy * dy);
+}
+
+inline float Vector2::Length2()
+{
+	return x * x + y * y;
 }
 
 inline float Vector2::Length2(Vector2 v)

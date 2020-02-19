@@ -356,7 +356,7 @@ void SceneScriptInst::CallOnInitScript()
 
 void SceneScriptInst::Work(float dt)
 {
-	if (!GetScene()->Playing() || !class_inst)
+	if (!GetScene()->Playing() || GetState() != Active || !class_inst)
 	{
 		return;
 	}

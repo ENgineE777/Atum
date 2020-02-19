@@ -68,6 +68,8 @@ public:
 	{
 		META_DATA_DECL_BASE(Point)
 		Vector2 pos;
+		float angle = -1.0f;
+		float wait_time = 0.0f;
 	};
 
 	enum FlipMode
@@ -96,6 +98,9 @@ public:
 		float cur_dist = 0.0f;
 		float point_dist = 0.0f;
 		float speed = 40.0f;
+		float angle_speed = 360.0f;
+		float wait_time = -1.0f;
+
 		META_DATA_DECL_BASE(Track)
 		bool active = true;
 		vector<Point> points;
@@ -124,6 +129,7 @@ public:
 
 #ifdef EDITOR
 	Transform2D trans;
+	float ed_angle = 0.0f;
 	void Init() override;
 	void ApplyProperties() override;
 	void EditorDraw(float dt);

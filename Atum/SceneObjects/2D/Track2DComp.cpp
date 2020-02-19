@@ -7,8 +7,10 @@ COMPINCL(SpriteInst)
 COMPREG_END(Track2DComp)
 
 META_DATA_DESC(Track2DComp::Point)
-FLOAT_PROP(Track2DComp::Point, pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
-FLOAT_PROP(Track2DComp::Point, pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
+	FLOAT_PROP(Track2DComp::Point, pos.x, 0.0f, "Prop", "x", "X coordinate of a position")
+	FLOAT_PROP(Track2DComp::Point, pos.y, 0.0f, "Prop", "y", "Y coordinate of a position")
+	FLOAT_PROP(Track2DComp::Point, angle, -1.0f, "Prop", "angle", "angle")
+	FLOAT_PROP(Track2DComp::Point, wait_time, 0.0f, "Prop", "wait_time", "wait time")
 META_DATA_DESC_END()
 
 META_DATA_DESC(Track2DComp::Track)
@@ -17,7 +19,8 @@ META_DATA_DESC(Track2DComp::Track)
 		ENUM_ELEM("ForwardBack", 1)
 		ENUM_ELEM("Looped", 2)
 	ENUM_END
-	FLOAT_PROP(Track2DComp::Track, speed, 0.5f, "Prop", "speed", "Speed of moving along track")
+	FLOAT_PROP(Track2DComp::Track, speed, 50.0f, "Prop", "speed", "Speed of moving along track")
+	FLOAT_PROP(Track2DComp::Track, angle_speed, 360.0f, "Prop", "angle_speed", "Angle speed of rotation")
 	ARRAY_PROP_INST_CALLGIZMO(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point, SetGizmo)
 META_DATA_DESC_END()
 
@@ -149,11 +152,13 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		return;
 	}
 
+	auto& inst = sprite_inst->instances[index];
+
 #ifdef EDITOR
 	if (!IsEditMode() && !object->IsEditMode())
 #endif
 	{
-		if (!sprite_inst->instances[index].IsVisible())
+		if (!inst.IsVisible())
 		{
 			return;
 		}
@@ -166,56 +171,85 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		return;
 	}
 
-	track.cur_dist += track.speed * dt;
-
-	while (track.cur_dist > track.point_dist)
+	if (track.wait_time < -0.5f)
 	{
-		track.cur_dist -= track.point_dist;
+		track.cur_dist += track.speed * dt;
 
-		if (track.dir > 0.0f)
+		while (track.cur_dist > track.point_dist)
 		{
-			track.cur_point++;
+			track.cur_dist -= track.point_dist;
 
-			if (track.cur_point >= track.points.size())
+			if (track.dir > 0.0f)
 			{
-				if (track.tp == OneWay)
+				track.cur_point++;
+
+				if (track.cur_point >= track.points.size())
+				{
+					if (track.tp == OneWay)
+					{
+						track.Reset(true);
+					}
+					else
+					if (track.tp == ForwardBack)
+					{
+						track.Reset(false);
+					}
+					else
+					{
+						if (track.cur_point == track.points.size())
+						{
+							track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
+						}
+						else
+						{
+							track.Reset(true);
+						}
+					}
+				}
+				else
+				{
+					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
+				}
+			}
+			else
+			{
+				track.cur_point--;
+
+				if (track.cur_point < 1)
 				{
 					track.Reset(true);
 				}
 				else
-				if (track.tp == ForwardBack)
 				{
-					track.Reset(false);
+					track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
 				}
-				else
-				{
-					if (track.cur_point == track.points.size())
-					{
-						track.point_dist = (track.points[track.cur_point - 1].pos - track.points[0].pos).Length();
-					}
-					else
-					{
-						track.Reset(true);
-					}
-				}
+			}
+
+			int index = 0;
+
+			if ((track.tp == Looped && track.cur_point == track.points.size()) || track.dir > 0.0f)
+			{
+				index = track.cur_point - 1;
 			}
 			else
 			{
-				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
+				index = track.cur_point;
+			}
+
+			if (track.points[index].wait_time > 0.01f)
+			{
+				track.wait_time = track.points[index].wait_time;
+				break;
 			}
 		}
-		else
-		{
-			track.cur_point--;
+	}
+	else
+	{
+		track.wait_time -= dt;
 
-			if (track.cur_point < 1)
-			{
-				track.Reset(true);
-			}
-			else
-			{
-				track.point_dist = (track.points[track.cur_point].pos - track.points[track.cur_point - 1].pos).Length();
-			}
+		if (track.wait_time < 0.0f)
+		{
+			track.wait_time = -1.0f;
 		}
 	}
 
@@ -241,13 +275,77 @@ void Track2DComp::UpdateTrack(int index, float dt)
 		}
 	}
 
-	Vector2 dir = track.points[p2].pos - track.points[p1].pos;
-	Vector2 pos = dir * track.cur_dist / track.point_dist + track.points[p1].pos;
+	auto& point1 = track.points[p1];
+	auto& point2 = track.points[p2];
+
+	Vector2 dir = point2.pos - point1.pos;
+	Vector2 pos = dir * track.cur_dist / track.point_dist + point1.pos;
+
+	float len = dir.Length();
+
+	float angle = 0.0f;
+
+	if (point1.angle > -0.01f || len > 0.0001f)
+	{
+		float target_angle = point1.angle > -0.01f ? ((point1.angle - (point1.angle > 180.0f ? 360.0f : 0.0f)) * RADIAN) : atan2(dir.y / len, dir.x / len);
+
+#ifdef EDITOR
+		if (IsEditMode() || object->IsEditMode())
+		{
+			angle = ed_angle;
+		}
+		else
+#endif
+		{
+			angle = inst.GetAngle();
+		}
+
+		if (track.angle_speed > 0.01f)
+		{
+			if (target_angle - angle > PI)
+			{
+				target_angle -= TWO_PI;
+			}
+			else
+			if (angle - target_angle > PI)
+			{
+				target_angle += TWO_PI;
+			}
+
+			float delta = dt * track.angle_speed * RADIAN;
+
+			if (fabs(target_angle - angle) < fabs(delta))
+			{
+				angle = target_angle;
+			}
+			else
+			{
+				angle += delta * ((target_angle - angle) > 0.0f ? 1.0f : -1.0f);
+			}
+
+			if (angle > PI)
+			{
+				angle -= TWO_PI;
+			}
+			else
+			if (angle < PI)
+			{
+				angle += TWO_PI;
+			}
+		}
+		else
+		{
+			angle = target_angle;
+		}
+	}
 
 #ifdef EDITOR
 	if (IsEditMode() || object->IsEditMode())
 	{
 		core.render.DebugSprite(nullptr, Sprite::MoveToCamera(pos) - 10.0f, 20.0f, COLOR_BLUE);
+
+		ed_angle = angle;
+		core.render.DebugLine2D(Sprite::MoveToCamera(pos), COLOR_WHITE, Sprite::MoveToCamera(pos + Vector2(cosf(angle), sinf(angle)) * 50.0f), COLOR_WHITE);
 
 		if (sel_track == index)
 		{
@@ -264,28 +362,19 @@ void Track2DComp::UpdateTrack(int index, float dt)
 	else
 #endif
 	{
-		if (sprite_inst->array)
+		inst.SetPos(pos);
+		inst.SetAngle(angle);
+
+		if (flip_mode != FlipMode::None)
 		{
-			asIScriptObject** objects = (asIScriptObject**)sprite_inst->array->GetBuffer();
+			int flip = dir.x > 0.0f ? 0 : 1;
 
-			*((float*)objects[index]->GetAddressOfProperty(sprite_inst->mapping[0])) = pos.x;
-			*((float*)objects[index]->GetAddressOfProperty(sprite_inst->mapping[1])) = pos.y;
-
-			if (flip_mode != FlipMode::None)
+			if (flip_mode == FlipMode::Reversed)
 			{
-				int flip = dir.x > 0.0f ? 0 : 1;
-
-				if (flip_mode == FlipMode::Reversed)
-				{
-					flip = 1 - flip;
-				}
-
-				*((int*)objects[index]->GetAddressOfProperty(sprite_inst->mapping[2])) = flip;
+				flip = 1 - flip;
 			}
-		}
-		else
-		{
-			sprite_inst->instances[index].SetPos(pos);
+
+			inst.SetFlipped(flip);
 		}
 	}
 }
@@ -387,6 +476,19 @@ void Track2DComp::EditorDraw(float dt)
 			core.render.DebugLine2D(p1, COLOR_GREEN, p2, COLOR_CYAN);
 		}
 	}
+
+	for (int i = 0; i < track.points.size(); i++)
+	{
+		Vector2 p1 = Sprite::MoveToCamera(track.points[i].pos);
+
+		if (track.points[i].angle > -0.01f)
+		{
+			float angle = track.points[i].angle * RADIAN;
+			Vector2 p2 = Sprite::MoveToCamera(track.points[i].pos + Vector2(cosf(angle), sinf(angle)) * 50.0f);
+			core.render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
+		}
+	}
+
 
 	UpdateTrack(sel_track, dt);
 }

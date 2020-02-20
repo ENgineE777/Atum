@@ -459,6 +459,7 @@ void Project::RestoreSceneNodes(EUITreeView* treeview, Scene* scene, vector<Scen
 			if (node.uid != -1)
 			{
 				obj->item = tree_item->item;
+				obj->treeview = treeview;
 				obj->AddChildsToTree(treeview);
 			}
 			else

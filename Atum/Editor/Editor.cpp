@@ -432,6 +432,7 @@ void Editor::CopyObject(SceneObject* obj, void* parent, bool is_asset)
 	inst_item->item = treeview->AddItem(copy->GetName(), 1, inst_item, parent, -1, false);
 
 	copy->item = inst_item->item;
+	copy->treeview = treeview;
 	treeview->SelectItem(copy->item);
 
 	copy->AddChildsToTree(treeview);
@@ -477,6 +478,7 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 	inst_item->item = treeview->AddItem(obj->GetName(), 1, inst_item, parent, -1, false);
 
 	obj->item = inst_item->item;
+	obj->treeview = treeview;
 
 	SelectObject(obj, obj->IsAsset());
 	MoveTrans2DToCamera();
@@ -645,6 +647,11 @@ void Editor::MoveTrans2DToCamera()
 
 void Editor::CreatePopup(EUITreeView* treeview, int x, int y, bool is_asset)
 {
+	if (popup_scene_item && popup_scene_item->AddedToTreeByParent())
+	{
+		return;
+	}
+
 	popup_menu->StartMenu(true);
 
 	popup_menu->AddItem(3500, "Create Folder");
@@ -1397,6 +1404,7 @@ bool Editor::OnTreeViewItemDragged(EUITreeView* sender, EUIWidget* target, void*
 				inst_item->item = scene_treeview->AddItem(inst->GetName(), 1, inst_item, parent, -1, false);
 
 				inst->item = inst_item->item;
+				inst->treeview = scene_treeview;
 				inst->AddChildsToTree(scene_treeview);
 				SelectObject(inst, false);
 
@@ -1466,6 +1474,7 @@ void Editor::OnTreeReCreateItem(EUITreeView* sender, void* item, void* ptr)
 		Project::SceneTreeItem* tree_item = static_cast<Project::SceneTreeItem*>(ptr);
 
 		tree_item->item = item;
+		tree_item->object->item = item;
 	}
 }
 

@@ -195,6 +195,7 @@ void UIViewInstance::AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* w
 	Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(widget);
 	tree_item->item = treeview->AddItem(widget->GetName(), 1, tree_item, parent_item, -1, true, widget->class_name);
 	widget->asset_item = tree_item->item;
+	widget->treeview = treeview;
 	treeview->SetABSortChilds(widget->asset_item, false);
 
 	for (auto child : widget->childs)

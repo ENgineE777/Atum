@@ -286,6 +286,7 @@ public:
 
 #ifdef EDITOR
 	void* item = nullptr;
+	EUITreeView* treeview = nullptr; 
 	void* asset_item = nullptr;
 	virtual void Set2DPos(Vector2 pos);
 	virtual void SaveAssetData(JSONWriter& writer);

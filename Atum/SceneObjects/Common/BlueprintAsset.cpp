@@ -228,6 +228,7 @@ bool BlueprintAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneObje
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(inst);
 		tree_item->item = editor.asset_treeview->AddItem(inst->GetName(), 1, tree_item, asset_item, -1, true, inst->class_name);
 		inst->asset_item = tree_item->item;
+		inst->treeview = editor.asset_treeview;
 	}
 
 	return false;
@@ -244,6 +245,7 @@ void BlueprintAsset::PreapreAssetTree()
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
 		tree_item->item = editor.asset_treeview->AddItem(child->GetName(), 1, tree_item, asset_item, -1, true, child->class_name);
 		child->asset_item = tree_item->item;
+		child->treeview = editor.asset_treeview;
 	}
 }
 
@@ -305,6 +307,7 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(inst);
 		tree_item->item = editor.asset_treeview->AddItem(inst->GetName(), 1, tree_item, asset_item, -1, true, inst->class_name);
 		inst->asset_item = tree_item->item;
+		inst->treeview = editor.asset_treeview;
 	}
 
 	if (id >= 2600)

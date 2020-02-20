@@ -204,6 +204,7 @@ void BlueprintInst::AddChildsToTree(EUITreeView* treeview)
 		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child);
 		tree_item->item = treeview->AddItem(child->GetName(), 1, tree_item, item, -1, true, child->class_name);
 		child->asset_item = tree_item->item;
+		child->treeview = treeview;
 	}
 }
 #endif

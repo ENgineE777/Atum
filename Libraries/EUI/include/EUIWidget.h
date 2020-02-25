@@ -64,6 +64,8 @@ public:
 
 		virtual void OnMouseMove(EUIWidget* sender, int mx, int my) {};
 
+		virtual void OnMouseWheel(EUIWidget* sender, int delta) {};
+
 		virtual void OnLeftMouseDown(EUIWidget* sender, int mx, int my) {};
 		virtual void OnLeftMouseUp(EUIWidget* sender, int mx, int my) {};
 		virtual void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) {};

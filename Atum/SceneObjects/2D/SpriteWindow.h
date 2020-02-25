@@ -107,7 +107,7 @@ public:
 	void UpdateSavedPos();
 	void ActualPixels();
 	void FitImage();
-	void MakeZoom(bool zoom_in);
+	void MakeZoom(float zoom);
 	void CheckStateOfBorder();
 	void SetColorToLabel();
 
@@ -118,6 +118,7 @@ public:
 	void OnMouseMove(EUIWidget* sender, int mx, int my) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnLeftDoubliClick(EUIWidget* sender, int mx, int my) override;
+	void OnMouseWheel(EUIWidget* sender, int delta) override;
 	void OnMiddleMouseDown(EUIWidget* sender, int mx, int my) override;
 	void OnMiddleMouseUp(EUIWidget* sender, int mx, int my) override;
 	void OnKey(EUIWidget* sender, int key) override;

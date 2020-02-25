@@ -459,8 +459,8 @@ void SpriteWindow::ActualPixels()
 {
 	pixel_density = 1.0f;
 
-	origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
-	origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
+	origin.x = -pixel_density * sprite->width * 0.5f / pixel_density;
+	origin.y = pixel_density * sprite->height * 0.5f / pixel_density;
 
 	delta_mouse = 0.0f;
 }
@@ -474,23 +474,15 @@ void SpriteWindow::FitImage()
 		pixel_density = (float)(img_wgt->GetHeight() - 20) / (float)sprite->height;
 	}
 
-	origin.x = (img_wgt->GetWidth() - pixel_density * sprite->width) * 0.5f / pixel_density;
-	origin.y = (img_wgt->GetHeight() - (img_wgt->GetHeight() - pixel_density * sprite->height) * 0.5f) / pixel_density;
+	origin.x = -pixel_density * sprite->width * 0.5f / pixel_density;
+	origin.y = pixel_density * sprite->height * 0.5f / pixel_density;
 
 	delta_mouse = 0.0f;
 }
 
-void SpriteWindow::MakeZoom(bool zoom_in)
+void SpriteWindow::MakeZoom(float zoom)
 {
-	Vector2 origin_px = origin * pixel_density;
-	origin_px.x = origin_px.x - img_wgt->GetWidth() * 0.5f / pixel_density;
-	origin_px.y = origin_px.y + img_wgt->GetHeight() * 0.5f / pixel_density;
-
-	pixel_density += zoom_in ? 0.5f : -0.5f;
-
-	origin_px.x += img_wgt->GetWidth() * 0.5f / pixel_density;
-	origin_px.y -= img_wgt->GetHeight() * 0.5f / pixel_density;
-	origin = origin_px / pixel_density;
+	pixel_density = MathUtils::Clamp(pixel_density + zoom, 0.2f, 20.0f);
 }
 
 void SpriteWindow::CheckStateOfBorder()
@@ -517,9 +509,11 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 	float wd = sprite->texture ? sprite->width * 1.1f : 512.0f;
 	float ht = sprite->texture ? sprite->height * 1.1f : 512.0f;
 
+	Vector2 half_screen = Vector2(img_wgt->GetWidth() * 0.5f, img_wgt->GetHeight() * 0.5f);
+
 	Color color = COLOR_WHITE;
-	core.render.DebugLine2D(Vector2(origin.x * pixel_density, (origin.y - ht) * pixel_density), color, Vector2(origin.x * pixel_density, (origin.y + ht) * pixel_density), color);
-	core.render.DebugLine2D(Vector2((origin.x - wd) * pixel_density, origin.y * pixel_density), color, Vector2((origin.x + wd) * pixel_density, origin.y * pixel_density), color);
+	core.render.DebugLine2D(Vector2(origin.x * pixel_density, (origin.y - ht) * pixel_density) + half_screen, color, Vector2(origin.x * pixel_density, (origin.y + ht) * pixel_density) + half_screen, color);
+	core.render.DebugLine2D(Vector2((origin.x - wd) * pixel_density, origin.y * pixel_density) + half_screen, color, Vector2((origin.x + wd) * pixel_density, origin.y * pixel_density) + half_screen, color);
 
 	int cur_wdth = (int)(sprite->width * pixel_density);
 	int cur_hgt = (int)(sprite->height * pixel_density);
@@ -527,7 +521,7 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 	Vector2 pos = origin;
 	pos.y -= sprite->height;
 
-	Sprite::Draw(sprite->texture, COLOR_WHITE, Matrix(), Vector2(pos.x * pixel_density, pos.y * pixel_density), Vector2((float)cur_wdth, (float)cur_hgt), 0.0f, 1.0f, false);
+	Sprite::Draw(sprite->texture, COLOR_WHITE, Matrix(), Vector2(pos.x * pixel_density, pos.y * pixel_density) + half_screen, Vector2((float)cur_wdth, (float)cur_hgt), 0.0f, 1.0f, false);
 
 	if (sprite->type == Sprite::Frames)
 	{
@@ -535,17 +529,17 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 
 		for (int i = 0; i<num_frames; i++)
 		{
-			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density), color,
-			                        Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density), color);
+			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density) + half_screen, color,
+			                        Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density) + half_screen, color);
 
-			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density), color,
-			                        Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density), color);
+			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 1].x) * pixel_density, (origin.y - frames[i * 4 + 1].y) * pixel_density) + half_screen, color,
+			                        Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density) + half_screen, color);
 
-			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density), color,
-			                        Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density), color);
+			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 3].x) * pixel_density, (origin.y - frames[i * 4 + 3].y) * pixel_density) + half_screen, color,
+			                        Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density) + half_screen, color);
 
-			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density), color,
-			                        Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density), color);
+			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 2].x) * pixel_density, (origin.y - frames[i * 4 + 2].y) * pixel_density) + half_screen, color,
+			                        Vector2((origin.x + frames[i * 4 + 0].x) * pixel_density, (origin.y - frames[i * 4 + 0].y) * pixel_density) + half_screen, color);
 		}
 
 		color = COLOR_GREEN;
@@ -553,9 +547,9 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 		for (int i = 0; i<num_frames - 1; i++)
 		{
 			core.render.DebugLine2D(Vector2((origin.x + frames[i * 4 + 0].x + (frames[i * 4 + 1].x - frames[i * 4 + 0].x) * 0.5f) * pixel_density,
-			                                (origin.y - frames[i * 4 + 1].y - (frames[i * 4 + 2].y - frames[i * 4 + 1].y) * 0.5f) * pixel_density), color,
+			                                (origin.y - frames[i * 4 + 1].y - (frames[i * 4 + 2].y - frames[i * 4 + 1].y) * 0.5f) * pixel_density) + half_screen, color,
 			                        Vector2((origin.x + frames[(i + 1) * 4 + 0].x + (frames[(i + 1) * 4 + 1].x - frames[(i + 1) * 4 + 0].x) * 0.5f) * pixel_density,
-			                                (origin.y - frames[(i + 1) * 4 + 1].y - (frames[(i + 1) * 4 + 2].y - frames[(i + 1) * 4 + 1].y) * 0.5f) * pixel_density), color);
+			                                (origin.y - frames[(i + 1) * 4 + 1].y - (frames[(i + 1) * 4 + 2].y - frames[(i + 1) * 4 + 1].y) * 0.5f) * pixel_density) + half_screen, color);
 		}
 	}
 
@@ -568,19 +562,19 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 
 			if (j < rect_width - 1 && i < rect_height - 1)
 			{
-				core.render.DebugLine2D(Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density), color,
-				                        Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density), color);
+				core.render.DebugLine2D(Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density) + half_screen, color,
+				                        Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density) + half_screen, color);
 
-				core.render.DebugLine2D(Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density), color,
-				                        Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density), color);
+				core.render.DebugLine2D(Vector2((origin.x + points[index].x) * pixel_density, (origin.y - points[index].y) * pixel_density) + half_screen, color,
+				                        Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density) + half_screen, color);
 
 				if (i == rect_height - 2 || j == rect_width - 2)
 				{
-					core.render.DebugLine2D(Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density), color,
-					                        Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density), color);
+					core.render.DebugLine2D(Vector2((origin.x + points[index + 1].x) * pixel_density, (origin.y - points[index + 1].y) * pixel_density) + half_screen, color,
+					                        Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density) + half_screen, color);
 
-					core.render.DebugLine2D(Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density), color,
-					                        Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density), color);
+					core.render.DebugLine2D(Vector2((origin.x + points[index + rect_width + 1].x) * pixel_density, (origin.y - points[index + rect_width + 1].y) * pixel_density) + half_screen, color,
+					                        Vector2((origin.x + points[index + rect_width].x) * pixel_density, (origin.y - points[index + rect_width].y) * pixel_density) + half_screen, color);
 				}
 			}
 
@@ -589,7 +583,7 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 				color.Set(1.0, 0.9f, 0.0f, 1.0f);
 			}
 
-			core.render.DebugSprite(editor_drawer.anchorn, Vector2((origin.x + points[index].x) * pixel_density - 4, (origin.y - points[index].y) * pixel_density - 4), Vector2(8.0f), color);
+			core.render.DebugSprite(editor_drawer.anchorn, Vector2((origin.x + points[index].x) * pixel_density - 4, (origin.y - points[index].y) * pixel_density - 4) + half_screen, Vector2(8.0f), color);
 		}
 
 	if (sprite->type == Sprite::Frames)
@@ -599,14 +593,14 @@ void SpriteWindow::OnUpdate(EUIWidget* sender)
 		float pivot_x = (frames[cur_frame * 4 + 0].x + frames[cur_frame * 4 + 1].x) * 0.5f;
 		float pivot_y = frames[cur_frame * 4 + 2].y;
 
-		core.render.DebugLine2D(Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y) * pixel_density), color,
-		                        Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color);
+		core.render.DebugLine2D(Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y) * pixel_density) + half_screen, color,
+		                        Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density) + half_screen, color);
 
-		core.render.DebugLine2D(Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color,
-		                        Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density), color);
+		core.render.DebugLine2D(Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density) + half_screen, color,
+		                        Vector2((origin.x + pivot_x) * pixel_density, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density) + half_screen, color);
 
-		core.render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x) * pixel_density - 4, (origin.y - pivot_y) * pixel_density - 4), Vector2(8.0f), color);
-		core.render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4), Vector2(8.0f), color);
+		core.render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x) * pixel_density - 4, (origin.y - pivot_y) * pixel_density - 4) + half_screen, Vector2(8.0f), color);
+		core.render.DebugSprite(editor_drawer.center, Vector2((origin.x + pivot_x - sprite->rects[cur_frame].offset.x) * pixel_density - 4, (origin.y - pivot_y + sprite->rects[cur_frame].offset.y) * pixel_density - 4) + half_screen, Vector2(8.0f), color);
 	}
 
 	if (sender->IsFocused())
@@ -1008,14 +1002,14 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 
 	if (sender == btn_zoom_in)
 	{
-		MakeZoom(true);
+		MakeZoom(0.5f);
 	}
 
 	if (sender == btn_zoom_out)
 	{
 		if (pixel_density > 1.0f)
 		{
-			MakeZoom(false);
+			MakeZoom(-0.5f);
 		}
 	}
 
@@ -1070,6 +1064,14 @@ void SpriteWindow::OnLeftDoubliClick(EUIWidget* sender, int mx, int my)
 	}
 }
 
+void SpriteWindow::OnMouseWheel(EUIWidget* sender, int delta)
+{
+	if (sender == img_wgt)
+	{
+		MakeZoom(-(float)delta * 0.025f);
+	}
+}
+
 void SpriteWindow::OnMiddleMouseDown(EUIWidget* sender, int mx, int my)
 {
 	drag = DragField;
@@ -1082,11 +1084,6 @@ void SpriteWindow::OnMiddleMouseUp(EUIWidget* sender, int mx, int my)
 	drag = DragNone;
 	img_wgt->ReleaseMouse();
 }
-
-/*void SpriteWindow::OnCharDown(EUIWidget* sender, int key)
-{
-
-}*/
 
 void SpriteWindow::OnKey(EUIWidget* sender, int key)
 {

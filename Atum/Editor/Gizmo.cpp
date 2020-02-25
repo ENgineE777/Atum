@@ -757,6 +757,11 @@ void Gizmo::RenderTrans2D()
 				tmp = Sprite::MoveToCamera(Vector2(p2.x, p2.y));
 				p2 = Vector(tmp.x, tmp.y, p1.z);
 			}
+			else
+			{
+				p1 *= Sprite::screen_mul;
+				p2 *= Sprite::screen_mul;
+			}
 
 			if (phase == 1)
 			{
@@ -777,6 +782,10 @@ void Gizmo::RenderTrans2D()
 	{
 		Vector2 tmp = Sprite::MoveToCamera(Vector2(p1.x, p1.y));
 		p1 = Vector(tmp.x, tmp.y, p1.z);
+	}
+	else
+	{
+		p1 *= Sprite::screen_mul;
 	}
 
 	origin = Vector2(p1.x, p1.y);

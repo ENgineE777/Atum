@@ -390,13 +390,23 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
+			UIWidgetAsset* parent = (UIWidgetAsset*)inst.GetObject();
+
+			if (parent->treeview == editor.scene_treeview)
+			{
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child_inst);
+				tree_item->item = parent->treeview->AddItem(name, 1, tree_item, (child_index == -1) ? parent->item : parent->parent->item, child_index, true, item_classname);
+				child_inst->item = tree_item->item;
+				child_inst->treeview = parent->treeview;
+			}
+
 			if (child_index == -1)
 			{
-				((UIWidgetAsset*)inst.GetObject())->AddChild(child_inst);
+				parent->AddChild(child_inst);
 			}
 			else
 			{
-				((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, child_index);
+				parent->parent->AddChild(child_inst, child_index);
 			}
 
 			child_inst->SetName(name);
@@ -445,7 +455,17 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, popup_child_index + 1);
+			UIWidgetAsset* parent = (UIWidgetAsset*)inst.GetObject();
+
+			if (parent->treeview == editor.scene_treeview)
+			{
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child_inst);
+				tree_item->item = parent->treeview->AddItem(popup_item->GetName(), 1, tree_item, parent->parent->item, popup_child_index + 1, true, item_classname);
+				child_inst->item = tree_item->item;
+				child_inst->treeview = parent->treeview;
+			}
+
+			parent->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(popup_item->GetName());
 		}
@@ -500,7 +520,17 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst.GetObject())->AddChild(child_inst);
+			UIWidgetAsset* parent = (UIWidgetAsset*)inst.GetObject();
+
+			if (parent->treeview == editor.scene_treeview)
+			{
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child_inst);
+				tree_item->item = parent->treeview->AddItem(child->GetName(), 1, tree_item, parent->item, -1, true, item_classname);
+				child_inst->item = tree_item->item;
+				child_inst->treeview = parent->treeview;
+			}
+
+			parent->AddChild(child_inst);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}
@@ -551,7 +581,17 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->GetMetaData()->SetDefValues();
 			child_inst->ApplyProperties();
 
-			((UIWidgetAsset*)inst.GetObject())->parent->AddChild(child_inst, popup_child_index + 1);
+			UIWidgetAsset* parent = (UIWidgetAsset*)inst.GetObject();
+
+			if (parent->treeview == editor.scene_treeview)
+			{
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child_inst);
+				tree_item->item = parent->treeview->AddItem(asset_to_copy->GetName(), 1, tree_item, parent->parent->item, popup_child_index + 1, true, item_classname);
+				child_inst->item = tree_item->item;
+				child_inst->treeview = parent->treeview;
+			}
+
+			parent->parent->AddChild(child_inst, popup_child_index + 1);
 
 			child_inst->SetName(asset_to_copy->GetName());
 		}

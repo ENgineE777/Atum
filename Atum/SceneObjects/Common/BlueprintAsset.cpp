@@ -214,21 +214,45 @@ bool BlueprintAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneObje
 	{
 		auto asset = (SceneAsset*)item;
 
-		SceneObject* inst = asset->CreateInstance(&sub_scene);
+		SceneObject* asset_inst = asset->CreateInstance(&sub_scene);
 
 		for (auto comp : asset->components)
 		{
-			SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
+			SceneObjectInstComp* comp_inst = (SceneObjectInstComp*)asset_inst->AddComponent(((SceneAssetComp*)comp)->inst_class_name);
 			comp_inst->asset_comp = comp;
 		}
 
-		inst->parent_uid = uid;
-		childs.push_back(inst);
+		asset_inst->parent_uid = uid;
+		childs.push_back(asset_inst);
 
-		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(inst);
-		tree_item->item = editor.asset_treeview->AddItem(inst->GetName(), 1, tree_item, asset_item, -1, true, inst->class_name);
-		inst->asset_item = tree_item->item;
-		inst->treeview = editor.asset_treeview;
+		Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(asset_inst);
+		tree_item->item = editor.asset_treeview->AddItem(asset_inst->GetName(), 1, tree_item, asset_item, -1, true, asset_inst->class_name);
+		asset_inst->asset_item = tree_item->item;
+		asset_inst->treeview = editor.asset_treeview;
+
+		for (auto& inst : instances)
+		{
+			BlueprintInst* blueprint_inst = (BlueprintInst*)inst.GetObject();
+
+			auto* childs_inst = scene->CreateObject(asset_inst->class_name, false);
+			scene->DeleteObject(childs_inst, false, false);
+
+			childs_inst->parent_trans = &blueprint_inst->trans;
+
+			childs_inst->SetName(asset_inst->GetName());
+			childs_inst->uid = asset_inst->uid;
+
+			childs_inst->Copy(asset_inst);
+
+			childs_inst->parent_uid = blueprint_inst->uid;
+
+			blueprint_inst->childs.push_back(childs_inst);
+
+			Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(childs_inst);
+			tree_item->item = editor.scene_treeview->AddItem(childs_inst->GetName(), 1, tree_item, blueprint_inst->item, -1, true, childs_inst->class_name);
+			childs_inst->asset_item = tree_item->item;
+			childs_inst->treeview = editor.scene_treeview;
+		}
 	}
 
 	return false;
@@ -326,16 +350,29 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 	{
 		OnAssetTreeSelChange(nullptr);
 
+		int index = 0;
+
 		for (int i = 0; i < childs.size(); i++)
 		{
 			if ((SceneAsset*)childs[i] == popup_item)
 			{
 				childs.erase(childs.begin() + i);
+				index = i;
+				break;
 			}
 		}
 
 		editor.asset_treeview->DeleteItem(popup_item->asset_item);
 		sub_scene.DeleteObject(popup_item, false, true);
+
+		for (auto& inst : instances)
+		{
+			BlueprintInst* blueprint_inst = (BlueprintInst*)inst.GetObject();
+			auto* child = blueprint_inst->childs[index];
+			blueprint_inst->childs.erase(blueprint_inst->childs.begin() + index);
+			child->treeview->DeleteItem(child->item);
+			child->Release();
+		}
 	}
 
 	popup_item = nullptr;

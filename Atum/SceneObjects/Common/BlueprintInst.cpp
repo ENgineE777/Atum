@@ -13,6 +13,7 @@ META_DATA_DESC_END()
 
 void BlueprintInst::Init()
 {
+
 }
 
 void BlueprintInst::Load(JSONReader& loader)
@@ -159,6 +160,16 @@ bool BlueprintInst::Play()
 	}
 
 	return true;
+}
+
+void BlueprintInst::Release()
+{
+	for (auto child : childs)
+	{
+		child->Release();
+	}
+
+	SceneObjectInst::Release();
 }
 
 #ifdef EDITOR

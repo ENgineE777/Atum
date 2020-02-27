@@ -21,6 +21,8 @@ public:
 	void SetState(State set_state) override;
 	bool Play() override;
 
+	void Release() override;
+
 	SceneObject* GetChild(uint32_t uid) override;
 
 #ifdef EDITOR

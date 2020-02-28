@@ -59,13 +59,40 @@ void StartScriptEdit(void* owner)
 
 	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
 }
+
+void CenterScriptCamera(void* owner)
+{
+	SceneScriptAsset* script = (SceneScriptAsset*)owner;
+
+	if (script->nodes.size() > 0)
+	{
+		Vector2 leftCorner = FLT_MAX;
+		Vector2 rightCorner = -FLT_MAX;
+
+		for (auto& node : script->nodes)
+		{
+			leftCorner = leftCorner.Min(node->pos - script->nodeSize * 0.5f);
+			rightCorner = rightCorner.Max(node->pos + script->nodeSize * 1.5f);
+		}
+
+		Vector2 half_size = (rightCorner - leftCorner) * 0.5f;
+		Sprite::ed_cam_pos = leftCorner + half_size;
+		Sprite::ed_cam_zoom = fmin(0.5f * core.render.GetDevice()->GetWidth() / half_size.x, 0.5f * core.render.GetDevice()->GetHeight() / half_size.y);
+	}
+	else
+	{
+		Sprite::ed_cam_pos = 0.0f;
+	}
+
+}
 #endif
 
 META_DATA_DESC(SceneScriptAsset)
 	BASE_SCENE_OBJ_PROP(SceneScriptAsset)
 	STRING_PROP(SceneScriptAsset, main_class, "", "Prop", "main_class")
 #ifdef EDITOR
-	CALLBACK_PROP(SpriteAsset, StartScriptEdit, "Prop", "EditScript")
+	CALLBACK_PROP(SceneScriptAsset, StartScriptEdit, "Prop", "EditScript")
+	CALLBACK_PROP(SceneScriptAsset, CenterScriptCamera, "Prop", "CenterCamera")
 #endif
 META_DATA_DESC_END()
 

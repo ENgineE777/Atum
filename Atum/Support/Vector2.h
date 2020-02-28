@@ -71,6 +71,9 @@ public:
 	float Length2();
 	float Length2(Vector2 v);
 
+	Vector2& Min(Vector2 v);
+	Vector2& Max(Vector2 v);
+
 	bool InSquare(Vector2 min, Vector2 max);
 	
 	float Dot(Vector2 v);
@@ -169,6 +172,20 @@ inline float Vector2::Length2(Vector2 v)
 	float dx = x - v.x;
 	float dy = y - v.y;
 	return dx * dx + dy * dy;
+}
+
+inline Vector2& Vector2::Min(Vector2 v)
+{
+	if (x > v.x) x = v.x;
+	if (y > v.y) y = v.y;
+	return *this;
+}
+
+inline Vector2& Vector2::Max(Vector2 v)
+{
+	if (x < v.x) x = v.x;
+	if (y < v.y) y = v.y;
+	return *this;
 }
 
 

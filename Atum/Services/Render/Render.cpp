@@ -21,6 +21,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "Support/stb/stb_image.h"
 
+#include "SceneObjects/2D/Sprite.h"
+
 Render::Render()
 {
 	device = nullptr;
@@ -262,6 +264,17 @@ void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)
 	va_end(args);
 
 	font->AddText(pos, color, buffer);
+}
+
+void Render::DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char* text, ...)
+{
+	char buffer[256];
+	va_list args;
+	va_start(args, text);
+	vsnprintf(buffer, 256, text, args);
+	va_end(args);
+
+	font->AddText(Sprite::MoveToCamera(pos), color, buffer);
 }
 
 void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text, ...)

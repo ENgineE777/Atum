@@ -217,12 +217,23 @@ public:
 	/**
 	\brief Print debug text in 2D space
 
-	\param[in] pos Postion of a text
+	\param[in] pos Postion of a text in screen space
 	\param[in] color Color of a text
 	\param[in] text Text format string of a text
 
 	*/
 	void DebugPrintText(Vector2 pos, Color color, const char* text, ...);
+
+	/**
+	\brief Print debug text in 2D space
+
+	\param[in] pos Postion of a text in world space
+	\param[in] abs_unit Is position in absolute units
+	\param[in] color Color of a text
+	\param[in] text Text format string of a text
+
+	*/
+	void DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char* text, ...);
 
 	/**
 	\brief Print debug text in 3D space

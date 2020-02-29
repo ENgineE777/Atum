@@ -5,7 +5,6 @@
 #include "Services/Scene/SceneManager.h"
 #include "Services/Scene/SceneObject.h"
 #include "SceneObjects/2D/Sprite.h"
-#include "SceneObjects/2D/Sprite.h"
 
 #undef GetObject
 
@@ -14,13 +13,30 @@ void ScriptCore::Render::DebugText(float x, float y, string& text)
 	core.render.DebugPrintText({ x, y}, COLOR_WHITE, text.c_str());
 }
 
+void ScriptCore_Render_DebugText2D(asIScriptGeneric *gen)
+{
+	Vector2* pos = (Vector2*)gen->GetArgObject(0);
+	string* text = (string*)gen->GetArgObject(1);
+
+	core.render.DebugPrintText(*pos, true, COLOR_WHITE, text->c_str());
+}
+
+void ScriptCore_Render_DebugCircle2D(asIScriptGeneric *gen)
+{
+	Vector2* pos = (Vector2*)gen->GetArgObject(0);
+	float radius = gen->GetArgFloat(1);
+
+	float delta_angle = TWO_PI / 25.0f;
+	for (int i = 0; i < 26; i++)
+	{
+		ScriptCore::Render::DebugLine2D(Vector2(cosf(i * delta_angle) * radius, sinf(i * delta_angle) * radius) + *pos,
+		                                Vector2(cosf((i + 1) * delta_angle) * radius, sinf((i + 1) * delta_angle) * radius) + *pos);
+	}
+}
+
 void ScriptCore::Render::DebugLine2D(Vector2 p1, Vector2 p2)
 {
-	float scale = core.render.GetDevice()->GetHeight() / 1024.0f;
-	p1 = p1 * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-	p2 = p2 * scale - Sprite::cam_pos * scale + Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight()) * 0.5f;
-
-	core.render.DebugLine2D(p1, COLOR_WHITE, p2, COLOR_WHITE);
+	core.render.DebugLine2D(Sprite::MoveToCamera(p1), COLOR_WHITE, Sprite::MoveToCamera(p2), COLOR_WHITE);
 }
 
 void ScriptCore::Render::DebugLine2DScr(float x1, float y1, float x2, float y2)
@@ -243,6 +259,8 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	script_class_name = "ScriptRender";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", "Script render sub system");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), "Print debug text");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText2D(Vector2&in pos, string&in text)", asFUNCTION(ScriptCore_Render_DebugText2D), "Print debug text");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugCircle2D(Vector2&in pos, float radius)", asFUNCTION(ScriptCore_Render_DebugCircle2D), "Print debug text");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2DScr), "Print debug line in 2D space");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), "Get width of a screen");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), "Get height of a screen");

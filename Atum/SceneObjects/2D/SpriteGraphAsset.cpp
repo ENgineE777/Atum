@@ -40,6 +40,11 @@ void SpriteGraphAsset::Instance::GotoNode(int index)
 
 bool SpriteGraphAsset::Instance::GotoNode(const char* node_name)
 {
+	if (!asset)
+	{
+		return false;
+	}
+
 	int index = 0;
 
 	for (auto& node : asset->nodes)

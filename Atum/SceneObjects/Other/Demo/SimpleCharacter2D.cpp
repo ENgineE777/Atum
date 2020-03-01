@@ -369,7 +369,7 @@ void SimpleCharacter2D::ControlEnemy(float dt)
 			{
 				cur_time_2_kuck = 0.0f;
 
-				bool sec_kick = rnd() > 0.5;
+				bool sec_kick = Math::Rand() > 0.5;
 				if (graph_instance.ActivateLink(sec_kick ? "LegKick1" : "LegKick2"))
 				{
 					cur_time_to_kick = sec_kick ? 0.55f : 0.85f;

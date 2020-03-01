@@ -266,14 +266,14 @@ void HoverTank::Update(float dt)
 		angles.x -= core.controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 		angles.y -= core.controls.GetAliasValue(alias_rotate_y, true) * 0.01f;
 
-		if (angles.y > HALF_PI)
+		if (angles.y > Math::HalfPI)
 		{
-			angles.y = HALF_PI;
+			angles.y = Math::HalfPI;
 		}
 
-		if (angles.y < -HALF_PI)
+		if (angles.y < -Math::HalfPI)
 		{
-			angles.y = -HALF_PI;
+			angles.y = -Math::HalfPI;
 		}
 	}
 
@@ -326,7 +326,7 @@ void HoverTank::Update(float dt)
 	AddHover(mat, -mat.Vy() * 0.5001f - mat.Vx() * 1.5f - mat.Vz());
 
 	view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 15, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
-	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
+	proj.BuildProjection(45.0f * Math::Radian, 600.0f / 800.0f, 1.0f, 1000.0f);
 
 	core.render.SetTransform(Render::View, view);
 	core.render.SetTransform(Render::Projection, proj);

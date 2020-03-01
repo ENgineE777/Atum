@@ -994,7 +994,7 @@ void Editor::OnEditBoxStopEditing(EUIEditBox* sender)
 	if (sender == zoom_ed)
 	{
 		Sprite::ed_cam_zoom = 0.01f * zoom_ed->GetAsFloat();
-		Sprite::ed_cam_zoom = MathUtils::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
+		Sprite::ed_cam_zoom = Math::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
 		freecamera.prev_ed_zoom = Sprite::ed_cam_zoom;
 		zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 	}

@@ -1103,7 +1103,7 @@ void Project::GenerateUID(SceneHolder* holder)
 
 	while (uid == 0)
 	{
-		float koef = rnd() * 0.99f;
+		float koef = Math::Rand() * 0.99f;
 		uid = (uint16_t)(koef * 4096) << 4;
 
 		for (auto& scn : scenes)

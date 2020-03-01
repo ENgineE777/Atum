@@ -33,7 +33,7 @@ void Tank::AddInstance(int id, Vector pos, bool is_bot)
 	cdesc.height = 1.0f;
 	cdesc.radius = 1.0f;
 	cdesc.pos = pos;
-	cdesc.slopeLimit = cosf(RADIAN * 60.0f);
+	cdesc.slopeLimit = cosf(Math::Radian * 60.0f);
 
 	ServerState& state = client->instances[client->instances.size() - 1].serverState;
 
@@ -330,8 +330,8 @@ void Tank::Update(float dt)
 
 						Bonus& bonus = bonuses[bonuses.size() - 1];
 
-						bonus.type = (int)(3.0f * rnd() * 0.999f);
-						bonus.pos = Vector(x + square * rnd(), 25.0f, z + square * rnd());
+						bonus.type = (int)(3.0f * Math::Rand() * 0.999f);
+						bonus.pos = Vector(x + square * Math::Rand(), 25.0f, z + square * Math::Rand());
 
 						rcdesc.origin = bonus.pos;
 						rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
@@ -466,9 +466,9 @@ void Tank::Update(float dt)
 
 		if (inst.clientState.needed_tower_angel > -999.9f)
 		{
-			if (inst.serverState.tower_angel < PI * 0.5f && inst.clientState.needed_tower_angel > PI)
+			if (inst.serverState.tower_angel < Math::PI * 0.5f && inst.clientState.needed_tower_angel > Math::PI)
 			{
-				inst.clientState.needed_tower_angel -= PI * 2.0f;
+				inst.clientState.needed_tower_angel -= Math::PI * 2.0f;
 			}
 
 			if (inst.clientState.needed_tower_angel > inst.serverState.tower_angel)
@@ -569,7 +569,7 @@ void Tank::Update(float dt)
 					{
 						for (int i = 0; i < 5; i++)
 						{
-							proj.claster_pos[i] = proj.pos + Vector(-2.0f + 4.0f * rnd(), 0.0f, -2.0f + 4.0f * rnd());
+							proj.claster_pos[i] = proj.pos + Vector(-2.0f + 4.0f * Math::Rand(), 0.0f, -2.0f + 4.0f * Math::Rand());
 							AddSplash(proj.claster_pos[i], Projectile::splashMaxRadius, 200);
 						}
 					}

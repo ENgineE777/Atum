@@ -7,7 +7,7 @@
 
 void FreeCamera::Init()
 {
-	proj.BuildProjection(45.0f * RADIAN, 600.0f / 800.0f, 1.0f, 1000.0f);
+	proj.BuildProjection(45.0f * Math::Radian, 600.0f / 800.0f, 1.0f, 1000.0f);
 
 	angles = Vector2(0.0f, -0.5f);
 	pos = Vector(0.0f, 6.0f, 0.0f);
@@ -38,7 +38,7 @@ void FreeCamera::Update(float dt)
 		{
 			prev_ed_zoom = Sprite::ed_cam_zoom;
 			Sprite::ed_cam_zoom += core.controls.GetAliasValue(alias_move2d_zoom, true) * 0.025f;
-			Sprite::ed_cam_zoom = MathUtils::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
+			Sprite::ed_cam_zoom = Math::Clamp(Sprite::ed_cam_zoom, 0.2f, 2.0f);
 		}
 
 		return;
@@ -55,14 +55,14 @@ void FreeCamera::Update(float dt)
 		angles.x -= core.controls.GetAliasValue(alias_rotate_x, true) * 0.01f;
 		angles.y -= core.controls.GetAliasValue(alias_rotate_y, true) * 0.01f;
 
-		if (angles.y > HALF_PI)
+		if (angles.y > Math::HalfPI)
 		{
-			angles.y = HALF_PI;
+			angles.y = Math::HalfPI;
 		}
 
-		if (angles.y < -HALF_PI)
+		if (angles.y < -Math::HalfPI)
 		{
-			angles.y = -HALF_PI;
+			angles.y = -Math::HalfPI;
 		}
 	}
 
@@ -82,6 +82,6 @@ void FreeCamera::Update(float dt)
 
 	core.render.SetTransform(Render::View, view);
 
-	proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+	proj.BuildProjection(45.0f * Math::Radian, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 	core.render.SetTransform(Render::Projection, proj);
 }

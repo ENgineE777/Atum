@@ -62,7 +62,7 @@ float ColorCorrection::ComputeGaussian(float n)
 {
 	float theta = 4.0f;
 
-	return (float)((1.0 / sqrtf(2 * PI * theta)) * expf(-(n * n) / (2 * theta * theta)));
+	return (float)((1.0 / sqrtf(2 * Math::PI * theta)) * expf(-(n * n) / (2 * theta * theta)));
 }
 
 void ColorCorrection::SetRT(float dt)

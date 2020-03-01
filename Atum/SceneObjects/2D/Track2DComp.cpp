@@ -287,7 +287,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 
 	if (point1.angle > -0.01f || len > 0.0001f)
 	{
-		float target_angle = point1.angle > -0.01f ? ((point1.angle - (point1.angle > 180.0f ? 360.0f : 0.0f)) * RADIAN) : atan2(dir.y / len, dir.x / len);
+		float target_angle = point1.angle > -0.01f ? (point1.angle * Math::Radian) : atan2(dir.y / len, dir.x / len);
 
 #ifdef EDITOR
 		if (IsEditMode() || object->IsEditMode())
@@ -302,36 +302,7 @@ void Track2DComp::UpdateTrack(int index, float dt)
 
 		if (track.angle_speed > 0.01f)
 		{
-			if (target_angle - angle > PI)
-			{
-				target_angle -= TWO_PI;
-			}
-			else
-			if (angle - target_angle > PI)
-			{
-				target_angle += TWO_PI;
-			}
-
-			float delta = dt * track.angle_speed * RADIAN;
-
-			if (fabs(target_angle - angle) < fabs(delta))
-			{
-				angle = target_angle;
-			}
-			else
-			{
-				angle += delta * ((target_angle - angle) > 0.0f ? 1.0f : -1.0f);
-			}
-
-			if (angle > PI)
-			{
-				angle -= TWO_PI;
-			}
-			else
-			if (angle < PI)
-			{
-				angle += TWO_PI;
-			}
+			angle = Math::AdvanceAngle(angle, target_angle, dt * track.angle_speed * Math::Radian);
 		}
 		else
 		{
@@ -483,7 +454,7 @@ void Track2DComp::EditorDraw(float dt)
 
 		if (track.points[i].angle > -0.01f)
 		{
-			float angle = track.points[i].angle * RADIAN;
+			float angle = track.points[i].angle * Math::Radian;
 			Vector2 p2 = Sprite::MoveToCamera(track.points[i].pos + Vector2(cosf(angle), sinf(angle)) * 50.0f);
 			core.render.DebugLine2D(p1, COLOR_YELLOW, p2, COLOR_YELLOW);
 		}

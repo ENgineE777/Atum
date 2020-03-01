@@ -54,7 +54,7 @@ struct PhysControllerDesc
 	Vector pos;
 
 	/** \brief The maximum slope which the character can walk up. */
-	float slopeLimit = cosf(RADIAN * 20.0f);
+	float slopeLimit = cosf(Math::Radian * 20.0f);
 };
 
 /**

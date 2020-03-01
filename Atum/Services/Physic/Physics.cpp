@@ -172,7 +172,7 @@ void Physics::Update(float dt)
 			core.render.SetTransform(Render::View, view);
 
 			Matrix proj;
-			proj.BuildProjection(45.0f * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
+			proj.BuildProjection(45.0f * Math::Radian, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 			core.render.SetTransform(Render::Projection, proj);
 		}
 

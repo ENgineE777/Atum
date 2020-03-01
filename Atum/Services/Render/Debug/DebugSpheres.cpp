@@ -10,8 +10,8 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
 
-	float deltaTheta = PI / RigsCount;
-	float deltaPhi = 2.0f * PI / SidesCount;
+	float deltaTheta = Math::PI / RigsCount;
+	float deltaPhi = Math::TwoPI / SidesCount;
 	float curTheta = 0.0f;
 
 	int index = 0;

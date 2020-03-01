@@ -22,6 +22,6 @@ void CameraPlayer::SetTime(float time)
 	core.render.SetTransform(Render::View, view);
 
 	Matrix proj;
-	proj.BuildProjection(fov * RADIAN, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 0.1f, 1500.0f );
+	proj.BuildProjection(fov * Math::Radian, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 0.1f, 1500.0f );
 	core.render.SetTransform(Render::Projection, proj);
 }

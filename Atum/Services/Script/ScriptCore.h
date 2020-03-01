@@ -66,6 +66,8 @@ public:
 				Render::DebugLine2D(polygon[i], polygon[(i + 1) % polygon.size()]);
 			}
 		}
+
+		float AdvanceAngle(float angle, float target_angle, float delta_angle);
 	};
 
 	Controls controls;

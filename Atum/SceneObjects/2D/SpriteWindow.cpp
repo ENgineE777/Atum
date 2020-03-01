@@ -482,7 +482,7 @@ void SpriteWindow::FitImage()
 
 void SpriteWindow::MakeZoom(float zoom)
 {
-	pixel_density = MathUtils::Clamp(pixel_density + zoom, 0.2f, 20.0f);
+	pixel_density = Math::Clamp(pixel_density + zoom, 0.2f, 20.0f);
 }
 
 void SpriteWindow::CheckStateOfBorder()

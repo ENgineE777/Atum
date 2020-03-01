@@ -26,7 +26,7 @@ void ScriptCore_Render_DebugCircle2D(asIScriptGeneric *gen)
 	Vector2* pos = (Vector2*)gen->GetArgObject(0);
 	float radius = gen->GetArgFloat(1);
 
-	float delta_angle = TWO_PI / 25.0f;
+	float delta_angle = Math::TwoPI / 25.0f;
 	for (int i = 0; i < 26; i++)
 	{
 		ScriptCore::Render::DebugLine2D(Vector2(cosf(i * delta_angle) * radius, sinf(i * delta_angle) * radius) + *pos,
@@ -176,7 +176,7 @@ bool ScriptCore::Utils::IsPointInTriangle(Vector2& pt, Vector2& p1, Vector2& p2,
 		DrawPolygon(polygon);
 	}
 
-	return MathUtils::IsPointInPolygon(pt, polygon);
+	return Math::IsPointInPolygon(pt, polygon);
 }
 
 bool ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2& offset, Vector2& size, float angle, bool debug)
@@ -199,7 +199,12 @@ bool ScriptCore::Utils::IsPointInRectangle(Vector2& pt, Vector2& center, Vector2
 		DrawPolygon(polygon);
 	}
 
-	return MathUtils::IsPointInPolygon(pt, polygon);
+	return Math::IsPointInPolygon(pt, polygon);
+}
+
+float ScriptCore::Utils::AdvanceAngle(float angle, float target_angle, float delta_angle)
+{
+	return Math::AdvanceAngle(angle, target_angle, delta_angle);
 }
 
 bool ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle, bool debug)
@@ -307,8 +312,10 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	script_class_name = "ScriptUtils";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Utils), "gr_script_core", "Script utility class");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInTriangle(Vector2&in pt, Vector2&in p1, Vector2&in p2, Vector2&in p3, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
-	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInRectangle(Vector2&in pt, Vector2&in center, Vector2&in offset, Vector2&in size, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a triangle");
-	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a sector");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInRectangle(Vector2&in pt, Vector2&in center, Vector2&in offset, Vector2&in size, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInRectangle), "Check if point inside of a sector");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a triangle");
+
+	core.scripts.RegisterObjectMethod(script_class_name, "float AdvanceAngle(float angle, float target_angle, float delta_angle)", WRAP_MFN(ScriptCore::Utils, AdvanceAngle), "Advance angle");
 
 	script_class_name = "ScriptCore";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", "Script core class which have access to engine sub systems");

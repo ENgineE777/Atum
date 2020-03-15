@@ -4,6 +4,7 @@
 #include "Services/Controls/Controls.h"
 #include "Services/Font/Fonts.h"
 #include "Services/File/Files.h"
+#include "Services/Mesh/Meshes.h"
 #include "Services/Physic/Physics.h"
 #include "Services/Render/Render.h"
 #include "Services/Scene/SceneManager.h"
@@ -53,6 +54,11 @@ public:
 	\brief Access to fonts service
 	*/
 	Fonts fonts;
+
+	/**
+	\brief Access to meshes service
+	*/
+	Meshes meshes;
 
 	/**
 	\brief Access to controls service

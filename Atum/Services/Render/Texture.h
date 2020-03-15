@@ -50,6 +50,8 @@ public:
 		Volume /*!< Volumetric texture */
 	};
 
+	std::string name;
+
 #ifndef DOXYGEN_SKIP
 	Texture(int w, int h, Format f, int l, Type tp)
 	{

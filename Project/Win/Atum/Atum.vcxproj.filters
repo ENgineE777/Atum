@@ -118,6 +118,12 @@
     <Filter Include="SceneObjects\2D\NavMesh">
       <UniqueIdentifier>{6f280694-a4aa-4a9a-84d9-89afc4838f79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Services\Meshes">
+      <UniqueIdentifier>{e353aa79-4f63-4d16-b9dc-520365b3c9bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\fbx">
+      <UniqueIdentifier>{befa8594-0796-4796-a8a1-72e11e7cd85b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
@@ -660,14 +666,29 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.cpp">
       <Filter>Services\Script\Libs</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Support\MathUtils.cpp">
-      <Filter>Support</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\BlueprintAsset.cpp">
       <Filter>SceneObjects\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.cpp">
       <Filter>SceneObjects\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Math.cpp">
+      <Filter>Support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\Meshes.cpp">
+      <Filter>Services\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\MeshRes.cpp">
+      <Filter>Services\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\MeshPrograms.cpp">
+      <Filter>Services\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\fbx\miniz.c">
+      <Filter>Support\fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\fbx\ofbx.cpp">
+      <Filter>Support\fbx</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1199,14 +1220,29 @@
     <ClInclude Include="..\..\..\Atum\Support\libtess2\mesh.h">
       <Filter>Support\MetaData</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\MathUtils.h">
-      <Filter>Support</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\BlueprintAsset.h">
       <Filter>SceneObjects\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.h">
       <Filter>SceneObjects\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Math.h">
+      <Filter>Support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\Meshes.h">
+      <Filter>Services\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\MeshRes.h">
+      <Filter>Services\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\MeshPrograms.h">
+      <Filter>Services\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\fbx\miniz.h">
+      <Filter>Support\fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\fbx\ofbx.h">
+      <Filter>Support\fbx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

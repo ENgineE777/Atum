@@ -154,6 +154,7 @@ Texture* Render::LoadTexture(const char* name)
 	uint8_t* data = stbi_load_from_memory(ptr, buffer.GetSize(), &width, &height, &bytes, STBI_rgb_alpha);
 
 	Texture* texture = device->CreateTexture(width, height, Texture::FMT_A8R8G8B8, 0, false, Texture::Tex2D);
+	texture->name = name;
 
 	texture->Update(0, 0, data, width * 4);
 

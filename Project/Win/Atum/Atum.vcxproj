@@ -98,6 +98,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Font\Font.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\FontRes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Font\Fonts.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\MeshPrograms.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\MeshRes.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Mesh\Meshes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp" />
@@ -187,6 +190,8 @@
     <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisfile.c" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\window.c" />
     <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\fbx\miniz.c" />
+    <ClCompile Include="..\..\..\Atum\Support\fbx\ofbx.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\block_allocator.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\json.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\json\JSONReader.cpp" />
@@ -198,7 +203,7 @@
     <ClCompile Include="..\..\..\Atum\Support\libtess2\priorityq.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\sweep.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\tess.c" />
-    <ClCompile Include="..\..\..\Atum\Support\MathUtils.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\Math.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ArrayWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
@@ -298,6 +303,9 @@
     <ClInclude Include="..\..\..\Atum\Services\Font\FontRes.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h" />
     <ClInclude Include="..\..\..\Atum\Services\Font\stb_truetype.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\MeshPrograms.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\MeshRes.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Mesh\Meshes.h" />
     <ClInclude Include="..\..\..\Atum\Services\Network\Network.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h" />
@@ -357,6 +365,8 @@
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h" />
     <ClInclude Include="..\..\..\Atum\Support\Color.h" />
     <ClInclude Include="..\..\..\Atum\Support\Defines.h" />
+    <ClInclude Include="..\..\..\Atum\Support\fbx\miniz.h" />
+    <ClInclude Include="..\..\..\Atum\Support\fbx\ofbx.h" />
     <ClInclude Include="..\..\..\Atum\Support\json\block_allocator.h" />
     <ClInclude Include="..\..\..\Atum\Support\json\json.h" />
     <ClInclude Include="..\..\..\Atum\Support\json\JSONReader.h" />
@@ -369,7 +379,7 @@
     <ClInclude Include="..\..\..\Atum\Support\libtess2\sweep.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tess.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tesselator.h" />
-    <ClInclude Include="..\..\..\Atum\Support\MathUtils.h" />
+    <ClInclude Include="..\..\..\Atum\Support\Math.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />
@@ -447,7 +457,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Support\zlib;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -468,7 +478,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Supprort\zlib;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>

@@ -14,6 +14,7 @@ public:
 		Matrix world;
 		Vector4 color;
 		bool    show;
+		TaskExecutor::SingleTaskPool* taskPool;
 
 	public:
 		Instance()
@@ -63,8 +64,8 @@ public:
 
 	Vector locator;
 
-	void Load(const char* filename);
-	void LoadFBX(const char* filename);
+	bool Load(const char* filename);
+	bool LoadFBX(const char* filename);
 
 	void Release();
 };

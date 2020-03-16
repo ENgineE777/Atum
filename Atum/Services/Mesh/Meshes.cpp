@@ -19,7 +19,12 @@ Mesh::Instance* Meshes::LoadMesh(const char* name, TaskExecutor::SingleTaskPool*
 	else
 	{
 		mesh = new Mesh();
-		mesh->Load(name);
+
+		if (!mesh->Load(name))
+		{
+			delete mesh;
+			return nullptr;
+		}
 
 		MeshRef& ref = meshes[name];
 

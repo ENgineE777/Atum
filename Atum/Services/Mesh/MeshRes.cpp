@@ -6,11 +6,13 @@
 
 #include "Support/fbx/ofbx.h"
 
-void Mesh::Instance::Init(Mesh* model, TaskExecutor::SingleTaskPool* taskPool)
+void Mesh::Instance::Init(Mesh* model, TaskExecutor::SingleTaskPool* setTaskPool)
 {
 	res = model;
 
+	taskPool = setTaskPool;
 	taskPool->AddTask(ExecuteLevels::Geometry, this, (Object::Delegate)&Mesh::Instance::Render);
+
 	//render.AddDelegate("toshadow", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("geometry", this, (Object::Delegate)&Model::Drawer::Render, 0);
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
@@ -89,6 +91,8 @@ void Mesh::Instance::Render(Program* prg)
 
 void Mesh::Instance::Release()
 {
+	taskPool->DelAllTasks(this);
+
 	if (core.meshes.DecRef(res))
 	{
 		res->Release();
@@ -97,18 +101,21 @@ void Mesh::Instance::Release()
 	delete this;
 }
 
-void Mesh::Load(const char* filename)
+bool Mesh::Load(const char* filename)
 {
 	VertexDecl::ElemDesc desc[] = { { VertexDecl::Float3, VertexDecl::Position, 0 },{ VertexDecl::Float2, VertexDecl::Texcoord, 0 },{ VertexDecl::Float3, VertexDecl::Texcoord, 1 } };
 	vdecl = core.render.GetDevice()->CreateVertexDecl(3, desc);
 
-	LoadFBX(filename);
+	return LoadFBX(filename);
 }
 
-void Mesh::LoadFBX(const char* filename)
+bool Mesh::LoadFBX(const char* filename)
 {
 	FileInMemory file;
-	file.Load(filename);
+	if (!file.Load(filename))
+	{
+		return false;
+	}
 
 	auto* scene = ofbx::load(file.GetData(), file.GetSize(), 1 << 0);
 
@@ -222,6 +229,8 @@ void Mesh::LoadFBX(const char* filename)
 	}
 
 	scene->destroy();
+
+	return true;
 }
 
 void Mesh::Release()

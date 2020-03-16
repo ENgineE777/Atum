@@ -154,7 +154,7 @@ bool Mesh::LoadFBX(const char* filename)
 				auto texture_name = tex->getRelativeFileName();
 
 				char name[256];
-				int len = texture_name.end - texture_name.begin;
+				int len = (int)(texture_name.end - texture_name.begin);
 				memcpy(name, texture_name.begin, len);
 				name[len] = 0;
 
@@ -170,7 +170,7 @@ bool Mesh::LoadFBX(const char* filename)
 				if (mesh.texture == -1)
 				{
 					textures.push_back(core.render.LoadTexture(name));
-					mesh.texture = textures.size() - 1;
+					mesh.texture = (int)textures.size() - 1;
 				}
 			}
 		}
@@ -207,18 +207,18 @@ bool Mesh::LoadFBX(const char* filename)
 			MeshVertex& vertex = mesh_vertices[j];
 			auto& fbx_vertex = vertices[j];
 
-			vertex.pos = Vector(fbx_vertex.x, fbx_vertex.y, fbx_vertex.z) * mat * 0.1f;
+			vertex.pos = Vector((float)fbx_vertex.x, (float)fbx_vertex.y, (float)fbx_vertex.z) * mat * 0.1f;
 
 			if (normals)
 			{
 				auto& fbx_normal = normals[j];
-				vertex.normal = Vector(fbx_normal.x, fbx_normal.z,-fbx_normal.y);
+				vertex.normal = Vector((float)fbx_normal.x, (float)fbx_normal.z, -(float)fbx_normal.y);
 			}
 
 			if (uvs)
 			{
 				auto& fbx_uv = uvs[j];
-				vertex.uv = Vector2(fbx_uv.x, 1.0f - fbx_uv.y);
+				vertex.uv = Vector2((float)fbx_uv.x, 1.0f - (float)fbx_uv.y);
 			}
 
 			bb_max.Max(vertex.pos);

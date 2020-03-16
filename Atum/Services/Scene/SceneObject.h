@@ -341,6 +341,17 @@ public:
 #endif
 };
 
+#define GET_ASSET_METHOD(AssetType) \
+AssetType* casted_asset = nullptr;\
+inline AssetType* Asset()\
+{\
+	if (casted_asset == 0)\
+	{\
+		casted_asset = dynamic_cast<AssetType*>(asset);\
+	}\
+	return casted_asset;\
+}
+
 CLASSFACTORYDEF(SceneObject)
 CLASSFACTORYDEF_END()
 

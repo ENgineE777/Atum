@@ -73,10 +73,7 @@ public:
 		META_DATA_DECL_BASE(NodeConst)
 	};
 
-	inline SceneScriptAsset* Asset()
-	{
-		return static_cast<SceneScriptAsset*>(asset);
-	}
+	GET_ASSET_METHOD(SceneScriptAsset)
 
 	vector<Node> nodes;
 	asIScriptObject* class_inst = nullptr;

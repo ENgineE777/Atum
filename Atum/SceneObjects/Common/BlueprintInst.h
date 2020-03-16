@@ -1,12 +1,13 @@
 
 #pragma once
 
-#include "Services/Scene/SceneObject.h"
 #include "BlueprintAsset.h"
 
 class BlueprintInst : public SceneObjectInst
 {
 public:
+	GET_ASSET_METHOD(BlueprintAsset)
+
 	META_DATA_DECL(BlueprintrInst)
 	Transform2D trans;
 	std::vector<SceneObject*> childs;

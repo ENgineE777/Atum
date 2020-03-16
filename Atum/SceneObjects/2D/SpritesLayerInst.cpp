@@ -29,9 +29,7 @@ void SpritesLayerInst::Draw(float dt)
 		return;
 	}
 
-	SpritesLayerAsset* layer_asset = (SpritesLayerAsset*)asset;
-
-	if (layer_asset->sprites.size() == 0)
+	if (Asset()->sprites.size() == 0)
 	{
 		return;
 	}
@@ -39,10 +37,10 @@ void SpritesLayerInst::Draw(float dt)
 	Transform2D tmp_trans;
 	tmp_trans.depth = trans.depth;
 
-	Vector2 min_pos = layer_asset->sprites[0].pos - layer_asset->sprites[0].size * 0.5f;
-	Vector2 max_pos = layer_asset->sprites[0].pos + layer_asset->sprites[0].size * 0.5f;
+	Vector2 min_pos = Asset()->sprites[0].pos - Asset()->sprites[0].size * 0.5f;
+	Vector2 max_pos = Asset()->sprites[0].pos + Asset()->sprites[0].size * 0.5f;
 
-	for (auto& sprite : layer_asset->sprites)
+	for (auto& sprite : Asset()->sprites)
 	{
 		Vector2 tmp_min_pos = sprite.pos - sprite.size * 0.5f;
 		Vector2 tmp_max_pos = sprite.pos + sprite.size * 0.5f;
@@ -79,7 +77,7 @@ void SpritesLayerInst::Draw(float dt)
 
 	for (int x = from - 1; x <= to + 1; x++)
 	{
-		for (auto sprite : layer_asset->sprites)
+		for (auto sprite : Asset()->sprites)
 		{
 			Sprite::UpdateFrame(&sprite.sprite, &sprite.state, dt);
 			tmp_trans.size = sprite.size;

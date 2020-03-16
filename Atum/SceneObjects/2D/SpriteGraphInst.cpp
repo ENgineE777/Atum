@@ -38,7 +38,7 @@ void SpriteGraphInst::PrepereInstaces()
 {
 	for (auto& inst : instances)
 	{
-		((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
+		Asset()->PrepareInstance(&inst.graph_instance);
 	}
 }
 
@@ -51,6 +51,11 @@ void SpriteGraphInst::ApplyProperties()
 	RenderTasks(false)->AddTask(ExecuteLevels::Sprites + draw_level, this, (Object::Delegate)&SpriteGraphInst::Draw);
 
 	PrepereInstaces();
+}
+
+bool SpriteGraphInst::Play()
+{
+	return true;
 }
 
 void SpriteGraphInst::OnResize(int at, int delta)
@@ -100,7 +105,7 @@ void SpriteGraphInst::Draw(float dt)
 				inst.SetPos({ Sprite::ed_cam_pos.x * scale, Sprite::ed_cam_pos.y * scale });
 			}
 
-			((SpriteGraphAsset*)asset)->PrepareInstance(&inst.graph_instance);
+			Asset()->PrepareInstance(&inst.graph_instance);
 			inst.graph_instance.Reset();
 
 			instances.push_back(inst);

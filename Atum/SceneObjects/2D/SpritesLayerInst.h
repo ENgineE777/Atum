@@ -43,6 +43,8 @@ class SpritesLayerInst : public SceneObjectInst
 public:
 	META_DATA_DECL(SpritesLayerInst)
 
+	GET_ASSET_METHOD(SpritesLayerAsset)
+
 	/**
 	\brief Axis scale of a layer
 	*/

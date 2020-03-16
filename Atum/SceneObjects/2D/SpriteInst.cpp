@@ -543,8 +543,6 @@ void SpriteInst::Draw(float dt)
 		return;
 	}
 
-	SpriteAsset* sprite_asset = (SpriteAsset*)asset;
-
 #ifdef EDITOR
 	if (edited)
 	{
@@ -623,8 +621,8 @@ void SpriteInst::Draw(float dt)
 	}
 #endif
 
-	trans.offset = sprite_asset->trans.offset;
-	trans.size = sprite_asset->trans.size;
+	trans.offset = Asset()->trans.offset;
+	trans.size = Asset()->trans.size;
 
 	trans.pos *= axis_scale;
 
@@ -669,7 +667,7 @@ void SpriteInst::Draw(float dt)
 
 		if (update_frames)
 		{
-			Sprite::UpdateFrame(&sprite_asset->sprite, &inst.frame_state, dt);
+			Sprite::UpdateFrame(&Asset()->sprite, &inst.frame_state, dt);
 		}
 
 		if (inst.GetAlpha() < 0.01f)
@@ -679,10 +677,10 @@ void SpriteInst::Draw(float dt)
 
 		trans.pos = inst.GetPos();
 		float wgt = inst.GetSizeX();
-		trans.size.x = (wgt < -0.01f ? sprite_asset->trans.size.x : wgt) + 0.5f;
+		trans.size.x = (wgt < -0.01f ? Asset()->trans.size.x : wgt) + 0.5f;
 
 		float hgt = inst.GetSizeY();
-		trans.size.y = (hgt < -0.01f ? sprite_asset->trans.size.y : hgt) + 0.5f;
+		trans.size.y = (hgt < -0.01f ? Asset()->trans.size.y : hgt) + 0.5f;
 
 		trans.rotation = inst.GetAngle();
 		trans.BuildMatrices();
@@ -693,20 +691,20 @@ void SpriteInst::Draw(float dt)
 		inst.color.b = inst.GetB();
 		inst.color.a = inst.GetAlpha();
 
-		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &sprite_asset->sprite, &inst.frame_state, use_depth, false);
+		Sprite::Draw(&trans, is_visible ? inst.color : COLOR_GRAY, &Asset()->sprite, &inst.frame_state, use_depth, false);
 	}
 
 #ifdef EDITOR
 
-	trans.size = sprite_asset->trans.size;
+	trans.size = Asset()->trans.size;
 
 	if (rect_select)
 	{
 		for (auto& index : sel_instances)
 		{
 			auto& inst = instances[index];
-			Vector2 pos = Sprite::MoveToCamera(inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size);
-			Vector2 pos2 = Sprite::MoveToCamera(inst.GetPos() - sprite_asset->trans.offset * sprite_asset->trans.size + sprite_asset->trans.size);
+			Vector2 pos = Sprite::MoveToCamera(inst.GetPos() - Asset()->trans.offset * Asset()->trans.size);
+			Vector2 pos2 = Sprite::MoveToCamera(inst.GetPos() - Asset()->trans.offset * Asset()->trans.size + Asset()->trans.size);
 
 			core.render.DebugRect2D(pos, pos2, COLOR_WHITE);
 		}
@@ -814,7 +812,7 @@ Vector2 SpriteInst::AlignBySize(Vector2 pos)
 		pos.y -= trans.size.y;
 	}
 
-	auto res = Vector2(((int)(pos.x / trans.size.x)), ((int)(pos.y / trans.size.y)));
+	auto res = Vector2((float)((int)(pos.x / trans.size.x)), (float)((int)(pos.y / trans.size.y)));
 	return res * trans.size;
 }
 

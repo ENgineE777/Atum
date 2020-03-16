@@ -63,6 +63,8 @@ public:
 
 	float hack_height = 0.0f;
 
+	GET_ASSET_METHOD(SpriteGraphAsset)
+
 	virtual ~SpriteGraphInst() = default;
 
 	void BindClassToScript() override;
@@ -70,6 +72,8 @@ public:
 	void Init() override;
 	void ApplyProperties() override;
 	void Draw(float dt) override;
+
+	bool Play() override;
 
 	void OnResize(int at, int delta) override;
 

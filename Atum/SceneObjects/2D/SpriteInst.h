@@ -86,6 +86,8 @@ public:
 
 #ifndef DOXYGEN_SKIP
 
+	GET_ASSET_METHOD(SpriteAsset)
+
 	Transform2D trans;
 	Transform2D multi_trans;
 

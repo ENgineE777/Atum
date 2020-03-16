@@ -185,7 +185,7 @@ void SpriteGraphAsset::ApplyProperties()
 
 	for (auto& node : nodes)
 	{
-		node.asset = (SpriteAsset*)GetScene()->FindByUID(node.object_uid, 0, true);
+		node.asset = dynamic_cast<SpriteAsset*>(GetScene()->FindByUID(node.object_uid, 0, true));
 
 		if (!node.asset)
 		{

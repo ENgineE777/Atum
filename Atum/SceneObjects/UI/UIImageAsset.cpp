@@ -169,7 +169,7 @@ void UIImageAssetInst::BindClassToScript()
 
 void UIImageAssetInst::SetSpriteFromAsset(string& asset_name)
 {
-	SpriteAsset* asset = (SpriteAsset*)GetScene()->FindInGroup("SpriteAsset", asset_name.c_str());
+	SpriteAsset* asset = dynamic_cast<SpriteAsset*>(GetScene()->FindInGroup("SpriteAsset", asset_name.c_str()));
 
 	if (asset)
 	{

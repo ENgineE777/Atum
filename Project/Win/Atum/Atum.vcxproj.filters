@@ -103,12 +103,6 @@
     <Filter Include="Services\Sound">
       <UniqueIdentifier>{1a71726d-e528-4469-8c03-32ebd4d86797}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Services\Sound\vorbis">
-      <UniqueIdentifier>{fe018bd8-4105-46fd-88cb-68cfd00e0bcb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Services\Sound\ogg">
-      <UniqueIdentifier>{aa45cbce-5057-4ced-8604-c0548ccc668e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Platform\Common">
       <UniqueIdentifier>{df30acd0-3890-4ad0-94fe-2077f023c7a2}</UniqueIdentifier>
     </Filter>
@@ -123,6 +117,12 @@
     </Filter>
     <Filter Include="Support\fbx">
       <UniqueIdentifier>{befa8594-0796-4796-a8a1-72e11e7cd85b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\ogg">
+      <UniqueIdentifier>{d2c66e02-7ff7-41d6-b23c-3ed8c9cf29fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\vorbis">
+      <UniqueIdentifier>{c1cde58a-a55c-4b12-8d3c-b597f7096cf8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -336,9 +336,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\programs.cpp">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleCharacter2D.cpp">
-      <Filter>SceneObjects\Other\Demo</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleClient.cpp">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
@@ -525,78 +522,6 @@
     <ClCompile Include="..\..\..\Atum\Services\File\FileInMemory.cpp">
       <Filter>Services\Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\bitrate.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\block.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\codebook.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\envelope.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor0.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor1.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\info.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lookup.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lpc.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lsp.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mapping0.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mdct.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\psy.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\registry.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\res0.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\smallft.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\synthesis.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisenc.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisfile.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\window.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\analysis.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\bitwise.c">
-      <Filter>Services\Sound\ogg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\framing.c">
-      <Filter>Services\Sound\ogg</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\sharedbook.c">
-      <Filter>Services\Sound\vorbis</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Sound\Sounds.cpp">
       <Filter>Services\Sound</Filter>
     </ClCompile>
@@ -689,6 +614,87 @@
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\Support\fbx\ofbx.cpp">
       <Filter>Support\fbx</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\ogg\src\bitwise.c">
+      <Filter>Support\ogg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\ogg\src\framing.c">
+      <Filter>Support\ogg</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\analysis.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\bitrate.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\block.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\codebook.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\envelope.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\floor0.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\floor1.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\info.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lookup.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lpc.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lsp.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\mapping0.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\mdct.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\psy.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\registry.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\res0.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\sharedbook.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\smallft.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\synthesis.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\vorbisenc.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\vorbisfile.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\window.c">
+      <Filter>Support\vorbis</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleCharacter2D.cpp">
+      <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1243,6 +1249,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\fbx\ofbx.h">
       <Filter>Support\fbx</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.h">
+      <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.h">
+      <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

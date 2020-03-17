@@ -47,6 +47,8 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
@@ -160,35 +162,11 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptContext.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\ScriptCore.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Scripts.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\bitwise.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\ogg\src\framing.c" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\SoundBase.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\SoundInstance.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\Sounds.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\DecodedBuffer.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Sound\SoundStream.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\analysis.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\bitrate.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\block.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\codebook.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\envelope.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor0.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\floor1.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\info.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lookup.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lpc.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\lsp.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mapping0.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\mdct.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\psy.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\registry.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\res0.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\sharedbook.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\smallft.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\synthesis.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisenc.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\vorbisfile.c" />
-    <ClCompile Include="..\..\..\Atum\Services\Sound\vorbis\lib\window.c" />
     <ClCompile Include="..\..\..\Atum\Services\TaskExecutor\TaskExecutor.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\fbx\miniz.c" />
     <ClCompile Include="..\..\..\Atum\Support\fbx\ofbx.cpp" />
@@ -218,9 +196,33 @@
     <ClCompile Include="..\..\..\Atum\Support\MetaData\SceneObjectWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\SpriteWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\StringWidget.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\ogg\src\bitwise.c" />
+    <ClCompile Include="..\..\..\Atum\Support\ogg\src\framing.c" />
     <ClCompile Include="..\..\..\Atum\Support\StringUtils.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\ThreadExecutor.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\analysis.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\bitrate.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\block.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\codebook.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\envelope.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\floor0.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\floor1.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\info.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lookup.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lpc.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\lsp.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\mapping0.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\mdct.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\psy.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\registry.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\res0.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\sharedbook.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\smallft.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\synthesis.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\vorbisenc.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\vorbisfile.c" />
+    <ClCompile Include="..\..\..\Atum\Support\vorbis\lib\window.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Editor\Editor.h" />
@@ -250,6 +252,8 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />
@@ -457,7 +461,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Support\zlib;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Support\ogg\include;..\..\..\Atum\Support\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp14</LanguageStandard>
@@ -478,7 +482,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>PLATFORM_PC;EDITOR;NDEBUG;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Supprort\zlib;..\..\..\Atum\Services\Sound\ogg\include;..\..\..\Atum\Services\Sound\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\Libraries\Angelscript\Include;..\..\..\Libraries\PhysX\Include;..\..\..\Libraries\EUI\include;..\..\..\Atum;..\..\..\Atum\Support\ogg\include;..\..\..\Atum\Support\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <LanguageStandard>stdcpp14</LanguageStandard>
     </ClCompile>

@@ -205,7 +205,7 @@ void JSONWriter::Write(const char* name, Vector& val)
 	FinishBlock();
 }
 
-void JSONWriter::Write(const char* name, Matrix& val)
+void JSONWriter::Write(const char* name, Matrix* val)
 {
 	StartBlock(name);
 
@@ -213,7 +213,7 @@ void JSONWriter::Write(const char* name, Matrix& val)
 	{
 		char tmp[16];
 		sprintf(tmp, "m%i", i);
-		Write(tmp, val.matrix[i]);
+		Write(tmp, val->matrix[i]);
 	}
 
 	FinishBlock();

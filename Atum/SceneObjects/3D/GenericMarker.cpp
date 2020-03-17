@@ -8,9 +8,9 @@ BASE_SCENE_OBJ_PROP(GenericMarker)
 STRING_PROP(GenericMarker, scene_group, "", "Prop", "scene_group")
 META_DATA_DESC_END()
 
-Matrix& GenericMarker::Trans()
+Matrix* GenericMarker::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool GenericMarker::Is3DObject()

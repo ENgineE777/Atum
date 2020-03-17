@@ -42,9 +42,9 @@ void Tank::AddInstance(int id, Vector pos, bool is_bot)
 	state.controller = PScene()->CreateController(cdesc, 1);
 }
 
-Matrix& Tank::Trans()
+Matrix* Tank::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool Tank::Is3DObject()
@@ -298,7 +298,7 @@ void Tank::Update(float dt)
 		{
 			for (auto& obj : group->objects)
 			{
-				AddInstance(index, obj->Trans().Pos(), false);
+				AddInstance(index, obj->Trans()->Pos(), false);
 
 				index++;
 			}
@@ -683,7 +683,7 @@ void Tank::AddSplash(Vector& pos, float radius, float force)
 				continue;
 			}
 
-			Vector dir = box->Trans().Pos() - pos;
+			Vector dir = box->Trans()->Pos() - pos;
 			float len = dir.Normalize();
 
 			if (len < radius)

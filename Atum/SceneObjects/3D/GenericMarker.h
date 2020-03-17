@@ -50,7 +50,7 @@ public:
 #ifndef DOXYGEN_SKIP
 	META_DATA_DECL(GenericMarker)
 
-	Matrix& Trans() override;
+	Matrix* Trans() override;
 	bool Is3DObject() override;
 	void Init() override;
 	void ApplyProperties() override;

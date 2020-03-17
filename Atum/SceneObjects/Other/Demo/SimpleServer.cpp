@@ -35,9 +35,9 @@ void SimpleServer::Blink(float dt)
 	server.Send2All(&koef, 4);
 }
 
-Matrix& SimpleServer::Trans()
+Matrix* SimpleServer::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool SimpleServer::Is3DObject()

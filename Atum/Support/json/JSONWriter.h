@@ -54,7 +54,7 @@ public:
 	void Write(const char* name, int64_t val);
 	void Write(const char* name, Vector2& val);
 	void Write(const char* name, Vector& val);
-	void Write(const char* name, Matrix& val);
+	void Write(const char* name, Matrix* val);
 	void Write(const char* name, Color& val);
 	void Write(const char* name, Quaternion& val);
 

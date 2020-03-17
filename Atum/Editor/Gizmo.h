@@ -50,7 +50,7 @@ public:
 
 private:
 
-	Matrix  transform;
+	Matrix* transform;
 	bool    mousedPressed = false;
 
 	bool use_trans2D = false;
@@ -94,8 +94,7 @@ public:
 
 	void SetTrans2D(Transform2D trans, int actions = 0xffff, bool ignore_2d_camera = false);
 	void SetTrans2D(Vector2 pos);
-	void SetTrans3D(Matrix transform);
-	Matrix& GetTrans3D();
+	void SetTrans3D(Matrix* transform);
 	bool IsTrans2D();
 	bool IsEnabled();
 	void Disable();

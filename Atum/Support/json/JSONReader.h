@@ -55,7 +55,7 @@ public:
 	bool Read(const char* name, int64_t& val);
 	bool Read(const char* name, Vector2& val);
 	bool Read(const char* name, Vector& val);
-	bool Read(const char* name, Matrix& val);
+	bool Read(const char* name, Matrix* val);
 	bool Read(const char* name, Color& val);
 	bool Read(const char* name, Quaternion& val);
 

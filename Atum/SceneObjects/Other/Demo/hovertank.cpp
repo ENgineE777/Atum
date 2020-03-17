@@ -30,9 +30,9 @@ float HoverTank::Projectile::speed = 50.0f;
 float HoverTank::Projectile::splashTime = 0.35f;
 float HoverTank::Projectile::splashMaxRadius = 5.0f;
 
-Matrix& HoverTank::Trans()
+Matrix* HoverTank::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool HoverTank::Is3DObject()
@@ -180,7 +180,7 @@ bool HoverTank::Play()
 
 			Quaternion q(box.obj->Trans());
 
-			PxTransform transform(PxVec3(box.obj->Trans().Pos().x, box.obj->Trans().Pos().y, box.obj->Trans().Pos().z), PxQuat(q.x, q.y, q.z, q.w));
+			PxTransform transform(PxVec3(box.obj->Trans()->Pos().x, box.obj->Trans()->Pos().y, box.obj->Trans()->Pos().z), PxQuat(q.x, q.y, q.z, q.w));
 
 			PxVec3 dimensions(box.obj->sizeX * 0.5f, box.obj->sizeY * 0.5f, box.obj->sizeZ * 0.5f);
 			PxBoxGeometry geometry(dimensions);
@@ -465,7 +465,7 @@ void HoverTank::Update(float dt)
 
 		mat.Pos() = Vector(pT.p.x, pT.p.y, pT.p.z);
 
-		boxes[i].obj->Trans() = mat;
+		(*boxes[i].obj->Trans()) = mat;
 	}
 
 	for (int i = 0; i < projectiles.size(); i++)
@@ -543,7 +543,7 @@ void HoverTank::AddSplash(Vector& pos, float radius, float force)
 			continue;
 		}
 
-		Vector dir = boxes[i].obj->Trans().Pos() - pos;
+		Vector dir = boxes[i].obj->Trans()->Pos() - pos;
 		float len = dir.Normalize();
 
 		if (len < radius)

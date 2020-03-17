@@ -13,9 +13,9 @@ FLOAT_PROP(PhysBox, sizeZ, 1.0f, "Geometry", "SizeZ", "Size along Z axis of a bo
 BOOL_PROP(PhysBox, isStatic, false, "Physics", "Is Static", "Set if object should be satic or dynamic")
 META_DATA_DESC_END()
 
-Matrix& PhysBox::Trans()
+Matrix* PhysBox::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool PhysBox::Is3DObject()

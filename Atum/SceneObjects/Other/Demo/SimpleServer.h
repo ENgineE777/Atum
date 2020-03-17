@@ -18,7 +18,7 @@ public:
 	NetworkServer server;
 	virtual ~SimpleServer() = default;
 
-	Matrix& Trans() override;
+	Matrix* Trans() override;
 	bool Is3DObject() override;
 
 	void Init() override;

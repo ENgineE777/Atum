@@ -527,8 +527,6 @@ void TransformDataTrack::DataToGizmo()
 		Matrix tr;
 		values[edited_key].rot.GetMatrix(tr);
 		tr.Pos() = values[edited_key].pos;
-
-		Gizmo::inst->SetTrans3D(tr);
 	}
 }
 
@@ -536,13 +534,13 @@ void TransformDataTrack::DataFromGizmo()
 {
 	if (edited_key != -1)
 	{
-		if ((values[edited_key].pos - Gizmo::inst->GetTrans3D().Pos()).Length()>0.0001f)
+		/*if ((values[edited_key].pos - Gizmo::inst->GetTrans3D().Pos()).Length()>0.0001f)
 		{
 			wigets->StartEditKey(&values[edited_key]);
 		}
 
 		values[edited_key].rot.Set(Gizmo::inst->GetTrans3D());
-		values[edited_key].pos = Gizmo::inst->GetTrans3D().Pos();
+		values[edited_key].pos = Gizmo::inst->GetTrans3D().Pos();*/
 
 		Prepare();
 	}

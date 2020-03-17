@@ -18,30 +18,15 @@ void Mesh::Instance::Init(Mesh* model, TaskExecutor::SingleTaskPool* setTaskPool
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
 }
 
-void Mesh::Instance::SetColor(Vector4& set_color)
-{
-	color = set_color;
-}
-
 void Mesh::Instance::SetPosition(Vector2 pos)
 {
 	Vector centerPos = (res->bb_max + res->bb_min) * 0.5f;
 
-	world.Identity();
-	world.Pos() = -centerPos;
-	world.Pos().x += pos.x;
-	world.Pos().y = res->bb_min.y + 0.0f;
-	world.Pos().z += pos.y;
-}
-
-void Mesh::Instance::SetTransform(Matrix& mat)
-{
-	world = mat;
-}
-
-void Mesh::Instance::Show(bool set)
-{
-	show = set;
+	transform.Identity();
+	transform.Pos() = -centerPos;
+	transform.Pos().x += pos.x;
+	transform.Pos().y = res->bb_min.y + 0.0f;
+	transform.Pos().z += pos.y;
 }
 
 void Mesh::Instance::Render(float dt)
@@ -66,9 +51,9 @@ void Mesh::Instance::Render(Program* prg)
 
 	core.render.GetDevice()->SetProgram(prg);
 
-	prg->SetMatrix(Shader::Type::Vertex, "trans", &world, 1);
+	prg->SetMatrix(Shader::Type::Vertex, "trans", &transform, 1);
 	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &trans, 1);
-	prg->SetVector(Shader::Type::Pixel, "color", &color, 1);
+	prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&color, 1);
 
 	core.render.GetDevice()->SetVertexDecl(res->vdecl);
 

@@ -483,14 +483,9 @@ void MetaData::UpdateWidgets()
 bool MetaData::IsValueWasChanged()
 {
 	bool res = false;
+
 	for (auto& prop : properties)
 	{
-		if (prop.type == Type::Array)
-		{
-			res |= prop.adapter->GetMetaData()->IsValueWasChanged();
-			continue;
-		}
-
 		for (auto& widget : prop.widgets)
 		{
 			if (!widget.second->panel->IsVisible())
@@ -500,6 +495,12 @@ bool MetaData::IsValueWasChanged()
 
 			res |= widget.second->changed;
 			widget.second->changed = false;
+
+			if (prop.type == Type::Array)
+			{
+				res |= prop.adapter->GetMetaData()->IsValueWasChanged();
+				continue;
+			}
 		}
 	}
 

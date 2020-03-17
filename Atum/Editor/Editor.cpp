@@ -461,7 +461,11 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 
 	if (obj->Is3DObject())
 	{
-		obj->Trans().Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+		Matrix* mat = obj->Trans();
+		if (mat)
+		{
+			mat->Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+		}
 	}
 	else
 	{
@@ -795,8 +799,6 @@ void Editor::OnMouseMove(EUIWidget* sender, int mx, int my)
 					allowCopy = false;
 					//CopyObject(selectedObject, scene_treeview->GetItemParent(selectedObject->item), false);
 				}
-
-				selectedObject->Trans() = gizmo.GetTrans3D();
 			}
 		}
 	}

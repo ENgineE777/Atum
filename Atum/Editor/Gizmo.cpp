@@ -81,17 +81,12 @@ void Gizmo::SetTrans2D(Vector2 set_pos)
 	pos2d = set_pos;
 }
 
-void Gizmo::SetTrans3D(Matrix set_transform)
+void Gizmo::SetTrans3D(Matrix* set_transform)
 {
 	use_trans2D = false;
 
 	transform = set_transform;
 	enabled = true;
-}
-
-Matrix& Gizmo::GetTrans3D()
-{
-	return transform;
 }
 
 bool Gizmo::IsEnabled()
@@ -147,7 +142,7 @@ Color Gizmo::CheckColor(int axis)
 
 void Gizmo::DrawAxis(int axis)
 {
-	Vector tr = transform.Pos();
+	Vector tr = transform->Pos();
 
 	Color color = CheckColor(axis);
 	Vector dir;
@@ -169,7 +164,7 @@ void Gizmo::DrawAxis(int axis)
 
 	if (useLocalSpace)
 	{
-		dir = transform.MulNormal(dir);
+		dir = transform->MulNormal(dir);
 	}
 
 	dir += tr;
@@ -203,7 +198,7 @@ void Gizmo::DrawAxis(int axis)
 
 		if (useLocalSpace)
 		{
-			pos = transform.MulNormal(pos);
+			pos = transform->MulNormal(pos);
 		}
 
 		core.render.DebugLine(dir, color, pos + tr, color, false);
@@ -222,7 +217,7 @@ void Gizmo::DrawCircle(int axis)
 	}
 	else
 	{
-		mat.Pos() = transform.Pos();
+		mat.Pos() = transform->Pos();
 	}
 
 	Matrix view;
@@ -292,11 +287,11 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2, Vector2 ms,
 {
 	if (useLocalSpace)
 	{
-		pos = transform.MulNormal(pos);
-		pos2 = transform.MulNormal(pos2);
+		pos = transform->MulNormal(pos);
+		pos2 = transform->MulNormal(pos2);
 	}
 
-	Vector tr = transform.Pos();
+	Vector tr = transform->Pos();
 
 	pos += tr;
 	pos2 += tr;
@@ -437,7 +432,7 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 	else
 	if (mode == 1)
 	{
-		Vector trans = transform.Pos() * view;
+		Vector trans = transform->Pos() * view;
 
 		float r = scale;
 		float last_dx = -r * 2;
@@ -644,16 +639,16 @@ void Gizmo::MoveTrans3D(Vector2 ms)
 
 		if (selAxis == 0)
 		{
-			transform._41 += da;
+			transform->_41 += da;
 		}
 		else
 		if (selAxis == 1)
 		{
-			transform._42 += da;
+			transform->_42 += da;
 		}
 		else
 		{
-			transform._43 += da;
+			transform->_43 += da;
 		}
 	}
 	else
@@ -679,13 +674,13 @@ void Gizmo::MoveTrans3D(Vector2 ms)
 
 		if (useLocalSpace)
 		{
-			transform = rot * transform;
+			(*transform) = rot * (*transform);
 		}
 		else
 		{
-			Vector tr = transform.Pos();
-			transform = transform * rot;
-			transform.Pos() = tr;
+			Vector tr = transform->Pos();
+			(*transform) = (*transform) * rot;
+			transform->Pos() = tr;
 		}
 	}
 }
@@ -802,7 +797,7 @@ void Gizmo::RenderTrans3D()
 	core.render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
 
-	Vector pos = transform.Pos();
+	Vector pos = transform->Pos();
 	float z = pos.x*view_proj._13 + pos.y*view_proj._23 + pos.z*view_proj._33 + view_proj._43;
 
 	scale = 0.1f * (1.0f + z);

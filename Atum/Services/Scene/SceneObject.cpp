@@ -367,10 +367,9 @@ SceneObject::State SceneObject::GetState()
 	return state;
 }
 
-Matrix& SceneObject::Trans()
+Matrix* SceneObject::Trans()
 {
-	static Matrix mat;
-	return mat;
+	return nullptr;
 }
 
 bool SceneObject::UsingCamera2DPos()
@@ -685,7 +684,12 @@ void SceneObject::Copy(SceneObject* src)
 {
 	cam2d_pos = src->cam2d_pos;
 	cam2d_zoom = src->cam2d_zoom;
-	Trans() = src->Trans();
+
+	if (Trans())
+	{
+		(*Trans()) = (*src->Trans());
+	}
+
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();
 
@@ -826,7 +830,12 @@ void SceneObjectInst::Copy(SceneObject* src)
 
 	cam2d_pos = src->cam2d_pos;
 	cam2d_zoom = src->cam2d_zoom;
-	Trans() = src->Trans();
+
+	if (Trans())
+	{
+		(*Trans()) = (*src->Trans());
+	}
+
 	src->GetMetaData()->Copy(src);
 	ApplyProperties();
 

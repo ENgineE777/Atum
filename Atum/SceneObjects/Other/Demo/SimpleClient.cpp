@@ -8,9 +8,9 @@ META_DATA_DESC(SimpleClient)
 BASE_SCENE_OBJ_PROP(SimpleClient)
 META_DATA_DESC_END()
 
-Matrix& SimpleClient::Trans()
+Matrix* SimpleClient::Trans()
 {
-	return transform;
+	return &transform;
 }
 
 bool SimpleClient::Is3DObject()

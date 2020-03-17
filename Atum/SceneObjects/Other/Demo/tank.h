@@ -101,7 +101,7 @@ public:
 
 	void AddInstance(int id, Vector pos, bool is_bot);
 
-	Matrix& Trans() override;
+	Matrix* Trans() override;
 	bool Is3DObject() override;
 
 	bool Play() override;

@@ -416,7 +416,7 @@ bool JSONReader::Read(const char* name, Vector& val)
 	return false;
 }
 
-bool JSONReader::Read(const char* name, Matrix& val)
+bool JSONReader::Read(const char* name, Matrix* val)
 {
 	if (EnterBlock(name))
 	{
@@ -424,7 +424,7 @@ bool JSONReader::Read(const char* name, Matrix& val)
 		{
 			char tmp[16];
 			sprintf(tmp, "m%i", i);
-			Read(tmp, val.matrix[i]);
+			Read(tmp, val->matrix[i]);
 		}
 		
 		LeaveBlock();

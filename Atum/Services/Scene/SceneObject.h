@@ -167,7 +167,7 @@ public:
 
 	\return Transformation in 3D space of scene object
 	*/
-	virtual Matrix& Trans();
+	virtual Matrix* Trans();
 
 	/**
 	\brief Should 2D space used for a scene object

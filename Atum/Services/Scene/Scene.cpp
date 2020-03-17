@@ -237,7 +237,7 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 				GenerateUID(obj, is_asset);
 			}
 
-			if (obj->Is3DObject())
+			if (obj->Is3DObject() && obj->Trans())
 			{
 				reader.Read("transform", obj->Trans());
 			}
@@ -357,7 +357,7 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 		writer.Write("type", obj->class_name);
 		writer.Write("uid", obj->GetUID());
 
-		if (obj->Is3DObject())
+		if (obj->Is3DObject() && obj->Trans())
 		{
 			writer.Write("transform", obj->Trans());
 		}

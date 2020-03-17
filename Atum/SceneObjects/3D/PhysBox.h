@@ -84,7 +84,7 @@ public:
 
 	virtual ~PhysBox() = default;
 
-	Matrix& Trans() override;
+	Matrix* Trans() override;
 	bool Is3DObject() override;
 	void Init() override;
 	void Draw(float dt);

@@ -1010,7 +1010,7 @@ void Project::EnableScene(SceneHolder* holder, bool enable)
 	holder->scene->EnableTasks(enable);
 }
 
-void Project::CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection)
+void Project::CheckSelection(Vector2 ms, Vector start, Vector dir, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection)
 {
 	for (auto& obj : holder->scene->objects)
 	{
@@ -1024,7 +1024,7 @@ void Project::CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject
 			continue;
 		}
 
-		if (obj->CheckSelection(ms))
+		if (obj->CheckSelection(ms, start, dir))
 		{
 			tmp_under_selection.push_back(obj);
 		}
@@ -1032,15 +1032,15 @@ void Project::CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject
 
 	for (auto& incl : holder->included)
 	{
-		CheckSelection(ms, incl, tmp_under_selection);
+		CheckSelection(ms, start, dir, incl, tmp_under_selection);
 	}
 }
 
-SceneObject* Project::CheckSelection(Vector2 ms)
+SceneObject* Project::CheckSelection(Vector2 ms, Vector start, Vector dir)
 {
 	vector<SceneObject*> tmp_under_selection;
 
-	CheckSelection(ms, select_scene, tmp_under_selection);
+	CheckSelection(ms, start, dir, select_scene, tmp_under_selection);
 
 	bool same_selection = true;
 

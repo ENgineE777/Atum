@@ -137,7 +137,7 @@ public:
 	void SyncPosTrackWithInstPos(int index);
 	void InstAdded(int create_from) override;
 	void InstDeleted(int index) override;
-	void CheckSelection(Vector2 ms) override;
+	void CheckSelection(Vector2 ms, Vector start, Vector dir) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
 #endif

@@ -812,6 +812,22 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 
 	if (sender == viewport || sender == game_viewport)
 	{
+		Vector2 screen_pos = Vector2((float)mx / (float)core.render.GetDevice()->GetWidth(), (float)my / (float)core.render.GetDevice()->GetHeight());
+
+		Vector v;
+		v.x = (2.0f * screen_pos.x - 1) / freecamera.proj._11;
+		v.y = -(2.0f * screen_pos.y - 1) / freecamera.proj._22;
+		v.z = 1.0f;
+
+		Matrix inv_view = freecamera.view;
+		inv_view.Inverse();
+
+		Vector dir;
+		dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
+		dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
+		dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
+		dir.Normalize();
+
 		if (core.controls.DebugKeyPressed("KEY_LCONTROL", Controls::Active) && (!isSelectedAsset || !selectedObject))
 		{
 			if (selectedObject && !selectedObject->IsEditMode())
@@ -820,7 +836,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 				{
 					if (comp->IsEditMode())
 					{
-						comp->CheckSelection({ (float)mx, (float)my });
+						comp->CheckSelection({ (float)mx, (float)my }, inv_view.Pos(), dir);
 						break;
 					}
 				}
@@ -828,7 +844,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 			else
 			if (!selectedObject || !selectedObject->HasOwnTasks())
 			{
-				SelectObject(project.CheckSelection({ (float)mx, (float)my }), false);
+				SelectObject(project.CheckSelection({ (float)mx, (float)my }, inv_view.Pos(), dir), false);
 			}
 		}
 		else

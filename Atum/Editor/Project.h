@@ -157,8 +157,8 @@ public:
 
 	int under_selection_index = 0;
 	vector<SceneObject*> under_selection;
-	void CheckSelection(Vector2 ms, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection);
-	SceneObject* CheckSelection(Vector2 ms);
+	void CheckSelection(Vector2 ms, Vector start, Vector dir, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection);
+	SceneObject* CheckSelection(Vector2 ms, Vector start, Vector dir);
 	void SetScene(EUITreeView* treeview, void* item, Scene* scene);
 	void GenerateUID(SceneHolder* holder);
 	bool OnTreeViewItemDragged(void* item, void* parent);

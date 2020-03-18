@@ -295,7 +295,7 @@ public:
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
 	virtual bool IsAsset();
-	virtual bool CheckSelection(Vector2 ms);
+	virtual bool CheckSelection(Vector2 ms, Vector start, Vector dir);
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();

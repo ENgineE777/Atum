@@ -55,7 +55,7 @@ public:
 	virtual void InstDeleted(int index);
 	virtual void SetEditMode(bool ed);
 	virtual bool IsEditMode();
-	virtual void CheckSelection(Vector2 ms);
+	virtual void CheckSelection(Vector2 ms, Vector start, Vector dir);
 #endif
 };
 

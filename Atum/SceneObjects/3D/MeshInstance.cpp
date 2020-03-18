@@ -87,6 +87,30 @@ void MeshInstance::Draw(float dt)
 {
 }
 
+bool MeshInstance::CheckSelection(Vector2 ms, Vector start, Vector dir)
+{
+	sel_inst = -1;
+
+	for (int i = 0; i < instances.size(); i++)
+	{
+		auto instance = instances[i];
+
+		if (Math::IntersectBBoxRay(instance.mesh->transform.Pos() + instance.mesh->GetBBMin(), instance.mesh->transform.Pos() + instance.mesh->GetBBMax(), start, dir))
+		{
+			sel_inst = i;
+
+			if (IsEditMode())
+			{
+				SetGizmo();
+			}
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
 void MeshInstance::SetEditMode(bool ed)
 {
 	SceneObject::SetEditMode(ed);

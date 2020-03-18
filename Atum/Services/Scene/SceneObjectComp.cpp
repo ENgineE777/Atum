@@ -78,7 +78,7 @@ bool SceneObjectComp::IsEditMode()
 	return edited;
 }
 
-void SceneObjectComp::CheckSelection(Vector2 ms)
+void SceneObjectComp::CheckSelection(Vector2 ms, Vector start, Vector dir)
 {
 
 }

@@ -415,7 +415,7 @@ void NavMesh2D::OnLeftMouseUp()
 	}
 }
 
-bool NavMesh2D::CheckSelection(Vector2 ms)
+bool NavMesh2D::CheckSelection(Vector2 ms, Vector start, Vector dir)
 {
 	ms = Sprite::MoveFromCamera(ms);
 	float sz = Sprite::ScaleToAbs(10.0f);

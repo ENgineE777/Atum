@@ -617,7 +617,7 @@ bool SceneObject::IsAsset()
 	return false;
 }
 
-bool SceneObject::CheckSelection(Vector2 ms)
+bool SceneObject::CheckSelection(Vector2 ms, Vector start, Vector dir)
 {
 	return false;
 }

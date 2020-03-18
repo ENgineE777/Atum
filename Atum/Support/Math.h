@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Vector2.h"
+#include "Vector.h"
 #include "std.h"
 
 namespace Math
@@ -17,4 +18,5 @@ namespace Math
 	float Clamp(float value, float a, float b);
 	float Sign(float value);
 	float AdvanceAngle(float angle, float target_angle, float delta_angle);
+	bool IntersectBBoxRay(Vector vmin, Vector vmax, Vector start, Vector dir);
 }

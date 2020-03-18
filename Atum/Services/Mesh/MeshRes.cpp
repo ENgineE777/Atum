@@ -18,6 +18,16 @@ void Mesh::Instance::Init(Mesh* model, TaskExecutor::SingleTaskPool* setTaskPool
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
 }
 
+Vector Mesh::Instance::GetBBMin()
+{
+	return res->bb_min;
+}
+
+Vector Mesh::Instance::GetBBMax()
+{
+	return res->bb_max;
+}
+
 void Mesh::Instance::SetPosition(Vector2 pos)
 {
 	Vector centerPos = (res->bb_max + res->bb_min) * 0.5f;

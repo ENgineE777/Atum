@@ -22,6 +22,9 @@ public:
 		void Init(Mesh* mesh, TaskExecutor::SingleTaskPool* taskPool);
 		void SetPosition(Vector2 pos);
 
+		Vector GetBBMin();
+		Vector GetBBMax();
+
 		void Render(float dt);
 		void ShRender(float dt);
 		void Render(Program* prg);
@@ -48,8 +51,6 @@ public:
 
 	Vector bb_max;
 	Vector bb_min;
-
-	Matrix world;
 
 	std::vector<Texture*> textures;
 	std::vector<SubMesh> meshes;

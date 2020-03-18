@@ -1,6 +1,10 @@
 
 #include "MeshInstance.h"
 
+#ifdef EDITOR
+#include "Editor/Editor.h"
+#endif
+
 CLASSREG(SceneObject, MeshInstance, "Mesh")
 
 META_DATA_DESC(MeshInstance::Instance)
@@ -85,6 +89,59 @@ void MeshInstance::Save(JSONWriter& writer)
 
 void MeshInstance::Draw(float dt)
 {
+#ifdef EDITOR
+	if (edited)
+	{
+		if (core.controls.DebugKeyPressed("KEY_I") && sel_inst != -1)
+		{
+			for (auto comp : components)
+			{
+				comp->InstDeleted(sel_inst);
+			}
+
+			RELEASE(instances[sel_inst].mesh)
+			instances.erase(sel_inst + instances.begin());
+			sel_inst = -1;
+			SetGizmo();
+		}
+
+		bool add_center = core.controls.DebugKeyPressed("KEY_P");
+		bool add_copy = core.controls.DebugKeyPressed("KEY_O");
+
+		if (add_center || (add_copy && sel_inst != -1))
+		{
+			Instance inst;
+
+			if (add_copy)
+			{
+				inst = instances[sel_inst];
+			}
+
+			inst.mesh = core.meshes.LoadMesh(Asset()->mesh_name.c_str(), RenderTasks(false));
+
+			if (add_copy)
+			{
+				inst.mesh->color = instances[sel_inst].color;
+				inst.mesh->transform = instances[sel_inst].mesh->transform;
+				inst.mesh->transform.Pos().x += 1.0f;
+			}
+			else
+			{
+				inst.mesh->transform.Move(editor.freecamera.pos + Vector(cosf(editor.freecamera.angles.x), sinf(editor.freecamera.angles.y), sinf(editor.freecamera.angles.x)) * 5.0f);
+			}
+
+			instances.push_back(inst);
+
+			for (auto comp : components)
+			{
+				comp->InstAdded(add_copy ? sel_inst : -1);
+			}
+
+			sel_inst = (int)instances.size() - 1;
+			SetGizmo();
+		}
+	}
+#endif
 }
 
 bool MeshInstance::CheckSelection(Vector2 ms, Vector start, Vector dir)

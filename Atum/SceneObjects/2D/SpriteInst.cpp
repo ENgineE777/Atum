@@ -388,7 +388,6 @@ void SpriteInst::BindClassToScript()
 	core.scripts.RegisterObjectMethod(script_class_name, "int AddInstance(float x, float y, bool auto_delete)", WRAP_MFN(SpriteInst, AddInstance), "Add instance. auto_delete conytols if instance should be aito deleted after animation of instance will be finished");
 	core.scripts.RegisterObjectMethod(script_class_name, "void RemoveInstance(int index)", WRAP_MFN(SpriteInst, RemoveInstance), "Remove instance");
 	core.scripts.RegisterObjectMethod(script_class_name, "void ClearInstances()", WRAP_MFN(SpriteInst, ClearInstances), "Delete all instances");
-
 }
 
 void SpriteInst::MakeMapping(asIScriptObject* object, const char* prefix)

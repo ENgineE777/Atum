@@ -25,7 +25,7 @@ bool MeshAsset::Is3DObject()
 
 void MeshAsset::Init()
 {
-	Tasks(false)->AddTask(100, this, (Object::Delegate)&MeshAsset::Draw);
+	Tasks(true)->AddTask(100, this, (Object::Delegate)&MeshAsset::Draw);
 }
 
 void MeshAsset::ApplyProperties()

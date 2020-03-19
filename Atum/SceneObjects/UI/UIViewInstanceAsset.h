@@ -66,7 +66,7 @@ public:
 
 #ifdef EDITOR
 	bool IsAsset() override;
-	bool UsingCamera2DPos() override;
+	bool UsingOwnCamera() override;
 	void AddWidgetToTreeView(EUITreeView* treeview, UIWidgetAsset* widget, void* parent_item);
 	void AddChildsToTree(EUITreeView* treeview) override;
 #endif

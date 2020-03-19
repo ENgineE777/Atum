@@ -106,8 +106,11 @@ public:
 	const char* class_name = nullptr;
 	const char* script_class_name = nullptr;
 
-	Vector2 cam2d_pos = 0.0f;
-	float cam2d_zoom = 1.0f;
+	Vector2 camera3d_angles = 0.0f;
+	Vector  camera3d_pos = 0.0f;
+
+	Vector2 camera2d_pos = 0.0f;
+	float camera2d_zoom = 1.0f;
 
 	vector<SceneObjectComp*> components;
 
@@ -174,7 +177,7 @@ public:
 
 	\return Should 2D space used for a scene object
 	*/
-	virtual bool UsingCamera2DPos();
+	virtual bool UsingOwnCamera();
 
 	/**
 	\brief This method called after each change of properties of scene object via editor

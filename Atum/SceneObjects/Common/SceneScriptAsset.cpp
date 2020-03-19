@@ -531,7 +531,7 @@ void SceneScriptAsset::Release()
 	}*/
 }
 
-bool SceneScriptAsset::UsingCamera2DPos()
+bool SceneScriptAsset::UsingOwnCamera()
 {
 	return true;
 }

@@ -324,7 +324,7 @@ void UIWidgetAsset::SetScene(Scene* set_scene)
 	}
 }
 
-bool UIWidgetAsset::UsingCamera2DPos()
+bool UIWidgetAsset::UsingOwnCamera()
 {
 	return !AddedToTreeByParent();
 }

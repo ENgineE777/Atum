@@ -122,7 +122,7 @@ public:
 
 	void PrepareInstance(Instance* inst);
 
-	bool UsingCamera2DPos() override;
+	bool UsingOwnCamera() override;
 
 #ifdef EDITOR
 	Vector2 nodeSize = Vector2(150.0f, 80.0f);

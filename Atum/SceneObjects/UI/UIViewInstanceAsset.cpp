@@ -185,7 +185,7 @@ bool UIViewInstance::IsAsset()
 	return false;
 }
 
-bool UIViewInstance::UsingCamera2DPos()
+bool UIViewInstance::UsingOwnCamera()
 {
 	return false;
 }

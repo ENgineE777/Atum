@@ -27,7 +27,7 @@ public:
 #ifndef DOXYGEN_SKIP
 	virtual ~SceneAsset() = default;
 
-	bool UsingCamera2DPos() override;
+	bool UsingOwnCamera() override;
 
 	const char* inst_class_name = nullptr;
 

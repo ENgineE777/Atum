@@ -2,6 +2,7 @@
 #include "SceneAsset.h"
 
 #ifdef EDITOR
+#include "Editor/Editor.h"
 #include "Editor/Project.h"
 
 SceneAsset::AssetInstance::AssetInstance(SceneObject* set_object)
@@ -26,7 +27,7 @@ SceneObject* SceneAsset::AssetInstance::GetObject()
 }
 #endif
 
-bool SceneAsset::UsingCamera2DPos()
+bool SceneAsset::UsingOwnCamera()
 {
 	return true;
 }
@@ -54,7 +55,21 @@ SceneObject* SceneAsset::CreateInstance(Scene* scene)
 
 	inst->asset_uid = GetUID();
 	inst->asset = this;
-	inst->cam2d_pos = cam2d_pos;
+
+	if (inst->UsingOwnCamera())
+	{
+		if (inst->Is3DObject())
+		{
+			inst->camera3d_pos = editor.freecamera.pos;
+			inst->camera3d_angles = editor.freecamera.angles;
+		}
+		else
+		{
+			inst->camera2d_pos = camera2d_pos;
+			inst->camera2d_zoom = camera2d_zoom;
+		}
+	}
+
 	inst->ApplyProperties();
 	inst->SetName(GetName());
 

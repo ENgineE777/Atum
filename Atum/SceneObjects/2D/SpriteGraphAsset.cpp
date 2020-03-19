@@ -533,7 +533,7 @@ void SpriteGraphAsset::Draw(float dt)
 }
 #endif
 
-bool SpriteGraphAsset::UsingCamera2DPos()
+bool SpriteGraphAsset::UsingOwnCamera()
 {
 	return true;
 }
@@ -674,7 +674,8 @@ void SpriteGraphAsset::ShowProperties(bool show)
 void SpriteGraphAsset::Copy(SceneObject* src)
 {
 	SpriteGraphAsset* src_graph = (SpriteGraphAsset*)src;
-	cam2d_pos = src_graph->cam2d_pos;
+	camera2d_pos = src_graph->camera2d_pos;
+	camera2d_zoom = src_graph->camera2d_zoom;
 	def_node = src_graph->def_node;
 
 	nodes = src_graph->nodes;

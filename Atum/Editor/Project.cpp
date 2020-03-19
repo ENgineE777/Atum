@@ -248,19 +248,7 @@ void Project::Save()
 
 		GrabSceneNodes(select_scene);
 
-		editor.freecamera.angles = select_scene->scene->camera3d_angles;
-		editor.freecamera.pos = select_scene->scene->camera3d_pos;
-
-		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
-		{
-			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
-			editor.selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
-		}
-		else
-		{
-			select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
-			select_scene->scene->camera2d_zoom = Sprite::ed_cam_zoom;
-		}
+		SaveCameraPos(select_scene);
 	}
 
 	for (auto& holder : scenes)
@@ -693,23 +681,12 @@ void Project::SelectScene(SceneHolder* holder)
 
 	if (prev_select_scene)
 	{
-		if (editor.selectedObject && editor.selectedObject->UsingCamera2DPos())
-		{
-			editor.selectedObject->cam2d_pos = Sprite::ed_cam_pos;
-			editor.selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
-		}
-		else
-		{
-			prev_select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
-		}
+		SaveCameraPos(prev_select_scene);
 
 		editor.zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 
 		FillSelectedObject(prev_select_scene);
 		editor.SelectObject(nullptr, false);
-
-		prev_select_scene->scene->camera3d_angles = editor.freecamera.angles;
-		prev_select_scene->scene->camera3d_pos = editor.freecamera.pos;
 
 		GrabSceneNodes(prev_select_scene);
 
@@ -732,6 +709,7 @@ void Project::SelectScene(SceneHolder* holder)
 		editor.freecamera.pos = select_scene->scene->camera3d_pos;
 		Sprite::ed_cam_pos = select_scene->scene->camera2d_pos;
 		Sprite::ed_cam_zoom = select_scene->scene->camera2d_zoom;
+
 		editor.moveModeBtn->SetPushed(select_scene->scene->move_mode == 1);
 		editor.x_align->SetText(select_scene->scene->gizmo2d_align_x);
 		editor.y_align->SetText(select_scene->scene->gizmo2d_align_y);
@@ -1468,5 +1446,30 @@ void Project::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 	{
 		SelectExportDir();
 		export_btn->SetText(export_dir.c_str());
+	}
+}
+
+void Project::SaveCameraPos(SceneHolder* holder)
+{
+	if (editor.selectedObject && editor.selectedObject->UsingOwnCamera())
+	{
+		if (editor.selectedObject->Is3DObject())
+		{
+			editor.selectedObject->camera3d_angles = editor.freecamera.angles;
+			editor.selectedObject->camera3d_pos = editor.freecamera.pos;
+		}
+		else
+		{
+			editor.selectedObject->camera2d_pos = Sprite::ed_cam_pos;
+			editor.selectedObject->camera2d_zoom = Sprite::ed_cam_zoom;
+		}
+	}
+	else
+	{
+		holder->scene->camera2d_pos = Sprite::ed_cam_pos;
+		holder->scene->camera2d_zoom = Sprite::ed_cam_zoom;
+
+		holder->scene->camera3d_angles = editor.freecamera.angles;
+		holder->scene->camera3d_pos = editor.freecamera.pos;
 	}
 }

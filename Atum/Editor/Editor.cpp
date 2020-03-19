@@ -314,13 +314,37 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 
 	if (selectedObject)
 	{
-		if (selectedObject->UsingCamera2DPos())
+		if (selectedObject->Is3DObject())
 		{
-			selectedObject->cam2d_pos = Sprite::ed_cam_pos;
-			selectedObject->cam2d_zoom = Sprite::ed_cam_zoom;
+			if (selectedObject->UsingOwnCamera())
+			{
+				selectedObject->camera3d_pos = freecamera.pos;
+				selectedObject->camera3d_angles = freecamera.angles;
 
-			Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
-			Sprite::ed_cam_zoom = project.select_scene->scene->camera2d_zoom;
+				freecamera.pos = project.select_scene->scene->camera3d_pos;
+				freecamera.angles = project.select_scene->scene->camera3d_angles;
+			}
+			else
+			{
+				project.select_scene->scene->camera3d_pos = freecamera.pos;
+				project.select_scene->scene->camera3d_angles = freecamera.angles;
+			}
+		}
+		else
+		{
+			if (selectedObject->UsingOwnCamera())
+			{
+				selectedObject->camera2d_pos = Sprite::ed_cam_pos;
+				selectedObject->camera2d_zoom = Sprite::ed_cam_zoom;
+
+				Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
+				Sprite::ed_cam_zoom = project.select_scene->scene->camera2d_zoom;
+			}
+			else
+			{
+				Sprite::ed_cam_pos = selectedObject->camera2d_pos;
+				Sprite::ed_cam_zoom = selectedObject->camera2d_zoom;
+			}
 		}
 
 		selectedObject->ShowPropWidgets(nullptr);
@@ -355,13 +379,18 @@ void Editor::SelectObject(SceneObject* obj, bool is_asset)
 		obj->EnableTasks(true);
 		obj->SetEditMode(true);
 
-		if (selectedObject->UsingCamera2DPos())
+		if (selectedObject->UsingOwnCamera())
 		{
-			project.select_scene->scene->camera2d_pos = Sprite::ed_cam_pos;
-			project.select_scene->scene->camera2d_zoom = Sprite::ed_cam_zoom;
-
-			Sprite::ed_cam_pos = selectedObject->cam2d_pos;
-			Sprite::ed_cam_zoom = selectedObject->cam2d_zoom;
+			if (selectedObject->Is3DObject())
+			{
+				freecamera.pos = selectedObject->camera3d_pos;
+				freecamera.angles = selectedObject->camera3d_angles;
+			}
+			else
+			{
+				Sprite::ed_cam_pos = selectedObject->camera2d_pos;
+				Sprite::ed_cam_zoom = selectedObject->camera2d_zoom;
+			}
 		}
 
 		int panel_width = 1;
@@ -575,16 +604,6 @@ void Editor::StopScene()
 	if (project.select_scene)
 	{
 		project.EnableScene(project.select_scene, true);
-	}
-	
-	if (selectedObject && selectedObject->UsingCamera2DPos())
-	{
-		Sprite::ed_cam_pos = selectedObject->cam2d_pos;
-	}
-	else
-	if (project.select_scene)
-	{
-		Sprite::ed_cam_pos = project.select_scene->scene->camera2d_pos;
 	}
 
 	if (selectedObject)

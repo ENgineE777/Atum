@@ -173,6 +173,8 @@ public:
 	void SelectExportDir();
 	void OnWinClose(EUIWidget* sender) override;
 	void OnLeftMouseUp(EUIWidget* sender, int mx, int my) override;
+
+	void SaveCameraPos(SceneHolder* holder);
 };
 
 extern Project project;

@@ -242,10 +242,18 @@ void Scene::Load(JSONReader& reader, std::vector<SceneObject*>& objects, const c
 				reader.Read("transform", obj->Trans());
 			}
 
-			if (obj->UsingCamera2DPos())
+			if (obj->UsingOwnCamera())
 			{
-				reader.Read("ed_camera_2d", obj->cam2d_pos);
-				reader.Read("ed_camera_2d_zoom", obj->cam2d_zoom);
+				if (obj->Is3DObject())
+				{
+					reader.Read("ed_camera_3d_pos", obj->camera3d_pos);
+					reader.Read("ed_camera_3d_angles", obj->camera3d_angles);
+				}
+				else
+				{
+					reader.Read("ed_camera_2d", obj->camera2d_pos);
+					reader.Read("ed_camera_2d_zoom", obj->camera2d_zoom);
+				}
 			}
 
 			obj->Load(reader);
@@ -362,10 +370,18 @@ void Scene::Save(JSONWriter& writer, std::vector<SceneObject*>& objects, const c
 			writer.Write("transform", obj->Trans());
 		}
 		
-		if (obj->UsingCamera2DPos())
+		if (obj->UsingOwnCamera())
 		{
-			writer.Write("ed_camera_2d", obj->cam2d_pos);
-			writer.Write("ed_camera_2d_zoom", obj->cam2d_zoom);
+			if (obj->Is3DObject())
+			{
+				writer.Write("ed_camera_3d_pos", obj->camera3d_pos);
+				writer.Write("ed_camera_3d_angles", obj->camera3d_angles);
+			}
+			else
+			{
+				writer.Write("ed_camera_2d", obj->camera2d_pos);
+				writer.Write("ed_camera_2d_zoom", obj->camera2d_zoom);
+			}
 		}
 
 		obj->Save(writer);

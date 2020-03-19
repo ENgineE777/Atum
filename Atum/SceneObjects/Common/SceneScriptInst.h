@@ -91,7 +91,7 @@ public:
 	void CallOnInitScript();
 	void Release() override;
 
-	bool UsingCamera2DPos() override;
+	bool UsingOwnCamera() override;
 
 	void CallMethods(vector<SceneScriptAsset::NodeScriptMethod*> methods, bool use_dt);
 

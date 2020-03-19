@@ -443,7 +443,7 @@ void SceneScriptInst::Release()
 	SceneObjectInst::Release();
 }
 
-bool SceneScriptInst::UsingCamera2DPos()
+bool SceneScriptInst::UsingOwnCamera()
 {
 	return true;
 }

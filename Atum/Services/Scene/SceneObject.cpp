@@ -372,7 +372,7 @@ Matrix* SceneObject::Trans()
 	return nullptr;
 }
 
-bool SceneObject::UsingCamera2DPos()
+bool SceneObject::UsingOwnCamera()
 {
 	return false;
 }
@@ -682,8 +682,19 @@ void SceneObject::CheckProperties()
 
 void SceneObject::Copy(SceneObject* src)
 {
-	cam2d_pos = src->cam2d_pos;
-	cam2d_zoom = src->cam2d_zoom;
+	if (UsingOwnCamera())
+	{
+		if (Is3DObject())
+		{
+			camera3d_pos = src->camera3d_pos;
+			camera3d_angles = src->camera3d_angles;
+		}
+		else
+		{
+			camera2d_pos = src->camera2d_pos;
+			camera2d_zoom = src->camera2d_zoom;
+		}
+	}
 
 	if (Trans())
 	{
@@ -828,8 +839,19 @@ void SceneObjectInst::Copy(SceneObject* src)
 {
 	asset_uid = ((SceneObjectInst*)src)->asset_uid;
 
-	cam2d_pos = src->cam2d_pos;
-	cam2d_zoom = src->cam2d_zoom;
+	if (UsingOwnCamera())
+	{
+		if (Is3DObject())
+		{
+			camera3d_pos = src->camera3d_pos;
+			camera3d_angles = src->camera3d_angles;
+		}
+		else
+		{
+			camera2d_pos = src->camera2d_pos;
+			camera2d_zoom = src->camera2d_zoom;
+		}
+	}
 
 	if (Trans())
 	{

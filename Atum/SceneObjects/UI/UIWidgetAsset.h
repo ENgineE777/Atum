@@ -123,7 +123,7 @@ public:
 	bool IsAsset() override;
 	void SaveAssetData(JSONWriter& writer) override;
 	void SetScene(Scene* set_scene) override;
-	bool UsingCamera2DPos() override;
+	bool UsingOwnCamera() override;
 	void SetEditMode(bool ed) override;
 	virtual void StoreProperties();
 	virtual void RestoreProperties();

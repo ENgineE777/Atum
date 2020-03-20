@@ -46,6 +46,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Camera3D.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.cpp" />
@@ -251,6 +252,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Track2DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\Trigger2D.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Camera3D.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.h" />

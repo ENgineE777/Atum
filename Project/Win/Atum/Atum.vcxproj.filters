@@ -696,6 +696,9 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\SimpleCharacter2D.cpp">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Camera3D.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1254,6 +1257,9 @@
       <Filter>SceneObjects\3D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.h">
+      <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Camera3D.h">
       <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>

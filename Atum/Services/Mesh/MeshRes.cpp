@@ -115,12 +115,6 @@ bool Mesh::LoadFBX(const char* filename)
 	auto* scene = ofbx::load(file.GetData(), file.GetSize(), 1 << 0);
 
 	meshes.resize(scene->getMeshCount());
-
-	Matrix swap_axis;
-	swap_axis.m[1][1] = 0.0f;
-	swap_axis.m[1][2] =-1.0f;
-	swap_axis.m[2][1] = 1.0f;
-	swap_axis.m[2][2] = 0.0f;
  
 	for (int i = 0; i<scene->getMeshCount(); i++)
 	{
@@ -133,8 +127,6 @@ bool Mesh::LoadFBX(const char* filename)
 		{
 			mat.matrix[j] = (float)fbx_mat.m[j];
 		}
-
-		mat *= swap_axis;
 
 		auto& mesh = meshes[i];
 
@@ -177,7 +169,7 @@ bool Mesh::LoadFBX(const char* filename)
 
 		auto* indices = geometry->getFaceIndices();
 
-		for (int j = 0; j < geometry->getIndexCount(); j++)
+		for (int j = 0; j < geometry->getIndexCount(); j+=3)
 		{
 			int index = indices[j];
 			if (index < 0)
@@ -202,7 +194,7 @@ bool Mesh::LoadFBX(const char* filename)
 			MeshVertex& vertex = mesh_vertices[j];
 			auto& fbx_vertex = vertices[j];
 
-			vertex.pos = Vector((float)fbx_vertex.x, (float)fbx_vertex.y, (float)fbx_vertex.z) * mat * 0.1f;
+			vertex.pos = Vector((float)fbx_vertex.x, (float)fbx_vertex.y, (float)fbx_vertex.z) * mat;
 
 			if (normals)
 			{

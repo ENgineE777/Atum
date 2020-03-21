@@ -84,6 +84,18 @@ void Mesh::Instance::Render(Program* prg)
 	}
 }
 
+void Mesh::Instance::GetLocatorTransform(const char* name, Matrix& loc_transform)
+{
+	if (res->locators.count(name))
+	{
+		loc_transform = res->locators[name] * transform;
+	}
+	else
+	{
+		loc_transform = transform;
+	}
+}
+
 void Mesh::Instance::Release()
 {
 	taskPool->DelAllTasks(this);
@@ -113,6 +125,31 @@ bool Mesh::LoadFBX(const char* filename)
 	}
 
 	auto* scene = ofbx::load(file.GetData(), file.GetSize(), 1 << 0);
+
+	if (!scene)
+	{
+		return false;
+	}
+
+	auto objects = scene->getAllObjects();
+
+	for (int i = 0; i < scene->getAllObjectCount(); i++)
+	{
+		auto node = objects[i];
+		
+		if (node->getType() == ofbx::Object::Type::NULL_NODE)
+		{
+			auto fbx_mat = node->getGlobalTransform();
+			Matrix mat;
+
+			for (int j = 0; j < 16; j++)
+			{
+				mat.matrix[j] = (float)fbx_mat.m[j];
+			}
+
+			locators[node->name] = mat;
+		}
+	}
 
 	meshes.resize(scene->getMeshCount());
  

@@ -29,6 +29,8 @@ public:
 		void ShRender(float dt);
 		void Render(Program* prg);
 
+		void GetLocatorTransform(const char* name, Matrix& loc_transform);
+
 		void Release();
 	};
 
@@ -55,7 +57,7 @@ public:
 	std::vector<Texture*> textures;
 	std::vector<SubMesh> meshes;
 
-	Vector locator;
+	map<string, Matrix> locators;
 
 	bool Load(const char* filename);
 	bool LoadFBX(const char* filename);

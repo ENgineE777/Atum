@@ -11,7 +11,7 @@ class DebugFont : public Object
 
 	struct Text
 	{
-		Vector pos;
+		Vector3 pos;
 		float dist;
 		Color color;
 		char text[256];
@@ -26,9 +26,9 @@ public:
 	virtual ~DebugFont();
 
 	virtual bool Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddText(std::vector<Text>& texts, Vector pos, float dist, Color color, const char* text);
+	void AddText(std::vector<Text>& texts, Vector3 pos, float dist, Color color, const char* text);
 	void AddText(Vector2 pos, Color color, const char* text);
-	void AddText(Vector pos, float dist, Color color, const char* text);
+	void AddText(Vector3 pos, float dist, Color color, const char* text);
 	void Draw(float dt);
 	void Release();
 };

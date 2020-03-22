@@ -4,6 +4,7 @@
 #include <math.h>
 #include "scriptvector3.h"
 
+/*
 #ifdef __BORLANDC__
 // C++Builder doesn't define a non-standard "sqrtf" function but rather an overload of "sqrt"
 // for float arguments.
@@ -495,18 +496,18 @@ void RegisterScriptVector3_Generic(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Vector", "float Length() const", asFUNCTION(Vector3Length_Generic), asCALL_GENERIC); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("Vector", "void Normalize()", asFUNCTION(Vector3Normalize_Generic), asCALL_GENERIC); assert( r >= 0 );
 	r = engine->RegisterObjectMethod("Vector", "void Lerp(Vector&in p1, Vector&in p2, float k)", asFUNCTION(Vector3Lerp_Generic), asCALL_GENERIC); assert( r >= 0 );	
-}
+}*/
 
 void RegisterScriptVector3(asIScriptEngine *engine)
 {
-	if( strstr(asGetLibraryOptions(), "AS_MAX_PORTABILITY") )
+	/*if( strstr(asGetLibraryOptions(), "AS_MAX_PORTABILITY") )
 	{
 		RegisterScriptVector3_Generic(engine);
 	}
 	else
 	{
 		RegisterScriptVector3_Native(engine);
-	}
+	}*/
 }
 
 END_AS_NAMESPACE

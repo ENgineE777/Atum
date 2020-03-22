@@ -61,19 +61,19 @@ public:
 	struct RaycastDesc
 	{
 		/** \brief Origin of a ray */
-		Vector origin;
+		Vector3 origin;
 
 		/** \brief Direction of a ray. Should be normalized */
-		Vector dir;
+		Vector3 dir;
 
 		/** \brief Length of a ray */
 		float length;
 
 		/** \brief Hit postion of a ray */
-		Vector hitPos;
+		Vector3 hitPos;
 
 		/** \brief Hit normal of a ray */
-		Vector hitNormal;
+		Vector3 hitNormal;
 
 		/** \brief Group which should be tested */
 		uint32_t group;
@@ -93,7 +93,7 @@ public:
 
 	\return Pointer to physical object
 	*/
-	PhysObject* CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group);
+	PhysObject* CreateBox(Vector3 size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group);
 
 	/**
 	\brief Create a character controller in a scene

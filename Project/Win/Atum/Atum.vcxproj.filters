@@ -124,6 +124,9 @@
     <Filter Include="Support\vorbis">
       <UniqueIdentifier>{c1cde58a-a55c-4b12-8d3c-b597f7096cf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Support\Math">
+      <UniqueIdentifier>{790443b7-220e-4efd-b95b-9c69e5473573}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Support\Timer.cpp">
@@ -322,9 +325,6 @@
       <Filter>SceneObjects\Common</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.cpp">
-      <Filter>SceneObjects\Other\Demo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\hovertank.cpp">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\model.cpp">
@@ -597,9 +597,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.cpp">
       <Filter>SceneObjects\Common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Support\Math.cpp">
-      <Filter>Support</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Mesh\Meshes.cpp">
       <Filter>Services\Meshes</Filter>
     </ClCompile>
@@ -699,6 +696,12 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Camera3D.cpp">
       <Filter>SceneObjects\3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptmatrix.cpp">
+      <Filter>Services\Script\Libs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\math\Math.cpp">
+      <Filter>Support\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -707,19 +710,7 @@
     <ClInclude Include="..\..\..\Atum\Support\Delegate.h">
       <Filter>Support</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Matrix.h">
-      <Filter>Support</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\Timer.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Vector.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Vector2.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Vector4.h">
       <Filter>Support</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Controls\Controls.h">
@@ -768,9 +759,6 @@
       <Filter>Support</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\Support.h">
-      <Filter>Support</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Quaternion.h">
       <Filter>Support</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\ClassFactory.h">
@@ -945,9 +933,6 @@
       <Filter>SceneObjects\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.h">
-      <Filter>SceneObjects\Other\Demo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\hovertank.h">
       <Filter>SceneObjects\Other\Demo</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\model.h">
@@ -1235,9 +1220,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\BlueprintInst.h">
       <Filter>SceneObjects\Common</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Support\Math.h">
-      <Filter>Support</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Mesh\Meshes.h">
       <Filter>Services\Meshes</Filter>
     </ClInclude>
@@ -1261,6 +1243,27 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Camera3D.h">
       <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptmatrix.h">
+      <Filter>Services\Script\Libs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Math.h">
+      <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Matrix.h">
+      <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Quaternion.h">
+      <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector2.h">
+      <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector3.h">
+      <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector4.h">
+      <Filter>Support\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

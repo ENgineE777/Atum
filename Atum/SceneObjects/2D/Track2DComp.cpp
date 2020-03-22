@@ -502,7 +502,7 @@ void Track2DComp::InstDeleted(int index)
 	tracks.erase(tracks.begin() + index);
 }
 
-void Track2DComp::CheckSelection(Vector2 ms, Vector start, Vector dir)
+void Track2DComp::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 {
 	SpriteInst* sprite_inst = (SpriteInst*)object;
 

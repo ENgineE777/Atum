@@ -80,8 +80,8 @@ void CenterScriptInstCamera(void* owner)
 
 		for (auto& node : script->Asset()->nodes)
 		{
-			leftCorner = leftCorner.Min(node->pos - script->Asset()->nodeSize * 0.5f);
-			rightCorner = rightCorner.Max(node->pos + script->Asset()->nodeSize * 1.5f);
+			leftCorner.Min(node->pos - script->Asset()->nodeSize * 0.5f);
+			rightCorner.Max(node->pos + script->Asset()->nodeSize * 1.5f);
 		}
 
 		Vector2 half_size = (rightCorner - leftCorner) * 0.5f;

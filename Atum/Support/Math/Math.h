@@ -1,8 +1,10 @@
 #pragma once
 
 #include "Vector2.h"
-#include "Vector.h"
-#include "std.h"
+#include "Vector3.h"
+#include "Vector4.h"
+#include "Quaternion.h"
+#include "Support/std.h"
 
 namespace Math
 {
@@ -18,5 +20,5 @@ namespace Math
 	float Clamp(float value, float a, float b);
 	float Sign(float value);
 	float AdvanceAngle(float angle, float target_angle, float delta_angle);
-	bool IntersectBBoxRay(Vector vmin, Vector vmax, Vector start, Vector dir);
+	bool IntersectBBoxRay(Vector3 vmin, Vector3 vmax, Vector3 start, Vector3 dir);
 }

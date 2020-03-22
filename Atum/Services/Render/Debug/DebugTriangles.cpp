@@ -13,7 +13,7 @@ void DebugTriangles::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugTriangles::Draw);
 }
 
-void DebugTriangles::AddTriangle(Vector p1, Vector p2, Vector p3, Color color)
+void DebugTriangles::AddTriangle(Vector3 p1, Vector3 p2, Vector3 p3, Color color)
 {
 	triangles.push_back(Triangle());
 	Triangle* triangle = &triangles[triangles.size()-1];
@@ -61,8 +61,8 @@ void DebugTriangles::Draw(float dt)
 	{
 		Triangle& triangle = triangles[i];
 
-		Vector normal = (triangle.p[0] - triangle.p[1]);
-		Vector dir = triangle.p[2] - triangle.p[1];
+		Vector3 normal = (triangle.p[0] - triangle.p[1]);
+		Vector3 dir = triangle.p[2] - triangle.p[1];
 		normal.Cross(dir);
 
 		for (int j = 0; j < 3; j++)

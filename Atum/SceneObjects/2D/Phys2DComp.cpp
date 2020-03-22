@@ -407,7 +407,7 @@ void Phys2DCompInst::UpdateInstances(float dt)
 					{
 						bodies[index].controller->Move({ inst.dir.x / 50.0f, -inst.dir.y / 50.0f, 0.0f }, inst.collide_group, inst.ignore_group);
 
-						Vector pos;
+						Vector3 pos;
 						bodies[index].controller->GetPosition(pos);
 
 						inst.SetPos({ pos.x * 50.0f, -pos.y * 50.0f });

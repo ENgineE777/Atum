@@ -3,7 +3,7 @@
 #include "Services/Core/Core.h"
 #include "Services/Scene/SceneObject.h"
 
-PhysObject* PhysScene::CreateBox(Vector size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group)
+PhysObject* PhysScene::CreateBox(Vector3 size, Matrix trans, Matrix offset, PhysObject::BodyType type, uint32_t group)
 {
 	PhysObject* obj = new PhysObject();
 
@@ -131,8 +131,8 @@ void PhysScene::DrawVisualization()
 	for (PxU32 i = 0; i < rb.getNbLines(); i++)
 	{
 		const PxDebugLine& line = rb.getLines()[i];
-		core.render.DebugLine(Vector(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
-		                      Vector(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
+		core.render.DebugLine(Vector3(line.pos1.x, line.pos1.y, line.pos1.z), COLOR_GREEN,
+		                      Vector3(line.pos0.x, line.pos0.y, line.pos0.z), COLOR_GREEN, false);
 	}
 }
 
@@ -152,8 +152,8 @@ bool PhysScene::RayCast(RaycastDesc& desc)
 	{
 		
 		desc.userdata = (BodyUserData*)(hit.block.actor->userData);
-		desc.hitPos = Vector(hit.block.position.x, hit.block.position.y, hit.block.position.z);
-		desc.hitNormal = Vector(hit.block.normal.x, hit.block.normal.y, hit.block.normal.z);
+		desc.hitPos = Vector3(hit.block.position.x, hit.block.position.y, hit.block.position.z);
+		desc.hitNormal = Vector3(hit.block.normal.x, hit.block.normal.y, hit.block.normal.z);
 
 		return true;
 	}

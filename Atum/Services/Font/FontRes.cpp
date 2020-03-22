@@ -295,13 +295,13 @@ void FontRes::Print(vector<FontRes::LineBreak>& line_breaks, Matrix& transform, 
 			float char_du = set_glyph->du;
 			float char_dv = set_glyph->dv;
 
-			v[dr_index * 6 + 0].pos = Vector(char_x, char_y + char_h , 0.5f);
-			v[dr_index * 6 + 1].pos = Vector(char_x, char_y, 0.5f);
-			v[dr_index * 6 + 2].pos = Vector(char_x + char_w,  char_y, 0.5f);
+			v[dr_index * 6 + 0].pos = Vector3(char_x, char_y + char_h , 0.5f);
+			v[dr_index * 6 + 1].pos = Vector3(char_x, char_y, 0.5f);
+			v[dr_index * 6 + 2].pos = Vector3(char_x + char_w,  char_y, 0.5f);
 
-			v[dr_index * 6 + 3].pos = Vector(char_x, char_y + char_h, 0.5f);
-			v[dr_index * 6 + 4].pos = Vector(char_x + char_w,  char_y, 0.5f);
-			v[dr_index * 6 + 5].pos = Vector(char_x + char_w, char_y + char_h, 0.5f);
+			v[dr_index * 6 + 3].pos = Vector3(char_x, char_y + char_h, 0.5f);
+			v[dr_index * 6 + 4].pos = Vector3(char_x + char_w,  char_y, 0.5f);
+			v[dr_index * 6 + 5].pos = Vector3(char_x + char_w, char_y + char_h, 0.5f);
 		
 			v[dr_index * 6 + 0].uv = Vector2(char_u, char_v + char_dv);
 			v[dr_index * 6 + 1].uv = Vector2(char_u, char_v);

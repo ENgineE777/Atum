@@ -149,7 +149,7 @@ public:
 	\param[in] use_depth Should depth be ignored
 
 	*/
-	void DebugLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth = true);
+	void DebugLine(Vector3 from, Color from_clr, Vector3 to, Color to_clr, bool use_depth = true);
 
 	/**
 	\brief Draw debug line in 2D space
@@ -180,7 +180,7 @@ public:
 	\param[in] radius Radius of a sphere
 
 	*/
-	void DebugSphere(Vector pos, Color color, float radius);
+	void DebugSphere(Vector3 pos, Color color, float radius);
 
 	/**
 	\brief Draw debug box in 3d space
@@ -190,7 +190,7 @@ public:
 	\param[in] scale Size of a box
 
 	*/
-	void DebugBox(Matrix pos, Color color, Vector scale);
+	void DebugBox(Matrix pos, Color color, Vector3 scale);
 
 	/**
 	\brief Draw debug triangle in 3D space
@@ -201,7 +201,7 @@ public:
 	\param[in] color Color of a trinagle
 
 	*/
-	void DebugTriangle(Vector p1, Vector p2, Vector p3, Color color);
+	void DebugTriangle(Vector3 p1, Vector3 p2, Vector3 p3, Color color);
 
 	/**
 	\brief Draw debug triangle in 2D space
@@ -244,7 +244,7 @@ public:
 	\param[in] text Text format string of a text
 
 	*/
-	void DebugPrintText(Vector pos, float dist, Color color, const char* text, ...);
+	void DebugPrintText(Vector3 pos, float dist, Color color, const char* text, ...);
 
 	/**
 	\brief Draw debug sprite
@@ -277,7 +277,7 @@ public:
 
 	\return Result of transformation
 	*/
-	Vector TransformToScreen(Vector pos, int type);
+	Vector3 TransformToScreen(Vector3 pos, int type);
 
 protected:
 	void CalcTrans();

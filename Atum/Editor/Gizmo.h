@@ -70,8 +70,8 @@ private:
 	Color CheckColor(int axis);
 	void DrawAxis(int axis);
 	void DrawCircle(int axis);
-	bool CheckInersection(Vector pos, Vector pos2, Vector2 ms,
-	                      Vector trans, bool check_trans,
+	bool CheckInersection(Vector3 pos, Vector3 pos2, Vector2 ms,
+	                      Vector3 trans, bool check_trans,
 	                      Matrix view, Matrix view_proj);
 
 	bool IsInsideTriangle(Vector2 s, Vector2 a, Vector2 b, Vector2 c);

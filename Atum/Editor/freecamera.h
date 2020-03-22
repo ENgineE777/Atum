@@ -12,7 +12,7 @@ class FreeCamera
 public:
 
 	Vector2 angles;
-	Vector  pos;
+	Vector3  pos;
 	Matrix  view;
 	Matrix  proj;
 

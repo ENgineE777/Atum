@@ -82,9 +82,9 @@ public:
 
 	struct VertexTri
 	{
-		Vector  position;
+		Vector3 position;
 		Vector2 texCoord;
-		Vector  normal;
+		Vector3 normal;
 	};
 
 	int sz;
@@ -98,7 +98,7 @@ public:
 	void Init() override;
 	void ApplyProperties() override;
 	float GetHeight(int i, int j);
-	Vector GetVecHeight(int i, int j);
+	Vector3 GetVecHeight(int i, int j);
 	void LoadHMap(const char* hgt_name);
 	void Render(float dt);
 	void ShRender(float dt);

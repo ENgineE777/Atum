@@ -37,13 +37,13 @@ public:
 		static float splashTime;
 		static float splashMaxRadius;
 
-		Vector pos;
-		Vector claster_pos[5];
-		Vector dir;
-		int    stage;
-		float  lifetime;
-		int    state;
-		bool   special;
+		Vector3 pos;
+		Vector3 claster_pos[5];
+		Vector3 dir;
+		int     stage;
+		float   lifetime;
+		int     state;
+		bool    special;
 	};
 
 	std::vector<Projectile> projectiles;
@@ -55,7 +55,7 @@ public:
 		bool   is_ai = false;
 		int    special = 0;
 		float  angle = 0;
-		Vector pos = 0.0f;
+		Vector3 pos = 0.0f;
 		float  move_speed = 0.0f;
 		float  strafe_speed = 0.0f;
 		float  shoot_cooldown = 0.0f;
@@ -66,14 +66,14 @@ public:
 
 	struct ClientState
 	{
-		int    up = 0;
-		int    rotate = 0;
-		bool   fired = false;
-		bool   special_fired = false;
-		float  needed_tower_angel = 0.0f;
-		float  timeStamp = 0.0f;
-		Vector gun_pos;
-		Vector gun_dir;
+		int     up = 0;
+		int     rotate = 0;
+		bool    fired = false;
+		bool    special_fired = false;
+		float   needed_tower_angel = 0.0f;
+		float   timeStamp = 0.0f;
+		Vector3 gun_pos;
+		Vector3 gun_dir;
 	};
 
 	class TankClient* client;
@@ -85,7 +85,7 @@ public:
 	struct Bonus
 	{
 		int type = 0;
-		Vector pos;
+		Vector3 pos;
 		float cooldown = -1.0f;
 	};
 
@@ -99,14 +99,14 @@ public:
 
 	void Init();
 
-	void AddInstance(int id, Vector pos, bool is_bot);
+	void AddInstance(int id, Vector3 pos, bool is_bot);
 
 	Matrix* Trans() override;
 	bool Is3DObject() override;
 
 	bool Play() override;
 	void Update(float dt);
-	void AddSplash(Vector& pos, float radius, float force);
+	void AddSplash(Vector3& pos, float radius, float force);
 
 	void SendServerState(float dt);
 	void SendClientState(float dt);

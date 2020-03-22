@@ -27,7 +27,7 @@ bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	return true;
 }
 
-void DebugFont::AddText(std::vector<Text>& texts, Vector pos, float dist, Color color, const char* text)
+void DebugFont::AddText(std::vector<Text>& texts, Vector3 pos, float dist, Color color, const char* text)
 {
 	if (texts.size()>1000) return;
 
@@ -43,10 +43,10 @@ void DebugFont::AddText(std::vector<Text>& texts, Vector pos, float dist, Color 
 
 void DebugFont::AddText(Vector2 pos, Color color, const char* text)
 {
-	AddText(texts, Vector(pos.x, pos.y, 0.0f), -1.0f, color, text);
+	AddText(texts, Vector3(pos.x, pos.y, 0.0f), -1.0f, color, text);
 }
 
-void DebugFont::AddText(Vector pos, float dist, Color color, const char* text)
+void DebugFont::AddText(Vector3 pos, float dist, Color color, const char* text)
 {
 	AddText(textsIn3d, pos, dist, color, text);
 }
@@ -59,11 +59,11 @@ void DebugFont::Draw(float dt)
 	{
 		Text* txt = &textsIn3d[i];
 
-		Vector pos = core.render.TransformToScreen(txt->pos, 1);
+		Vector3 pos = core.render.TransformToScreen(txt->pos, 1);
 
 		if (pos.z>0 && pos.z<txt->dist)
 		{
-			mat.Pos() = Vector(pos.x * core.render.GetDevice()->GetWidth(), pos.y * core.render.GetDevice()->GetHeight(), 0);
+			mat.Pos() = Vector3(pos.x * core.render.GetDevice()->GetWidth(), pos.y * core.render.GetDevice()->GetHeight(), 0);
 			font->Print(mat, 1.0f, txt->color, txt->text);
 		}
 	}
@@ -74,10 +74,10 @@ void DebugFont::Draw(float dt)
 	{
 		Text* txt = &texts[i];
 
-		mat.Pos() = Vector(txt->pos.x + 1, txt->pos.y + 1, 0);
+		mat.Pos() = Vector3(txt->pos.x + 1, txt->pos.y + 1, 0);
 		font->Print(mat, 1.0f, COLOR_BLACK, txt->text);
 
-		mat.Pos() = Vector(txt->pos.x, txt->pos.y, 0);
+		mat.Pos() = Vector3(txt->pos.x, txt->pos.y, 0);
 		font->Print(mat, 1.0f, txt->color, txt->text);
 	}
 

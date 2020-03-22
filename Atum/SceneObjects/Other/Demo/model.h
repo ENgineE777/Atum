@@ -36,9 +36,9 @@ public:
 
 	struct ModelVertex
 	{
-		Vector  pos;
+		Vector3 pos;
 		Vector2 uv;
-		Vector  normal;
+		Vector3 normal;
 	};
 
 	struct Mesh
@@ -50,15 +50,15 @@ public:
 
 	VertexDecl* vdecl;
 
-	Vector bb_max;
-	Vector bb_min;
+	Vector3 bb_max;
+	Vector3 bb_min;
 
 	Matrix world;
 
 	std::vector<Texture*> textures;
 	std::vector<Mesh> meshes;
 
-	Vector locator;
+	Vector3 locator;
 
 	void LoadModelMS3D(const char* filename);
 };

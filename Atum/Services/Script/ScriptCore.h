@@ -1,7 +1,7 @@
 #pragma once
 #include "ScriptContext.h"
 #include "Support/StringUtils.h"
-#include "Support/Vector2.h"
+#include "Support/Math/Math.h"
 #include <vector>
 
 class ScriptCore

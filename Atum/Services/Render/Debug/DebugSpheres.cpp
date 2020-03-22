@@ -24,7 +24,7 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 		for (int j = 0; j < SidesCount; j++)
 		{
-			vertices[index].pos = Vector(sinTheta * sinf(curPhi), y, -sinTheta * cosf(curPhi));
+			vertices[index].pos = Vector3(sinTheta * sinf(curPhi), y, -sinTheta * cosf(curPhi));
 			vertices[index].normal = vertices[index].pos;
 			vertices[index].normal.Normalize();
 			vertices[index].color = 0xffffffff;
@@ -69,7 +69,7 @@ void DebugSpheres::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugSpheres::Draw);
 }
 
-void DebugSpheres::AddSphere(Vector pos, Color color, float radius)
+void DebugSpheres::AddSphere(Vector3 pos, Color color, float radius)
 {
 	spheres.push_back(Sphere());
 	Sphere* sphere = &spheres[spheres.size()-1];
@@ -112,7 +112,7 @@ void DebugSpheres::Draw(float dt)
 		Sphere& sphere = spheres[i];
 
 		Matrix mat;
-		Vector scale = Vector(sphere.radius);
+		Vector3 scale = sphere.radius;
 		mat.Scale(scale);
 		mat.Pos() = sphere.pos;
 

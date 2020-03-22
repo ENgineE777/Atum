@@ -78,7 +78,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\hovertank.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\model.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\plane.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\programs.cpp" />
@@ -156,6 +155,7 @@
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scripthandle.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptmath.cpp" />
+    <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptmatrix.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\libs\scriptstdstring_utils.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.cpp" />
@@ -182,7 +182,7 @@
     <ClCompile Include="..\..\..\Atum\Support\libtess2\priorityq.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\sweep.c" />
     <ClCompile Include="..\..\..\Atum\Support\libtess2\tess.c" />
-    <ClCompile Include="..\..\..\Atum\Support\Math.cpp" />
+    <ClCompile Include="..\..\..\Atum\Support\math\Math.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\ArrayWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\BoolWidget.cpp" />
     <ClCompile Include="..\..\..\Atum\Support\MetaData\CallbackWidget.cpp" />
@@ -285,7 +285,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\hovertank.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\model.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\plane.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\programs.h" />
@@ -356,6 +355,7 @@
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptdictionary.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scripthandle.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptmath.h" />
+    <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptmatrix.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\libs\scriptstdstring.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector2.h" />
     <ClInclude Include="..\..\..\Atum\Services\Script\Libs\scriptvector3.h" />
@@ -385,7 +385,12 @@
     <ClInclude Include="..\..\..\Atum\Support\libtess2\sweep.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tess.h" />
     <ClInclude Include="..\..\..\Atum\Support\libtess2\tesselator.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Math.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Math.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Matrix.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Quaternion.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector2.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector3.h" />
+    <ClInclude Include="..\..\..\Atum\Support\math\Vector4.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\ArrayWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\BoolWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\CallbackWidget.h" />
@@ -400,18 +405,13 @@
     <ClInclude Include="..\..\..\Atum\Support\MetaData\SceneObjectWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\SpriteWidget.h" />
     <ClInclude Include="..\..\..\Atum\Support\MetaData\StringWidget.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Quaternion.h" />
     <ClInclude Include="..\..\..\Atum\Support\std.h" />
     <ClInclude Include="..\..\..\Atum\Support\StringUtils.h" />
     <ClInclude Include="..\..\..\Atum\Support\Delegate.h" />
     <ClInclude Include="..\..\..\Atum\Support\Support.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Matrix.h" />
     <ClInclude Include="..\..\..\Atum\Support\ThreadExecutor.h" />
     <ClInclude Include="..\..\..\Atum\Support\Timer.h" />
     <ClInclude Include="..\..\..\Atum\Support\Types.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Vector.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Vector2.h" />
-    <ClInclude Include="..\..\..\Atum\Support\Vector4.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

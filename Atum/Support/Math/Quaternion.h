@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Vector.h"
+#include "Vector3.h"
 #include "Matrix.h"
 
 /**
@@ -57,7 +57,7 @@ public:
 	void SetIdentity();
 	void Set(float qx, float qy, float qz, float qw);
 	void Set(Matrix mtx);
-	inline Quaternion& Set(float angle, Vector v);
+	inline Quaternion& Set(float angle, Vector3 v);
 	Quaternion& Normalize();
 	Quaternion& Conjugate();
 	Quaternion& Inverse();
@@ -65,7 +65,7 @@ public:
 	void GetMatrix(Matrix& mtx);
 	float GetLength();
 	float GetLengthSqr();
-	void Rotate(Vector v);
+	void Rotate(Vector3 v);
 };
 
 inline Quaternion::Quaternion()
@@ -294,7 +294,7 @@ inline void Quaternion::Set(float qx, float qy, float qz, float qw)
 	w = qw;	
 }
 
-Quaternion& Quaternion:: Set(float angle, Vector v)
+Quaternion& Quaternion:: Set(float angle, Vector3 v)
 {
 
 	w = cosf(angle/2);
@@ -469,7 +469,7 @@ inline float Quaternion::GetLengthSqr()
 	return x*x + y*y + z*z + w*w;
 }
 
-inline void Quaternion::Rotate(Vector v)
+inline void Quaternion::Rotate(Vector3 v)
 {
 	Quaternion r (v.x * w + v.z * y - v.y * z,
 	              v.y * w + v.x * z - v.z * x,

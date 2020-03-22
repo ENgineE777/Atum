@@ -30,7 +30,7 @@ void EditorDrawer::DrawSprite(Texture* tex, Vector2 pos, Vector2 size, Vector2 o
 	mat.RotateZ(rotate);
 
 	pos = Sprite::MoveToCamera(pos, false);
-	mat.Pos() = Vector(pos.x, pos.y, 0.01f);
+	mat.Pos() = Vector3(pos.x, pos.y, 0.01f);
 
 	size *= Sprite::ed_cam_zoom;
 
@@ -80,7 +80,7 @@ void EditorDrawer::DrawLine(Vector2 from, Vector2 to, Color color)
 
 	Matrix mat;
 	mat.RotateZ(atan2(dir.y / size.x, dir.x / size.x));
-	mat.Pos() = Vector(center.x, center.y, 0.01f);
+	mat.Pos() = Vector3(center.x, center.y, 0.01f);
 
 	Sprite::Draw(nullptr, color, mat, -0.5f * size, size, 0.0f, 1.0f, false);
 }

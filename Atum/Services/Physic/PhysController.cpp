@@ -182,7 +182,7 @@ void PhysController::SetActive(bool set)
 	if (!active)
 	{
 		PxExtendedVec3 cpos = controller->getFootPosition();
-		deactive_pos = Vector((float)cpos.x, (float)cpos.y, (float)cpos.z);
+		deactive_pos = Vector3((float)cpos.x, (float)cpos.y, (float)cpos.z);
 	}
 
 	controller->setFootPosition(active ? PxExtendedVec3(deactive_pos.x, deactive_pos.y, deactive_pos.z) : PxExtendedVec3(-100000.0f, -100000.0f, -100000.0f));
@@ -235,7 +235,7 @@ bool PhysController::IsColliding(CollideType type)
 
 }
 
-void PhysController::Move(Vector dir, uint32_t group, uint32_t set_ignore_group)
+void PhysController::Move(Vector3 dir, uint32_t group, uint32_t set_ignore_group)
 {
 	if (!active)
 	{
@@ -261,15 +261,15 @@ void PhysController::SetGroup(int group)
 	PhysScene::SetShapeGroup(shape, group);
 }
 
-void PhysController::SetPosition(Vector pos)
+void PhysController::SetPosition(Vector3 pos)
 {
-	Vector cur_pos;
+	Vector3 cur_pos;
 	GetPosition(cur_pos);
 
-	if (pos.Equals(cur_pos, 0.01f))
+	/*if (pos == cur_pos)
 	{
 		return;
-	}
+	}*/
 
 	if (!active)
 	{
@@ -280,7 +280,7 @@ void PhysController::SetPosition(Vector pos)
 	controller->setFootPosition(PxExtendedVec3(pos.x, pos.y, pos.z));
 }
 
-void PhysController::GetPosition(Vector& pos)
+void PhysController::GetPosition(Vector3& pos)
 {
 	if (!active)
 	{
@@ -289,7 +289,7 @@ void PhysController::GetPosition(Vector& pos)
 	}
 
 	PxExtendedVec3 cpos = controller->getFootPosition();
-	pos = Vector((float)cpos.x, (float)cpos.y, (float)cpos.z);
+	pos = Vector3((float)cpos.x, (float)cpos.y, (float)cpos.z);
 }
 
 void PhysController::Release()

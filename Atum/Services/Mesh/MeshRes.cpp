@@ -18,19 +18,19 @@ void Mesh::Instance::Init(Mesh* model, TaskExecutor::SingleTaskPool* setTaskPool
 	//render.AddDelegate("shgeometry", this, (Object::Delegate)&Model::Drawer::ShRender, 0);
 }
 
-Vector Mesh::Instance::GetBBMin()
+Vector3 Mesh::Instance::GetBBMin()
 {
 	return res->bb_min;
 }
 
-Vector Mesh::Instance::GetBBMax()
+Vector3 Mesh::Instance::GetBBMax()
 {
 	return res->bb_max;
 }
 
 void Mesh::Instance::SetPosition(Vector2 pos)
 {
-	Vector centerPos = (res->bb_max + res->bb_min) * 0.5f;
+	Vector3 centerPos = (res->bb_max + res->bb_min) * 0.5f;
 
 	transform.Identity();
 	transform.Pos() = -centerPos;
@@ -231,12 +231,12 @@ bool Mesh::LoadFBX(const char* filename)
 			MeshVertex& vertex = mesh_vertices[j];
 			auto& fbx_vertex = vertices[j];
 
-			vertex.pos = Vector((float)fbx_vertex.x, (float)fbx_vertex.y, (float)fbx_vertex.z) * mat;
+			vertex.pos = Vector3((float)fbx_vertex.x, (float)fbx_vertex.y, (float)fbx_vertex.z) * mat;
 
 			if (normals)
 			{
 				auto& fbx_normal = normals[j];
-				vertex.normal = Vector((float)fbx_normal.x, (float)fbx_normal.z, -(float)fbx_normal.y);
+				vertex.normal = Vector3((float)fbx_normal.x, (float)fbx_normal.z, -(float)fbx_normal.y);
 			}
 
 			if (uvs)

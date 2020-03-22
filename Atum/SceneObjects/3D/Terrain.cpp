@@ -148,13 +148,13 @@ void Terrain::ApplyProperties()
 
 			for (int k = 0; k < 2; k++)
 			{
-				Vector v1 = v_tri[k * 3 + 1].position - v_tri[k * 3 + 0].position;
-				Vector v2 = v_tri[k * 3 + 2].position - v_tri[k * 3 + 0].position;
+				Vector3 v1 = v_tri[k * 3 + 1].position - v_tri[k * 3 + 0].position;
+				Vector3 v2 = v_tri[k * 3 + 2].position - v_tri[k * 3 + 0].position;
 				
 				v1.Normalize();
 				v2.Normalize();
 
-				Vector normal;
+				Vector3 normal;
 				
 				normal = v1.Cross(v2);
 				normal.Normalize();
@@ -182,9 +182,9 @@ float Terrain::GetHeight(int i, int j)
 	return hmap ? hmap[((j)* hwidth + i)] * scalev : 1.0f;
 }
 
-Vector Terrain::GetVecHeight(int i, int j)
+Vector3 Terrain::GetVecHeight(int i, int j)
 {
-	return Vector((float)i, GetHeight(i, j), -(float)j);
+	return Vector3((float)i, GetHeight(i, j), -(float)j);
 }
 
 void Terrain::LoadHMap(const char* hgt_name)

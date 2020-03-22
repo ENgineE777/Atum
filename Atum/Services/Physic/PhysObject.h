@@ -121,7 +121,7 @@ public:
 	\param[in] pos Position of applying of a force
 	\param[in] force Strength of a force
 	*/
-	void AddForceAt(Vector pos, Vector force);
+	void AddForceAt(Vector3 pos, Vector3 force);
 
 	/**
 	\brief PhysObject should released only via this mehod

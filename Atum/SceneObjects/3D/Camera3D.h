@@ -69,6 +69,6 @@ public:
 	bool Play() override;
 	void Update(float dt);
 
-	void SetPosTarget(Vector& pos, Vector& target);
+	void SetPosTarget(Vector3& pos, Vector3& target);
 #endif
 };

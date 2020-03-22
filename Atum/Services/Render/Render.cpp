@@ -218,7 +218,7 @@ void Render::Execute(float dt)
 	groupTaskPool->Execute(dt);
 }
 
-void Render::DebugLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth)
+void Render::DebugLine(Vector3 from, Color from_clr, Vector3 to, Color to_clr, bool use_depth)
 {
 	lines->AddLine(from, from_clr, to, to_clr, use_depth);
 }
@@ -236,17 +236,17 @@ void Render::DebugRect2D(Vector2 from, Vector2 to, Color color)
 	lines->AddLine2D(Vector2(from.x, to.y  ), color, Vector2(from.x, from.y), color);
 }
 
-void Render::DebugSphere(Vector pos, Color color, float radius)
+void Render::DebugSphere(Vector3 pos, Color color, float radius)
 {
 	spheres->AddSphere(pos, color, radius);
 }
 
-void Render::DebugBox(Matrix pos, Color color, Vector scale)
+void Render::DebugBox(Matrix pos, Color color, Vector3 scale)
 {
 	boxes->AddBox(pos, color, scale);
 }
 
-void Render::DebugTriangle(Vector p1, Vector p2, Vector p3, Color color)
+void Render::DebugTriangle(Vector3 p1, Vector3 p2, Vector3 p3, Color color)
 {
 	triangles->AddTriangle(p1, p2, p3, color);
 }
@@ -278,7 +278,7 @@ void Render::DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char*
 	font->AddText(Sprite::MoveToCamera(pos), color, buffer);
 }
 
-void Render::DebugPrintText(Vector pos, float dist, Color color, const char* text, ...)
+void Render::DebugPrintText(Vector3 pos, float dist, Color color, const char* text, ...)
 {
 	char buffer[256];
 	va_list args;
@@ -295,7 +295,7 @@ void Render::DebugSprite(Texture* texture, Vector2 pos, Vector2 size, Color colo
 	sprites->AddSprite(texture, pos, size, offset, angle, color);
 }
 
-Vector Render::TransformToScreen(Vector pos, int type)
+Vector3 Render::TransformToScreen(Vector3 pos, int type)
 {
 	Matrix view;
 	core.render.GetTransform(Render::View, view);
@@ -303,9 +303,9 @@ Vector Render::TransformToScreen(Vector pos, int type)
 	Matrix view_proj;
 	core.render.GetTransform(Render::WrldViewProj, view_proj);
 
-	Vector pre_ps = pos * view;
+	Vector3 pre_ps = pos * view;
 	Vector4 ps2 = view_proj.MulVertex4(pos);
-	Vector ps;
+	Vector3 ps;
 	ps.Set(ps2.x / ps2.w, ps2.y / ps2.w, ps2.z);
 
 	if (type == 0)

@@ -21,7 +21,7 @@ void Model::Drawer::SetColor(Vector4& set_color)
 
 void Model::Drawer::SetPosition(Vector2 pos)
 {
-	Vector centerPos = (res->bb_max + res->bb_min) * 0.5f;
+	Vector3 centerPos = (res->bb_max + res->bb_min) * 0.5f;
 
 	world.Identity();
 	world.Pos() = -centerPos;
@@ -191,8 +191,8 @@ void Model::LoadModelMS3D(const char* filename)
 	std::vector<MS3DGroup> groups;
 	groups.resize(numGroups);
 
-	bb_max = Vector(-100000.0f);
-	bb_min = Vector(100000.0f);
+	bb_max = Vector3(-100000.0f);
+	bb_min = Vector3(100000.0f);
 
 	for (int i = 0; i < numGroups; i++)
 	{
@@ -213,8 +213,8 @@ void Model::LoadModelMS3D(const char* filename)
 		if (groups[i].name[0] == 'l' && groups[i].name[1] == 'o' &&
 			groups[i].name[2] == 'c' && groups[i].name[3] == '_')
 		{
-			Vector bb_max = Vector(-100000.0f);
-			Vector bb_min = Vector(100000.0f);
+			Vector3 bb_max = Vector3(-100000.0f);
+			Vector3 bb_min = Vector3(100000.0f);
 
 			for (int t = 0; t < numGroupTriangles; t++)
 			{
@@ -222,7 +222,7 @@ void Model::LoadModelMS3D(const char* filename)
 				{
 					int tri = groups[i].triangleIndices[t];
 					int index = triangles[tri].vertexIndices[j];
-					Vector pos;
+					Vector3 pos;
 					pos.x = vertices[index].vertex[0];
 					pos.y = vertices[index].vertex[1];
 					pos.z = vertices[index].vertex[2];

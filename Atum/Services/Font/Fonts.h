@@ -22,7 +22,7 @@ class Fonts
 
 	struct FontVertex
 	{
-		Vector pos;
+		Vector3 pos;
 		Vector2 uv;
 	};
 

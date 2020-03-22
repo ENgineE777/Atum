@@ -9,6 +9,7 @@ BEGIN_AS_NAMESPACE
 // for registering value types. The application developers will most
 // likely want to register their own math library instead.
 
+/*
 struct Vector3
 {
 	Vector3();
@@ -50,7 +51,7 @@ struct Vector3
 	float x;
 	float y;
 	float z;
-};
+};*/
 
 void RegisterScriptVector3(asIScriptEngine *engine);
 

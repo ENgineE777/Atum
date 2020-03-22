@@ -47,7 +47,7 @@ public:
 
 #ifndef DOXYGEN_SKIP
 	Vector2 camera3d_angles = 0.0f;
-	Vector  camera3d_pos = 0.0f;
+	Vector3 camera3d_pos = 0.0f;
 	Vector2 camera2d_pos = 0.0f;
 	float camera2d_zoom = 1.0f;
 	int move_mode = 0;

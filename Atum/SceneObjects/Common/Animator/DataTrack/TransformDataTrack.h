@@ -8,15 +8,15 @@ class TransformDataTrackWidgets;
 struct TransformKey
 {
 	Quaternion rot;
-	Vector dir;
-	Vector a, b, c, d;
-	Vector dirAxeX;
-	Vector aX, bX, cX, dX;
+	Vector3 dir;
+	Vector3 a, b, c, d;
+	Vector3 dirAxeX;
+	Vector3 aX, bX, cX, dX;
 	Quaternion aQ, bQ, cQ, dQ;
 
-	Vector pos;
-	Vector b_pt1;
-	Vector b_pt2;
+	Vector3 pos;
+	Vector3 b_pt1;
+	Vector3 b_pt2;
 	
 	float length;
 	float dst[20];
@@ -27,13 +27,13 @@ struct TransformKey
 
 class TransformDataTrack : public TemplDataTrack<TransformKey>
 {
-	int     curve_count;
-	Vector* curve;
-	float   radius;
+	int curve_count;
+	Vector3* curve;
+	float radius;
 
 public:
 
-	bool  orient_by_spline;
+	bool orient_by_spline;
 	Matrix* value;
 
 	TransformDataTrack(TrackPlayer* own, const char* nm, Matrix* value, float radius, bool orinet, ChangeKeyFunc changeKey_Func);
@@ -42,9 +42,9 @@ public:
 	virtual void Load(JSONReader& stream, int num);
 	virtual void Save(JSONWriter& stream);
 
-	void BezierFunc(Vector& p1, Vector& p2,Vector& p3,Vector& p4, Vector& pos, float t);
-	void CubicFunc(int index, Vector& pos, float s);
-	void CubicFuncAxeX(int index, Vector& pos, float s);
+	void BezierFunc(Vector3& p1, Vector3& p2, Vector3& p3, Vector3& p4, Vector3& pos, float t);
+	void CubicFunc(int index, Vector3& pos, float s);
+	void CubicFuncAxeX(int index, Vector3& pos, float s);
 	void CubicFuncQuat(int index, Quaternion& quat, float s);
 	void GenerateKoef(int start_index, int end_index);
 	void GenerateKoefAxeX(int start_index, int end_index);

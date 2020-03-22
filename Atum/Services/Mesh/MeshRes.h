@@ -22,8 +22,8 @@ public:
 		void Init(Mesh* mesh, TaskExecutor::SingleTaskPool* taskPool);
 		void SetPosition(Vector2 pos);
 
-		Vector GetBBMin();
-		Vector GetBBMax();
+		Vector3 GetBBMin();
+		Vector3 GetBBMax();
 
 		void Render(float dt);
 		void ShRender(float dt);
@@ -36,9 +36,9 @@ public:
 
 	struct MeshVertex
 	{
-		Vector  pos;
+		Vector3 pos;
 		Vector2 uv;
-		Vector  normal;
+		Vector3 normal;
 	};
 
 	struct SubMesh
@@ -51,8 +51,8 @@ public:
 
 	VertexDecl* vdecl;
 
-	Vector bb_max;
-	Vector bb_min;
+	Vector3 bb_max;
+	Vector3 bb_min;
 
 	std::vector<Texture*> textures;
 	std::vector<SubMesh> meshes;

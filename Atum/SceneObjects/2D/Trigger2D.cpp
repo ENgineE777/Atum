@@ -96,7 +96,7 @@ void Trigger2D::EditorDraw(float dt)
 	Sprite::Draw(&trans, color, &sprite, &state, true, false);
 }
 
-bool Trigger2D::CheckSelection(Vector2 ms, Vector start, Vector dir)
+bool Trigger2D::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 {
 	ms = Sprite::MoveFromCamera(ms);
 

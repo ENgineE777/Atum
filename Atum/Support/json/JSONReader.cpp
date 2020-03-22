@@ -400,7 +400,7 @@ bool JSONReader::Read(const char* name, Vector2& val)
 	return false;
 }
 
-bool JSONReader::Read(const char* name, Vector& val)
+bool JSONReader::Read(const char* name, Vector3& val)
 {
 	if (EnterBlock(name))
 	{

@@ -7,7 +7,7 @@ class DebugSprites : public Object
 {
 	struct SpriteVertex
 	{
-		Vector  Position;
+		Vector3 Position;
 		Vector2 Texcoords;
 	};
 

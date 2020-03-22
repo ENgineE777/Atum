@@ -36,13 +36,13 @@ void PhysBox::Draw(float dt)
 		obj->GetTransform(transform);
 	}
 
-	core.render.DebugBox(transform, color, Vector(sizeX, sizeY, sizeZ));
+	core.render.DebugBox(transform, color, Vector3(sizeX, sizeY, sizeZ));
 }
 
 bool PhysBox::Play()
 {
 	SceneObject::Play();
-	obj = PScene()->CreateBox(Vector(sizeX, sizeY, sizeZ), Trans(), Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, 1);
+	obj = PScene()->CreateBox(Vector3(sizeX, sizeY, sizeZ), Trans(), Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, 1);
 
 	return true;
 }

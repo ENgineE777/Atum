@@ -37,7 +37,7 @@ void Gizmo::Transform2D::BuildMatrices()
 		mat_local.RotateZ(*rotation);
 	}
 
-	mat_local.Pos() = Vector((!axis || axis->x > 0.0f) ? pos->x : -pos->x - size->x,
+	mat_local.Pos() = Vector3((!axis || axis->x > 0.0f) ? pos->x : -pos->x - size->x,
 		(!axis || axis->y > 0.0f) ? pos->y : -pos->y - size->y,
 		depth ? *depth : 0.5f);
 
@@ -142,11 +142,11 @@ Color Gizmo::CheckColor(int axis)
 
 void Gizmo::DrawAxis(int axis)
 {
-	Vector tr = transform->Pos();
+	Vector3 tr = transform->Pos();
 
 	Color color = CheckColor(axis);
-	Vector dir;
-	dir.Set(0.0f);
+	Vector3 dir;
+	dir = 0.0f;
 
 	if (axis == 0)
 	{
@@ -180,20 +180,20 @@ void Gizmo::DrawAxis(int axis)
 		float dx = (float)sinf(2.0f * 3.14f / (float)nums * (float)i) * r;
 		float dz = (float)cosf(2.0f * 3.14f / (float)nums * (float)i) * r;
 
-		Vector pos;
+		Vector3 pos;
 
 		if (axis == 0)
 		{
-			pos = Vector(hgt, dx, dz); 
+			pos = Vector3(hgt, dx, dz); 
 		}
 		else
 		if (axis == 1)
 		{
-			pos = Vector(dx, hgt, dz);
+			pos = Vector3(dx, hgt, dz);
 		}
 		else
 		{
-			pos = Vector(dx, dz, hgt);
+			pos = Vector3(dx, dz, hgt);
 		}
 
 		if (useLocalSpace)
@@ -223,8 +223,8 @@ void Gizmo::DrawCircle(int axis)
 	Matrix view;
 	core.render.GetTransform(Render::View, view);
 
-	Vector tr = mat.Pos();
-	Vector trans = tr * view;
+	Vector3 tr = mat.Pos();
+	Vector3 trans = tr * view;
 
 	float last_dx = -scale * 2;
 	float last_dz = -scale * 2;
@@ -237,8 +237,8 @@ void Gizmo::DrawCircle(int axis)
 
 		if (last_dx > -scale * 1.5f)
 		{
-			Vector pos;
-			Vector pos2;
+			Vector3 pos;
+			Vector3 pos2;
 
 			if (axis == 0)
 			{
@@ -263,8 +263,8 @@ void Gizmo::DrawCircle(int axis)
 			pos += tr;
 			pos2 += tr;
 
-			Vector pos_post = pos * view;
-			Vector pos2_post = pos2 * view;
+			Vector3 pos_post = pos * view;
+			Vector3 pos2_post = pos2 * view;
 
 			if (pos_post.z > trans.z && pos2_post.z > trans.z)
 			{
@@ -281,8 +281,8 @@ void Gizmo::DrawCircle(int axis)
 	}
 }
 
-bool Gizmo::CheckInersection(Vector pos, Vector pos2, Vector2 ms,
-                             Vector trans, bool check_trans,
+bool Gizmo::CheckInersection(Vector3 pos, Vector3 pos2, Vector2 ms,
+                             Vector3 trans, bool check_trans,
                              Matrix view, Matrix view_proj)
 {
 	if (useLocalSpace)
@@ -291,13 +291,13 @@ bool Gizmo::CheckInersection(Vector pos, Vector pos2, Vector2 ms,
 		pos2 = transform->MulNormal(pos2);
 	}
 
-	Vector tr = transform->Pos();
+	Vector3 tr = transform->Pos();
 
 	pos += tr;
 	pos2 += tr;
 
-	Vector pos_post = pos * view;
-	Vector pos2_post = pos2 * view;
+	Vector3 pos_post = pos * view;
+	Vector3 pos2_post = pos2 * view;
 
 	bool proceed = true;
 	if (check_trans)
@@ -398,8 +398,8 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 
 	if (mode == 0)
 	{
-		Vector dir;
-		dir.Set(0.0f);
+		Vector3 dir;
+		dir = 0.0f;
 
 		if (axis == 0)
 		{
@@ -419,9 +419,9 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 
 		for (int i=0; i<count; i++)
 		{
-			Vector pos = dir * (float)i * (1.0f / (float)count);
-			Vector pos2 = dir * (float)(i+1) * (1.0f / (float)count);
-			Vector tr(0.0f);
+			Vector3 pos = dir * (float)i * (1.0f / (float)count);
+			Vector3 pos2 = dir * (float)(i+1) * (1.0f / (float)count);
+			Vector3 tr(0.0f);
 
 			if (CheckInersection(pos, pos2, ms, tr, false, view, view_proj))
 			{
@@ -432,7 +432,7 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 	else
 	if (mode == 1)
 	{
-		Vector trans = transform->Pos() * view;
+		Vector3 trans = transform->Pos() * view;
 
 		float r = scale;
 		float last_dx = -r * 2;
@@ -446,24 +446,24 @@ bool Gizmo::CheckSelectionTrans3D(int axis, Vector2 ms)
 
 			if (last_dx > -r * 1.5f)
 			{
-				Vector pos;
-				Vector pos2;
+				Vector3 pos;
+				Vector3 pos2;
 
 				if (axis == 0)
 				{
-					pos = Vector(0.0f, last_dx, last_dz);
-					pos2 = Vector(0.0f, dx, dz);
+					pos = Vector3(0.0f, last_dx, last_dz);
+					pos2 = Vector3(0.0f, dx, dz);
 				}
 				else
 				if (axis == 1)
 				{
-					pos = Vector(last_dx, 0.0f, last_dz);
-					pos2 = Vector(dx, 0.0f, dz);
+					pos = Vector3(last_dx, 0.0f, last_dz);
+					pos2 = Vector3(dx, 0.0f, dz);
 				}
 				else
 				{
-					pos = Vector(last_dx, last_dz, 0.0f);
-					pos2 = Vector(dx, dz, 0.0f);
+					pos = Vector3(last_dx, last_dz, 0.0f);
+					pos2 = Vector3(dx, dz, 0.0f);
 				}
 
 				if (CheckInersection(pos, pos2, ms, trans, true, view, view_proj))
@@ -678,7 +678,7 @@ void Gizmo::MoveTrans3D(Vector2 ms)
 		}
 		else
 		{
-			Vector tr = transform->Pos();
+			Vector3 tr = transform->Pos();
 			(*transform) = (*transform) * rot;
 			transform->Pos() = tr;
 		}
@@ -689,7 +689,7 @@ void Gizmo::RenderTrans2D()
 {
 	trans2D.BuildMatrices();
 
-	Vector p1, p2;
+	Vector3 p1, p2;
 
 	for (int phase = 1; phase <= 2; phase++)
 	{
@@ -697,60 +697,60 @@ void Gizmo::RenderTrans2D()
 		{
 			if (i == 0)
 			{
-				p1 = Vector(0, 0, 0);
-				p2 = Vector(trans2D.size->x, 0, 0);
+				p1 = Vector3(0, 0, 0);
+				p2 = Vector3(trans2D.size->x, 0, 0);
 			}
 			else
 			if (i == 1)
 			{
-				p1 = Vector(trans2D.size->x, 0, 0);
-				p2 = Vector(trans2D.size->x, trans2D.size->y, 0);
+				p1 = Vector3(trans2D.size->x, 0, 0);
+				p2 = Vector3(trans2D.size->x, trans2D.size->y, 0);
 			}
 			else
 			if (i == 2)
 			{
-				p1 = Vector(trans2D.size->x, trans2D.size->y, 0);
-				p2 = Vector(0, trans2D.size->y, 0);
+				p1 = Vector3(trans2D.size->x, trans2D.size->y, 0);
+				p2 = Vector3(0, trans2D.size->y, 0);
 			}
 			else
 			if (i == 3)
 			{
-				p1 = Vector(0, trans2D.size->y, 0);
-				p2 = Vector(0, 0, 0);
+				p1 = Vector3(0, trans2D.size->y, 0);
+				p2 = Vector3(0, 0, 0);
 			}
 			else
 			if (i == 4)
 			{
-				p1 = Vector(trans2D.size->x * 0.5f, 0, 0);
+				p1 = Vector3(trans2D.size->x * 0.5f, 0, 0);
 			}
 			else
 			if (i == 5)
 			{
-				p1 = Vector(trans2D.size->x, trans2D.size->y * 0.5f, 0);
+				p1 = Vector3(trans2D.size->x, trans2D.size->y * 0.5f, 0);
 			}
 			else
 			if (i == 6)
 			{
-				p1 = Vector(trans2D.size->x * 0.5f, trans2D.size->y, 0);
+				p1 = Vector3(trans2D.size->x * 0.5f, trans2D.size->y, 0);
 			}
 			else
 			if (i == 7)
 			{
-				p1 = Vector(0, trans2D.size->y * 0.5f, 0);
+				p1 = Vector3(0, trans2D.size->y * 0.5f, 0);
 			}
 
-			p1 -= Vector((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
+			p1 -= Vector3((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
 			p1 = p1 * trans2D.mat_global;
-			p2 -= Vector((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
+			p2 -= Vector3((trans2D.offset ? trans2D.offset->x : 0.5f) * trans2D.size->x, (trans2D.offset ? trans2D.offset->y : 0.5f) * trans2D.size->y, 0);
 			p2 = p2 * trans2D.mat_global;
 
 			if (!ignore_2d_camera)
 			{
 				Vector2 tmp = Sprite::MoveToCamera(Vector2(p1.x, p1.y));
-				p1 = Vector(tmp.x, tmp.y, p1.z);
+				p1 = Vector3(tmp.x, tmp.y, p1.z);
 
 				tmp = Sprite::MoveToCamera(Vector2(p2.x, p2.y));
-				p2 = Vector(tmp.x, tmp.y, p1.z);
+				p2 = Vector3(tmp.x, tmp.y, p1.z);
 			}
 			else
 			{
@@ -770,13 +770,13 @@ void Gizmo::RenderTrans2D()
 		}
 	}
 
-	p1 = Vector(0.0f, 0.0f, 0.0f);
+	p1 = Vector3(0.0f, 0.0f, 0.0f);
 	p1 = p1 * trans2D.mat_global;
 
 	if (!ignore_2d_camera)
 	{
 		Vector2 tmp = Sprite::MoveToCamera(Vector2(p1.x, p1.y));
-		p1 = Vector(tmp.x, tmp.y, p1.z);
+		p1 = Vector3(tmp.x, tmp.y, p1.z);
 	}
 	else
 	{
@@ -797,7 +797,7 @@ void Gizmo::RenderTrans3D()
 	core.render.GetTransform(Render::Projection, view_proj);
 	view_proj = view * view_proj;
 
-	Vector pos = transform->Pos();
+	Vector3 pos = transform->Pos();
 	float z = pos.x*view_proj._13 + pos.y*view_proj._23 + pos.z*view_proj._33 + view_proj._43;
 
 	scale = 0.1f * (1.0f + z);
@@ -903,7 +903,7 @@ void Gizmo::OnLeftMouseUp()
 			moved_origin += (Sprite::ed_cam_pos - Sprite::half_screen) / Sprite::screen_mul;
 		}
 
-		Vector pos = Vector(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector(trans2D.size->x, trans2D.size->y, 1.0f);
+		Vector3 pos = Vector3(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector3(trans2D.size->x, trans2D.size->y, 1.0f);
 		*trans2D.offset += Vector2(pos.x, pos.y);
 		*trans2D.pos += Vector2(pos.x, pos.y) * (*trans2D.size);
 		pos2d = *trans2D.pos;

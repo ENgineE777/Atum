@@ -84,16 +84,16 @@ namespace Math
 		return angle;
 	}
 
-	bool IntersectBBoxRay(Vector vmin, Vector vmax, Vector start, Vector dir)
+	bool IntersectBBoxRay(Vector3 vmin, Vector3 vmax, Vector3 start, Vector3 dir)
 	{
-		Vector invdir = 1 / dir;
+		Vector3 invdir = 1 / dir;
 
 		int sign[3];
 		sign[0] = (invdir.x < 0);
 		sign[1] = (invdir.y < 0);
 		sign[2] = (invdir.z < 0);
 
-		Vector bounds[2];
+		Vector3 bounds[2];
 		bounds[0] = vmin;
 		bounds[1] = vmax;
 

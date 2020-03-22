@@ -107,7 +107,7 @@ public:
 	const char* script_class_name = nullptr;
 
 	Vector2 camera3d_angles = 0.0f;
-	Vector  camera3d_pos = 0.0f;
+	Vector3 camera3d_pos = 0.0f;
 
 	Vector2 camera2d_pos = 0.0f;
 	float camera2d_zoom = 1.0f;
@@ -298,7 +298,7 @@ public:
 	virtual void EnableTasks(bool enable);
 	virtual bool HasOwnTasks();
 	virtual bool IsAsset();
-	virtual bool CheckSelection(Vector2 ms, Vector start, Vector dir);
+	virtual bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir);
 	virtual bool AddedToTreeByParent();
 	virtual void AddChildsToTree(EUITreeView* treeview);
 	virtual bool UseAseetsTree();

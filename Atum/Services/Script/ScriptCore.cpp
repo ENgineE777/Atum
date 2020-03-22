@@ -110,8 +110,8 @@ bool ScriptCore::Scene::Raycast2D(float origin_x, float origin_y, float dir_x, f
 
 	float scale = 1.0f / 50.0f;
 
-	rcdesc.origin = Vector(origin_x * scale, -origin_y * scale, 0.0f);
-	rcdesc.dir = Vector(dir_x, -dir_y, 0.0f);
+	rcdesc.origin = Vector3(origin_x * scale, -origin_y * scale, 0.0f);
+	rcdesc.dir = Vector3(dir_x, -dir_y, 0.0f);
 	rcdesc.length = dist * scale;
 	rcdesc.group = group;
 

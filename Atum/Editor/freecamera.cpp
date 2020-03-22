@@ -10,7 +10,7 @@ void FreeCamera::Init()
 	proj.BuildProjection(45.0f * Math::Radian, 600.0f / 800.0f, 1.0f, 1000.0f);
 
 	angles = Vector2(0.0f, -0.5f);
-	pos = Vector(0.0f, 6.0f, 0.0f);
+	pos = Vector3(0.0f, 6.0f, 0.0f);
 
 	alias_forward = core.controls.GetAlias("FreeCamera.MOVE_FORWARD");
 	alias_strafe = core.controls.GetAlias("FreeCamera.MOVE_STRAFE");
@@ -47,7 +47,7 @@ void FreeCamera::Update(float dt)
 	if (core.controls.GetAliasState(alias_reset_view))
 	{
 		angles = Vector2(0.0f, -0.5f);
-		pos = Vector(0.0f, 6.0f, 0.0f);
+		pos = Vector3(0.0f, 6.0f, 0.0f);
 	}
 
 	if (core.controls.GetAliasState(alias_rotate_active, Controls::Active))
@@ -72,13 +72,13 @@ void FreeCamera::Update(float dt)
 
 	float speed = (3.0f + 12.0f * fast) * dt;
 
-	Vector dir = Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x));
+	Vector3 dir = Vector3(cosf(angles.x), sinf(angles.y), sinf(angles.x));
 	pos += dir * speed * forward;
 	
-	Vector dir_strafe = Vector(dir.z, 0,-dir.x);
+	Vector3 dir_strafe = Vector3(dir.z, 0,-dir.x);
 	pos += dir_strafe * speed * strafe;
 
-	view.BuildView(pos, pos + Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)), Vector(0, 1, 0));
+	view.BuildView(pos, pos + Vector3(cosf(angles.x), sinf(angles.y), sinf(angles.x)), Vector3(0, 1, 0));
 
 	core.render.SetTransform(Render::View, view);
 

@@ -15,18 +15,18 @@ void Plane::Init(float plane_y, const char* tex_name)
 	float plane_size = 75.0f;
 	float plane_tiling = plane_size * 0.3f;
 
-	v_tri[0].position = Vector(-plane_size, plane_y, plane_size);
+	v_tri[0].position = Vector3(-plane_size, plane_y, plane_size);
 	v_tri[0].texCoord = Vector2(0.0f, 0.0f);
-	v_tri[1].position = Vector(plane_size, plane_y, plane_size);
+	v_tri[1].position = Vector3(plane_size, plane_y, plane_size);
 	v_tri[1].texCoord = Vector2(plane_tiling, 0.0f);
-	v_tri[2].position = Vector(plane_size, plane_y, -plane_size);
+	v_tri[2].position = Vector3(plane_size, plane_y, -plane_size);
 	v_tri[2].texCoord = Vector2(plane_tiling, plane_tiling);
 
-	v_tri[3].position = Vector(-plane_size, plane_y, plane_size);
+	v_tri[3].position = Vector3(-plane_size, plane_y, plane_size);
 	v_tri[3].texCoord = Vector2(0.0f, 0.0f);
-	v_tri[4].position = Vector(plane_size, plane_y, -plane_size);
+	v_tri[4].position = Vector3(plane_size, plane_y, -plane_size);
 	v_tri[4].texCoord = Vector2(plane_tiling, plane_tiling);
-	v_tri[5].position = Vector(-plane_size, plane_y, -plane_size);
+	v_tri[5].position = Vector3(-plane_size, plane_y, -plane_size);
 	v_tri[5].texCoord = Vector2(0.0f, plane_tiling);
 
 	buffer->Unlock();

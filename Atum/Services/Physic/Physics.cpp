@@ -167,7 +167,7 @@ void Physics::Update(float dt)
 			cam_pos.y = Sprite::cam_pos.y / 50.0f;//* scale - 512 * scale;
 
 			Matrix view;
-			view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector(0, 1, 0));
+			view.BuildView({ cam_pos.x, -cam_pos.y, -512.0f / 20.25f }, { cam_pos.x, -cam_pos.y, 0.0f }, Vector3(0, 1, 0));
 
 			core.render.SetTransform(Render::View, view);
 

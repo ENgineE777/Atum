@@ -66,7 +66,7 @@ void Camera3D::Update(float dt)
 		float dist = 7.0f;
 		float width = tanf(fov * Math::Radian * 0.5f) * dist;
 
-		Vector edges[] = { Vector(0.0f), Vector(-width , width, dist), Vector(width, width, dist), Vector(width,-width, dist), Vector(-width,-width, dist)};
+		Vector3 edges[] = { Vector3(0.0f), Vector3(-width , width, dist), Vector3(width, width, dist), Vector3(width,-width, dist), Vector3(-width,-width, dist)};
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -91,7 +91,7 @@ bool Camera3D::Is3DObject()
 	return true;
 }
 
-void Camera3D::SetPosTarget(Vector& pos, Vector& target)
+void Camera3D::SetPosTarget(Vector3& pos, Vector3& target)
 {
-	view.BuildView(pos, target, Vector(0, 1, 0));
+	view.BuildView(pos, target, Vector3(0, 1, 0));
 }

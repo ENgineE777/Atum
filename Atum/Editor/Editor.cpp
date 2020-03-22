@@ -493,7 +493,7 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 		Matrix* mat = obj->Trans();
 		if (mat)
 		{
-			mat->Move(freecamera.pos + Vector(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f);
+			mat->Pos() += freecamera.pos + Vector3(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f;
 		}
 	}
 	else
@@ -833,7 +833,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 	{
 		Vector2 screen_pos = Vector2((float)mx / (float)core.render.GetDevice()->GetWidth(), (float)my / (float)core.render.GetDevice()->GetHeight());
 
-		Vector v;
+		Vector3 v;
 		v.x = (2.0f * screen_pos.x - 1) / freecamera.proj._11;
 		v.y = -(2.0f * screen_pos.y - 1) / freecamera.proj._22;
 		v.z = 1.0f;
@@ -841,7 +841,7 @@ void Editor::OnLeftMouseDown(EUIWidget* sender, int mx, int my)
 		Matrix inv_view = freecamera.view;
 		inv_view.Inverse();
 
-		Vector dir;
+		Vector3 dir;
 		dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
 		dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
 		dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
@@ -1149,8 +1149,8 @@ void Editor::OnUpdate(EUIWidget* sender)
 			{
 				float pos = (float)i - 10.0f;
 
-				core.render.DebugLine(Vector(pos, 0.0f, -10.0f), COLOR_WHITE, Vector(pos, 0.0f, 10.0f), COLOR_WHITE);
-				core.render.DebugLine(Vector(-10.0f, 0.0f, pos), COLOR_WHITE, Vector(10.0f, 0.0f, pos), COLOR_WHITE);
+				core.render.DebugLine(Vector3(pos, 0.0f, -10.0f), COLOR_WHITE, Vector3(pos, 0.0f, 10.0f), COLOR_WHITE);
+				core.render.DebugLine(Vector3(-10.0f, 0.0f, pos), COLOR_WHITE, Vector3(10.0f, 0.0f, pos), COLOR_WHITE);
 			}
 		}
 

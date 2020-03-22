@@ -10,7 +10,7 @@ public:
 
 	Matrix trans;
 	Color  color;
-	Vector size;
+	Vector3 size;
 
 	BoxPlayer();
 	virtual ~BoxPlayer();

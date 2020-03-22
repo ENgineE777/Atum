@@ -126,7 +126,7 @@ public:
 	void OnMouseMove(Vector2 delta_ms) override;
 	void OnLeftMouseDown(Vector2 ms) override;
 	void OnLeftMouseUp() override;
-	bool CheckSelection(Vector2 ms, Vector start, Vector dir) override;
+	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
 	int  GetInstCount();

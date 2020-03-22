@@ -10,16 +10,16 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 
 	Vertex* vertices = (Vertex*)vbuffer->Lock();
 
-	Vector base_vertices[] =
+	Vector3 base_vertices[] =
 	{
-		Vector(-0.5f, 0.5f, -0.5f),
-		Vector(0.5f, 0.5f, -0.5f),
-		Vector(-0.5f, -0.5f, -0.5f),
-		Vector(0.5f, -0.5f, -0.5f),
-		Vector(-0.5f, 0.5f, 0.5f),
-		Vector(0.5f, 0.5f, 0.5f),
-		Vector(-0.5f, -0.5f, 0.5f),
-		Vector( 0.5f, -0.5f, 0.5f)
+		{-0.5f, 0.5f, -0.5f},
+		{0.5f, 0.5f, -0.5f},
+		{-0.5f, -0.5f, -0.5f},
+		{0.5f, -0.5f, -0.5f},
+		{-0.5f, 0.5f, 0.5f},
+		{0.5f, 0.5f, 0.5f},
+		{-0.5f, -0.5f, 0.5f},
+		{ 0.5f, -0.5f, 0.5f}
 	};
 
 	int bace_indices[] =
@@ -48,14 +48,14 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 		vertices[i].color = 0xffffffff;
 	}
 
-	Vector noramls[] =
+	Vector3 noramls[] =
 	{
-		Vector( 0.0f, 0.0f,-1.0f),
-		Vector( 0.0f, 0.0f, 1.0f),
-		Vector(-1.0f, 0.0f, 0.0f),
-		Vector( 1.0f, 0.0f, 0.0f),
-		Vector( 0.0f, 1.0f, 0.0f),
-		Vector( 0.0f,-1.0f, 0.0f)
+		{ 0.0f, 0.0f,-1.0f},
+		{ 0.0f, 0.0f, 1.0f},
+		{-1.0f, 0.0f, 0.0f},
+		{ 1.0f, 0.0f, 0.0f},
+		{ 0.0f, 1.0f, 0.0f},
+		{ 0.0f,-1.0f, 0.0f}
 	};
 
 	for (int i = 0; i < 6; i++)
@@ -84,12 +84,14 @@ void DebugBoxes::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(199, this, (Object::Delegate)&DebugBoxes::Draw);
 }
 
-void DebugBoxes::AddBox(Matrix trans, Color color, Vector scale)
+void DebugBoxes::AddBox(Matrix trans, Color color, Vector3 scale)
 {
 	boxes.push_back(Box());
 	Box* box = &boxes[boxes.size()-1];
 
-	box->trans = Matrix().Scale(scale) * trans;
+	Matrix scale_mat;
+	scale_mat.Scale(scale);
+	box->trans = scale_mat * trans;
 	box->color = color;
 }
 

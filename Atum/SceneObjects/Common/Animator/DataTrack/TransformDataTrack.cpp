@@ -77,7 +77,7 @@ void TransformDataTrack::Save(JSONWriter& stream)
 	stream.FinishArray();
 }
 
-void TransformDataTrack::BezierFunc(Vector& p1, Vector& p2,Vector& p3,Vector& p4, Vector& pos, float t)
+void TransformDataTrack::BezierFunc(Vector3& p1, Vector3& p2, Vector3& p3, Vector3& p4, Vector3& pos, float t)
 {
 	float s=1-t;
 	float t2=t*t;
@@ -86,12 +86,12 @@ void TransformDataTrack::BezierFunc(Vector& p1, Vector& p2,Vector& p3,Vector& p4
 	pos = ((p1*s+3*t*p2)*s+3*t2*p3)*s+t3*p4;
 }
 
-void TransformDataTrack::CubicFunc(int index, Vector& pos, float s)
+void TransformDataTrack::CubicFunc(int index, Vector3& pos, float s)
 {
 	pos = ((values[index].d * s + values[index].c) * s + values[index].b) * s + values[index].a;
 }
 
-void TransformDataTrack::CubicFuncAxeX(int index, Vector& pos, float s)
+void TransformDataTrack::CubicFuncAxeX(int index, Vector3& pos, float s)
 {
 	pos = ((values[index].dX * s + values[index].cX) * s + values[index].bX) * s + values[index].aX;
 }
@@ -110,9 +110,9 @@ void TransformDataTrack::GenerateKoef(int start_index, int end_index)
 
 	if (n < 1) return;
 
-	Vector* gamma = new Vector[n + 1];
-	Vector* delta = new Vector[n + 1];
-	Vector* D = new Vector[n + 1];
+	Vector3* gamma = new Vector3[n + 1];
+	Vector3* delta = new Vector3[n + 1];
+	Vector3* D = new Vector3[n + 1];
 
 	int i;
 
@@ -160,9 +160,9 @@ void TransformDataTrack::GenerateKoefAxeX(int start_index, int end_index)
 
 	if (n < 1) return;
 
-	Vector* gamma = new Vector[n + 1];
-	Vector* delta = new Vector[n + 1];
-	Vector* D = new Vector[n + 1];
+	Vector3* gamma = new Vector3[n + 1];
+	Vector3* delta = new Vector3[n + 1];
+	Vector3* D = new Vector3[n + 1];
 
 	int i;
 
@@ -245,8 +245,8 @@ void TransformDataTrack::GenerateKoefQuat(int start_index, int end_index)
 	{
 		values[start_index + i].aQ = values[start_index + i].rot;
 		values[start_index + i].bQ = D[i];
-		values[start_index + i].cQ = 3 * (values[start_index + i + 1].rot - values[start_index + i].rot) - 2 * D[i] - D[i + 1];
-		values[start_index + i].dQ = 2 * (values[start_index + i].rot - values[start_index + i+1].rot) + D[i] + D[i + 1];
+		values[start_index + i].cQ = 3.0f * (values[start_index + i + 1].rot - values[start_index + i].rot) - 2.0f * D[i] - D[i + 1];
+		values[start_index + i].dQ = 2.0f * (values[start_index + i].rot - values[start_index + i+1].rot) + D[i] + D[i + 1];
 	}
 
 	delete[] gamma;
@@ -278,7 +278,7 @@ void TransformDataTrack::Prepare()
 
 			if (index - start_index == 1)
 			{
-				Vector dir = values[1].pos - values[0].pos;
+				Vector3 dir = values[1].pos - values[0].pos;
 				float dst = dir.Normalize();
 
 				values[0].b_pt1 = values[0].pos + dir * dst * 0.33f;
@@ -291,12 +291,12 @@ void TransformDataTrack::Prepare()
 			{
 				for (int i = start_index; i < index - 1; i++)
 				{
-					Vector dir = values[i + 1].pos - values[i].pos;
+					Vector3 dir = values[i + 1].pos - values[i].pos;
 					float dst = dir.Normalize();
 
 					if (i < (int)values.size() - 2)
 					{
-						Vector tngt = values[i + 2].pos - values[i].pos;
+						Vector3 tngt = values[i + 2].pos - values[i].pos;
 						tngt.Normalize();
 				
 						values[i].b_pt2 = values[i + 1].pos - tngt * dst * 0.25f;
@@ -334,14 +334,14 @@ void TransformDataTrack::Prepare()
 	if (keys.size() > 1)
 	{
 		curve_count = ((int)keys.size() - 1) * 20 + 1;
-		curve = new Vector[curve_count];
+		curve = new Vector3[curve_count];
 		curve[0] = values[0].pos;
 
 		for (int j = 0; j < (int)keys.size() - 1; j++)
 		{
 			values[j].length = 0;
 
-			Vector prev_pt = values[j].pos;
+			Vector3 prev_pt = values[j].pos;
 
 			for (int i = 0; i < 20; i++)
 			{
@@ -379,7 +379,7 @@ void TransformDataTrack::Prepare()
 void TransformDataTrack::CalcValue(int index, float blend)
 {
 	Quaternion rot;
-	Vector pos;
+	Vector3 pos;
 
 	if (blend<-0.01f)
 	{
@@ -396,17 +396,17 @@ void TransformDataTrack::CalcValue(int index, float blend)
 		}
 		else
 		{
-			Vector s_dir;
+			Vector3 s_dir;
 			CubicFunc(index - 1, s_dir, blend);
 
-			Vector dirX;
+			Vector3 dirX;
 			CubicFuncAxeX(index - 1, dirX, blend);
 
-			Vector up;
+			Vector3 up;
 			up = s_dir.Cross(dirX);
 
 			Matrix view;
-			view.BuildView(Vector(0.0f), s_dir, up);
+			view.BuildView(Vector3(0.0f), s_dir, up);
 			view.Inverse();
 			rot.Set(view);
 		}
@@ -567,12 +567,12 @@ void TransformDataTrack::DrawKey(Matrix& view_proj, Color& color, TransformKey& 
 
 	scale = 0.095f * (1.0f + z);
 
-	Vector pos = key.pos;
-	Vector pos_up = pos + transform.Vy() * scale * 0.3f;
-	Vector dir = transform.Vz() * scale + pos;
+	Vector3 pos = key.pos;
+	Vector3 pos_up = pos + transform.Vy() * scale * 0.3f;
+	Vector3 dir = transform.Vz() * scale + pos;
 
-	Vector dirx = transform.Vx() * scale * 0.3f;
-	Vector dirxInvert = -dirx;
+	Vector3 dirx = transform.Vx() * scale * 0.3f;
+	Vector3 dirxInvert = -dirx;
 	dirx += pos;
 	dirxInvert += pos;
 

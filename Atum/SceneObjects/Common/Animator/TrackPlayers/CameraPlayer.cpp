@@ -16,7 +16,7 @@ void CameraPlayer::SetTime(float time)
 {
 	TrackPlayer::SetTime(time);
 
-	Vector tmp( 0, 1, 0 );
+	Vector3 tmp( 0, 1, 0 );
 	Matrix view;
 	view.BuildView(trans.Pos(), trans.Pos() + trans.Vz(), tmp);
 	core.render.SetTransform(Render::View, view);

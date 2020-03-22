@@ -89,7 +89,7 @@ void TankClient::Update(float dt)
 		mat.RotateY(inst.serverState.angle);
 		mat.Pos() = inst.serverState.pos;
 
-		Vector target_pt = 0.0f;
+		Vector3 target_pt = 0.0f;
 		PhysScene::RaycastDesc rcdesc;
 
 		if (inst.is_contralable)
@@ -109,7 +109,7 @@ void TankClient::Update(float dt)
 				}
 			}*/
 
-			view.BuildView(mat.Pos() + Vector(0, 4.5f, 0.0f) - Vector(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 55, mat.Pos() + Vector(0,4.5f,0.0f), Vector(0, 1, 0));
+			view.BuildView(mat.Pos() + Vector3(0, 4.5f, 0.0f) - Vector3(cosf(angles.x), sinf(angles.y), sinf(angles.x)) * 55, mat.Pos() + Vector3(0,4.5f,0.0f), Vector3(0, 1, 0));
 			proj.BuildProjection(45.0f * Math::Radian, (float)core.render.GetDevice()->GetHeight() / (float)core.render.GetDevice()->GetWidth(), 1.0f, 1000.0f);
 
 			core.render.SetTransform(Render::View, view);
@@ -120,7 +120,7 @@ void TankClient::Update(float dt)
 			Vector2 screepos = Vector2((float)core.controls.GetAliasValue(alias_rotate_x, false) / (float)core.render.GetDevice()->GetWidth(),
 			                           (float)core.controls.GetAliasValue(alias_rotate_y, false) / (float)core.render.GetDevice()->GetHeight());
 
-			Vector v;
+			Vector3 v;
 			v.x = (2.0f * screepos.x - 1) / proj._11;
 			v.y = -(2.0f * screepos.y - 1) / proj._22;
 			v.z = 1.0f;
@@ -128,9 +128,9 @@ void TankClient::Update(float dt)
 			Matrix inv_view = view;
 			inv_view.Inverse();
 
-			Vector camPos = inv_view.Pos();
+			Vector3 camPos = inv_view.Pos();
 
-			Vector dir;
+			Vector3 dir;
 			dir.x = v.x * inv_view._11 + v.y * inv_view._21 + v.z * inv_view._31;
 			dir.y = v.x * inv_view._12 + v.y * inv_view._22 + v.z * inv_view._32;
 			dir.z = v.x * inv_view._13 + v.y * inv_view._23 + v.z * inv_view._33;
@@ -149,9 +149,9 @@ void TankClient::Update(float dt)
 				dir = target_pt - mat.Pos();
 				dir.Normalize();
 
-				inst.clientState.needed_tower_angel = acosf(dir.Dot(Vector(1,0,0)));
+				inst.clientState.needed_tower_angel = acosf(dir.Dot(Vector3(1,0,0)));
 
-				if (dir.Dot(Vector(0, 0, 1)) > 0.0f)
+				if (dir.Dot(Vector3(0, 0, 1)) > 0.0f)
 				{
 					inst.clientState.needed_tower_angel = Math::PI * 2 - inst.clientState.needed_tower_angel;
 				}
@@ -199,13 +199,13 @@ void TankClient::Update(float dt)
 
 		float under = 1.0f;
 
-		rcdesc.dir = Vector(0, -1, 0);
+		rcdesc.dir = Vector3(0, -1, 0);
 		rcdesc.length = under + 2.0f;
 
-		Vector org = mat.Pos();
+		Vector3 org = mat.Pos();
 		org.y += under;
 
-		Vector scr_pos = core.render.TransformToScreen(mat.Pos(), 2);
+		Vector3 scr_pos = core.render.TransformToScreen(mat.Pos(), 2);
 		Vector2 bar_size(60.0f, 5.0f);
 
 		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 60.0f), bar_size, COLOR_RED);
@@ -220,7 +220,7 @@ void TankClient::Update(float dt)
 		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 30.0f), bar_size, COLOR_RED);
 		core.render.DebugSprite(nullptr, Vector2(scr_pos.x - bar_size.x * 0.5f, scr_pos.y - 30.0f), Vector2(bar_size.x * (1.0f - inst.serverState.shoot_cooldown / 1.5f), bar_size.y), COLOR_BLUE);
 
-		Vector p1 = org + mat.Vx() * 1.75f;
+		Vector3 p1 = org + mat.Vx() * 1.75f;
 		rcdesc.origin = p1;
 		rcdesc.group = 1;
 
@@ -233,7 +233,7 @@ void TankClient::Update(float dt)
 			p1.y -= under;
 		}
 
-		Vector p2 = org - mat.Vx() * 1.75f - mat.Vz();
+		Vector3 p2 = org - mat.Vx() * 1.75f - mat.Vz();
 		rcdesc.origin = p2;
 
 		if (PScene()->RayCast(rcdesc))
@@ -245,7 +245,7 @@ void TankClient::Update(float dt)
 			p2.y -= under;
 		}
 
-		Vector p3 = org - mat.Vx() * 1.75f + mat.Vz();
+		Vector3 p3 = org - mat.Vx() * 1.75f + mat.Vz();
 		rcdesc.origin = p3;
 
 		if (PScene()->RayCast(rcdesc))
@@ -272,21 +272,28 @@ void TankClient::Update(float dt)
 		Matrix mdl = mat;
 		inst.base_drawer->SetTransform(mdl);
 
-		mdl = Matrix().RotateY(inst.serverState.tower_angel - inst.serverState.angle) * Matrix().Move(base_model.locator) * mdl;
+		Matrix local;
+		local.Pos() = base_model.locator;
+
+		Matrix rot;
+		rot.RotateY(inst.serverState.tower_angel - inst.serverState.angle);
+		mdl = rot * local * mdl;
 		inst.tower_drawer->SetTransform(mdl);
 
-		Vector tower = mdl.Pos();
+		Vector3 tower = mdl.Pos();
 
-		mdl = Matrix().Move(tower_model.locator) * mdl;
+		local.Pos() = tower_model.locator;
+		mdl = local * mdl;
 		inst.gun_drawer->SetTransform(mdl);
 
-		mdl = Matrix().Move(gun_model.locator) * mdl;
+		local.Pos() = gun_model.locator;
+		mdl = local * mdl;
 
 		if (inst.is_contralable)
 		{
 			inst.clientState.gun_pos = mdl.Pos();
 
-			Vector dr = target_pt - tower;
+			Vector3 dr = target_pt - tower;
 			float hgt = dr.y;
 			dr.y = 0;
 			float len = dr.Length();
@@ -297,7 +304,7 @@ void TankClient::Update(float dt)
 			dr *= len;
 			dr.y = hgt;
 
-			Vector trg = tower + dr;
+			Vector3 trg = tower + dr;
 
 			inst.clientState.gun_dir = trg - mdl.Pos();
 			inst.clientState.gun_dir.Normalize();

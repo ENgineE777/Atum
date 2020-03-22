@@ -135,8 +135,8 @@ void CenterGraphCamera(void* owner)
 
 		for (auto& node : graph->nodes)
 		{
-			leftCorner = leftCorner.Min(node.pos - graph->nodeSize * 0.5f);
-			rightCorner = rightCorner.Max(node.pos + graph->nodeSize * 1.5f);
+			leftCorner.Min(node.pos - graph->nodeSize * 0.5f);
+			rightCorner.Max(node.pos + graph->nodeSize * 1.5f);
 		}
 
 		Vector2 half_size = (rightCorner - leftCorner) * 0.5f;

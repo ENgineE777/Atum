@@ -1,7 +1,7 @@
 
 #pragma once
 
-#include "Vector.h"
+#include "Vector3.h"
 
 /**
 \ingroup gr_code_common
@@ -41,7 +41,7 @@ public:
 	Vector4(float x, float y, float z, float w);
 	Vector4(float f[3]);
 	Vector4(double d[3]);
-	Vector4(const Vector& v);
+	Vector4(const Vector3& v);
 	Vector4(const Vector4& v);
 
 public:
@@ -52,7 +52,7 @@ public:
 	
 	Vector4& operator = (float f);
 	Vector4& operator = (double d);
-	Vector4& operator = (const Vector& v);
+	Vector4& operator = (const Vector3& v);
 	Vector4& operator = (const Vector4& v);
 
 	Vector4& operator *= (float f);
@@ -120,7 +120,7 @@ inline Vector4::Vector4(double d[3])
 	w = 1.0f;
 }
 
-inline Vector4::Vector4(const Vector& vc)
+inline Vector4::Vector4(const Vector3& vc)
 {
 	x = vc.x;
 	y = vc.y;
@@ -165,7 +165,7 @@ inline Vector4 & Vector4::operator = (double d)
 	return *this;
 }
 
-inline Vector4 & Vector4::operator = (const Vector & v)
+inline Vector4 & Vector4::operator = (const Vector3 & v)
 {
 	this->x = v.x;
 	this->y = v.y;

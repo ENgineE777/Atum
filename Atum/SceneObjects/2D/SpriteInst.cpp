@@ -915,7 +915,7 @@ void SpriteInst::FillRect()
 	}
 }
 
-bool SpriteInst::CheckSelection(Vector2 ms, Vector start, Vector dir)
+bool SpriteInst::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 {
 	ms = Sprite::MoveFromCamera(ms);
 

@@ -7,14 +7,14 @@ class DebugTriangles : public Object
 {
 	struct Triangle
 	{
-		Vector p[3];
+		Vector3 p[3];
 		uint32_t color;
 	};
 
 	struct Vertex
 	{
-		Vector pos;
-		Vector normal;
+		Vector3 pos;
+		Vector3 normal;
 		uint32_t color;
 	};
 
@@ -26,7 +26,7 @@ class DebugTriangles : public Object
 public:
 	
 	void Init(TaskExecutor::SingleTaskPool* debugTaskPool);
-	void AddTriangle(Vector p1, Vector p2, Vector p3, Color color);
+	void AddTriangle(Vector3 p1, Vector3 p2, Vector3 p3, Color color);
 	void Draw(float dt);
 	void Release();
 };

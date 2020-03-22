@@ -71,7 +71,7 @@ public:
 #ifdef EDITOR
 	void Set2DPos(Vector2 pos) override;
 	void EditorDraw(float dt);
-	bool CheckSelection(Vector2 ms, Vector start, Vector dir) override;
+	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
 	void SetEditMode(bool ed) override;
 #endif
 

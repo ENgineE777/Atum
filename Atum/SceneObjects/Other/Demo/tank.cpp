@@ -20,7 +20,7 @@ void Tank::Init()
 	Tasks(false)->AddTask(0, this, (Object::Delegate)&Tank::SendClientState, 1.0f / 15.0f);
 }
 
-void Tank::AddInstance(int id, Vector pos, bool is_bot)
+void Tank::AddInstance(int id, Vector3 pos, bool is_bot)
 {
 	client->AddIsntance(id, clientID == id);
 
@@ -91,7 +91,7 @@ bool Tank::Play()
 
 void Tank::OnClientConnected(int id)
 {
-	AddInstance(id, Vector(transform.Pos().x + id * 10.0f, transform.Pos().y, transform.Pos().z), false);
+	AddInstance(id, Vector3(transform.Pos().x + id * 10.0f, transform.Pos().y, transform.Pos().z), false);
 
 	char packet[256];
 
@@ -167,7 +167,7 @@ void Tank::OnDataRecieved(int id, void* data, int size)
 			}
 			case ADDINSTANCE:
 			{
-				AddInstance(*((int*)ptr), Vector(transform.Pos().x + *((int*)ptr) * 10.0f, transform.Pos().y, transform.Pos().z), false);
+				AddInstance(*((int*)ptr), Vector3(transform.Pos().x + *((int*)ptr) * 10.0f, transform.Pos().y, transform.Pos().z), false);
 				ptr += 4;
 				break;
 			}
@@ -331,10 +331,10 @@ void Tank::Update(float dt)
 						Bonus& bonus = bonuses[bonuses.size() - 1];
 
 						bonus.type = (int)(3.0f * Math::Rand() * 0.999f);
-						bonus.pos = Vector(x + square * Math::Rand(), 25.0f, z + square * Math::Rand());
+						bonus.pos = Vector3(x + square * Math::Rand(), 25.0f, z + square * Math::Rand());
 
 						rcdesc.origin = bonus.pos;
-						rcdesc.dir = Vector(0.0f, -1.0f, 0.0f);
+						rcdesc.dir = Vector3(0.0f, -1.0f, 0.0f);
 						rcdesc.length = 100.0f;
 						rcdesc.group = 1;
 
@@ -374,7 +374,7 @@ void Tank::Update(float dt)
 
 		inst.serverState.pos = mat.Pos();
 
-		Vector dir = mat.Vx();
+		Vector3 dir = mat.Vx();
 		dir.y = 0;
 		dir.Normalize();
 
@@ -569,7 +569,7 @@ void Tank::Update(float dt)
 					{
 						for (int i = 0; i < 5; i++)
 						{
-							proj.claster_pos[i] = proj.pos + Vector(-2.0f + 4.0f * Math::Rand(), 0.0f, -2.0f + 4.0f * Math::Rand());
+							proj.claster_pos[i] = proj.pos + Vector3(-2.0f + 4.0f * Math::Rand(), 0.0f, -2.0f + 4.0f * Math::Rand());
 							AddSplash(proj.claster_pos[i], Projectile::splashMaxRadius, 200);
 						}
 					}
@@ -667,7 +667,7 @@ void Tank::Update(float dt)
 
 }
 
-void Tank::AddSplash(Vector& pos, float radius, float force)
+void Tank::AddSplash(Vector3& pos, float radius, float force)
 {
 	vector<Scene::Group*> out_group;
 	GetScene()->GetGroup(out_group, "PhysBox");
@@ -683,7 +683,7 @@ void Tank::AddSplash(Vector& pos, float radius, float force)
 				continue;
 			}
 
-			Vector dir = box->Trans()->Pos() - pos;
+			Vector3 dir = box->Trans()->Pos() - pos;
 			float len = dir.Normalize();
 
 			if (len < radius)

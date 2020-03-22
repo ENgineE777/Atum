@@ -51,7 +51,7 @@ struct PhysControllerDesc
 	float radius = 0.25f;
 
 	/** \brief Postion of a controller */
-	Vector pos;
+	Vector3 pos;
 
 	/** \brief The maximum slope which the character can walk up. */
 	float slopeLimit = cosf(Math::Radian * 20.0f);
@@ -74,7 +74,7 @@ class PhysController : public PxUserControllerHitReport, public PxControllerBeha
 	PxController* controller = nullptr;
 	float height = 1.0f;
 	bool active = true;
-	Vector deactive_pos;
+	Vector3 deactive_pos;
 	uint32_t collide_group;
 	uint32_t ignore_group;
 
@@ -153,7 +153,7 @@ public:
 	\param[in] group With which collision group should be collided
 	\param[in] group Which collision group should be ignored
 	*/
-	void Move(Vector dir, uint32_t group, uint32_t ignore_group);
+	void Move(Vector3 dir, uint32_t group, uint32_t ignore_group);
 
 	/**
 	\brief Set belonging to a physical group
@@ -167,14 +167,14 @@ public:
 
 	\param[in] pos New position of a controller
 	*/
-	void SetPosition(Vector pos);
+	void SetPosition(Vector3 pos);
 
 	/**
 	\brief Get position of a controller
 
 	\param[out] pos Current position of a controller
 	*/
-	void GetPosition(Vector& pos);
+	void GetPosition(Vector3& pos);
 
 	/**
 	\brief PhysController should released only via this mehod

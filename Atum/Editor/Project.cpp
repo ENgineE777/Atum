@@ -988,7 +988,7 @@ void Project::EnableScene(SceneHolder* holder, bool enable)
 	holder->scene->EnableTasks(enable);
 }
 
-void Project::CheckSelection(Vector2 ms, Vector start, Vector dir, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection)
+void Project::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir, SceneHolder* holder, vector<SceneObject*>& tmp_under_selection)
 {
 	for (auto& obj : holder->scene->objects)
 	{
@@ -1014,7 +1014,7 @@ void Project::CheckSelection(Vector2 ms, Vector start, Vector dir, SceneHolder* 
 	}
 }
 
-SceneObject* Project::CheckSelection(Vector2 ms, Vector start, Vector dir)
+SceneObject* Project::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 {
 	vector<SceneObject*> tmp_under_selection;
 

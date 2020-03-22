@@ -274,14 +274,14 @@ void Sprite::Draw(Transform2D* trans, Color clr, Sprite::Data* sprite, FrameStat
 		size *= ed_cam_zoom;
 	}
 
-	Vector min_pos(10000000.0f);
-	Vector max_pos(-10000000.0f);
+	Vector3 min_pos(10000000.0f);
+	Vector3 max_pos(-10000000.0f);
 
-	Vector tmp[] = { Vector(pos.x, pos.y, 0), Vector(pos.x + size.x, pos.y, 0), Vector(pos.x + size.x, pos.y + size.y, 0), Vector(pos.x, pos.y + size.y, 0) };
+	Vector3 tmp[] = { Vector3(pos.x, pos.y, 0), Vector3(pos.x + size.x, pos.y, 0), Vector3(pos.x + size.x, pos.y + size.y, 0), Vector3(pos.x, pos.y + size.y, 0) };
 	
 	for (int i = 0; i < 4; i++)
 	{
-		Vector temp = tmp[i] * local_trans;
+		Vector3 temp = tmp[i] * local_trans;
 		min_pos.Min(temp);
 		max_pos.Max(temp);
 	}

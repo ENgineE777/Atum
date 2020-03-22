@@ -213,7 +213,7 @@ public:
 	void FillRect();
 	Vector2 AlignBySize(Vector2 pos);
 	void OnRectSelect(Vector2 p1, Vector2 p2) override;
-	bool CheckSelection(Vector2 ms, Vector start, Vector dir) override;
+	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
 	void SetEditMode(bool ed) override;
 	void SetGizmo();
 	int  GetInstCount();

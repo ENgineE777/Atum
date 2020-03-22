@@ -10,7 +10,7 @@ public:
 
 	struct VertexTri
 	{
-		Vector  position;
+		Vector3 position;
 		Vector2 texCoord;
 	};
 

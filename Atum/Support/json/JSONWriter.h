@@ -2,9 +2,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "Support/Matrix.h"
-#include "Support/Vector2.h"
-#include "Support/Quaternion.h"
+#include "Support/Math/Math.h"
 #include "Support/Color.h"
 #include <stdint.h>
 #include "string"
@@ -53,7 +51,7 @@ public:
 	void Write(const char* name, uint32_t val);
 	void Write(const char* name, int64_t val);
 	void Write(const char* name, Vector2& val);
-	void Write(const char* name, Vector& val);
+	void Write(const char* name, Vector3& val);
 	void Write(const char* name, Matrix* val);
 	void Write(const char* name, Color& val);
 	void Write(const char* name, Quaternion& val);

@@ -276,7 +276,7 @@ void MeshInstance::Draw(float dt)
 			}
 			else
 			{
-				inst.mesh->transform.Move(editor.freecamera.pos + Vector(cosf(editor.freecamera.angles.x), sinf(editor.freecamera.angles.y), sinf(editor.freecamera.angles.x)) * 5.0f);
+				inst.mesh->transform.Pos() += editor.freecamera.pos + Vector3(cosf(editor.freecamera.angles.x), sinf(editor.freecamera.angles.y), sinf(editor.freecamera.angles.x)) * 5.0f;
 			}
 
 			instances.push_back(inst);
@@ -393,7 +393,7 @@ void MeshInstance::Release()
 }
 
 #ifdef EDITOR
-bool MeshInstance::CheckSelection(Vector2 ms, Vector start, Vector dir)
+bool MeshInstance::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 {
 	sel_inst = -1;
 

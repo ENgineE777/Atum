@@ -71,8 +71,8 @@ void CenterScriptCamera(void* owner)
 
 		for (auto& node : script->nodes)
 		{
-			leftCorner = leftCorner.Min(node->pos - script->nodeSize * 0.5f);
-			rightCorner = rightCorner.Max(node->pos + script->nodeSize * 1.5f);
+			leftCorner.Min(node->pos - script->nodeSize * 0.5f);
+			rightCorner.Max(node->pos + script->nodeSize * 1.5f);
 		}
 
 		Vector2 half_size = (rightCorner - leftCorner) * 0.5f;

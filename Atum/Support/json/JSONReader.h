@@ -2,9 +2,7 @@
 #pragma once
 
 #include "json.h"
-#include "Support/Matrix.h"
-#include "Support/Vector2.h"
-#include "Support/Quaternion.h"
+#include "Support/Math/Math.h"
 #include "Support/Color.h"
 #include "string"
 
@@ -54,7 +52,7 @@ public:
 	bool Read(const char* name, uint32_t& val);
 	bool Read(const char* name, int64_t& val);
 	bool Read(const char* name, Vector2& val);
-	bool Read(const char* name, Vector& val);
+	bool Read(const char* name, Vector3& val);
 	bool Read(const char* name, Matrix* val);
 	bool Read(const char* name, Color& val);
 	bool Read(const char* name, Quaternion& val);

@@ -16,7 +16,7 @@ void DebugLines::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugLines::Draw);
 }
 
-void DebugLines::AddLine(Vector from, Color from_clr, Vector to, Color to_clr, bool use_depth)
+void DebugLines::AddLine(Vector3 from, Color from_clr, Vector3 to, Color to_clr, bool use_depth)
 {
 	std::vector<Vertex>* ln;
 
@@ -35,8 +35,8 @@ void DebugLines::AddLine(Vector from, Color from_clr, Vector to, Color to_clr, b
 
 void DebugLines::AddLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_clr)
 {
-	lines_2d.push_back(Vertex(Vector(from.x, from.y, 1.0f), from_clr.Get()));
-	lines_2d.push_back(Vertex(Vector(to.x, to.y, 1.0f), to_clr.Get()));
+	lines_2d.push_back(Vertex(Vector3(from.x, from.y, 1.0f), from_clr.Get()));
+	lines_2d.push_back(Vertex(Vector3(to.x, to.y, 1.0f), to_clr.Get()));
 }
 
 void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
@@ -81,7 +81,7 @@ void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 				v[count * 2 + j].p.x = (2.0f * v[count * 2 + j].p.x / (float)core.render.GetDevice()->GetWidth() - 1) / proj._11;
 				v[count * 2 + j].p.y = -(2.0f * v[count * 2 + j].p.y / (float)core.render.GetDevice()->GetHeight() - 1) / proj._22;
 
-				Vector dir = inv_view.MulNormal(v[count * 2 + j].p);
+				Vector3 dir = inv_view.MulNormal(v[count * 2 + j].p);
 				v[count * 2 + j].p = inv_view.Pos() + dir * 10.0f;
 			}
 		}

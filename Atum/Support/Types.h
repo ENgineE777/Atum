@@ -1,8 +1,8 @@
 
 #pragma once
 
-#include "Vector2.h"
-#include "Matrix.h"
+#include "Math/Vector2.h"
+#include "Math/Matrix.h"
 
 /**
 \ingroup gr_code_common
@@ -65,7 +65,7 @@ struct Transform2D
 	{
 		mat_local.Identity();
 		mat_local.RotateZ(rotation);
-		mat_local.Pos() = Vector(axis.x > 0.0f ? pos.x : -pos.x - size.x, axis.y > 0.0f ? pos.y : -pos.y - size.y, depth);
+		mat_local.Pos() = Vector3(axis.x > 0.0f ? pos.x : -pos.x - size.x, axis.y > 0.0f ? pos.y : -pos.y - size.y, depth);
 
 		mat_global = mat_local * mat_parent;
 	}

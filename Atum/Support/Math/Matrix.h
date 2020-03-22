@@ -32,485 +32,452 @@ public:
 		};
 	};
 
-	Matrix(bool empty = false);
-
-	Vector3& Vx() { return (Vector3&)matrix[0]; };
-	Vector3& Vy() { return (Vector3&)matrix[4]; };
-	Vector3& Vz() { return (Vector3&)matrix[8]; };
-	Vector3& Pos() { return (Vector3&)matrix[12]; };
-
-	Matrix& operator *= (const Matrix& mtx);
-
-	Matrix& Identity();
-	Matrix& SetZero();
-	Matrix& Set(Matrix& Matrix);
-
-	bool IsEqual(Matrix& mat);
-
-	void BuildProjection(float viewAngle, float aspect, float zNear, float zFar);
-	bool BuildView(Vector3 lookFrom, Vector3 lookTo, Vector3 upVector);
-
-	Matrix& RotateX(float ang);
-	Matrix& RotateY(float ang);
-	Matrix& RotateZ(float ang);
-
-	Matrix& Move(Vector3 pos);
-	Matrix& Scale(Vector3 scale);
-	bool Inverse();
-	void Transpose();
-
-	Vector3  MulVertex(Vector3 v) const;
-	Vector4 MulVertex4(Vector3 v) const;
-	Vector3  MulNormal(Vector3 v);
-	Vector3  MulVertexByInverse(Vector3 v);
-	Vector3  MulNormalByInverse(Vector3 v);
-
-	Matrix& Multiply(Matrix m1, Matrix m2);
-};
-
-inline Matrix::Matrix(bool empty)
-{
-	if (!empty) Identity();
-}
-
-inline Matrix& Matrix::operator *= (const Matrix & mtx)
-{
-	Multiply(*this, mtx);
-	return *this;
-}
-
-inline Matrix operator * (const Matrix & m1, const Matrix & m2)
-{
-	Matrix m;
-	m.Multiply(m1, m2);
-	return m;
-}
-
-inline Vector3 operator * (const Matrix & mtx, const Vector3 & v)
-{
-	return mtx.MulVertex(v);
-}
-
-inline Vector3 operator * (const Vector3 & v, const Matrix & mtx)
-{
-	return mtx.MulVertex(v);
-}
-
-inline Matrix& Matrix::Identity()
-{
-	matrix[0] = 1.0f;
-	matrix[1] = 0.0f;
-	matrix[2] = 0.0f;
-	matrix[3] = 0.0f;
-
-	matrix[4] = 0.0f;
-	matrix[5] = 1.0f;
-	matrix[6] = 0.0f;
-	matrix[7] = 0.0f;
-
-	matrix[8] = 0.0f;
-	matrix[9] = 0.0f;
-	matrix[10] = 1.0f;
-	matrix[11] = 0.0f;
-
-	matrix[12] = 0.0f;
-	matrix[13] = 0.0f;
-	matrix[14] = 0.0f;
-	matrix[15] = 1.0f;
-
-	return *this;
-}
-
-inline Matrix& Matrix::SetZero()
-{
-	matrix[0] = 0.0f;
-	matrix[1] = 0.0f;
-	matrix[2] = 0.0f;
-	matrix[3] = 0.0f;
-
-	matrix[4] = 0.0f;
-	matrix[5] = 0.0f;
-	matrix[6] = 0.0f;
-	matrix[7] = 0.0f;
-
-	matrix[8] = 0.0f;
-	matrix[9] = 0.0f;
-	matrix[10] = 0.0f;
-	matrix[11] = 0.0f;
-
-	matrix[12] = 0.0f;
-	matrix[13] = 0.0f;
-	matrix[14] = 0.0f;
-	matrix[15] = 0.0f;
-
-	return *this;
-}
-
-inline Matrix & Matrix::Set(Matrix& matrix)
-{
-	this->matrix[0] = matrix.matrix[0]; 
-	this->matrix[1] = matrix.matrix[1];
-	this->matrix[2] = matrix.matrix[2];
-	this->matrix[3] = matrix.matrix[3];
-
-	this->matrix[4] = matrix.matrix[4]; 
-	this->matrix[5] = matrix.matrix[5];
-	this->matrix[6] = matrix.matrix[6];
-	this->matrix[7] = matrix.matrix[7];
-
-	this->matrix[8] = matrix.matrix[8];  
-	this->matrix[9] = matrix.matrix[9]; 
-	this->matrix[10] = matrix.matrix[10];
-	this->matrix[11] = matrix.matrix[11];
-
-	this->matrix[12] = matrix.matrix[12]; 
-	this->matrix[13] = matrix.matrix[13];
-	this->matrix[14] = matrix.matrix[14];
-	this->matrix[15] = matrix.matrix[15];
-
-	return *this;
-}
-
-inline bool Matrix::IsEqual(Matrix& mat)
-{
-	for (int i = 0; i < 16; i++)
+	Matrix(bool empty = false)
 	{
-		if (fabs(matrix[i] - mat.matrix[i]) > 0.001f)
+		if (!empty) Identity();
+	}
+
+	Vector3& Vx()
+	{
+		return (Vector3&)matrix[0];
+	};
+
+	Vector3& Vy()
+	{
+		return (Vector3&)matrix[4];
+	};
+
+	Vector3& Vz()
+	{
+		return (Vector3&)matrix[8];
+	};
+
+	Vector3& Pos()
+	{
+		return (Vector3&)matrix[12];
+	};
+
+	Matrix& operator *= (const Matrix& mtx)
+	{
+		Multiply(*this, mtx);
+		return *this;
+	}
+
+	friend Matrix operator * (const Matrix& m1, const Matrix& m2)
+	{
+		Matrix m;
+		m.Multiply(m1, m2);
+		return m;
+	}
+
+	friend Vector3 operator * (const Matrix& mtx, const Vector3& v)
+	{
+		return mtx.MulVertex(v);
+	}
+
+	friend Vector3 operator * (const Vector3& v, const Matrix& mtx)
+	{
+		return mtx.MulVertex(v);
+	}
+
+	void Matrix::Identity()
+	{
+		matrix[0] = 1.0f;
+		matrix[1] = 0.0f;
+		matrix[2] = 0.0f;
+		matrix[3] = 0.0f;
+
+		matrix[4] = 0.0f;
+		matrix[5] = 1.0f;
+		matrix[6] = 0.0f;
+		matrix[7] = 0.0f;
+
+		matrix[8] = 0.0f;
+		matrix[9] = 0.0f;
+		matrix[10] = 1.0f;
+		matrix[11] = 0.0f;
+
+		matrix[12] = 0.0f;
+		matrix[13] = 0.0f;
+		matrix[14] = 0.0f;
+		matrix[15] = 1.0f;
+	}
+
+	void SetZero()
+	{
+		matrix[0] = 0.0f;
+		matrix[1] = 0.0f;
+		matrix[2] = 0.0f;
+		matrix[3] = 0.0f;
+
+		matrix[4] = 0.0f;
+		matrix[5] = 0.0f;
+		matrix[6] = 0.0f;
+		matrix[7] = 0.0f;
+
+		matrix[8] = 0.0f;
+		matrix[9] = 0.0f;
+		matrix[10] = 0.0f;
+		matrix[11] = 0.0f;
+
+		matrix[12] = 0.0f;
+		matrix[13] = 0.0f;
+		matrix[14] = 0.0f;
+		matrix[15] = 0.0f;
+	}
+
+	Matrix& Set(Matrix& m)
+	{
+		matrix[0] = m.matrix[0];
+		matrix[1] = m.matrix[1];
+		matrix[2] = m.matrix[2];
+		matrix[3] = m.matrix[3];
+
+		matrix[4] = m.matrix[4];
+		matrix[5] = m.matrix[5];
+		matrix[6] = m.matrix[6];
+		matrix[7] = m.matrix[7];
+
+		matrix[8] = m.matrix[8];
+		matrix[9] = m.matrix[9];
+		matrix[10] = m.matrix[10];
+		matrix[11] = m.matrix[11];
+
+		matrix[12] = m.matrix[12];
+		matrix[13] = m.matrix[13];
+		matrix[14] = m.matrix[14];
+		matrix[15] = m.matrix[15];
+	}
+
+	bool IsEqual(Matrix& mat)
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			if (fabs(matrix[i] - mat.matrix[i]) > 0.001f)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	void BuildProjection(float viewAngle, float aspect, float zNear, float zFar)
+	{
+		SetZero();
+
+		double Q = double(zFar) / double(zFar - zNear);
+		m[1][1] = float(1.0 / tan(viewAngle*0.5));
+		m[0][0] = m[1][1] * aspect;
+		m[2][2] = float(Q);
+		m[2][3] = 1.0f;
+		m[3][2] = float(-Q * zNear);
+	}
+
+	bool BuildView(Vector3 lookFrom, Vector3 lookTo, Vector3 upVector)
+	{
+		Identity();
+
+		lookTo -= lookFrom;
+
+		if (lookTo.Normalize() == 0.0f)
+		{
+			Pos() = -lookFrom;
+			return false;
+		}
+
+		upVector -= lookTo * lookTo.Dot(upVector);
+
+		if (upVector.Normalize() == 0.0f) upVector.y = 1.0f;
+
+		Vector3 v = upVector.Cross(lookTo);
+		if (v.Normalize() > 0.0f)
+		{
+			m[0][0] = v.x;
+			m[1][0] = v.y;
+			m[2][0] = v.z;
+			m[0][1] = upVector.x;
+			m[1][1] = upVector.y;
+			m[2][1] = upVector.z;
+			m[0][2] = lookTo.x;
+			m[1][2] = lookTo.y;
+			m[2][2] = lookTo.z;
+		}
+		else
+		{
+			Pos() = -lookFrom;
+			return false;
+		}
+
+		Pos() = -MulNormal(lookFrom);
+
+		return true;
+	}
+
+	void RotateX(float ang)
+	{
+		Matrix m;
+		m.m[1][1] = cosf(ang);
+		m.m[1][2] = sinf(ang);
+		m.m[2][1] = -sinf(ang);
+		m.m[2][2] = cosf(ang);
+
+		Multiply(Matrix(*this), m);
+	}
+
+	void RotateY(float ang)
+	{
+		Matrix m;
+		m.m[0][0] = cosf(ang);
+		m.m[0][2] = -sinf(ang);
+		m.m[2][0] = sinf(ang);
+		m.m[2][2] = cosf(ang);
+
+		Multiply(Matrix(*this), m);
+	}
+
+	void RotateZ(float ang)
+	{
+		Matrix m;
+		m.m[0][0] = cosf(ang);
+		m.m[0][1] = sinf(ang);
+		m.m[1][0] = -sinf(ang);
+		m.m[1][1] = cosf(ang);
+
+		Multiply(Matrix(*this), m);
+	}
+
+	void Scale(Vector3 scale)
+	{
+		m[0][0] *= scale.x;
+		m[1][0] *= scale.x;
+		m[2][0] *= scale.x;
+		m[3][0] *= scale.x;
+		m[0][1] *= scale.y;
+		m[1][1] *= scale.y;
+		m[2][1] *= scale.y;
+		m[3][1] *= scale.y;
+		m[0][2] *= scale.z;
+		m[1][2] *= scale.z;
+		m[2][2] *= scale.z;
+		m[3][2] *= scale.z;
+	}
+
+	bool Inverse()
+	{
+		double inv[16], det;
+		int i;
+
+		inv[0] = matrix[5] * matrix[10] * matrix[15] -
+			matrix[5] * matrix[11] * matrix[14] -
+			matrix[9] * matrix[6] * matrix[15] +
+			matrix[9] * matrix[7] * matrix[14] +
+			matrix[13] * matrix[6] * matrix[11] -
+			matrix[13] * matrix[7] * matrix[10];
+
+		inv[4] = -matrix[4] * matrix[10] * matrix[15] +
+			matrix[4] * matrix[11] * matrix[14] +
+			matrix[8] * matrix[6] * matrix[15] -
+			matrix[8] * matrix[7] * matrix[14] -
+			matrix[12] * matrix[6] * matrix[11] +
+			matrix[12] * matrix[7] * matrix[10];
+
+		inv[8] = matrix[4] * matrix[9] * matrix[15] -
+			matrix[4] * matrix[11] * matrix[13] -
+			matrix[8] * matrix[5] * matrix[15] +
+			matrix[8] * matrix[7] * matrix[13] +
+			matrix[12] * matrix[5] * matrix[11] -
+			matrix[12] * matrix[7] * matrix[9];
+
+		inv[12] = -matrix[4] * matrix[9] * matrix[14] +
+			matrix[4] * matrix[10] * matrix[13] +
+			matrix[8] * matrix[5] * matrix[14] -
+			matrix[8] * matrix[6] * matrix[13] -
+			matrix[12] * matrix[5] * matrix[10] +
+			matrix[12] * matrix[6] * matrix[9];
+
+		inv[1] = -matrix[1] * matrix[10] * matrix[15] +
+			matrix[1] * matrix[11] * matrix[14] +
+			matrix[9] * matrix[2] * matrix[15] -
+			matrix[9] * matrix[3] * matrix[14] -
+			matrix[13] * matrix[2] * matrix[11] +
+			matrix[13] * matrix[3] * matrix[10];
+
+		inv[5] = matrix[0] * matrix[10] * matrix[15] -
+			matrix[0] * matrix[11] * matrix[14] -
+			matrix[8] * matrix[2] * matrix[15] +
+			matrix[8] * matrix[3] * matrix[14] +
+			matrix[12] * matrix[2] * matrix[11] -
+			matrix[12] * matrix[3] * matrix[10];
+
+		inv[9] = -matrix[0] * matrix[9] * matrix[15] +
+			matrix[0] * matrix[11] * matrix[13] +
+			matrix[8] * matrix[1] * matrix[15] -
+			matrix[8] * matrix[3] * matrix[13] -
+			matrix[12] * matrix[1] * matrix[11] +
+			matrix[12] * matrix[3] * matrix[9];
+
+		inv[13] = matrix[0] * matrix[9] * matrix[14] -
+			matrix[0] * matrix[10] * matrix[13] -
+			matrix[8] * matrix[1] * matrix[14] +
+			matrix[8] * matrix[2] * matrix[13] +
+			matrix[12] * matrix[1] * matrix[10] -
+			matrix[12] * matrix[2] * matrix[9];
+
+		inv[2] = matrix[1] * matrix[6] * matrix[15] -
+			matrix[1] * matrix[7] * matrix[14] -
+			matrix[5] * matrix[2] * matrix[15] +
+			matrix[5] * matrix[3] * matrix[14] +
+			matrix[13] * matrix[2] * matrix[7] -
+			matrix[13] * matrix[3] * matrix[6];
+
+		inv[6] = -matrix[0] * matrix[6] * matrix[15] +
+			matrix[0] * matrix[7] * matrix[14] +
+			matrix[4] * matrix[2] * matrix[15] -
+			matrix[4] * matrix[3] * matrix[14] -
+			matrix[12] * matrix[2] * matrix[7] +
+			matrix[12] * matrix[3] * matrix[6];
+
+		inv[10] = matrix[0] * matrix[5] * matrix[15] -
+			matrix[0] * matrix[7] * matrix[13] -
+			matrix[4] * matrix[1] * matrix[15] +
+			matrix[4] * matrix[3] * matrix[13] +
+			matrix[12] * matrix[1] * matrix[7] -
+			matrix[12] * matrix[3] * matrix[5];
+
+		inv[14] = -matrix[0] * matrix[5] * matrix[14] +
+			matrix[0] * matrix[6] * matrix[13] +
+			matrix[4] * matrix[1] * matrix[14] -
+			matrix[4] * matrix[2] * matrix[13] -
+			matrix[12] * matrix[1] * matrix[6] +
+			matrix[12] * matrix[2] * matrix[5];
+
+		inv[3] = -matrix[1] * matrix[6] * matrix[11] +
+			matrix[1] * matrix[7] * matrix[10] +
+			matrix[5] * matrix[2] * matrix[11] -
+			matrix[5] * matrix[3] * matrix[10] -
+			matrix[9] * matrix[2] * matrix[7] +
+			matrix[9] * matrix[3] * matrix[6];
+
+		inv[7] = matrix[0] * matrix[6] * matrix[11] -
+			matrix[0] * matrix[7] * matrix[10] -
+			matrix[4] * matrix[2] * matrix[11] +
+			matrix[4] * matrix[3] * matrix[10] +
+			matrix[8] * matrix[2] * matrix[7] -
+			matrix[8] * matrix[3] * matrix[6];
+
+		inv[11] = -matrix[0] * matrix[5] * matrix[11] +
+			matrix[0] * matrix[7] * matrix[9] +
+			matrix[4] * matrix[1] * matrix[11] -
+			matrix[4] * matrix[3] * matrix[9] -
+			matrix[8] * matrix[1] * matrix[7] +
+			matrix[8] * matrix[3] * matrix[5];
+
+		inv[15] = matrix[0] * matrix[5] * matrix[10] -
+			matrix[0] * matrix[6] * matrix[9] -
+			matrix[4] * matrix[1] * matrix[10] +
+			matrix[4] * matrix[2] * matrix[9] +
+			matrix[8] * matrix[1] * matrix[6] -
+			matrix[8] * matrix[2] * matrix[5];
+
+		det = matrix[0] * inv[0] + matrix[1] * inv[4] + matrix[2] * inv[8] + matrix[3] * inv[12];
+
+		if (fabs(det) < 0.001f)
 		{
 			return false;
 		}
+
+		det = 1.0 / det;
+
+		for (i = 0; i < 16; i++)
+		{
+			matrix[i] = (float)(inv[i] * det);
+		}
+
+		return true;
 	}
 
-	return true;
-}
-
-inline void Matrix::BuildProjection(float viewAngle, float aspect, float zNear, float zFar)
-{
-	SetZero();
-
-	double Q = double(zFar)/double(zFar - zNear);
-	m[1][1] = float(1.0/tan(viewAngle*0.5));
-	m[0][0] = m[1][1] * aspect;
-	m[2][2] = float(Q);
-	m[2][3] = 1.0f;
-	m[3][2] = float(-Q*zNear);
-}
-
-inline bool Matrix::BuildView(Vector3 lookFrom, Vector3 lookTo, Vector3 upVector)
-{
-	Identity();
-	
-	lookTo -= lookFrom;
-	if(lookTo.Normalize() == 0.0f)
+	void Transpose()
 	{
-		
-		Pos() = -lookFrom;
-		return false;
+		float tmp;
+		tmp = m[0][1]; m[0][1] = m[1][0]; m[1][0] = tmp;
+		tmp = m[0][2]; m[0][2] = m[2][0]; m[2][0] = tmp;
+		tmp = m[0][3]; m[0][3] = m[3][0]; m[3][0] = tmp;
+		tmp = m[1][2]; m[1][2] = m[2][1]; m[2][1] = tmp;
+		tmp = m[1][3]; m[1][3] = m[3][1]; m[3][1] = tmp;
+		tmp = m[2][3]; m[2][3] = m[3][2]; m[3][2] = tmp;
 	}
-	
-	upVector -= lookTo * lookTo.Dot(upVector);
-	
-	if (upVector.Normalize() == 0.0f) upVector.y = 1.0f;
-	
-	Vector3 v = upVector.Cross(lookTo);
-	if (v.Normalize() > 0.0f)
+
+	Vector3 MulVertex(Vector3 v) const
 	{
-		m[0][0] = v.x;
-		m[1][0] = v.y;
-		m[2][0] = v.z;
-		m[0][1] = upVector.x;
-		m[1][1] = upVector.y;
-		m[2][1] = upVector.z;
-		m[0][2] = lookTo.x;
-		m[1][2] = lookTo.y;
-		m[2][2] = lookTo.z;
+		Vector3 tv;
+		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
+		tv.y = m[0][1] * v.x + m[1][1] * v.y + m[2][1] * v.z + m[3][1];
+		tv.z = m[0][2] * v.x + m[1][2] * v.y + m[2][2] * v.z + m[3][2];
+
+		return tv;
 	}
-	else
+
+	Vector4 MulVertex4(Vector3 v) const
 	{
-		Pos() = -lookFrom;
-		return false;
+		Vector4 tv;
+		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
+		tv.y = m[0][1] * v.x + m[1][1] * v.y + m[2][1] * v.z + m[3][1];
+		tv.z = m[0][2] * v.x + m[1][2] * v.y + m[2][2] * v.z + m[3][2];
+		tv.w = m[0][3] * v.x + m[1][3] * v.y + m[2][3] * v.z + m[3][3];
+
+		return tv;
 	}
-	
-	Pos() = -MulNormal(lookFrom);
-	return true;
-}
 
-inline Matrix & Matrix::RotateX(float ang)
-{
-	Matrix m;
-	m.m[1][1] = cosf(ang);
-	m.m[1][2] = sinf(ang);
-	m.m[2][1] = -sinf(ang);
-	m.m[2][2] = cosf(ang);
-
-	Multiply(Matrix(*this), m);
-	return *this;
-}
-
-inline Matrix & Matrix::RotateY(float ang)
-{
-	Matrix m;
-	m.m[0][0] = cosf(ang);
-	m.m[0][2] = -sinf(ang);
-	m.m[2][0] = sinf(ang);
-	m.m[2][2] = cosf(ang);
-
-	Multiply(Matrix(*this), m);
-	return *this;
-}
-
-inline Matrix & Matrix::RotateZ(float ang)
-{
-	Matrix m;
-	m.m[0][0] = cosf(ang);
-	m.m[0][1] = sinf(ang);
-	m.m[1][0] = -sinf(ang);
-	m.m[1][1] = cosf(ang);
-
-	Multiply(Matrix(*this), m);
-	return *this;
-}
-
-inline Matrix & Matrix::Move(Vector3 pos)
-{
-	this->Pos().x += pos.x;
-	this->Pos().y += pos.y;
-	this->Pos().z += pos.z;
-	return *this;
-}
-
-inline Matrix & Matrix::Scale(Vector3 scale)
-{
-	m[0][0] *= scale.x;
-	m[1][0] *= scale.x;
-	m[2][0] *= scale.x;
-	m[3][0] *= scale.x;
-	m[0][1] *= scale.y;
-	m[1][1] *= scale.y;
-	m[2][1] *= scale.y;
-	m[3][1] *= scale.y;
-	m[0][2] *= scale.z;
-	m[1][2] *= scale.z;
-	m[2][2] *= scale.z;
-	m[3][2] *= scale.z;
-
-	return *this;
-}
-
-inline bool Matrix::Inverse()
-{
-	double inv[16], det;
-	int i;
-
-	inv[0] = matrix[5] * matrix[10] * matrix[15] -
-				matrix[5] * matrix[11] * matrix[14] -
-				matrix[9] * matrix[6] * matrix[15] +
-				matrix[9] * matrix[7] * matrix[14] +
-				matrix[13] * matrix[6] * matrix[11] -
-				matrix[13] * matrix[7] * matrix[10];
-
-	inv[4] = -matrix[4] * matrix[10] * matrix[15] +
-				matrix[4] * matrix[11] * matrix[14] +
-				matrix[8] * matrix[6] * matrix[15] -
-				matrix[8] * matrix[7] * matrix[14] -
-				matrix[12] * matrix[6] * matrix[11] +
-				matrix[12] * matrix[7] * matrix[10];
-
-	inv[8] = matrix[4] * matrix[9] * matrix[15] -
-				matrix[4] * matrix[11] * matrix[13] -
-				matrix[8] * matrix[5] * matrix[15] +
-				matrix[8] * matrix[7] * matrix[13] +
-				matrix[12] * matrix[5] * matrix[11] -
-				matrix[12] * matrix[7] * matrix[9];
-
-	inv[12] = -matrix[4] * matrix[9] * matrix[14] +
-				matrix[4] * matrix[10] * matrix[13] +
-				matrix[8] * matrix[5] * matrix[14] -
-				matrix[8] * matrix[6] * matrix[13] -
-				matrix[12] * matrix[5] * matrix[10] +
-				matrix[12] * matrix[6] * matrix[9];
-
-	inv[1] = -matrix[1] * matrix[10] * matrix[15] +
-				matrix[1] * matrix[11] * matrix[14] +
-				matrix[9] * matrix[2] * matrix[15] -
-				matrix[9] * matrix[3] * matrix[14] -
-				matrix[13] * matrix[2] * matrix[11] +
-				matrix[13] * matrix[3] * matrix[10];
-
-	inv[5] = matrix[0] * matrix[10] * matrix[15] -
-				matrix[0] * matrix[11] * matrix[14] -
-				matrix[8] * matrix[2] * matrix[15] +
-				matrix[8] * matrix[3] * matrix[14] +
-				matrix[12] * matrix[2] * matrix[11] -
-				matrix[12] * matrix[3] * matrix[10];
-
-	inv[9] = -matrix[0] * matrix[9] * matrix[15] +
-				matrix[0] * matrix[11] * matrix[13] +
-				matrix[8] * matrix[1] * matrix[15] -
-				matrix[8] * matrix[3] * matrix[13] -
-				matrix[12] * matrix[1] * matrix[11] +
-				matrix[12] * matrix[3] * matrix[9];
-
-	inv[13] = matrix[0] * matrix[9] * matrix[14] -
-				matrix[0] * matrix[10] * matrix[13] -
-				matrix[8] * matrix[1] * matrix[14] +
-				matrix[8] * matrix[2] * matrix[13] +
-				matrix[12] * matrix[1] * matrix[10] -
-				matrix[12] * matrix[2] * matrix[9];
-
-	inv[2] = matrix[1] * matrix[6] * matrix[15] -
-				matrix[1] * matrix[7] * matrix[14] -
-				matrix[5] * matrix[2] * matrix[15] +
-				matrix[5] * matrix[3] * matrix[14] +
-				matrix[13] * matrix[2] * matrix[7] -
-				matrix[13] * matrix[3] * matrix[6];
-
-	inv[6] = -matrix[0] * matrix[6] * matrix[15] +
-				matrix[0] * matrix[7] * matrix[14] +
-				matrix[4] * matrix[2] * matrix[15] -
-				matrix[4] * matrix[3] * matrix[14] -
-				matrix[12] * matrix[2] * matrix[7] +
-				matrix[12] * matrix[3] * matrix[6];
-
-	inv[10] = matrix[0] * matrix[5] * matrix[15] -
-				matrix[0] * matrix[7] * matrix[13] -
-				matrix[4] * matrix[1] * matrix[15] +
-				matrix[4] * matrix[3] * matrix[13] +
-				matrix[12] * matrix[1] * matrix[7] -
-				matrix[12] * matrix[3] * matrix[5];
-
-	inv[14] = -matrix[0] * matrix[5] * matrix[14] +
-				matrix[0] * matrix[6] * matrix[13] +
-				matrix[4] * matrix[1] * matrix[14] -
-				matrix[4] * matrix[2] * matrix[13] -
-				matrix[12] * matrix[1] * matrix[6] +
-				matrix[12] * matrix[2] * matrix[5];
-
-	inv[3] = -matrix[1] * matrix[6] * matrix[11] +
-				matrix[1] * matrix[7] * matrix[10] +
-				matrix[5] * matrix[2] * matrix[11] -
-				matrix[5] * matrix[3] * matrix[10] -
-				matrix[9] * matrix[2] * matrix[7] +
-				matrix[9] * matrix[3] * matrix[6];
-
-	inv[7] = matrix[0] * matrix[6] * matrix[11] -
-				matrix[0] * matrix[7] * matrix[10] -
-				matrix[4] * matrix[2] * matrix[11] +
-				matrix[4] * matrix[3] * matrix[10] +
-				matrix[8] * matrix[2] * matrix[7] -
-				matrix[8] * matrix[3] * matrix[6];
-
-	inv[11] = -matrix[0] * matrix[5] * matrix[11] +
-				matrix[0] * matrix[7] * matrix[9] +
-				matrix[4] * matrix[1] * matrix[11] -
-				matrix[4] * matrix[3] * matrix[9] -
-				matrix[8] * matrix[1] * matrix[7] +
-				matrix[8] * matrix[3] * matrix[5];
-
-	inv[15] = matrix[0] * matrix[5] * matrix[10] -
-				matrix[0] * matrix[6] * matrix[9] -
-				matrix[4] * matrix[1] * matrix[10] +
-				matrix[4] * matrix[2] * matrix[9] +
-				matrix[8] * matrix[1] * matrix[6] -
-				matrix[8] * matrix[2] * matrix[5];
-
-	det = matrix[0] * inv[0] + matrix[1] * inv[4] + matrix[2] * inv[8] + matrix[3] * inv[12];
-
-	if (fabs(det) < 0.001f)
+	Vector3 MulNormal(Vector3 v)
 	{
-		return false;
+		Vector3 tv;
+		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z;
+		tv.y = m[0][1] * v.x + m[1][1] * v.y + m[2][1] * v.z;
+		tv.z = m[0][2] * v.x + m[1][2] * v.y + m[2][2] * v.z;
+
+		return tv;
 	}
 
-	det = 1.0 / det;
-
-	for (i = 0; i < 16; i++)
+	Vector3 MulVertexByInverse(Vector3 v)
 	{
-		matrix[i] = (float)(inv[i] * det);
+		Vector3 tv;
+		tv.x = m[0][0] * (v.x - m[3][0]) + m[0][1] * (v.y - m[3][1]) + m[0][2] * (v.z - m[3][2]);
+		tv.y = m[1][0] * (v.x - m[3][0]) + m[1][1] * (v.y - m[3][1]) + m[1][2] * (v.z - m[3][2]);
+		tv.z = m[2][0] * (v.x - m[3][0]) + m[2][1] * (v.y - m[3][1]) + m[2][2] * (v.z - m[3][2]);
+
+		return tv;
 	}
 
-	return true;
-}
+	Vector3 MulNormalByInverse(Vector3 v)
+	{
+		Vector3 tv;
+		tv.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z;
+		tv.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z;
+		tv.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z;
 
-inline void Matrix::Transpose()
-{
-	float tmp;
-	tmp = m[0][1]; m[0][1] = m[1][0]; m[1][0] = tmp;
-	tmp = m[0][2]; m[0][2] = m[2][0]; m[2][0] = tmp;
-	tmp = m[0][3]; m[0][3] = m[3][0]; m[3][0] = tmp;
-	tmp = m[1][2]; m[1][2] = m[2][1]; m[2][1] = tmp;
-	tmp = m[1][3]; m[1][3] = m[3][1]; m[3][1] = tmp;
-	tmp = m[2][3]; m[2][3] = m[3][2]; m[3][2] = tmp;
-}
+		return tv;
+	}
 
-inline Matrix & Matrix::Multiply(Matrix m1, Matrix m2)
-{
-	m[0][0] = m2.m[0][0]*m1.m[0][0] + m2.m[1][0]*m1.m[0][1] + m2.m[2][0]*m1.m[0][2] + m2.m[3][0]*m1.m[0][3];
-	m[0][1] = m2.m[0][1]*m1.m[0][0] + m2.m[1][1]*m1.m[0][1] + m2.m[2][1]*m1.m[0][2] + m2.m[3][1]*m1.m[0][3];
-	m[0][2] = m2.m[0][2]*m1.m[0][0] + m2.m[1][2]*m1.m[0][1] + m2.m[2][2]*m1.m[0][2] + m2.m[3][2]*m1.m[0][3];
-	m[0][3] = m2.m[0][3]*m1.m[0][0] + m2.m[1][3]*m1.m[0][1] + m2.m[2][3]*m1.m[0][2] + m2.m[3][3]*m1.m[0][3];
-	m[1][0] = m2.m[0][0]*m1.m[1][0] + m2.m[1][0]*m1.m[1][1] + m2.m[2][0]*m1.m[1][2] + m2.m[3][0]*m1.m[1][3];
-	m[1][1] = m2.m[0][1]*m1.m[1][0] + m2.m[1][1]*m1.m[1][1] + m2.m[2][1]*m1.m[1][2] + m2.m[3][1]*m1.m[1][3];
-	m[1][2] = m2.m[0][2]*m1.m[1][0] + m2.m[1][2]*m1.m[1][1] + m2.m[2][2]*m1.m[1][2] + m2.m[3][2]*m1.m[1][3];
-	m[1][3] = m2.m[0][3]*m1.m[1][0] + m2.m[1][3]*m1.m[1][1] + m2.m[2][3]*m1.m[1][2] + m2.m[3][3]*m1.m[1][3];
-	m[2][0] = m2.m[0][0]*m1.m[2][0] + m2.m[1][0]*m1.m[2][1] + m2.m[2][0]*m1.m[2][2] + m2.m[3][0]*m1.m[2][3];
-	m[2][1] = m2.m[0][1]*m1.m[2][0] + m2.m[1][1]*m1.m[2][1] + m2.m[2][1]*m1.m[2][2] + m2.m[3][1]*m1.m[2][3];
-	m[2][2] = m2.m[0][2]*m1.m[2][0] + m2.m[1][2]*m1.m[2][1] + m2.m[2][2]*m1.m[2][2] + m2.m[3][2]*m1.m[2][3];
-	m[2][3] = m2.m[0][3]*m1.m[2][0] + m2.m[1][3]*m1.m[2][1] + m2.m[2][3]*m1.m[2][2] + m2.m[3][3]*m1.m[2][3];
-	m[3][0] = m2.m[0][0]*m1.m[3][0] + m2.m[1][0]*m1.m[3][1] + m2.m[2][0]*m1.m[3][2] + m2.m[3][0]*m1.m[3][3];
-	m[3][1] = m2.m[0][1]*m1.m[3][0] + m2.m[1][1]*m1.m[3][1] + m2.m[2][1]*m1.m[3][2] + m2.m[3][1]*m1.m[3][3];
-	m[3][2] = m2.m[0][2]*m1.m[3][0] + m2.m[1][2]*m1.m[3][1] + m2.m[2][2]*m1.m[3][2] + m2.m[3][2]*m1.m[3][3];
-	m[3][3] = m2.m[0][3]*m1.m[3][0] + m2.m[1][3]*m1.m[3][1] + m2.m[2][3]*m1.m[3][2] + m2.m[3][3]*m1.m[3][3];
+	Matrix & Multiply(const Matrix& m1, const Matrix& m2)
+	{
+		m[0][0] = m2.m[0][0]*m1.m[0][0] + m2.m[1][0]*m1.m[0][1] + m2.m[2][0]*m1.m[0][2] + m2.m[3][0]*m1.m[0][3];
+		m[0][1] = m2.m[0][1]*m1.m[0][0] + m2.m[1][1]*m1.m[0][1] + m2.m[2][1]*m1.m[0][2] + m2.m[3][1]*m1.m[0][3];
+		m[0][2] = m2.m[0][2]*m1.m[0][0] + m2.m[1][2]*m1.m[0][1] + m2.m[2][2]*m1.m[0][2] + m2.m[3][2]*m1.m[0][3];
+		m[0][3] = m2.m[0][3]*m1.m[0][0] + m2.m[1][3]*m1.m[0][1] + m2.m[2][3]*m1.m[0][2] + m2.m[3][3]*m1.m[0][3];
+		m[1][0] = m2.m[0][0]*m1.m[1][0] + m2.m[1][0]*m1.m[1][1] + m2.m[2][0]*m1.m[1][2] + m2.m[3][0]*m1.m[1][3];
+		m[1][1] = m2.m[0][1]*m1.m[1][0] + m2.m[1][1]*m1.m[1][1] + m2.m[2][1]*m1.m[1][2] + m2.m[3][1]*m1.m[1][3];
+		m[1][2] = m2.m[0][2]*m1.m[1][0] + m2.m[1][2]*m1.m[1][1] + m2.m[2][2]*m1.m[1][2] + m2.m[3][2]*m1.m[1][3];
+		m[1][3] = m2.m[0][3]*m1.m[1][0] + m2.m[1][3]*m1.m[1][1] + m2.m[2][3]*m1.m[1][2] + m2.m[3][3]*m1.m[1][3];
+		m[2][0] = m2.m[0][0]*m1.m[2][0] + m2.m[1][0]*m1.m[2][1] + m2.m[2][0]*m1.m[2][2] + m2.m[3][0]*m1.m[2][3];
+		m[2][1] = m2.m[0][1]*m1.m[2][0] + m2.m[1][1]*m1.m[2][1] + m2.m[2][1]*m1.m[2][2] + m2.m[3][1]*m1.m[2][3];
+		m[2][2] = m2.m[0][2]*m1.m[2][0] + m2.m[1][2]*m1.m[2][1] + m2.m[2][2]*m1.m[2][2] + m2.m[3][2]*m1.m[2][3];
+		m[2][3] = m2.m[0][3]*m1.m[2][0] + m2.m[1][3]*m1.m[2][1] + m2.m[2][3]*m1.m[2][2] + m2.m[3][3]*m1.m[2][3];
+		m[3][0] = m2.m[0][0]*m1.m[3][0] + m2.m[1][0]*m1.m[3][1] + m2.m[2][0]*m1.m[3][2] + m2.m[3][0]*m1.m[3][3];
+		m[3][1] = m2.m[0][1]*m1.m[3][0] + m2.m[1][1]*m1.m[3][1] + m2.m[2][1]*m1.m[3][2] + m2.m[3][1]*m1.m[3][3];
+		m[3][2] = m2.m[0][2]*m1.m[3][0] + m2.m[1][2]*m1.m[3][1] + m2.m[2][2]*m1.m[3][2] + m2.m[3][2]*m1.m[3][3];
+		m[3][3] = m2.m[0][3]*m1.m[3][0] + m2.m[1][3]*m1.m[3][1] + m2.m[2][3]*m1.m[3][2] + m2.m[3][3]*m1.m[3][3];
 
-	return *this;
-}
-
-inline Vector3 Matrix::MulVertex(Vector3 v) const
-{
-	Vector3 tv;
-	tv.x = m[0][0]*v.x + m[1][0]*v.y + m[2][0]*v.z + m[3][0];
-	tv.y = m[0][1]*v.x + m[1][1]*v.y + m[2][1]*v.z + m[3][1];
-	tv.z = m[0][2]*v.x + m[1][2]*v.y + m[2][2]*v.z + m[3][2];
-
-	return tv;
-}
-
-inline Vector4 Matrix::MulVertex4(Vector3 v) const
-{
-	Vector4 tv;
-	tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
-	tv.y = m[0][1] * v.x + m[1][1] * v.y + m[2][1] * v.z + m[3][1];
-	tv.z = m[0][2] * v.x + m[1][2] * v.y + m[2][2] * v.z + m[3][2];
-	tv.w = m[0][3] * v.x + m[1][3] * v.y + m[2][3] * v.z + m[3][3];
-
-	return tv;
-}
-
-inline Vector3 Matrix::MulNormal(Vector3 v)
-{
-	Vector3 tv;
-	tv.x = m[0][0]*v.x + m[1][0]*v.y + m[2][0]*v.z;
-	tv.y = m[0][1]*v.x + m[1][1]*v.y + m[2][1]*v.z;
-	tv.z = m[0][2]*v.x + m[1][2]*v.y + m[2][2]*v.z;
-
-	return tv;
-}
-
-inline Vector3 Matrix::MulVertexByInverse(Vector3 v)
-{
-	Vector3 tv;
-	tv.x = m[0][0]*(v.x - m[3][0]) + m[0][1]*(v.y - m[3][1]) + m[0][2]*(v.z - m[3][2]);
-	tv.y = m[1][0]*(v.x - m[3][0]) + m[1][1]*(v.y - m[3][1]) + m[1][2]*(v.z - m[3][2]);
-	tv.z = m[2][0]*(v.x - m[3][0]) + m[2][1]*(v.y - m[3][1]) + m[2][2]*(v.z - m[3][2]);
-
-	return tv;
-}
-
-inline Vector3 Matrix::MulNormalByInverse(Vector3 v)
-{
-	Vector3 tv;
-	tv.x = m[0][0]*v.x + m[0][1]*v.y + m[0][2]*v.z;
-	tv.y = m[1][0]*v.x + m[1][1]*v.y + m[1][2]*v.z;
-	tv.z = m[2][0]*v.x + m[2][1]*v.y + m[2][2]*v.z;
-
-	return tv;
-}
+		return *this;
+	}
+};

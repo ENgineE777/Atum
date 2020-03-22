@@ -57,7 +57,7 @@ public:
 		this->z = z;
 	}
 
-	void Set(Vector3 v)
+	void Set(const Vector3& v)
 	{
 		x = v.x;
 		y = v.y;
@@ -259,14 +259,14 @@ public:
 		return float(len);
 	}
 
-	void Min(Vector3 v)
+	void Min(const Vector3& v)
 	{
 		if (x > v.x) x = v.x;
 		if (y > v.y) y = v.y;
 		if (z > v.z) z = v.z;
 	}
 
-	void Max(Vector3 v)
+	void Max(const Vector3& v)
 	{
 		if (x < v.x) x = v.x;
 		if (y < v.y) y = v.y;
@@ -278,7 +278,7 @@ public:
 		return sqrtf(x*x + y * y + z * z);
 	}
 
-	float Length(Vector3 v)
+	float Length(const Vector3& v)
 	{
 		float dx = x - v.x;
 		float dy = y - v.y;
@@ -291,7 +291,7 @@ public:
 		return x * x + y * y + z * z;
 	}
 
-	float Length2(Vector3 v)
+	float Length2(const Vector3& v)
 	{
 		float dx = x - v.x;
 		float dy = y - v.y;
@@ -299,19 +299,19 @@ public:
 		return dx * dx + dy * dy + dz * dz;
 	}
 
-	void Lerp(Vector3 from, Vector3 to, float k)
+	void Lerp(const Vector3& from, const Vector3& to, float k)
 	{
 		x = from.x + (to.x - from.x) * k;
 		y = from.y + (to.y - from.y) * k;
 		z = from.z + (to.z - from.z) * k;
 	}
 
-	float Dot(Vector3 v)
+	float Dot(const Vector3& v)
 	{
 		return x * v.x + y * v.y + z * v.z;
 	}
 
-	Vector3 Cross(Vector3 v)
+	Vector3 Cross(const Vector3& v)
 	{
 		Vector3 v_res;
 		v_res.x = y * v.z - z * v.y;

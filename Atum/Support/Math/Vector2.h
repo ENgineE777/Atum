@@ -55,7 +55,7 @@ public:
 		this->y = y;
 	}
 
-	void Set(Vector2 v)
+	void Set(const Vector2& v)
 	{
 		x = v.x;
 		y = v.y;
@@ -244,13 +244,13 @@ public:
 		return float(len);
 	}
 
-	void Min(Vector2 v)
+	void Min(const Vector2& v)
 	{
 		if (x > v.x) x = v.x;
 		if (y > v.y) y = v.y;
 	}
 
-	void Max(Vector2 v)
+	void Max(const Vector2& v)
 	{
 		if (x < v.x) x = v.x;
 		if (y < v.y) y = v.y;
@@ -261,7 +261,7 @@ public:
 		return sqrtf(x * x + y * y);
 	}
 
-	float Length(Vector2 v)
+	float Length(const Vector2& v)
 	{
 		float dx = x - v.x;
 		float dy = y - v.y;
@@ -273,25 +273,25 @@ public:
 		return x * x + y * y;
 	}
 
-	float Length2(Vector2 v)
+	float Length2(const Vector2& v)
 	{
 		float dx = x - v.x;
 		float dy = y - v.y;
 		return dx * dx + dy * dy;
 	}
 
-	void Lerp(Vector2 from, Vector2 to, float k)
+	void Lerp(const Vector2& from, const Vector2& to, float k)
 	{
 		x = from.x + (to.x - from.x) * k;
 		y = from.y + (to.y - from.y) * k;
 	}
 
-	float Dot(Vector2 v)
+	float Dot(const Vector2& v)
 	{
 		return x * v.x + y * v.y;
 	}
 
-	float Cross(Vector2 v)
+	float Cross(const Vector2& v)
 	{
 		return x * v.y - y * v.x;
 	}

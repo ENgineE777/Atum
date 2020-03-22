@@ -26,7 +26,7 @@ void Camera3D::BindClassToScript()
 	"This class ::Camera3D is a representation on C++ side.\n";
 
 	BIND_TYPE_TO_SCRIPT(Camera3D, brief)
-	core.scripts.RegisterObjectMethod(script_class_name, "void SetPosTarget(Vector&in pos, Vector&in target)", WRAP_MFN(Camera3D, SetPosTarget), "Reseting position of camera to intinal position on scene start");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetPosTarget(Vector3&in pos, Vector3&in target)", WRAP_MFN(Camera3D, SetPosTarget), "Reseting position of camera to intinal position on scene start");
 }
 
 void Camera3D::Init()

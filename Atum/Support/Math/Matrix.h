@@ -40,22 +40,35 @@ public:
 	Vector3& Vx()
 	{
 		return (Vector3&)matrix[0];
-	};
+	}
 
 	Vector3& Vy()
 	{
 		return (Vector3&)matrix[4];
-	};
+	}
 
 	Vector3& Vz()
 	{
 		return (Vector3&)matrix[8];
-	};
+	}
 
 	Vector3& Pos()
 	{
 		return (Vector3&)matrix[12];
-	};
+	}
+
+	bool operator == (const Matrix& mat)
+	{
+		for (int i = 0; i < 16; i++)
+		{
+			if (fabs(matrix[i] - mat.matrix[i]) > 0.001f)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 	Matrix& operator *= (const Matrix& mtx)
 	{
@@ -80,7 +93,7 @@ public:
 		return mtx.MulVertex(v);
 	}
 
-	void Matrix::Identity()
+	void Identity()
 	{
 		matrix[0] = 1.0f;
 		matrix[1] = 0.0f;
@@ -126,42 +139,6 @@ public:
 		matrix[15] = 0.0f;
 	}
 
-	Matrix& Set(Matrix& m)
-	{
-		matrix[0] = m.matrix[0];
-		matrix[1] = m.matrix[1];
-		matrix[2] = m.matrix[2];
-		matrix[3] = m.matrix[3];
-
-		matrix[4] = m.matrix[4];
-		matrix[5] = m.matrix[5];
-		matrix[6] = m.matrix[6];
-		matrix[7] = m.matrix[7];
-
-		matrix[8] = m.matrix[8];
-		matrix[9] = m.matrix[9];
-		matrix[10] = m.matrix[10];
-		matrix[11] = m.matrix[11];
-
-		matrix[12] = m.matrix[12];
-		matrix[13] = m.matrix[13];
-		matrix[14] = m.matrix[14];
-		matrix[15] = m.matrix[15];
-	}
-
-	bool IsEqual(Matrix& mat)
-	{
-		for (int i = 0; i < 16; i++)
-		{
-			if (fabs(matrix[i] - mat.matrix[i]) > 0.001f)
-			{
-				return false;
-			}
-		}
-
-		return true;
-	}
-
 	void BuildProjection(float viewAngle, float aspect, float zNear, float zFar)
 	{
 		SetZero();
@@ -174,34 +151,37 @@ public:
 		m[3][2] = float(-Q * zNear);
 	}
 
-	bool BuildView(Vector3 lookFrom, Vector3 lookTo, Vector3 upVector)
+	bool BuildView(const Vector3& lookFrom, const Vector3& lookTo, const Vector3& upVector)
 	{
 		Identity();
 
-		lookTo -= lookFrom;
+		Vector3 tmp_lookTo(lookTo);
+		Vector3 tmp_upVector(upVector);
 
-		if (lookTo.Normalize() == 0.0f)
+		tmp_lookTo -= lookFrom;
+
+		if (tmp_lookTo.Normalize() == 0.0f)
 		{
 			Pos() = -lookFrom;
 			return false;
 		}
 
-		upVector -= lookTo * lookTo.Dot(upVector);
+		tmp_upVector -= tmp_lookTo * tmp_lookTo.Dot(tmp_upVector);
 
-		if (upVector.Normalize() == 0.0f) upVector.y = 1.0f;
+		if (tmp_upVector.Normalize() == 0.0f) tmp_upVector.y = 1.0f;
 
-		Vector3 v = upVector.Cross(lookTo);
+		Vector3 v = tmp_upVector.Cross(tmp_lookTo);
 		if (v.Normalize() > 0.0f)
 		{
 			m[0][0] = v.x;
 			m[1][0] = v.y;
 			m[2][0] = v.z;
-			m[0][1] = upVector.x;
-			m[1][1] = upVector.y;
-			m[2][1] = upVector.z;
-			m[0][2] = lookTo.x;
-			m[1][2] = lookTo.y;
-			m[2][2] = lookTo.z;
+			m[0][1] = tmp_upVector.x;
+			m[1][1] = tmp_upVector.y;
+			m[2][1] = tmp_upVector.z;
+			m[0][2] = tmp_lookTo.x;
+			m[1][2] = tmp_lookTo.y;
+			m[2][2] = tmp_lookTo.z;
 		}
 		else
 		{
@@ -247,7 +227,7 @@ public:
 		Multiply(Matrix(*this), m);
 	}
 
-	void Scale(Vector3 scale)
+	void Scale(const Vector3& scale)
 	{
 		m[0][0] *= scale.x;
 		m[1][0] *= scale.x;
@@ -408,7 +388,7 @@ public:
 		tmp = m[2][3]; m[2][3] = m[3][2]; m[3][2] = tmp;
 	}
 
-	Vector3 MulVertex(Vector3 v) const
+	Vector3 MulVertex(const Vector3& v) const
 	{
 		Vector3 tv;
 		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
@@ -418,7 +398,7 @@ public:
 		return tv;
 	}
 
-	Vector4 MulVertex4(Vector3 v) const
+	Vector4 MulVertex4(const Vector3& v) const
 	{
 		Vector4 tv;
 		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z + m[3][0];
@@ -429,7 +409,7 @@ public:
 		return tv;
 	}
 
-	Vector3 MulNormal(Vector3 v)
+	Vector3 MulNormal(const Vector3& v)
 	{
 		Vector3 tv;
 		tv.x = m[0][0] * v.x + m[1][0] * v.y + m[2][0] * v.z;
@@ -439,27 +419,7 @@ public:
 		return tv;
 	}
 
-	Vector3 MulVertexByInverse(Vector3 v)
-	{
-		Vector3 tv;
-		tv.x = m[0][0] * (v.x - m[3][0]) + m[0][1] * (v.y - m[3][1]) + m[0][2] * (v.z - m[3][2]);
-		tv.y = m[1][0] * (v.x - m[3][0]) + m[1][1] * (v.y - m[3][1]) + m[1][2] * (v.z - m[3][2]);
-		tv.z = m[2][0] * (v.x - m[3][0]) + m[2][1] * (v.y - m[3][1]) + m[2][2] * (v.z - m[3][2]);
-
-		return tv;
-	}
-
-	Vector3 MulNormalByInverse(Vector3 v)
-	{
-		Vector3 tv;
-		tv.x = m[0][0] * v.x + m[0][1] * v.y + m[0][2] * v.z;
-		tv.y = m[1][0] * v.x + m[1][1] * v.y + m[1][2] * v.z;
-		tv.z = m[2][0] * v.x + m[2][1] * v.y + m[2][2] * v.z;
-
-		return tv;
-	}
-
-	Matrix & Multiply(const Matrix& m1, const Matrix& m2)
+	void Multiply(const Matrix& m1, const Matrix& m2)
 	{
 		m[0][0] = m2.m[0][0]*m1.m[0][0] + m2.m[1][0]*m1.m[0][1] + m2.m[2][0]*m1.m[0][2] + m2.m[3][0]*m1.m[0][3];
 		m[0][1] = m2.m[0][1]*m1.m[0][0] + m2.m[1][1]*m1.m[0][1] + m2.m[2][1]*m1.m[0][2] + m2.m[3][1]*m1.m[0][3];
@@ -477,7 +437,5 @@ public:
 		m[3][1] = m2.m[0][1]*m1.m[3][0] + m2.m[1][1]*m1.m[3][1] + m2.m[2][1]*m1.m[3][2] + m2.m[3][1]*m1.m[3][3];
 		m[3][2] = m2.m[0][2]*m1.m[3][0] + m2.m[1][2]*m1.m[3][1] + m2.m[2][2]*m1.m[3][2] + m2.m[3][2]*m1.m[3][3];
 		m[3][3] = m2.m[0][3]*m1.m[3][0] + m2.m[1][3]*m1.m[3][1] + m2.m[2][3]*m1.m[3][2] + m2.m[3][3]*m1.m[3][3];
-
-		return *this;
 	}
 };

@@ -7,6 +7,7 @@
 #include "Libs/scriptmath.h"
 #include "Libs/scriptvector2.h"
 #include "Libs/scriptvector3.h"
+#include "Libs/scriptmatrix.h"
 #include "Libs/scriptstdstring.h"
 #include "Services/Scene/Scene.h"
 #include "Services/Scene/SceneManager.h"
@@ -64,6 +65,7 @@ void Scripts::Start()
 	RegisterScriptMath(engine);
 	RegisterScriptVector2(engine);
 	RegisterScriptVector3(engine);
+	RegisterScriptMatrix(engine);
 
 	scrip_core.Register(engine);
 

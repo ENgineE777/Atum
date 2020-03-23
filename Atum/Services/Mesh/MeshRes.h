@@ -20,7 +20,6 @@ public:
 		bool show = true;
 
 		void Init(Mesh* mesh, TaskExecutor::SingleTaskPool* taskPool);
-		void SetPosition(Vector2 pos);
 
 		Vector3 GetBBMin();
 		Vector3 GetBBMax();

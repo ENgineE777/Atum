@@ -28,17 +28,6 @@ Vector3 Mesh::Instance::GetBBMax()
 	return res->bb_max;
 }
 
-void Mesh::Instance::SetPosition(Vector2 pos)
-{
-	Vector3 centerPos = (res->bb_max + res->bb_min) * 0.5f;
-
-	transform.Identity();
-	transform.Pos() = -centerPos;
-	transform.Pos().x += pos.x;
-	transform.Pos().y = res->bb_min.y + 0.0f;
-	transform.Pos().z += pos.y;
-}
-
 void Mesh::Instance::Render(float dt)
 {
 	Render(MeshPrograms::GetTranglPrg());

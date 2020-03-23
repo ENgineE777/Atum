@@ -727,14 +727,13 @@ void SceneObject::SetEditMode(bool ed)
 {
 	edited = ed;
 
-	if (!ed)
-	{
-		Gizmo::inst->Disable();
-	}
-	else
-	if (ed && Is3DObject())
+	if (ed && Is3DObject() && Trans())
 	{
 		Gizmo::inst->SetTrans3D(Trans());
+	}
+	else
+	{
+		Gizmo::inst->Disable();
 	}
 }
 

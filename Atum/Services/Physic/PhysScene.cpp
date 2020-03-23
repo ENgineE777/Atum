@@ -94,11 +94,12 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc, uint32_t g
 
 PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char* name, uint32_t group)
 {
-	PhysHeightmap* hm = new PhysHeightmap();
+	PhysHeightmap* hm = nullptr;
 
 	Physics::StraemReader reader;
 	if (reader.buffer.Load(name))
 	{
+		hm = new PhysHeightmap();
 		hm->heightField = core.physics.physics->createHeightField(reader);
 
 		if (hm->heightField)

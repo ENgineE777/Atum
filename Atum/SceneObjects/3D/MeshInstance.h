@@ -27,7 +27,9 @@ public:
 		Mesh::Instance* mesh = nullptr;
 
 		void SetObject(asIScriptObject* object, vector<int>* mapping);
-		void SetPosition(float x, float y, float z);
+		void SetTransform(const Matrix& transform);
+		Matrix GetTransform();
+		Matrix GetLocatorTransform(const string& name);
 	};
 
 	string scr_prefix;

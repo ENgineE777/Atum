@@ -29,12 +29,34 @@ void MeshInstance::Instance::SetObject(asIScriptObject* set_object, vector<int>*
 	}
 }
 
-void MeshInstance::Instance::SetPosition(float x, float y, float z)
+void MeshInstance::Instance::SetTransform(const Matrix& transform)
 {
 	if (mesh)
 	{
-		mesh->SetPosition(Vector2(x, y));
+		mesh->transform = transform;
 	}
+}
+
+Matrix MeshInstance::Instance::GetTransform()
+{
+	if (mesh)
+	{
+		return mesh->transform;
+	}
+
+	return Matrix();
+}
+
+Matrix MeshInstance::Instance::GetLocatorTransform(const string& name)
+{
+	Matrix mat;
+
+	if (mesh)
+	{
+		mesh->GetLocatorTransform(name.c_str(), mat );
+	}
+
+	return mat;
 }
 
 MeshInstance::MeshInstance()
@@ -62,7 +84,9 @@ void MeshInstance::BindClassToScript()
 		"This class ::MeshInstance is a representation on C++ side.\n";
 
 	core.scripts.RegisterObjectType("Mesh", sizeof(MeshInstance::Instance), "gr_script_scene_objects", brief);
-	core.scripts.RegisterObjectMethod("Mesh", "void SetPosition(float x, float y, float z)", WRAP_MFN(MeshInstance::Instance, SetPosition), "Activate Link by name");
+	core.scripts.RegisterObjectMethod("Mesh", "void SetTransform(const Matrix&in)", WRAP_MFN(MeshInstance::Instance, SetTransform), "Set transform");
+	core.scripts.RegisterObjectMethod("Mesh", "Matrix GetTransform()", WRAP_MFN(MeshInstance::Instance, GetTransform), "Get transform");
+	core.scripts.RegisterObjectMethod("Mesh", "Matrix GetLocatorTransform(string&in)", WRAP_MFN(MeshInstance::Instance, GetLocatorTransform), "Get locator transform");
 }
 
 bool MeshInstance::InjectIntoScript(const char* type, void* property, const char* prefix)

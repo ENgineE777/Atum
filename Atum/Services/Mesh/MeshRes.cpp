@@ -136,6 +136,11 @@ bool Mesh::LoadFBX(const char* filename)
 				mat.matrix[j] = (float)fbx_mat.m[j];
 			}
 
+			Vector3 pos = mat.Pos();
+			Quaternion rot(mat);
+			rot.GetMatrix(mat);
+			mat.Pos() = pos;
+
 			locators[node->name] = mat;
 		}
 	}

@@ -34,11 +34,11 @@ PS_INPUT VS( VS_INPUT input )
 	float4 pos = mul(float4(input.position, 1.0f), trans);
 	output.pos = mul(pos, view_proj);
 
-	float3x3 trans_rot = float3x3(trans._m00, trans._m10, trans._m20,
-									trans._m01, trans._m11, trans._m21,
-									trans._m02, trans._m12, trans._m22);
+	float3x3 trans_rot = float3x3(trans._m00, trans._m01, trans._m02,
+									trans._m10, trans._m11, trans._m12,
+									trans._m20, trans._m21, trans._m22);
 
-	output.normal = mul(input.normal, trans_rot);
+	output.normal = normalize(mul(input.normal, trans_rot));
     output.texCoord = input.texCoord;
 
 	return output;

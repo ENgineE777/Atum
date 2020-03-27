@@ -130,6 +130,7 @@ public:
 
 protected:
 	BodyType body_type;
+	PxHeightField* heightField = nullptr;
 	PxRigidActor* actor = nullptr;
 	bool is_active = true;
 	void ActualRelease() override;

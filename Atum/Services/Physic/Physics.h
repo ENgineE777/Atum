@@ -88,7 +88,7 @@ public:
 #endif
 
 #ifdef PLATFORM_PC
-	void CookHeightmap(PhysHeightmap::Desc& desc, const char* name);
+	void CookHeightmap(int width, int height, uint8_t* hmap, const char* name);
 #endif
 
 	/**

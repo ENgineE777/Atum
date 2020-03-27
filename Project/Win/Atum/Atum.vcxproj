@@ -105,7 +105,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Mesh\Meshes.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Network\Network.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp" />
-    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObject.cpp" />
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysObjectBase.cpp" />
@@ -313,7 +312,6 @@
     <ClInclude Include="..\..\..\Atum\Services\Mesh\Meshes.h" />
     <ClInclude Include="..\..\..\Atum\Services\Network\Network.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h" />
-    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObject.h" />
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysObjectBase.h" />

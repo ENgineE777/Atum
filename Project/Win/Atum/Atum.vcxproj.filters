@@ -273,9 +273,6 @@
     <ClCompile Include="..\..\..\Atum\Services\Physic\PhysController.cpp">
       <Filter>Services\Physic</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\Services\Physic\PhysHeightmap.cpp">
-      <Filter>Services\Physic</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\Services\Physic\Physics.cpp">
       <Filter>Services\Physic</Filter>
     </ClCompile>
@@ -879,9 +876,6 @@
       <Filter>Services\Script</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Physic\PhysController.h">
-      <Filter>Services\Physic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Physic\PhysHeightmap.h">
       <Filter>Services\Physic</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Physic\Physics.h">

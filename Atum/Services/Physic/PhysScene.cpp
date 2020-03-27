@@ -92,23 +92,25 @@ PhysController* PhysScene::CreateController(PhysControllerDesc& desc, uint32_t g
 	return controller;
 }
 
-PhysHeightmap* PhysScene::CreateHeightmap(PhysHeightmap::Desc& desc, const char* name, uint32_t group)
+PhysObject* PhysScene::CreateHeightmap(int width, int height, Vector2  scale, const char* name, uint32_t group)
 {
-	PhysHeightmap* hm = nullptr;
+	PhysObject* hm = nullptr;
 
 	Physics::StraemReader reader;
 	if (reader.buffer.Load(name))
 	{
-		hm = new PhysHeightmap();
+		hm = new PhysObject();
+		hm->body_type = PhysObject::PhysObject::Static;
+
 		hm->heightField = core.physics.physics->createHeightField(reader);
 
 		if (hm->heightField)
 		{
-			PxTransform pose = PxTransform(PxVec3(-desc.width * 0.5f * desc.scale.x, 0.0f, -desc.height * 0.5f * desc.scale.x), PxQuat(PxIdentity));
+			PxTransform pose = PxTransform(PxVec3(-width * 0.5f * scale.x, 0.0f, -height * 0.5f * scale.x), PxQuat(PxIdentity));
 
 			hm->actor = core.physics.physics->createRigidStatic(pose);
 
-			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), desc.scale.y, desc.scale.x, desc.scale.x);
+			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), scale.y, scale.x, scale.x);
 			PxShape* shape = core.physics.physics->createShape(hfGeom, *core.physics.defMaterial, true);
 			SetShapeGroup(shape, group);
 			hm->actor->attachShape(*shape);

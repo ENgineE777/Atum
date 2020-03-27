@@ -3,7 +3,6 @@
 
 #include "PhysObject.h"
 #include "PhysController.h"
-#include "PhysHeightmap.h"
 
 /**
 \ingroup gr_code_services_physic
@@ -114,7 +113,7 @@ public:
 
 	\return Pointer to a height map
 	*/
-	PhysHeightmap* CreateHeightmap(PhysHeightmap::Desc& desc, const char* name, uint32_t group);
+	PhysObject* CreateHeightmap(int width, int height, Vector2  scale, const char* name, uint32_t group);
 
 	/**
 	\brief Make ray cast

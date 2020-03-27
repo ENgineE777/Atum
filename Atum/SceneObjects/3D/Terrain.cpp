@@ -193,39 +193,42 @@ void Terrain::LoadHMap(const char* hgt_name)
 
 	FREE_PTR(hmap)
 
+	uint8_t* ptr = nullptr;
+	int colorMode = 4;
+
 	if (!hbuffer.Load(hgt_name))
 	{
 		hwidth = 512;
 		hheight = 512;
-
-		return;
 	}
-	uint8_t* ptr = hbuffer.GetData();
-
-	ptr += 2;
-
-	uint8_t imageTypeCode = *((uint8_t*)ptr);
-
-	if (imageTypeCode != 2 && imageTypeCode != 3)
+	else
 	{
-		return;
+		ptr = hbuffer.GetData();
+		ptr += 2;
+
+		uint8_t imageTypeCode = *((uint8_t*)ptr);
+
+		if (imageTypeCode != 2 && imageTypeCode != 3)
+		{
+			return;
+		}
+
+		ptr += 10;
+
+		short int imageWidth = *((short int*)ptr);
+		ptr += 2;
+
+		short int imageHeight = *((short int*)ptr);
+		ptr += 2;
+
+		uint8_t bitCount = *((uint8_t*)ptr);
+		ptr += 2;
+
+		colorMode = bitCount / 8;
+
+		hwidth = imageWidth;
+		hheight = imageHeight;
 	}
-
-	ptr += 10;
-
-	short int imageWidth = *((short int*)ptr);
-	ptr += 2;
-
-	short int imageHeight = *((short int*)ptr);
-	ptr += 2;
-
-	uint8_t bitCount = *((uint8_t*)ptr);
-	ptr += 2;
-
-	int colorMode = bitCount / 8;
-
-	hwidth = imageWidth;
-	hheight = imageHeight;
 
 	hmap = (uint8_t*)malloc(hwidth * hheight);
 
@@ -233,7 +236,7 @@ void Terrain::LoadHMap(const char* hgt_name)
 	{
 		for (int j = 0; j < hwidth; j++)
 		{
-			hmap[i * hheight + j] = ptr[((j)* imageWidth + i) * colorMode];
+			hmap[i * hheight + j] = ptr ? ptr[((j)* hwidth + i) * colorMode] : 0;
 		}
 	}
 
@@ -242,13 +245,7 @@ void Terrain::LoadHMap(const char* hgt_name)
 
 	if (!core.files.IsFileExist(cooked_name.c_str()))
 	{
-		PhysHeightmap::Desc hdesc;
-		hdesc.width = hwidth;
-		hdesc.height = hheight;
-		hdesc.scale = Vector2(scaleh, scalev);
-		hdesc.hmap = hmap;
-
-		core.physics.CookHeightmap(hdesc, cooked_name.c_str());
+		core.physics.CookHeightmap(hwidth, hheight, hmap, cooked_name.c_str());
 	}
 #endif
 }
@@ -288,19 +285,16 @@ void Terrain::Render(Program* prg)
 
 bool Terrain::Play()
 {
-	PhysHeightmap::Desc hdesc;
-	hdesc.width = hwidth;
-	hdesc.height = hheight;
-	hdesc.scale = Vector2(scaleh, scalev);
-
-	hm = PScene()->CreateHeightmap(hdesc, (hgt_name + string("hm")).c_str(), 1);
+	body.object = this;
+	body.body = PScene()->CreateHeightmap(hwidth, hheight, Vector2(scaleh, scalev), (hgt_name + string("hm")).c_str(), 1);
+	body.body->SetUserData(&body);
 
 	return true;
 }
 
 void Terrain::Release()
 {
-	RELEASE(hm);
+	RELEASE(body.body);
 
 	SceneObject::Release();
 }

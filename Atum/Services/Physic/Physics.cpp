@@ -28,24 +28,24 @@ void Physics::Init()
 }
 
 #ifdef PLATFORM_PC
-void Physics::CookHeightmap(PhysHeightmap::Desc& desc, const char* name)
+void Physics::CookHeightmap(int width, int height, uint8_t* hmap, const char* name)
 {
-	PxHeightFieldSample* samples = new PxHeightFieldSample[desc.width * desc.height];
+	PxHeightFieldSample* samples = new PxHeightFieldSample[width * height];
 
-	for (int x = 0; x < desc.width; x++)
-		for (int y = 0; y < desc.height; y++)
+	for (int x = 0; x < width; x++)
+		for (int y = 0; y < height; y++)
 		{
-			samples[x + y * desc.width].height = PxI16(desc.hmap[((x)* desc.width + y)]);
-			samples[x + y * desc.width].setTessFlag();
-			samples[x + y * desc.width].materialIndex0 = 1;
-			samples[x + y * desc.width].materialIndex1 = 1;
+			samples[x + y * width].height = PxI16(hmap[((x)* width + y)]);
+			samples[x + y * width].setTessFlag();
+			samples[x + y * width].materialIndex0 = 1;
+			samples[x + y * width].materialIndex1 = 1;
 		}
 
 	PxHeightFieldDesc heightFieldDesc;
 
 	heightFieldDesc.format = PxHeightFieldFormat::eS16_TM;
-	heightFieldDesc.nbColumns = desc.width;
-	heightFieldDesc.nbRows = desc.height;
+	heightFieldDesc.nbColumns = width;
+	heightFieldDesc.nbRows = height;
 	heightFieldDesc.samples.data = samples;
 	heightFieldDesc.samples.stride = sizeof(PxHeightFieldSample);
 

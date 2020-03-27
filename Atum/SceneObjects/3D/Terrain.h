@@ -89,7 +89,7 @@ public:
 
 	int sz;
 
-	PhysHeightmap* hm = nullptr;
+	PhysScene::BodyUserData body;
 
 	Terrain();
 	virtual ~Terrain();

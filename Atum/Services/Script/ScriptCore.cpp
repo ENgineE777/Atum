@@ -136,6 +136,28 @@ bool ScriptCore::Scene::Raycast2D(float origin_x, float origin_y, float dir_x, f
 	return false;
 }
 
+bool ScriptCore::Scene::Raycast3D(Vector3& origin, Vector3& dir, float dist, int group, Vector3& hit, Vector3& normal, string& object, int& index)
+{
+	PhysScene::RaycastDesc rcdesc;
+
+	rcdesc.origin = origin;
+	rcdesc.dir = dir;
+	rcdesc.length = dist;
+	rcdesc.group = group;
+
+	if (core.scene_manager.PScene()->RayCast(rcdesc))
+	{
+		hit = rcdesc.hitPos;
+		normal = rcdesc.hitNormal;
+		object = rcdesc.userdata->object->GetName();
+		index = rcdesc.userdata->index;
+
+		return true;
+	}
+
+	return false;
+}
+
 void ScriptCore::Scene::CallClassInstancesMethod(string& scene_name, string& class_name, string& method_name)
 {
 	core.scripts.CallClassInstancesMethod(scene_name.c_str(), class_name.c_str(), method_name.c_str());
@@ -149,8 +171,6 @@ void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
 	string object;
 	int index;
 
-	float scale = 1.0f / 50.0f;
-
 	if (scene->Raycast2D(gen->GetArgFloat(0), gen->GetArgFloat(1), gen->GetArgFloat(2), gen->GetArgFloat(3), gen->GetArgFloat(4), gen->GetArgDWord(5), hit_x, hit_y, normal_x, normal_y, object, index))
 	{
 		*((float*)(gen->GetArgAddress(6))) = hit_x;
@@ -160,6 +180,31 @@ void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
 		*((float*)(gen->GetArgAddress(9))) = normal_y;
 		*((string*)(gen->GetArgAddress(10))) = object;
 		*((int*)(gen->GetArgAddress(11))) = index;
+
+		gen->SetReturnByte(1);
+
+		return;
+	}
+
+	gen->SetReturnByte(0);
+}
+
+void ScriptCore_Scene_Raycast3D(asIScriptGeneric *gen)
+{
+	ScriptCore::Scene* scene = (ScriptCore::Scene*)gen->GetObject();
+
+	Vector3* origin = (Vector3*)gen->GetArgObject(0);
+	Vector3* dir = (Vector3*)gen->GetArgObject(1);
+	Vector3 hit, normal;
+	string object;
+	int index;
+
+	if (scene->Raycast3D(*origin, *dir, gen->GetArgFloat(2), gen->GetArgDWord(3), hit, normal, object, index))
+	{
+		*((Vector3*)(gen->GetArgAddress(4))) = hit;
+		*((Vector3*)(gen->GetArgAddress(5))) = normal;
+		*((string*)(gen->GetArgAddress(6))) = object;
+		*((int*)(gen->GetArgAddress(7))) = index;
 
 		gen->SetReturnByte(1);
 
@@ -290,6 +335,7 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "void Load(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Load), "Load scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast3D(Vector3&in origin, Vector3&in dir, float dist, int group, Vector3&out hit, Vector3&out normal, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast3D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
 
 	script_class_name = "SoundInstance";

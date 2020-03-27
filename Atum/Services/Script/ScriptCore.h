@@ -36,6 +36,7 @@ public:
 		void Load(string& scene_name);
 		void Unload(string& scene_name);
 		bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index);
+		bool Raycast3D(Vector3& origin, Vector3& dir, float dist, int group, Vector3& hit, Vector3 &normal, string& object, int& index);
 		void CallClassInstancesMethod(string& scene_name, string& class_name, string& method);
 	};
 

@@ -48,7 +48,7 @@ float4 PS( PS_INPUT input) : SV_Target
 {
 	float3 lightDir = float3(0.5f, 0.3f, 0.3f);
 	lightDir = normalize(lightDir);
-	float light = 0.6f + 0.6f * saturate(dot(lightDir, input.normal));
+	float light = 0.6f + 0.4f * saturate(dot(lightDir, input.normal));
 
 	return (color * 0.7f + diffuseMap.Sample(samLinear, input.texCoord) * 0.3f) * light;
 }

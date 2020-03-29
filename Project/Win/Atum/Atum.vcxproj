@@ -50,6 +50,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
@@ -255,6 +256,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\GenericMarker.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\MeshInstance.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />

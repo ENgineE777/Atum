@@ -699,6 +699,9 @@
     <ClCompile Include="..\..\..\Atum\Support\math\Math.cpp">
       <Filter>Support\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1258,6 +1261,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Support\math\Vector4.h">
       <Filter>Support\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.h">
+      <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

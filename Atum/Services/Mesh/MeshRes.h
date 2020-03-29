@@ -17,7 +17,7 @@ public:
 
 		Matrix transform;
 		Color color;
-		bool show = true;
+		int visible = 1;
 
 		void Init(Mesh* mesh, TaskExecutor::SingleTaskPool* taskPool);
 

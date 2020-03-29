@@ -29,6 +29,38 @@ void MeshInstance::Instance::SetObject(asIScriptObject* set_object, vector<int>*
 	}
 }
 
+void MeshInstance::Instance::SetVisible(int set_visible)
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexVisible];
+
+		if (prop != -1)
+		{
+			*((int*)object->GetAddressOfProperty(prop)) = set_visible;
+		}
+
+		return;
+	}
+
+	mesh->visible = set_visible;
+}
+
+bool MeshInstance::Instance::IsVisible()
+{
+	if (object)
+	{
+		int prop = mapping[0][IndexVisible];
+
+		if (prop != -1)
+		{
+			return (*((int*)object->GetAddressOfProperty(prop)) != 0);
+		}
+	}
+
+	return (mesh->visible != 0);
+}
+
 void MeshInstance::Instance::SetTransform(const Matrix& transform)
 {
 	if (mesh)
@@ -135,7 +167,7 @@ bool MeshInstance::InjectIntoScript(const char* type, void* property, const char
 
 void MeshInstance::MakeMapping(asIScriptObject* object, const char* prefix)
 {
-	const char* names[] = { "mesh" };
+	const char* names[] = { "mesh", "visible" };
 	int types[] = { /*mesh*/ asTYPEID_FLOAT };
 
 	int count = (sizeof(names) / sizeof(const char*));

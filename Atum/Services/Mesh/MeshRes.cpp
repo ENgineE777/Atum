@@ -40,7 +40,7 @@ void Mesh::Instance::ShRender(float dt)
 
 void Mesh::Instance::Render(Program* prg)
 {
-	if (!show)
+	if (!visible)
 	{
 		return;
 	}

@@ -15,7 +15,8 @@ public:
 	{
 		enum MapIndices
 		{
-			IndexMesh
+			IndexMesh,
+			IndexVisible
 		};
 
 		META_DATA_DECL_BASE(Instance)
@@ -30,6 +31,11 @@ public:
 		void SetTransform(const Matrix& transform);
 		Matrix GetTransform();
 		Matrix GetLocatorTransform(const string& name);
+		void SetVisible(int set_visible);
+		bool IsVisible();
+		Vector3 dir = 0.0f;
+		uint32_t collide_group = 1;
+		uint32_t ignore_group = 0;
 	};
 
 	string scr_prefix;

@@ -113,6 +113,7 @@ PhysObject* PhysScene::CreateHeightmap(int width, int height, Vector2  scale, co
 			PxHeightFieldGeometry hfGeom(hm->heightField, PxMeshGeometryFlags(), scale.y, scale.x, scale.x);
 			PxShape* shape = core.physics.physics->createShape(hfGeom, *core.physics.defMaterial, true);
 			SetShapeGroup(shape, group);
+			shape->setFlag(PxShapeFlag::Enum::eVISUALIZATION, false);
 			hm->actor->attachShape(*shape);
 
 			scene->addActor(*hm->actor);

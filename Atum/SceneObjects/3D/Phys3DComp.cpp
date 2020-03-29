@@ -18,6 +18,7 @@ ENUM_END
 FLOAT_PROP(Phys3DComp, density, 1.25f, "Phys3D", "density", "Density of a body")
 FLOAT_PROP(Phys3DComp, friction, 0.25f, "Phys3D", "friction", "Friction of a material of a body")
 BOOL_PROP(Phys3DComp, allow_rotate, true, "Phys3D", "allow_rotate", "Allowing physical objectto be rotateable")
+BOOL_PROP(Phys3DComp, object_for_submeshes, false, "Phys3D", "object_for_submeshes", "Seprate object for each sub mesh")
 INT_PROP(Phys3DComp, group, 1, "Phys3D", "group", "Group of a body")
 META_DATA_DESC_END()
 
@@ -40,59 +41,70 @@ void Phys3DCompInst::ScriptProxy::ApplyLinearImpulse(Vector3& impulse)
 		return;
 	}
 
-	if (body && body->body)
+	for (auto body : bodies)
 	{
 		Matrix trans = inst->mesh->transform;
 
-		if (!body->body->IsActive())
+		if (!body.body->IsActive())
 		{
-			body->body->SetActive(true);
-			body->body->SetTransform(trans);
+			body.body->SetActive(true);
+			body.body->SetTransform(trans);
 		}
 		
-		body->body->AddForceAt(trans.Pos(), impulse);
+		body.body->AddForceAt(trans.Pos(), impulse);
 	}
 }
 
 void Phys3DCompInst::ScriptProxy::SetTransform(Matrix& trans)
 {
+	if (bodies.size() > 1)
+	{
+		return;
+	}
+
 	if (inst)
 	{
 		inst->mesh->transform = trans;
 	}
 
-	if (body && body->body)
+	for (auto body : bodies)
 	{
-		body->body->SetTransform(trans);
-	}
+		if (body.body)
+		{
+			body.body->SetTransform(trans);
+		}
 
-	if (body && body->controller)
-	{
-		body->controller->SetPosition(trans.Pos());
+		if (body.controller)
+		{
+			body.controller->SetPosition(trans.Pos());
+		}
 	}
 }
 
 void Phys3DCompInst::ScriptProxy::SetGroup(int group)
 {
-	if (body)
+	for (auto body : bodies)
 	{
-		if (body->body)
+		if (body.body)
 		{
-			body->body->SetGroup(group);
+			body.body->SetGroup(group);
 		}
 		else
-		if (body->controller)
+		if (body.controller)
 		{
-			body->controller->SetGroup(group);
+			body.controller->SetGroup(group);
 		}
 	}
 }
 
 bool Phys3DCompInst::ScriptProxy::CheckColission(bool under)
 {
-	if (body && body->controller)
+	for (auto body : bodies)
 	{
-		return body->controller->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
+		if (body.controller)
+		{
+			return body.controller->IsColliding(under ? PhysController::CollideDown : PhysController::CollideUp);
+		}
 	}
 
 	return false;
@@ -105,6 +117,22 @@ void Phys3DCompInst::ScriptProxy::MoveController(Vector3& delta, uint32_t group,
 		inst->dir += delta;
 		inst->collide_group = group;
 		inst->ignore_group = ignore_group;
+	}
+}
+
+void Phys3DCompInst::ScriptProxy::ReleaseBodies()
+{
+	for (auto& body : bodies)
+	{
+		if (body.body)
+		{
+			RELEASE(body.body);
+		}
+
+		if (body.controller)
+		{
+			RELEASE(body.controller);
+		}
 	}
 }
 
@@ -176,62 +204,38 @@ void Phys3DCompInst::SyncInstances()
 {
 	MeshInstance* mesh_inst = (MeshInstance*)object;
 
-	if (mesh_inst->instances.size() != bodies.size())
+	if (mesh_inst->instances.size() != script_bodies.size())
 	{
-		int dif = (int)(mesh_inst->instances.size() - bodies.size());
+		int dif = (int)(mesh_inst->instances.size() - script_bodies.size());
 
 		if (dif < 0)
 		{
-			for (int index = (int)bodies.size() + dif; index < (int)bodies.size(); index++)
+			for (int index = (int)script_bodies.size() + dif; index < (int)script_bodies.size(); index++)
 			{
-				if (bodies[index].body)
-				{
-					RELEASE(bodies[index].body);
-				}
-
-				if (bodies[index].controller)
-				{
-					RELEASE(bodies[index].controller);
-				}
+				script_bodies[index].ReleaseBodies();
 			}
 		}
-		
-		bodies.resize(mesh_inst->instances.size());
+
 		script_bodies.resize(mesh_inst->instances.size());
 
 		if (dif > 0)
 		{
 			Phys3DComp* comp = (Phys3DComp*)asset_comp;
 
-			Vector3 size = mesh_inst->instances[0].mesh->GetBBMax() - mesh_inst->instances[0].mesh->GetBBMin();
-			Vector3 center = (mesh_inst->instances[0].mesh->GetBBMax() + mesh_inst->instances[0].mesh->GetBBMin()) * 0.5f;
-			Vector3 parent = 0.0f;
-
 			/*if (sprite_inst->parent_trans)
 			{
 				parent = sprite_inst->parent_trans->pos;
 			}*/
 
-			for (int index = (int)bodies.size() - dif; index < (int)bodies.size(); index++)
+			for (int index = (int)script_bodies.size() - dif; index < (int)script_bodies.size(); index++)
 			{
-				CreateBody(index, mesh_inst->instances[index].IsVisible(), mesh_inst->instances[index].mesh->transform, size, center, comp->allow_rotate);
+				CreateBodies(index, mesh_inst->instances[index], comp->allow_rotate);
 			}
 		}
 
-		for (int index = 0; index < (int)bodies.size(); index++)
+		for (int index = 0; index < (int)script_bodies.size(); index++)
 		{
 			script_bodies[index].inst = &mesh_inst->instances[index];
-			script_bodies[index].body = &bodies[index];
-
-			if (bodies[index].body)
-			{
-				bodies[index].body->SetUserData(&bodies[index]);
-			}
-			else
-			if (bodies[index].controller)
-			{
-				bodies[index].controller->SetUserData(&bodies[index]);
-			}
 		}
 	}
 }
@@ -242,6 +246,7 @@ void Phys3DCompInst::Play()
 
 	body_type = ((Phys3DComp*)asset_comp)->body_type;
 	group = ((Phys3DComp*)asset_comp)->group;
+	object_for_submeshes = ((Phys3DComp*)asset_comp)->object_for_submeshes;
 
 	SyncInstances();
 
@@ -255,70 +260,112 @@ void Phys3DCompInst::Release()
 		object->GetScene()->DelFromGroup(object, "Phys3DComp");
 	}
 
-	for (auto& body : bodies)
+	for (auto& script_body : script_bodies)
 	{
-		if (body.body)
-		{
-			RELEASE(body.body);
-		}
-
-		if (body.controller)
-		{
-			RELEASE(body.controller);
-		}
+		script_body.ReleaseBodies();
 	}
 
-	bodies.clear();
 	script_bodies.clear();
 
 	SceneObjectInstComp::Release();
 }
 
-void Phys3DCompInst::CreateBody(int index, bool visible, Matrix& transform, Vector3 size, Vector3 center, bool allow_rotate)
+void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, bool allow_rotate)
 {
-	Matrix body_trans = transform;
+	ScriptProxy& script_proxy = script_bodies[index];
 
-	if (body_type == Phys3DComp::BodyType::StaticBody || body_type == Phys3DComp::BodyType::TrigerBody)
+	if (!object_for_submeshes)
 	{
-		Matrix mat;
-		mat.Pos() = center;
-		body_trans = mat * body_trans;
-	}
+		script_proxy.bodies.resize(1);
+		auto& body = script_proxy.bodies[0];
 
-	bodies[index].index = index;
-	bodies[index].object = object;
+		Matrix body_trans = instance.mesh->transform;
 
-	if (body_type == Phys3DComp::BodyType::Controller)
-	{
-		PhysControllerDesc desc;
-		desc.radius = size.x * 0.5f;
-		desc.height = size.y - size.x;
-		desc.pos = body_trans.Pos();
+		Vector3 size = instance.mesh->GetBBMax() - instance.mesh->GetBBMin();
+		Vector3 center = (instance.mesh->GetBBMax() + instance.mesh->GetBBMin()) * 0.5f;
 
-		bodies[index].controller = object->PScene()->CreateController(desc, group);
-		bodies[index].controller->SetUserData(&bodies[index]);
-
-		if (!visible)
+		if (body_type == Phys3DComp::BodyType::StaticBody || body_type == Phys3DComp::BodyType::TrigerBody)
 		{
-			bodies[index].controller->SetActive(false);
+			Matrix mat;
+			mat.Pos() = center;
+			body_trans = mat * body_trans;
+		}
+
+		body.index = index;
+		body.object = object;
+
+		if (body_type == Phys3DComp::BodyType::Controller)
+		{
+			PhysControllerDesc desc;
+			desc.radius = size.x * 0.5f;
+			desc.height = size.y - size.x;
+			desc.pos = body_trans.Pos();
+
+			body.controller = object->PScene()->CreateController(desc, group);
+			body.controller->SetUserData(&body);
+
+			if (!instance.mesh->visible)
+			{
+				body.controller->SetActive(false);
+			}
+		}
+		else
+		{
+			Matrix offset;
+			offset.Pos() = center;
+
+			body.body = object->PScene()->CreateBox(size, body_trans, offset, (PhysObject::BodyType)body_type, group);
+			body.body->SetUserData(&body);
+
+			if (!allow_rotate && body_type == Phys3DComp::BodyType::DynamicBody)
+			{
+				body.body->SetFixedRotation(true);
+			}
+
+			if (!instance.mesh->visible)
+			{
+				body.body->SetActive(false);
+			}
 		}
 	}
 	else
 	{
-		Matrix offset;
-		offset.Pos() = { center.x, -center.y, 0.0f };
+		script_proxy.bodies.resize(instance.mesh->GetSubMeshesCount());
 
-		bodies[index].body = object->PScene()->CreateBox(size, body_trans, offset, (PhysObject::BodyType)body_type, group);
-		bodies[index].body->SetUserData(&bodies[index]);
-
-		if (!allow_rotate && body_type == Phys3DComp::BodyType::DynamicBody)
+		for (int body_index = 0; body_index < script_proxy.bodies.size(); body_index++)
 		{
-			bodies[index].body->SetFixedRotation(true);
-		}
+			auto& body = script_proxy.bodies[body_index];
 
-		if (!visible)
-		{
-			bodies[index].body->SetActive(false);
+			Matrix body_trans = instance.mesh->transform;
+
+			Vector3 size = instance.mesh->GetBBMax(body_index) - instance.mesh->GetBBMin(body_index);
+			Vector3 center = (instance.mesh->GetBBMax(body_index) + instance.mesh->GetBBMin(body_index)) * 0.5f;
+
+			if (body_type == Phys3DComp::BodyType::StaticBody || body_type == Phys3DComp::BodyType::TrigerBody)
+			{
+				Matrix mat;
+				mat.Pos() = center;
+				body_trans = mat * body_trans;
+			}
+
+			body.index = index;
+			body.object = object;
+
+			Matrix offset;
+			offset.Pos() = center;
+
+			body.body = object->PScene()->CreateBox(size, body_trans, offset, (PhysObject::BodyType)body_type, group);
+			body.body->SetUserData(&body);
+
+			if (!allow_rotate && body_type == Phys3DComp::BodyType::DynamicBody)
+			{
+				body.body->SetFixedRotation(true);
+			}
+
+			if (!instance.mesh->visible)
+			{
+				body.body->SetActive(false);
+			}
 		}
 	}
 }
@@ -335,68 +382,71 @@ void Phys3DCompInst::UpdateInstances(float dt)
 
 	bool is_active = (mesh_inst->GetState() == SceneObject::State::Active);
 
-	for (int index = 0; index < bodies.size(); index++)
+	for (int index = 0; index < script_bodies.size(); index++)
 	{
 		auto& inst = mesh_inst->instances[index];
 
-		if (bodies[index].body)
+		for (auto body : script_bodies[index].bodies)
 		{
-			if (bodies[index].body->IsActive() != (inst.IsVisible() && is_active))
+			if (body.body)
 			{
-				bodies[index].body->SetActive(inst.IsVisible() && is_active);
+				if (body.body->IsActive() != (inst.IsVisible() && is_active))
+				{
+					body.body->SetActive(inst.IsVisible() && is_active);
 
-				if (body_type != Phys3DComp::BodyType::StaticBody && inst.IsVisible())
-				{
-					bodies[index].body->SetTransform(inst.mesh->transform);
-				}
-			}
-
-			if (is_active)
-			{
-				if (body_type == Phys3DComp::BodyType::KineticBody)
-				{
-					bodies[index].body->SetTransform(inst.mesh->transform);
-				}
-				else
-				if (body_type == Phys3DComp::BodyType::DynamicBody)
-				{
-					Matrix mat;
-					bodies[index].body->GetTransform(mat);
-					inst.mesh->transform = mat;
-				}
-			}
-		}
-		else
-		if (bodies[index].controller)
-		{
-			if (bodies[index].controller->IsActive() != (inst.IsVisible() && is_active))
-			{
-				bodies[index].controller->SetActive(inst.IsVisible() && is_active);
-
-				if (inst.IsVisible())
-				{
-					bodies[index].controller->SetPosition(inst.mesh->transform.Pos());
-				}
-			}
-
-			if (is_active)
-			{
-				if (bodies[index].controller)
-				{
-					if (inst.dir.Length() > 0.001f)
+					if (!object_for_submeshes && body_type != Phys3DComp::BodyType::StaticBody && inst.IsVisible())
 					{
-						bodies[index].controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
+						body.body->SetTransform(inst.mesh->transform);
+					}
+				}
 
-						Vector3 pos;
-						bodies[index].controller->GetPosition(pos);
-
-						inst.mesh->transform.Pos() = pos;
-
-						inst.dir = 0.0f;
+				if (is_active)
+				{
+					if (!object_for_submeshes && body_type == Phys3DComp::BodyType::KineticBody)
+					{
+						body.body->SetTransform(inst.mesh->transform);
 					}
 					else
+					if (body_type == Phys3DComp::BodyType::DynamicBody)
 					{
-						bodies[index].controller->SetPosition(inst.mesh->transform.Pos());
+						Matrix mat;
+						body.body->GetTransform(mat);
+						inst.mesh->transform = mat;
+					}
+				}
+			}
+			else
+			if (!object_for_submeshes && body.controller)
+			{
+				if (body.controller->IsActive() != (inst.IsVisible() && is_active))
+				{
+					body.controller->SetActive(inst.IsVisible() && is_active);
+
+					if (inst.IsVisible())
+					{
+						body.controller->SetPosition(inst.mesh->transform.Pos());
+					}
+				}
+
+				if (is_active)
+				{
+					if (body.controller)
+					{
+						if (inst.dir.Length() > 0.001f)
+						{
+							body.controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
+
+							Vector3 pos;
+							body.controller->GetPosition(pos);
+
+							inst.mesh->transform.Pos() = pos;
+
+							inst.dir = 0.0f;
+						}
+						else
+						{
+							body.controller->SetPosition(inst.mesh->transform.Pos());
+						}
 					}
 				}
 			}

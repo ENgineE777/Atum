@@ -85,6 +85,12 @@ public:
 	bool allow_rotate;
 
 	/**
+	\brief Create sepate object for each sub mesh
+	*/
+
+	bool object_for_submeshes;
+
+	/**
 	\brief Group of a body 
 	*/
 
@@ -103,18 +109,18 @@ public:
 
 	Phys3DComp::BodyType body_type;
 	uint32_t group;
-
-	vector<PhysScene::BodyUserData> bodies;
+	bool object_for_submeshes;
 
 	struct ScriptProxy
 	{
 		MeshInstance::Instance* inst = nullptr;
-		PhysScene::BodyUserData* body = nullptr;
+		vector<PhysScene::BodyUserData> bodies;
 		void ApplyLinearImpulse(Vector3& impulse);
 		void SetTransform(Matrix& trans);
 		void SetGroup(int group);
 		bool CheckColission(bool under);
 		void MoveController(Vector3& delta, uint32_t group, uint32_t ignore_group);
+		void ReleaseBodies();
 	};
 
 	int prop_index = -1;
@@ -130,7 +136,7 @@ public:
 	void SyncInstances();
 
 	void Play() override;
-	void CreateBody(int index, bool visible, Matrix& transform, Vector3 size, Vector3 center, bool allow_rotate);
+	void CreateBodies(int index, MeshInstance::Instance& instance, bool allow_rotate);
 	void UpdateInstances(float dt);
 
 	void Release() override;

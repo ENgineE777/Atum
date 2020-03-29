@@ -47,28 +47,16 @@ public:
 	Matrix transform;
 
 	/**
-	\brief Size of a box along of X axis.
+	\brief Size of a box along.
 	*/
 
-	float sizeX;
-
-	/**
-	\brief Size of a box along of X axis.
-	*/
-
-	float sizeY;
-
-	/**
-	\brief Size of a box along of Z axis.
-	*/
-
-	float sizeZ;
+	Vector3 size;
 
 	/**
 	\brief Controls if box static or dynamic.
 	*/
 
-	bool  isStatic;
+	bool isStatic;
 
 	/**
 	\brief Color of a box.
@@ -91,6 +79,10 @@ public:
 
 	bool Play() override;
 	void Release() override;
+
+#ifdef EDITOR
+	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
+#endif
 
 #endif
 };

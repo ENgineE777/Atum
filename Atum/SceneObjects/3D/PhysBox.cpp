@@ -31,9 +31,9 @@ void PhysBox::Init()
 
 void PhysBox::Draw(float dt)
 {
-	if (obj)
+	if (body.body)
 	{
-		obj->GetTransform(transform);
+		body.body->GetTransform(transform);
 	}
 
 	core.render.DebugBox(transform, color, Vector3(sizeX, sizeY, sizeZ));
@@ -42,13 +42,16 @@ void PhysBox::Draw(float dt)
 bool PhysBox::Play()
 {
 	SceneObject::Play();
-	obj = PScene()->CreateBox(Vector3(sizeX, sizeY, sizeZ), Trans(), Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, 1);
+
+	body.object = this;
+	body.body = PScene()->CreateBox(Vector3(sizeX, sizeY, sizeZ), transform, Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, 1);
+	body.body->SetUserData(&body);
 
 	return true;
 }
 
 void PhysBox::Release()
 {
-	RELEASE(obj);
+	RELEASE(body.body);
 	SceneObject::Release();
 }

@@ -80,7 +80,7 @@ public:
 
 	META_DATA_DECL(PhysBox)
 
-	PhysObject* obj = nullptr;
+	PhysScene::BodyUserData body;
 
 	virtual ~PhysBox() = default;
 

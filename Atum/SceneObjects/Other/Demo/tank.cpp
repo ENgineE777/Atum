@@ -688,7 +688,7 @@ void Tank::AddSplash(Vector3& pos, float radius, float force)
 
 			if (len < radius)
 			{
-				box->obj->AddForceAt(pos, dir * len / radius * force);
+				box->body.body->AddForceAt(pos, dir * len / radius * force);
 			}
 		}
 	}

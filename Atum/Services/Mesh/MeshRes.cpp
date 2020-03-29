@@ -28,6 +28,21 @@ Vector3 Mesh::Instance::GetBBMax()
 	return res->bb_max;
 }
 
+int Mesh::Instance::GetSubMeshesCount()
+{
+	return (int)res->meshes.size();
+}
+
+Vector3 Mesh::Instance::GetBBMin(int sub_mesh_index)
+{
+	return res->meshes[sub_mesh_index].bb_min;
+}
+
+Vector3 Mesh::Instance::GetBBMax(int sub_mesh_index)
+{
+	return res->meshes[sub_mesh_index].bb_max;
+}
+
 void Mesh::Instance::Render(float dt)
 {
 	Render(MeshPrograms::GetTranglPrg());
@@ -239,9 +254,12 @@ bool Mesh::LoadFBX(const char* filename)
 				vertex.uv = Vector2((float)fbx_uv.x, 1.0f - (float)fbx_uv.y);
 			}
 
-			bb_max.Max(vertex.pos);
-			bb_min.Min(vertex.pos);
+			mesh.bb_max.Max(vertex.pos);
+			mesh.bb_min.Min(vertex.pos);
 		}
+
+		bb_max.Max(mesh.bb_max);
+		bb_min.Min(mesh.bb_min);
 
 		mesh.vertices->Unlock();
 	}

@@ -24,6 +24,11 @@ public:
 		Vector3 GetBBMin();
 		Vector3 GetBBMax();
 
+		int GetSubMeshesCount();
+
+		Vector3 GetBBMin(int sub_mesh_index);
+		Vector3 GetBBMax(int sub_mesh_index);
+
 		void Render(float dt);
 		void ShRender(float dt);
 		void Render(Program* prg);
@@ -46,12 +51,15 @@ public:
 		int num_triangles;
 		DataBuffer* indices;
 		DataBuffer* vertices;
+
+		Vector3 bb_max = -FLT_MAX;
+		Vector3 bb_min = FLT_MAX;
 	};
 
 	VertexDecl* vdecl;
 
-	Vector3 bb_max;
-	Vector3 bb_min;
+	Vector3 bb_max = -FLT_MAX;
+	Vector3 bb_min = FLT_MAX;
 
 	std::vector<Texture*> textures;
 	std::vector<SubMesh> meshes;

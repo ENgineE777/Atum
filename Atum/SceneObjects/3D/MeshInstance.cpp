@@ -168,7 +168,7 @@ bool MeshInstance::InjectIntoScript(const char* type, void* property, const char
 void MeshInstance::MakeMapping(asIScriptObject* object, const char* prefix)
 {
 	const char* names[] = { "mesh", "visible" };
-	int types[] = { /*mesh*/ asTYPEID_FLOAT };
+	int types[] = { /*mesh*/ asTYPEID_FLOAT, /*visible*/ asTYPEID_INT32 };
 
 	int count = (sizeof(names) / sizeof(const char*));
 	mapping.resize(count);

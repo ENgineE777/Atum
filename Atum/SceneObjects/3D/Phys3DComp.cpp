@@ -64,31 +64,28 @@ void Phys3DCompInst::ScriptProxy::AddExplosionForce(Vector3& pos, float force, f
 
 	Matrix trans = inst->mesh->transform;
 
-	if (bodies.size() > 1)
+	for (int index = 0; index < bodies.size(); index++)
 	{
-		for (int index = 0; index < bodies.size(); index++)
+		auto& body = bodies[index];
+
+		if (!body.body->IsActive())
 		{
-			auto& body = bodies[index];
-
-			if (!body.body->IsActive())
-			{
-				body.body->SetActive(true);
-				body.body->SetTransform(trans);
-			}
-
-			Vector3 center = ((inst->mesh->GetBBMax(index) + inst->mesh->GetBBMin(index)) * 0.5f) * trans;
-
-			Vector3 dir = center - pos;
-			float dist = dir.Normalize();
-
-			if (dist > radius)
-			{
-				continue;
-			}
-
-			Vector3 impulse = dir * (1.0f - 0.9f * dist / radius) * force;
-			body.body->AddForceAt(center, impulse);
+			body.body->SetActive(true);
+			body.body->SetTransform(trans);
 		}
+
+		Vector3 center = ((inst->mesh->GetBBMax(index) + inst->mesh->GetBBMin(index)) * 0.5f) * trans;
+
+		Vector3 dir = center - pos;
+		float dist = dir.Normalize();
+
+		if (dist > radius)
+		{
+			continue;
+		}
+
+		Vector3 impulse = dir * (1.0f - 0.9f * dist / radius) * force;
+		body.body->AddForceAt(center, impulse);
 	}
 }
 
@@ -489,9 +486,16 @@ void Phys3DCompInst::UpdateInstances(float dt)
 
 			if (body_type == Phys3DComp::BodyType::DynamicBody && is_active && inst.IsVisible())
 			{
-				for (int i = 0; i < script_bodies[index].bodies.size(); i++)
+				if (object_for_submeshes)
 				{
-					script_bodies[index].bodies[i].body->GetTransform(inst.mesh->transforms[i]);
+					for (int i = 0; i < script_bodies[index].bodies.size(); i++)
+					{
+						script_bodies[index].bodies[i].body->GetTransform(inst.mesh->transforms[i]);
+					}
+				}
+				else
+				{
+					script_bodies[index].bodies[0].body->GetTransform(inst.mesh->transform);
 				}
 			}
 		}

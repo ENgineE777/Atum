@@ -57,17 +57,12 @@ void Phys3DCompInst::ScriptProxy::ApplyLinearImpulse(Vector3& impulse)
 
 void Phys3DCompInst::ScriptProxy::SetTransform(Matrix& trans)
 {
-	if (bodies.size() > 1)
-	{
-		return;
-	}
-
 	if (inst)
 	{
 		inst->mesh->transform = trans;
 	}
 
-	for (auto body : bodies)
+	for (auto& body : bodies)
 	{
 		if (body.body)
 		{
@@ -284,11 +279,12 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 		Vector3 size = instance.mesh->GetBBMax() - instance.mesh->GetBBMin();
 		Vector3 center = (instance.mesh->GetBBMax() + instance.mesh->GetBBMin()) * 0.5f;
 
+		Matrix offset;
+		offset.Pos() = center;
+
 		if (body_type == Phys3DComp::BodyType::StaticBody || body_type == Phys3DComp::BodyType::TrigerBody)
 		{
-			Matrix mat;
-			mat.Pos() = center;
-			body_trans = mat * body_trans;
+			body_trans = offset * body_trans;
 		}
 
 		body.index = index;
@@ -311,9 +307,6 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 		}
 		else
 		{
-			Matrix offset;
-			offset.Pos() = center;
-
 			body.body = object->PScene()->CreateBox(size, body_trans, offset, (PhysObject::BodyType)body_type, group);
 			body.body->SetUserData(&body);
 
@@ -330,6 +323,8 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 	}
 	else
 	{
+		instance.mesh->transforms.resize(instance.mesh->GetSubMeshesCount());
+
 		script_proxy.bodies.resize(instance.mesh->GetSubMeshesCount());
 
 		for (int body_index = 0; body_index < script_proxy.bodies.size(); body_index++)
@@ -338,21 +333,20 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 
 			Matrix body_trans = instance.mesh->transform;
 
+			instance.mesh->transforms[body_index] = body_trans;
+
 			Vector3 size = instance.mesh->GetBBMax(body_index) - instance.mesh->GetBBMin(body_index);
 			Vector3 center = (instance.mesh->GetBBMax(body_index) + instance.mesh->GetBBMin(body_index)) * 0.5f;
+			Matrix offset;
+			offset.Pos() = center;
 
 			if (body_type == Phys3DComp::BodyType::StaticBody || body_type == Phys3DComp::BodyType::TrigerBody)
 			{
-				Matrix mat;
-				mat.Pos() = center;
-				body_trans = mat * body_trans;
+				body_trans = offset * body_trans;
 			}
 
 			body.index = index;
 			body.object = object;
-
-			Matrix offset;
-			offset.Pos() = center;
 
 			body.body = object->PScene()->CreateBox(size, body_trans, offset, (PhysObject::BodyType)body_type, group);
 			body.body->SetUserData(&body);
@@ -386,68 +380,80 @@ void Phys3DCompInst::UpdateInstances(float dt)
 	{
 		auto& inst = mesh_inst->instances[index];
 
-		for (auto body : script_bodies[index].bodies)
+		if (!object_for_submeshes && body_type == Phys3DComp::BodyType::Controller)
 		{
-			if (body.body)
+			auto& body = script_bodies[index].bodies[0];
+
+			if (body.controller->IsActive() != (inst.IsVisible() && is_active))
 			{
-				if (body.body->IsActive() != (inst.IsVisible() && is_active))
-				{
-					body.body->SetActive(inst.IsVisible() && is_active);
+				body.controller->SetActive(inst.IsVisible() && is_active);
 
-					if (!object_for_submeshes && body_type != Phys3DComp::BodyType::StaticBody && inst.IsVisible())
-					{
-						body.body->SetTransform(inst.mesh->transform);
-					}
-				}
-
-				if (is_active)
+				if (inst.IsVisible())
 				{
-					if (!object_for_submeshes && body_type == Phys3DComp::BodyType::KineticBody)
-					{
-						body.body->SetTransform(inst.mesh->transform);
-					}
-					else
-					if (body_type == Phys3DComp::BodyType::DynamicBody)
-					{
-						Matrix mat;
-						body.body->GetTransform(mat);
-						inst.mesh->transform = mat;
-					}
+					body.controller->SetPosition(inst.mesh->transform.Pos());
 				}
 			}
-			else
-			if (!object_for_submeshes && body.controller)
-			{
-				if (body.controller->IsActive() != (inst.IsVisible() && is_active))
-				{
-					body.controller->SetActive(inst.IsVisible() && is_active);
 
-					if (inst.IsVisible())
+			if (is_active)
+			{
+				if (body.controller)
+				{
+					if (inst.dir.Length() > 0.001f)
+					{
+						body.controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
+
+						Vector3 pos;
+						body.controller->GetPosition(pos);
+
+						inst.mesh->transform.Pos() = pos;
+
+						inst.dir = 0.0f;
+					}
+					else
 					{
 						body.controller->SetPosition(inst.mesh->transform.Pos());
 					}
 				}
+			}
+		}
+		else
+		{
+			bool need_set_from_mesh = false;
 
-				if (is_active)
+			for (auto body : script_bodies[index].bodies)
+			{
+				if (body.body)
 				{
-					if (body.controller)
+					if (body.body->IsActive() != (inst.IsVisible() && is_active))
 					{
-						if (inst.dir.Length() > 0.001f)
+						body.body->SetActive(inst.IsVisible() && is_active);
+
+						if (body_type != Phys3DComp::BodyType::StaticBody && inst.IsVisible())
 						{
-							body.controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
-
-							Vector3 pos;
-							body.controller->GetPosition(pos);
-
-							inst.mesh->transform.Pos() = pos;
-
-							inst.dir = 0.0f;
-						}
-						else
-						{
-							body.controller->SetPosition(inst.mesh->transform.Pos());
+							need_set_from_mesh = true;
 						}
 					}
+
+					if (is_active && inst.IsVisible())
+					{
+						if (body_type == Phys3DComp::BodyType::KineticBody)
+						{
+							need_set_from_mesh = true;
+						}
+					}
+				}
+			}
+
+			if (need_set_from_mesh)
+			{
+				script_bodies[index].SetTransform(inst.mesh->transform);
+			}
+
+			if (body_type == Phys3DComp::BodyType::DynamicBody && is_active && inst.IsVisible())
+			{
+				for (int i = 0; i < script_bodies[index].bodies.size(); i++)
+				{
+					script_bodies[index].bodies[i].body->GetTransform(inst.mesh->transforms[i]);
 				}
 			}
 		}

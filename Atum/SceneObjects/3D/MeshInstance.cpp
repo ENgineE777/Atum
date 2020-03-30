@@ -233,6 +233,9 @@ bool MeshInstance::Is3DObject()
 
 void MeshInstance::Init()
 {
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContactStart", "void", "%i%s%i"));
+	script_callbacks.push_back(ScriptCallback(GetScene(), "OnContactEnd", "void", "%i%s%i"));
+
 	Tasks(false)->AddTask(100, this, (Object::Delegate)&MeshInstance::Draw);
 }
 
@@ -347,6 +350,14 @@ void MeshInstance::Draw(float dt)
 		}
 	}
 #endif
+
+	if (GetScene()->Playing())
+	{
+		for (auto& inst : instances)
+		{
+			inst.mesh->visible = inst.IsVisible();
+		}
+	}
 }
 
 void MeshInstance::OnResize(int at, int delta)

@@ -116,6 +116,7 @@ public:
 		MeshInstance::Instance* inst = nullptr;
 		vector<PhysScene::BodyUserData> bodies;
 		void ApplyLinearImpulse(Vector3& impulse);
+		void AddExplosionForce(Vector3& pos, float force, float rafius);
 		void SetTransform(Matrix& trans);
 		void SetGroup(int group);
 		bool CheckColission(bool under);

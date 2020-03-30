@@ -41,10 +41,10 @@ void Phys3DCompInst::ScriptProxy::ApplyLinearImpulse(Vector3& impulse)
 		return;
 	}
 
-	for (auto body : bodies)
-	{
-		Matrix trans = inst->mesh->transform;
+	Matrix trans = inst->mesh->transform;
 
+	for (auto& body : bodies)
+	{
 		if (!body.body->IsActive())
 		{
 			body.body->SetActive(true);
@@ -52,6 +52,43 @@ void Phys3DCompInst::ScriptProxy::ApplyLinearImpulse(Vector3& impulse)
 		}
 		
 		body.body->AddForceAt(trans.Pos(), impulse);
+	}
+}
+
+void Phys3DCompInst::ScriptProxy::AddExplosionForce(Vector3& pos, float force, float radius)
+{
+	if (!inst->IsVisible())
+	{
+		return;
+	}
+
+	Matrix trans = inst->mesh->transform;
+
+	if (bodies.size() > 1)
+	{
+		for (int index = 0; index < bodies.size(); index++)
+		{
+			auto& body = bodies[index];
+
+			if (!body.body->IsActive())
+			{
+				body.body->SetActive(true);
+				body.body->SetTransform(trans);
+			}
+
+			Vector3 center = ((inst->mesh->GetBBMax(index) + inst->mesh->GetBBMin(index)) * 0.5f) * trans;
+
+			Vector3 dir = center - pos;
+			float dist = dir.Normalize();
+
+			if (dist > radius)
+			{
+				continue;
+			}
+
+			Vector3 impulse = dir * (1.0f - 0.9f * dist / radius) * force;
+			body.body->AddForceAt(center, impulse);
+		}
 	}
 }
 
@@ -78,7 +115,7 @@ void Phys3DCompInst::ScriptProxy::SetTransform(Matrix& trans)
 
 void Phys3DCompInst::ScriptProxy::SetGroup(int group)
 {
-	for (auto body : bodies)
+	for (auto& body : bodies)
 	{
 		if (body.body)
 		{
@@ -94,7 +131,7 @@ void Phys3DCompInst::ScriptProxy::SetGroup(int group)
 
 bool Phys3DCompInst::ScriptProxy::CheckColission(bool under)
 {
-	for (auto body : bodies)
+	for (auto& body : bodies)
 	{
 		if (body.controller)
 		{
@@ -148,6 +185,7 @@ void Phys3DCompInst::BindClassToScript()
 	script_class_name = "Phys3D";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(Phys3DCompInst::ScriptProxy), "gr_script_scene_object_components", brief);
 	core.scripts.RegisterObjectMethod(script_class_name, "void ApplyLinearImpulse(Vector3&in impulsey)", WRAP_MFN(Phys3DCompInst::ScriptProxy, ApplyLinearImpulse), "Apply Linear Impulse at certain point");
+	core.scripts.RegisterObjectMethod(script_class_name, "void AddExplosionForce(Vector3&in pos, float force, float radius)", WRAP_MFN(Phys3DCompInst::ScriptProxy, AddExplosionForce), "Apply Linear Impulse at certain point");
 	core.scripts.RegisterObjectMethod(script_class_name, "void SetTransform(Matrix&in trans)", WRAP_MFN(Phys3DCompInst::ScriptProxy, SetTransform), "Moving object to certain point");
 	core.scripts.RegisterObjectMethod(script_class_name, "void SetGroup(int group)", WRAP_MFN(Phys3DCompInst::ScriptProxy, SetGroup), "Set belonging to a particular physical group");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool CheckColission(bool under)", WRAP_MFN(Phys3DCompInst::ScriptProxy, CheckColission), "Check if a physical object has a collision contact");

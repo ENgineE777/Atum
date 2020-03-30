@@ -65,7 +65,11 @@ void Mesh::Instance::Render(Program* prg)
 
 	core.render.GetDevice()->SetProgram(prg);
 
-	prg->SetMatrix(Shader::Type::Vertex, "trans", &transform, 1);
+	if (transforms.size() == 0)
+	{
+		prg->SetMatrix(Shader::Type::Vertex, "trans", &transform, 1);
+	}
+
 	prg->SetMatrix(Shader::Type::Vertex, "view_proj", &trans, 1);
 	prg->SetVector(Shader::Type::Pixel, "color", (Vector4*)&color, 1);
 
@@ -82,6 +86,11 @@ void Mesh::Instance::Render(Program* prg)
 
 		core.render.GetDevice()->SetVertexBuffer(0, mesh.vertices);
 		core.render.GetDevice()->SetIndexBuffer(mesh.indices);
+
+		if (transforms.size() > 0)
+		{
+			prg->SetMatrix(Shader::Type::Vertex, "trans", &transforms[i], 1);
+		}
 
 		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", mesh.texture != -1 ? res->textures[mesh.texture] : nullptr);
 		core.render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);

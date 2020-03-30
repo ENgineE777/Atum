@@ -16,6 +16,7 @@ public:
 	public:
 
 		Matrix transform;
+		vector<Matrix> transforms;
 		Color color;
 		int visible = 1;
 

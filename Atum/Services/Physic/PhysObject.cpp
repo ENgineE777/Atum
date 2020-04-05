@@ -95,6 +95,16 @@ void PhysObject::AddForceAt(Vector3 pos, Vector3 force)
 	PxRigidBodyExt::addForceAtPos(*((PxRigidBody*)actor), PxVec3(force.x, force.y, force.z), PxVec3(pos.x, pos.y, pos.z), PxForceMode::eIMPULSE, true);
 }
 
+void PhysObject::RestrictZAxis()
+{
+	auto* rigid_actor = dynamic_cast<PxRigidDynamic*>(actor);
+
+	if (rigid_actor)
+	{
+		rigid_actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y);
+	}
+}
+
 void PhysObject::Release()
 {
 	actor->userData = nullptr;

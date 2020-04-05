@@ -39,7 +39,6 @@ PhysObject* PhysScene::CreateBox(Vector3 size, Matrix trans, Matrix offset, Phys
 		PxTransform trans_offset(PxVec3(offset.Pos().x, offset.Pos().y, offset.Pos().z), PxQuat(q_offset.x, q_offset.y, q_offset.z, q_offset.w));
 
 		PxRigidDynamic* actor = PxCreateDynamic(*core.physics.physics, transform, geometry, *core.physics.defMaterial, density, trans_offset);
-		actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z | PxRigidDynamicLockFlag::eLOCK_ANGULAR_X | PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y);
 
 		actor->getShapes(&shape, 1);
 

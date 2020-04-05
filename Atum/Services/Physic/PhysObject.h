@@ -124,6 +124,11 @@ public:
 	void AddForceAt(Vector3 pos, Vector3 force);
 
 	/**
+	\brief Restrict axis for making object as 2D
+	*/
+	void RestrictZAxis();
+
+	/**
 	\brief PhysObject should released only via this mehod
 	*/
 	void Release();

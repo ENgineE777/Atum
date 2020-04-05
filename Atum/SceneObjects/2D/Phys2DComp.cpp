@@ -327,9 +327,14 @@ void Phys2DCompInst::CreateBody(int index, bool visible, Vector2 pos, Vector2 si
 		bodies[index].body = object->PScene()->CreateBox({ size.x, size.y, 1.0f }, body_trans, offset, (PhysObject::BodyType)body_type, group);
 		bodies[index].body->SetUserData(&bodies[index]);
 
-		if (!allow_rotate && body_type == Phys2DComp::BodyType::DynamicBody)
+		if (body_type == Phys2DComp::BodyType::DynamicBody)
 		{
-			bodies[index].body->SetFixedRotation(true);
+			bodies[index].body->RestrictZAxis();
+
+			if (!allow_rotate)
+			{
+				bodies[index].body->SetFixedRotation(true);
+			}
 		}
 
 		if (!visible)

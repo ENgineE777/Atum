@@ -112,9 +112,6 @@
     <Filter Include="SceneObjects\2D\NavMesh">
       <UniqueIdentifier>{6f280694-a4aa-4a9a-84d9-89afc4838f79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Services\Meshes">
-      <UniqueIdentifier>{e353aa79-4f63-4d16-b9dc-520365b3c9bc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Support\fbx">
       <UniqueIdentifier>{befa8594-0796-4796-a8a1-72e11e7cd85b}</UniqueIdentifier>
     </Filter>
@@ -126,6 +123,51 @@
     </Filter>
     <Filter Include="Support\Math">
       <UniqueIdentifier>{790443b7-220e-4efd-b95b-9c69e5473573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark">
+      <UniqueIdentifier>{da329c70-1d0f-48a5-b2a9-71527b90894a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Core">
+      <UniqueIdentifier>{e7291be7-574f-4afb-ae3f-44eb5f80d7c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions">
+      <UniqueIdentifier>{f4865062-deee-46c3-96c4-91c9e4a4cf0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Core\IO">
+      <UniqueIdentifier>{153d513e-6618-4168-bae8-16416407dfa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Actions">
+      <UniqueIdentifier>{ecf52574-2cac-4090-b7ad-ebef6915e334}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Emitters">
+      <UniqueIdentifier>{dc15b73b-9733-4d64-8023-c89e70e7e023}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Interpolators">
+      <UniqueIdentifier>{5678910e-f934-4ead-b00b-6ebc144712c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\IOConverters">
+      <UniqueIdentifier>{bcf8961b-9ac6-45be-9868-42b934ab484e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Modifiers">
+      <UniqueIdentifier>{e9de0946-57ee-40c0-81be-c2476b328fd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Renderers">
+      <UniqueIdentifier>{00c6d2e2-f886-4eed-98f6-02168e0a1f6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\Spark\Extensions\Zones">
+      <UniqueIdentifier>{f56d035f-7121-43d2-8dc5-92d4bc920898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Support\PugiXml">
+      <UniqueIdentifier>{18db9723-11ab-4c3e-9b6a-2ce37ded6ac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Particle">
+      <UniqueIdentifier>{86482e98-2435-4f27-8849-e3d3831b953f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Particle\Renderer">
+      <UniqueIdentifier>{08a93fbe-657a-46e3-8d12-b5b9c34f912b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Services\Meshes">
+      <UniqueIdentifier>{e353aa79-4f63-4d16-b9dc-520365b3c9bc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +744,159 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.cpp">
       <Filter>SceneObjects\3D</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_DataSet.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_DEF.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Emitter.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Group.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Logger.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_MemoryTracer.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Object.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Octree.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Renderer.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_System.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Transform.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Transformable.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_Zone.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\SPK_ZonedModifier.cpp">
+      <Filter>Support\Spark\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Buffer.cpp">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Descriptor.cpp">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Loader.cpp">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Manager.cpp">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Saver.cpp">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Actions\SPK_ActionSet.cpp">
+      <Filter>Support\Spark\Extensions\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Actions\SPK_SpawnParticlesAction.cpp">
+      <Filter>Support\Spark\Extensions\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_NormalEmitter.cpp">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_RandomEmitter.cpp">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_SphericEmitter.cpp">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_StraightEmitter.cpp">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_SPKLoader.cpp">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_SPKSaver.cpp">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_XMLLoader.cpp">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_XMLSaver.cpp">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_BasicModifiers.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Collider.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_EmitterAttacher.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_LinearForce.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Obstacle.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_PointMass.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_RandomForce.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Rotator.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Vortex.cpp">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_Oriented3DRenderBehavior.cpp">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_QuadRenderBehavior.cpp">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Box.cpp">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Cylinder.cpp">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Plane.cpp">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Ring.cpp">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Sphere.cpp">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Support\PugiXml\pugixml.cpp">
+      <Filter>Support\PugiXml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Particle\Particles.cpp">
+      <Filter>Services\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Particle\Renderer\SPK_Buffer.cpp">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Particle\Renderer\SPK_QuadRenderer.cpp">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Particle\Renderer\SPK_BaseRenderer.cpp">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\Atum\Services\Particle\ParticleSystem.cpp">
+      <Filter>Services\Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -853,9 +1048,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Network\Network.h">
       <Filter>Services\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h">
-      <Filter>Services\Font</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Render\VertexDecl.h">
       <Filter>Services\Render</Filter>
@@ -1264,6 +1456,243 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.h">
       <Filter>SceneObjects\3D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\SPARK.h">
+      <Filter>Support\Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\SPARK_Core.h">
+      <Filter>Support\Spark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Action.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_ArrayData.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Color.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_DataHandler.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_DataSet.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_DEF.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Emitter.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Enum.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Group.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Interpolator.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Iterator.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Logger.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_MemoryTracer.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Modifier.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Object.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Octree.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Particle.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Reference.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_RenderBuffer.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Renderer.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_System.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Transform.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Transformable.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Vector3D.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_Zone.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\SPK_ZonedModifier.h">
+      <Filter>Support\Spark\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Attribute.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Buffer.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Descriptor.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Loader.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Manager.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Core\IO\SPK_IO_Saver.h">
+      <Filter>Support\Spark\Core\IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Actions\SPK_ActionSet.h">
+      <Filter>Support\Spark\Extensions\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Actions\SPK_SpawnParticlesAction.h">
+      <Filter>Support\Spark\Extensions\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_NormalEmitter.h">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_RandomEmitter.h">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_SphericEmitter.h">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_StaticEmitter.h">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Emitters\SPK_StraightEmitter.h">
+      <Filter>Support\Spark\Extensions\Emitters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Interpolators\SPK_DefaultInitializer.h">
+      <Filter>Support\Spark\Extensions\Interpolators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Interpolators\SPK_GraphInterpolator.h">
+      <Filter>Support\Spark\Extensions\Interpolators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Interpolators\SPK_RandomInitializer.h">
+      <Filter>Support\Spark\Extensions\Interpolators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Interpolators\SPK_RandomInterpolator.h">
+      <Filter>Support\Spark\Extensions\Interpolators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Interpolators\SPK_SimpleInterpolator.h">
+      <Filter>Support\Spark\Extensions\Interpolators</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_SPKLoader.h">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_SPKSaver.h">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_XMLLoader.h">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\IOConverters\SPK_IO_XMLSaver.h">
+      <Filter>Support\Spark\Extensions\IOConverters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_BasicModifiers.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Collider.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Destroyer.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_EmitterAttacher.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_LinearForce.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Obstacle.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_PointMass.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_RandomForce.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Rotator.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Modifiers\SPK_Vortex.h">
+      <Filter>Support\Spark\Extensions\Modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_LineRenderBehavior.h">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_Oriented3DRenderBehavior.h">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_PointRenderBehavior.h">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Renderers\SPK_QuadRenderBehavior.h">
+      <Filter>Support\Spark\Extensions\Renderers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Box.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Cylinder.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Plane.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Point.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Ring.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\Spark\Extensions\Zones\SPK_Sphere.h">
+      <Filter>Support\Spark\Extensions\Zones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\PugiXml\pugiconfig.hpp">
+      <Filter>Support\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Support\PugiXml\pugixml.hpp">
+      <Filter>Support\PugiXml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\Particles.h">
+      <Filter>Services\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\Renderer\SPK_DEF.h">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\Renderer\SPK_Buffer.h">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\Renderer\SPK_QuadRenderer.h">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\Renderer\SPK_BaseRenderer.h">
+      <Filter>Services\Particle\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Font\Fonts.h">
+      <Filter>Services\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\Services\Particle\ParticleSystem.h">
+      <Filter>Services\Particle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

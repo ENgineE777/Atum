@@ -61,6 +61,9 @@ public:
 
 	std::vector<Scene*> inc_scenes;
 
+	TaskExecutor::SingleTaskPool* taskPool = nullptr;
+	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
+
 #endif
 
 private:
@@ -76,8 +79,7 @@ private:
 
 	std::vector<SceneObject*> objects;
 	std::vector<SceneObject*> assets;
-	TaskExecutor::SingleTaskPool* taskPool = nullptr;
-	TaskExecutor::SingleTaskPool* renderTaskPool = nullptr;
+
 	bool playing = false;
 
 	std::map<std::string, Group> groups;

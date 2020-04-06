@@ -64,6 +64,8 @@ void Core::Init(void* data, void* render_data)
 
 	render.Init("DX11", render_data);
 
+	particles.Init();
+
 	physics.Init();
 
 	Sprite::Init();

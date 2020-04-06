@@ -122,6 +122,16 @@ void SceneManager::LoadScene(SceneHolder* holder)
 	}
 }
 
+Scene* SceneManager::GetScene(const char* name)
+{
+	if (scenes_search.find(name) == scenes_search.end())
+	{
+		return nullptr;
+	}
+
+	return scenes_search[name]->scene;
+}
+
 void SceneManager::Execute(float dt)
 {
 	for (auto* holder : scenes_to_load)

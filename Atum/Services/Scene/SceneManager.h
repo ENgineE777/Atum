@@ -66,6 +66,13 @@ public:
 	void LoadScene(const char* name);
 
 	/**
+	\brief Get a scene
+
+	\param[in] name Name of a scene (filename without extension)
+	*/
+	Scene* GetScene(const char* name);
+
+	/**
 	\brief Set state for scene objects from scene groups in all loaded scenes
 
 	\param[in] group NAme of a group

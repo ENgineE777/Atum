@@ -493,7 +493,7 @@ void Editor::CreateSceneObject(const char* name, void* parent, bool is_asset)
 		Matrix* mat = obj->Trans();
 		if (mat)
 		{
-			mat->Pos() += freecamera.pos + Vector3(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f;
+			mat->Pos() = freecamera.pos + Vector3(cosf(freecamera.angles.x), sinf(freecamera.angles.y), sinf(freecamera.angles.x)) * 5.0f;
 		}
 	}
 	else

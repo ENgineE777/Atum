@@ -163,6 +163,24 @@ void ScriptCore::Scene::CallClassInstancesMethod(string& scene_name, string& cla
 	core.scripts.CallClassInstancesMethod(scene_name.c_str(), class_name.c_str(), method_name.c_str());
 }
 
+void ScriptCore::Scene::PlayParticle(string& scen_name, string& name, Vector3& pos)
+{
+	auto* scene = core.scene_manager.GetScene(scen_name.c_str());
+
+	if (scene)
+	{
+		auto* system = core.particles.LoadParticle(name.c_str(), scene->taskPool, scene->renderTaskPool, true);
+
+		if (system)
+		{
+			Matrix mat;
+			mat.Pos() = pos;
+
+			system->SetTransform(mat);
+		}
+	}
+}
+
 void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
 {
 	ScriptCore::Scene* scene = (ScriptCore::Scene*)gen->GetObject();
@@ -337,6 +355,8 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast3D(Vector3&in origin, Vector3&in dir, float dist, int group, Vector3&out hit, Vector3&out normal, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast3D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
+	core.scripts.RegisterObjectMethod(script_class_name, "void PlayParticle(string&in scene_name, string&in name, Vector3&in pos)", WRAP_MFN(ScriptCore::Scene, PlayParticle), "Call methos in instances of script classes");
+
 
 	script_class_name = "SoundInstance";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", "Script sound instance");

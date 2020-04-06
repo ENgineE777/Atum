@@ -193,16 +193,19 @@ bool Mesh::LoadFBX(const char* filename)
 
 			if (tex)
 			{
-				auto texture_name = tex->getRelativeFileName();
+				auto texture_name = tex->getFileName();
 
 				char name[256];
 				int len = (int)(texture_name.end - texture_name.begin);
 				memcpy(name, texture_name.begin, len);
 				name[len] = 0;
 
+				char fileName[256];
+				StringUtils::GetFileName(name, fileName);
+
 				for (int i = 0; i < textures.size(); i++)
 				{
-					if (textures[i] && StringUtils::IsEqual(textures[i]->name.c_str(), name))
+					if (textures[i] && StringUtils::IsEqual(textures[i]->name.c_str(), fileName))
 					{
 						mesh.texture = i;
 						break;
@@ -211,7 +214,7 @@ bool Mesh::LoadFBX(const char* filename)
 
 				if (mesh.texture == -1)
 				{
-					textures.push_back(core.render.LoadTexture(name));
+					textures.push_back(core.render.LoadTexture(fileName));
 					mesh.texture = (int)textures.size() - 1;
 				}
 			}

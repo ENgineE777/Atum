@@ -202,7 +202,7 @@ bool Mesh::LoadFBX(const char* filename)
 
 				for (int i = 0; i < textures.size(); i++)
 				{
-					if (StringUtils::IsEqual(textures[i]->name.c_str(), name))
+					if (textures[i] && StringUtils::IsEqual(textures[i]->name.c_str(), name))
 					{
 						mesh.texture = i;
 						break;

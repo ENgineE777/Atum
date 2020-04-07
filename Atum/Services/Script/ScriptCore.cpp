@@ -163,7 +163,7 @@ void ScriptCore::Scene::CallClassInstancesMethod(string& scene_name, string& cla
 	core.scripts.CallClassInstancesMethod(scene_name.c_str(), class_name.c_str(), method_name.c_str());
 }
 
-void ScriptCore::Scene::PlayParticle(string& scen_name, string& name, Vector3& pos)
+void ScriptCore::Scene::PlayParticles(string& scen_name, string& name, Vector3& pos)
 {
 	auto* scene = core.scene_manager.GetScene(scen_name.c_str());
 
@@ -179,6 +179,18 @@ void ScriptCore::Scene::PlayParticle(string& scen_name, string& name, Vector3& p
 			system->SetTransform(mat);
 		}
 	}
+}
+
+ParticleSystem* ScriptCore::Scene::CreateParticles(string& scen_name, string& name)
+{
+	auto* scene = core.scene_manager.GetScene(scen_name.c_str());
+
+	if (scene)
+	{
+		return core.particles.LoadParticle(name.c_str(), scene->taskPool, scene->renderTaskPool, false);
+	}
+
+	return nullptr;
 }
 
 void ScriptCore_Scene_Raycast2D(asIScriptGeneric *gen)
@@ -347,6 +359,17 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "bool GetDebugState(string&in alias, int action)", WRAP_MFN(ScriptCore::Controls, GetDebugState), "Get state of hardware alias");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool IsGamepadConnected()", WRAP_MFN(ScriptCore::Controls, IsGamepadConnected), "Check if gamepad connected");
 
+	script_class_name = "ParticleSystem";
+	core.scripts.RegisterObjectType(script_class_name, sizeof(ParticleSystem), "gr_script_core", "Instance of particle system");
+	core.scripts.RegisterObjectMethod(script_class_name, "void SetTransform(Matrix&in transform)", WRAP_MFN(ParticleSystem, SetTransform), "Set transform");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool SetSimulate(bool set)", WRAP_MFN(ParticleSystem, SetSimulate), "Check if sound is playing");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsSimulating()", WRAP_MFN(ParticleSystem, IsSimulating), "Set volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool SetEmitersActive(bool set)", WRAP_MFN(ParticleSystem, SetEmitersActive), "Check if sound is playing");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsEmitersActive()", WRAP_MFN(ParticleSystem, IsEmitersActive), "Set volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsSysyemActive()", WRAP_MFN(ParticleSystem, IsSysyemActive), "Get volume of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Restart()", WRAP_MFN(ParticleSystem, Restart), "Stop playing of a sound");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Release()", WRAP_MFN(ParticleSystem, Release), "Release sound");
+
 	script_class_name = "ScriptScene";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Scene), "gr_script_core", "Script scene sub system");
 	core.scripts.RegisterObjectMethod(script_class_name, "void SetStateToGroup(string&in group_name, int state)", WRAP_MFN(ScriptCore::Scene, SetStateToGroup), "Set state to scene objects in a group by griup name");
@@ -355,8 +378,8 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast3D(Vector3&in origin, Vector3&in dir, float dist, int group, Vector3&out hit, Vector3&out normal, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast3D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
-	core.scripts.RegisterObjectMethod(script_class_name, "void PlayParticle(string&in scene_name, string&in name, Vector3&in pos)", WRAP_MFN(ScriptCore::Scene, PlayParticle), "Call methos in instances of script classes");
-
+	core.scripts.RegisterObjectMethod(script_class_name, "void PlayParticles(string&in scene_name, string&in name, Vector3&in pos)", WRAP_MFN(ScriptCore::Scene, PlayParticles), "Create particle instance in particular point");
+	core.scripts.RegisterObjectMethod(script_class_name, "ParticleSystem@ CreateParticles(string&in scene_name, string&in name)", WRAP_MFN(ScriptCore::Scene, CreateParticles), "Create instance of particle system");
 
 	script_class_name = "SoundInstance";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(SoundInstance), "gr_script_core", "Script sound instance");

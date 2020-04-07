@@ -15,7 +15,7 @@ class ParticleSystem : public Object
 
 	bool playing = true;
 	bool visible = true;
-	bool autodelete = true;
+	bool autoDelete = true;
 
 	Matrix transform;
 

@@ -2,7 +2,7 @@
 #include "Services/Core/Core.h"
 #include "Services/Scene/ExecuteLevels.h"
 
-void ParticleSystem::Init(SPK::Ref<SPK::System> set_res, TaskExecutor::SingleTaskPool* set_taskPool, TaskExecutor::SingleTaskPool* set_renderPool, bool autoDelete)
+void ParticleSystem::Init(SPK::Ref<SPK::System> set_res, TaskExecutor::SingleTaskPool* set_taskPool, TaskExecutor::SingleTaskPool* set_renderPool, bool set_autoDelete)
 {
 	res = set_res;
 	taskPool = set_taskPool;
@@ -10,6 +10,8 @@ void ParticleSystem::Init(SPK::Ref<SPK::System> set_res, TaskExecutor::SingleTas
 
 	renderPool = set_renderPool;
 	renderPool->AddTask(ExecuteLevels::Sprites, this, (Object::Delegate)&ParticleSystem::Render);
+
+	autoDelete = set_autoDelete;
 
 	system = SPK::SPKObject::copy(set_res);
 	system->initialize();
@@ -43,12 +45,12 @@ bool ParticleSystem::IsPlaying()
 
 void ParticleSystem::SetAutoDelete(bool set)
 {
-	autodelete = set;
+	autoDelete = set;
 }
 
 bool ParticleSystem::IfAutoDelete()
 {
-	return autodelete;
+	return autoDelete;
 }
 
 bool ParticleSystem::IsSysyemActive()
@@ -58,8 +60,13 @@ bool ParticleSystem::IsSysyemActive()
 
 void ParticleSystem::Restart()
 {
+	float mat[16];
+	memcpy(mat, system->getTransform().getLocal(), 16 * 4);
 	system = SPK::SPKObject::copy(res);
 	system->initialize();
+
+	system->getTransform().set(mat);
+	system->updateTransform();
 }
 
 void ParticleSystem::Update(float dt)
@@ -69,7 +76,7 @@ void ParticleSystem::Update(float dt)
 		system->updateParticles(dt);
 	}
 
-	if (autodelete && !system->isActive())
+	if (autoDelete && !system->isActive())
 	{
 		Release();
 	}

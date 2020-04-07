@@ -13,7 +13,8 @@ class ParticleSystem : public Object
 	SPK::Ref<SPK::System> res;
 	SPK::Ref<SPK::System> system;
 
-	bool playing = true;
+	bool simulating = true;
+	bool emitersActive = true;
 	bool visible = true;
 	bool autoDelete = true;
 
@@ -31,8 +32,11 @@ public:
 	void SetVisible(bool set);
 	bool IsVisible();
 
-	void Play(bool set);
-	bool IsPlaying();
+	void SetSimulate(bool set);
+	bool IsSimulating();
+
+	void SetEmitersActive(bool set);
+	bool IsEmitersActive();
 
 	void SetAutoDelete(bool set);
 	bool IfAutoDelete();

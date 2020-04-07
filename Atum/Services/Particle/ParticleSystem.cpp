@@ -33,14 +33,34 @@ bool ParticleSystem::IsVisible()
 	return visible;
 }
 
-void ParticleSystem::Play(bool set)
+void ParticleSystem::SetSimulate(bool set)
 {
-	playing = set;
+	simulating = set;
 }
 
-bool ParticleSystem::IsPlaying()
+bool ParticleSystem::IsSimulating()
 {
-	return playing;
+	return simulating;
+}
+
+void ParticleSystem::SetEmitersActive(bool set)
+{
+	for (int i = 0; i < system->getNbGroups(); i++)
+	{
+		const auto& group = system->getGroup(i);
+
+		for (int j = 0; j < group->getNbEmitters(); j++)
+		{
+			const auto& emiter = group->getEmitter(j);
+
+			emiter->setActive(set);
+		}
+	}
+}
+
+bool ParticleSystem::IsEmitersActive()
+{
+	return emitersActive;
 }
 
 void ParticleSystem::SetAutoDelete(bool set)
@@ -71,7 +91,7 @@ void ParticleSystem::Restart()
 
 void ParticleSystem::Update(float dt)
 {
-	if (playing && visible)
+	if (simulating && visible)
 	{
 		system->updateParticles(dt);
 	}

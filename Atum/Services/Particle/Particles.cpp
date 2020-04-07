@@ -4,23 +4,17 @@
 
 void SetupExplosion(SPK::Ref<SPK::System> system)
 {
-	Texture* textureExplosion;
-	Texture* textureFlash;
-	Texture* textureSpark1;
-	Texture* textureSpark2;
-	Texture* textureWave;
-
-	textureExplosion = core.render.LoadTexture("Spark/explosion.bmp");
-	textureFlash = core.render.LoadTexture("Spark/flash.bmp");
-	textureSpark1 = core.render.LoadTexture("Spark/spark1.bmp");
-	textureSpark2 = core.render.LoadTexture("Spark/point.bmp");
-	textureWave = core.render.LoadTexture("Spark/wave.bmp");
+	Texture* textureExplosion = core.render.LoadTexture("Spark/explosion.bmp");
+	Texture* textureFlash = core.render.LoadTexture("Spark/flash.bmp");
+	Texture* textureSpark1 = core.render.LoadTexture("Spark/spark1.bmp");
+	Texture* textureSpark2 = core.render.LoadTexture("Spark/point.bmp");
+	Texture* textureWave = core.render.LoadTexture("Spark/wave.bmp");
 
 	///////////////
 	// Renderers //
 	///////////////
 
-	float scale = 12.0f;
+	float scale = 10.0f;
 
 	// smoke renderer
 	SPK::Ref<SPK::GLQuadRenderer> smokeRenderer = SPK::GLQuadRenderer::create();
@@ -235,7 +229,272 @@ void SetupExplosion(SPK::Ref<SPK::System> system)
 	//saver.save("Spark/explossion.xml", system, "Spark/explossion.xml");
 }
 
+void SetupHit1(SPK::Ref<SPK::System> system)
+{
+	Texture* textureFlash = core.render.LoadTexture("Spark/flash.bmp");
+	Texture* textureSpark1 = core.render.LoadTexture("Spark/spark1.bmp");
 
+	///////////////
+	// Renderers //
+	///////////////
+
+	float scale = 1.25f;
+
+	// flash renderer
+	SPK::Ref<SPK::GLQuadRenderer> flashRenderer = SPK::GLQuadRenderer::create();
+	flashRenderer->setTexturingMode(SPK::TEXTURE_MODE_2D);
+	flashRenderer->setTexture(textureFlash);
+	flashRenderer->setBlendMode(SPK::BLEND_MODE_ADD);
+	flashRenderer->enableRenderingOption(SPK::RENDERING_OPTION_DEPTH_WRITE, false);
+	flashRenderer->setScale(scale, scale);
+	flashRenderer->setShared(true);
+
+	// spark 1 renderer
+	SPK::Ref<SPK::GLQuadRenderer> spark1Renderer = SPK::GLQuadRenderer::create();
+	spark1Renderer->setTexturingMode(SPK::TEXTURE_MODE_2D);
+	spark1Renderer->setTexture(textureSpark1);
+	spark1Renderer->setBlendMode(SPK::BLEND_MODE_ADD);
+	spark1Renderer->enableRenderingOption(SPK::RENDERING_OPTION_DEPTH_WRITE, false);
+	spark1Renderer->setOrientation(SPK::DIRECTION_ALIGNED); // sparks are oriented function of their velocity
+	spark1Renderer->setScale(0.1f * scale, 1.0f * scale); // thin rectangles
+	spark1Renderer->setShared(true);
+
+	//////////////
+	// Emitters //
+	//////////////
+
+	// This zone will be used by several emitters
+	SPK::Ref<SPK::Sphere> explosionSphere = SPK::Sphere::create(SPK::Vector3D(0.0f, 0.0f, 0.0f), 0.4f);
+
+	// flash emitter
+	SPK::Ref<SPK::StaticEmitter> flashEmitter = SPK::StaticEmitter::create();
+	flashEmitter->setZone(SPK::Sphere::create(SPK::Vector3D(0.0f, 0.0f, 0.0f), 0.1f));
+	flashEmitter->setTank(3);
+	flashEmitter->setFlow(-1);
+
+	// spark 1 emitter
+	SPK::Ref<SPK::NormalEmitter> spark1Emitter = SPK::NormalEmitter::create();
+	spark1Emitter->setZone(explosionSphere);
+	spark1Emitter->setTank(20);
+	spark1Emitter->setFlow(-1);
+	spark1Emitter->setForce(2.0f, 3.0f);
+	spark1Emitter->setInverted(true);
+
+	////////////
+	// Groups //
+	////////////
+
+	SPK::Ref<SPK::ColorGraphInterpolator> colorInterpolator;
+	SPK::Ref<SPK::FloatGraphInterpolator> paramInterpolator;
+
+	// smoke group
+	colorInterpolator = SPK::ColorGraphInterpolator::create();
+	colorInterpolator->addEntry(0.0f, 0x33333300);
+	colorInterpolator->addEntry(0.4f, 0x33333366, 0x33333399);
+	colorInterpolator->addEntry(0.6f, 0x33333366, 0x33333399);
+	colorInterpolator->addEntry(1.0f, 0x33333300);
+
+	// flame group
+	colorInterpolator = SPK::ColorGraphInterpolator::create();
+	colorInterpolator->addEntry(0.0f, 0xFF8033FF);
+	colorInterpolator->addEntry(0.5f, 0x995933FF);
+	colorInterpolator->addEntry(1.0f, 0x33333300);
+
+	paramInterpolator = SPK::FloatGraphInterpolator::create();
+	paramInterpolator->addEntry(0.0f, 0.125f);
+	paramInterpolator->addEntry(0.02f, 0.3f, 0.4f);
+	paramInterpolator->addEntry(1.0f, 0.5f, 0.7f);
+
+	// flash group
+	paramInterpolator = SPK::FloatGraphInterpolator::create();
+	paramInterpolator->addEntry(0.0f, 0.1f);
+	paramInterpolator->addEntry(0.25f, 0.5f, 1.0f);
+
+	SPK::Ref<SPK::Group> flashGroup = system->createGroup(3);
+	flashGroup->setName("Flash");
+	flashGroup->setLifeTime(0.2f, 0.2f);
+	flashGroup->addEmitter(flashEmitter);
+	flashGroup->setRenderer(flashRenderer);
+	flashGroup->setColorInterpolator(SPK::ColorSimpleInterpolator::create(0xFFFFFFFF, 0xFFFFFF00));
+	flashGroup->setParamInterpolator(SPK::PARAM_SCALE, paramInterpolator);
+	flashGroup->setParamInterpolator(SPK::PARAM_ANGLE, SPK::FloatRandomInitializer::create(0.0f, 2.0f * 3.14f));
+
+	// spark 1 group
+	SPK::Ref<SPK::Group> spark1Group = system->createGroup(20);
+	spark1Group->setName("Spark 1");
+	spark1Group->setPhysicalRadius(0.0f);
+	spark1Group->setLifeTime(0.2f, 1.0f);
+	spark1Group->addEmitter(spark1Emitter);
+	spark1Group->setRenderer(spark1Renderer);
+	spark1Group->setColorInterpolator(SPK::ColorSimpleInterpolator::create(0xFFFFFFFF, 0xFFFFFF00));
+	spark1Group->setParamInterpolator(SPK::PARAM_SCALE, SPK::FloatRandomInitializer::create(0.1f, 0.2f));
+	spark1Group->addModifier(SPK::Gravity::create(SPK::Vector3D(0.0f, -0.75f, 0.0f)));
+
+
+	//SPK::IO::XMLSaver saver;
+	//saver.save("Spark/explossion.xml", system, "Spark/explossion.xml");
+}
+
+void SetupHit2(SPK::Ref<SPK::System> system)
+{
+	Texture* textureFlash = core.render.LoadTexture("Spark/flash.bmp");
+	Texture* textureSpark1 = core.render.LoadTexture("Spark/spark1.bmp");
+
+	///////////////
+	// Renderers //
+	///////////////
+
+	float scale = 4.0f;
+
+	// flash renderer
+	SPK::Ref<SPK::GLQuadRenderer> flashRenderer = SPK::GLQuadRenderer::create();
+	flashRenderer->setTexturingMode(SPK::TEXTURE_MODE_2D);
+	flashRenderer->setTexture(textureFlash);
+	flashRenderer->setBlendMode(SPK::BLEND_MODE_ADD);
+	flashRenderer->enableRenderingOption(SPK::RENDERING_OPTION_DEPTH_WRITE, false);
+	flashRenderer->setScale(scale, scale);
+	flashRenderer->setShared(true);
+
+	// spark 1 renderer
+	SPK::Ref<SPK::GLQuadRenderer> spark1Renderer = SPK::GLQuadRenderer::create();
+	spark1Renderer->setTexturingMode(SPK::TEXTURE_MODE_2D);
+	spark1Renderer->setTexture(textureSpark1);
+	spark1Renderer->setBlendMode(SPK::BLEND_MODE_ADD);
+	spark1Renderer->enableRenderingOption(SPK::RENDERING_OPTION_DEPTH_WRITE, false);
+	spark1Renderer->setOrientation(SPK::DIRECTION_ALIGNED); // sparks are oriented function of their velocity
+	spark1Renderer->setScale(0.1f * scale, 1.0f * scale); // thin rectangles
+	spark1Renderer->setShared(true);
+
+	//////////////
+	// Emitters //
+	//////////////
+
+	// This zone will be used by several emitters
+	SPK::Ref<SPK::Sphere> explosionSphere = SPK::Sphere::create(SPK::Vector3D(0.0f, 0.0f, 0.0f), 0.4f);
+
+	// flash emitter
+	SPK::Ref<SPK::StaticEmitter> flashEmitter = SPK::StaticEmitter::create();
+	flashEmitter->setZone(SPK::Sphere::create(SPK::Vector3D(0.0f, 0.0f, 0.0f), 0.1f));
+	flashEmitter->setTank(3);
+	flashEmitter->setFlow(-1);
+
+	// spark 1 emitter
+	SPK::Ref<SPK::NormalEmitter> spark1Emitter = SPK::NormalEmitter::create();
+	spark1Emitter->setZone(explosionSphere);
+	spark1Emitter->setTank(20);
+	spark1Emitter->setFlow(-1);
+	spark1Emitter->setForce(2.0f, 3.0f);
+	spark1Emitter->setInverted(true);
+
+	////////////
+	// Groups //
+	////////////
+
+	SPK::Ref<SPK::ColorGraphInterpolator> colorInterpolator;
+	SPK::Ref<SPK::FloatGraphInterpolator> paramInterpolator;
+
+	// smoke group
+	colorInterpolator = SPK::ColorGraphInterpolator::create();
+	colorInterpolator->addEntry(0.0f, 0x33333300);
+	colorInterpolator->addEntry(0.4f, 0x33333366, 0x33333399);
+	colorInterpolator->addEntry(0.6f, 0x33333366, 0x33333399);
+	colorInterpolator->addEntry(1.0f, 0x33333300);
+
+	// flame group
+	colorInterpolator = SPK::ColorGraphInterpolator::create();
+	colorInterpolator->addEntry(0.0f, 0xFF8033FF);
+	colorInterpolator->addEntry(0.5f, 0x995933FF);
+	colorInterpolator->addEntry(1.0f, 0x33333300);
+
+	paramInterpolator = SPK::FloatGraphInterpolator::create();
+	paramInterpolator->addEntry(0.0f, 0.125f);
+	paramInterpolator->addEntry(0.02f, 0.3f, 0.4f);
+	paramInterpolator->addEntry(1.0f, 0.5f, 0.7f);
+
+	// flash group
+	paramInterpolator = SPK::FloatGraphInterpolator::create();
+	paramInterpolator->addEntry(0.0f, 0.1f);
+	paramInterpolator->addEntry(0.25f, 0.5f, 1.0f);
+
+	SPK::Ref<SPK::Group> flashGroup = system->createGroup(3);
+	flashGroup->setName("Flash");
+	flashGroup->setLifeTime(0.2f, 0.2f);
+	flashGroup->addEmitter(flashEmitter);
+	flashGroup->setRenderer(flashRenderer);
+	flashGroup->setColorInterpolator(SPK::ColorSimpleInterpolator::create(0xFFFFFFFF, 0xFFFFFF00));
+	flashGroup->setParamInterpolator(SPK::PARAM_SCALE, paramInterpolator);
+	flashGroup->setParamInterpolator(SPK::PARAM_ANGLE, SPK::FloatRandomInitializer::create(0.0f, 2.0f * 3.14f));
+
+	// spark 1 group
+	SPK::Ref<SPK::Group> spark1Group = system->createGroup(20);
+	spark1Group->setName("Spark 1");
+	spark1Group->setPhysicalRadius(0.0f);
+	spark1Group->setLifeTime(0.2f, 1.0f);
+	spark1Group->addEmitter(spark1Emitter);
+	spark1Group->setRenderer(spark1Renderer);
+	spark1Group->setColorInterpolator(SPK::ColorSimpleInterpolator::create(0xFFFFFFFF, 0xFFFFFF00));
+	spark1Group->setParamInterpolator(SPK::PARAM_SCALE, SPK::FloatRandomInitializer::create(0.1f, 0.2f));
+	spark1Group->addModifier(SPK::Gravity::create(SPK::Vector3D(0.0f, -0.75f, 0.0f)));
+
+	//SPK::IO::XMLSaver saver;
+	//saver.save("Spark/explossion.xml", system, "Spark/explossion.xml");
+}
+
+void SetupSmokeTrail(SPK::Ref<SPK::System> system)
+{
+	Texture* textureExplosion = core.render.LoadTexture("Spark/explosion.bmp");
+
+	///////////////
+	// Renderers //
+	///////////////
+
+	float scale = 1.0f;
+
+	// smoke renderer
+	SPK::Ref<SPK::GLQuadRenderer> smokeRenderer = SPK::GLQuadRenderer::create();
+	smokeRenderer->setTexturingMode(SPK::TEXTURE_MODE_2D);
+	smokeRenderer->setTexture(textureExplosion);
+	smokeRenderer->setAtlasDimensions(2, 2); // uses 4 different patterns in the texture
+	smokeRenderer->setBlendMode(SPK::BLEND_MODE_ALPHA);
+	smokeRenderer->enableRenderingOption(SPK::RENDERING_OPTION_DEPTH_WRITE, false);
+	smokeRenderer->setScale(scale, scale);
+	smokeRenderer->setShared(true);
+
+	//////////////
+	// Emitters //
+	//////////////
+
+	// smoke emitter
+	SPK::Ref<SPK::RandomEmitter> smokeEmitter = SPK::RandomEmitter::create();
+	smokeEmitter->setZone(SPK::Sphere::create(SPK::Vector3D(0.0f, 0.0f, 0.0f), 0.01f), false);
+	smokeEmitter->setFlow(30.0f);
+	smokeEmitter->setForce(0.02f, 0.04f);
+
+	////////////
+	// Groups //
+	////////////
+
+	SPK::Ref<SPK::ColorGraphInterpolator> colorInterpolator;
+
+	// smoke group
+	colorInterpolator = SPK::ColorGraphInterpolator::create();
+	colorInterpolator->addEntry(0.0f, 0x33333300);
+	colorInterpolator->addEntry(0.05f, 0x333333aa, 0x333333ee);
+	colorInterpolator->addEntry(0.6f, 0x333333aa, 0x333333ee);
+	colorInterpolator->addEntry(1.0f, 0x33333300);
+
+	SPK::Ref<SPK::Group> smokeGroup = system->createGroup(2050);
+	smokeGroup->setName("Smoke");
+	smokeGroup->setPhysicalRadius(0.0f);
+	smokeGroup->setLifeTime(2.0f, 2.5f);
+	smokeGroup->setRenderer(smokeRenderer);
+	smokeGroup->addEmitter(smokeEmitter);
+	smokeGroup->setColorInterpolator(colorInterpolator);
+	smokeGroup->setParamInterpolator(SPK::PARAM_SCALE, SPK::FloatRandomInterpolator::create(0.5f, 0.6f, 0.9f, 1.2f));
+	smokeGroup->setParamInterpolator(SPK::PARAM_TEXTURE_INDEX, SPK::FloatRandomInitializer::create(0.0f, 4.0f));
+	smokeGroup->setParamInterpolator(SPK::PARAM_ANGLE, SPK::FloatRandomInterpolator::create(0.0f, 3.14f * 0.5f, 0.0f, 3.14f * 0.5f));
+	smokeGroup->addModifier(SPK::Gravity::create(SPK::Vector3D(0.0f, 0.05f, 0.0f)));
+}
 
 void Particles::Init()
 {
@@ -266,6 +525,21 @@ ParticleSystem* Particles::LoadParticle(const char* name, TaskExecutor::SingleTa
 		if (StringUtils::IsEqual(name, "explosion"))
 		{
 			SetupExplosion(system);
+		}
+		else
+		if (StringUtils::IsEqual(name, "hit1"))
+		{
+			SetupHit1(system);
+		}
+		else
+		if (StringUtils::IsEqual(name, "hit2"))
+		{
+			SetupHit2(system);
+		}
+		else
+		if (StringUtils::IsEqual(name, "smokeTrail"))
+		{
+			SetupSmokeTrail(system);
 		}
 	}
 

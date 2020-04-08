@@ -137,13 +137,13 @@ void Terrain::ApplyProperties()
 			}
 
 			float cur_du = du * i;
-			float cur_dv = dv * j;
+			float cur_dv = dv * (hheight - 1 - j);
 
 			for (int k = 0; k < 6; k++)
 			{
 				v_tri[k].position.x = start_x + v_tri[k].position.x * scaleh;
 				v_tri[k].position.z = start_z - v_tri[k].position.z * scaleh;
-				v_tri[k].texCoord = Vector2(cur_du + v_tri[k].texCoord.x * du, cur_dv + v_tri[k].texCoord.y * dv);
+				v_tri[k].texCoord = Vector2(cur_du + v_tri[k].texCoord.x * du, cur_dv - v_tri[k].texCoord.y * dv);
 			}
 
 			for (int k = 0; k < 2; k++)

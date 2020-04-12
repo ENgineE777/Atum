@@ -171,6 +171,9 @@ bool Mesh::LoadFBX(const char* filename)
 
 	meshes.resize(scene->getMeshCount());
  
+	char path[512];
+	StringUtils::GetPath(filename, path);
+
 	for (int i = 0; i<scene->getMeshCount(); i++)
 	{
 		auto* fbx_mesh = scene->getMesh(i);
@@ -195,17 +198,19 @@ bool Mesh::LoadFBX(const char* filename)
 			{
 				auto texture_name = tex->getFileName();
 
-				char name[256];
+				char name[512];
 				int len = (int)(texture_name.end - texture_name.begin);
 				memcpy(name, texture_name.begin, len);
 				name[len] = 0;
 
-				char fileName[256];
+				char fileName[512];
 				StringUtils::GetFileName(name, fileName);
+
+				StringUtils::Printf(name, 512, "%s%s", path, fileName);
 
 				for (int i = 0; i < textures.size(); i++)
 				{
-					if (textures[i] && StringUtils::IsEqual(textures[i]->name.c_str(), fileName))
+					if (textures[i] && StringUtils::IsEqual(textures[i]->name.c_str(), name))
 					{
 						mesh.texture = i;
 						break;
@@ -214,7 +219,7 @@ bool Mesh::LoadFBX(const char* filename)
 
 				if (mesh.texture == -1)
 				{
-					textures.push_back(core.render.LoadTexture(fileName));
+					textures.push_back(core.render.LoadTexture(name));
 					mesh.texture = (int)textures.size() - 1;
 				}
 			}

@@ -84,6 +84,41 @@ namespace Math
 		return angle;
 	}
 
+	bool IntersectSphereRay(Vector3 pos, float radius, Vector3 start, Vector3 dir)
+	{
+		Vector3 L = pos - start;
+		float tca = L.Dot(dir);
+		float d2 = L.Dot(L) - tca * tca;
+
+		float radius2 = radius * radius;
+
+		if (d2 > radius2)
+		{
+			return false;
+		}
+
+		float thc = sqrt(radius2 - d2);
+		float t0 = tca - thc;
+		float t1 = tca + thc;
+
+		if (t0 > t1)
+		{
+			std::swap(t0, t1);
+		}
+
+		if (t0 < 0)
+		{
+			t0 = t1;
+
+			if (t0 < 0)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
+
 	bool IntersectBBoxRay(Vector3 vmin, Vector3 vmax, Vector3 start, Vector3 dir)
 	{
 		Vector3 invdir = 1 / dir;

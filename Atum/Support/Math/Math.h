@@ -20,5 +20,6 @@ namespace Math
 	float Clamp(float value, float a, float b);
 	float Sign(float value);
 	float AdvanceAngle(float angle, float target_angle, float delta_angle);
+	bool IntersectSphereRay(Vector3 pos, float radius, Vector3 start, Vector3 dir);
 	bool IntersectBBoxRay(Vector3 vmin, Vector3 vmax, Vector3 start, Vector3 dir);
 }

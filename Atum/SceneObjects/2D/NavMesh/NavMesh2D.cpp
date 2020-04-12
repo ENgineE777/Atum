@@ -458,7 +458,7 @@ void NavMesh2D::SetGizmo()
 {
 	if (sel_inst != -1)
 	{
-		trans.size = 60.0f / Sprite::screen_mul;
+		trans.size = 60.0f * Sprite::inv_screen_mul;
 
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(&instances[sel_inst].pos, &trans.size, &trans.offset), Gizmo::trans_2d_move);
 	}

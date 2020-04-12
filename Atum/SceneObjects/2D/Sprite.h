@@ -70,6 +70,7 @@ public:
 	static float ed_cam_zoom;
 	static Vector2 half_screen;
 	static float screen_mul;
+	static float inv_screen_mul;
 
 	static void Load(JSONReader& loader, Sprite::Data* sprite, const char* name);
 	static void Save(JSONWriter& saver, Sprite::Data* sprite, const char* name);

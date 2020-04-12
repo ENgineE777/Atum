@@ -16,6 +16,7 @@ Vector2 Sprite::ed_cam_pos = 0.0f;
 float Sprite::ed_cam_zoom = 1.0f;
 Vector2 Sprite::half_screen = 0.0f;
 float Sprite::screen_mul = 1.0f;
+float Sprite::inv_screen_mul = 1.0f;
 
 Program*    Sprite::quad_prg_depth;
 Program*    Sprite::quad_prg_no_depth;
@@ -158,6 +159,7 @@ void Sprite::Update()
 {
 	half_screen = Vector2(core.render.GetDevice()->GetWidth() * 0.5f, core.render.GetDevice()->GetHeight() * 0.5f);
 	screen_mul = core.render.GetDevice()->GetHeight() / 1024.0f;
+	inv_screen_mul = 1.0f / screen_mul;
 }
 
 Vector2 Sprite::MoveToCamera(Vector2 pos, bool abs_units)

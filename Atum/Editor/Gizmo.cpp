@@ -900,7 +900,7 @@ void Gizmo::OnLeftMouseUp()
 
 		if (!ignore_2d_camera)
 		{
-			moved_origin += (Sprite::ed_cam_pos - Sprite::half_screen) / Sprite::screen_mul;
+			moved_origin += (Sprite::ed_cam_pos - Sprite::half_screen) * Sprite::inv_screen_mul;
 		}
 
 		Vector3 pos = Vector3(moved_origin.x, moved_origin.y, 0.0f) * inv / Vector3(trans2D.size->x, trans2D.size->y, 1.0f);

@@ -17,6 +17,7 @@ public:
 		void DebugSphere(Vector3& pos, Vector3& color, float radius);
 		int GetWidth();
 		int GetHeight();
+		void TransformToScreen(Vector3& pos, Vector3& res, Vector2& left_up, Vector2& right_down);
 	};
 
 	class Controls

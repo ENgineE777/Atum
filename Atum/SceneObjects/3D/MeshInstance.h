@@ -53,7 +53,7 @@ public:
 	void ApplyProperties() override;
 
 	void BindClassToScript() override;
-	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
+	bool InjectIntoScript(const char* type_name, int type, void* property, const char* prefix) override;
 	void MakeMapping(asIScriptObject* object, const char* prefix);
 
 	void Load(JSONReader& reader) override;

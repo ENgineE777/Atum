@@ -191,7 +191,7 @@ public:
 	virtual ~SpriteInst() = default;
 
 	void BindClassToScript() override;
-	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
+	bool InjectIntoScript(const char* type_name, int type, void* property, const char* prefix) override;
 	void MakeMapping(asIScriptObject* object, const char* prefix);
 
 	void Init() override;

@@ -121,9 +121,9 @@ void MeshInstance::BindClassToScript()
 	core.scripts.RegisterObjectMethod("Mesh", "Matrix GetLocatorTransform(string&in)", WRAP_MFN(MeshInstance::Instance, GetLocatorTransform), "Get locator transform");
 }
 
-bool MeshInstance::InjectIntoScript(const char* type, void* property, const char* prefix)
+bool MeshInstance::InjectIntoScript(const char* type_name, int type, void* property, const char* prefix)
 {
-	if (StringUtils::IsEqual(type, "array"))
+	if (StringUtils::IsEqual(type_name, "array"))
 	{
 		array = (CScriptArray*)property;
 
@@ -162,7 +162,7 @@ bool MeshInstance::InjectIntoScript(const char* type, void* property, const char
 		return true;
 	}
 
-	return SceneObject::InjectIntoScript(type, property, prefix);
+	return SceneObject::InjectIntoScript(type_name, type, property, prefix);
 }
 
 void MeshInstance::MakeMapping(asIScriptObject* object, const char* prefix)

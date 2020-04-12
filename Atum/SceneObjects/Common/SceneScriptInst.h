@@ -85,7 +85,7 @@ public:
 	void Save(JSONWriter& saver) override;
 	void Work(float dt);
 
-	bool InjectIntoScript(const char* type, void* property, const char* prefix) override;
+	bool InjectIntoScript(const char* type_name, int type, void* property, const char* prefix) override;
 	bool Play() override;
 	void InjectIntoScript();
 	void CallOnInitScript();

@@ -581,9 +581,9 @@ void SceneObject::BindClassToScript()
 {
 }
 
-bool SceneObject::InjectIntoScript(const char* type, void* property, const char* prefix)
+bool SceneObject::InjectIntoScript(const char* type_name, int name, void* property, const char* prefix)
 {
-	if (!StringUtils::IsEqual(type, script_class_name))
+	if (!StringUtils::IsEqual(type_name, script_class_name))
 	{
 		return false;
 	}

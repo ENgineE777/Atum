@@ -280,7 +280,7 @@ public:
 
 	\return True will be returned in case injection was successfully.
 	*/
-	virtual bool InjectIntoScript(const char* type, void* property, const char* prefix);
+	virtual bool InjectIntoScript(const char* type_name, int name, void* property, const char* prefix);
 
 	/**
 	\brief SceneObject should released only via this method

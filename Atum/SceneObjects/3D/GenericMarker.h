@@ -2,6 +2,7 @@
 #pragma once
 
 #include "Services/Scene/SceneObject.h"
+#include "Services/Script/Libs/scriptarray.h"
 
 /**
 \page scene_object_3D_GenericMarker Generic Marker
@@ -37,10 +38,17 @@ class GenericMarker : public SceneObject
 {
 public:
 
-	/**
-	\brief Transform of a marker
-	*/
-	Matrix transform;
+	struct Instance
+	{
+		META_DATA_DECL_BASE(Instance)
+
+		Matrix transform;
+		Color color;
+		float radius = 1.0f;
+	};
+
+	vector<int> mapping;
+	std::vector<Instance> instances;
 
 	/**
 	\brief Name of group which will be used in registration via class Scene::AddToGroup
@@ -48,12 +56,26 @@ public:
 	string scene_group;
 
 #ifndef DOXYGEN_SKIP
+	int sel_inst = -1;
 	META_DATA_DECL(GenericMarker)
 
-	Matrix* Trans() override;
 	bool Is3DObject() override;
 	void Init() override;
 	void ApplyProperties() override;
+
+	void Load(JSONReader& reader) override;
+	void Save(JSONWriter& writer) override;
+
+	void MakeMapping(asIScriptObject* object, const char* prefix);
+	bool InjectIntoScript(const char* type_name, int type, void* property, const char* prefix) override;
+
 	void Draw(float dt);
+
+#ifdef EDITOR
+	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
+	void SetEditMode(bool ed) override;
+	void SetGizmo();
+#endif
+
 #endif
 };

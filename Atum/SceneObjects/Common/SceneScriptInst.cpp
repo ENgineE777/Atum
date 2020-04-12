@@ -185,9 +185,9 @@ void SceneScriptInst::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-bool SceneScriptInst::InjectIntoScript(const char* type, void* property, const char* prefix)
+bool SceneScriptInst::InjectIntoScript(const char* type_name, int type, void* property, const char* prefix)
 {
-	if (!class_inst || !StringUtils::IsEqual(type, Asset()->main_class.c_str()))
+	if (!class_inst || !StringUtils::IsEqual(type_name, Asset()->main_class.c_str()))
 	{
 		return false;
 	}
@@ -284,9 +284,10 @@ void SceneScriptInst::InjectIntoScript()
 
 					if (ref.object)
 					{
-						auto type = core.scripts.GetTypeInfoById(class_inst->GetPropertyTypeId(i));
+						int typeID = class_inst->GetPropertyTypeId(i);
+						auto type = core.scripts.GetTypeInfoById(typeID);
 						
-						if (!ref.object->InjectIntoScript(type->GetName(), class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
+						if (!ref.object->InjectIntoScript(type->GetName(), typeID, class_inst->GetAddressOfProperty(i), node_prop->prefix.c_str()))
 						{
 							core.Log("ScriptErr", "Object %s of type %s can't be injected into %s of type %s", ref.object->GetName(), ref.object->script_class_name, class_inst->GetPropertyName(i), type->GetName());
 						}

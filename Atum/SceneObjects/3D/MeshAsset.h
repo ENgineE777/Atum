@@ -32,6 +32,7 @@ public:
 
 #ifdef EDITOR
 	//void SetEditMode(bool ed) override;
+	void ResetView();
 #endif
 
 #endif

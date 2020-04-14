@@ -15,6 +15,7 @@ CLASSREG(SceneObject, GenericMarker, "GenericMarker")
 META_DATA_DESC(GenericMarker)
 	BASE_SCENE_OBJ_PROP(GenericMarker)
 	STRING_PROP(GenericMarker, scene_group, "", "Prop", "scene_group")
+	BOOL_PROP(GenericMarker, full_shade, true, "Prop", "full_shade", "full_shade")
 	ARRAY_PROP_INST_CALLGIZMO(GenericMarker, instances, Instance, "Prop", "inst", GenericMarker, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
@@ -176,7 +177,7 @@ bool GenericMarker::InjectIntoScript(const char* type_name, int type, void* prop
 
 void GenericMarker::Draw(float dt)
 {
-	if (GetScene()->Playing())
+	if (GetScene()->Playing() || GetState() == SceneObject::State::Invisible)
 	{
 		return;
 	}
@@ -225,7 +226,7 @@ void GenericMarker::Draw(float dt)
 
 	for (auto& inst : instances)
 	{
-		core.render.DebugSphere(inst.transform.Pos(), inst.color, inst.radius);
+		core.render.DebugSphere(inst.transform.Pos(), inst.color, inst.radius, full_shade);
 	}
 }
 

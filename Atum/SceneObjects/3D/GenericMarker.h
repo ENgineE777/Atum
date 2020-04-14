@@ -47,6 +47,7 @@ public:
 		float radius = 1.0f;
 	};
 
+	bool full_shade = true;
 	vector<int> mapping;
 	std::vector<Instance> instances;
 

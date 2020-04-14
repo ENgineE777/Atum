@@ -595,6 +595,8 @@ void DeviceDX11::UpdateStates()
 			SetAlphaBlend(false);
 			SetDepthTest(true);
 			SetDepthWriting(true);
+			SetBlendFunc(Device::ArgSrcAlpha, Device::ArgInvSrcAlpha);
+			SetCulling(Device::CullCCW);
 
 			cur_program->ApplyStates();
 			need_apply_prog = false;

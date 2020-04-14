@@ -70,7 +70,7 @@ void FreeCamera::Update(float dt)
 	float strafe = core.controls.GetAliasValue(alias_strafe, false);
 	float fast = core.controls.GetAliasValue(alias_fast, false);
 
-	float speed = (3.0f + 12.0f * fast) * dt;
+	float speed = (100.0f + 350.0f * fast) * dt;
 
 	Vector3 dir = Vector3(cosf(angles.x), sinf(angles.y), sinf(angles.x));
 	pos += dir * speed * forward;

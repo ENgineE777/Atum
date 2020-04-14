@@ -39,6 +39,50 @@ void DebugLines::AddLine2D(Vector2 from, Color from_clr, Vector2 to, Color to_cl
 	lines_2d.push_back(Vertex(Vector3(to.x, to.y, 1.0f), to_clr.Get()));
 }
 
+void DebugLines::DrawCircle(int axis, Vector3 pos, Color color, float radius)
+{
+	float last_dx = -radius * 2.0f;
+	float last_dz = -radius * 2.0f;
+	int nums = 32;
+
+	for (int i = 0; i < nums + 1; i++)
+	{
+		float dx = (float)sinf(2.0f * 3.14f / (float)nums * (float)i) * radius;
+		float dz = (float)cosf(2.0f * 3.14f / (float)nums * (float)i) * radius;
+
+		if (last_dx > -radius * 1.5f)
+		{
+			Vector3 ps;
+			Vector3 ps2;
+
+			if (axis == 0)
+			{
+				ps.Set(0.0f, last_dx, last_dz);
+				ps2.Set(0.0f, dx, dz);
+			}
+			else
+			if (axis == 1)
+			{
+				ps.Set(last_dx, 0.0f, last_dz);
+				ps2.Set(dx, 0.0f, dz);
+			}
+			else
+			{
+				ps.Set(last_dx, last_dz, 0.0f);
+				ps2.Set(dx, dz, 0.0f);
+			}
+
+			ps += pos;
+			ps2 += pos;
+
+			AddLine(ps, color, ps2, color, false);
+		}
+
+		last_dx = dx;
+		last_dz = dz;
+	}
+}
+
 void DebugLines::DrawLines(Program* prog, std::vector<Vertex>& lines, bool is2d)
 {
 	if (lines.size()==0) return;

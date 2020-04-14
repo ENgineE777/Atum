@@ -236,9 +236,18 @@ void Render::DebugRect2D(Vector2 from, Vector2 to, Color color)
 	lines->AddLine2D(Vector2(from.x, to.y  ), color, Vector2(from.x, from.y), color);
 }
 
-void Render::DebugSphere(Vector3 pos, Color color, float radius)
+void Render::DebugSphere(Vector3 pos, Color color, float radius, bool full_shade)
 {
-	spheres->AddSphere(pos, color, radius);
+	if (full_shade)
+	{
+		spheres->AddSphere(pos, color, radius);
+	}
+	else
+	{
+		lines->DrawCircle(0, pos, color, radius);
+		lines->DrawCircle(1, pos, color, radius);
+		lines->DrawCircle(2, pos, color, radius);
+	}
 }
 
 void Render::DebugBox(Matrix pos, Color color, Vector3 scale)

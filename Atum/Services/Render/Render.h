@@ -180,7 +180,7 @@ public:
 	\param[in] radius Radius of a sphere
 
 	*/
-	void DebugSphere(Vector3 pos, Color color, float radius);
+	void DebugSphere(Vector3 pos, Color color, float radius, bool full_shade = true);
 
 	/**
 	\brief Draw debug box in 3d space

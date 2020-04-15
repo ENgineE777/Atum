@@ -317,10 +317,13 @@ Vector3 Render::TransformToScreen(Vector3 pos, int type)
 	Vector3 ps;
 	ps.Set(ps2.x / ps2.w, ps2.y / ps2.w, ps2.z);
 
+	if (pre_ps.z < 0.0f)
+	{
+		ps = -ps;
+	}
+
 	if (type == 0)
 	{
-		ps.x = ps.x;
-		ps.y = ps.y;
 		ps.z = pre_ps.z;
 	}
 	else

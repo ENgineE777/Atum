@@ -644,15 +644,23 @@ void SceneScriptAsset::EditorWork(float dt, SceneScriptInst* inst)
 		const char* names[] = {"Callback", "Property", "Method", "Const"};
 		editor_drawer.PrintText(node->pos + Vector2(5.0f, 3.0f), COLOR_WHITE, names[node->type]);
 
-		if (inst && (node->type == NodeType::SceneCallback || node->type == NodeType::ScriptProperty))
+		if (inst)
 		{
-			SceneScriptInst::Node& scene_node = inst->nodes[index];
+			if (node->type == NodeType::SceneCallback || node->type == NodeType::ScriptProperty)
+			{
+				SceneScriptInst::Node& scene_node = inst->nodes[index];
 
-			SceneObjectRef& ref = scene_node.objects[0].ref;
+				SceneObjectRef& ref = scene_node.objects[0].ref;
 
-			ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
+				ref.object = inst->GetScene()->FindByUID(ref.uid, ref.child_uid, ref.is_asset);
 
-			editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f), COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
+				editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f), COLOR_WHITE, ref.object ? ref.object->GetName() : "NULL");
+			}
+			else
+			if (node->type == NodeType::ScriptConst)
+			{
+				editor_drawer.PrintText(node->pos + Vector2(5.0f, 50.0f), COLOR_WHITE, inst->nodes[index].callback_type.c_str());
+			}
 		}
 
 		index++;

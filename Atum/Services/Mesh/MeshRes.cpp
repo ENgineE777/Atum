@@ -93,7 +93,7 @@ void Mesh::Instance::Render(Program* prg)
 		}
 
 		prg->SetTexture(Shader::Type::Pixel, "diffuseMap", mesh.texture != -1 ? res->textures[mesh.texture] : nullptr);
-		core.render.GetDevice()->Draw(Device::TrianglesList, 0, mesh.num_triangles);
+		core.render.GetDevice()->DrawIndexed(Device::TrianglesList, 0, 0, mesh.num_triangles);
 	}
 }
 
@@ -232,7 +232,7 @@ bool Mesh::LoadFBX(const char* filename)
 
 		auto* indices = geometry->getFaceIndices();
 
-		for (int j = 0; j < geometry->getIndexCount(); j+=3)
+		for (int j = 0; j < geometry->getIndexCount(); j++)
 		{
 			int index = indices[j];
 			if (index < 0)
@@ -244,6 +244,8 @@ bool Mesh::LoadFBX(const char* filename)
 		}
 
 		mesh.indices->Unlock();
+
+		auto kl = geometry->getVertexCount();
 
 		mesh.vertices = core.render.GetDevice()->CreateBuffer(geometry->getVertexCount(), sizeof(MeshVertex));
 		MeshVertex* mesh_vertices = (MeshVertex*)mesh.vertices->Lock();

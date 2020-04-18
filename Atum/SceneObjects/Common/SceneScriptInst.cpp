@@ -240,29 +240,35 @@ void SceneScriptInst::InjectIntoScript()
 
 					if (type == asTYPEID_BOOL)
 					{
+						injected = true;
 						*((bool*)class_inst->GetAddressOfProperty(i)) = StringUtils::IsEqual(node_inst.callback_type.c_str(), "1") ? true : false;
 					}
 					else
 					if (type == asTYPEID_INT32)
 					{
+						injected = true;
 						*((int*)class_inst->GetAddressOfProperty(i)) = atoi(node_inst.callback_type.c_str());
 					}
 					else
 					if (type == asTYPEID_FLOAT)
 					{
+						injected = true;
 						*((float*)class_inst->GetAddressOfProperty(i)) = (float)atof(node_inst.callback_type.c_str());
 					}
 					else
 					if (type == core.scripts.GetStringTypeId())
 					{
+						injected = true;
 						*((string*)class_inst->GetAddressOfProperty(i)) = node_inst.callback_type;
 					}
+
+					break;
 				}
 			}
 
 			if (!injected)
 			{
-				core.Log("ScriptErr", "Object for const %s was not set", node->name.c_str());
+				core.Log("ScriptErr", "%s: Object for const %s was not set", GetName(), node->name.c_str());
 			}
 		}
 		else
@@ -301,7 +307,7 @@ void SceneScriptInst::InjectIntoScript()
 
 			if (!injected)
 			{
-				core.Log("ScriptErr", "Object for property %s was not set", node_prop->name.c_str());
+				core.Log("ScriptErr", "%s: Object for property %s was not set", GetName(), node_prop->name.c_str());
 			}
 		}
 		else
@@ -365,7 +371,7 @@ void SceneScriptInst::InjectIntoScript()
 						}
 						else
 						{
-							core.Log("ScriptErr", "Callabck {%s} was not set", Asset()->nodes[link.node]->name.c_str());
+							core.Log("ScriptErr", "%s: Callabck {%s} was not set", GetName(), Asset()->nodes[link.node]->name.c_str());
 						}
 					}
 				}

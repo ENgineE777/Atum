@@ -29,6 +29,11 @@ void MeshInstance::Instance::SetObject(asIScriptObject* set_object, vector<int>*
 	}
 }
 
+void MeshInstance::Instance::SetColor(Vector3& color)
+{
+	mesh->color = Color(color.x, color.y, color.z);
+}
+
 void MeshInstance::Instance::SetVisible(int set_visible)
 {
 	if (object)
@@ -119,6 +124,7 @@ void MeshInstance::BindClassToScript()
 	core.scripts.RegisterObjectMethod("Mesh", "void SetTransform(const Matrix&in)", WRAP_MFN(MeshInstance::Instance, SetTransform), "Set transform");
 	core.scripts.RegisterObjectMethod("Mesh", "Matrix GetTransform()", WRAP_MFN(MeshInstance::Instance, GetTransform), "Get transform");
 	core.scripts.RegisterObjectMethod("Mesh", "Matrix GetLocatorTransform(string&in)", WRAP_MFN(MeshInstance::Instance, GetLocatorTransform), "Get locator transform");
+	core.scripts.RegisterObjectMethod("Mesh", "void SetColor(Vector3&in)", WRAP_MFN(MeshInstance::Instance, SetColor), "Set color");
 }
 
 bool MeshInstance::InjectIntoScript(const char* type_name, int type, void* property, const char* prefix)

@@ -31,6 +31,7 @@ public:
 		void SetTransform(const Matrix& transform);
 		Matrix GetTransform();
 		Matrix GetLocatorTransform(const string& name);
+		void SetColor(Vector3& color);
 		void SetVisible(int set_visible);
 		bool IsVisible();
 		Vector3 dir = 0.0f;

@@ -49,8 +49,25 @@ namespace Math
 
 	float AdvanceAngle(float angle, float target_angle, float delta_angle)
 	{
-		angle = angle - (angle > PI ? TwoPI : 0.0f);
-		target_angle = target_angle - (target_angle > PI ? TwoPI : 0.0f);
+		while (angle > PI)
+		{
+			angle = angle - TwoPI;
+		}
+
+		while (angle < -PI)
+		{
+			angle = angle + TwoPI;
+		}
+
+		while (target_angle > PI)
+		{
+			target_angle = target_angle - TwoPI;
+		}
+
+		while (target_angle < -PI)
+		{
+			target_angle = target_angle + TwoPI;
+		}
 
 		if (target_angle - angle > PI)
 		{
@@ -82,6 +99,31 @@ namespace Math
 		}
 
 		return angle;
+	}
+
+	bool IsSameAngles(float angle, float target_angle)
+	{
+		while (angle > PI)
+		{
+			angle = angle - TwoPI;
+		}
+
+		while (angle < -PI)
+		{
+			angle = angle + TwoPI;
+		}
+
+		while (target_angle > PI)
+		{
+			target_angle = target_angle - TwoPI;
+		}
+
+		while (target_angle < -PI)
+		{
+			target_angle = target_angle + TwoPI;
+		}
+
+		return fabs(angle - target_angle) < 0.001f;
 	}
 
 	bool IntersectSphereRay(Vector3 pos, float radius, Vector3 start, Vector3 dir)

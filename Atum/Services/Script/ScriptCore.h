@@ -73,6 +73,7 @@ public:
 		}
 
 		float AdvanceAngle(float angle, float target_angle, float delta_angle);
+		bool IsSameAngles(float angle, float target_angle);
 	};
 
 	Controls controls;

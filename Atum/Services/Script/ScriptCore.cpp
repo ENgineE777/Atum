@@ -297,6 +297,11 @@ float ScriptCore::Utils::AdvanceAngle(float angle, float target_angle, float del
 	return Math::AdvanceAngle(angle, target_angle, delta_angle);
 }
 
+bool ScriptCore::Utils::IsSameAngles(float angle, float target_angle)
+{
+	return Math::IsSameAngles(angle, target_angle);
+}
+
 bool ScriptCore::Utils::IsPointInSector(Vector2& pt, Vector2& center, float orientation, float distance, float angle, bool debug)
 {
 	float side_angle = orientation - angle * 0.5f;
@@ -422,6 +427,7 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "bool IsPointInSector(Vector2&in pt, Vector2&in center, float orientation, float distance, float angle, bool debug)", asFUNCTION(ScriptCore_Utils_IsPointInSector), "Check if point inside of a triangle");
 
 	core.scripts.RegisterObjectMethod(script_class_name, "float AdvanceAngle(float angle, float target_angle, float delta_angle)", WRAP_MFN(ScriptCore::Utils, AdvanceAngle), "Advance angle");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool IsSameAngles(float angle, float target_angle)", WRAP_MFN(ScriptCore::Utils, IsSameAngles), "Check if angles are same");
 
 	script_class_name = "ScriptCore";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore), "gr_script_core", "Script core class which have access to engine sub systems");

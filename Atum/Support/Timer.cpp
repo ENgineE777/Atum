@@ -104,12 +104,22 @@ float Timer::CountDeltaTime()
 
 	if (core.controls.DebugKeyPressed("KEY_X", Controls::Active))
 	{
-		deltaTime *= 0.4f;
+		deltaTime *= 0.5f;
+
+		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+		{
+			deltaTime *= 0.5f;
+		}
 	}
 	else
 	if (core.controls.DebugKeyPressed("KEY_Q", Controls::Active))
 	{
-		deltaTime *= 3.0f;
+		deltaTime *= 2.0f;
+
+		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+		{
+			deltaTime *= 2.0f;
+		}
 	}
 
 	lastTime = 0;

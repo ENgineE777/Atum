@@ -453,8 +453,6 @@ void Phys3DCompInst::UpdateInstances(float dt)
 		}
 		else
 		{
-			bool need_set_from_mesh = false;
-
 			for (auto body : script_bodies[index].bodies)
 			{
 				if (body.body)
@@ -463,25 +461,12 @@ void Phys3DCompInst::UpdateInstances(float dt)
 					{
 						body.body->SetActive(inst.IsVisible() && is_active);
 
-						if (body_type != Phys3DComp::BodyType::StaticBody && inst.IsVisible())
+						if (inst.IsVisible())
 						{
-							need_set_from_mesh = true;
-						}
-					}
-
-					if (is_active && inst.IsVisible())
-					{
-						if (body_type == Phys3DComp::BodyType::KineticBody)
-						{
-							need_set_from_mesh = true;
+							script_bodies[index].SetTransform(inst.mesh->transform);
 						}
 					}
 				}
-			}
-
-			if (need_set_from_mesh)
-			{
-				script_bodies[index].SetTransform(inst.mesh->transform);
 			}
 
 			if (body_type == Phys3DComp::BodyType::DynamicBody && is_active && inst.IsVisible())

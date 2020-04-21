@@ -64,6 +64,8 @@ public:
 
 	bool Is3DObject();
 
+	void SyncArray();
+
 	void OnResize(int at, int delta) override;
 	void OnRemove(int start, asUINT count) override;
 

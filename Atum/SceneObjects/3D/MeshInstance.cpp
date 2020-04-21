@@ -357,7 +357,7 @@ void MeshInstance::Draw(float dt)
 	}
 #endif
 
-	if (GetScene()->Playing())
+	if (GetScene()->Playing() && mapped)
 	{
 		for (auto& inst : instances)
 		{
@@ -366,15 +366,8 @@ void MeshInstance::Draw(float dt)
 	}
 }
 
-void MeshInstance::OnResize(int at, int delta)
+void MeshInstance::SyncArray()
 {
-	instances.insert(instances.begin() + at, delta, Instance());
-
-	for (int i = at; i < at + (int)delta; i++)
-	{
-		instances[i].mesh = core.meshes.LoadMesh(Asset()->mesh_name.c_str(), RenderTasks(false));
-	}
-
 	asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
 	if (!mapped)
@@ -393,6 +386,18 @@ void MeshInstance::OnResize(int at, int delta)
 	}
 }
 
+void MeshInstance::OnResize(int at, int delta)
+{
+	instances.insert(instances.begin() + at, delta, Instance());
+
+	for (int i = at; i < at + (int)delta; i++)
+	{
+		instances[i].mesh = core.meshes.LoadMesh(Asset()->mesh_name.c_str(), RenderTasks(false));
+	}
+
+	SyncArray();
+}
+
 void MeshInstance::OnRemove(int start, asUINT count)
 {
 	for (int i = start; i < start + (int)count; i++)
@@ -401,6 +406,8 @@ void MeshInstance::OnRemove(int start, asUINT count)
 	}
 
 	instances.erase(instances.begin() + start, instances.begin() + start + count);
+
+	SyncArray();
 }
 
 int MeshInstance::AddInstance()
@@ -412,19 +419,8 @@ int MeshInstance::AddInstance()
 	if (array)
 	{
 		array->Resize((uint32_t)instances.size());
-		asIScriptObject** objects = (asIScriptObject**)array->GetBuffer();
 
-		if (mapping.size() == 0)
-		{
-			MakeMapping(objects[0], scr_prefix.c_str());
-		}
-
-		inst.SetObject(objects[index], &mapping);
-
-		for (auto& comp : components)
-		{
-			comp->InjectIntoScript(objects[index], index, scr_prefix.c_str());
-		}
+		SyncArray();
 	}
 
 	return index;

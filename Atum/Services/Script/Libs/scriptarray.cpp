@@ -757,6 +757,10 @@ void CScriptArray::Resize(int delta, asUINT at)
 		{
 			listiner->OnResize(at, delta);
 		}
+		else
+		{
+			listiner->OnRemove(at, -delta);
+		}
 	}
 }
 
@@ -1003,11 +1007,6 @@ void CScriptArray::Destruct(SArrayBuffer *buf, asUINT start, asUINT end)
 			if( *d )
 				engine->ReleaseScriptObject(*d, objType->GetSubType());
 		}
-	}
-
-	if (listiner)
-	{
-		listiner->OnRemove(start, end - start);
 	}
 }
 

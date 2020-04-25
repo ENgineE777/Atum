@@ -167,6 +167,25 @@ bool MeshInstance::InjectIntoScript(const char* type_name, int type, void* prope
 
 		return true;
 	}
+	else
+	if (type & asTYPEID_SCRIPTOBJECT)
+	{
+		asIScriptObject* object = (asIScriptObject*)property;
+
+		if (instances.size() > 0)
+		{
+			MakeMapping(object, prefix);
+
+			instances[0].SetObject(object, &mapping);
+
+			for (auto& comp : components)
+			{
+				comp->InjectIntoScript(object, 0, prefix);
+			}
+		}
+
+		return true;
+	}
 
 	return SceneObject::InjectIntoScript(type_name, type, property, prefix);
 }

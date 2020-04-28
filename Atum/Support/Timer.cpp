@@ -102,21 +102,23 @@ float Timer::CountDeltaTime()
 		fpsTimer -= 1.0f;
 	}
 
-	if (core.controls.DebugKeyPressed("KEY_X", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_MINUS", Controls::Active))
 	{
 		deltaTime *= 0.5f;
 
-		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active) ||
+			core.controls.DebugKeyPressed("KEY_RSHIFT", Controls::Active))
 		{
 			deltaTime *= 0.5f;
 		}
 	}
 	else
-	if (core.controls.DebugKeyPressed("KEY_Q", Controls::Active))
+	if (core.controls.DebugKeyPressed("KEY_EQUALS", Controls::Active))
 	{
 		deltaTime *= 2.0f;
 
-		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active))
+		if (core.controls.DebugKeyPressed("KEY_LSHIFT", Controls::Active) ||
+			core.controls.DebugKeyPressed("KEY_RSHIFT", Controls::Active))
 		{
 			deltaTime *= 2.0f;
 		}

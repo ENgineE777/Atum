@@ -793,7 +793,7 @@ float Controls::GetAliasValue(int index, bool delta)
 
 	for (auto& aliasRef : alias.aliasesRef)
 	{
-		float val = 0.0f;
+		float val = 1.0f;
 
 		for (auto& ref : aliasRef.refs)
 		{
@@ -804,11 +804,11 @@ float Controls::GetAliasValue(int index, bool delta)
 
 			if (ref.refer2hardware)
 			{
-				val = GetHardwareAliasValue(ref.aliasIndex, delta, ref.device_index, false);
+				val *= GetHardwareAliasValue(ref.aliasIndex, delta, ref.device_index, false);
 			}
 			else
 			{
-				val = GetAliasValue(ref.aliasIndex, delta);
+				val *= GetAliasValue(ref.aliasIndex, delta);
 			}
 		}
 

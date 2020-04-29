@@ -101,7 +101,7 @@ namespace Math
 		return angle;
 	}
 
-	bool IsSameAngles(float angle, float target_angle)
+	float GetAnglesDifference(float angle, float target_angle)
 	{
 		while (angle > PI)
 		{
@@ -123,7 +123,12 @@ namespace Math
 			target_angle = target_angle + TwoPI;
 		}
 
-		return fabs(angle - target_angle) < 0.001f;
+		return target_angle - angle;
+	}
+
+	bool IsSameAngles(float angle, float target_angle)
+	{
+		return fabs(GetAnglesDifference(angle, target_angle)) < 0.001f;
 	}
 
 	bool IntersectSphereRay(Vector3 pos, float radius, Vector3 start, Vector3 dir)

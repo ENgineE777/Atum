@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "scriptmath.h"
+#include "Support/Math/Math.h"
 
 #ifdef __BORLANDC__
 #include <cmath>
@@ -239,6 +240,21 @@ void atan2f_generic(asIScriptGeneric *gen)
 	*(float*)gen->GetAddressOfReturnLocation() = atan2f(f1, f2);
 }
 
+void sign_impl_generic(asIScriptGeneric *gen)
+{
+	float f1 = *(float*)gen->GetAddressOfArg(0);
+	*(float*)gen->GetAddressOfReturnLocation() = Math::Sign(f1);
+}
+
+void clamp_impl_generic(asIScriptGeneric *gen)
+{
+	float f1 = *(float*)gen->GetAddressOfArg(0);
+	float f2 = *(float*)gen->GetAddressOfArg(1);
+	float f3 = *(float*)gen->GetAddressOfArg(2);
+
+	*(float*)gen->GetAddressOfReturnLocation() = Math::Clamp(f1, f2, f3);
+}
+
 void rand_impl_generic(asIScriptGeneric *gen)
 {
 	*(float*)gen->GetAddressOfReturnLocation() = ((float)rand() / RAND_MAX);
@@ -392,6 +408,8 @@ void RegisterScriptMath(asIScriptEngine *engine)
 	else
 		RegisterScriptMath_Native(engine);
 
+	engine->RegisterGlobalFunction("float clamp(float, float, float)", asFUNCTION(clamp_impl_generic), asCALL_GENERIC);
+	engine->RegisterGlobalFunction("float sign(float)", asFUNCTION(sign_impl_generic), asCALL_GENERIC);
 	engine->RegisterGlobalFunction("float rand()", asFUNCTION(rand_impl_generic), asCALL_GENERIC);
 
 	engine->RegisterObjectType("float_ref", sizeof(float), asOBJ_REF | asOBJ_NOCOUNT);

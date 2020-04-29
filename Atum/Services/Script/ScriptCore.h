@@ -18,6 +18,7 @@ public:
 		int GetWidth();
 		int GetHeight();
 		void TransformToScreen(Vector3& pos, Vector3& res, Vector2& left_up, Vector2& right_down);
+		void GetRayFromScreen(Vector2& pos, Vector3& origin, Vector3& dir);
 	};
 
 	class Controls

@@ -65,8 +65,29 @@ void ScriptCore::Render::TransformToScreen(Vector3& pos, Vector3& res, Vector2& 
 
 	res.x = Math::Clamp(res.x, left_up.x, core.render.GetDevice()->GetWidth() - right_down.x) * Sprite::inv_screen_mul;
 	res.y = Math::Clamp(res.y, left_up.y, core.render.GetDevice()->GetHeight() - right_down.y) * Sprite::inv_screen_mul;
+}
 
-	//res.z = 
+void ScriptCore::Render::GetRayFromScreen(Vector2& pos, Vector3& origin, Vector3& dir)
+{
+	Vector2 screepos = Vector2(pos.x / (float)core.render.GetDevice()->GetWidth(), pos.y / (float)core.render.GetDevice()->GetHeight());
+
+	Matrix view, proj;
+	core.render.GetTransform(::Render::View, view);
+	core.render.GetTransform(::Render::Projection, proj);
+
+	Vector3 v;
+	v.x = (2.0f * screepos.x - 1) / proj._11;
+	v.y = -(2.0f * screepos.y - 1) / proj._22;
+	v.z = 1.0f;
+
+	view.Inverse();
+
+	origin = view.Pos();
+
+	dir.x = v.x * view._11 + v.y * view._21 + v.z * view._31;
+	dir.y = v.x * view._12 + v.y * view._22 + v.z * view._32;
+	dir.z = v.x * view._13 + v.y * view._23 + v.z * view._33;
+	dir.Normalize();
 }
 
 SoundInstance * ScriptCore::Sound::CreateSound(string& file_name)
@@ -366,6 +387,7 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetWidth()", WRAP_MFN(ScriptCore::Render, GetWidth), "Get width of a screen");
 	core.scripts.RegisterObjectMethod(script_class_name, "int GetHeight()", WRAP_MFN(ScriptCore::Render, GetHeight), "Get height of a screen");
 	core.scripts.RegisterObjectMethod(script_class_name, "void TransformToScreen(Vector3&in pos, Vector3&out res, Vector2&in , Vector2&in res)", WRAP_MFN(ScriptCore::Render, TransformToScreen), "Get height of a screen");
+	core.scripts.RegisterObjectMethod(script_class_name, "void GetRayFromScreen(Vector2&in pos, Vector3&out origin, Vector3&out dir)", WRAP_MFN(ScriptCore::Render, GetRayFromScreen), "Get ray from screen coordinates");
 
 	script_class_name = "ScriptControls";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Controls), "gr_script_core", "Script controls sub system");

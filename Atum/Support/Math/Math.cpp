@@ -49,6 +49,32 @@ namespace Math
 
 	float AdvanceAngle(float angle, float target_angle, float delta_angle)
 	{
+		float diff = GetAnglesDifference(angle, target_angle);
+
+		if (fabs(diff) < fabs(delta_angle))
+		{
+			angle = target_angle;
+		}
+		else
+		{
+			angle += delta_angle * Sign(diff);
+		}
+
+		if (angle > PI)
+		{
+			angle -= TwoPI;
+		}
+		else
+		if (angle < -PI)
+		{
+			angle += TwoPI;
+		}
+
+		return angle;
+	}
+
+	float GetAnglesDifference(float angle, float target_angle)
+	{
 		while (angle > PI)
 		{
 			angle = angle - TwoPI;
@@ -77,50 +103,6 @@ namespace Math
 		if (angle - target_angle > PI)
 		{
 			target_angle += TwoPI;
-		}
-
-		if (fabs(target_angle - angle) < fabs(delta_angle))
-		{
-			angle = target_angle;
-		}
-		else
-		{
-			angle += delta_angle * Sign(target_angle - angle);
-		}
-
-		if (angle > PI)
-		{
-			angle -= TwoPI;
-		}
-		else
-		if (angle < PI)
-		{
-			angle += TwoPI;
-		}
-
-		return angle;
-	}
-
-	float GetAnglesDifference(float angle, float target_angle)
-	{
-		while (angle > PI)
-		{
-			angle = angle - TwoPI;
-		}
-
-		while (angle < -PI)
-		{
-			angle = angle + TwoPI;
-		}
-
-		while (target_angle > PI)
-		{
-			target_angle = target_angle - TwoPI;
-		}
-
-		while (target_angle < -PI)
-		{
-			target_angle = target_angle + TwoPI;
 		}
 
 		return target_angle - angle;

@@ -27,6 +27,9 @@ public:
 		asIScriptObject* object = nullptr;
 		Mesh::Instance* mesh = nullptr;
 
+#ifdef EDITOR
+		Matrix transform;
+#endif
 		void SetObject(asIScriptObject* object, vector<int>* mapping);
 		void SetTransform(const Matrix& transform);
 		Matrix GetTransform();

@@ -296,7 +296,15 @@ void MeshInstance::Load(JSONReader& reader)
 		reader.EnterBlock("inst_trans");
 
 		inst.mesh = core.meshes.LoadMesh(Asset()->mesh_name.c_str(), RenderTasks(false));
-		reader.Read("trans", &inst.mesh->transform);
+
+		if (inst.mesh)
+		{
+			reader.Read("trans", &inst.mesh->transform);
+		}
+		else
+		{
+			reader.Read("trans", &inst.transform);
+		}
 
 		reader.LeaveBlock();
 	}
@@ -312,7 +320,14 @@ void MeshInstance::Save(JSONWriter& writer)
 	{
 		writer.StartBlock(nullptr);
 
-		writer.Write("trans", &inst.mesh->transform);
+		if (inst.mesh)
+		{
+			writer.Write("trans", &inst.mesh->transform);
+		}
+		else
+		{
+			writer.Write("trans", &inst.transform);
+		}
 
 		writer.FinishBlock();
 	}
@@ -354,13 +369,22 @@ void MeshInstance::Draw(float dt)
 
 			if (add_copy)
 			{
-				inst.mesh->color = instances[sel_inst].color;
-				inst.mesh->transform = instances[sel_inst].mesh->transform;
-				inst.mesh->transform.Pos().x += 1.0f;
+				if (inst.mesh)
+				{
+					inst.mesh->color = instances[sel_inst].color;
+				}
+
+				inst.transform = instances[sel_inst].mesh ? instances[sel_inst].mesh->transform : instances[sel_inst].transform;
+				inst.transform.Pos().x += 1.0f;
 			}
 			else
 			{
-				inst.mesh->transform.Pos() += editor.freecamera.pos + Vector3(cosf(editor.freecamera.angles.x), sinf(editor.freecamera.angles.y), sinf(editor.freecamera.angles.x)) * 5.0f;
+				inst.transform.Pos() += editor.freecamera.pos + Vector3(cosf(editor.freecamera.angles.x), sinf(editor.freecamera.angles.y), sinf(editor.freecamera.angles.x)) * 5.0f;
+			}
+
+			if (inst.mesh)
+			{
+				inst.mesh->transform = inst.transform;
 			}
 
 			instances.push_back(inst);
@@ -380,7 +404,10 @@ void MeshInstance::Draw(float dt)
 	{
 		for (auto& inst : instances)
 		{
-			inst.mesh->visible = inst.IsVisible();
+			if (inst.mesh)
+			{
+				inst.mesh->visible = inst.IsVisible();
+			}
 		}
 	}
 }
@@ -488,6 +515,11 @@ bool MeshInstance::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 	for (int i = 0; i < instances.size(); i++)
 	{
 		auto instance = instances[i];
+
+		if (!instance.mesh)
+		{
+			continue;
+		}
 
 		if (Math::IntersectBBoxRay(instance.mesh->transform.Pos() + instance.mesh->GetBBMin(), instance.mesh->transform.Pos() + instance.mesh->GetBBMax(), start, dir))
 		{

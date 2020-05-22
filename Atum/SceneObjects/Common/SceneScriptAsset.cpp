@@ -54,10 +54,7 @@ void StartScriptEdit(void* owner)
 {
 	SceneScriptAsset* script = (SceneScriptAsset*)owner;
 
-	string filename;
-	script->GetScriptFileName(filename, false);
-
-	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
+	ShellExecuteA(nullptr, "open", script->filename.c_str(), NULL, NULL, SW_SHOW);
 }
 
 void CenterScriptCamera(void* owner)
@@ -89,6 +86,7 @@ void CenterScriptCamera(void* owner)
 
 META_DATA_DESC(SceneScriptAsset)
 	BASE_SCENE_OBJ_PROP(SceneScriptAsset)
+	FILENAME_PROP(SceneScriptAsset, filename, "", "Prop", "filename")
 	STRING_PROP(SceneScriptAsset, main_class, "", "Prop", "main_class")
 #ifdef EDITOR
 	CALLBACK_PROP(SceneScriptAsset, StartScriptEdit, "Prop", "EditScript")
@@ -176,14 +174,6 @@ void SceneScriptAsset::NodeScriptMethod::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void SceneScriptAsset::GetScriptFileName(string& filename, bool binary)
-{
-	char str[1024];
-	StringUtils::Printf(str, 1024, "%s%s.%s", GetScene()->GetPath(), GetName(), (binary ? "snb" : "sns"));
-
-	filename = str;
-}
-
 void SceneScriptAsset::Init()
 {
 	inst_class_name = "SceneScriptInst";
@@ -248,10 +238,6 @@ void SceneScriptAsset::Load(JSONReader& loader)
 		loader.Read("name", dep);
 		loader.LeaveBlock();
 	}
-
-#ifdef EDITOR
-	GetScriptFileName(prev_filename, false);
-#endif
 }
 
 void SceneScriptAsset::Save(JSONWriter& saver)
@@ -292,18 +278,6 @@ void SceneScriptAsset::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-void SceneScriptAsset::SetName(const char* set_name)
-{
-	SceneObject::SetName(set_name);
-
-#ifdef EDITOR
-	if (set_name[0])
-	{
-		RenameScriptFile();
-	}
-#endif
-}
-
 bool SceneScriptAsset::CompileScript()
 {
 	if (compiled)
@@ -312,9 +286,6 @@ bool SceneScriptAsset::CompileScript()
 	}
 
 	compiled = true;
-
-	string filename;
-	GetScriptFileName(filename, false);
 
 	FileInMemory file;
 
@@ -506,8 +477,6 @@ void SceneScriptAsset::Export()
 
 	if (mod)
 	{
-		string filename;
-		GetScriptFileName(filename, true);
 		core.scripts.SaveModuleByteCode(mod, filename.c_str());
 
 		mod = nullptr;
@@ -537,40 +506,6 @@ bool SceneScriptAsset::UsingOwnCamera()
 }
 
 #ifdef EDITOR
-void SceneScriptAsset::RenameScriptFile()
-{
-	bool need_rename = false;
-
-	FILE* prev_fl = fopen(prev_filename.c_str(), "a");
-	if (prev_fl)
-	{
-		need_rename = true;
-		fclose(prev_fl);
-	}
-
-	string filename;
-	GetScriptFileName(filename, false);
-
-	if (need_rename)
-	{
-		rename(prev_filename.c_str(), filename.c_str());
-	}
-	else
-	{
-		FILE* fl = fopen(filename.c_str(), "a");
-		fclose(fl);
-	}
-
-	prev_filename = filename;
-}
-
-void SceneScriptAsset::SetUID(uint32_t set_uid)
-{
-	SceneAsset::SetUID(set_uid);
-
-	RenameScriptFile();
-}
-
 SceneObject* SceneScriptAsset::CreateInstance(Scene* scene)
 {
 	SceneScriptInst* inst = (SceneScriptInst*)SceneAsset::CreateInstance(scene);

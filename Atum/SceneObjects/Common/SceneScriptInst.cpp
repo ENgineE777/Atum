@@ -28,7 +28,7 @@ void FillCallbackList(EUIComboBox* cbox, void* object)
 #endif
 
 META_DATA_DESC(SceneScriptInst::WrapperSceneObjectRef)
-SCENEOBJECT_PROP(SceneScriptInst::WrapperSceneObjectRef, ref, "Property", "object")
+	SCENEOBJECT_PROP(SceneScriptInst::WrapperSceneObjectRef, ref, "Property", "object")
 META_DATA_DESC_END()
 
 void SceneScriptInst::WrapperSceneObjectRef::Load(JSONReader& reader)
@@ -63,10 +63,7 @@ void StartScriptInstEdit(void* owner)
 {
 	SceneScriptInst* script = (SceneScriptInst*)owner;
 
-	string filename;
-	script->Asset()->GetScriptFileName(filename, false);
-
-	ShellExecuteA(nullptr, "open", filename.c_str(), NULL, NULL, SW_SHOW);
+	ShellExecuteA(nullptr, "open", script->Asset()->filename.c_str(), NULL, NULL, SW_SHOW);
 }
 
 void CenterScriptInstCamera(void* owner)

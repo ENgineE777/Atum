@@ -166,6 +166,7 @@ public:
 	bool compiled = false;
 	bool played = false;
 
+	string filename;
 	vector<Node*> nodes;
 
 	vector<NodeScriptMethod*> on_start_init;
@@ -181,7 +182,6 @@ public:
 	void Init() override;
 	void Load(JSONReader& loader) override;
 	void Save(JSONWriter& saver) override;
-	void SetName(const char* name) override;
 
 	bool Play() override;
 
@@ -192,14 +192,10 @@ public:
 	void Release() override;
 	bool UsingOwnCamera() override;
 
-	void GetScriptFileName(string& filename, bool binary);
 	bool CompileScript();
 
 #ifdef EDITOR
 	class SceneScriptInst* script_inst = nullptr;
-	string prev_filename;
-	void RenameScriptFile();
-	void SetUID(uint32_t uid) override;
 	SceneObject* CreateInstance(Scene* scene) override;
 	void EditorWork(float dt);
 	void EditorWork(float dt, class SceneScriptInst* inst);

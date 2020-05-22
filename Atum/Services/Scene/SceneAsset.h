@@ -51,6 +51,7 @@ public:
 	virtual SceneObject* CreateInstance(Scene* scene);
 	virtual void DeleteAsset(SceneObject* obj);
 
+	void SaveInstancesRef(JSONWriter& writer) override;
 	virtual void PreapreAssetTree();
 	virtual bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index);
 	virtual void OnAssetTreeSelChange(SceneObject* item);

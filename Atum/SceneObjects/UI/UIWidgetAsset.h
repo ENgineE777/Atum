@@ -121,7 +121,7 @@ public:
 	SceneObject* GetChild(uint32_t uid) override;
 #ifdef EDITOR
 	bool IsAsset() override;
-	void SaveAssetData(JSONWriter& writer) override;
+	void SaveInstancesRef(JSONWriter& writer) override;
 	void SetScene(Scene* set_scene) override;
 	bool UsingOwnCamera() override;
 	void SetEditMode(bool ed) override;

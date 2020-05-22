@@ -94,6 +94,36 @@ void SceneAsset::DeleteAsset(SceneObject* obj)
 	}
 }
 
+void SceneAsset::SaveInstancesRef(JSONWriter& writer)
+{
+	writer.StartBlock(nullptr);
+
+	writer.Write("asset_uid", GetUID());
+	writer.Write("asset_name", GetName());
+
+	writer.StartArray("instances");
+
+	for (auto& inst : instances)
+	{
+		writer.StartBlock(nullptr);
+
+		auto* object = inst.GetObject();
+
+		if (object)
+		{
+			writer.Write("scene", object->GetScene()->project_scene_path);
+			writer.Write("inst_uid", object->GetUID());
+			writer.Write("inst_name", object->GetName());
+		}
+
+		writer.FinishBlock();
+	}
+
+	writer.FinishArray();
+
+	writer.FinishBlock();
+}
+
 void SceneAsset::PreapreAssetTree()
 {
 

@@ -430,14 +430,9 @@ void Scene::Save(const char* name)
 #ifdef EDITOR
 		writer.StartArray("asset_instances");
 
-		for (auto obj : objects)
-		{
-			obj->SaveAssetData(writer);
-		}
-
 		for (auto obj : assets)
 		{
-			obj->SaveAssetData(writer);
+			obj->SaveInstancesRef(writer);
 		}
 
 		writer.FinishArray();

@@ -71,7 +71,7 @@ void UIViewInstanceAsset::Release()
 }
 
 #ifdef EDITOR
-void UIViewInstanceAsset::SaveAssetData(JSONWriter& writer)
+void UIViewInstanceAsset::SaveInstancesRef(JSONWriter& writer)
 {
 	writer.StartBlock(nullptr);
 
@@ -101,7 +101,7 @@ void UIViewInstanceAsset::SaveAssetData(JSONWriter& writer)
 
 	writer.FinishBlock();
 
-	UIWidgetAsset::SaveAssetData(writer);
+	UIWidgetAsset::SaveInstancesRef(writer);
 }
 #endif
 

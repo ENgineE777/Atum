@@ -15,7 +15,7 @@ public:
 	void Release() override;
 
 #ifdef EDITOR
-	void SaveAssetData(JSONWriter& writer) override;
+	void SaveInstancesRef(JSONWriter& writer) override;
 #endif
 };
 

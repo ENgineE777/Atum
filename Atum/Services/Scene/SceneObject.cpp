@@ -278,7 +278,7 @@ void SceneObject::Set2DPos(Vector2 pos)
 
 }
 
-void SceneObject::SaveAssetData(JSONWriter& writer)
+void SceneObject::SaveInstancesRef(JSONWriter& writer)
 {
 
 }
@@ -803,28 +803,6 @@ void SceneObjectInst::Save(JSONWriter& saver)
 }
 
 #ifdef EDITOR
-void SceneObjectInst::SaveAssetData(JSONWriter& writer)
-{
-	writer.StartBlock(nullptr);
-
-	writer.Write("asset_uid", asset->GetUID());
-	writer.Write("asset_name", asset->GetName());
-
-	writer.StartArray("instances");
-
-	writer.StartBlock(nullptr);
-
-	writer.Write("scene", GetScene()->project_scene_path);
-	writer.Write("inst_uid", GetUID());
-	writer.Write("inst_name", GetName());
-
-	writer.FinishBlock();
-
-	writer.FinishArray();
-
-	writer.FinishBlock();
-}
-
 void SceneObjectInst::SetScene(Scene* set_scene)
 {
 	SceneObject::SetScene(set_scene);

@@ -306,11 +306,11 @@ bool UIWidgetAsset::IsAsset()
 	return IsAsset();
 }
 
-void UIWidgetAsset::SaveAssetData(JSONWriter& writer)
+void UIWidgetAsset::SaveInstancesRef(JSONWriter& writer)
 {
 	for (auto& child : childs)
 	{
-		child->SaveAssetData(writer);
+		child->SaveInstancesRef(writer);
 	}
 }
 

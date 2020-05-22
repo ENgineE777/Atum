@@ -302,6 +302,11 @@ void SceneObject::GetUIDs(uint32_t& out_uid, uint32_t& out_child_uid)
 
 void SceneObject::SetScene(Scene* set_scene)
 {
+	if (scene == set_scene)
+	{
+		return;
+	}
+
 	scene->DeleteObject(this, IsAsset(), false);
 
 	scene->taskPool->DelAllTasks(this, set_scene->taskPool);

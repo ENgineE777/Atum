@@ -676,25 +676,24 @@ void Project::SelectScene(SceneHolder* holder)
 		return;
 	}
 
-	SceneHolder* prev_select_scene = select_scene;
-	select_scene = holder;
-
-	if (prev_select_scene)
+	if (select_scene)
 	{
-		SaveCameraPos(prev_select_scene);
+		SaveCameraPos(select_scene);
 
 		editor.zoom_ed->SetText((int)(100.0f * Sprite::ed_cam_zoom));
 
-		FillSelectedObject(prev_select_scene);
+		FillSelectedObject(select_scene);
 		editor.SelectObject(nullptr, false);
 
-		GrabSceneNodes(prev_select_scene);
+		GrabSceneNodes(select_scene);
 
 		editor.scene_treeview->ClearTree();
 		editor.assets_treeview->ClearTree();
 
-		EnableScene(prev_select_scene, false);
+		EnableScene(select_scene, false);
 	}
+
+	select_scene = holder;
 
 	if (select_scene)
 	{
@@ -752,6 +751,7 @@ Scene* Project::GetScene(const char* path)
 		if (!scenes[index]->scene)
 		{
 			LoadScene(scenes[index]);
+			scenes[index]->scene->EnableTasks(false);
 		}
 
 		return scenes[index]->scene;

@@ -7,19 +7,21 @@ COMPINCL(MeshAsset)
 COMPREG_END(Phys3DComp)
 
 META_DATA_DESC(Phys3DComp)
-ENUM_PROP(Phys3DComp, body_type, 0, "Phys3D", "body_type", "Type of a body")
-	ENUM_ELEM("StaticBody", 0)
-	ENUM_ELEM("DynamicBody", 1)
-	ENUM_ELEM("DynamicCCDBody", 2)
-	ENUM_ELEM("KineticBody", 3)
-	ENUM_ELEM("Trigger", 4)
-	ENUM_ELEM("Controller", 5)
-ENUM_END
-FLOAT_PROP(Phys3DComp, density, 1.25f, "Phys3D", "density", "Density of a body")
-FLOAT_PROP(Phys3DComp, friction, 0.25f, "Phys3D", "friction", "Friction of a material of a body")
-BOOL_PROP(Phys3DComp, allow_rotate, true, "Phys3D", "allow_rotate", "Allowing physical objectto be rotateable")
-BOOL_PROP(Phys3DComp, object_for_submeshes, false, "Phys3D", "object_for_submeshes", "Seprate object for each sub mesh")
-INT_PROP(Phys3DComp, group, 1, "Phys3D", "group", "Group of a body")
+	ENUM_PROP(Phys3DComp, body_type, 0, "Phys3D", "body_type", "Type of a body")
+		ENUM_ELEM("StaticBody", 0)
+		ENUM_ELEM("DynamicBody", 1)
+		ENUM_ELEM("DynamicCCDBody", 2)
+		ENUM_ELEM("KineticBody", 3)
+		ENUM_ELEM("Trigger", 4)
+		ENUM_ELEM("Controller", 5)
+	ENUM_END
+	FLOAT_PROP(Phys3DComp, density, 1.25f, "Phys3D", "density", "Density of a body")
+	FLOAT_PROP(Phys3DComp, friction, 0.25f, "Phys3D", "friction", "Friction of a material of a body")
+	BOOL_PROP(Phys3DComp, allow_rotate, true, "Phys3D", "allow_rotate", "Allowing physical objectto be rotateable")
+	BOOL_PROP(Phys3DComp, object_for_submeshes, false, "Phys3D", "object_for_submeshes", "Seprate object for each sub mesh")
+	INT_PROP(Phys3DComp, group, 1, "Phys3D", "group", "Group of a body")
+	FLOAT_PROP(Phys3DComp, controller_height, 1.0f, "Phys3D", "controller_height", "Height of a controller")
+	FLOAT_PROP(Phys3DComp, controller_radius, 0.5f, "Phys3D", "controller_radius", "Radius of a controller")
 META_DATA_DESC_END()
 
 COMPREG(Phys3DCompInst, "Phys2DInst")
@@ -327,9 +329,11 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 
 		if (body_type == Phys3DComp::BodyType::Controller)
 		{
+			Phys3DComp* comp = (Phys3DComp*)asset_comp;
+
 			PhysControllerDesc desc;
-			desc.radius = size.x * 0.5f;
-			desc.height = size.y - size.x;
+			desc.radius = comp->controller_radius;
+			desc.height = comp->controller_height;
 			desc.pos = body_trans.Pos();
 
 			body.controller = object->PScene()->CreateController(desc, group);

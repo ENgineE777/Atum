@@ -96,6 +96,9 @@ public:
 
 	uint32_t group;
 
+	float controller_height;
+	float controller_radius;
+
 #ifndef DOXYGEN_SKIP
 
 	Phys3DComp();

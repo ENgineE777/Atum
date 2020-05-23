@@ -26,6 +26,8 @@ public:
 		vector<int>* mapping = nullptr;
 		asIScriptObject* object = nullptr;
 		Mesh::Instance* mesh = nullptr;
+		bool zalign = false;
+		float zoffset = 0;
 
 #ifdef EDITOR
 		Matrix transform;

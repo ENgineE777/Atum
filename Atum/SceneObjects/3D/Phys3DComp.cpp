@@ -22,6 +22,8 @@ META_DATA_DESC(Phys3DComp)
 	INT_PROP(Phys3DComp, group, 1, "Phys3D", "group", "Group of a body")
 	FLOAT_PROP(Phys3DComp, controller_height, 1.0f, "Phys3D", "controller_height", "Height of a controller")
 	FLOAT_PROP(Phys3DComp, controller_radius, 0.5f, "Phys3D", "controller_radius", "Radius of a controller")
+	BOOL_PROP(Phys3DComp, controller_z_align, false, "Phys3D", "controller_z_align", "Align up vector with Z")
+	FLOAT_PROP(Phys3DComp, controller_z_offset, 0.0f, "Phys3D", "controller_z_offset", "Offset when align up vector with z enabled")
 META_DATA_DESC_END()
 
 COMPREG(Phys3DCompInst, "Phys2DInst")
@@ -107,7 +109,19 @@ void Phys3DCompInst::ScriptProxy::SetTransform(Matrix& trans)
 
 		if (body.controller)
 		{
-			body.controller->SetPosition(trans.Pos());
+			Vector3 offset = 0.0f;
+
+			if (inst->zalign)
+			{
+				auto dir = inst->mesh->transform.Vz();
+
+				dir.y = 0.0f;
+				dir.Normalize();
+
+				offset = dir * inst->zoffset;
+			}
+
+			body.controller->SetPosition(trans.Pos() - offset);
 		}
 	}
 }
@@ -336,6 +350,9 @@ void Phys3DCompInst::CreateBodies(int index, MeshInstance::Instance& instance, b
 			desc.height = comp->controller_height;
 			desc.pos = body_trans.Pos();
 
+			instance.zalign = comp->controller_z_align;
+			instance.zoffset = comp->controller_z_offset;
+
 			body.controller = object->PScene()->CreateController(desc, group);
 			body.controller->SetUserData(&body);
 
@@ -437,20 +454,37 @@ void Phys3DCompInst::UpdateInstances(float dt)
 			{
 				if (body.controller)
 				{
-					if (inst.dir.Length() > 0.001f)
-					{
-						body.controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
+					Vector3 offset = 0.0f;
 
+					if (inst.zalign)
+					{
+						auto dir = inst.mesh->transform.Vz();
+
+						dir.y = 0.0f;
+						dir.Normalize();
+
+						body.controller->SetUpDirection(dir);
+
+						offset = dir * inst.zoffset;
+					}
+
+					if (inst.dir.Length() > 0.00001f)
+					{
 						Vector3 pos;
 						body.controller->GetPosition(pos);
 
-						inst.mesh->transform.Pos() = pos;
+						body.controller->Move(inst.dir, inst.collide_group, inst.ignore_group);
+
+						Vector3 pos2;
+						body.controller->GetPosition(pos2);
+
+						inst.mesh->transform.Pos() = pos + offset;
 
 						inst.dir = 0.0f;
 					}
 					else
 					{
-						body.controller->SetPosition(inst.mesh->transform.Pos());
+						body.controller->SetPosition(inst.mesh->transform.Pos() - offset);
 					}
 				}
 			}

@@ -156,6 +156,13 @@ public:
 	void Move(Vector3 dir, uint32_t group, uint32_t ignore_group);
 
 	/**
+	\brief Set up direction
+
+	\param[in] up direction
+	*/
+	void SetUpDirection(Vector3 up);
+
+	/**
 	\brief Set belonging to a physical group
 
 	\param[in] group Physical group

@@ -98,6 +98,8 @@ public:
 
 	float controller_height;
 	float controller_radius;
+	bool controller_z_align = false;
+	float controller_z_offset = 0.0f;
 
 #ifndef DOXYGEN_SKIP
 

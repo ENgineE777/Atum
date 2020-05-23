@@ -252,6 +252,11 @@ void PhysController::Move(Vector3 dir, uint32_t group, uint32_t set_ignore_group
 	const PxU32 flags = controller->move(PxVec3(dir.x, dir.y, dir.z), 0.0001f, 1.0f/60.0f, filters, NULL);
 }
 
+void PhysController::SetUpDirection(Vector3 up)
+{
+	controller->setUpDirection(PxVec3(up.x, up.y, up.z));
+}
+
 void PhysController::SetGroup(int group)
 {
 	auto actor = controller->getActor();

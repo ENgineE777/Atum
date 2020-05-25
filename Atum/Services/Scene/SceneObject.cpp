@@ -841,9 +841,9 @@ void SceneObjectInst::Copy(SceneObject* src)
 	}
 
 	src->GetMetaData()->Copy(src);
-	ApplyProperties();
-
 	asset = ((SceneObjectInst*)src)->asset;
+
+	ApplyProperties();
 
 	asset->instances.push_back(SceneAsset::AssetInstance(this));
 

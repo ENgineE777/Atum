@@ -514,7 +514,7 @@ bool MeshInstance::CheckSelection(Vector2 ms, Vector3 start, Vector3 dir)
 
 	for (int i = 0; i < instances.size(); i++)
 	{
-		auto instance = instances[i];
+		auto& instance = instances[i];
 
 		if (!instance.mesh)
 		{
@@ -547,6 +547,26 @@ void MeshInstance::SetEditMode(bool ed)
 	}
 
 	SetGizmo();
+}
+
+void MeshInstance::Copy(SceneObject* src)
+{
+	SceneObjectInst::Copy(src);
+
+	for (int i = 0; i < instances.size(); i++)
+	{
+		auto& instance = instances[i];
+		auto& instance_src = ((MeshInstance*)src)->instances[i];
+
+		if (instance.mesh && instance_src.mesh)
+		{
+			instance.mesh->transform = instance_src.mesh->transform;
+		}
+		else
+		{
+			instance.transform = instance_src.transform;
+		}
+	}
 }
 
 void MeshInstance::SetGizmo()

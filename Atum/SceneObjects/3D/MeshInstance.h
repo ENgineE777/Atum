@@ -84,6 +84,7 @@ public:
 	int sel_inst = -1;
 	bool CheckSelection(Vector2 ms, Vector3 start, Vector3 dir) override;
 	void SetEditMode(bool ed) override;
+	void Copy(SceneObject* src) override;
 	void SetGizmo();
 #endif
 

@@ -16,6 +16,7 @@ META_DATA_DESC(GenericMarker)
 	BASE_SCENE_OBJ_PROP(GenericMarker)
 	STRING_PROP(GenericMarker, scene_group, "", "Prop", "scene_group")
 	BOOL_PROP(GenericMarker, full_shade, true, "Prop", "full_shade", "full_shade")
+	BOOL_PROP(GenericMarker, is_path, false, "Prop", "is_path", "is_path")
 	ARRAY_PROP_INST_CALLGIZMO(GenericMarker, instances, Instance, "Prop", "inst", GenericMarker, sel_inst, SetGizmo)
 META_DATA_DESC_END()
 
@@ -224,9 +225,19 @@ void GenericMarker::Draw(float dt)
 	}
 #endif
 
+	int index = 0;
+
 	for (auto& inst : instances)
 	{
 		core.render.DebugSphere(inst.transform.Pos(), inst.color, inst.radius, full_shade);
+
+		if (index != 0 && is_path)
+		{
+			auto prev_inst = instances[index - 1];
+			core.render.DebugLine(inst.transform.Pos(), inst.color, prev_inst.transform.Pos(), prev_inst.color);
+		}
+
+		index++;
 	}
 }
 

@@ -48,6 +48,7 @@ public:
 	};
 
 	bool full_shade = true;
+	bool is_path = false;
 	vector<int> mapping;
 	std::vector<Instance> instances;
 

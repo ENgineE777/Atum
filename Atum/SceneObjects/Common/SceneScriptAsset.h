@@ -75,10 +75,14 @@ class SceneScriptAsset : public SceneAsset
 public:
 
 	/**
-	\brief Name of a main script class which will be create in instances.
+	\brief Name of a script class which instances will be created.
 	*/
-	string main_class;
+	string class_name;
 
+	/**
+	\brief Name of a namespcae of a script class which instances will be created.
+	*/
+	string class_namespace;
 #ifndef DOXYGEN_SKIP
 
 	enum NodeType
@@ -166,13 +170,11 @@ public:
 	bool compiled = false;
 	bool played = false;
 
-	string filename;
 	vector<Node*> nodes;
 
 	vector<NodeScriptMethod*> on_start_init;
 	vector<NodeScriptMethod*> frame_updates;
 
-	asIScriptModule* mod = nullptr;
 	asITypeInfo* class_type = nullptr;
 
 	vector<string> dependency;
@@ -185,14 +187,8 @@ public:
 
 	bool Play() override;
 
-#ifdef EDITOR
-	void Export() override;
-#endif
-
 	void Release() override;
 	bool UsingOwnCamera() override;
-
-	bool CompileScript();
 
 #ifdef EDITOR
 	class SceneScriptInst* script_inst = nullptr;

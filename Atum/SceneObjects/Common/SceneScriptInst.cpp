@@ -59,13 +59,6 @@ META_DATA_DESC(SceneScriptInst::NodeConst)
 META_DATA_DESC_END()
 
 #ifdef EDITOR
-void StartScriptInstEdit(void* owner)
-{
-	SceneScriptInst* script = (SceneScriptInst*)owner;
-
-	ShellExecuteA(nullptr, "open", script->Asset()->filename.c_str(), NULL, NULL, SW_SHOW);
-}
-
 void CenterScriptInstCamera(void* owner)
 {
 	SceneScriptInst* script = (SceneScriptInst*)owner;
@@ -95,7 +88,6 @@ void CenterScriptInstCamera(void* owner)
 META_DATA_DESC(SceneScriptInst)
 	BASE_SCENE_OBJ_PROP(SceneScriptInst)
 #ifdef EDITOR
-	CALLBACK_PROP(SceneScriptInst, StartScriptInstEdit, "Prop", "EditScript")
 	CALLBACK_PROP(SceneScriptInst, CenterScriptInstCamera, "Prop", "CenterCamera")
 #endif
 META_DATA_DESC_END()
@@ -184,7 +176,7 @@ void SceneScriptInst::Save(JSONWriter& saver)
 
 bool SceneScriptInst::InjectIntoScript(const char* type_name, int type, void* property, const char* prefix)
 {
-	if (!class_inst || !StringUtils::IsEqual(type_name, Asset()->main_class.c_str()))
+	if (!class_inst || !StringUtils::IsEqual(type_name, Asset()->class_name.c_str()))
 	{
 		return false;
 	}

@@ -50,13 +50,6 @@ META_DATA_DESC(SceneScriptAsset::NodeScriptMethod)
 META_DATA_DESC_END()
 
 #ifdef EDITOR
-void StartScriptEdit(void* owner)
-{
-	SceneScriptAsset* script = (SceneScriptAsset*)owner;
-
-	ShellExecuteA(nullptr, "open", script->filename.c_str(), NULL, NULL, SW_SHOW);
-}
-
 void CenterScriptCamera(void* owner)
 {
 	SceneScriptAsset* script = (SceneScriptAsset*)owner;
@@ -86,10 +79,9 @@ void CenterScriptCamera(void* owner)
 
 META_DATA_DESC(SceneScriptAsset)
 	BASE_SCENE_OBJ_PROP(SceneScriptAsset)
-	FILENAME_PROP(SceneScriptAsset, filename, "", "Prop", "filename")
-	STRING_PROP(SceneScriptAsset, main_class, "", "Prop", "main_class")
+	STRING_PROP(SceneScriptAsset, class_name, "", "Prop", "main_class")
+	STRING_PROP(SceneScriptAsset, class_namespace, "", "Prop", "class_namespace")
 #ifdef EDITOR
-	CALLBACK_PROP(SceneScriptAsset, StartScriptEdit, "Prop", "EditScript")
 	CALLBACK_PROP(SceneScriptAsset, CenterScriptCamera, "Prop", "CenterCamera")
 #endif
 META_DATA_DESC_END()
@@ -278,123 +270,6 @@ void SceneScriptAsset::Save(JSONWriter& saver)
 	saver.FinishArray();
 }
 
-bool SceneScriptAsset::CompileScript()
-{
-	if (compiled)
-	{
-		return true;
-	}
-
-	compiled = true;
-
-	FileInMemory file;
-
-	if (!file.Load(filename.c_str()))
-	{
-		return false;
-	}
-
-	mod = core.scripts.GetModule(filename.c_str(), asGM_ONLY_IF_EXISTS);
-
-	if (!mod)
-	{
-		mod = core.scripts.GetModule(filename.c_str(), asGM_ALWAYS_CREATE);
-
-#ifdef EDITOR
-		string src = (const char*)file.GetData();
-
-		const char* incl = strstr(src.c_str(), "#import \"");
-
-		string external_decl;
-
-		dependency.clear();
-
-		while (incl)
-		{
-			int64_t index_from = incl - src.c_str();
-			int64_t index_to = index_from + 9;
-
-			while (src[index_to] != '"' || src[index_to] == 0)
-			{
-				index_to++;
-			}
-
-			if (src[index_to] == 0)
-			{
-				break;
-			}
-
-			char name[256];
-			int64_t len = index_to - index_from - 9;
-			memcpy(name, &src.c_str()[index_from + 9], index_to - index_from - 9);
-			name[len] = 0;
-
-			SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", name);
-
-			if (object)
-			{
-				dependency.push_back(name);
-
-				if (!object->CompileScript())
-				{
-					return false;
-				}
-
-				if (object->mod)
-				{
-					for (uint32_t i = 0; i < object->mod->GetObjectTypeCount(); i++)
-					{
-						asITypeInfo* tp = object->mod->GetObjectTypeByIndex(i);
-						external_decl += string("external shared class ") + tp->GetName() + ";\r\n";
-					}
-
-					for (uint32_t i = 0; i < object->mod->GetEnumCount(); i++)
-					{
-						asITypeInfo* tp = object->mod->GetEnumByIndex(i);
-						external_decl += string("external shared enum ") + tp->GetName() + ";\r\n";
-					}
-				}
-			}
-
-			src.erase(index_from, index_to - index_from + 1);
-
-			incl = strstr(src.c_str(), "#import \"");
-		}
-
-		StringUtils::Replace(src, "class ", "shared class ");
-
-		StringUtils::Replace(src, "enum ", "shared enum ");
-
-		if (external_decl.size() > 0)
-		{
-			mod->AddScriptSection("external", external_decl.c_str(), external_decl.size());
-		}
-
-		mod->AddScriptSection(GetName(), src.c_str(), src.size());
-
-		if (mod->Build() != asSUCCESS)
-		{
-			return false;
-		}
-#else
-		for (auto& depend : dependency)
-		{
-			SceneScriptAsset* object = (SceneScriptAsset*)GetScene()->FindInGroup("AssetScripts", depend.c_str());
-
-			if (object)
-			{
-				object->CompileScript();
-			}
-		}
-
-		GetScriptFileName(filename, true);
-		core.scripts.LoadModuleByteCode(mod, filename.c_str());
-#endif
-	}
-
-	return true;
-}
-
 bool SceneScriptAsset::Play()
 {
 	if (played)
@@ -404,18 +279,25 @@ bool SceneScriptAsset::Play()
 
 	played = true;
 
-	if (!CompileScript())
+	/*if (!CompileScript())
+	{
+		return false;
+	}*/
+
+	asIScriptModule* mod = core.scripts.mod;
+
+	if (!mod)
 	{
 		return false;
 	}
 
-	if (main_class.c_str()[0])
+	if (class_name.c_str()[0])
 	{
 		for (uint32_t i = 0; i < mod->GetObjectTypeCount(); i++)
 		{
 			asITypeInfo* tp = mod->GetObjectTypeByIndex(i);
 
-			if (StringUtils::IsEqual(main_class.c_str(), tp->GetName()))
+			if (StringUtils::IsEqual(class_name.c_str(), tp->GetName()) && StringUtils::IsEqual(class_namespace.c_str(), tp->GetNamespace()))
 			{
 				class_type = tp;
 				break;
@@ -424,7 +306,8 @@ bool SceneScriptAsset::Play()
 
 		if (!class_type)
 		{
-			core.Log("ScriptErr", "Class %s not found", main_class.c_str());
+			core.Log("ScriptErr", "Class %s::%s not found", class_namespace.c_str(), class_name.c_str());
+			core.scene_manager.failure_on_scene_play_message += string(GetName()) + ": Class " + class_namespace + "::" + class_name + "not found";
 			return false;
 		}
 	}
@@ -470,34 +353,12 @@ bool SceneScriptAsset::Play()
 	return true;
 }
 
-#ifdef EDITOR
-void SceneScriptAsset::Export()
-{
-	CompileScript();
-
-	if (mod)
-	{
-		core.scripts.SaveModuleByteCode(mod, filename.c_str());
-
-		mod = nullptr;
-	}
-
-	compiled = false;
-}
-#endif
-
 void SceneScriptAsset::Release()
 {
 	for (auto node : nodes)
 	{
 		delete node;
 	}
-
-	/*if (mod)
-	{
-		mod->Discard();
-		mod = nullptr;
-	}*/
 }
 
 bool SceneScriptAsset::UsingOwnCamera()

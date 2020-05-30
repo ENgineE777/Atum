@@ -91,7 +91,7 @@ public:
 	void Init();
 #endif
 
-	void Start();
+	bool Start();
 
 	/**
 	\brief Register C++ class as gloabal script type
@@ -193,5 +193,11 @@ public:
 	void UnregisterClassInstance(asIScriptObject* inst);
 
 	void Stop();
+
+#ifdef EDITOR
+	asIScriptModule* mod = nullptr;
+	void GatherScriptFiiles(const char* path);
+#endif
+
 #endif
 };

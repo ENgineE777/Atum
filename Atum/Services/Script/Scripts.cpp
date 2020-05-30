@@ -15,6 +15,10 @@
 #include "SceneObjects/2D/Sprite.h"
 #include "SceneObjects/2D/Sprite.h"
 
+#ifdef EDITOR
+#include "Editor/Project.h"
+#endif
+
 void MessageCallback(const asSMessageInfo *msg, void *param)
 {
 	const char* type = "ERR ";
@@ -46,7 +50,7 @@ void Scripts::Init()
 }
 #endif
 
-void Scripts::Start()
+bool Scripts::Start()
 {
 	engine = asCreateScriptEngine();
 
@@ -86,7 +90,84 @@ void Scripts::Start()
 	}
 
 	class_instances_ctx = CreateContext();
+
+	mod = core.scripts.GetModule("Scripts", asGM_CREATE_IF_NOT_EXISTS);
+
+#ifdef EDITOR
+	GatherScriptFiiles(project.project_path);
+#endif
+	//LoadModuleByteCode(mod, filename.c_str());
+	//if (mod)
+	//{
+	//	core.scripts.SaveModuleByteCode(mod, filename.c_str());
+	//}
+
+	return (mod->Build() == asSUCCESS);
 }
+
+#ifdef EDITOR
+void Scripts::GatherScriptFiiles(const char* path)
+{
+	WIN32_FIND_DATA ffd;
+	HANDLE hFile;
+	CHAR SerarchDir[200];
+	CHAR SerarchParams[200];
+
+	BOOL fFile = TRUE;
+
+	strcpy(SerarchDir, path);
+
+	strcpy(SerarchParams, path);
+	strcat(SerarchParams, "\\*.*");
+
+	hFile = FindFirstFile(SerarchParams, &ffd);
+
+	if (hFile != INVALID_HANDLE_VALUE)
+	{
+		while (fFile)
+		{
+			if (!(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+			{
+				char extension[64];
+				StringUtils::GetExtension(ffd.cFileName, extension, 64);
+
+				if (StringUtils::IsEqual(extension, "sns"))
+				{
+					char fileName[512];
+
+					strcpy(fileName, path);
+					strcat(fileName, "//");
+					strcat(fileName, ffd.cFileName);
+
+					FileInMemory file;
+
+					if (file.Load(fileName))
+					{
+						mod->AddScriptSection(fileName, (const char*)file.GetData(), file.GetSize());
+					}
+				}
+			}
+			else
+			if (ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY && strcmp(ffd.cFileName, ".") != 0 && strcmp(ffd.cFileName, "..") != 0)
+			{
+				char FileName[512];
+
+				strcpy(FileName, path);
+				strcat(FileName, "//");
+				strcat(FileName, ffd.cFileName);
+
+				GatherScriptFiiles(FileName);
+			}
+
+			fFile = FindNextFile(hFile, &ffd);
+		}
+
+		FindClose(hFile);
+	}
+
+	RemoveDirectory(path);
+}
+#endif
 
 void WriteStr(FILE* file, const char* str)
 {
@@ -310,6 +391,11 @@ void Scripts::UnregisterClassInstance(asIScriptObject* inst)
 
 void Scripts::Stop()
 {
+	if (mod)
+	{
+		mod->Discard();
+	}
+
 	exception_stack.clear();
 	time_to_fade_exception = -1.0f;
 

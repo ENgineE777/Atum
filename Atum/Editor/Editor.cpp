@@ -1195,7 +1195,7 @@ void Editor::OnUpdate(EUIWidget* sender)
 	core.controls.SetFocused(in_scene_run ? (game_viewport->IsFocused() && GetActiveWindow() == *((HWND*)gameWnd->GetNative())) :
 	                                        (viewport->IsFocused() && *((HWND*)mainWnd->GetNative()) == GetActiveWindow()));
 
-	core.render.DebugPrintText(5.0f, COLOR_WHITE, "%i", core.GetFPS());
+	core.render.DebugPrintText(5.0f, ScreenCorner::RightTop, COLOR_WHITE, "%i", core.GetFPS());
 
 	core.Update();
 

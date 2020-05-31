@@ -15,19 +15,12 @@ bool DebugFont::Init(TaskExecutor::SingleTaskPool* debugTaskPool)
 {
 	debugTaskPool->AddTask(1000, this, (Object::Delegate)&DebugFont::Draw);
 
-	int font_size = 11;
-
-#if PLATFORM_ANDROID
-	font_size = 20;
-#endif
-
-
 	font = core.fonts.LoadFont("settings/helvetica", false, false, font_size);
 
 	return true;
 }
 
-void DebugFont::AddText(std::vector<Text>& texts, Vector3 pos, float dist, Color color, const char* text)
+void DebugFont::AddText(std::vector<Text>& texts, Vector3 pos, ScreenCorner corner, float dist, Color color, const char* text)
 {
 	if (texts.size()>1000) return;
 
@@ -36,19 +29,20 @@ void DebugFont::AddText(std::vector<Text>& texts, Vector3 pos, float dist, Color
 	Text* txt = &texts[texts.size() - 1];
 
 	txt->pos = pos;
+	txt->corner = corner;
 	txt->dist = 0.0f;
 	txt->color = color;
 	StringUtils::Copy(txt->text, 256, text);
 }
 
-void DebugFont::AddText(Vector2 pos, Color color, const char* text)
+void DebugFont::AddText(Vector2 pos, ScreenCorner corner, Color color, const char* text)
 {
-	AddText(texts, Vector3(pos.x, pos.y, 0.0f), -1.0f, color, text);
+	AddText(texts, Vector3(pos.x, pos.y, 0.0f), corner, -1.0f, color, text);
 }
 
 void DebugFont::AddText(Vector3 pos, float dist, Color color, const char* text)
 {
-	AddText(textsIn3d, pos, dist, color, text);
+	AddText(textsIn3d, pos, LeftTop, dist, color, text);
 }
 
 void DebugFont::Draw(float dt)
@@ -70,14 +64,22 @@ void DebugFont::Draw(float dt)
 
 	textsIn3d.clear();
 
+	std::vector<FontRes::LineBreak> line_breaks;
+	mat.Pos().z = 0.0f;
+
+	Vector2 screen = Vector2((float)core.render.GetDevice()->GetWidth(), (float)core.render.GetDevice()->GetHeight());
+
 	for (int i=0;i<texts.size();i++)
 	{
 		Text* txt = &texts[i];
 
-		mat.Pos() = Vector3(txt->pos.x + 1, txt->pos.y + 1, 0);
+		font->GetLineBreak(line_breaks, txt->text, 1000);
+
+		mat.Pos().x = (txt->corner == ScreenCorner::LeftTop || txt->corner == ScreenCorner::LeftBottom) ? (txt->pos.x + 1) : (screen.x - txt->pos.x - line_breaks[0].width);
+		mat.Pos().y = (txt->corner == ScreenCorner::LeftTop || txt->corner == ScreenCorner::RightTop) ? (txt->pos.y + 1) : (screen.y - txt->pos.y - font_size);
 		font->Print(mat, 1.0f, COLOR_BLACK, txt->text);
 
-		mat.Pos() = Vector3(txt->pos.x, txt->pos.y, 0);
+		mat.Pos() -= 1.0f;
 		font->Print(mat, 1.0f, txt->color, txt->text);
 	}
 

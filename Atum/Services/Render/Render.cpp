@@ -265,7 +265,7 @@ void Render::DebugTriangle2D(Vector2 p1, Vector2 p2, Vector2 p3, Color color)
 	triangles2D->AddTriangle(p1, p2, p3, color);
 }
 
-void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)
+void Render::DebugPrintText(Vector2 pos, ScreenCorner corner, Color color, const char* text, ...)
 {
 	char buffer[256];
 	va_list args;
@@ -273,10 +273,10 @@ void Render::DebugPrintText(Vector2 pos, Color color, const char* text, ...)
 	vsnprintf(buffer, 256, text, args);
 	va_end(args);
 
-	font->AddText(pos, color, buffer);
+	font->AddText(pos, corner, color, buffer);
 }
 
-void Render::DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char* text, ...)
+void Render::DebugPrintText(Vector2 pos, ScreenCorner corner, bool abs_unit, Color color, const char* text, ...)
 {
 	char buffer[256];
 	va_list args;
@@ -284,7 +284,7 @@ void Render::DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char*
 	vsnprintf(buffer, 256, text, args);
 	va_end(args);
 
-	font->AddText(Sprite::MoveToCamera(pos), color, buffer);
+	font->AddText(Sprite::MoveToCamera(pos), corner, color, buffer);
 }
 
 void Render::DebugPrintText(Vector3 pos, float dist, Color color, const char* text, ...)

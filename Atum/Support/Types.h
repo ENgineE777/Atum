@@ -70,3 +70,11 @@ struct Transform2D
 		mat_global = mat_local * mat_parent;
 	}
 };
+
+enum ScreenCorner
+{
+	LeftTop,
+	RightTop,
+	LeftBottom,
+	RightBottom
+};

@@ -222,7 +222,7 @@ public:
 	\param[in] text Text format string of a text
 
 	*/
-	void DebugPrintText(Vector2 pos, Color color, const char* text, ...);
+	void DebugPrintText(Vector2 pos, ScreenCorner corner, Color color, const char* text, ...);
 
 	/**
 	\brief Print debug text in 2D space
@@ -233,7 +233,7 @@ public:
 	\param[in] text Text format string of a text
 
 	*/
-	void DebugPrintText(Vector2 pos, bool abs_unit, Color color, const char* text, ...);
+	void DebugPrintText(Vector2 pos, ScreenCorner corner, bool abs_unit, Color color, const char* text, ...);
 
 	/**
 	\brief Print debug text in 3D space

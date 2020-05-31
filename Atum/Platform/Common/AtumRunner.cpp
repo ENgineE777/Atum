@@ -41,7 +41,7 @@ void AtumRunner::Execute()
 
 void AtumRunner::Draw(float dt)
 {
-	core.render.DebugPrintText(10.0f, COLOR_GREEN, "%i", core.GetFPS());
+	core.render.DebugPrintText(10.0f, ScreenCorner::RightTop, COLOR_GREEN, "%i", core.GetFPS());
 
 	core.render.GetDevice()->Clear(true, COLOR_GRAY, true, 1.0f);
 

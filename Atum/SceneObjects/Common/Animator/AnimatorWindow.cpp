@@ -485,7 +485,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 			char str[16];
 			sprintf(str, "%i", (int)(tm + 0.25f));
 
-			core.render.DebugPrintText(Vector2((float)pos - 2.0f, 3.0f), COLOR_LIGHT_GRAY, str);
+			core.render.DebugPrintText(Vector2((float)pos - 2.0f, 3.0f), ScreenCorner::LeftTop, COLOR_LIGHT_GRAY, str);
 			y = 20;
 		}
 
@@ -526,7 +526,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 
 			char str[256];
 			StringUtils::Printf(str, 256, "%s %s", player->GetName(), (active ? "(Active)" : "(Inactive)"));
-			core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_WHITE, str);
+			core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), ScreenCorner::LeftTop, COLOR_WHITE, str);
 		}
 
 		index++;
@@ -550,7 +550,7 @@ void AnimatorWindow::OnUpdate(EUIWidget* sender)
 				Sprite::Draw(nullptr, color, Matrix(), Vector2(0.0f, (float)CalcLinePos(draw_index)), Vector2((float)LeftRowWidth + 1.0f, (float)RowHeight), 0.0f, 1.0f, false);
 				Sprite::Draw(nullptr, color, Matrix(), Vector2((float)LeftRowWidth, (float)CalcLinePos(draw_index)), Vector2((float)timeline_panel->GetWidth() + 1.0f - (float)LeftRowWidth, (float)RowHeight), 0.0f, 1.0f, false);
 
-				core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), COLOR_LIGHT_GRAY, track->GetName());
+				core.render.DebugPrintText(Vector2(10.0f, (float)CalcLinePos(draw_index) + 3.0f), ScreenCorner::LeftTop, COLOR_LIGHT_GRAY, track->GetName());
 
 				for (int p = 0; p < track->GetKeysCount(); p++)
 				{

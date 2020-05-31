@@ -11,7 +11,7 @@ public:
 	class Render
 	{
 	public:
-		void DebugText(float x, float y, string& text);
+		void DebugText(Vector2& pos, int corner, string& text);
 		void DebugLine2DScr(float x1, float y1, float x2, float y2);
 		static void DebugLine2D(Vector2 p1, Vector2 p2);
 		void DebugSphere(Vector3& pos, Vector3& color, float radius);

@@ -324,7 +324,7 @@ void Scripts::Update(float dt)
 		{
 			for (int i = 0; i < (int)exception_stack.size(); i++)
 			{
-				core.render.DebugPrintText(Vector2(10.0f, 50.0f + i * 40.0f), COLOR_YELLOW, exception_stack[i].c_str());
+				core.render.DebugPrintText(Vector2(10.0f, 50.0f + i * 40.0f), ScreenCorner::LeftTop, COLOR_YELLOW, exception_stack[i].c_str());
 			}
 		}
 	}

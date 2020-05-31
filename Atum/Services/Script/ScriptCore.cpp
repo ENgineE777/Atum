@@ -8,17 +8,9 @@
 
 #undef GetObject
 
-void ScriptCore::Render::DebugText(float x, float y, string& text)
+void ScriptCore::Render::DebugText(Vector2& pos, int corner, string& text)
 {
-	core.render.DebugPrintText({ x, y}, COLOR_WHITE, text.c_str());
-}
-
-void ScriptCore_Render_DebugText2D(asIScriptGeneric *gen)
-{
-	Vector2* pos = (Vector2*)gen->GetArgObject(0);
-	string* text = (string*)gen->GetArgObject(1);
-
-	core.render.DebugPrintText(*pos, true, COLOR_WHITE, text->c_str());
+	core.render.DebugPrintText(pos, (ScreenCorner)corner, COLOR_WHITE, text.c_str());
 }
 
 void ScriptCore_Render_DebugCircle2D(asIScriptGeneric *gen)
@@ -384,8 +376,7 @@ void ScriptCore::Register(asIScriptEngine* engine)
 
 	script_class_name = "ScriptRender";
 	core.scripts.RegisterObjectType(script_class_name, sizeof(ScriptCore::Render), "gr_script_core", "Script render sub system");
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(float x, float y, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), "Print debug text");
-	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText2D(Vector2&in pos, string&in text)", asFUNCTION(ScriptCore_Render_DebugText2D), "Print debug text");
+	core.scripts.RegisterObjectMethod(script_class_name, "void DebugText(Vector2&in pos, int corner, string&in text)", WRAP_MFN(ScriptCore::Render, DebugText), "Print debug text");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugCircle2D(Vector2&in pos, float radius)", asFUNCTION(ScriptCore_Render_DebugCircle2D), "Print debug text");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugLine2D(float x, float y, float to_x, float to_y)", WRAP_MFN(ScriptCore::Render, DebugLine2DScr), "Print debug line in 2D space");
 	core.scripts.RegisterObjectMethod(script_class_name, "void DebugSphere(Vector3&in pos, Vector3&in color, float radius)", WRAP_MFN(ScriptCore::Render, DebugSphere), "Print debug line in 2D space");

@@ -139,9 +139,15 @@ void ArrayWidget::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 		adapter->GetMetaData()->Prepare(adapter->GetItem((int)adapter->GetSize() - 1));
 		adapter->GetMetaData()->SetDefValues();
 
-		//SetData(nullptr, nullptr);
+		if (sel_item != nullptr)
+		{
+			*(sel_item) = adapter->GetSize() - 1;
+		}
+		else
+		{
+			SetData(nullptr, nullptr);
+		}
 
-		*(sel_item) = adapter->GetSize() - 1;
 		if (adapter->gizmoCallback)
 		{
 			(((Object*)owner)->*adapter->gizmoCallback)();

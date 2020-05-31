@@ -992,6 +992,7 @@ void SpriteWindow::OnLeftMouseUp(EUIWidget* sender, int mx, int my)
 			core.files.MakePathRelative(name, file_name);
 
 			SetImage(name.c_str());
+			FitImage();
 		}
 	}
 

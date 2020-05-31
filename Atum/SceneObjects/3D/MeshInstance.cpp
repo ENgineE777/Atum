@@ -172,16 +172,19 @@ bool MeshInstance::InjectIntoScript(const char* type_name, int type, void* prope
 	{
 		asIScriptObject* object = (asIScriptObject*)property;
 
-		if (instances.size() > 0)
+		if (instances.size() == 0)
 		{
-			MakeMapping(object, prefix);
+			instances.push_back(Instance());
+			instances[0].mesh = core.meshes.LoadMesh(Asset()->mesh_name.c_str(), RenderTasks(false));
+		}
 
-			instances[0].SetObject(object, &mapping);
+		MakeMapping(object, prefix);
 
-			for (auto& comp : components)
-			{
-				comp->InjectIntoScript(object, 0, prefix);
-			}
+		instances[0].SetObject(object, &mapping);
+
+		for (auto& comp : components)
+		{
+			comp->InjectIntoScript(object, 0, prefix);
 		}
 
 		return true;

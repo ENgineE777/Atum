@@ -417,12 +417,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.cpp">
       <Filter>SceneObjects\2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.cpp">
-      <Filter>SceneObjects\Common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.cpp">
-      <Filter>SceneObjects\Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIButtonAsset.cpp">
       <Filter>SceneObjects\UI</Filter>
     </ClCompile>
@@ -1177,12 +1171,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\2D\SpriteWindow.h">
       <Filter>SceneObjects\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.h">
-      <Filter>SceneObjects\Common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.h">
-      <Filter>SceneObjects\Common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIButtonAsset.h">
       <Filter>SceneObjects\UI</Filter>

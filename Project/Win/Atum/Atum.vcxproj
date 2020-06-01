@@ -74,8 +74,6 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.cpp" />
-    <ClCompile Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.cpp" />
@@ -332,8 +330,6 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ControlsAliases.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptAsset.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\SceneScriptInst.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataAsset.h" />
-    <ClInclude Include="..\..\..\Atum\SceneObjects\Common\ScriptMetaDataComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\MusicPlayer.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\VirtualJoystick.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Other\Demo\correction.h" />

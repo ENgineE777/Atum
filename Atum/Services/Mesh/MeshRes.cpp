@@ -160,12 +160,22 @@ bool Mesh::LoadFBX(const char* filename)
 				mat.matrix[j] = (float)fbx_mat.m[j];
 			}
 
-			Vector3 pos = mat.Pos();
-			Quaternion rot(mat);
-			rot.GetMatrix(mat);
-			mat.Pos() = pos;
+			Matrix scale;
+			scale.Scale(Vector3(1.0f, 1.0f, -1.0f));
 
-			locators[node->name] = mat;
+			mat *= scale;
+
+			//FIX ME: Restore rotatio
+			/*locators[node->name].Vx() = mat.Vx();
+			locators[node->name].Vx().Normalize();
+
+			locators[node->name].Vy() = mat.Vy();
+			locators[node->name].Vy().Normalize();
+
+			locators[node->name].Vz() = mat.Vz();
+			locators[node->name].Vz().Normalize();*/
+
+			locators[node->name].Pos() = mat.Pos();
 		}
 	}
 
@@ -185,6 +195,11 @@ bool Mesh::LoadFBX(const char* filename)
 		{
 			mat.matrix[j] = (float)fbx_mat.m[j];
 		}
+
+		Matrix scale;
+		scale.Scale(Vector3(1.0f, 1.0f, -1.0f));
+
+		mat *= scale;
 
 		auto& mesh = meshes[i];
 
@@ -241,6 +256,13 @@ bool Mesh::LoadFBX(const char* filename)
 			}
 
 			mesh_indices[j] = index;
+		}
+
+		for (int j = 0; j < mesh.num_triangles; j++)
+		{
+			auto tmp = mesh_indices[j * 3];
+			mesh_indices[j * 3] = mesh_indices[j * 3 + 1];
+			mesh_indices[j * 3 + 1] = tmp;
 		}
 
 		mesh.indices->Unlock();

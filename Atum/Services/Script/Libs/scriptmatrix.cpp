@@ -73,6 +73,15 @@ static void MatrixGetPos_Generic(asIScriptGeneric *gen)
 	gen->SetReturnObject(&res);
 }
 
+static void MatrixBuildView_Generic(asIScriptGeneric *gen)
+{
+	Vector3* v1 = (Vector3*)gen->GetArgAddress(0);
+	Vector3* v2 = (Vector3*)gen->GetArgAddress(1);
+	Vector3* v3 = (Vector3*)gen->GetArgAddress(2);
+	Matrix* thisPointer = (Matrix*)gen->GetObject();
+	thisPointer->BuildView(*v1, *v2, *v3);
+}
+
 //--------------------------------
 // Registration
 //-------------------------------------
@@ -139,6 +148,8 @@ void RegisterScriptMatrix_Native(asIScriptEngine *engine)
 	r = engine->RegisterObjectMethod("Matrix", "void Scale(Vector3 &in)", asMETHOD(Matrix, Scale), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Matrix", "bool Inverse()", asMETHOD(Matrix, Inverse), asCALL_THISCALL); assert(r >= 0);
 	r = engine->RegisterObjectMethod("Matrix", "void Transpose()", asMETHOD(Matrix, Transpose), asCALL_THISCALL); assert(r >= 0);
+
+	r = engine->RegisterObjectMethod("Matrix", "void BuildView(Vector3 &in, Vector3 &in, Vector3 &in)", asFUNCTION(MatrixBuildView_Generic), asCALL_GENERIC); assert(r >= 0);
 }
 
 void RegisterScriptMatrix(asIScriptEngine *engine)

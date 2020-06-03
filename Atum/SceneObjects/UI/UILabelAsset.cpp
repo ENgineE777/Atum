@@ -132,10 +132,7 @@ void UILabelAsset::Draw(float dt)
 
 	font->Print(line_breaks, mat, 1.0f, cur_color, text.c_str());
 
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
+	UIWidgetAsset::Draw(dt);
 }
 
 CLASSREG(UIWidgetAsset, UILabelAssetInst, "UILabel")

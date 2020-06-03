@@ -189,6 +189,24 @@ void UIWidgetAsset::CalcState()
 
 void UIWidgetAsset::Draw(float dt)
 {
+#ifdef EDITOR
+	if (IsEditMode())
+	{
+		treeview->SetItemText(asset_item ? asset_item : item, GetName());
+
+		for (auto inst : instances)
+		{
+			UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
+
+			ui_inst->treeview->SetItemText(ui_inst->asset_item ? ui_inst->asset_item : ui_inst->item, GetName());
+		}
+	}
+#endif
+
+	for (auto child : childs)
+	{
+		child->Draw(dt);
+	}
 
 }
 

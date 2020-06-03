@@ -130,10 +130,7 @@ void UIImageAsset::Draw(float dt)
 
 	Sprite::Draw(&trans, cur_color, &sprite, &frame_state, false, true);
 
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
+	UIWidgetAsset::Draw(dt);
 }
 
 CLASSREG(UIWidgetAsset, UIImageAssetInst, "UIImage")

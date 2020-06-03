@@ -48,10 +48,7 @@ void UIViewAsset::Draw(float dt)
 	trans.offset = 0.0f;
 	trans.BuildMatrices();
 
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
+	UIWidgetAsset::Draw(dt);
 }
 
 void UIViewAsset::Release()

@@ -62,10 +62,7 @@ void UIButtonAsset::Draw(float dt)
 
 	CalcState();
 
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
+	UIWidgetAsset::Draw(dt);
 }
 
 CLASSREG(UIWidgetAsset, UIButtonAssetInst, "UIButton")

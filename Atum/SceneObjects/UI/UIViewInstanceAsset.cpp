@@ -59,10 +59,7 @@ void UIViewInstanceAsset::Draw(float dt)
 
 	CalcState();
 
-	for (auto child : childs)
-	{
-		child->Draw(dt);
-	}
+	UIWidgetAsset::Draw(dt);
 }
 
 void UIViewInstanceAsset::Release()

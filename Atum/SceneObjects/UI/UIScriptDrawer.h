@@ -110,6 +110,8 @@ public:
 	struct Drawer
 	{
 		Vector2 pos;
+		float rotation;
+		float scale;
 	};
 
 	vector<Drawer> drawers;
@@ -123,7 +125,7 @@ public:
 	void BindClassToScript() override;
 	void SetSpriteFromAsset(string& asset);
 
-	void AddDraw(Vector2& pos);
+	void AddDraw(Vector2& pos, float rotation, float scale);
 
 #ifdef EDITOR
 	static UIScriptDrawerAssetInst* temp;

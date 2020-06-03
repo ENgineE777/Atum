@@ -95,7 +95,7 @@ void UIScriptDrawerAssetInst::BindClassToScript()
 
 	BIND_INST_TYPE_TO_SCRIPT(UIScriptDrawerAssetInst, UIScriptDrawerAsset, brief)
 	core.scripts.RegisterObjectMethod(script_class_name, "void SetSpriteFromAsset(string&in)", WRAP_MFN(UIScriptDrawerAssetInst, SetSpriteFromAsset), "Setting sprite from asset by name");
-	core.scripts.RegisterObjectMethod(script_class_name, "void Draw(Vector2&in)", WRAP_MFN(UIScriptDrawerAssetInst, AddDraw), "Add drawer");
+	core.scripts.RegisterObjectMethod(script_class_name, "void Draw(Vector2&in, float, float)", WRAP_MFN(UIScriptDrawerAssetInst, AddDraw), "Add drawer");
 }
 
 void UIScriptDrawerAssetInst::SetSpriteFromAsset(string& asset_name)
@@ -108,12 +108,14 @@ void UIScriptDrawerAssetInst::SetSpriteFromAsset(string& asset_name)
 	}
 }
 
-void UIScriptDrawerAssetInst::AddDraw(Vector2& pos)
+void UIScriptDrawerAssetInst::AddDraw(Vector2& pos, float rotation, float scale)
 {
 	drawers.push_back(Drawer());
 
 	Drawer& drawer = drawers[drawers.size() - 1];
 	drawer.pos = pos;
+	drawer.rotation = rotation;
+	drawer.scale = scale;
 }
 
 void UIScriptDrawerAssetInst::Draw(float dt)
@@ -148,11 +150,14 @@ void UIScriptDrawerAssetInst::Draw(float dt)
 #endif
 	{
 		auto init_pos = trans.pos;
+		auto init_size = trans.size;
 
 		for (auto& drawer : drawers)
 		{
 			trans.pos.x = init_pos.x + drawer.pos.x;
 			trans.pos.y = init_pos.y + drawer.pos.y;
+			trans.size = init_size * drawer.scale;
+			trans.rotation = drawer.rotation;
 
 			trans.BuildMatrices();
 
@@ -162,6 +167,7 @@ void UIScriptDrawerAssetInst::Draw(float dt)
 		drawers.clear();
 
 		trans.pos = init_pos;
+		trans.size = init_size;
 	}
 
 	UIWidgetAsset::Draw(dt);

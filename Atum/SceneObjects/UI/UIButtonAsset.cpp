@@ -35,7 +35,7 @@ FLOAT_PROP(UIButtonAsset, left_padding.x, 0.0f, "Prop", "left_padding", "Left pa
 FLOAT_PROP(UIButtonAsset, left_padding.y, 0.0f, "Prop", "top_padding", "Top padding of a widget")
 FLOAT_PROP(UIButtonAsset, right_padding.x, 0.0f, "Prop", "right_padding", "Right padding of a widget")
 FLOAT_PROP(UIButtonAsset, right_padding.y, 0.0f, "Prop", "bottom_padding", "Bottom padding of a widget")
-FLOAT_PROP(UIButtonAsset, rotate, 0.0f, "Prop", "rotate", "Rotation a widget")
+FLOAT_PROP(UIButtonAsset, trans.rotation, 0.0f, "Prop", "rotate", "Rotation a widget")
 COLOR_PROP(UIButtonAsset, color, COLOR_WHITE, "Prop", "color")
 FLOAT_PROP(UIButtonAsset, color.a, 1.0f, "Prop", "alpha", "Transparancy of a widget")
 BOOL_PROP(UIButtonAsset, scaleChilds, false, "Prop", "scale_childs", "Should be childs sacled in case size of a widget was changed")

@@ -59,11 +59,6 @@ public:
 	Size  vertSize = fixed;
 
 	/**
-	\brief Rotation a widget
-	*/
-	float rotate = 0.0f;
-
-	/**
 	\brief Color a widget
 	*/
 	Color color = COLOR_WHITE;

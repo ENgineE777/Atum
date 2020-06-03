@@ -64,55 +64,58 @@ class DeviceDX11 : public Device
 	bool need_apply_vdecl = false;
 
 	DeviceDX11();
-	virtual bool Init(void* external_device);
-	virtual void PrepareProgram(Program* program);
-	virtual void Release();
+	bool Init(void* external_device) override;
+	void PrepareProgram(Program* program) override;
+	void Release() override;
 
-	virtual Shader* CreateShader(Shader::Type type, const char* name);
+	Shader* CreateShader(Shader::Type type, const char* name) override;
 	void UpdateStates();
 
 public:
 
 	static DeviceDX11* instance;
 
-	virtual void  SetVideoMode(int wgt, int hgt, void* data);
-	virtual void* GetBackBuffer();
-	virtual int   GetWidth();
-	virtual int   GetHeight();
-	virtual float GetAspect();
+	void  SetVideoMode(int wgt, int hgt, void* data) override;
+	void* GetBackBuffer() override;
+	int   GetWidth() override;
+	int   GetHeight() override;
+	float GetAspect() override;
 
-	virtual void Clear(bool renderTarget, Color color, bool zbuffer, float zValue);
-	virtual void Present();
+	void Clear(bool renderTarget, Color color, bool zbuffer, float zValue) override;
+	void Present() override;
 
-	virtual void SetProgram(Program* program);
+	void SetProgram(Program* program) override;
 
-	virtual VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems);
-	virtual void SetVertexDecl(VertexDecl* vdecl);
+	VertexDecl* CreateVertexDecl(int count, VertexDecl::ElemDesc* elems) override;
+	void SetVertexDecl(VertexDecl* vdecl) override;
 
-	virtual DataBuffer* CreateBuffer(int count, int stride);
-	virtual void SetVertexBuffer(int slot, DataBuffer* buffer);
-	virtual void SetIndexBuffer(DataBuffer* buffer);
+	DataBuffer* CreateBuffer(int count, int stride) override;
+	void SetVertexBuffer(int slot, DataBuffer* buffer) override;
+	void SetIndexBuffer(DataBuffer* buffer) override;
 
-	virtual Texture* CreateTexture(int w, int h, Texture::Format f, int l, bool rt, Texture::Type tp);
+	Texture* CreateTexture(int w, int h, Texture::Format f, int l, bool rt, Texture::Type tp) override;
 
 	int GetPrimitiveType(Primitive type);
 	int CalcPrimCount(Primitive type, int primCount);
-	virtual void Draw(Primitive prim, int startVertex, int primCount);
-	virtual void DrawIndexed(Primitive prim, int startVertex, int startIndex, int primCount);
+	void Draw(Primitive prim, int startVertex, int primCount) override;
+	void DrawIndexed(Primitive prim, int startVertex, int startIndex, int primCount) override;
 
-	virtual void SetAlphaBlend(bool enable);
-	virtual void SetBlendFunc(BlendArg src, BlendArg dest);
-	virtual void SetBlendOperation(BlendOp op);
-	virtual void SetDepthTest(bool enable);
-	virtual void SetDepthWriting(bool enable);
-	virtual void SetDepthFunc(CompareFunc func);
-	virtual void SetCulling(CullMode mode);
-	virtual void SetupSlopeZBias(bool enable, float slopeZBias, float depthOffset);
+	void SetAlphaBlend(bool enable) override;
+	void SetBlendFunc(BlendArg src, BlendArg dest) override;
+	void SetBlendOperation(BlendOp op) override;
+	void SetDepthTest(bool enable) override;
+	void SetDepthWriting(bool enable) override;
+	void SetDepthFunc(CompareFunc func) override;
+	void SetCulling(CullMode mode) override;
+	void SetupSlopeZBias(bool enable, float slopeZBias, float depthOffset) override;
 
-	virtual void SetViewport(const Viewport& viewport);
-	virtual void GetViewport(Viewport& viewport);
+	void SetScissors(bool enable) override;
+	void SetScissorRect(Rect rec) override;
 
-	virtual void SetRenderTarget(int slot, Texture* rt);
-	virtual void SetDepth(Texture* depth);
-	virtual void RestoreRenderTarget();
+	void SetViewport(const Viewport& viewport) override;
+	void GetViewport(Viewport& viewport) override;
+
+	void SetRenderTarget(int slot, Texture* rt) override;
+	void SetDepth(Texture* depth) override;
+	void RestoreRenderTarget() override;
 };

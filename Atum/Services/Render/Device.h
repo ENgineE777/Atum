@@ -315,6 +315,20 @@ public:
 	virtual void GetViewport(Viewport& viewport) = 0;
 
 	/**
+	\brief Controls scisors
+
+	\param[in] enable Should alpha blending be enabled
+	*/
+	virtual void SetScissors(bool enable) = 0;
+
+	/**
+	\brief Set scissor rect
+
+	\param[in] rect Rect of scissors
+	*/
+	virtual void SetScissorRect(Rect rec) = 0;
+
+	/**
 	\brief Bind a texture as a render target in a slot
 
 	\param[in] slot Number of a slot

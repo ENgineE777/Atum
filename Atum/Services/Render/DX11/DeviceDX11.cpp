@@ -651,6 +651,24 @@ void DeviceDX11::UpdateStates()
 	}
 }
 
+void DeviceDX11::SetScissors(bool enable)
+{
+	raster_desc->ScissorEnable = enable;
+	raster_changed = true;
+}
+
+void DeviceDX11::SetScissorRect(Rect rect)
+{
+	RECT DX11Rect;
+
+	DX11Rect.left = rect.left;
+	DX11Rect.top = rect.top;
+	DX11Rect.right = rect.right;
+	DX11Rect.bottom = rect.bottom;
+
+	immediateContext->RSSetScissorRects(1, &DX11Rect);
+}
+
 void DeviceDX11::SetViewport(const Viewport& viewport)
 {
 	D3D11_VIEWPORT vp;

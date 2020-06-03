@@ -362,7 +362,6 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 			}
 		}
 
-		editor.asset_treeview->DeleteItem(popup_item->asset_item);
 		sub_scene.DeleteObject(popup_item, false, true);
 
 		for (auto& inst : instances)
@@ -370,7 +369,6 @@ void BlueprintAsset::OnAssetTreePopupItem(int id)
 			BlueprintInst* blueprint_inst = (BlueprintInst*)inst.GetObject();
 			auto* child = blueprint_inst->childs[index];
 			blueprint_inst->childs.erase(blueprint_inst->childs.begin() + index);
-			child->treeview->DeleteItem(child->item);
 			child->Release();
 		}
 	}

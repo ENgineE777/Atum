@@ -613,13 +613,12 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			UIWidgetAsset* ui_inst = (UIWidgetAsset*)inst.GetObject();
 			ui_inst->DeleteChilds();
 			ui_inst->parent->DeleteChild(ui_inst);
-			ui_inst->treeview->DeleteItem(ui_inst->item ? ui_inst->item : ui_inst->asset_item);
+			ui_inst->Release();
 		}
 
 		popup_item->SetSource(nullptr, true);
 		popup_item->DeleteChilds();
 		popup_item->parent->DeleteChild(popup_item);
-		editor.asset_treeview->DeleteItem(popup_item->asset_item);
 		popup_item->Release();
 	}
 }

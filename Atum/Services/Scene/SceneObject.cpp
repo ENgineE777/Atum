@@ -538,6 +538,11 @@ void SceneObject::Release()
 	}
 
 #ifdef EDITOR
+	if (treeview)
+	{
+		treeview->DeleteItem(item ? item : asset_item);
+	}
+
 	if (taskPool)
 	{
 		delete taskPool;

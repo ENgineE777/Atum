@@ -891,6 +891,9 @@
     <ClCompile Include="..\..\..\Atum\Services\Particle\ParticleSystem.cpp">
       <Filter>Services\Particle</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIScriptDrawer.cpp">
+      <Filter>SceneObjects\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1681,6 +1684,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\Services\Particle\ParticleSystem.h">
       <Filter>Services\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIScriptDrawer.h">
+      <Filter>SceneObjects\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

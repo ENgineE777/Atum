@@ -203,11 +203,31 @@ void UIWidgetAsset::Draw(float dt)
 	}
 #endif
 
+	if (clipChilds)
+	{
+		core.render.GetDevice()->SetScissors(true);
+
+		Vector3 lefttop = Vector3(0.0f) * trans.mat_global * Sprite::screen_mul;
+		Vector3 rightbottom = Vector3(trans.size.x, trans.size.y, 0.0f) * trans.mat_global * Sprite::screen_mul;
+
+		Device::Rect rect;
+		rect.left = lefttop.x;
+		rect.right = rightbottom.x;
+		rect.top = lefttop.y;
+		rect.bottom = rightbottom.y;
+
+		core.render.GetDevice()->SetScissorRect(rect);
+	}
+
 	for (auto child : childs)
 	{
 		child->Draw(dt);
 	}
 
+	if (clipChilds)
+	{
+		core.render.GetDevice()->SetScissors(false);
+	}
 }
 
 void UIWidgetAsset::AddChild(UIWidgetAsset* node, int index)

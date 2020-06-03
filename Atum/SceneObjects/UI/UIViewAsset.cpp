@@ -395,7 +395,19 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			if (parent->treeview == editor.scene_treeview)
 			{
 				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(child_inst);
-				tree_item->item = parent->treeview->AddItem(name, 1, tree_item, (child_index == -1) ? parent->item : parent->parent->item, child_index, true, item_classname);
+
+				void* parent_item = nullptr;
+
+				if (child_index == -1)
+				{
+					parent_item = parent->item ? parent->item : parent->asset_item;
+				}
+				else
+				{
+					parent_item = parent->item ? parent->parent->item : parent->parent->asset_item;
+				}
+
+				tree_item->item = parent->treeview->AddItem(name, 1, tree_item, parent_item, child_index, true, item_classname);
 				child_inst->item = tree_item->item;
 				child_inst->treeview = parent->treeview;
 			}

@@ -86,7 +86,7 @@ SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 
 	child->SetName(GetName());
 
-	ReCreteChilds(this, child, true, false);
+	ReCreteChilds(this, child, true, false, false);
 
 	return child;
 }
@@ -155,7 +155,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 				child->asset_item = tree_item->item;
 				child->treeview = editor.asset_treeview;
 
-				ReCreteChilds((UIWidgetAsset*)item, child, true, true);
+				ReCreteChilds((UIWidgetAsset*)item, child, true, true, false);
 			}
 		}
 
@@ -201,7 +201,7 @@ bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets,
 	return true;
 }
 
-void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst, bool create_item)
+void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst, bool create_item, bool generate_uid)
 {
 	for (auto src_child : source->childs)
 	{
@@ -243,6 +243,11 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 		src_child->GetMetaData()->Prepare(dest_child);
 		dest_child->Copy(src_child);
 
+		if (generate_uid)
+		{
+			dest_child->GetScene()->GenerateUID(dest_child, true);
+		}
+
 		dest->AddChild(dest_child);
 		dest_child->SetName(src_child->GetName());
 
@@ -266,7 +271,7 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			auto decl = ClassFactoryUIWidgetAsset::Find(inst_className.c_str());
 			UIWidgetAsset* dest_child_inst = decl->Create();
 
-			dest_child_inst->uid = src_child->uid;
+			dest_child_inst->uid = dest_child->uid;
 			dest_child_inst->scene = GetScene();
 			dest_child_inst->class_name = decl->GetName();
 			dest_child_inst->Init();
@@ -280,11 +285,21 @@ void UIViewAsset::ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool
 			dest_child_inst->GetMetaData()->SetDefValues();
 			dest_child_inst->ApplyProperties();
 
+			UIWidgetAsset* dest_inst_asset = ((UIWidgetAsset*)dest_inst.GetObject());
+
+			if (dest_inst_asset->treeview == editor.scene_treeview)
+			{
+				Project::SceneTreeItem* tree_item = new Project::SceneTreeItem(dest_child_inst);
+				tree_item->item = dest_inst_asset->treeview->AddItem(dest_child->GetName(), 1, tree_item, dest_inst_asset->item, -1, true, dest_child_inst->class_name);
+				dest_child_inst->item = tree_item->item;
+				dest_child_inst->treeview = dest_inst_asset->treeview;
+			}
+
 			((UIWidgetAsset*)dest_inst.GetObject())->AddChild(dest_child_inst);
 			dest_child_inst->SetName(dest_child->GetName());
 		}
 
-		ReCreteChilds(src_child, dest_child, childs_as_inst, create_item);
+		ReCreteChilds(src_child, dest_child, childs_as_inst, create_item, generate_uid);
 	}
 }
 
@@ -479,10 +494,13 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 			child_inst->SetName(popup_item->GetName());
 		}
 
-		ReCreteChilds(popup_item, child, false, true);
+		ReCreteChilds(popup_item, child, false, true, true);
+
+		child->CalcState();
+		editor.asset_treeview->SelectItem(child->asset_item);
 	}
 
-	if (id == 2401)
+	/*if (id == 2401)
 	{
 		asset_to_copy = popup_item;
 	}
@@ -606,7 +624,7 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 		}
 
 		ReCreteChilds(asset_to_copy, child, false, true);
-	}
+	}*/
 
 	if (id == 2404)
 	{
@@ -679,13 +697,13 @@ void UIViewAsset::OnAssetTreeRightClick(int x, int y, SceneObject* item, int chi
 	{
 		editor.popup_menu->AddSeparator();
 		editor.popup_menu->AddItem(2400, "Duplicate");
-		editor.popup_menu->AddItem(2401, "Copy");
+		//editor.popup_menu->AddItem(2401, "Copy");
 
-		if (asset_to_copy)
+		/*if (asset_to_copy)
 		{
 			editor.popup_menu->AddItem(2403, "Paste");
 			editor.popup_menu->AddItem(2402, "Paste as child");
-		}
+		}*/
 
 		editor.popup_menu->AddItem(2404, "Delete");
 	}

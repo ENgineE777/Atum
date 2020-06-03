@@ -78,7 +78,7 @@ public:
 	void OnAssetTreePopupItem(int id) override;
 	void OnAssetTreeRightClick(int x, int y, SceneObject* item, int child_index) override;
 	void AddWidgetToTreeView(UIWidgetAsset* widget, void* parent_item);
-	void ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst, bool create_item);
+	void ReCreteChilds(UIWidgetAsset* source, UIWidgetAsset* dest, bool childs_as_inst, bool create_item, bool generate_uid);
 	void CheckProperties() override;
 	bool IsInstance(UIWidgetAsset* node, UIWidgetAsset* source);
 	void FillPopupCreateMenu(const char* name, int id);

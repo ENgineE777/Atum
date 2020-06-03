@@ -86,6 +86,8 @@ SceneObject* UIViewAsset::CreateInstance(Scene* scene)
 
 	child->SetName(GetName());
 
+	child->trans.size = trans.size;
+
 	ReCreteChilds(this, child, true, false, false);
 
 	return child;

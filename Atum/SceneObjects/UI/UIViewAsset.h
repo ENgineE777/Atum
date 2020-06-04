@@ -73,6 +73,7 @@ public:
 	bool UseAseetsTree() override;
 	void SetEditMode(bool ed) override;
 	void PreapreAssetTree()  override;
+	void Copy(SceneObject* src) override;
 	bool OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index) override;
 	void OnAssetTreeSelChange(SceneObject* item) override;
 	void OnAssetTreePopupItem(int id) override;

@@ -126,7 +126,15 @@ void UIViewAsset::PreapreAssetTree()
 	AddWidgetToTreeView(this, nullptr);
 }
 
-bool UIViewAsset::UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index)
+void UIViewAsset::Copy(SceneObject* src)
+{
+	UIWidgetAsset::Copy(src);
+
+	UIWidgetAsset* widget_src = (UIWidgetAsset*)src;
+	ReCreteChilds(widget_src, this, false, false, false);
+}
+
+bool UIViewAsset::OnAssetTreeViewItemDragged(bool item_from_assets, SceneObject* item, int prev_child_index, SceneObject* target, int child_index)
 {
 	if (item_from_assets)
 	{

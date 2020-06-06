@@ -445,6 +445,8 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 			child_inst->SetName(name);
 		}
+
+		editor.asset_treeview->SelectItem(child->asset_item);
 	}
 
 	if (id == 2400)
@@ -506,7 +508,6 @@ void UIViewAsset::OnAssetTreePopupItem(int id)
 
 		ReCreteChilds(popup_item, child, false, true, true);
 
-		child->CalcState();
 		editor.asset_treeview->SelectItem(child->asset_item);
 	}
 

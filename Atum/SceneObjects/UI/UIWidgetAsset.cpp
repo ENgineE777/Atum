@@ -373,6 +373,7 @@ void UIWidgetAsset::SetEditMode(bool ed)
 
 	if (ed)
 	{
+		CalcState();
 		Gizmo::inst->SetTrans2D(Gizmo::Transform2D(trans), !AddedToTreeByParent() ? 0xffff : 0, true);
 	}
 	else

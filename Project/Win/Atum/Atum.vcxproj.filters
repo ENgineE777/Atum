@@ -894,6 +894,9 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\UI\UIScriptDrawer.cpp">
       <Filter>SceneObjects\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Track3DComp.cpp">
+      <Filter>SceneObjects\3D</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\Atum\Support\Color.h">
@@ -1687,6 +1690,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\Atum\SceneObjects\UI\UIScriptDrawer.h">
       <Filter>SceneObjects\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Track3DComp.h">
+      <Filter>SceneObjects\3D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

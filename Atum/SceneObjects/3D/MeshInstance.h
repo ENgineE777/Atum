@@ -86,6 +86,7 @@ public:
 	void SetEditMode(bool ed) override;
 	void Copy(SceneObject* src) override;
 	void SetGizmo();
+	int GetInstCount();
 #endif
 
 #endif

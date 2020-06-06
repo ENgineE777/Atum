@@ -306,6 +306,45 @@ public:
 		z = from.z + (to.z - from.z) * k;
 	}
 
+	void SLerp(const Vector3& from, const Vector3& to, float kBlend)
+	{
+		double cosomega = from.x * to.x + from.y * to.y + from.z * to.z;
+		double k = 1.0f;
+
+		if (cosomega < 0.0f)
+		{
+			cosomega = -cosomega;
+			k = -1.0f;
+		}
+
+		if (cosomega > 1.0)
+		{
+			cosomega = 1.0;
+		}
+
+		double k0, k1;
+
+		if (1.0 - cosomega > 0.005)
+		{
+
+			double omega = acos(cosomega);
+			double sinomega = 1.0 / sin(omega);
+			k0 = sin(omega*(1.0 - kBlend))*sinomega;
+			k1 = sin(omega*kBlend)*sinomega;
+		}
+		else
+		{
+			k0 = 1.0 - kBlend;
+			k1 = kBlend;
+		}
+
+		k0 *= k;
+
+		x = float(from.x * k0 + to.x * k1);
+		y = float(from.y * k0 + to.y * k1);
+		z = float(from.z * k0 + to.z * k1);
+	}
+
 	float Dot(const Vector3& v)
 	{
 		return x * v.x + y * v.y + z * v.z;

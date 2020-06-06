@@ -53,6 +53,7 @@
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\PhysBox.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Terrain.cpp" />
+    <ClCompile Include="..\..\..\Atum\SceneObjects\3D\Track3DComp.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorObject.cpp" />
     <ClCompile Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorWindow.cpp" />
@@ -309,6 +310,7 @@
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Phys3DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\PhysBox.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Terrain.h" />
+    <ClInclude Include="..\..\..\Atum\SceneObjects\3D\Track3DComp.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\Animator.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorObject.h" />
     <ClInclude Include="..\..\..\Atum\SceneObjects\Common\Animator\AnimatorWindow.h" />

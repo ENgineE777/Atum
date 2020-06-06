@@ -583,4 +583,9 @@ void MeshInstance::SetGizmo()
 		Gizmo::inst->Disable();
 	}
 }
+
+int MeshInstance::GetInstCount()
+{
+	return (int)instances.size();
+}
 #endif

@@ -211,10 +211,10 @@ void UIWidgetAsset::Draw(float dt)
 		Vector3 rightbottom = Vector3(trans.size.x, trans.size.y, 0.0f) * trans.mat_global * Sprite::screen_mul;
 
 		Device::Rect rect;
-		rect.left = lefttop.x;
-		rect.right = rightbottom.x;
-		rect.top = lefttop.y;
-		rect.bottom = rightbottom.y;
+		rect.left = (int)lefttop.x;
+		rect.right = (int)rightbottom.x;
+		rect.top = (int)lefttop.y;
+		rect.bottom = (int)rightbottom.y;
 
 		core.render.GetDevice()->SetScissorRect(rect);
 	}

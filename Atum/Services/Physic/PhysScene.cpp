@@ -27,6 +27,8 @@ PhysObject* PhysScene::CreateBox(Vector3 size, Matrix trans, Matrix offset, Phys
 
 		obj->actor->attachShape(*shape);
 
+		obj->offset = offset;
+
 		if (type == PhysObject::Trigger)
 		{
 			shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, false);

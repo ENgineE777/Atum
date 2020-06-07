@@ -53,14 +53,16 @@ void PhysObject::SetGroup(int group)
 
 void PhysObject::SetTransform(Matrix& mat)
 {
+	Matrix mat_offset = (body_type == Static) ? offset * mat : mat;
+
 	PxMat33 m;
-	m.column0 = PxVec3(mat.Vx().x, mat.Vx().y, mat.Vx().z);
-	m.column1 = PxVec3(mat.Vy().x, mat.Vy().y, mat.Vy().z);
-	m.column2 = PxVec3(mat.Vz().x, mat.Vz().y, mat.Vz().z);
+	m.column0 = PxVec3(mat_offset.Vx().x, mat_offset.Vx().y, mat_offset.Vx().z);
+	m.column1 = PxVec3(mat_offset.Vy().x, mat_offset.Vy().y, mat_offset.Vy().z);
+	m.column2 = PxVec3(mat_offset.Vz().x, mat_offset.Vz().y, mat_offset.Vz().z);
 
 	PxTransform pT;
 	pT.q = PxQuat(m);
-	pT.p = PxVec3(mat.Pos().x, mat.Pos().y, mat.Pos().z);
+	pT.p = PxVec3(mat_offset.Pos().x, mat_offset.Pos().y, mat_offset.Pos().z);
 
 	if (body_type == Kinetic)
 	{

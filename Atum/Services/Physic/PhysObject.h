@@ -134,6 +134,7 @@ public:
 	void Release();
 
 protected:
+	Matrix offset;
 	BodyType body_type;
 	PxHeightField* heightField = nullptr;
 	PxRigidActor* actor = nullptr;

@@ -60,8 +60,149 @@ void Track3DComp::Track::SetGizmo()
 {
 	if (sel_point)
 	{
-		//Gizmo::inst->SetTrans3D(&trans);
+		Gizmo::inst->SetTrans3D(&points[*sel_point].trans);
 	}
+}
+
+void Track3DComp::Track::PredictPosition(float dt, Vector3& pos)
+{
+	float saved_dir = dir;
+	int saved_cur_point = cur_point;
+	float saved_cur_dist = cur_dist;
+	float saved_point_dist = point_dist;
+	float saved_wait_time = wait_time;
+	float saved_lerp_time = lerp_time;
+
+	Update(dt);
+
+	pos = cur_pos;
+
+	dir = saved_dir;
+	cur_point = saved_cur_point;
+	cur_dist = saved_cur_dist;
+	point_dist = saved_point_dist;
+	wait_time = saved_wait_time;
+	lerp_time = saved_lerp_time;
+}
+
+void Track3DComp::Track::Update(float dt)
+{
+	if (!active || points.size() < 2)
+	{
+		return;
+	}
+
+	if (wait_time < -0.5f)
+	{
+		cur_dist += speed * dt;
+
+		while (cur_dist > point_dist)
+		{
+			cur_dist -= point_dist;
+
+			if (dir > 0.0f)
+			{
+				cur_point++;
+
+				if (cur_point >= points.size())
+				{
+					if (tp == OneWay)
+					{
+						Reset(true);
+					}
+					else
+						if (tp == ForwardBack)
+						{
+							Reset(false);
+						}
+						else
+						{
+							if (cur_point == points.size())
+							{
+								point_dist = (points[cur_point - 1].trans.Pos() - points[0].trans.Pos()).Length();
+							}
+							else
+							{
+								Reset(true);
+							}
+						}
+				}
+				else
+				{
+					point_dist = (points[cur_point].trans.Pos() - points[cur_point - 1].trans.Pos()).Length();
+				}
+			}
+			else
+			{
+				cur_point--;
+
+				if (cur_point < 1)
+				{
+					Reset(true);
+				}
+				else
+				{
+					point_dist = (points[cur_point].trans.Pos() - points[cur_point - 1].trans.Pos()).Length();
+				}
+			}
+
+			lerp_time = 1.0f;
+
+			int index = 0;
+
+			if ((tp == Looped && cur_point == points.size()) || dir > 0.0f)
+			{
+				index = cur_point - 1;
+			}
+			else
+			{
+				index = cur_point;
+			}
+
+			if (points[index].wait_time > 0.01f)
+			{
+				wait_time = points[index].wait_time;
+				break;
+			}
+		}
+	}
+	else
+	{
+		wait_time -= dt;
+
+		if (wait_time < 0.0f)
+		{
+			wait_time = -1.0f;
+		}
+	}
+
+	int p1 = 0;
+	int p2 = 0;
+
+	if (tp == Looped && cur_point == points.size())
+	{
+		p1 = cur_point - 1;
+		p2 = 0;
+	}
+	else
+	{
+		if (dir > 0.0f)
+		{
+			p1 = cur_point - 1;
+			p2 = cur_point;
+		}
+		else
+		{
+			p1 = cur_point;
+			p2 = cur_point - 1;
+		}
+	}
+
+	auto& point1 = points[p1];
+	auto& point2 = points[p2];
+
+	cur_dir = point2.trans.Pos() - point1.trans.Pos();
+	cur_pos = cur_dir * cur_dist / point_dist + point1.trans.Pos();
 }
 
 void Track3DComp::BindClassToScript()
@@ -75,7 +216,7 @@ void Track3DComp::BindClassToScript()
 	core.scripts.RegisterObjectType(script_class_name, sizeof(Track3DComp::Track), "gr_script_scene_object_components", brief);
 	core.scripts.RegisterObjectMethod(script_class_name, "void Activate(bool set)", WRAP_MFN(Track3DComp::Track, Activate), "Make active or inactive track (instance isn't moving along a inactive track)");
 	core.scripts.RegisterObjectMethod(script_class_name, "void Reset()", WRAP_MFN(Track3DComp::Track, ResetScript), "Reset track");
-
+	core.scripts.RegisterObjectMethod(script_class_name, "void PredictPosition(float dt, Vector3&out)", WRAP_MFN(Track3DComp::Track, PredictPosition), "Predict Position");
 }
 
 void Track3DComp::InjectIntoScript(asIScriptObject* object, int index, const char* prefix)
@@ -165,129 +306,12 @@ void Track3DComp::UpdateTrack(int index, float dt)
 
 	Track& track = tracks[index];
 
-	if (!track.active || track.points.size() < 2)
-	{
-		return;
-	}
-
-	if (track.wait_time < -0.5f)
-	{
-		track.cur_dist += track.speed * dt;
-
-		while (track.cur_dist > track.point_dist)
-		{
-			track.cur_dist -= track.point_dist;
-
-			if (track.dir > 0.0f)
-			{
-				track.cur_point++;
-
-				if (track.cur_point >= track.points.size())
-				{
-					if (track.tp == OneWay)
-					{
-						track.Reset(true);
-					}
-					else
-					if (track.tp == ForwardBack)
-					{
-						track.Reset(false);
-					}
-					else
-					{
-						if (track.cur_point == track.points.size())
-						{
-							track.point_dist = (track.points[track.cur_point - 1].trans.Pos() - track.points[0].trans.Pos()).Length();
-						}
-						else
-						{
-							track.Reset(true);
-						}
-					}
-				}
-				else
-				{
-					track.point_dist = (track.points[track.cur_point].trans.Pos() - track.points[track.cur_point - 1].trans.Pos()).Length();
-				}
-			}
-			else
-			{
-				track.cur_point--;
-
-				if (track.cur_point < 1)
-				{
-					track.Reset(true);
-				}
-				else
-				{
-					track.point_dist = (track.points[track.cur_point].trans.Pos() - track.points[track.cur_point - 1].trans.Pos()).Length();
-				}
-			}
-
-			track.lerp_time = 1.0f;
-
-			int index = 0;
-
-			if ((track.tp == Looped && track.cur_point == track.points.size()) || track.dir > 0.0f)
-			{
-				index = track.cur_point - 1;
-			}
-			else
-			{
-				index = track.cur_point;
-			}
-
-			if (track.points[index].wait_time > 0.01f)
-			{
-				track.wait_time = track.points[index].wait_time;
-				break;
-			}
-		}
-	}
-	else
-	{
-		track.wait_time -= dt;
-
-		if (track.wait_time < 0.0f)
-		{
-			track.wait_time = -1.0f;
-		}
-	}
-
-	int p1 = 0;
-	int p2 = 0;
-
-	if (track.tp == Looped && track.cur_point == track.points.size())
-	{
-		p1 = track.cur_point - 1;
-		p2 = 0;
-	}
-	else
-	{
-		if (track.dir > 0.0f)
-		{
-			p1 = track.cur_point - 1;
-			p2 = track.cur_point;
-		}
-		else
-		{
-			p1 = track.cur_point;
-			p2 = track.cur_point - 1;
-		}
-	}
-
-	auto& point1 = track.points[p1];
-	auto& point2 = track.points[p2];
-
-	Vector3 dir = point2.trans.Pos() - point1.trans.Pos();
-	Vector3 pos = dir * track.cur_dist / track.point_dist + point1.trans.Pos();
-
-	float len = dir.Length();
+	track.Update(dt);
 
 #ifdef EDITOR
 	if (IsEditMode() || object->IsEditMode())
 	{
-		core.render.DebugSphere(pos, COLOR_MAGNETA, 0.5f);
+		core.render.DebugSphere(track.cur_pos, COLOR_MAGNETA, 0.5f);
 
 		//ed_angle = angle;
 		//core.render.DebugLine2D(Sprite::MoveToCamera(pos), COLOR_WHITE, Sprite::MoveToCamera(pos + Vector2(cosf(angle), sinf(angle)) * 50.0f), COLOR_WHITE);
@@ -311,15 +335,15 @@ void Track3DComp::UpdateTrack(int index, float dt)
 
 		if (track.lerp_time > 0.0f)
 		{
-			dir.SLerp(dir, track.prev_dir, track.lerp_time);
+			track.cur_dir.SLerp(track.cur_dir, track.prev_dir, track.lerp_time);
 		}
 		else
 		{
-			track.prev_dir = dir;
+			track.prev_dir = track.cur_dir;
 		}
 
 		Matrix mat;
-		mat.BuildView(pos, pos + dir, Vector3(0.0f, 1.0f, 0.0f));
+		mat.BuildView(track.cur_pos, track.cur_pos + track.cur_dir, Vector3(0.0f, 1.0f, 0.0f));
 		mat.Inverse();
 
 		inst.mesh->transform = mat;

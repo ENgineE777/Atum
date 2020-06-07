@@ -101,6 +101,9 @@ public:
 		float lerp_time = 0.0f;
 		Vector3 prev_dir = 0.0f;
 
+		Vector3 cur_dir = 0.0f;
+		Vector3 cur_pos = 0.0f;
+
 		META_DATA_DECL_BASE(Track)
 		bool active = true;
 		vector<Point> points;
@@ -109,6 +112,8 @@ public:
 		void Reset(bool from_start);
 		void ResetScript();
 		void SetGizmo();
+		void Update(float dt);
+		void PredictPosition(float dt, Vector3& pos);
 	};
 
 	int sel_point = -1;

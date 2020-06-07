@@ -1546,6 +1546,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 					for (auto inst : asset->instances)
 					{
 						scene_treeview->DeleteItem(inst.GetObject()->item);
+						inst.GetObject()->item = nullptr;
 						inst.GetObject()->GetScene()->DeleteObject(inst.GetObject(), false, true);
 					}
 				}
@@ -1559,6 +1560,7 @@ void Editor::OnTreeDeleteItem(EUITreeView* sender, void* item, void* ptr)
 					}
 				}
 
+				tree_item->object->treeview = nullptr;
 				tree_item->scene->DeleteObject(tree_item->object, (sender == assets_treeview), true);
 
 				sender->SelectItem(nullptr);

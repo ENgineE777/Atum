@@ -538,7 +538,7 @@ void SceneObject::Release()
 	}
 
 #ifdef EDITOR
-	if (treeview)
+	if (treeview && (item || asset_item))
 	{
 		treeview->DeleteItem(item ? item : asset_item);
 	}

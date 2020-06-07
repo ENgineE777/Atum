@@ -507,18 +507,26 @@ void Phys3DCompInst::UpdateInstances(float dt)
 				}
 			}
 
-			if (body_type == Phys3DComp::BodyType::DynamicBody && is_active && inst.IsVisible())
+			if (is_active && inst.IsVisible())
 			{
-				if (object_for_submeshes)
+				if (body_type == Phys3DComp::BodyType::DynamicBody)
 				{
-					for (int i = 0; i < script_bodies[index].bodies.size(); i++)
+					if (object_for_submeshes)
 					{
-						script_bodies[index].bodies[i].body->GetTransform(inst.mesh->transforms[i]);
+						for (int i = 0; i < script_bodies[index].bodies.size(); i++)
+						{
+							script_bodies[index].bodies[i].body->GetTransform(inst.mesh->transforms[i]);
+						}
+					}
+					else
+					{
+						script_bodies[index].bodies[0].body->GetTransform(inst.mesh->transform);
 					}
 				}
 				else
+				if (body_type == Phys3DComp::BodyType::KineticBody)
 				{
-					script_bodies[index].bodies[0].body->GetTransform(inst.mesh->transform);
+					script_bodies[index].bodies[0].body->SetTransform(inst.mesh->transform);
 				}
 			}
 		}

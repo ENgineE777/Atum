@@ -10,6 +10,7 @@ COLOR_PROP(PhysBox, color, COLOR_YELLOW, "Geometry", "color")
 FLOAT_PROP(PhysBox, size.x, 1.0f, "Geometry", "SizeX", "Size along X axis of a box")
 FLOAT_PROP(PhysBox, size.y, 1.0f, "Geometry", "SizeY", "Size along Y axis of a box")
 FLOAT_PROP(PhysBox, size.z, 1.0f, "Geometry", "SizeZ", "Size along Z axis of a box")
+INT_PROP(PhysBox, phys_group, 1, "Physics", "PhysGroup", "Physical group")
 BOOL_PROP(PhysBox, isStatic, false, "Physics", "Is Static", "Set if object should be satic or dynamic")
 META_DATA_DESC_END()
 
@@ -29,6 +30,17 @@ void PhysBox::Init()
 	GetScene()->AddToGroup(this, "PhysBox");
 }
 
+void PhysBox::Load(JSONReader& reader)
+{
+	GetMetaData()->Prepare(this);
+
+#ifdef EDITOR
+	GetMetaData()->SetDefValues();
+#endif
+
+	GetMetaData()->Load(reader);
+}
+
 void PhysBox::Draw(float dt)
 {
 	if (body.body)
@@ -44,7 +56,7 @@ bool PhysBox::Play()
 	SceneObject::Play();
 
 	body.object = this;
-	body.body = PScene()->CreateBox(size, transform, Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, 1);
+	body.body = PScene()->CreateBox(size, transform, Matrix(), isStatic ? PhysObject::Static : PhysObject::Dynamic, phys_group);
 	body.body->SetUserData(&body);
 
 	return true;

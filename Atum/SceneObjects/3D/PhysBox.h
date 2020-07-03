@@ -53,6 +53,12 @@ public:
 	Vector3 size;
 
 	/**
+	\brief Group of a body
+	*/
+
+	uint32_t phys_group;
+
+	/**
 	\brief Controls if box static or dynamic.
 	*/
 
@@ -64,6 +70,7 @@ public:
 
 	Color color;
 
+
 #ifndef DOXYGEN_SKIP
 
 	META_DATA_DECL(PhysBox)
@@ -71,6 +78,8 @@ public:
 	PhysScene::BodyUserData body;
 
 	virtual ~PhysBox() = default;
+
+	void Load(JSONReader& reader) override;
 
 	Matrix* Trans() override;
 	bool Is3DObject() override;

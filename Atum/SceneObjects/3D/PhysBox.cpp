@@ -30,25 +30,29 @@ void PhysBox::Init()
 	GetScene()->AddToGroup(this, "PhysBox");
 }
 
-void PhysBox::Load(JSONReader& reader)
-{
-	GetMetaData()->Prepare(this);
-
-#ifdef EDITOR
-	GetMetaData()->SetDefValues();
-#endif
-
-	GetMetaData()->Load(reader);
-}
-
 void PhysBox::Draw(float dt)
 {
+	if (state == State::Invisible)
+	{
+		return;
+	}
+
 	if (body.body)
 	{
 		body.body->GetTransform(transform);
 	}
 
 	core.render.DebugBox(transform, color, size);
+}
+
+void PhysBox::SetState(State state)
+{
+	SceneObject::SetState(state);
+
+	if (body.body)
+	{
+		body.body->SetActive(state == State::Active);
+	}
 }
 
 bool PhysBox::Play()

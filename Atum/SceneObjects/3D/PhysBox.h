@@ -79,12 +79,12 @@ public:
 
 	virtual ~PhysBox() = default;
 
-	void Load(JSONReader& reader) override;
-
 	Matrix* Trans() override;
 	bool Is3DObject() override;
 	void Init() override;
 	void Draw(float dt);
+
+	void SetState(State state) override;
 
 	bool Play() override;
 	void Release() override;

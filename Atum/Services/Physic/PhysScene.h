@@ -124,6 +124,8 @@ public:
 	*/
 	bool RayCast(RaycastDesc& desc);
 
+	bool OverlapWithSphere(Vector3 pos, float radius, vector<BodyUserData*>& bodies);
+
 #ifndef DOXYGEN_SKIP
 
 	void SetVisualization(bool set);

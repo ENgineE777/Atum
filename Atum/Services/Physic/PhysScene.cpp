@@ -166,6 +166,32 @@ bool PhysScene::RayCast(RaycastDesc& desc)
 	return false;
 }
 
+bool PhysScene::OverlapWithSphere(Vector3 pos, float radius, vector<BodyUserData*>& bodies)
+{
+	PxOverlapHit aTouches[128];
+
+	PxOverlapBuffer hit(aTouches, 128);
+	PxSphereGeometry sphere = PxSphereGeometry(radius);
+	PxTransform pose = PxTransform(PxVec3(pos.x, pos.y, pos.z));
+
+	PxQueryFilterData filterData = PxQueryFilterData();
+	filterData.data.word0 = 1;
+
+	if (scene->overlap(sphere, pose, hit, filterData))
+	{
+		bodies.resize(hit.getNbTouches());
+
+		for (int i = 0; i < hit.getNbTouches(); i++)
+		{
+			bodies[i] = (BodyUserData*)(aTouches[i].actor->userData);
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
 void PhysScene::Simulate(float dt)
 {
 	scene->simulate(dt);

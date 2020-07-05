@@ -2,6 +2,7 @@
 #include "ScriptContext.h"
 #include "Support/StringUtils.h"
 #include "Support/Math/Math.h"
+#include "Services/Physic/PhysScene.h"
 #include <vector>
 
 class ScriptCore
@@ -34,11 +35,17 @@ public:
 	class Scene
 	{
 	public:
+
+		vector<PhysScene::BodyUserData*> overlap_bodies;
+
 		void SetStateToGroup(string& group_name, int state);
 		void Load(string& scene_name);
 		void Unload(string& scene_name);
 		bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float& hit_x, float& hit_y, float& normal_x, float& normal_y, string& object, int& index);
 		bool Raycast3D(Vector3& origin, Vector3& dir, float dist, int group, Vector3& hit, Vector3 &normal, string& object, int& index);
+		bool OverlapWithSphere(Vector3& pos, float radius);
+		int GetOverlapBodiesCount();
+		void GetOverlapBody(int index, string& obj_name, int& obj_index);
 		void CallClassInstancesMethod(string& scene_name, string& class_name, string& method);
 		void PlayParticles(string& scen_name, string& name, Vector3& pos);
 		class ParticleSystem* CreateParticles(string& scen_name, string& name);

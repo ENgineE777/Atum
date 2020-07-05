@@ -181,6 +181,27 @@ bool ScriptCore::Scene::Raycast3D(Vector3& origin, Vector3& dir, float dist, int
 	return false;
 }
 
+bool ScriptCore::Scene::OverlapWithSphere(Vector3& pos, float radius)
+{
+	if (core.scene_manager.PScene()->OverlapWithSphere(pos, radius, overlap_bodies))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+int ScriptCore::Scene::GetOverlapBodiesCount()
+{
+	return (int)overlap_bodies.size();
+}
+
+void ScriptCore::Scene::GetOverlapBody(int index, string& obj_name, int& obj_index)
+{
+	obj_name = overlap_bodies[index]->object->GetName();
+	obj_index = overlap_bodies[index]->index;
+}
+
 void ScriptCore::Scene::CallClassInstancesMethod(string& scene_name, string& class_name, string& method_name)
 {
 	core.scripts.CallClassInstancesMethod(scene_name.c_str(), class_name.c_str(), method_name.c_str());
@@ -411,6 +432,11 @@ void ScriptCore::Register(asIScriptEngine* engine)
 	core.scripts.RegisterObjectMethod(script_class_name, "float Unload(string&in scene_name)", WRAP_MFN(ScriptCore::Scene, Unload), "Unload scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast2D(float origin_x, float origin_y, float dir_x, float dir_y, float dist, int group, float&out hit_y, float&out hit_x, float&out normal_x, float&out normal_y, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast2D), "Make raycast in physical scene");
 	core.scripts.RegisterObjectMethod(script_class_name, "bool Raycast3D(Vector3&in origin, Vector3&in dir, float dist, int group, Vector3&out hit, Vector3&out normal, string&out object, int&out index)", asFUNCTION(ScriptCore_Scene_Raycast3D), "Make raycast in physical scene");
+	core.scripts.RegisterObjectMethod(script_class_name, "bool OverlapWithSphere(Vector3&in pos, float radius)", WRAP_MFN(ScriptCore::Scene, OverlapWithSphere), "Test overlapping with sphere");
+
+	core.scripts.RegisterObjectMethod(script_class_name, "int GetOverlapBodiesCount()", WRAP_MFN(ScriptCore::Scene, GetOverlapBodiesCount), "Get count of bodies of overlap test");
+	core.scripts.RegisterObjectMethod(script_class_name, "void GetOverlapBody(int index, string&out obj_name, int&out obj_index)", WRAP_MFN(ScriptCore::Scene, GetOverlapBody), "Get entry of overlap test");
+
 	core.scripts.RegisterObjectMethod(script_class_name, "void CallClassInstancesMethod(string&in scene_name, string&in class_name, string&in method)", WRAP_MFN(ScriptCore::Scene, CallClassInstancesMethod), "Call methos in instances of script classes");
 	core.scripts.RegisterObjectMethod(script_class_name, "void PlayParticles(string&in scene_name, string&in name, Vector3&in pos)", WRAP_MFN(ScriptCore::Scene, PlayParticles), "Create particle instance in particular point");
 	core.scripts.RegisterObjectMethod(script_class_name, "ParticleSystem@ CreateParticles(string&in scene_name, string&in name)", WRAP_MFN(ScriptCore::Scene, CreateParticles), "Create instance of particle system");

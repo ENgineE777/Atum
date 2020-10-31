@@ -385,6 +385,12 @@ bool SceneObject::UsingOwnCamera()
 SceneObjectComp* SceneObject::AddComponent(const char* comp_name)
 {
 	auto decl = ClassFactorySceneObjectComp::Find(comp_name);
+
+	if (!decl)
+	{
+		return nullptr;
+	}
+
 	SceneObjectComp* comp = decl->Create();
 
 	comp->class_name = decl->GetName();

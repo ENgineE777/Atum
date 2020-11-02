@@ -12,7 +12,6 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{D6AC1B03-8DC4-4D64-9217-69741686D986}</ProjectGuid>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Atum\Editor\Editor.cpp" />
@@ -549,17 +548,20 @@
   <ItemGroup>
     <Image Include="..\..\..\Bin\settings\editor\icon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -602,6 +604,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>dxgi.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;dinput8.lib;xinput.lib;comctl32.lib;user32.lib;..\..\..\Libraries\EUI\lib\EUI_DEBUGx64.lib;..\..\..\Libraries\Angelscript\lib\angelscript64d.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysX_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCommon_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXFoundation_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCharacterKinematic_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXExtensions_static_64.lib;..\..\..\Libraries\PhysX\Lib\win64\debug\PhysXCooking_64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <Profile>true</Profile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

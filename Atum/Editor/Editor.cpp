@@ -532,6 +532,9 @@ void Editor::ShowVieport()
 
 void Editor::StartScene()
 {
+	//FIX ME some day
+	//project.Save();
+
 	Sprite::use_ed_cam = false;
 
 	if (selectedObject)
@@ -563,8 +566,6 @@ void Editor::StartScene()
 			return;
 		}
 	}
-
-	project.Save();
 
 	core.scripts.Start();
 

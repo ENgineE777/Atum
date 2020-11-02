@@ -5,7 +5,7 @@ light weighted alternative to Unity and Unreal Engine for indie games. Atum has 
 editor with heavy usage of assets and also has an ability to play test edited scene. All system code has
 simple ideas behind them and focused on easy to use functionality.
 
-Currently the engine have follow features:
+**Currently the engine have follow features:**
 
 - Windows, Android and iOS platforms are supported
 - Scene Editor with ability to play test edited scene
@@ -24,7 +24,7 @@ Currently the engine have follow features:
 - Network code which allows to create server/clinet; there is some code in repo which allows
   to create a simple network game
 
-Demo projects
+**Demo projects**
 
   Demo projects can be found in Bin/Projects folder:
 
@@ -37,7 +37,7 @@ Demo projects
   Tanks - small multiplayer based 3D game
 
 
-Additional projects
+**Additional demo projects**
 
   https://github.com/ENgineE777/Coldrain.git - This is a prototype of a stealth 2D game inspired by Metal Gear Babel.
 

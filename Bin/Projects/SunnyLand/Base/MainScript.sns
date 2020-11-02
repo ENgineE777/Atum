@@ -1,5 +1,3 @@
-#import "GameMenuScript"
-
 class BaseCharacter
 {
     float x, y;
@@ -435,7 +433,7 @@ class Game
                 hero_data.graph.ActivateLink("fall");
             }
         
-            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_A", 0) > 0 || vjoy.stick_delta_x < -0.5f))
+            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_A", 0) || vjoy.stick_delta_x < -0.5f))
             {
                 if (allow_jump)
                 {
@@ -445,7 +443,7 @@ class Game
                 hero_data.dir_x = -1.0f;
             }
             else
-            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_D", 0) > 0 || vjoy.stick_delta_x > 0.5f))
+            if (hero_data.allow_control && (core.controls.GetDebugState("KEY_D", 0) || vjoy.stick_delta_x > 0.5f))
             {
                 if (allow_jump)
                 {
@@ -487,7 +485,7 @@ class Game
             }
         }
 
-        if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) > 0 || vjoy.button_a_pressed == 2) && allow_jump && hero_data.allow_control)
+        if (hero_data.in_hit < 0.01f && (core.controls.GetDebugState("KEY_W", 1) || vjoy.button_a_pressed == 2) && allow_jump && hero_data.allow_control)
         {
             PlaySound(SoundType::Jump);
 
@@ -508,7 +506,7 @@ class Game
             return;
         }
 
-        if ((core.controls.GetDebugState("KEY_L", 1) > 0 || vjoy.button_b_pressed == 2) && hero_data.allow_control)
+        if ((core.controls.GetDebugState("KEY_L", 1) || vjoy.button_b_pressed == 2) && hero_data.allow_control)
         {
             if (!hero_data.box_grabbed)
             {

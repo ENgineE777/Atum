@@ -4,16 +4,16 @@
 		{
 			"uid" : -1,
 			"name" : "Background",
-			"type" : 0
-		},
-		{
-			"uid" : -91092480,
-			"name" : "SkyLayer",
-			"type" : 1
+			"type" : 3
 		},
 		{
 			"uid" : 263163904,
 			"name" : "TreesLayer",
+			"type" : 1
+		},
+		{
+			"uid" : -91092480,
+			"name" : "SkyLayer",
 			"type" : 1
 		},
 		{
@@ -35,127 +35,22 @@
 	"asset_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "Background",
-			"type" : 0
-		},
-		{
-			"uid" : -1067835392,
-			"name" : "SkyLayer",
-			"type" : 1
-		},
-		{
-			"uid" : -786504704,
-			"name" : "TreesLayer",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Characters",
-			"type" : 0
-		},
-		{
-			"uid" : -1084575232,
-			"name" : "EagleFly",
-			"type" : 1
-		},
-		{
-			"uid" : 826604608,
-			"name" : "OpposumRun",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Items",
-			"type" : 0
-		},
-		{
-			"uid" : 1435982208,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"uid" : -350622976,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
 		},
 		{
 			"uid" : -1,
-			"name" : "Bridge",
+			"name" : "Tiles",
 			"type" : 0
 		},
 		{
-			"uid" : 450155648,
-			"name" : "BridgeBaseSprite",
+			"uid" : 1186573440,
+			"name" : "Ground2Tiles",
 			"type" : 1
 		},
 		{
-			"uid" : 606003712,
-			"name" : "BridgeRowSprite",
-			"type" : 1
-		},
-		{
-			"uid" : -794679808,
-			"name" : "BridgeRowSpriteDyn",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Cave",
-			"type" : 0
-		},
-		{
-			"uid" : -536187136,
-			"name" : "CaveBrush",
-			"type" : 1
-		},
-		{
-			"uid" : 1682146816,
-			"name" : "CaveInner",
-			"type" : 1
-		},
-		{
-			"uid" : -1981123072,
-			"name" : "CaveShelf",
-			"type" : 1
-		},
-		{
-			"uid" : 1979438976,
-			"name" : "CaveWall",
-			"type" : 1
-		},
-		{
-			"uid" : 1683574144,
-			"name" : "LeftCaveEnter",
-			"type" : 1
-		},
-		{
-			"uid" : 2073259264,
-			"name" : "RightCaveEnter",
+			"uid" : -735117312,
+			"name" : "Ground1Tiles",
 			"type" : 1
 		},
 		{
@@ -169,23 +64,8 @@
 			"type" : 0
 		},
 		{
-			"uid" : 86683184,
-			"name" : "BushSprite",
-			"type" : 1
-		},
-		{
-			"uid" : -1650481664,
-			"name" : "HouseSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 982452608,
-			"name" : "LeftHangSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 217616304,
-			"name" : "RightHangSprite",
+			"uid" : -2112705280,
+			"name" : "TreeSprite",
 			"type" : 1
 		},
 		{
@@ -194,8 +74,23 @@
 			"type" : 1
 		},
 		{
-			"uid" : -2112705280,
-			"name" : "TreeSprite",
+			"uid" : 217616304,
+			"name" : "RightHangSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 982452608,
+			"name" : "LeftHangSprite",
+			"type" : 1
+		},
+		{
+			"uid" : -1650481664,
+			"name" : "HouseSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 86683184,
+			"name" : "BushSprite",
 			"type" : 1
 		},
 		{
@@ -205,17 +100,62 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "Tiles",
+			"name" : "Cave",
 			"type" : 0
 		},
 		{
-			"uid" : -735117312,
-			"name" : "Ground1Tiles",
+			"uid" : 2073259264,
+			"name" : "RightCaveEnter",
 			"type" : 1
 		},
 		{
-			"uid" : 1186573440,
-			"name" : "Ground2Tiles",
+			"uid" : 1683574144,
+			"name" : "LeftCaveEnter",
+			"type" : 1
+		},
+		{
+			"uid" : 1979438976,
+			"name" : "CaveWall",
+			"type" : 1
+		},
+		{
+			"uid" : -1981123072,
+			"name" : "CaveShelf",
+			"type" : 1
+		},
+		{
+			"uid" : 1682146816,
+			"name" : "CaveInner",
+			"type" : 1
+		},
+		{
+			"uid" : -536187136,
+			"name" : "CaveBrush",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Bridge",
+			"type" : 0
+		},
+		{
+			"uid" : -794679808,
+			"name" : "BridgeRowSpriteDyn",
+			"type" : 1
+		},
+		{
+			"uid" : 606003712,
+			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 450155648,
+			"name" : "BridgeBaseSprite",
 			"type" : 1
 		},
 		{
@@ -234,8 +174,68 @@
 			"type" : 2
 		},
 		{
-			"uid" : 1322567424,
-			"name" : "BridgeScript",
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : -350622976,
+			"name" : "DiamondItem",
+			"type" : 1
+		},
+		{
+			"uid" : 1435982208,
+			"name" : "CherryItem",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Characters",
+			"type" : 0
+		},
+		{
+			"uid" : 826604608,
+			"name" : "OpposumRun",
+			"type" : 1
+		},
+		{
+			"uid" : -1084575232,
+			"name" : "EagleFly",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Background",
+			"type" : 0
+		},
+		{
+			"uid" : -786504704,
+			"name" : "TreesLayer",
+			"type" : 1
+		},
+		{
+			"uid" : -1067835392,
+			"name" : "SkyLayer",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 344051,
+			"name" : "IslandItemsScript",
 			"type" : 1
 		},
 		{
@@ -244,8 +244,8 @@
 			"type" : 1
 		},
 		{
-			"uid" : 344051,
-			"name" : "IslandItemsScript",
+			"uid" : 1322567424,
+			"name" : "BridgeScript",
 			"type" : 1
 		},
 		{

@@ -17,6 +17,7 @@
 		"x" : -14.000000,
 		"y" : 113.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
 	"gizmo2d_align_y" : 0,
@@ -29,11 +30,13 @@
 				"x" : 538.000000,
 				"y" : -55.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Controller",
+			"class_namespace" : "",
 			"Count" : 34,
 			"Node" : [
 				{
@@ -153,15 +156,20 @@
 					},
 					"param_type" : 1,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
 							"node" : 8,
-							"param" : "0"
+							"param" : "0",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 10,
-							"param" : "1"
+							"param" : "1",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -175,11 +183,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 9,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -193,11 +204,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 14,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -229,15 +243,20 @@
 					},
 					"param_type" : 1,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
 							"node" : 17,
-							"param" : "0"
+							"param" : "0",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 15,
-							"param" : "1"
+							"param" : "1",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -299,11 +318,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 21,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -326,11 +348,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 23,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -344,11 +369,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 26,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -411,6 +439,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -550,6 +579,7 @@
 				"x" : 554.000000,
 				"y" : 126.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Idle",
 			"x" : 683.000000,
 			"y" : 411.000000,
@@ -557,6 +587,9 @@
 			"height" : 399.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -810,6 +843,7 @@
 				"x" : 455.000000,
 				"y" : 155.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Walk",
 			"x" : 632.000000,
 			"y" : 414.000000,
@@ -817,6 +851,9 @@
 			"height" : 400.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -1042,6 +1079,7 @@
 				"x" : 494.000000,
 				"y" : 179.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_LegKick1",
 			"x" : 648.000000,
 			"y" : 417.000000,
@@ -1049,6 +1087,9 @@
 			"height" : 400.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -1274,6 +1315,7 @@
 				"x" : 257.000000,
 				"y" : 109.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_LegKick2",
 			"x" : 578.000000,
 			"y" : 367.000000,
@@ -1281,6 +1323,9 @@
 			"height" : 399.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -1506,6 +1551,7 @@
 				"x" : -94.000000,
 				"y" : 67.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Graph",
 			"def_node" : 0,
 			"Count" : 8,
@@ -1544,6 +1590,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1576,6 +1625,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1600,6 +1652,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1624,6 +1679,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1656,6 +1714,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1676,6 +1737,9 @@
 							"index" : 0,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1692,6 +1756,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1712,6 +1779,9 @@
 							"index" : 0,
 							"name" : "Idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -1724,6 +1794,7 @@
 				"x" : -22.000000,
 				"y" : 90.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Graph",
 			"def_node" : 0,
 			"Count" : 8,
@@ -1762,6 +1833,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1794,6 +1868,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1818,6 +1895,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1842,6 +1922,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1874,6 +1957,9 @@
 							"index" : 5,
 							"name" : "Hit"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1894,6 +1980,9 @@
 							"index" : 0,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1910,6 +1999,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1930,6 +2022,9 @@
 							"index" : 0,
 							"name" : "Idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -1942,6 +2037,7 @@
 				"x" : 399.000000,
 				"y" : 558.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBackground",
 			"x" : 574.000000,
 			"y" : 418.000000,
@@ -1949,6 +2045,9 @@
 			"height" : 696.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 634,
@@ -2004,6 +2103,7 @@
 				"x" : 474.000000,
 				"y" : 186.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteFloor",
 			"x" : 623.000000,
 			"y" : 488.000000,
@@ -2011,6 +2111,9 @@
 			"height" : 328.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 634,
@@ -2066,6 +2169,7 @@
 				"x" : 220.000000,
 				"y" : 48.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Idle",
 			"x" : 273.000000,
 			"y" : 278.000000,
@@ -2073,6 +2177,9 @@
 			"height" : 348.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -2382,6 +2489,7 @@
 				"x" : 427.000000,
 				"y" : 142.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Walk",
 			"x" : 699.000000,
 			"y" : 396.000000,
@@ -2389,6 +2497,9 @@
 			"height" : 304.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -2642,6 +2753,7 @@
 				"x" : 425.000000,
 				"y" : 170.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Kick1",
 			"x" : 593.000000,
 			"y" : 378.000000,
@@ -2649,6 +2761,9 @@
 			"height" : 317.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -2874,6 +2989,7 @@
 				"x" : 481.000000,
 				"y" : 143.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Kick2",
 			"x" : 692.000000,
 			"y" : 399.000000,
@@ -2881,6 +2997,9 @@
 			"height" : 410.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -3190,6 +3309,7 @@
 				"x" : 467.000000,
 				"y" : 246.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Hit",
 			"x" : 643.000000,
 			"y" : 479.000000,
@@ -3197,6 +3317,9 @@
 			"height" : 348.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -3366,6 +3489,7 @@
 				"x" : 470.000000,
 				"y" : 135.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Hit",
 			"x" : 579.000000,
 			"y" : 367.000000,
@@ -3373,6 +3497,9 @@
 			"height" : 399.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -3542,6 +3669,7 @@
 				"x" : 603.000000,
 				"y" : 159.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Death",
 			"x" : 857.000000,
 			"y" : 389.000000,
@@ -3549,6 +3677,9 @@
 			"height" : 317.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -3746,6 +3877,7 @@
 				"x" : 570.000000,
 				"y" : 202.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Death",
 			"x" : 721.000000,
 			"y" : 418.000000,
@@ -3753,6 +3885,9 @@
 			"height" : 404.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -3950,6 +4085,7 @@
 				"x" : 473.000000,
 				"y" : 173.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteEnemy1_Resp",
 			"x" : 699.000000,
 			"y" : 396.000000,
@@ -3957,6 +4093,9 @@
 			"height" : 307.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 686,
@@ -4014,6 +4153,7 @@
 				"x" : 413.000000,
 				"y" : 183.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SpriteBat_Resp",
 			"x" : 632.000000,
 			"y" : 414.000000,
@@ -4021,6 +4161,9 @@
 			"height" : 377.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1765,
@@ -4078,6 +4221,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MainMenu",
 			"x" : 578.000000,
 			"y" : 236.000000,
@@ -4352,6 +4496,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "AboutMenu",
 			"x" : 562.000000,
 			"y" : 199.000000,
@@ -4638,6 +4783,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HPBar",
 			"x" : 300.000000,
 			"y" : 300.000000,
@@ -4852,6 +4998,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "PauseMenu",
 			"x" : 503.000000,
 			"y" : 258.000000,
@@ -5126,6 +5273,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HPBSelectCharacter",
 			"x" : 558.000000,
 			"y" : 247.000000,
@@ -5864,6 +6012,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HUD",
 			"x" : 300.000000,
 			"y" : 300.000000,
@@ -6975,6 +7124,7 @@
 				"x" : 109.000000,
 				"y" : -55.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Script",
 			"State" : 2,
 			"Group" : "",
@@ -7565,14 +7715,50 @@
 	],
 	"asset_instances" : [
 		{
-			"asset_uid" : 1716145280,
-			"asset_name" : "SpriteFloor",
+			"asset_uid" : 1806721408,
+			"asset_name" : "Script",
 			"instances" : [
 				{
 					"scene" : "beatemup.sca",
-					"inst_uid" : 585760320,
-					"inst_name" : "SpriteFloor"
+					"inst_uid" : -90780672,
+					"inst_name" : "Script"
 				}
+			]
+		},
+		{
+			"asset_uid" : -264459008,
+			"asset_name" : "SpriteBat_Idle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1992026240,
+			"asset_name" : "SpriteBat_Walk",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -1122985728,
+			"asset_name" : "SpriteBat_LegKick1",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1463492352,
+			"asset_name" : "SpriteBat_LegKick2",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -420047360,
+			"asset_name" : "SpriteBat_Graph",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -1474000640,
+			"asset_name" : "SpriteEnemy1_Graph",
+			"instances" : [
 			]
 		},
 		{
@@ -7587,105 +7773,74 @@
 			]
 		},
 		{
-			"asset_uid" : 572264768,
-			"asset_name" : "MainMenu",
+			"asset_uid" : 1716145280,
+			"asset_name" : "SpriteFloor",
 			"instances" : [
 				{
 					"scene" : "beatemup.sca",
-					"inst_uid" : 1084967168,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "MainMenu"
+					"inst_uid" : 585760320,
+					"inst_name" : "SpriteFloor"
 				}
 			]
 		},
 		{
-			"asset_uid" : 514389440,
-			"asset_name" : "AboutMenu",
+			"asset_uid" : 502451008,
+			"asset_name" : "SpriteEnemy1_Idle",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : 902647040,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "AboutMenu"
-				}
 			]
 		},
 		{
-			"asset_uid" : 29326944,
-			"asset_name" : "HPBSelectCharacter",
+			"asset_uid" : 857748224,
+			"asset_name" : "SpriteEnemy1_Walk",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -1179303936,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "HPBSelectCharacter"
-				}
 			]
 		},
 		{
-			"asset_uid" : 868518720,
-			"asset_name" : "PauseMenu",
+			"asset_uid" : -485838336,
+			"asset_name" : "SpriteEnemy1_Kick1",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -809602560,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "PauseMenu"
-				}
 			]
 		},
 		{
-			"asset_uid" : 1859665664,
-			"asset_name" : "HUD",
+			"asset_uid" : -1743912448,
+			"asset_name" : "SpriteEnemy1_Kick2",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -1031631104,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "HUD"
-				}
 			]
 		},
 		{
-			"asset_uid" : 1894183168,
-			"asset_name" : "HPBar",
+			"asset_uid" : -1035524096,
+			"asset_name" : "SpriteEnemy1_Hit",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -1031631104,
-					"inst_child_uid" : 24395866,
-					"is_asset" : false,
-					"inst_name" : "hp_player"
-				}
 			]
 		},
 		{
-			"asset_uid" : 1894183168,
-			"asset_name" : "HPBar",
+			"asset_uid" : 64882620,
+			"asset_name" : "SpriteBat_Hit",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -1031631104,
-					"inst_child_uid" : -1050057728,
-					"is_asset" : false,
-					"inst_name" : "hp_enemy"
-				}
 			]
 		},
 		{
-			"asset_uid" : 1806721408,
-			"asset_name" : "Script",
+			"asset_uid" : -1032279808,
+			"asset_name" : "SpriteEnemy1_Death",
 			"instances" : [
-				{
-					"scene" : "beatemup.sca",
-					"inst_uid" : -90780672,
-					"inst_name" : "Script"
-				}
+			]
+		},
+		{
+			"asset_uid" : 1213953792,
+			"asset_name" : "SpriteBat_Death",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 428225312,
+			"asset_name" : "SpriteEnemy1_Resp",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -182577152,
+			"asset_name" : "SpriteBat_Resp",
+			"instances" : [
 			]
 		},
 		{

@@ -17,6 +17,7 @@
 		"x" : -206.000000,
 		"y" : 18.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 24,
 	"gizmo2d_align_y" : 24,
@@ -29,11 +30,13 @@
 				"x" : 370.000000,
 				"y" : -46.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Main",
+			"class_namespace" : "",
 			"Count" : 15,
 			"Node" : [
 				{
@@ -86,6 +89,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -179,11 +183,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 12,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -255,6 +262,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroIdle",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -262,6 +270,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.300000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -317,6 +328,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroWalk",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -324,6 +336,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.300000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -577,6 +592,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroShoot",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -584,6 +600,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.300000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -977,6 +996,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroDeath",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -984,6 +1004,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -1039,6 +1062,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroLegs_Idle",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -1046,6 +1070,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -1101,6 +1128,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroLegs_Walk",
 			"x" : -45.701534,
 			"y" : -9.997210,
@@ -1108,6 +1136,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 974,
@@ -1585,6 +1616,7 @@
 				"x" : 57.000000,
 				"y" : -227.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroGraph_Body",
 			"def_node" : 0,
 			"Count" : 4,
@@ -1611,6 +1643,9 @@
 							"index" : 2,
 							"name" : "shoot"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1635,6 +1670,9 @@
 							"index" : 2,
 							"name" : "shoot"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1655,6 +1693,9 @@
 							"index" : 0,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1671,6 +1712,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -1683,6 +1727,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HeroGraph_Legs",
 			"def_node" : 0,
 			"Count" : 2,
@@ -1705,6 +1750,9 @@
 							"index" : 1,
 							"name" : "walk"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1725,6 +1773,9 @@
 							"index" : 0,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			],
@@ -1750,6 +1801,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Crosshair",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1757,6 +1809,9 @@
 			"height" : 32.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 44,
@@ -1812,6 +1867,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Back",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -1819,6 +1875,9 @@
 			"height" : 1531.029907,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -1874,6 +1933,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyIdle",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1881,6 +1941,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.350000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -1936,6 +1999,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyWalk",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1943,6 +2007,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.350000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -2196,6 +2263,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyShoot",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2203,6 +2271,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.350000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -2288,6 +2359,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyDead",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2295,6 +2367,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -2350,6 +2425,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyBody_Idle",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2357,6 +2433,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -2412,6 +2491,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyBody_Walk",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2419,6 +2499,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 1040,
@@ -2896,6 +2979,7 @@
 				"x" : 57.000000,
 				"y" : -227.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyGraph_Body",
 			"def_node" : 0,
 			"Count" : 4,
@@ -2922,6 +3006,9 @@
 							"index" : 2,
 							"name" : "shoot"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -2946,6 +3033,9 @@
 							"index" : 2,
 							"name" : "shoot"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -2966,6 +3056,9 @@
 							"index" : 0,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -2982,6 +3075,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -2994,6 +3090,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyGraph_Legs",
 			"def_node" : 1,
 			"Count" : 2,
@@ -3016,6 +3113,9 @@
 							"index" : 1,
 							"name" : "walk"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -3036,6 +3136,9 @@
 							"index" : 0,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			],
@@ -3061,6 +3164,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Bullet",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3068,6 +3172,9 @@
 			"height" : 3.000000,
 			"anchorn_x" : 1.000000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 32,
@@ -3123,6 +3230,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FloorBlue",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3130,6 +3238,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3185,6 +3296,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "WallVert",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3192,6 +3304,9 @@
 			"height" : 96.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3260,6 +3375,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "WallHorz",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3267,6 +3383,9 @@
 			"height" : 24.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3335,6 +3454,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "WallCorner",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3342,6 +3462,9 @@
 			"height" : 24.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3397,6 +3520,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FloorGreen",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3404,6 +3528,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3459,6 +3586,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FloorWood",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3466,6 +3594,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3521,6 +3652,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FloorCarpet",
 			"x" : -44.272972,
 			"y" : 2.856099,
@@ -3528,6 +3660,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3583,6 +3718,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BloodSplash",
 			"x" : -48.000000,
 			"y" : 0.000000,
@@ -3590,6 +3726,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3645,6 +3784,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BulletWallHit",
 			"x" : -48.000000,
 			"y" : 0.000000,
@@ -3652,6 +3792,9 @@
 			"height" : 48.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 558,
@@ -3707,6 +3850,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "UIRestartMessage",
 			"x" : 300.000000,
 			"y" : 300.000000,
@@ -3763,6 +3907,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Arrow",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3770,6 +3915,9 @@
 			"height" : 37.333332,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 44,
@@ -4077,17 +4225,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 576.000000,
-											"y" : -528.000000
+											"y" : -528.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 576.000000,
-											"y" : -144.000000
+											"y" : -144.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4095,25 +4248,34 @@
 							{
 								"data_type" : 2,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 4,
 									"Elem" : [
 										{
 											"x" : 288.000000,
-											"y" : -240.000000
+											"y" : -240.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 288.000000,
-											"y" : -48.000000
+											"y" : -48.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 96.000000,
-											"y" : -48.000000
+											"y" : -48.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 96.000000,
-											"y" : -240.000000
+											"y" : -240.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4121,21 +4283,28 @@
 							{
 								"data_type" : 2,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 3,
 									"Elem" : [
 										{
 											"x" : 240.000000,
-											"y" : -480.000000
+											"y" : -480.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 192.000000,
-											"y" : -1008.000000
+											"y" : -1008.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -48.000000,
-											"y" : -816.000000
+											"y" : -816.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4143,25 +4312,34 @@
 							{
 								"data_type" : 2,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 4,
 									"Elem" : [
 										{
 											"x" : -288.000000,
-											"y" : -1008.000000
+											"y" : -1008.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -288.000000,
-											"y" : -816.000000
+											"y" : -816.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -480.000000,
-											"y" : -816.000000
+											"y" : -816.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -480.000000,
-											"y" : -1008.000000
+											"y" : -1008.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4169,17 +4347,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : -720.000000,
-											"y" : -960.000000
+											"y" : -960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -1152.000000,
-											"y" : -864.000000
+											"y" : -864.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4187,17 +4370,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : -1296.000000,
-											"y" : -768.000000
+											"y" : -768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -912.000000,
-											"y" : -768.000000
+											"y" : -768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4205,17 +4393,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : -1344.000000,
-											"y" : -528.000000
+											"y" : -528.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -1200.000000,
-											"y" : -240.000000
+											"y" : -240.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -4223,17 +4416,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 160.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : -912.000000,
-											"y" : -480.000000
+											"y" : -480.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : -912.000000,
-											"y" : -96.000000
+											"y" : -96.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -22541,6 +22739,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Script",
 			"State" : 2,
 			"Group" : "",
@@ -22817,6 +23016,64 @@
 	],
 	"asset_instances" : [
 		{
+			"asset_uid" : 200902816,
+			"asset_name" : "Script",
+			"instances" : [
+				{
+					"scene" : "coldrain.sca",
+					"inst_uid" : -211527680,
+					"inst_name" : "Script"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1062832448,
+			"asset_name" : "HeroIdle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1972033280,
+			"asset_name" : "HeroWalk",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -1464472832,
+			"asset_name" : "HeroShoot",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -1350148352,
+			"asset_name" : "HeroDeath",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 828659840,
+			"asset_name" : "HeroLegs_Idle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -161430528,
+			"asset_name" : "HeroLegs_Walk",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1078503808,
+			"asset_name" : "HeroGraph_Body",
+			"instances" : [
+				{
+					"scene" : "coldrain.sca",
+					"inst_uid" : 413751904,
+					"inst_name" : "HeroGraph_Body"
+				}
+			]
+		},
+		{
 			"asset_uid" : 59089060,
 			"asset_name" : "HeroGraph_Legs",
 			"instances" : [
@@ -22850,14 +23107,39 @@
 			]
 		},
 		{
-			"asset_uid" : -1780856064,
-			"asset_name" : "EnemyGraph_Legs",
+			"asset_uid" : 185616720,
+			"asset_name" : "EnemyIdle",
 			"instances" : [
-				{
-					"scene" : "coldrain.sca",
-					"inst_uid" : 913568320,
-					"inst_name" : "EnemyGraph_Legs"
-				}
+			]
+		},
+		{
+			"asset_uid" : 281700672,
+			"asset_name" : "EnemyWalk",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 593845056,
+			"asset_name" : "EnemyShoot",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1360461440,
+			"asset_name" : "EnemyDead",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -1039160064,
+			"asset_name" : "EnemyBody_Idle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 548886016,
+			"asset_name" : "EnemyBody_Walk",
+			"instances" : [
 			]
 		},
 		{
@@ -22868,6 +23150,17 @@
 					"scene" : "coldrain.sca",
 					"inst_uid" : -112360960,
 					"inst_name" : "EnemyGraph_Body"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1780856064,
+			"asset_name" : "EnemyGraph_Legs",
+			"instances" : [
+				{
+					"scene" : "coldrain.sca",
+					"inst_uid" : 913568320,
+					"inst_name" : "EnemyGraph_Legs"
 				}
 			]
 		},
@@ -22894,17 +23187,6 @@
 			]
 		},
 		{
-			"asset_uid" : -719308288,
-			"asset_name" : "WallHorz",
-			"instances" : [
-				{
-					"scene" : "coldrain.sca",
-					"inst_uid" : -1658567424,
-					"inst_name" : "WallHorz"
-				}
-			]
-		},
-		{
 			"asset_uid" : 2002990720,
 			"asset_name" : "WallVert",
 			"instances" : [
@@ -22912,6 +23194,17 @@
 					"scene" : "coldrain.sca",
 					"inst_uid" : 642529344,
 					"inst_name" : "WallVert"
+				}
+			]
+		},
+		{
+			"asset_uid" : -719308288,
+			"asset_name" : "WallHorz",
+			"instances" : [
+				{
+					"scene" : "coldrain.sca",
+					"inst_uid" : -1658567424,
+					"inst_name" : "WallHorz"
 				}
 			]
 		},
@@ -22971,17 +23264,6 @@
 			]
 		},
 		{
-			"asset_uid" : 1078503808,
-			"asset_name" : "HeroGraph_Body",
-			"instances" : [
-				{
-					"scene" : "coldrain.sca",
-					"inst_uid" : 413751904,
-					"inst_name" : "HeroGraph_Body"
-				}
-			]
-		},
-		{
 			"asset_uid" : -807685120,
 			"asset_name" : "BulletWallHit",
 			"instances" : [
@@ -22993,19 +23275,6 @@
 			]
 		},
 		{
-			"asset_uid" : -876151296,
-			"asset_name" : "UIRestartMessage",
-			"instances" : [
-				{
-					"scene" : "coldrain.sca",
-					"inst_uid" : 895327744,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "UIRestartMessage"
-				}
-			]
-		},
-		{
 			"asset_uid" : -200352256,
 			"asset_name" : "Arrow",
 			"instances" : [
@@ -23013,17 +23282,6 @@
 					"scene" : "coldrain.sca",
 					"inst_uid" : -86284544,
 					"inst_name" : "Arrow"
-				}
-			]
-		},
-		{
-			"asset_uid" : 200902816,
-			"asset_name" : "Script",
-			"instances" : [
-				{
-					"scene" : "coldrain.sca",
-					"inst_uid" : -211527680,
-					"inst_name" : "Script"
 				}
 			]
 		}

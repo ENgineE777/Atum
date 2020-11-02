@@ -1,6 +1,4 @@
 
-#import "MainScript"
-
 class IslandFinishLevel1
 {
     array<RespawnPoint> finish_sign;

@@ -17,6 +17,7 @@
 		"x" : 6184.000000,
 		"y" : 906.000000
 	},
+	"camera_zoom" : 0.200000,
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
 	"gizmo2d_align_y" : 64,
@@ -29,6 +30,7 @@
 				"x" : 787.000000,
 				"y" : 331.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EagleFly",
 			"x" : 832.000000,
 			"y" : 448.000000,
@@ -36,6 +38,9 @@
 			"height" : 124.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 160,
@@ -190,6 +195,7 @@
 				"x" : 65.000000,
 				"y" : -3.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MovingBlock",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -197,6 +203,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 109,
@@ -265,6 +274,7 @@
 				"x" : 722.000000,
 				"y" : 329.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Ground1Tiles",
 			"x" : 896.000000,
 			"y" : 384.000000,
@@ -708,6 +718,7 @@
 				"x" : 878.000000,
 				"y" : 273.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SkyLayer",
 			"sprites" :
 			{
@@ -776,6 +787,7 @@
 				"x" : 523.000000,
 				"y" : -172.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "TreesLayer",
 			"sprites" :
 			{
@@ -844,6 +856,7 @@
 				"x" : 29.000000,
 				"y" : 154.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "TreeSprite",
 			"x" : 0.000000,
 			"y" : 256.000000,
@@ -851,6 +864,9 @@
 			"height" : 375.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 109,
@@ -906,6 +922,7 @@
 				"x" : 26.000000,
 				"y" : -11.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "HouseSprite",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -913,6 +930,9 @@
 			"height" : 493.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 109,
@@ -968,6 +988,7 @@
 				"x" : 66.000000,
 				"y" : 7.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BushSprite",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -975,6 +996,9 @@
 			"height" : 111.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 109,
@@ -1030,6 +1054,7 @@
 				"x" : -27.000000,
 				"y" : -38.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SignSprite",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1037,6 +1062,9 @@
 			"height" : 80.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 109,
@@ -1092,6 +1120,7 @@
 				"x" : 143.000000,
 				"y" : 25.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "RightHangSprite",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1099,6 +1128,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1167,6 +1199,7 @@
 				"x" : 63.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "LeftHangSprite",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1174,6 +1207,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 0.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1242,6 +1278,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "LeftCaveEnter",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1249,6 +1286,9 @@
 			"height" : 256.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1304,6 +1344,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "RightCaveEnter",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1311,6 +1352,9 @@
 			"height" : 256.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1366,6 +1410,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CaveInner",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1373,6 +1418,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1428,6 +1476,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CaveBrush",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1435,6 +1484,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1490,6 +1542,7 @@
 				"x" : 29.000000,
 				"y" : 154.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeBaseSprite",
 			"x" : 0.000000,
 			"y" : 256.000000,
@@ -1497,6 +1550,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1552,6 +1608,7 @@
 				"x" : 29.000000,
 				"y" : 154.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeRowSprite",
 			"x" : 0.000000,
 			"y" : 256.000000,
@@ -1559,6 +1616,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -1627,6 +1687,7 @@
 				"x" : 722.000000,
 				"y" : 329.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Ground2Tiles",
 			"x" : 896.000000,
 			"y" : 384.000000,
@@ -2070,6 +2131,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CaveWall",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2077,6 +2139,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -2132,6 +2197,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CaveShelf",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2139,6 +2205,9 @@
 			"height" : 192.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -2194,6 +2263,7 @@
 				"x" : 29.000000,
 				"y" : 154.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeRowSpriteDyn",
 			"x" : 0.000000,
 			"y" : 256.000000,
@@ -2201,6 +2271,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 400,
@@ -2269,6 +2342,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "OpposumRun",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2276,6 +2350,9 @@
 			"height" : 112.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 216,
@@ -2486,11 +2563,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "FallingBridge",
+			"class_namespace" : "",
 			"Count" : 5,
 			"Node" : [
 				{
@@ -2503,6 +2582,7 @@
 					},
 					"param_type" : 3,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -2537,11 +2617,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 4,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2570,11 +2653,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IslandEnemiesScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "IslandEnemies",
+			"class_namespace" : "",
 			"Count" : 7,
 			"Node" : [
 				{
@@ -2625,11 +2710,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 2,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2643,11 +2731,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 3,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2677,11 +2768,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IslandItemsScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "IslandItems",
+			"class_namespace" : "",
 			"Count" : 5,
 			"Node" : [
 				{
@@ -2723,11 +2816,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 2,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2757,6 +2853,7 @@
 				"x" : 668.000000,
 				"y" : 354.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CherryItem",
 			"x" : 896.000000,
 			"y" : 512.000000,
@@ -2764,6 +2861,9 @@
 			"height" : 84.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 105,
@@ -3019,22 +3119,6 @@
 					"width" : 50.000000,
 					"height" : 50.000000,
 					"group" : 1
-				},
-				{
-					"type" : "ScriptMetaDataComp",
-					"Asset" :
-					{
-						"uid" : 1583784704,
-						"child_uid" : 0,
-						"is_asset" : true
-					},
-					"count" : 1,
-					"value" : [
-						{
-							"type" : 1,
-							"value" : 50
-						}
-					]
 				}
 			]
 		},
@@ -3046,6 +3130,7 @@
 				"x" : 837.000000,
 				"y" : 497.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "DiamondItem",
 			"x" : 1088.000000,
 			"y" : 640.000000,
@@ -3053,6 +3138,9 @@
 			"height" : 54.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 75,
@@ -3224,22 +3312,6 @@
 					"width" : 50.000000,
 					"height" : 50.000000,
 					"group" : 1
-				},
-				{
-					"type" : "ScriptMetaDataComp",
-					"Asset" :
-					{
-						"uid" : 1583784704,
-						"child_uid" : 0,
-						"is_asset" : true
-					},
-					"count" : 1,
-					"value" : [
-						{
-							"type" : 1,
-							"value" : 75
-						}
-					]
 				}
 			]
 		}
@@ -3284,6 +3356,84 @@
 	],
 	"asset_instances" : [
 		{
+			"asset_uid" : -1084575232,
+			"asset_name" : "EagleFly",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1084704768,
+					"inst_name" : "EagleFly"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1011637,
+					"inst_name" : "EagleFly"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1011637,
+					"inst_name" : "EagleFly"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1084704768,
+					"inst_name" : "EagleFly"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1689413632,
+			"asset_name" : "MovingBlock",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 2050420608,
+					"inst_name" : "MovingBlock"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 356337,
+					"inst_name" : "MovingBlock"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 356337,
+					"inst_name" : "MovingBlock"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 2050420608,
+					"inst_name" : "MovingBlock"
+				}
+			]
+		},
+		{
+			"asset_uid" : -735117312,
+			"asset_name" : "Ground1Tiles",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 385792064,
+					"inst_name" : "Ground1Tiles"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 748786,
+					"inst_name" : "Ground1Tiles"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 748786,
+					"inst_name" : "Ground1Tiles"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 385792064,
+					"inst_name" : "Ground1Tiles"
+				}
+			]
+		},
+		{
 			"asset_uid" : -1067835392,
 			"asset_name" : "SkyLayer",
 			"instances" : [
@@ -3302,6 +3452,588 @@
 					"scene" : "Island/Island.sca",
 					"inst_uid" : 263163904,
 					"inst_name" : "TreesLayer"
+				}
+			]
+		},
+		{
+			"asset_uid" : -2112705280,
+			"asset_name" : "TreeSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1800360448,
+					"inst_name" : "TreeSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 982262,
+					"inst_name" : "TreeSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 982262,
+					"inst_name" : "TreeSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1800360448,
+					"inst_name" : "TreeSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1650481664,
+			"asset_name" : "HouseSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1777521664,
+					"inst_name" : "HouseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 327155,
+					"inst_name" : "HouseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 327155,
+					"inst_name" : "HouseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1777521664,
+					"inst_name" : "HouseSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 86683184,
+			"asset_name" : "BushSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 348808960,
+					"inst_name" : "BushSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 32251,
+					"inst_name" : "BushSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 32251,
+					"inst_name" : "BushSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 348808960,
+					"inst_name" : "BushSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : -794419968,
+			"asset_name" : "SignSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 329993024,
+					"inst_name" : "SignSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 753598,
+					"inst_name" : "SignSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 753598,
+					"inst_name" : "SignSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 329993024,
+					"inst_name" : "SignSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 217616304,
+			"asset_name" : "RightHangSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1345146496,
+					"inst_name" : "RightHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 191735,
+					"inst_name" : "RightHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 191735,
+					"inst_name" : "RightHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1345146496,
+					"inst_name" : "RightHangSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 982452608,
+			"asset_name" : "LeftHangSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1057456960,
+					"inst_name" : "LeftHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556470,
+					"inst_name" : "LeftHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556470,
+					"inst_name" : "LeftHangSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1057456960,
+					"inst_name" : "LeftHangSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1683574144,
+			"asset_name" : "LeftCaveEnter",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1016188928,
+					"inst_name" : "LeftCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 97520,
+					"inst_name" : "LeftCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 97520,
+					"inst_name" : "LeftCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1016188928,
+					"inst_name" : "LeftCaveEnter"
+				}
+			]
+		},
+		{
+			"asset_uid" : 2073259264,
+			"asset_name" : "RightCaveEnter",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -52422400,
+					"inst_name" : "RightCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 782260,
+					"inst_name" : "RightCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 782260,
+					"inst_name" : "RightCaveEnter"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -52422400,
+					"inst_name" : "RightCaveEnter"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1682146816,
+			"asset_name" : "CaveInner",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 229165424,
+					"inst_name" : "CaveInner"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 523515,
+					"inst_name" : "CaveInner"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 523515,
+					"inst_name" : "CaveInner"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 229165424,
+					"inst_name" : "CaveInner"
+				}
+			]
+		},
+		{
+			"asset_uid" : -536187136,
+			"asset_name" : "CaveBrush",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 240584768,
+					"inst_name" : "CaveBrush"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 195835,
+					"inst_name" : "CaveBrush"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 195835,
+					"inst_name" : "CaveBrush"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 240584768,
+					"inst_name" : "CaveBrush"
+				}
+			]
+		},
+		{
+			"asset_uid" : 450155648,
+			"asset_name" : "BridgeBaseSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -998151680,
+					"inst_name" : "BridgeBaseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 621746,
+					"inst_name" : "BridgeBaseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 621746,
+					"inst_name" : "BridgeBaseSprite"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -998151680,
+					"inst_name" : "BridgeBaseSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 606003712,
+			"asset_name" : "BridgeRowSprite",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1543425280,
+					"inst_name" : "BridgeRowSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 323326,
+					"inst_name" : "BridgeRowSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1015286,
+					"inst_name" : "BridgeRowSprite2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 32752,
+					"inst_name" : "BridgeRowSprite1"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 323326,
+					"inst_name" : "BridgeRowSprite"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1015286,
+					"inst_name" : "BridgeRowSprite2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 32752,
+					"inst_name" : "BridgeRowSprite1"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1543425280,
+					"inst_name" : "BridgeRowSprite"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1186573440,
+			"asset_name" : "Ground2Tiles",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1478545152,
+					"inst_name" : "Ground2Tiles"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1478545152,
+					"inst_name" : "Ground2Tiles"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1979438976,
+			"asset_name" : "CaveWall",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -2022648064,
+					"inst_name" : "CaveWall"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -2022648064,
+					"inst_name" : "CaveWall"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1981123072,
+			"asset_name" : "CaveShelf",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1415736064,
+					"inst_name" : "CaveShelf"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1415736064,
+					"inst_name" : "CaveShelf"
+				}
+			]
+		},
+		{
+			"asset_uid" : -794679808,
+			"asset_name" : "BridgeRowSpriteDyn",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -769245696,
+					"inst_name" : "BridgeRowSpriteDyn"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229053,
+					"inst_name" : "BridgeRowSpriteDyn2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1010865,
+					"inst_name" : "BridgeRowSpriteDyn1"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229053,
+					"inst_name" : "BridgeRowSpriteDyn2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 1010865,
+					"inst_name" : "BridgeRowSpriteDyn1"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -769245696,
+					"inst_name" : "BridgeRowSpriteDyn"
+				}
+			]
+		},
+		{
+			"asset_uid" : 826604608,
+			"asset_name" : "OpposumRun",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -968305408,
+					"inst_name" : "OpposumRun"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229113,
+					"inst_name" : "OpposumRun"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 229113,
+					"inst_name" : "OpposumRun"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -968305408,
+					"inst_name" : "OpposumRun"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1322567424,
+			"asset_name" : "BridgeScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1586412928,
+					"inst_name" : "BridgeScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749562,
+					"inst_name" : "BridgeScript2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 31996,
+					"inst_name" : "BridgeScript1"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749562,
+					"inst_name" : "BridgeScript2"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 31996,
+					"inst_name" : "BridgeScript1"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1586412928,
+					"inst_name" : "BridgeScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 753660,
+			"asset_name" : "IslandEnemiesScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 835253,
+					"inst_name" : "EnemiesScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556275,
+					"inst_name" : "IslandEnemiesScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 556275,
+					"inst_name" : "IslandEnemiesScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 835253,
+					"inst_name" : "EnemiesScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 344051,
+			"asset_name" : "IslandItemsScript",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 244472,
+					"inst_name" : "IslandItemsScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 524283,
+					"inst_name" : "IslandItemsScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 524283,
+					"inst_name" : "IslandItemsScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 244472,
+					"inst_name" : "IslandItemsScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1435982208,
+			"asset_name" : "CherryItem",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 596790336,
+					"inst_name" : "CherryItem"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 520188,
+					"inst_name" : "CherryItem"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 520188,
+					"inst_name" : "CherryItem"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 596790336,
+					"inst_name" : "CherryItem"
+				}
+			]
+		},
+		{
+			"asset_uid" : -350622976,
+			"asset_name" : "DiamondItem",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1321915904,
+					"inst_name" : "DiamondItem"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 64951,
+					"inst_name" : "DiamondItem"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 64951,
+					"inst_name" : "DiamondItem"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -1321915904,
+					"inst_name" : "DiamondItem"
 				}
 			]
 		}

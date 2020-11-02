@@ -17,6 +17,7 @@
 		"x" : 0.000000,
 		"y" : 0.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
 	"gizmo2d_align_y" : 0,
@@ -29,11 +30,13 @@
 				"x" : 667.000000,
 				"y" : 13.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Game",
+			"class_namespace" : "",
 			"Count" : 15,
 			"Node" : [
 				{
@@ -46,6 +49,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -109,11 +113,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 5,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -127,15 +134,20 @@
 					},
 					"param_type" : 1,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
 							"node" : 8,
-							"param" : "1"
+							"param" : "1",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 10,
-							"param" : "2"
+							"param" : "2",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -197,6 +209,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -262,26 +275,6 @@
 			]
 		},
 		{
-			"type" : "ScriptMetaDataAsset",
-			"uid" : 1583784704,
-			"ed_camera_2d" :
-			{
-				"x" : -695.000000,
-				"y" : -367.000000
-			},
-			"Name" : "ItemData",
-			"properties" :
-			{
-				"count" : 1,
-				"Elem" : [
-					{
-						"data_type" : 1,
-						"name" : "score"
-					}
-				]
-			}
-		},
-		{
 			"type" : "SpriteAsset",
 			"uid" : 1917411200,
 			"ed_camera_2d" :
@@ -289,6 +282,7 @@
 				"x" : 790.000000,
 				"y" : 328.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Fall",
 			"x" : 942.000000,
 			"y" : 442.000000,
@@ -296,6 +290,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 66,
@@ -351,6 +348,7 @@
 				"x" : -5.000000,
 				"y" : -31.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Graph",
 			"def_node" : 0,
 			"Count" : 5,
@@ -381,6 +379,9 @@
 							"index" : 3,
 							"name" : "fall"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -409,6 +410,9 @@
 							"index" : 3,
 							"name" : "fall"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -433,6 +437,9 @@
 							"index" : 0,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -457,6 +464,9 @@
 							"index" : 1,
 							"name" : "run"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -477,6 +487,9 @@
 							"index" : 0,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			],
@@ -502,6 +515,7 @@
 				"x" : 704.000000,
 				"y" : 322.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Hit",
 			"x" : 896.000000,
 			"y" : 384.000000,
@@ -509,6 +523,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 66,
@@ -594,6 +611,7 @@
 				"x" : 669.000000,
 				"y" : 353.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Idle",
 			"x" : 832.000000,
 			"y" : 448.000000,
@@ -601,6 +619,9 @@
 			"height" : 127.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 132,
@@ -742,6 +763,7 @@
 				"x" : 714.000000,
 				"y" : 296.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Jump",
 			"x" : 896.000000,
 			"y" : 384.000000,
@@ -749,6 +771,9 @@
 			"height" : 127.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 66,
@@ -804,6 +829,7 @@
 				"x" : 778.000000,
 				"y" : 417.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Hero_Run",
 			"x" : 927.000000,
 			"y" : 530.000000,
@@ -811,6 +837,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 198,
@@ -1008,6 +1037,7 @@
 				"x" : 685.000000,
 				"y" : 394.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "EnemyDeath",
 			"x" : 864.000000,
 			"y" : 512.000000,
@@ -1015,6 +1045,9 @@
 			"height" : 124.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 240,
@@ -1212,6 +1245,7 @@
 				"x" : 743.000000,
 				"y" : 453.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ItemTaken",
 			"x" : 960.000000,
 			"y" : 576.000000,
@@ -1219,6 +1253,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 128,
@@ -1360,6 +1397,7 @@
 				"x" : 747.000000,
 				"y" : 405.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "DynBox",
 			"x" : 863.150940,
 			"y" : 543.419800,
@@ -1367,6 +1405,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.000000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -1435,6 +1476,7 @@
 				"x" : 747.000000,
 				"y" : 405.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "DynBoxFly",
 			"x" : 863.150940,
 			"y" : 543.419800,
@@ -1442,6 +1484,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -1510,6 +1555,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IngameMenu",
 			"x" : 256.000000,
 			"y" : 128.000000,
@@ -2415,11 +2461,13 @@
 				"x" : -77.000000,
 				"y" : 537.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "GameMenuScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "GameMenu",
+			"class_namespace" : "",
 			"Count" : 13,
 			"Node" : [
 				{
@@ -2502,15 +2550,20 @@
 					},
 					"param_type" : 1,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 2,
 					"Link" : [
 						{
 							"node" : 10,
-							"param" : "0"
+							"param" : "0",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 9,
-							"param" : "1"
+							"param" : "1",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2524,11 +2577,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 11,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2621,6 +2677,7 @@
 				"x" : 747.000000,
 				"y" : 405.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FakeBox",
 			"x" : 863.150940,
 			"y" : 543.419800,
@@ -2628,6 +2685,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -2683,11 +2743,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BoxesScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "Boxes",
+			"class_namespace" : "",
 			"Count" : 5,
 			"Node" : [
 				{
@@ -2730,6 +2792,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -2772,6 +2835,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Dust",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2779,6 +2843,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -2834,6 +2901,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Respawn_Inactive",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2841,6 +2909,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -2896,6 +2967,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Respawn_Active",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2903,6 +2975,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -2958,6 +3033,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Respawn_Acivation",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -2965,6 +3041,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -3134,6 +3213,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Respawn_Graph",
 			"def_node" : 0,
 			"Count" : 3,
@@ -3156,6 +3236,9 @@
 							"index" : 1,
 							"name" : "Activate"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -3176,6 +3259,9 @@
 							"index" : 2,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -3192,6 +3278,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -3204,6 +3293,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishSign_Inactive",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3211,6 +3301,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -3266,6 +3359,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishSign_Active",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3273,6 +3367,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -3328,6 +3425,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishSign_Activation",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -3335,6 +3433,9 @@
 			"height" : 120.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 100,
@@ -3504,6 +3605,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishSign_Graph",
 			"def_node" : 0,
 			"Count" : 3,
@@ -3526,6 +3628,9 @@
 							"index" : 1,
 							"name" : "Activate"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -3546,6 +3651,9 @@
 							"index" : 2,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -3562,6 +3670,9 @@
 					"def_link" : -1,
 					"Count" : 0,
 					"Link" : [
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -3907,6 +4018,7 @@
 				"x" : -149.000000,
 				"y" : 560.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "GameMenuScript",
 			"State" : 2,
 			"Group" : "",
@@ -4159,6 +4271,148 @@
 	],
 	"asset_instances" : [
 		{
+			"asset_uid" : 14304,
+			"asset_name" : "MainScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 244048,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 2133115008,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 262000,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 978933,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 978933,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 262000,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 244048,
+					"inst_name" : "MainScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 2133115008,
+					"inst_name" : "MainScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1917411200,
+			"asset_name" : "Hero_Fall",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -389033728,
+			"asset_name" : "Hero_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 704359,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1485033472,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 130681,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749309,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 749309,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 130681,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 704359,
+					"inst_name" : "Hero"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 1485033472,
+					"inst_name" : "Hero"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1511894784,
+			"asset_name" : "Hero_Hit",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 638824,
+					"inst_name" : "BossMarkers"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 683199,
+					"inst_name" : "BossMarker"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 683199,
+					"inst_name" : "BossMarker"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 638824,
+					"inst_name" : "BossMarkers"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1039027712,
+			"asset_name" : "Hero_Idle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -442886144,
+			"asset_name" : "Hero_Jump",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -246291712,
+			"asset_name" : "Hero_Run",
+			"instances" : [
+			]
+		},
+		{
 			"asset_uid" : -1558477824,
 			"asset_name" : "EnemyDeath",
 			"instances" : [
@@ -4181,15 +4435,94 @@
 			]
 		},
 		{
-			"asset_uid" : 206845808,
-			"asset_name" : "IngameMenu",
+			"asset_uid" : 532556576,
+			"asset_name" : "DynBox",
 			"instances" : [
 				{
-					"scene" : "Base/CoreScene.sca",
-					"inst_uid" : 820505600,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "IngameMenu"
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 899188,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -980373760,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 163451,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 945848,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 945848,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 163451,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 899188,
+					"inst_name" : "DynBox"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -980373760,
+					"inst_name" : "DynBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1373046016,
+			"asset_name" : "DynBoxFly",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 638951,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 506940,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 622334,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 225211,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 225211,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 622334,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 638951,
+					"inst_name" : "DynBoxFly"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 506940,
+					"inst_name" : "DynBoxFly"
 				}
 			]
 		},
@@ -4205,6 +4538,98 @@
 			]
 		},
 		{
+			"asset_uid" : 477276576,
+			"asset_name" : "FakeBox",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 572494,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -335829760,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 589421,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 589303,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 589303,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 589421,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 572494,
+					"inst_name" : "FakeBox"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : -335829760,
+					"inst_name" : "FakeBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 178155,
+			"asset_name" : "BoxesScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 506058,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 638463,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 1015531,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 360115,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 360115,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 1015531,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 506058,
+					"inst_name" : "BoxesScript"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 638463,
+					"inst_name" : "BoxesScript"
+				}
+			]
+		},
+		{
 			"asset_uid" : 112635,
 			"asset_name" : "Dust",
 			"instances" : [
@@ -4212,6 +4637,134 @@
 					"scene" : "Base/CoreScene.sca",
 					"inst_uid" : 32744,
 					"inst_name" : "Dust"
+				}
+			]
+		},
+		{
+			"asset_uid" : 129009,
+			"asset_name" : "Respawn_Inactive",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 704497,
+			"asset_name" : "Respawn_Active",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 983038,
+			"asset_name" : "Respawn_Acivation",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 440289,
+			"asset_name" : "Respawn_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 325838,
+					"inst_name" : "RespawnPoints"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 179568,
+					"inst_name" : "RespawnPoints"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 196461,
+					"inst_name" : "RespawnPoints"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 294590,
+					"inst_name" : "Respawn_Graph"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 294590,
+					"inst_name" : "Respawn_Graph"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 196461,
+					"inst_name" : "RespawnPoints"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 325838,
+					"inst_name" : "RespawnPoints"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 179568,
+					"inst_name" : "RespawnPoints"
+				}
+			]
+		},
+		{
+			"asset_uid" : 997357,
+			"asset_name" : "FinishSign_Inactive",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 866277,
+			"asset_name" : "FinishSign_Active",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 688119,
+			"asset_name" : "FinishSign_Activation",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 79865,
+			"asset_name" : "FinishSign_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 901100,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 915702,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 524287,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 491517,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 491517,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 524287,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 901100,
+					"inst_name" : "FinishSign"
+				},
+				{
+					"scene" : "Island/Island_Level1.sca",
+					"inst_uid" : 915702,
+					"inst_name" : "FinishSign"
 				}
 			]
 		}

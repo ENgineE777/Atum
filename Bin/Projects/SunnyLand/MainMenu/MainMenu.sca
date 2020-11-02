@@ -17,6 +17,7 @@
 		"x" : 233.000000,
 		"y" : 56.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
 	"gizmo2d_align_y" : 0,
@@ -29,6 +30,7 @@
 				"x" : -776.000000,
 				"y" : -749.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "TitleMenu",
 			"x" : 576.000000,
 			"y" : 64.000000,
@@ -315,14 +317,16 @@
 			"uid" : 983036,
 			"ed_camera_2d" :
 			{
-				"x" : -32.000000,
-				"y" : -52.000000
+				"x" : 648.000000,
+				"y" : 357.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MenuScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
-			"main_class" : "",
+			"main_class" : "MainMenu",
+			"class_namespace" : "",
 			"Count" : 15,
 			"Node" : [
 				{
@@ -344,23 +348,32 @@
 					},
 					"param_type" : 2,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 4,
 					"Link" : [
 						{
 							"node" : 0,
-							"param" : "Island_Level1"
+							"param" : "Island_Level1",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 6,
-							"param" : "Island_Level2"
+							"param" : "Island_Level2",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 9,
-							"param" : "Forest_Level1"
+							"param" : "Forest_Level1",
+							"param2" : "",
+							"param3" : ""
 						},
 						{
 							"node" : 10,
-							"param" : "Forest_Level2"
+							"param" : "Forest_Level2",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -394,6 +407,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -474,11 +488,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 11,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -501,11 +518,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 13,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				}
@@ -522,6 +542,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SkiesLyaer",
 			"sprites" :
 			{
@@ -590,6 +611,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "TriesLyaer",
 			"sprites" :
 			{
@@ -658,6 +680,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MountinesLyaer",
 			"sprites" :
 			{
@@ -726,6 +749,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "AtumInfo",
 			"x" : 369.980286,
 			"y" : 70.064156,
@@ -936,6 +960,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "SelectLevel",
 			"x" : 549.930725,
 			"y" : 227.163223,
@@ -1570,6 +1595,7 @@
 				"x" : -56.000000,
 				"y" : -28.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MenuScript",
 			"State" : 2,
 			"Group" : "MainMenu",
@@ -2127,19 +2153,6 @@
 	],
 	"asset_instances" : [
 		{
-			"asset_uid" : 1166329984,
-			"asset_name" : "TitleMenu",
-			"instances" : [
-				{
-					"scene" : "MainMenu/MainMenu.sca",
-					"inst_uid" : 221639040,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "TitleMenu"
-				}
-			]
-		},
-		{
 			"asset_uid" : 983036,
 			"asset_name" : "MenuScript",
 			"instances" : [
@@ -2180,32 +2193,6 @@
 					"scene" : "MainMenu/MainMenu.sca",
 					"inst_uid" : 437619,
 					"inst_name" : "MountinesLyaer"
-				}
-			]
-		},
-		{
-			"asset_uid" : 114046,
-			"asset_name" : "AtumInfo",
-			"instances" : [
-				{
-					"scene" : "MainMenu/MainMenu.sca",
-					"inst_uid" : 180213,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "AtumInfo"
-				}
-			]
-		},
-		{
-			"asset_uid" : 327667,
-			"asset_name" : "SelectLevel",
-			"instances" : [
-				{
-					"scene" : "MainMenu/MainMenu.sca",
-					"inst_uid" : 568827,
-					"inst_child_uid" : 0,
-					"is_asset" : false,
-					"inst_name" : "SelectLevel"
 				}
 			]
 		}

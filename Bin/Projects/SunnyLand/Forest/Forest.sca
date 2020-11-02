@@ -17,6 +17,7 @@
 		"x" : 2555.000000,
 		"y" : 751.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 64,
 	"gizmo2d_align_y" : 64,
@@ -29,6 +30,7 @@
 				"x" : -45.000000,
 				"y" : 61.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_LayerFar",
 			"sprites" :
 			{
@@ -97,6 +99,7 @@
 				"x" : -134.000000,
 				"y" : -83.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_LayerNear",
 			"sprites" :
 			{
@@ -165,6 +168,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_GroundTiles",
 			"x" : 62.839516,
 			"y" : 9.997227,
@@ -608,6 +612,7 @@
 				"x" : -78.000000,
 				"y" : -116.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_House",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -615,6 +620,9 @@
 			"height" : 628.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -670,6 +678,7 @@
 				"x" : 35.000000,
 				"y" : -198.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_BigTree",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -677,6 +686,9 @@
 			"height" : 892.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -732,6 +744,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_Bush",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -739,6 +752,9 @@
 			"height" : 140.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -794,6 +810,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_Mushroom1",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -801,6 +818,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -856,6 +876,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_Mushroom2",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -863,6 +884,9 @@
 			"height" : 92.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -918,6 +942,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_Rock",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -925,6 +950,9 @@
 			"height" : 116.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 544,
@@ -980,6 +1008,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "Forest_MovingBlock",
 			"x" : -64.000000,
 			"y" : 128.000000,
@@ -987,6 +1016,9 @@
 			"height" : 128.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 320,
@@ -1055,6 +1087,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestBee",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1062,6 +1095,9 @@
 			"height" : 156.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 296,
@@ -1328,6 +1364,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestSlug",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1335,6 +1372,9 @@
 			"height" : 82.069748,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 128,
@@ -1489,6 +1529,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestPiranhaIdle",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1496,6 +1537,9 @@
 			"height" : 180.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 305,
@@ -1665,6 +1709,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestPiranhaAttack",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1672,6 +1717,9 @@
 			"height" : 180.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 244,
@@ -1813,6 +1861,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestPiranha",
 			"def_node" : 0,
 			"Count" : 2,
@@ -1835,6 +1884,9 @@
 							"index" : 1,
 							"name" : "Attack"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -1855,6 +1907,9 @@
 							"index" : 0,
 							"name" : ""
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			]
@@ -1867,6 +1922,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestStar",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -1874,6 +1930,9 @@
 			"height" : 52.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 0.500000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 78,
@@ -2064,22 +2123,6 @@
 			},
 			"components" : [
 				{
-					"type" : "ScriptMetaDataComp",
-					"Asset" :
-					{
-						"uid" : 1583784704,
-						"child_uid" : 0,
-						"is_asset" : true
-					},
-					"count" : 1,
-					"value" : [
-						{
-							"type" : 1,
-							"value" : 75
-						}
-					]
-				},
-				{
 					"type" : "Phys2DComp",
 					"body_type" : 4,
 					"density" : 1.250000,
@@ -2100,11 +2143,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestItemsScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestItems",
+			"class_namespace" : "",
 			"Count" : 4,
 			"Node" : [
 				{
@@ -2136,11 +2181,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 1,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2179,11 +2227,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestEnemiesScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestEnemies",
+			"class_namespace" : "",
 			"Count" : 7,
 			"Node" : [
 				{
@@ -2235,11 +2285,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 3,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -2262,11 +2315,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 5,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				}
@@ -2355,6 +2411,362 @@
 					"scene" : "Forest/Forest.sca",
 					"inst_uid" : 910692,
 					"inst_name" : "Forest_LayerNear"
+				}
+			]
+		},
+		{
+			"asset_uid" : 313327,
+			"asset_name" : "Forest_GroundTiles",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 113533,
+					"inst_name" : "Forest_GroundTiles"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 524134,
+					"inst_name" : "Forest_GroundTiles"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 524134,
+					"inst_name" : "Forest_GroundTiles"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 113533,
+					"inst_name" : "Forest_GroundTiles"
+				}
+			]
+		},
+		{
+			"asset_uid" : 440304,
+			"asset_name" : "Forest_House",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 260552,
+					"inst_name" : "Forest_House"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 917477,
+					"inst_name" : "Forest_House"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 917477,
+					"inst_name" : "Forest_House"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 260552,
+					"inst_name" : "Forest_House"
+				}
+			]
+		},
+		{
+			"asset_uid" : 317297,
+			"asset_name" : "Forest_BigTree",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 589632,
+					"inst_name" : "Forest_BigTree"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 458616,
+					"inst_name" : "Forest_BigTree"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 458616,
+					"inst_name" : "Forest_BigTree"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 589632,
+					"inst_name" : "Forest_BigTree"
+				}
+			]
+		},
+		{
+			"asset_uid" : 251876,
+			"asset_name" : "Forest_Bush",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 703577,
+					"inst_name" : "Forest_Bush"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 884473,
+					"inst_name" : "Forest_Bush"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 884473,
+					"inst_name" : "Forest_Bush"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 703577,
+					"inst_name" : "Forest_Bush"
+				}
+			]
+		},
+		{
+			"asset_uid" : 302566,
+			"asset_name" : "Forest_Mushroom1",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 130145,
+					"inst_name" : "Forest_Mushroom1"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 556645,
+					"inst_name" : "Forest_Mushroom1"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 556645,
+					"inst_name" : "Forest_Mushroom1"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 130145,
+					"inst_name" : "Forest_Mushroom1"
+				}
+			]
+		},
+		{
+			"asset_uid" : 322912,
+			"asset_name" : "Forest_Mushroom2",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 309825,
+					"inst_name" : "Forest_Mushroom2"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 97898,
+					"inst_name" : "Forest_Mushroom2"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 97898,
+					"inst_name" : "Forest_Mushroom2"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 309825,
+					"inst_name" : "Forest_Mushroom2"
+				}
+			]
+		},
+		{
+			"asset_uid" : 458086,
+			"asset_name" : "Forest_Rock",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 131040,
+					"inst_name" : "Forest_Rock"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 163826,
+					"inst_name" : "Forest_Rock"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 163826,
+					"inst_name" : "Forest_Rock"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 131040,
+					"inst_name" : "Forest_Rock"
+				}
+			]
+		},
+		{
+			"asset_uid" : 503138,
+			"asset_name" : "Forest_MovingBlock",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 195439,
+					"inst_name" : "Forest_MovingBlock"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 32608,
+					"inst_name" : "Forest_MovingBlock"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 32608,
+					"inst_name" : "Forest_MovingBlock"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 195439,
+					"inst_name" : "Forest_MovingBlock"
+				}
+			]
+		},
+		{
+			"asset_uid" : 567162,
+			"asset_name" : "ForestBee",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 524241,
+					"inst_name" : "ForestBee"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 982764,
+					"inst_name" : "ForestBee"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 982764,
+					"inst_name" : "ForestBee"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 524241,
+					"inst_name" : "ForestBee"
+				}
+			]
+		},
+		{
+			"asset_uid" : 1023339,
+			"asset_name" : "ForestSlug",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 965858,
+					"inst_name" : "ForestSlug"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 720618,
+					"inst_name" : "ForestSlug"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 720618,
+					"inst_name" : "ForestSlug"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 965858,
+					"inst_name" : "ForestSlug"
+				}
+			]
+		},
+		{
+			"asset_uid" : 972796,
+			"asset_name" : "ForestPiranhaIdle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 954222,
+			"asset_name" : "ForestPiranhaAttack",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 310772,
+			"asset_name" : "ForestPiranha",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 194534,
+			"asset_name" : "ForestStar",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 457300,
+					"inst_name" : "ForestStar"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 360317,
+					"inst_name" : "ForestStar"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 360317,
+					"inst_name" : "ForestStar"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 457300,
+					"inst_name" : "ForestStar"
+				}
+			]
+		},
+		{
+			"asset_uid" : 976895,
+			"asset_name" : "ForestItemsScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 785095,
+					"inst_name" : "ForestItemsScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 392931,
+					"inst_name" : "ForestItemsScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 392931,
+					"inst_name" : "ForestItemsScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 785095,
+					"inst_name" : "ForestItemsScript"
+				}
+			]
+		},
+		{
+			"asset_uid" : 849274,
+			"asset_name" : "ForestEnemiesScript",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 114384,
+					"inst_name" : "ForestEnemiesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 294778,
+					"inst_name" : "ForestEnemiesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level1.sca",
+					"inst_uid" : 294778,
+					"inst_name" : "ForestEnemiesScript"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 114384,
+					"inst_name" : "ForestEnemiesScript"
 				}
 			]
 		}

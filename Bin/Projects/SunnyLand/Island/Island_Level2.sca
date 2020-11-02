@@ -17,6 +17,7 @@
 		"x" : 12641.000000,
 		"y" : -586.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
 	"gizmo2d_align_y" : 64,
@@ -29,11 +30,13 @@
 				"x" : 192.000000,
 				"y" : -32.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BossCatScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "BossCat",
+			"class_namespace" : "",
 			"Count" : 16,
 			"Node" : [
 				{
@@ -46,6 +49,7 @@
 					},
 					"param_type" : 3,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -79,11 +83,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 2,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -146,11 +153,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 8,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -164,6 +174,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -197,11 +208,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 12,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -241,11 +255,13 @@
 				"x" : 7.000000,
 				"y" : -78.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IslandFinishLevel2Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "IslandFinishLevel2",
+			"class_namespace" : "",
 			"Count" : 7,
 			"Node" : [
 				{
@@ -258,6 +274,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -291,11 +308,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 2,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -309,6 +329,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -18490,6 +18511,7 @@
 				"x" : 647.000000,
 				"y" : -10.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "",
@@ -19236,17 +19258,22 @@
 							{
 								"data_type" : 2,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 2944.000000,
-											"y" : 448.000000
+											"y" : 448.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 2944.000000,
-											"y" : 1152.000000
+											"y" : 1152.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19254,17 +19281,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 9984.000000,
-											"y" : 1920.000000
+											"y" : 1920.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 9984.000000,
-											"y" : 1088.000000
+											"y" : 1088.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19272,17 +19304,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 8704.000000,
-											"y" : 960.000000
+											"y" : 960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 9536.000000,
-											"y" : 960.000000
+											"y" : 960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19290,17 +19327,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 8320.000000,
-											"y" : 960.000000
+											"y" : 960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 7488.000000,
-											"y" : 960.000000
+											"y" : 960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19308,17 +19350,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 6464.000000,
-											"y" : 768.000000
+											"y" : 768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 7296.000000,
-											"y" : 768.000000
+											"y" : 768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19326,17 +19373,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 7296.000000,
-											"y" : 0.000000
+											"y" : 0.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 8128.000000,
-											"y" : 0.000000
+											"y" : 0.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19344,17 +19396,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 9280.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 8448.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -19362,17 +19419,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 11072.000000,
-											"y" : -64.000000
+											"y" : -64.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 11072.000000,
-											"y" : -896.000000
+											"y" : -896.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -20643,9 +20705,6 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
-				},
-				{
-					"type" : "ScriptMetaDataCompInst"
 				}
 			]
 		},
@@ -20726,9 +20785,6 @@
 			"components" : [
 				{
 					"type" : "Phys2DCompInst"
-				},
-				{
-					"type" : "ScriptMetaDataCompInst"
 				}
 			]
 		},
@@ -20740,6 +20796,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IslandItemsScript",
 			"State" : 2,
 			"Group" : "",
@@ -22616,6 +22673,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeScript2",
 			"State" : 2,
 			"Group" : "",
@@ -22718,6 +22776,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BridgeScript1",
 			"State" : 2,
 			"Group" : "",
@@ -22957,6 +23016,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BoxesScript",
 			"State" : 2,
 			"Group" : "",
@@ -23111,17 +23171,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 5440.000000,
-											"y" : 832.000000
+											"y" : 832.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 4864.000000,
-											"y" : 832.000000
+											"y" : 832.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -23129,17 +23194,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 8576.000000,
-											"y" : -192.000000
+											"y" : -192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 8000.000000,
-											"y" : -192.000000
+											"y" : -192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -23223,17 +23293,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 300.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 2496.000000,
-											"y" : 1216.000000
+											"y" : 1216.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 1728.000000,
-											"y" : 1216.000000
+											"y" : 1216.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -23241,17 +23316,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 300.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 6976.000000,
-											"y" : 1856.000000
+											"y" : 1856.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 6208.000000,
-											"y" : 1856.000000
+											"y" : 1856.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -23259,17 +23339,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 300.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 15872.000000,
-											"y" : -1024.000000
+											"y" : -1024.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 15168.000000,
-											"y" : -1024.000000
+											"y" : -1024.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -23287,6 +23372,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "IslandEnemiesScript",
 			"State" : 2,
 			"Group" : "",
@@ -23423,6 +23509,7 @@
 				"x" : 329.000000,
 				"y" : -48.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BossCatScript",
 			"State" : 2,
 			"Group" : "",
@@ -23880,6 +23967,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishLevel2Script",
 			"State" : 2,
 			"Group" : "",
@@ -24116,358 +24204,6 @@
 	],
 	"asset_instances" : [
 		{
-			"asset_uid" : -735117312,
-			"asset_name" : "Ground1Tiles",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 748786,
-					"inst_name" : "Ground1Tiles"
-				}
-			]
-		},
-		{
-			"asset_uid" : -2112705280,
-			"asset_name" : "TreeSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 982262,
-					"inst_name" : "TreeSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : -389033728,
-			"asset_name" : "Hero_Graph",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 749309,
-					"inst_name" : "Hero"
-				}
-			]
-		},
-		{
-			"asset_uid" : 14304,
-			"asset_name" : "MainScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 978933,
-					"inst_name" : "MainScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1689413632,
-			"asset_name" : "MovingBlock",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 356337,
-					"inst_name" : "MovingBlock"
-				}
-			]
-		},
-		{
-			"asset_uid" : 982452608,
-			"asset_name" : "LeftHangSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 556470,
-					"inst_name" : "LeftHangSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : 450155648,
-			"asset_name" : "BridgeBaseSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 621746,
-					"inst_name" : "BridgeBaseSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : 606003712,
-			"asset_name" : "BridgeRowSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 323326,
-					"inst_name" : "BridgeRowSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : 217616304,
-			"asset_name" : "RightHangSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 191735,
-					"inst_name" : "RightHangSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1683574144,
-			"asset_name" : "LeftCaveEnter",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 97520,
-					"inst_name" : "LeftCaveEnter"
-				}
-			]
-		},
-		{
-			"asset_uid" : 2073259264,
-			"asset_name" : "RightCaveEnter",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 782260,
-					"inst_name" : "RightCaveEnter"
-				}
-			]
-		},
-		{
-			"asset_uid" : -536187136,
-			"asset_name" : "CaveBrush",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 195835,
-					"inst_name" : "CaveBrush"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1682146816,
-			"asset_name" : "CaveInner",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 523515,
-					"inst_name" : "CaveInner"
-				}
-			]
-		},
-		{
-			"asset_uid" : 86683184,
-			"asset_name" : "BushSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 32251,
-					"inst_name" : "BushSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : -794419968,
-			"asset_name" : "SignSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 753598,
-					"inst_name" : "SignSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : -1650481664,
-			"asset_name" : "HouseSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 327155,
-					"inst_name" : "HouseSprite"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1435982208,
-			"asset_name" : "CherryItem",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 520188,
-					"inst_name" : "CherryItem"
-				}
-			]
-		},
-		{
-			"asset_uid" : -350622976,
-			"asset_name" : "DiamondItem",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 64951,
-					"inst_name" : "DiamondItem"
-				}
-			]
-		},
-		{
-			"asset_uid" : 344051,
-			"asset_name" : "IslandItemsScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 524283,
-					"inst_name" : "IslandItemsScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 606003712,
-			"asset_name" : "BridgeRowSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 1015286,
-					"inst_name" : "BridgeRowSprite2"
-				}
-			]
-		},
-		{
-			"asset_uid" : 606003712,
-			"asset_name" : "BridgeRowSprite",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 32752,
-					"inst_name" : "BridgeRowSprite1"
-				}
-			]
-		},
-		{
-			"asset_uid" : -794679808,
-			"asset_name" : "BridgeRowSpriteDyn",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 229053,
-					"inst_name" : "BridgeRowSpriteDyn2"
-				}
-			]
-		},
-		{
-			"asset_uid" : -794679808,
-			"asset_name" : "BridgeRowSpriteDyn",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 1010865,
-					"inst_name" : "BridgeRowSpriteDyn1"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1322567424,
-			"asset_name" : "BridgeScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 749562,
-					"inst_name" : "BridgeScript2"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1322567424,
-			"asset_name" : "BridgeScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 31996,
-					"inst_name" : "BridgeScript1"
-				}
-			]
-		},
-		{
-			"asset_uid" : 532556576,
-			"asset_name" : "DynBox",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 945848,
-					"inst_name" : "DynBox"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1373046016,
-			"asset_name" : "DynBoxFly",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 225211,
-					"inst_name" : "DynBoxFly"
-				}
-			]
-		},
-		{
-			"asset_uid" : 477276576,
-			"asset_name" : "FakeBox",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 589303,
-					"inst_name" : "FakeBox"
-				}
-			]
-		},
-		{
-			"asset_uid" : 178155,
-			"asset_name" : "BoxesScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 360115,
-					"inst_name" : "BoxesScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : -1084575232,
-			"asset_name" : "EagleFly",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 1011637,
-					"inst_name" : "EagleFly"
-				}
-			]
-		},
-		{
-			"asset_uid" : 826604608,
-			"asset_name" : "OpposumRun",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 229113,
-					"inst_name" : "OpposumRun"
-				}
-			]
-		},
-		{
-			"asset_uid" : 753660,
-			"asset_name" : "IslandEnemiesScript",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 556275,
-					"inst_name" : "IslandEnemiesScript"
-				}
-			]
-		},
-		{
 			"asset_uid" : 966624,
 			"asset_name" : "BossCatScript",
 			"instances" : [
@@ -24479,50 +24215,6 @@
 			]
 		},
 		{
-			"asset_uid" : -682692352,
-			"asset_name" : "CatGraph",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 913080,
-					"inst_name" : "CatBoss"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1157116672,
-			"asset_name" : "DynCard",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 814518,
-					"inst_name" : "DynCard"
-				}
-			]
-		},
-		{
-			"asset_uid" : -1232377856,
-			"asset_name" : "FakeCard",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 654581,
-					"inst_name" : "FakeCard"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1511894784,
-			"asset_name" : "Hero_Hit",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 683199,
-					"inst_name" : "BossMarker"
-				}
-			]
-		},
-		{
 			"asset_uid" : 392700,
 			"asset_name" : "IslandFinishLevel2Script",
 			"instances" : [
@@ -24530,28 +24222,6 @@
 					"scene" : "Island/Island_Level2.sca",
 					"inst_uid" : 454396,
 					"inst_name" : "FinishLevel2Script"
-				}
-			]
-		},
-		{
-			"asset_uid" : 440289,
-			"asset_name" : "Respawn_Graph",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 294590,
-					"inst_name" : "Respawn_Graph"
-				}
-			]
-		},
-		{
-			"asset_uid" : 79865,
-			"asset_name" : "FinishSign_Graph",
-			"instances" : [
-				{
-					"scene" : "Island/Island_Level2.sca",
-					"inst_uid" : 491517,
-					"inst_name" : "FinishSign"
 				}
 			]
 		}

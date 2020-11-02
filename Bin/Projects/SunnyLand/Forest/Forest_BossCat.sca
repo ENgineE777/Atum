@@ -17,6 +17,7 @@
 		"x" : 0.000000,
 		"y" : 0.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
 	"gizmo2d_align_y" : 0,
@@ -29,6 +30,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBoss_Fly",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -36,6 +38,9 @@
 			"height" : 163.733322,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 265,
@@ -177,6 +182,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBoss_Slide",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -184,6 +190,9 @@
 			"height" : 168.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 265,
@@ -239,6 +248,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBoss_Graph",
 			"def_node" : 0,
 			"Count" : 2,
@@ -261,6 +271,9 @@
 							"index" : 1,
 							"name" : "slide"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -281,6 +294,9 @@
 							"index" : 0,
 							"name" : "fly"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			],
@@ -306,6 +322,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBossBox",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -313,6 +330,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -381,6 +401,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBossFakeBox",
 			"x" : 0.000000,
 			"y" : 0.000000,
@@ -388,6 +409,9 @@
 			"height" : 64.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 16,
@@ -449,5 +473,65 @@
 		}
 	],
 	"asset_instances" : [
+		{
+			"asset_uid" : 258811,
+			"asset_name" : "CatBoss_Fly",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 242676,
+			"asset_name" : "CatBoss_Slide",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 386794,
+			"asset_name" : "CatBoss_Graph",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 981083,
+					"inst_name" : "CatBoss"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 981083,
+					"inst_name" : "CatBoss"
+				}
+			]
+		},
+		{
+			"asset_uid" : 107493,
+			"asset_name" : "CatBossBox",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 178288,
+					"inst_name" : "CatBossBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 178288,
+					"inst_name" : "CatBossBox"
+				}
+			]
+		},
+		{
+			"asset_uid" : 655101,
+			"asset_name" : "CatBossFakeBox",
+			"instances" : [
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 653817,
+					"inst_name" : "CatBossFakeBox"
+				},
+				{
+					"scene" : "Forest/Forest_Level2.sca",
+					"inst_uid" : 653817,
+					"inst_name" : "CatBossFakeBox"
+				}
+			]
+		}
 	]
 }

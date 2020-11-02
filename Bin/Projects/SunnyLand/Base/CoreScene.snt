@@ -3,31 +3,6 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "FX",
-			"type" : 0
-		},
-		{
-			"uid" : 32744,
-			"name" : "Dust",
-			"type" : 1
-		},
-		{
-			"uid" : -970252032,
-			"name" : "EnemyDeath",
-			"type" : 1
-		},
-		{
-			"uid" : 1225762432,
-			"name" : "ItemTaken",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
 			"name" : "UI",
 			"type" : 0
 		},
@@ -42,8 +17,33 @@
 			"type" : 2
 		},
 		{
-			"uid" : 1314392192,
-			"name" : "Camera2D",
+			"uid" : -1,
+			"name" : "FX",
+			"type" : 0
+		},
+		{
+			"uid" : 1225762432,
+			"name" : "ItemTaken",
+			"type" : 1
+		},
+		{
+			"uid" : -970252032,
+			"name" : "EnemyDeath",
+			"type" : 1
+		},
+		{
+			"uid" : 32744,
+			"name" : "Dust",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 14304,
+			"name" : "VirtualJoystick",
 			"type" : 1
 		},
 		{
@@ -52,8 +52,8 @@
 			"type" : 1
 		},
 		{
-			"uid" : 14304,
-			"name" : "VirtualJoystick",
+			"uid" : 1314392192,
+			"name" : "Camera2D",
 			"type" : 1
 		},
 		{
@@ -65,37 +65,12 @@
 	"asset_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "MetaData",
+			"name" : "UI",
 			"type" : 0
 		},
 		{
-			"uid" : 1583784704,
-			"name" : "ItemData",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Scripts",
-			"type" : 0
-		},
-		{
-			"uid" : 178155,
-			"name" : "BoxesScript",
-			"type" : 1
-		},
-		{
-			"uid" : 16352,
-			"name" : "GameMenuScript",
-			"type" : 1
-		},
-		{
-			"uid" : 14304,
-			"name" : "MainScript",
+			"uid" : 206845808,
+			"name" : "IngameMenu",
 			"type" : 1
 		},
 		{
@@ -110,92 +85,27 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "FX",
+			"name" : "Respawn",
 			"type" : 3
 		},
 		{
-			"uid" : 112635,
-			"name" : "Dust",
+			"uid" : 129009,
+			"name" : "Respawn_Inactive",
 			"type" : 1
 		},
 		{
-			"uid" : -1558477824,
-			"name" : "EnemyDeath",
+			"uid" : 440289,
+			"name" : "Respawn_Graph",
 			"type" : 1
 		},
 		{
-			"uid" : 780797440,
-			"name" : "ItemTaken",
+			"uid" : 704497,
+			"name" : "Respawn_Active",
 			"type" : 1
 		},
 		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "FinishSign",
-			"type" : 3
-		},
-		{
-			"uid" : 688119,
-			"name" : "FinishSign_Activation",
-			"type" : 1
-		},
-		{
-			"uid" : 866277,
-			"name" : "FinishSign_Active",
-			"type" : 1
-		},
-		{
-			"uid" : 79865,
-			"name" : "FinishSign_Graph",
-			"type" : 1
-		},
-		{
-			"uid" : 997357,
-			"name" : "FinishSign_Inactive",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Hero",
-			"type" : 3
-		},
-		{
-			"uid" : 1917411200,
-			"name" : "Hero_Fall",
-			"type" : 1
-		},
-		{
-			"uid" : -389033728,
-			"name" : "Hero_Graph",
-			"type" : 1
-		},
-		{
-			"uid" : 1511894784,
-			"name" : "Hero_Hit",
-			"type" : 1
-		},
-		{
-			"uid" : -1039027712,
-			"name" : "Hero_Idle",
-			"type" : 1
-		},
-		{
-			"uid" : -442886144,
-			"name" : "Hero_Jump",
-			"type" : 1
-		},
-		{
-			"uid" : -246291712,
-			"name" : "Hero_Run",
+			"uid" : 983038,
+			"name" : "Respawn_Acivation",
 			"type" : 1
 		},
 		{
@@ -209,8 +119,8 @@
 			"type" : 3
 		},
 		{
-			"uid" : 532556576,
-			"name" : "DynBox",
+			"uid" : 477276576,
+			"name" : "FakeBox",
 			"type" : 1
 		},
 		{
@@ -219,8 +129,8 @@
 			"type" : 1
 		},
 		{
-			"uid" : 477276576,
-			"name" : "FakeBox",
+			"uid" : 532556576,
+			"name" : "DynBox",
 			"type" : 1
 		},
 		{
@@ -230,27 +140,92 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "Respawn",
+			"name" : "Hero",
 			"type" : 3
 		},
 		{
-			"uid" : 983038,
-			"name" : "Respawn_Acivation",
+			"uid" : -246291712,
+			"name" : "Hero_Run",
 			"type" : 1
 		},
 		{
-			"uid" : 704497,
-			"name" : "Respawn_Active",
+			"uid" : -442886144,
+			"name" : "Hero_Jump",
 			"type" : 1
 		},
 		{
-			"uid" : 440289,
-			"name" : "Respawn_Graph",
+			"uid" : -1039027712,
+			"name" : "Hero_Idle",
 			"type" : 1
 		},
 		{
-			"uid" : 129009,
-			"name" : "Respawn_Inactive",
+			"uid" : 1511894784,
+			"name" : "Hero_Hit",
+			"type" : 1
+		},
+		{
+			"uid" : -389033728,
+			"name" : "Hero_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 1917411200,
+			"name" : "Hero_Fall",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "FinishSign",
+			"type" : 3
+		},
+		{
+			"uid" : 997357,
+			"name" : "FinishSign_Inactive",
+			"type" : 1
+		},
+		{
+			"uid" : 79865,
+			"name" : "FinishSign_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 866277,
+			"name" : "FinishSign_Active",
+			"type" : 1
+		},
+		{
+			"uid" : 688119,
+			"name" : "FinishSign_Activation",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "FX",
+			"type" : 3
+		},
+		{
+			"uid" : 780797440,
+			"name" : "ItemTaken",
+			"type" : 1
+		},
+		{
+			"uid" : -1558477824,
+			"name" : "EnemyDeath",
+			"type" : 1
+		},
+		{
+			"uid" : 112635,
+			"name" : "Dust",
 			"type" : 1
 		},
 		{
@@ -265,13 +240,33 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "UI",
+			"name" : "Scripts",
 			"type" : 0
 		},
 		{
-			"uid" : 206845808,
-			"name" : "IngameMenu",
+			"uid" : 14304,
+			"name" : "MainScript",
 			"type" : 1
+		},
+		{
+			"uid" : 16352,
+			"name" : "GameMenuScript",
+			"type" : 1
+		},
+		{
+			"uid" : 178155,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "MetaData",
+			"type" : 0
 		},
 		{
 			"uid" : -1,

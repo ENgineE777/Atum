@@ -3,18 +3,103 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "BotSpawns",
+			"name" : "PhysObject",
 			"type" : 0
 		},
 		{
-			"uid" : 28989,
-			"name" : "GenericMarker",
+			"uid" : -611970304,
+			"name" : "PhysBox9",
 			"type" : 1
 		},
 		{
-			"uid" : 28990,
-			"name" : "GenericMarker",
+			"uid" : -540469504,
+			"name" : "PhysBox8",
 			"type" : 1
+		},
+		{
+			"uid" : -954161152,
+			"name" : "PhysBox7",
+			"type" : 1
+		},
+		{
+			"uid" : 1066670272,
+			"name" : "PhysBox6",
+			"type" : 1
+		},
+		{
+			"uid" : 1822423040,
+			"name" : "PhysBox5",
+			"type" : 1
+		},
+		{
+			"uid" : -801297664,
+			"name" : "PhysBox4",
+			"type" : 1
+		},
+		{
+			"uid" : -829067520,
+			"name" : "PhysBox3",
+			"type" : 1
+		},
+		{
+			"uid" : -1622581760,
+			"name" : "PhysBox2",
+			"type" : 1
+		},
+		{
+			"uid" : -1893142528,
+			"name" : "PhysBox15",
+			"type" : 1
+		},
+		{
+			"uid" : -297289472,
+			"name" : "PhysBox14",
+			"type" : 1
+		},
+		{
+			"uid" : -415116288,
+			"name" : "PhysBox13",
+			"type" : 1
+		},
+		{
+			"uid" : 336611040,
+			"name" : "PhysBox12",
+			"type" : 1
+		},
+		{
+			"uid" : -2088568832,
+			"name" : "PhysBox11",
+			"type" : 1
+		},
+		{
+			"uid" : 1915724160,
+			"name" : "PhysBox10",
+			"type" : 1
+		},
+		{
+			"uid" : -173104128,
+			"name" : "PhysBox1",
+			"type" : 1
+		},
+		{
+			"uid" : -963374592,
+			"name" : "PhysBox0",
+			"type" : 1
+		},
+		{
+			"uid" : -1808016640,
+			"name" : "HoverTank",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "BotSpawns",
+			"type" : 3
 		},
 		{
 			"uid" : 28988,
@@ -27,103 +112,8 @@
 			"type" : 2
 		},
 		{
-			"uid" : -1,
-			"name" : "PhysObject",
-			"type" : 0
-		},
-		{
-			"uid" : -1808016640,
-			"name" : "HoverTank",
-			"type" : 1
-		},
-		{
-			"uid" : -963374592,
-			"name" : "PhysBox0",
-			"type" : 1
-		},
-		{
-			"uid" : -173104128,
-			"name" : "PhysBox1",
-			"type" : 1
-		},
-		{
-			"uid" : 1915724160,
-			"name" : "PhysBox10",
-			"type" : 1
-		},
-		{
-			"uid" : -2088568832,
-			"name" : "PhysBox11",
-			"type" : 1
-		},
-		{
-			"uid" : 336611040,
-			"name" : "PhysBox12",
-			"type" : 1
-		},
-		{
-			"uid" : -415116288,
-			"name" : "PhysBox13",
-			"type" : 1
-		},
-		{
-			"uid" : -297289472,
-			"name" : "PhysBox14",
-			"type" : 1
-		},
-		{
-			"uid" : -1893142528,
-			"name" : "PhysBox15",
-			"type" : 1
-		},
-		{
-			"uid" : -1622581760,
-			"name" : "PhysBox2",
-			"type" : 1
-		},
-		{
-			"uid" : -829067520,
-			"name" : "PhysBox3",
-			"type" : 1
-		},
-		{
-			"uid" : -801297664,
-			"name" : "PhysBox4",
-			"type" : 1
-		},
-		{
-			"uid" : 1822423040,
-			"name" : "PhysBox5",
-			"type" : 1
-		},
-		{
-			"uid" : 1066670272,
-			"name" : "PhysBox6",
-			"type" : 1
-		},
-		{
-			"uid" : -954161152,
-			"name" : "PhysBox7",
-			"type" : 1
-		},
-		{
-			"uid" : -540469504,
-			"name" : "PhysBox8",
-			"type" : 1
-		},
-		{
-			"uid" : -611970304,
-			"name" : "PhysBox9",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : 587836544,
-			"name" : "ColorCorrection",
+			"uid" : -44896000,
+			"name" : "Terrain",
 			"type" : 1
 		},
 		{
@@ -132,8 +122,8 @@
 			"type" : 1
 		},
 		{
-			"uid" : -44896000,
-			"name" : "Terrain",
+			"uid" : 587836544,
+			"name" : "ColorCorrection",
 			"type" : 1
 		},
 		{

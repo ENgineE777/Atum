@@ -23,7 +23,7 @@
 		},
 		{
 			"path" : "Island/Island_Level1.sca",
-			"selected_object" : -1,
+			"selected_object" : 263163904,
 			"selected_object_asset" : false,
 			"include" : [
 				{
@@ -33,8 +33,8 @@
 		},
 		{
 			"path" : "MainMenu/MainMenu.sca",
-			"selected_object" : -1,
-			"selected_object_asset" : false,
+			"selected_object" : 983036,
+			"selected_object_asset" : true,
 			"include" : [
 			]
 		},
@@ -99,7 +99,7 @@
 			]
 		}
 	],
-	"selected_scene" : "Forest/Forest_Level2.sca",
+	"selected_scene" : "Island/Island_Level2.sca",
 	"nodes" : [
 		{
 			"name" : "CoreScene",

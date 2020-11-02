@@ -3,87 +3,52 @@
 	"scene_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "Boss",
+			"name" : "Trigers",
 			"type" : 0
 		},
 		{
-			"uid" : 290738,
-			"name" : "ActivateBossTrigger",
+			"uid" : 588982,
+			"name" : "RespawnTrigger6",
 			"type" : 1
 		},
 		{
-			"uid" : 622257,
-			"name" : "BossCatScript",
+			"uid" : 60860,
+			"name" : "RespawnTrigger5",
 			"type" : 1
 		},
 		{
-			"uid" : 683199,
-			"name" : "BossMarker",
+			"uid" : 359615,
+			"name" : "RespawnTrigger4",
 			"type" : 1
 		},
 		{
-			"uid" : 913080,
-			"name" : "CatBoss",
+			"uid" : 32504,
+			"name" : "RespawnTrigger3",
 			"type" : 1
 		},
 		{
-			"uid" : 814518,
-			"name" : "DynCard",
+			"uid" : 748731,
+			"name" : "RespawnTrigger2",
 			"type" : 1
 		},
 		{
-			"uid" : 654581,
-			"name" : "FakeCard",
+			"uid" : 486900,
+			"name" : "RespawnTrigger1",
 			"type" : 1
 		},
 		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Enemies",
-			"type" : 0
-		},
-		{
-			"uid" : 1011637,
-			"name" : "EagleFly",
+			"uid" : 326833,
+			"name" : "RespawnPoint2",
 			"type" : 1
 		},
 		{
-			"uid" : 556275,
-			"name" : "IslandEnemiesScript",
+			"uid" : 978942,
+			"name" : "RespawnPoint1",
 			"type" : 1
 		},
 		{
-			"uid" : 229113,
-			"name" : "OpposumRun",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Scripts",
-			"type" : 0
-		},
-		{
-			"uid" : 454396,
-			"name" : "FinishLevel2Script",
-			"type" : 1
-		},
-		{
-			"uid" : 524283,
-			"name" : "IslandItemsScript",
-			"type" : 1
-		},
-		{
-			"uid" : 978933,
-			"name" : "MainScript",
+			"uid" : 126907,
+			"name" : "NextLevelTrigger",
 			"type" : 1
 		},
 		{
@@ -95,156 +60,6 @@
 			"uid" : -1,
 			"name" : "Level",
 			"type" : 0
-		},
-		{
-			"uid" : -1,
-			"name" : "Boxes",
-			"type" : 0
-		},
-		{
-			"uid" : 360115,
-			"name" : "BoxesScript",
-			"type" : 1
-		},
-		{
-			"uid" : 945848,
-			"name" : "DynBox",
-			"type" : 1
-		},
-		{
-			"uid" : 225211,
-			"name" : "DynBoxFly",
-			"type" : 1
-		},
-		{
-			"uid" : 589303,
-			"name" : "FakeBox",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Bridge1",
-			"type" : 0
-		},
-		{
-			"uid" : 715963,
-			"name" : "BridgeFallTrigger1",
-			"type" : 1
-		},
-		{
-			"uid" : 32752,
-			"name" : "BridgeRowSprite1",
-			"type" : 1
-		},
-		{
-			"uid" : 1010865,
-			"name" : "BridgeRowSpriteDyn1",
-			"type" : 1
-		},
-		{
-			"uid" : 31996,
-			"name" : "BridgeScript1",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Bridge2",
-			"type" : 0
-		},
-		{
-			"uid" : 163575,
-			"name" : "BridgeFallTrigger2",
-			"type" : 1
-		},
-		{
-			"uid" : 1015286,
-			"name" : "BridgeRowSprite2",
-			"type" : 1
-		},
-		{
-			"uid" : 229053,
-			"name" : "BridgeRowSpriteDyn2",
-			"type" : 1
-		},
-		{
-			"uid" : 749562,
-			"name" : "BridgeScript2",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Decor",
-			"type" : 0
-		},
-		{
-			"uid" : 32251,
-			"name" : "BushSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 327155,
-			"name" : "HouseSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 556470,
-			"name" : "LeftHangSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 191735,
-			"name" : "RightHangSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 753598,
-			"name" : "SignSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 982262,
-			"name" : "TreeSprite",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
-		},
-		{
-			"uid" : -1,
-			"name" : "Items",
-			"type" : 0
-		},
-		{
-			"uid" : 520188,
-			"name" : "CherryItem",
-			"type" : 1
-		},
-		{
-			"uid" : 64951,
-			"name" : "DiamondItem",
-			"type" : 1
-		},
-		{
-			"uid" : -1,
-			"name" : "",
-			"type" : 2
 		},
 		{
 			"uid" : -1,
@@ -262,53 +77,18 @@
 			"type" : 2
 		},
 		{
-			"uid" : 621746,
-			"name" : "BridgeBaseSprite",
+			"uid" : -1,
+			"name" : "Items",
+			"type" : 0
+		},
+		{
+			"uid" : 64951,
+			"name" : "DiamondItem",
 			"type" : 1
 		},
 		{
-			"uid" : 323326,
-			"name" : "BridgeRowSprite",
-			"type" : 1
-		},
-		{
-			"uid" : 195835,
-			"name" : "CaveBrush",
-			"type" : 1
-		},
-		{
-			"uid" : 523515,
-			"name" : "CaveInner",
-			"type" : 1
-		},
-		{
-			"uid" : 491517,
-			"name" : "FinishSign",
-			"type" : 1
-		},
-		{
-			"uid" : 749309,
-			"name" : "Hero",
-			"type" : 1
-		},
-		{
-			"uid" : 97520,
-			"name" : "LeftCaveEnter",
-			"type" : 1
-		},
-		{
-			"uid" : 356337,
-			"name" : "MovingBlock",
-			"type" : 1
-		},
-		{
-			"uid" : 294590,
-			"name" : "Respawn_Graph",
-			"type" : 1
-		},
-		{
-			"uid" : 782260,
-			"name" : "RightCaveEnter",
+			"uid" : 520188,
+			"name" : "CherryItem",
 			"type" : 1
 		},
 		{
@@ -318,52 +98,272 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "Trigers",
+			"name" : "Decor",
 			"type" : 0
 		},
 		{
-			"uid" : 126907,
-			"name" : "NextLevelTrigger",
+			"uid" : 982262,
+			"name" : "TreeSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 978942,
-			"name" : "RespawnPoint1",
+			"uid" : 753598,
+			"name" : "SignSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 326833,
-			"name" : "RespawnPoint2",
+			"uid" : 191735,
+			"name" : "RightHangSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 486900,
-			"name" : "RespawnTrigger1",
+			"uid" : 556470,
+			"name" : "LeftHangSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 748731,
-			"name" : "RespawnTrigger2",
+			"uid" : 327155,
+			"name" : "HouseSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 32504,
-			"name" : "RespawnTrigger3",
+			"uid" : 32251,
+			"name" : "BushSprite",
 			"type" : 1
 		},
 		{
-			"uid" : 359615,
-			"name" : "RespawnTrigger4",
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Bridge2",
+			"type" : 0
+		},
+		{
+			"uid" : 749562,
+			"name" : "BridgeScript2",
 			"type" : 1
 		},
 		{
-			"uid" : 60860,
-			"name" : "RespawnTrigger5",
+			"uid" : 229053,
+			"name" : "BridgeRowSpriteDyn2",
 			"type" : 1
 		},
 		{
-			"uid" : 588982,
-			"name" : "RespawnTrigger6",
+			"uid" : 1015286,
+			"name" : "BridgeRowSprite2",
+			"type" : 1
+		},
+		{
+			"uid" : 163575,
+			"name" : "BridgeFallTrigger2",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Bridge1",
+			"type" : 0
+		},
+		{
+			"uid" : 31996,
+			"name" : "BridgeScript1",
+			"type" : 1
+		},
+		{
+			"uid" : 1010865,
+			"name" : "BridgeRowSpriteDyn1",
+			"type" : 1
+		},
+		{
+			"uid" : 32752,
+			"name" : "BridgeRowSprite1",
+			"type" : 1
+		},
+		{
+			"uid" : 715963,
+			"name" : "BridgeFallTrigger1",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Boxes",
+			"type" : 0
+		},
+		{
+			"uid" : 589303,
+			"name" : "FakeBox",
+			"type" : 1
+		},
+		{
+			"uid" : 225211,
+			"name" : "DynBoxFly",
+			"type" : 1
+		},
+		{
+			"uid" : 945848,
+			"name" : "DynBox",
+			"type" : 1
+		},
+		{
+			"uid" : 360115,
+			"name" : "BoxesScript",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : 782260,
+			"name" : "RightCaveEnter",
+			"type" : 1
+		},
+		{
+			"uid" : 294590,
+			"name" : "Respawn_Graph",
+			"type" : 1
+		},
+		{
+			"uid" : 356337,
+			"name" : "MovingBlock",
+			"type" : 1
+		},
+		{
+			"uid" : 97520,
+			"name" : "LeftCaveEnter",
+			"type" : 1
+		},
+		{
+			"uid" : 749309,
+			"name" : "Hero",
+			"type" : 1
+		},
+		{
+			"uid" : 491517,
+			"name" : "FinishSign",
+			"type" : 1
+		},
+		{
+			"uid" : 523515,
+			"name" : "CaveInner",
+			"type" : 1
+		},
+		{
+			"uid" : 195835,
+			"name" : "CaveBrush",
+			"type" : 1
+		},
+		{
+			"uid" : 323326,
+			"name" : "BridgeRowSprite",
+			"type" : 1
+		},
+		{
+			"uid" : 621746,
+			"name" : "BridgeBaseSprite",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Scripts",
+			"type" : 0
+		},
+		{
+			"uid" : 978933,
+			"name" : "MainScript",
+			"type" : 1
+		},
+		{
+			"uid" : 524283,
+			"name" : "IslandItemsScript",
+			"type" : 1
+		},
+		{
+			"uid" : 454396,
+			"name" : "FinishLevel2Script",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Enemies",
+			"type" : 0
+		},
+		{
+			"uid" : 229113,
+			"name" : "OpposumRun",
+			"type" : 1
+		},
+		{
+			"uid" : 556275,
+			"name" : "IslandEnemiesScript",
+			"type" : 1
+		},
+		{
+			"uid" : 1011637,
+			"name" : "EagleFly",
+			"type" : 1
+		},
+		{
+			"uid" : -1,
+			"name" : "",
+			"type" : 2
+		},
+		{
+			"uid" : -1,
+			"name" : "Boss",
+			"type" : 0
+		},
+		{
+			"uid" : 654581,
+			"name" : "FakeCard",
+			"type" : 1
+		},
+		{
+			"uid" : 814518,
+			"name" : "DynCard",
+			"type" : 1
+		},
+		{
+			"uid" : 913080,
+			"name" : "CatBoss",
+			"type" : 1
+		},
+		{
+			"uid" : 683199,
+			"name" : "BossMarker",
+			"type" : 1
+		},
+		{
+			"uid" : 622257,
+			"name" : "BossCatScript",
+			"type" : 1
+		},
+		{
+			"uid" : 290738,
+			"name" : "ActivateBossTrigger",
 			"type" : 1
 		},
 		{
@@ -379,13 +379,13 @@
 	],
 	"asset_nodes" : [
 		{
-			"uid" : 966624,
-			"name" : "BossCatScript",
+			"uid" : 392700,
+			"name" : "IslandFinishLevel2Script",
 			"type" : 1
 		},
 		{
-			"uid" : 392700,
-			"name" : "IslandFinishLevel2Script",
+			"uid" : 966624,
+			"name" : "BossCatScript",
 			"type" : 1
 		},
 		{

@@ -17,6 +17,7 @@
 		"x" : 17540.000000,
 		"y" : -873.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 1,
 	"gizmo2d_align_x" : 64,
 	"gizmo2d_align_y" : 64,
@@ -29,11 +30,13 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestFinishLevel2Script",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestFinishLevel2",
+			"class_namespace" : "",
 			"Count" : 7,
 			"Node" : [
 				{
@@ -65,11 +68,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 1,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -83,6 +89,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -97,6 +104,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -155,11 +163,13 @@
 				"x" : 306.000000,
 				"y" : -190.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBossScript",
 			"State" : 2,
 			"Group" : "",
 			"Layer" : "",
 			"main_class" : "ForestCatBoss",
+			"class_namespace" : "",
 			"Count" : 16,
 			"Node" : [
 				{
@@ -182,6 +192,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 1,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -196,6 +207,7 @@
 					},
 					"param_type" : 0,
 					"call_type" : 2,
+					"priority" : 0,
 					"Count" : 0,
 					"Link" : [
 					]
@@ -249,11 +261,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 6,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -296,11 +311,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 10,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -323,11 +341,14 @@
 					},
 					"param_type" : 0,
 					"call_type" : 0,
+					"priority" : 0,
 					"Count" : 1,
 					"Link" : [
 						{
 							"node" : 12,
-							"param" : ""
+							"param" : "",
+							"param2" : "",
+							"param3" : ""
 						}
 					]
 				},
@@ -16294,6 +16315,7 @@
 				"x" : 656.000000,
 				"y" : -76.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "MainScript",
 			"State" : 2,
 			"Group" : "Level",
@@ -16988,17 +17010,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 6528.000000,
-											"y" : 768.000000
+											"y" : 768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 6528.000000,
-											"y" : -512.000000
+											"y" : -512.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17006,17 +17033,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 7232.000000,
-											"y" : -1280.000000
+											"y" : -1280.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 7232.000000,
-											"y" : 0.000000
+											"y" : 0.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17024,17 +17056,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 7680.000000,
-											"y" : -960.000000
+											"y" : -960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 8960.000000,
-											"y" : -960.000000
+											"y" : -960.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17042,17 +17079,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 10752.000000,
-											"y" : -832.000000
+											"y" : -832.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 9472.000000,
-											"y" : -832.000000
+											"y" : -832.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17060,17 +17102,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 11968.000000,
-											"y" : 1152.000000
+											"y" : 1152.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 13184.000000,
-											"y" : 1472.000000
+											"y" : 1472.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17078,17 +17125,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 15296.000000,
-											"y" : 1472.000000
+											"y" : 1472.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 16256.000000,
-											"y" : 1472.000000
+											"y" : 1472.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17096,17 +17148,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 17472.000000,
-											"y" : 64.000000
+											"y" : 64.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 16512.000000,
-											"y" : 64.000000
+											"y" : 64.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17114,17 +17171,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 22784.000000,
-											"y" : -896.000000
+											"y" : -896.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 23744.000000,
-											"y" : -896.000000
+											"y" : -896.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17132,17 +17194,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 21120.000000,
-											"y" : 192.000000
+											"y" : 192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 20160.000000,
-											"y" : 192.000000
+											"y" : 192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17150,17 +17217,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 16640.000000,
-											"y" : 512.000000
+											"y" : 512.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 16640.000000,
-											"y" : 1472.000000
+											"y" : 1472.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17168,17 +17240,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 15232.000000,
-											"y" : -128.000000
+											"y" : -128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 16192.000000,
-											"y" : -128.000000
+											"y" : -128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17186,17 +17263,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 16256.000000,
-											"y" : 512.000000
+											"y" : 512.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 15296.000000,
-											"y" : 512.000000
+											"y" : 512.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17204,17 +17286,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 14912.000000,
-											"y" : -256.000000
+											"y" : -256.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 14912.000000,
-											"y" : 704.000000
+											"y" : 704.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17222,17 +17309,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 21376.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 22336.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17240,17 +17332,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 19840.000000,
-											"y" : -704.000000
+											"y" : -704.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 19840.000000,
-											"y" : 256.000000
+											"y" : 256.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -17258,17 +17355,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 120.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 22592.000000,
-											"y" : -896.000000
+											"y" : -896.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 22592.000000,
-											"y" : 64.000000
+											"y" : 64.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18019,6 +18121,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestItemsScript",
 			"State" : 2,
 			"Group" : "Level",
@@ -18270,9 +18373,6 @@
 			"asset_uid" : 194534,
 			"components" : [
 				{
-					"type" : "ScriptMetaDataCompInst"
-				},
-				{
 					"type" : "Phys2DCompInst"
 				}
 			]
@@ -18285,6 +18385,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "ForestEnemiesScript",
 			"State" : 2,
 			"Group" : "Level",
@@ -18666,25 +18767,34 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 4,
 									"Elem" : [
 										{
 											"x" : 2624.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 2240.000000,
-											"y" : 192.000000
+											"y" : 192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 1920.000000,
-											"y" : 320.000000
+											"y" : 320.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 1472.000000,
-											"y" : 192.000000
+											"y" : 192.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18692,25 +18802,34 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 4,
 									"Elem" : [
 										{
 											"x" : 13568.000000,
-											"y" : -832.000000
+											"y" : -832.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 13184.000000,
-											"y" : -768.000000
+											"y" : -768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 12864.000000,
-											"y" : -640.000000
+											"y" : -640.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 12416.000000,
-											"y" : -768.000000
+											"y" : -768.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18718,17 +18837,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 13440.000000,
-											"y" : 320.000000
+											"y" : 320.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 12480.000000,
-											"y" : 576.000000
+											"y" : 576.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18736,17 +18860,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 14784.000000,
-											"y" : 1216.000000
+											"y" : 1216.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 13760.000000,
-											"y" : 1280.000000
+											"y" : 1280.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18830,17 +18959,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 4736.000000,
-											"y" : 704.000000
+											"y" : 704.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 4416.000000,
-											"y" : 704.000000
+											"y" : 704.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18848,17 +18982,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 18944.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 18176.000000,
-											"y" : 128.000000
+											"y" : 128.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18866,17 +19005,22 @@
 							{
 								"data_type" : 1,
 								"speed" : 100.000000,
+								"angle_speed" : 360.000000,
 								"track" :
 								{
 									"count" : 2,
 									"Elem" : [
 										{
 											"x" : 5888.000000,
-											"y" : 640.000000
+											"y" : 640.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										},
 										{
 											"x" : 5440.000000,
-											"y" : 640.000000
+											"y" : 640.000000,
+											"angle" : -1.000000,
+											"wait_time" : 0.000000
 										}
 									]
 								}
@@ -18894,6 +19038,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "BoxesScript",
 			"State" : 2,
 			"Group" : "Level",
@@ -18996,6 +19141,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FinishLevel2Script",
 			"State" : 2,
 			"Group" : "Level",
@@ -19237,6 +19383,7 @@
 				"x" : 68.000000,
 				"y" : -77.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatBossScript",
 			"State" : 2,
 			"Group" : "Level",
@@ -19703,215 +19850,6 @@
 	],
 	"asset_instances" : [
 		{
-			"asset_uid" : -389033728,
-			"asset_name" : "Hero_Graph",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 704359,
-					"inst_name" : "Hero"
-				}
-			]
-		},
-		{
-			"asset_uid" : 313327,
-			"asset_name" : "Forest_GroundTiles",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 113533,
-					"inst_name" : "Forest_GroundTiles"
-				}
-			]
-		},
-		{
-			"asset_uid" : 14304,
-			"asset_name" : "MainScript",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 244048,
-					"inst_name" : "MainScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 503138,
-			"asset_name" : "Forest_MovingBlock",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 195439,
-					"inst_name" : "Forest_MovingBlock"
-				}
-			]
-		},
-		{
-			"asset_uid" : 317297,
-			"asset_name" : "Forest_BigTree",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 589632,
-					"inst_name" : "Forest_BigTree"
-				}
-			]
-		},
-		{
-			"asset_uid" : 440304,
-			"asset_name" : "Forest_House",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 260552,
-					"inst_name" : "Forest_House"
-				}
-			]
-		},
-		{
-			"asset_uid" : 302566,
-			"asset_name" : "Forest_Mushroom1",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 130145,
-					"inst_name" : "Forest_Mushroom1"
-				}
-			]
-		},
-		{
-			"asset_uid" : 322912,
-			"asset_name" : "Forest_Mushroom2",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 309825,
-					"inst_name" : "Forest_Mushroom2"
-				}
-			]
-		},
-		{
-			"asset_uid" : 458086,
-			"asset_name" : "Forest_Rock",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 131040,
-					"inst_name" : "Forest_Rock"
-				}
-			]
-		},
-		{
-			"asset_uid" : 251876,
-			"asset_name" : "Forest_Bush",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 703577,
-					"inst_name" : "Forest_Bush"
-				}
-			]
-		},
-		{
-			"asset_uid" : 976895,
-			"asset_name" : "ForestItemsScript",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 785095,
-					"inst_name" : "ForestItemsScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 194534,
-			"asset_name" : "ForestStar",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 457300,
-					"inst_name" : "ForestStar"
-				}
-			]
-		},
-		{
-			"asset_uid" : 849274,
-			"asset_name" : "ForestEnemiesScript",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 114384,
-					"inst_name" : "ForestEnemiesScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 532556576,
-			"asset_name" : "DynBox",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 899188,
-					"inst_name" : "DynBox"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1373046016,
-			"asset_name" : "DynBoxFly",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 638951,
-					"inst_name" : "DynBoxFly"
-				}
-			]
-		},
-		{
-			"asset_uid" : 477276576,
-			"asset_name" : "FakeBox",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 572494,
-					"inst_name" : "FakeBox"
-				}
-			]
-		},
-		{
-			"asset_uid" : 567162,
-			"asset_name" : "ForestBee",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 524241,
-					"inst_name" : "ForestBee"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1023339,
-			"asset_name" : "ForestSlug",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 965858,
-					"inst_name" : "ForestSlug"
-				}
-			]
-		},
-		{
-			"asset_uid" : 178155,
-			"asset_name" : "BoxesScript",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 506058,
-					"inst_name" : "BoxesScript"
-				}
-			]
-		},
-		{
 			"asset_uid" : 194763,
 			"asset_name" : "ForestFinishLevel2Script",
 			"instances" : [
@@ -19923,28 +19861,6 @@
 			]
 		},
 		{
-			"asset_uid" : 440289,
-			"asset_name" : "Respawn_Graph",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 325838,
-					"inst_name" : "RespawnPoints"
-				}
-			]
-		},
-		{
-			"asset_uid" : 79865,
-			"asset_name" : "FinishSign_Graph",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 901100,
-					"inst_name" : "FinishSign"
-				}
-			]
-		},
-		{
 			"asset_uid" : 389089,
 			"asset_name" : "CatBossScript",
 			"instances" : [
@@ -19952,50 +19868,6 @@
 					"scene" : "Forest/Forest_Level2.sca",
 					"inst_uid" : 588259,
 					"inst_name" : "CatBossScript"
-				}
-			]
-		},
-		{
-			"asset_uid" : 386794,
-			"asset_name" : "CatBoss_Graph",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 981083,
-					"inst_name" : "CatBoss"
-				}
-			]
-		},
-		{
-			"asset_uid" : 1511894784,
-			"asset_name" : "Hero_Hit",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 638824,
-					"inst_name" : "BossMarkers"
-				}
-			]
-		},
-		{
-			"asset_uid" : 107493,
-			"asset_name" : "CatBossBox",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 178288,
-					"inst_name" : "CatBossBox"
-				}
-			]
-		},
-		{
-			"asset_uid" : 655101,
-			"asset_name" : "CatBossFakeBox",
-			"instances" : [
-				{
-					"scene" : "Forest/Forest_Level2.sca",
-					"inst_uid" : 653817,
-					"inst_name" : "CatBossFakeBox"
 				}
 			]
 		}

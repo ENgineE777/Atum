@@ -26,7 +26,7 @@ class Pointer
 {
 	float x,y;	
 	float angle = 0.0f;
-	float visible = 1;
+	int visible = 1;
 	float anim = 0.0f;
 }
 
@@ -35,7 +35,7 @@ class Bullet
 	float x,y;
 	float alpha;
 	float angle;
-	float size_x;
+	float width;
 	float dir_x;
 	float dir_y;
 	float dist;
@@ -102,7 +102,7 @@ class Main
 			dir_x /= len;
 			dir_y /= len;
 
-			if (core.scene.Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+			if (core.scene.Raycast2D(enemy.x + dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, dir_x, dir_y, len - dist_offset, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index))
 			{
 				//core.render.DrawLine2D(enemy.x+ dir_x * dist_offset, enemy.y + dir_y * dist_offset - 33.0f, pos_x, pos_y);
 
@@ -274,7 +274,7 @@ class Main
 				hero[0].graph.ActivateLink("Idle");
 			}
 
-			if (core.controls.IsGamepadConnected() > 0)
+			if (core.controls.IsGamepadConnected())
 			{
 				dir_x = core.controls.GetValue(alias_aim_horz, 0);
 				dir_y = -core.controls.GetValue(alias_aim_vert, 0);
@@ -355,7 +355,7 @@ class Main
 						bullets[index].dist = 0;
 						bullets[index].angle = angle;
 						bullets[index].alpha = 0.0f;
-						bullets[index].size_x = 0.0f;
+						bullets[index].width = 0.0f;
 					}
 
 					for (int j = 0; j<enemies.get_length();j++)
@@ -480,7 +480,7 @@ class Main
 								bullets[index].dist = 0;
 								bullets[index].angle = angle;
 								bullets[index].alpha = 0.0f;
-								bullets[index].size_x = 0.0f;
+								bullets[index].width = 0.0f;
 
 								enemy.time_to_shoot = 0.55f;
 							}
@@ -521,7 +521,7 @@ class Main
 				//core.render.DrawLine2D(enemy.x, enemy.y - 33.0f, p3_x, p3_y);
 				//core.render.DrawLine2D(p2_x, p2_y, p3_x, p3_y);
 
-				if ((IsPlayerVisibleByRadius(enemy, 175.0f) || core.utils.IsPointInTriangle(hero[0].x, hero[0].y - 33.0f, enemy.x, enemy.y - 33.0f, p2_x, p2_y, p3_x, p3_y) > 0) &&
+				if ((IsPlayerVisibleByRadius(enemy, 175.0f) || core.utils.IsPointInTriangle(Vector2(hero[0].x, hero[0].y - 33.0f), Vector2(enemy.x, enemy.y - 33.0f), Vector2(p2_x, p2_y), Vector2(p3_x, p3_y), false)) &&
 					 IsPlayerVisible(enemy, enemy_view_dist))
 				{
 					enemy.track.Activate(false);
@@ -553,11 +553,11 @@ class Main
 			{
 				float len = dt * 2500.0f;
 				bullet.dist += len;
-				bullet.size_x += len;
+				bullet.width += len;
 
-				if (bullet.size_x > 550.0f)
+				if (bullet.width > 550.0f)
 				{
-					bullet.size_x = 550.0f;
+					bullet.width = 550.0f;
 				}
 
 
@@ -580,7 +580,7 @@ class Main
 				string str_object;
 				int obj_index;
 
-				if (core.scene.Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) > 0)
+				if (core.scene.Raycast2D(bullet.x, bullet.y, bullet.dir_x, bullet.dir_y, len, 1, pos_x, pos_y, normal_x, normal_y, str_object, obj_index) )
 				{
 					if (str_object == "EnemyGraph_Legs")
 					{

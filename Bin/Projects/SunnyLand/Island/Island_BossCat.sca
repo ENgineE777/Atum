@@ -17,6 +17,7 @@
 		"x" : 0.000000,
 		"y" : 0.000000
 	},
+	"camera_zoom" : 1.000000,
 	"move_mode" : 0,
 	"gizmo2d_align_x" : 0,
 	"gizmo2d_align_y" : 0,
@@ -29,6 +30,7 @@
 				"x" : 564.000000,
 				"y" : 322.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatAttack",
 			"x" : 768.000000,
 			"y" : 448.000000,
@@ -36,6 +38,9 @@
 			"height" : 212.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 392,
@@ -149,6 +154,7 @@
 				"x" : 0.000000,
 				"y" : 0.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatGraph",
 			"def_node" : 1,
 			"Count" : 3,
@@ -171,6 +177,9 @@
 							"index" : 1,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -195,6 +204,9 @@
 							"index" : 0,
 							"name" : "attack"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				},
 				{
@@ -215,6 +227,9 @@
 							"index" : 1,
 							"name" : "idle"
 						}
+					],
+					"CountEvent" : 0,
+					"Event" : [
 					]
 				}
 			],
@@ -240,6 +255,7 @@
 				"x" : 564.000000,
 				"y" : 322.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatIdle",
 			"x" : 768.000000,
 			"y" : 448.000000,
@@ -247,6 +263,9 @@
 			"height" : 212.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 392,
@@ -302,6 +321,7 @@
 				"x" : 564.000000,
 				"y" : 322.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "CatRun",
 			"x" : 768.000000,
 			"y" : 448.000000,
@@ -309,6 +329,9 @@
 			"height" : 212.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 392,
@@ -450,6 +473,7 @@
 				"x" : 747.000000,
 				"y" : 405.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "DynCard",
 			"x" : 832.000000,
 			"y" : 512.000000,
@@ -457,6 +481,9 @@
 			"height" : 60.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 392,
@@ -525,6 +552,7 @@
 				"x" : 747.000000,
 				"y" : 405.000000
 			},
+			"ed_camera_2d_zoom" : 1.000000,
 			"Name" : "FakeCard",
 			"x" : 832.000000,
 			"y" : 512.000000,
@@ -532,6 +560,9 @@
 			"height" : 60.000000,
 			"anchorn_x" : 0.500000,
 			"anchorn_y" : 1.000000,
+			"use_source_size" : false,
+			"source_scaleX" : 1.000000,
+			"source_scaleY" : 1.000000,
 			"sprite" :
 			{
 				"width" : 392,
@@ -593,5 +624,71 @@
 		}
 	],
 	"asset_instances" : [
+		{
+			"asset_uid" : 2017200640,
+			"asset_name" : "CatAttack",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : -682692352,
+			"asset_name" : "CatGraph",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 913080,
+					"inst_name" : "CatBoss"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 913080,
+					"inst_name" : "CatBoss"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1096384000,
+			"asset_name" : "CatIdle",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 550593920,
+			"asset_name" : "CatRun",
+			"instances" : [
+			]
+		},
+		{
+			"asset_uid" : 1157116672,
+			"asset_name" : "DynCard",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 814518,
+					"inst_name" : "DynCard"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 814518,
+					"inst_name" : "DynCard"
+				}
+			]
+		},
+		{
+			"asset_uid" : -1232377856,
+			"asset_name" : "FakeCard",
+			"instances" : [
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 654581,
+					"inst_name" : "FakeCard"
+				},
+				{
+					"scene" : "Island/Island_Level2.sca",
+					"inst_uid" : 654581,
+					"inst_name" : "FakeCard"
+				}
+			]
+		}
 	]
 }

@@ -15,27 +15,17 @@
 	"asset_nodes" : [
 		{
 			"uid" : -1,
-			"name" : "Cat",
+			"name" : "Items",
 			"type" : 0
 		},
 		{
-			"uid" : 2017200640,
-			"name" : "CatAttack",
+			"uid" : -1232377856,
+			"name" : "FakeCard",
 			"type" : 1
 		},
 		{
-			"uid" : -682692352,
-			"name" : "CatGraph",
-			"type" : 1
-		},
-		{
-			"uid" : -1096384000,
-			"name" : "CatIdle",
-			"type" : 1
-		},
-		{
-			"uid" : 550593920,
-			"name" : "CatRun",
+			"uid" : 1157116672,
+			"name" : "DynCard",
 			"type" : 1
 		},
 		{
@@ -45,17 +35,27 @@
 		},
 		{
 			"uid" : -1,
-			"name" : "Items",
+			"name" : "Cat",
 			"type" : 0
 		},
 		{
-			"uid" : 1157116672,
-			"name" : "DynCard",
+			"uid" : 550593920,
+			"name" : "CatRun",
 			"type" : 1
 		},
 		{
-			"uid" : -1232377856,
-			"name" : "FakeCard",
+			"uid" : -1096384000,
+			"name" : "CatIdle",
+			"type" : 1
+		},
+		{
+			"uid" : -682692352,
+			"name" : "CatGraph",
+			"type" : 1
+		},
+		{
+			"uid" : 2017200640,
+			"name" : "CatAttack",
 			"type" : 1
 		},
 		{

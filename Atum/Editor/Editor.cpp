@@ -532,8 +532,7 @@ void Editor::ShowVieport()
 
 void Editor::StartScene()
 {
-	//FIX ME some day
-	//project.Save();
+	project.Save();
 
 	Sprite::use_ed_cam = false;
 

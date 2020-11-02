@@ -751,7 +751,7 @@ Scene* Project::GetScene(const char* path)
 		if (!scenes[index]->scene)
 		{
 			LoadScene(scenes[index]);
-			scenes[index]->scene->EnableTasks(false);
+			EnableScene(scenes[index], false);
 		}
 
 		return scenes[index]->scene;

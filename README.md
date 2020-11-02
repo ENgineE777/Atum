@@ -39,6 +39,6 @@ simple ideas behind them and focused on easy to use functionality.
 
 **Additional demo projects**
 
-  https://github.com/ENgineE777/Coldrain.git - This is a prototype of a stealth 2D game inspired by Metal Gear Babel.
+  https://github.com/ENgineE777/Coldrain - This is a prototype of a stealth 2D game inspired by Metal Gear Babel.
 
-  https://github.com/ENgineE777/Striker.git - This is a prototype of a 3D game inspired by Strike series (Desert Strike, Jungle Strike, etc)
+  https://github.com/ENgineE777/Striker - This is a prototype of a 3D game inspired by Strike series (Desert Strike, Jungle Strike, etc)

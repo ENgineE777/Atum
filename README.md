@@ -1,7 +1,7 @@
 
 Atum engine is a open source game engine distributed via zlib license. Most of game engines have focus
-on render techniques. The main target of Atum is to deliver the best toolset and I hope, Atum will be
-a good light weighted alternative to Unity and Unreal Engine for indie games. Atum has a fully workable
+on render techniques. The main target of Atum is to deliver the best toolset. Right now Atum is a smallw
+light weighted alternative to Unity and Unreal Engine for indie games. Atum has a fully workable
 editor with heavy usage of assets and also has an ability to play test edited scene. All system code has
 simple ideas behind them and focused on easy to use functionality.
 
@@ -23,5 +23,3 @@ Currently the engine have follow features:
 - Support of PhysX 3.2, there are samples in repo that's using physics (https://developer.nvidia.com/gameworks-physx-overview)
 - Network code which allows to create server/clinet; there is some code in repo which allows
   to create a simple network game
-
-[![Watch promo video](https://img.youtube.com/vi/oDgh4sa2F2o/0.jpg)](https://www.youtube.com/watch?v=oDgh4sa2F2o)

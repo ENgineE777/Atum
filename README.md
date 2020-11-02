@@ -23,3 +23,22 @@ Currently the engine have follow features:
 - Support of PhysX 3.2, there are samples in repo that's using physics (https://developer.nvidia.com/gameworks-physx-overview)
 - Network code which allows to create server/clinet; there is some code in repo which allows
   to create a simple network game
+
+Demo projects
+
+  Demo projects can be found in Bin/Projects folder:
+
+  Beatemup - small remake of Batman: Forever
+
+  Coldrain - remake of Hot Line Miami
+
+  SunnyLand - 2D platformer game with 4 levels
+
+  Tanks - small multiplayer based 3D game
+
+
+Additional projects
+
+  https://github.com/ENgineE777/Coldrain.git - This is a prototype of a stealth 2D game inspired by Metal Gear Babel.
+
+  https://github.com/ENgineE777/Striker.git - This is a prototype of a 3D game inspired by Strike series (Desert Strike, Jungle Strike, etc)

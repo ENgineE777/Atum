@@ -99,7 +99,7 @@ void PhysObject::AddForceAt(Vector3 pos, Vector3 force)
 
 void PhysObject::RestrictZAxis()
 {
-	auto* rigid_actor = dynamic_cast<PxRigidDynamic*>(actor);
+	auto* rigid_actor = (PxRigidDynamic*)(actor);
 
 	if (rigid_actor)
 	{

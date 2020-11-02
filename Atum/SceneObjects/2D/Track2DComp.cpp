@@ -20,7 +20,7 @@ META_DATA_DESC(Track2DComp::Track)
 		ENUM_ELEM("Looped", 2)
 	ENUM_END
 	FLOAT_PROP(Track2DComp::Track, speed, 50.0f, "Prop", "speed", "Speed of moving along track")
-	FLOAT_PROP(Track2DComp::Track, angle_speed, 360.0f, "Prop", "angle_speed", "Angle speed of rotation")
+	FLOAT_PROP(Track2DComp::Track, angle_speed, -1.0f, "Prop", "angle_speed", "Angle speed of rotation")
 	ARRAY_PROP_INST_CALLGIZMO(Track2DComp::Track, points, Point, "Prop", "track", Track2DComp, sel_point, SetGizmo)
 META_DATA_DESC_END()
 
@@ -300,13 +300,13 @@ void Track2DComp::UpdateTrack(int index, float dt)
 			angle = inst.GetAngle();
 		}
 
-		if (track.angle_speed > 0.01f)
+		if (flip_mode != FlipMode::None || track.angle_speed > 0.01f)
 		{
-			angle = Math::AdvanceAngle(angle, target_angle, dt * track.angle_speed * Math::Radian);
+			angle = 0;
 		}
 		else
 		{
-			angle = target_angle;
+			angle = Math::AdvanceAngle(angle, target_angle, dt * track.angle_speed * Math::Radian);
 		}
 	}
 

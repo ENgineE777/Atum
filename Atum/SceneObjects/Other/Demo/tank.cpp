@@ -1,6 +1,7 @@
 #include "tank.h"
 #include "tankclient.h"
 #include "Services/Controls/Controls.h"
+#include "SceneObjects/3D/GenericMarker.h"
 
 CLASSREG(SceneObject, Tank, "Tank")
 
@@ -298,7 +299,12 @@ void Tank::Update(float dt)
 		{
 			for (auto& obj : group->objects)
 			{
-				AddInstance(index, obj->Trans()->Pos(), false);
+				GenericMarker* marker = (GenericMarker*)obj;
+
+				for (auto& inst : marker->instances)
+				{
+					AddInstance(index, inst.transform.Pos(), false);
+				}
 
 				index++;
 			}

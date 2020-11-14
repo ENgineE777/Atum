@@ -24,6 +24,11 @@ void FillLayersList(EUIComboBox* cbox, void* owner)
 
 bool Project::CanRun()
 {
+	if (start_scene == -1)
+	{
+		MESSAGE_BOX("Can't start", "Please define a start scene");
+	}
+
 	return (start_scene != -1);
 }
 
@@ -762,6 +767,12 @@ Scene* Project::GetScene(const char* path)
 
 void Project::AddScene(const char* path, void* parent_item)
 {
+	if (project_path[0] == 0)
+	{
+		MESSAGE_BOX("Can't add a scene", "Please save project before adding any scene")
+		return;
+	}
+
 	char cropped_path[1024];
 	StringUtils::GetCropPath(project_path, path, cropped_path, 1024);
 

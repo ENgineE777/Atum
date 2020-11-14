@@ -7,7 +7,7 @@ light weighted alternative to Unity and Unreal Engine for indie games. Atum has 
 editor with heavy usage of assets and also has an ability to play test edited scene. All system code has
 simple ideas behind them and focused on easy to use functionality.
 
-**Currently the engine has follow features:**
+**Features**
 
 - Windows, Android and iOS platforms are supported
 - Scene Editor with ability to play test edited scene
